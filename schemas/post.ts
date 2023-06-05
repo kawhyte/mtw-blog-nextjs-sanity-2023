@@ -26,7 +26,7 @@ export default defineType({
       name: 'title',
       title: 'Title',
       type: 'string',
-      validation: (rule) => rule.required(),
+      //validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'slug',
@@ -40,30 +40,88 @@ export default defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
-      name: 'content',
-      title: 'Content',
-      type: 'array',
-      of: [{ type: 'block' }],
+      name: 'date',
+      title: 'Visited Date',
+      type: 'datetime',
+      initialValue: () => new Date().toISOString(),
+    }),
+    defineField({
+      name: 'location',
+      title: 'Location',
+      type: 'string',
+      validation: (rule) => rule.required(),
+    }),
+
+    defineField({
+      name: 'youtube',
+      title: 'Youtube URL',
+      type: 'string',
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: 'room',
+      title: 'Room Type',
+      type: 'string',
+      description: 'eg. 1 King Bed Lagoon Access (optional)',
+      validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'excerpt',
-      title: 'Excerpt',
+      title: 'Blurb',
       type: 'text',
     }),
     defineField({
+      name: 'internetSpeed',
+      title: 'Internet Speed',
+      type: 'number',
+      description: 'Must be a number ',
+      //validation: (rule) => rule.required(),
+    }),
+    defineField({
       name: 'coverImage',
-      title: 'Cover Image',
+      title: 'Main Image',
       type: 'image',
       options: {
         hotspot: true,
       },
     }),
+
     defineField({
-      name: 'date',
-      title: 'Date',
-      type: 'datetime',
-      initialValue: () => new Date().toISOString(),
+      title: 'Positives',
+      name: 'positives',
+
+      description: 'Add multiple Positive points',
+      validation: (Rule) => Rule.required(),
+      type: 'array',
+      of: [{ type: 'text' }],
     }),
+    defineField({
+      title: 'Negatives',
+      name: 'negatives',
+      description: 'Add multiple Negative points',
+      validation: (Rule) => Rule.required(),
+      type: 'array',
+      of: [{ type: 'text' }],
+    }),
+
+    defineField({
+      name: 'verdict',
+      title: 'Verdict',
+      description: 'Add your Verdict',
+      //validation: (Rule) => Rule.required(),
+      type: 'array',
+      of: [{ type: 'block' }],
+      //hidden: true,
+    }),
+
+    defineField({
+      name: 'content',
+      title: 'Content',
+      description: 'Optional contect area',
+      type: 'array',
+      of: [{ type: 'block' }],
+    }),
+
     defineField({
       name: 'author',
       title: 'Author',
