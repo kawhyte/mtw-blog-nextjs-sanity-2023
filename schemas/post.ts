@@ -3,6 +3,7 @@ import { format, parseISO } from 'date-fns'
 import { defineField, defineType } from 'sanity'
 
 import authorType from './author'
+import galleryType from './gallery'
 
 /**
  * This file is the schema definition for a post.
@@ -22,6 +23,20 @@ export default defineType({
   icon: BookIcon,
   type: 'document',
   fields: [
+    defineField({
+        title: "Select the type of review (Hotel or Food)",
+        description: "",
+        name: "linkType",
+        type: "string",
+        validation: (Rule) => Rule.required(),
+        options: {
+          list: [
+            { title: "Hotel", value: "hotel" },
+            { title: "Food", value: "food" },
+          ],
+          layout: "radio",
+        },
+    }),
     defineField({
       name: 'title',
       title: 'Title',
@@ -49,34 +64,18 @@ export default defineType({
       name: 'location',
       title: 'Location',
       type: 'string',
-      validation: (rule) => rule.required(),
+      //validation: (rule) => rule.required(),
     }),
 
-    defineField({
-      name: 'youtube',
-      title: 'Youtube URL',
-      type: 'string',
-      validation: (rule) => rule.required(),
-    }),
+  
     defineField({
       name: 'room',
       title: 'Room Type',
       type: 'string',
       description: 'eg. 1 King Bed Lagoon Access (optional)',
-      validation: (rule) => rule.required(),
-    }),
-    defineField({
-      name: 'excerpt',
-      title: 'Blurb',
-      type: 'text',
-    }),
-    defineField({
-      name: 'internetSpeed',
-      title: 'Internet Speed',
-      type: 'number',
-      description: 'Must be a number ',
       //validation: (rule) => rule.required(),
     }),
+
     defineField({
       name: 'coverImage',
       title: 'Main Image',
@@ -85,13 +84,73 @@ export default defineType({
         hotspot: true,
       },
     }),
+    defineField({
+      name: 'excerpt',
+      title: 'Post Blurb',
+      type: 'text',
+    }),
 
+
+    // defineField({
+    //   title: 'Gallery',
+    //   name: 'gallery',
+
+    //   description: 'Add multiple Photos',
+    //   //validation: (Rule) => Rule.required(),
+    //   type: 'array',
+    //   of: [{ type: 'image' }],
+    // }),
+
+    defineField({
+      name: 'photos2',
+      title: 'Photo Gallery',
+      type: 'gallery',
+    }),
+
+    defineField({
+      name: 'youtube',
+      title: 'Youtube URL',
+      type: 'string',
+      //validation: (rule) => rule.required(),
+    }),
+
+    {
+			name: "hotelRating",
+			title: "Rating for Hotels",
+			description: "Add a rating for each Hotel section.",
+			type: "hotelRating",
+			hidden: ({ parent }) => parent?.linkType !== "hotel",
+		},
+    {
+			name: "foodRating",
+			title: "Rating for Food",
+			description: "Add a rating for each Food section.",
+			type: "foodRating",
+			hidden: ({ parent }) => parent?.linkType !== "food",
+		},
+
+    defineField({
+      name: 'internetSpeed',
+      title: 'Internet Speed',
+      type: 'number',
+      description: 'Must be a number ',
+      //validation: (rule) => rule.required(),
+    }),
+   
+    {
+			name: "techRating",
+			title: "Was the item present in the Hotel room?",
+			description: "Say if the item was in the room",
+			type: "techRating",
+			hidden: ({ parent }) => parent?.linkType !== "hotel",
+		},
+ 
     defineField({
       title: 'Positives',
       name: 'positives',
 
       description: 'Add multiple Positive points',
-      validation: (Rule) => Rule.required(),
+      //validation: (Rule) => Rule.required(),
       type: 'array',
       of: [{ type: 'text' }],
     }),
@@ -99,7 +158,7 @@ export default defineType({
       title: 'Negatives',
       name: 'negatives',
       description: 'Add multiple Negative points',
-      validation: (Rule) => Rule.required(),
+      //validation: (Rule) => Rule.required(),
       type: 'array',
       of: [{ type: 'text' }],
     }),
@@ -117,7 +176,7 @@ export default defineType({
     defineField({
       name: 'content',
       title: 'Content',
-      description: 'Optional contect area',
+      description: 'Optional content area',
       type: 'array',
       of: [{ type: 'block' }],
     }),
@@ -128,6 +187,8 @@ export default defineType({
       type: 'reference',
       to: [{ type: authorType.name }],
     }),
+
+  
   ],
   preview: {
     select: {
