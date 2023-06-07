@@ -48,6 +48,10 @@ export default function PostPage(props: PostPageProps) {
                   coverImage={post.coverImage}
                   date={post.date}
                   author={post.author}
+                  location={post.location}
+                  room={post.room}
+                  linkType={post.linkType}
+                  excerpt={post.excerpt}
                 />
                 <PostBody content={post.content} />
               </article>

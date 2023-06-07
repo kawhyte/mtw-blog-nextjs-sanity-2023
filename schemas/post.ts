@@ -24,18 +24,18 @@ export default defineType({
   type: 'document',
   fields: [
     defineField({
-        title: "Select the type of review (Hotel or Food)",
-        description: "",
-        name: "linkType",
-        type: "string",
-        validation: (Rule) => Rule.required(),
-        options: {
-          list: [
-            { title: "Hotel", value: "hotel" },
-            { title: "Food", value: "food" },
-          ],
-          layout: "radio",
-        },
+      title: 'Select the type of review (Hotel or Food)',
+      description: '',
+      name: 'linkType',
+      type: 'string',
+      validation: (Rule) => Rule.required(),
+      options: {
+        list: [
+          { title: 'Hotel', value: 'hotel' },
+          { title: 'Food', value: 'food' },
+        ],
+        layout: 'radio',
+      },
     }),
     defineField({
       name: 'title',
@@ -53,6 +53,7 @@ export default defineType({
         isUnique: (value, context) => context.defaultIsUnique(value, context),
       },
       validation: (rule) => rule.required(),
+      
     }),
     defineField({
       name: 'date',
@@ -67,7 +68,6 @@ export default defineType({
       //validation: (rule) => rule.required(),
     }),
 
-  
     defineField({
       name: 'room',
       title: 'Room Type',
@@ -87,9 +87,8 @@ export default defineType({
     defineField({
       name: 'excerpt',
       title: 'Post Blurb',
-      type: 'text',
+      type: 'string',
     }),
-
 
     // defineField({
     //   title: 'Gallery',
@@ -115,19 +114,19 @@ export default defineType({
     }),
 
     {
-			name: "hotelRating",
-			title: "Rating for Hotels",
-			description: "Add a rating for each Hotel section.",
-			type: "hotelRating",
-			hidden: ({ parent }) => parent?.linkType !== "hotel",
-		},
+      name: 'hotelRating',
+      title: 'Rating for Hotels',
+      description: 'Add a rating for each Hotel section.',
+      type: 'hotelRating',
+      hidden: ({ parent }) => parent?.linkType !== 'hotel',
+    },
     {
-			name: "foodRating",
-			title: "Rating for Food",
-			description: "Add a rating for each Food section.",
-			type: "foodRating",
-			hidden: ({ parent }) => parent?.linkType !== "food",
-		},
+      name: 'foodRating',
+      title: 'Rating for Food',
+      description: 'Add a rating for each Food section.',
+      type: 'foodRating',
+      hidden: ({ parent }) => parent?.linkType !== 'food',
+    },
 
     defineField({
       name: 'internetSpeed',
@@ -136,15 +135,15 @@ export default defineType({
       description: 'Must be a number ',
       //validation: (rule) => rule.required(),
     }),
-   
+
     {
-			name: "techRating",
-			title: "Was the item present in the Hotel room?",
-			description: "Say if the item was in the room",
-			type: "techRating",
-			hidden: ({ parent }) => parent?.linkType !== "hotel",
-		},
- 
+      name: 'techRating',
+      title: 'Was the item present in the Hotel room?',
+      description: 'Say if the item was in the room',
+      type: 'techRating',
+      hidden: ({ parent }) => parent?.linkType !== 'hotel',
+    },
+
     defineField({
       title: 'Positives',
       name: 'positives',
@@ -187,8 +186,6 @@ export default defineType({
       type: 'reference',
       to: [{ type: authorType.name }],
     }),
-
-  
   ],
   preview: {
     select: {

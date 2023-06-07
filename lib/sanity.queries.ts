@@ -6,6 +6,13 @@ const postFields = groq`
   date,
   excerpt,
   coverImage,
+  youtube,
+  location,
+  room,
+  internetSpeed,
+  techRating,
+
+  linkType,
   "slug": slug.current,
   "author": author->{name, picture},
 `
@@ -49,10 +56,16 @@ export interface Post {
   title?: string
   coverImage?: any
   date?: string
-  excerpt?: string
+  excerpt?: any
   author?: Author
   slug?: string
   content?: any
+  youtube?:any,
+  location?:string,
+  room?:any,
+  internetSpeed?:number,
+  techRating?:any,
+  linkType?:any
 }
 
 export interface Settings {
