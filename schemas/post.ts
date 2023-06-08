@@ -111,7 +111,7 @@ export default defineType({
 		// },
 
     defineField({
-      name: 'photos2',
+      name: 'gallery',
       title: 'Photo Gallery',
       type: 'gallery',
     }),

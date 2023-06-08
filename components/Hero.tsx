@@ -31,6 +31,7 @@ function Hero() {
 					ref={videoRef}
 					loop
 					muted
+					poster="/hero.webp"
 					className=' hidden md:block absolute h-full w-full object-cover'>
 					Your browser does not support the video tag.
 					<source

@@ -9,6 +9,7 @@ const postFields = groq`
   youtube,
   location,
   room,
+  gallery,
   internetSpeed,
   techRating,
   hotelRating,
@@ -73,6 +74,7 @@ export interface Post {
   positives?:any,
   negatives?:any,
   verdict?:any,
+  gallery?:any
 }
 
 export interface Settings {

@@ -2,11 +2,11 @@ import { ratingItem } from "../lib/getReviewType";
 
 export function calculateRating(rating) {
 
-	console.log("Calcu;ate Rating BEFORE", rating)
+	// console.log("Calcu;ate Rating BEFORE", rating)
 
 	//delete rating._type
 
-	console.log("Calcu;ate Rating AFTER", rating)
+	// console.log("Calcu;ate Rating AFTER", rating)
 
 
 	let textRating = "NR";
@@ -19,7 +19,7 @@ export function calculateRating(rating) {
 		return a + (b[1] * ratingItem[b[0]]?.rate);
 	}, 0);
 
-console.log("SUM ", sum)
+// console.log("SUM ", sum)
 
 	let average = sum ;
 

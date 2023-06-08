@@ -11,6 +11,7 @@ import * as demo from 'lib/demo.data'
 import type { Post, Settings } from 'lib/sanity.queries'
 import { notFound } from 'next/navigation'
 import ProConList from './ProConList'
+import RoomTech from './RoomTech'
 
 export interface PostPageProps {
   preview?: boolean
@@ -56,10 +57,11 @@ export default function PostPage(props: PostPageProps) {
                   hotelRating={post.hotelRating}
                 />
                 <ProConList positives={post.positives} negatives={post.negatives} verdict2={post.verdict} />
+                <RoomTech techAvailable={post.techRating} speed={post.internetSpeed}/>
                 <PostBody content />
               </article>
               <SectionSeparator />
-              {morePosts?.length > 0 && <MoreStories posts={morePosts} />}
+              {/* {morePosts?.length > 0 && <MoreStories posts={morePosts} />} */}
             </>
           )}
         </Container>
