@@ -11,7 +11,10 @@ const postFields = groq`
   room,
   internetSpeed,
   techRating,
-
+  hotelRating,
+  positives,
+  negatives,
+  verdict,
   linkType,
   "slug": slug.current,
   "author": author->{name, picture},
@@ -66,6 +69,10 @@ export interface Post {
   internetSpeed?:number,
   techRating?:any,
   linkType?:any
+  hotelRating?:any
+  positives?:any,
+  negatives?:any,
+  verdict?:any,
 }
 
 export interface Settings {

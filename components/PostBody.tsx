@@ -11,10 +11,13 @@ import { PortableText } from '@portabletext/react'
 
 import styles from './PostBody.module.css'
 
+
 export default function PostBody({ content }) {
   return (
-    <div className={`mx-auto max-w-2xl ${styles.portableText}`}>
+    <div className={`mx-auto max-w-2xl my-3 mx-3 leading-relaxed text-base md:text-lg font-extralight ${styles.portableText}`}>
       <PortableText value={content} />
+
+
     </div>
   )
 }

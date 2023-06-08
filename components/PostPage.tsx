@@ -10,6 +10,7 @@ import SectionSeparator from 'components/SectionSeparator'
 import * as demo from 'lib/demo.data'
 import type { Post, Settings } from 'lib/sanity.queries'
 import { notFound } from 'next/navigation'
+import ProConList from './ProConList'
 
 export interface PostPageProps {
   preview?: boolean
@@ -52,8 +53,10 @@ export default function PostPage(props: PostPageProps) {
                   room={post.room}
                   linkType={post.linkType}
                   excerpt={post.excerpt}
+                  hotelRating={post.hotelRating}
                 />
-                <PostBody content={post.content} />
+                <ProConList positives={post.positives} negatives={post.negatives} verdict2={post.verdict} />
+                <PostBody content />
               </article>
               <SectionSeparator />
               {morePosts?.length > 0 && <MoreStories posts={morePosts} />}

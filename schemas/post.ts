@@ -54,6 +54,7 @@ export default defineType({
       },
       validation: (rule) => rule.required(),
       
+
     }),
     defineField({
       name: 'date',
@@ -90,6 +91,8 @@ export default defineType({
       type: 'string',
     }),
 
+ 
+
     // defineField({
     //   title: 'Gallery',
     //   name: 'gallery',
@@ -99,6 +102,13 @@ export default defineType({
     //   type: 'array',
     //   of: [{ type: 'image' }],
     // }),
+    // {
+		// 	name: "amenities",
+		// 	title: "Additional rating",
+		// 	description: "Add additional rating ctaegory.",
+		// 	type: "array",
+		// 	of: [{ type: "amenities" }],
+		// },
 
     defineField({
       name: 'photos2',
