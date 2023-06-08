@@ -10,8 +10,11 @@ import SectionSeparator from 'components/SectionSeparator'
 import * as demo from 'lib/demo.data'
 import type { Post, Settings } from 'lib/sanity.queries'
 import { notFound } from 'next/navigation'
+
+import Gallery from './Gallery'
 import ProConList from './ProConList'
 import RoomTech from './RoomTech'
+import Youtube from './Youtube'
 
 export interface PostPageProps {
   preview?: boolean
@@ -32,6 +35,8 @@ export default function PostPage(props: PostPageProps) {
   if (!slug && !preview) {
     notFound()
   }
+
+  console.log('Gallery ', post)
 
   return (
     <>
@@ -56,11 +61,22 @@ export default function PostPage(props: PostPageProps) {
                   excerpt={post.excerpt}
                   hotelRating={post.hotelRating}
                 />
-                <ProConList positives={post.positives} negatives={post.negatives} verdict2={post.verdict} />
-                <RoomTech techAvailable={post.techRating} speed={post.internetSpeed}/>
+                <ProConList
+                  positives={post.positives}
+                  negatives={post.negatives}
+                  verdict2={post.verdict}
+                />
+                <RoomTech
+                  techAvailable={post.techRating}
+                  speed={post.internetSpeed}
+                />
+                <Youtube link={post.youtube} />
+                <SectionSeparator />
+                <Gallery posts={post} heading={''} />
+
                 <PostBody content />
               </article>
-              <SectionSeparator />
+
               {/* {morePosts?.length > 0 && <MoreStories posts={morePosts} />} */}
             </>
           )}

@@ -7,9 +7,8 @@ import { ratingItem } from "../lib/getReviewType";
 import ProgressRating from "./ProgressRating";
 
 const StarRating = ({ rating, linkType }) => {
-	console.log("STAR RATING Beforree",rating);
-	
-	console.log("STAR RATING Afterrr",rating);
+	// console.log("STAR RATING Beforree",rating);
+
 	// console.log("STAR RATING LinkType",linkType);
 	//console.log(categories);
 	// const seasons = {
@@ -31,8 +30,8 @@ const StarRating = ({ rating, linkType }) => {
 	
 
 	const { average, textRating } = calculateRating(propertyNames);
-	console.log("average",average)
-	console.log("propertyNames",propertyNames)
+	// console.log("average",average)
+	// console.log("propertyNames",propertyNames)
 	return (
 		<>
 			<div className='flex  justify-start items-end align-top mb-6   '>
