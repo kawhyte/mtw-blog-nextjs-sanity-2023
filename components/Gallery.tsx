@@ -33,14 +33,14 @@ function Gallery({ posts, heading }) {
 					columnClassName='my-masonry-grid_column'> */}
 
         {/* <div className="w-full max-w-7xl  p-5 pb-10 mx-auto mb-10 gap-5 columns-3 space-y-5">  */}
-        <div className="p-4">
-          <div className="columns-1 gap-2 sm:columns-2 sm:gap-4 md:columns-3 lg:columns-4 [&>img:not(:first-child)]:mt-4">
+        <div className="">
+          <div className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4  ">
             {posts.gallery.images.map((item, i) => (
-              <div key={i}>
-                <div key={i} className=" rounded-3xl p-1 ">
+              
+                <div key={i} className=" rounded-md  ">
                   {/* <Zoom> */}
                   <Image
-                    className=" rounded-3xl object-cover "
+                    className=" rounded-xl object-cover h-full "
                     // blurDataURL={imageBuilder(posts.gallery.images[i])
                     // .width(1000)
                     // .height(1000)
@@ -49,12 +49,12 @@ function Gallery({ posts, heading }) {
                     // .url()}
                     // placeholder='blur'
                     alt={item?.alt}
-                    src={urlForImage(posts.gallery.images[i])
-                      .height(1000)
-                      .width(2000)
-                      .url()}
-                    width={getImageDimensions(posts.gallery.images[i]).width}
-                    height={getImageDimensions(posts.gallery.images[i]).height}
+                    src={urlForImage(posts.gallery.images[i]).width(1240)
+                        .height(744)
+                        .format('webp')
+                        .url()}
+                    width={'1240'}
+                    height={'744'}
                   />
                   {/* </Zoom> */}
 
@@ -62,7 +62,7 @@ function Gallery({ posts, heading }) {
                     {item?.alt}
                   </span>
                 </div>
-              </div>
+             
             ))}
           </div>
         </div>

@@ -36,7 +36,7 @@ export default function PostPage(props: PostPageProps) {
     notFound()
   }
 
-  // console.log('Gallery ', post)
+  //console.log('Gallery ', post)
 
   return (
     <>

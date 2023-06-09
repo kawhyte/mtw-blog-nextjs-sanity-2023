@@ -35,7 +35,7 @@ export default function PostHeader(
     room,
     excerpt,
     hotelRating,
-    gallery
+    gallery,
   } = props
 
   //    console.log("PROPs ", props.hotelRating)
