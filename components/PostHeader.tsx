@@ -21,6 +21,7 @@ export default function PostHeader(
     | 'room'
     | 'excerpt'
     | 'hotelRating'
+    | 'gallery'
   >
 ) {
   const {
@@ -34,6 +35,7 @@ export default function PostHeader(
     room,
     excerpt,
     hotelRating,
+    gallery
   } = props
 
   //    console.log("PROPs ", props.hotelRating)
@@ -69,7 +71,7 @@ export default function PostHeader(
       </div>
 
       <div className="mb-8 sm:mx-0 md:mb-16">
-        <CoverImagePost title={title} image={coverImage} priority slug={slug} />
+        <CoverImagePost title={title} image={coverImage} priority slug={slug} gallery={gallery} />
 
         {excerpt && (
           <>

@@ -36,7 +36,7 @@ export default function PostPage(props: PostPageProps) {
     notFound()
   }
 
-  console.log('Gallery ', post)
+  // console.log('Gallery ', post)
 
   return (
     <>
@@ -60,6 +60,7 @@ export default function PostPage(props: PostPageProps) {
                   linkType={post.linkType}
                   excerpt={post.excerpt}
                   hotelRating={post.hotelRating}
+                  gallery={post.gallery}
                 />
                 <ProConList
                   positives={post.positives}
