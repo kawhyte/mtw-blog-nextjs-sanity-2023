@@ -32,12 +32,13 @@ export default function BlogHeader({
 
     case 2:
       return (
-        <header>
-          <h2 className="mb-20 mt-8 text-2xl font-bold leading-tight tracking-tight md:text-4xl md:tracking-tighter">
+        <header className="mb-10 sticky top-0  z-50  mt-4 flex flex-col items-center md:mb-12 md:flex-row md:justify-between">
+          <NavBar bgColor={undefined}/>
+          {/* <h2 className="mb-20 mt-8 text-2xl font-bold leading-tight tracking-tight md:text-4xl md:tracking-tighter">
             <Link href="/" className="hover:underline">
               {title}PP
             </Link>
-          </h2>
+          </h2> */}
         </header>
       )
 
