@@ -22,7 +22,7 @@ function Welcome() {
 
 					<div className='absolute bottom-0 right-0 '>
 					<Image
-						width={395}
+						width={255}
 						height={272}
 						alt={`Cover Image for`}
 						className='opacity-10 2xl:opacity-95 z-0  '

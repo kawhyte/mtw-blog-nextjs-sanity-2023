@@ -9,7 +9,9 @@ import * as demo from 'lib/demo.data'
 import type { Post, Settings } from 'lib/sanity.queries'
 
 import Hero from './Hero'
+import IndexTopTen from './IndexTopTen'
 import Welcome from './Welcome'
+import Categories from './Categories'
 
 export interface IndexPageProps {
   preview?: boolean
@@ -33,6 +35,7 @@ export default function IndexPage(props: IndexPageProps) {
 
           <Hero />
           <Welcome />
+          <Categories/>
           {heroPost && (
             <HeroPost
               title={heroPost.title}
@@ -45,6 +48,8 @@ export default function IndexPage(props: IndexPageProps) {
               location={heroPost.location}
             />
           )}
+
+          <IndexTopTen />
           {morePosts.length > 0 && <MoreStories posts={morePosts} />}
         </Container>
         <IntroTemplate />
