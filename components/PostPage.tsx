@@ -71,11 +71,13 @@ export default function PostPage(props: PostPageProps) {
                   techAvailable={post.techRating}
                   speed={post.internetSpeed}
                 />
+                <PostBody content= {post.content} />
+               
                 <Youtube link={post.youtube} />
                 <SectionSeparator />
                 <Gallery posts={post} heading={''} />
 
-                <PostBody content />
+               
               </article>
 
               {/* {morePosts?.length > 0 && <MoreStories posts={morePosts} />} */}

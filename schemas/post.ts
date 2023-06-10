@@ -81,11 +81,12 @@ export default defineType({
       name: 'coverImage',
       title: 'Main Image',
       type: 'image',
+      description: 'For best results: Image size should be 1240 x 540, webp quality 80%, 60% image resize.',
       options: {
         hotspot: true,
       }
     }),
-    
+
     defineField({
       name: 'excerpt',
       title: 'Post Blurb',
@@ -115,6 +116,8 @@ export default defineType({
       name: 'gallery',
       title: 'Photo Gallery',
       type: 'gallery',
+      description: 'For best results: Image size should be 566 x 525, webp quality 80%, 80% image resize.',
+
     }),
 
     defineField({
@@ -191,12 +194,12 @@ export default defineType({
       of: [{ type: 'block' }],
     }),
 
-    defineField({
-      name: 'author',
-      title: 'Author',
-      type: 'reference',
-      to: [{ type: authorType.name }],
-    }),
+    // defineField({
+    //   name: 'author',
+    //   title: 'Author',
+    //   type: 'reference',
+    //   to: [{ type: authorType.name }],
+    // }),
   ],
   preview: {
     select: {
