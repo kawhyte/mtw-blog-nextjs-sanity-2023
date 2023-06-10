@@ -2,6 +2,7 @@ import { PortableText } from '@portabletext/react'
 import Link from 'next/link'
 
 import styles from './BlogHeader.module.css'
+import NavBar from './NavBar'
 
 export default function BlogHeader({
   title,
@@ -15,15 +16,17 @@ export default function BlogHeader({
   switch (level) {
     case 1:
       return (
-        <header className="mb-10 mt-16 flex flex-col items-center md:mb-12 md:flex-row md:justify-between">
-          <h1 className="text-6xl font-bold leading-tight tracking-tighter md:pr-8 md:text-8xl">
-            {title}
-          </h1>
-          <h4
+        <header className="mb-10 sticky top-0  z-50  mt-4 flex flex-col items-center md:mb-12 md:flex-row md:justify-between">
+          {/* <h1 className="text-6xl font-bold leading-tight tracking-tighter md:pr-8 md:text-8xl">
+            {title}kk
+
+          </h1> */}
+          <NavBar bgColor={undefined}/>
+          {/* <h4
             className={`mt-5 text-center text-lg md:pl-8 md:text-left ${styles.portableText}`}
           >
             <PortableText value={description} />
-          </h4>
+          </h4> */}
         </header>
       )
 
@@ -32,7 +35,7 @@ export default function BlogHeader({
         <header>
           <h2 className="mb-20 mt-8 text-2xl font-bold leading-tight tracking-tight md:text-4xl md:tracking-tighter">
             <Link href="/" className="hover:underline">
-              {title}
+              {title}PP
             </Link>
           </h2>
         </header>

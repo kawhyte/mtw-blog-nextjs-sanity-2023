@@ -15,15 +15,17 @@ export default function CoverImage(props: CoverImageProps) {
   const image = source?.asset?._ref ? (
     <div
       className={cn('shadow-small', {
-        'transition-shadow duration-200 hover:shadow-medium': slug,
+        'transition-shadow duration-200 hover:shadow-medium bor': slug,
       })}
     >
       <Image
-        className="h-auto w-full"
-        width={2000}
-        height={1000}
+      className={cn('shadow-small', {
+        'hover:shadow-medium transition-shadow duration-200 	rounded-2xl': slug,
+      })}
+        width={1040}
+        height={540}
         alt={`Cover Image for ${title}`}
-        src={urlForImage(source).height(1000).width(2000).url()}
+        src={urlForImage(source).height(540).width(1240).url()}
         sizes="100vw"
         priority={priority}
       />
@@ -37,6 +39,9 @@ export default function CoverImage(props: CoverImageProps) {
       {slug ? (
         <Link href={`/posts/${slug}`} aria-label={title}>
           {image}
+          <p className='mb-2 hover:underline break-words z-20 md:mb-6 text-lg sm:text-xl md:text-4xl font-bold tracking-tighter leading-tight bg-white px-3 py-2 mx-3 md:mx-0 rounded-lg'>
+          {title}
+          </p>
         </Link>
       ) : (
         image
@@ -44,3 +49,15 @@ export default function CoverImage(props: CoverImageProps) {
     </div>
   )
 }
+
+
+        
+// <Link
+// as={`/${slugType}/${slug}`}
+// href={`/${slugType}/[slug]`}
+// className='hover:underline break-words'>
+
+
+
+// </Link>
+// </p>

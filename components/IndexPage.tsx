@@ -42,6 +42,7 @@ export default function IndexPage(props: IndexPageProps) {
               slug={heroPost.slug}
               excerpt={heroPost.excerpt}
               hotelRating={heroPost.hotelRating}
+              location={heroPost.location}
             />
           )}
           {morePosts.length > 0 && <MoreStories posts={morePosts} />}
