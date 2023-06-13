@@ -33,6 +33,7 @@ export default defineType({
         list: [
           { title: 'Hotel', value: 'hotel' },
           { title: 'Food', value: 'food' },
+          { title: 'Story/Guide', value: 'story' },
         ],
         layout: 'radio',
       },
@@ -60,12 +61,15 @@ export default defineType({
       name: 'date',
       title: 'Visited Date',
       type: 'datetime',
+     
       initialValue: () => new Date().toISOString(),
     }),
     defineField({
       name: 'location',
       title: 'Location',
       type: 'string',
+      hidden: ({ parent, value }) => parent?.linkType == 'story',
+      
       //validation: (rule) => rule.required(),
     }),
 
@@ -74,6 +78,7 @@ export default defineType({
       title: 'Room Type',
       type: 'string',
       description: 'eg. 1 King Bed Lagoon Access (optional)',
+      hidden: ({ parent }) => parent?.linkType !== 'hotel' 
       //validation: (rule) => rule.required(),
     }),
 
@@ -91,6 +96,7 @@ export default defineType({
       name: 'excerpt',
       title: 'Post Blurb',
       type: 'string',
+      hidden: ({ parent, value }) => parent?.linkType == 'story',
     }),
 
  
@@ -122,8 +128,10 @@ export default defineType({
 
     defineField({
       name: 'youtube',
-      title: 'Youtube URL',
+      title: 'Youtube URL (Optional)',
       type: 'string',
+      description: "Youtube link is Optional",
+      hidden: ({ parent, value }) => parent?.linkType == 'story',
       //validation: (rule) => rule.required(),
     }),
 
@@ -132,7 +140,7 @@ export default defineType({
       title: 'Rating for Hotels',
       description: 'Add a rating for each Hotel section.',
       type: 'hotelRating',
-      hidden: ({ parent }) => parent?.linkType !== 'hotel',
+      hidden: ({ parent }) => parent?.linkType !== 'hotel' ,
     },
     {
       name: 'foodRating',
@@ -147,6 +155,7 @@ export default defineType({
       title: 'Internet Speed',
       type: 'number',
       description: 'Must be a number ',
+      hidden: ({ parent }) => parent?.linkType !== 'hotel',
       //validation: (rule) => rule.required(),
     }),
 
@@ -163,6 +172,7 @@ export default defineType({
       name: 'positives',
 
       description: 'Add multiple Positive points',
+      hidden: ({ parent, value }) => parent?.linkType == 'story',
       //validation: (Rule) => Rule.required(),
       type: 'array',
       of: [{ type: 'text' }],
@@ -171,6 +181,7 @@ export default defineType({
       title: 'Negatives',
       name: 'negatives',
       description: 'Add multiple Negative points',
+      hidden: ({ parent, value }) => parent?.linkType == 'story',
       //validation: (Rule) => Rule.required(),
       type: 'array',
       of: [{ type: 'text' }],
@@ -180,6 +191,7 @@ export default defineType({
       name: 'verdict',
       title: 'Verdict',
       description: 'Add your Verdict',
+      hidden: ({ parent, value }) => parent?.linkType == 'story',
       //validation: (Rule) => Rule.required(),
       type: 'array',
       of: [{ type: 'block' }],

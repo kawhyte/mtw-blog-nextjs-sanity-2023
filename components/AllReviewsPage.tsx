@@ -7,11 +7,14 @@ import MoreStories from 'components/MoreStories'
 import IntroTemplate from 'intro-template'
 import * as demo from 'lib/demo.data'
 import type { Post, Settings } from 'lib/sanity.queries'
+import Head from 'next/head'
 
+import { CMS_NAME } from '../lib/constants'
 import Categories from './Categories'
 import Footer from './Footer'
 import Hero from './Hero'
 import IndexTopTen from './IndexTopTen'
+import ReviewHeader from './ReviewHeader'
 import Welcome from './Welcome'
 
 export interface IndexPageProps {
@@ -25,37 +28,32 @@ export default function IndexPage(props: IndexPageProps) {
   const { preview, loading, posts, settings } = props
   const [heroPost, ...morePosts] = posts || []
   const { title = demo.title, description = demo.description } = settings || {}
-//  console.log("PODTs ",heroPost )
+  //  console.log("PODTs ",heroPost )
   return (
     <>
       <IndexPageHead settings={settings} />
 
       <Layout preview={preview} loading={loading}>
+        <Head>
+          <title>Travel and Food Reviews by {CMS_NAME}</title>
+        </Head>
         <Container>
           <BlogHeader title={title} description={description} level={1} />
 
-          <Hero />
-          <Welcome />
-          <Categories/>
-          {heroPost && (
-            <HeroPost
-              title={heroPost.title}
-              coverImage={heroPost.coverImage}
-              date={heroPost.date}
-              author={heroPost.author}
-              slug={heroPost.slug}
-              excerpt={heroPost.excerpt}
-              hotelRating={heroPost.hotelRating}
-              location={heroPost.location}
-            />
-          )}
+          <ReviewHeader
+            title={'All Reviews'}
+            pattern={'pattern'}
+            summary={
+              'You want to get out and see the world, but you have so many questions. Check out our trips.'
+            }
+            animation={'/all.json'}
+          />
 
-          <IndexTopTen />
-          {morePosts.length > 0 && <MoreStories posts={morePosts} />}
+          {posts.length > 0 && <MoreStories posts={posts} />}
         </Container>
         {/* <IntroTemplate /> */}
       </Layout>
-          <Footer/>
+      <Footer />
     </>
   )
 }

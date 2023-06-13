@@ -50,6 +50,12 @@ export const postBySlugQuery = groq`
 }
 `
 
+export const hotelQuery = groq`
+*[_type == "post"&& linkType =="hotel"] | order(date desc, _updatedAt desc) {${postFields}}`
+
+export const foodQuery = groq`
+*[_type == "post"&& linkType =="food"] | order(date desc, _updatedAt desc) {${postFields}}`
+
 export interface Author {
   name?: string
   picture?: any
@@ -64,17 +70,17 @@ export interface Post {
   author?: Author
   slug?: string
   content?: any
-  youtube?:any,
-  location?:string,
-  room?:any,
-  internetSpeed?:number,
-  techRating?:any,
-  linkType?:any
-  hotelRating?:any
-  positives?:any,
-  negatives?:any,
-  verdict?:any,
-  gallery?:any
+  youtube?: any
+  location?: string
+  room?: any
+  internetSpeed?: number
+  techRating?: any
+  linkType?: any
+  hotelRating?: any
+  positives?: any
+  negatives?: any
+  verdict?: any
+  gallery?: any
 }
 
 export interface Settings {

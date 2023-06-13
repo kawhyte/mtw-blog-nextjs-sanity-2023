@@ -1,5 +1,7 @@
 import { apiVersion, dataset, projectId, useCdn } from 'lib/sanity.api'
 import {
+  foodQuery,
+  hotelQuery,
   indexQuery,
   type Post,
   postAndMoreStoriesQuery,
@@ -27,6 +29,20 @@ export async function getSettings(): Promise<Settings> {
 export async function getAllPosts(): Promise<Post[]> {
   if (client) {
     return (await client.fetch(indexQuery)) || []
+  }
+  return []
+}
+
+export async function getHotelPosts(): Promise<Post[]> {
+  if (client) {
+    return (await client.fetch(hotelQuery)) || []
+  }
+  return []
+}
+
+export async function getFoodPosts(): Promise<Post[]> {
+  if (client) {
+    return (await client.fetch(foodQuery)) || []
   }
   return []
 }
