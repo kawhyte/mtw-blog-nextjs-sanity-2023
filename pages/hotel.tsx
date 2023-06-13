@@ -1,8 +1,6 @@
 import { PreviewSuspense } from '@sanity/preview-kit'
-import AllReviewsPage from 'components/AllReviewsPage'
 import HotelReviewsPage from 'components/HotelReviewsPage'
-import IndexPage from 'components/IndexPage'
-import { getAllPosts,getHotelPosts, getSettings } from 'lib/sanity.client'
+import { getHotelPosts, getSettings } from 'lib/sanity.client'
 import { Post, Settings } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
 import Head from "next/head";
@@ -54,7 +52,6 @@ export default function Page(props: PageProps) {
   
     const [settings, posts = []] = await Promise.all([
       getSettings(),
-     // getAllPosts(),
       getHotelPosts()
     ])
   

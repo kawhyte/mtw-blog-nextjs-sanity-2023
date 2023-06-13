@@ -3,14 +3,18 @@ import BlogHeader from 'components/BlogHeader'
 import Layout from 'components/BlogLayout'
 import HeroPost from 'components/HeroPost'
 import IndexPageHead from 'components/IndexPageHead'
-import MoreStoriesIndex from 'components/MoreStories'
+import MoreStories from 'components/MoreStories'
+import IntroTemplate from 'intro-template'
 import * as demo from 'lib/demo.data'
 import type { Post, Settings } from 'lib/sanity.queries'
+import Head from 'next/head'
 
+import { CMS_NAME } from '../lib/constants'
 import Categories from './Categories'
 import Footer from './Footer'
 import Hero from './Hero'
 import IndexTopTen from './IndexTopTen'
+import ReviewHeader from './ReviewHeader'
 import Welcome from './Welcome'
 
 export interface IndexPageProps {
@@ -30,39 +34,21 @@ export default function IndexPage(props: IndexPageProps) {
       <IndexPageHead settings={settings} />
 
       <Layout preview={preview} loading={loading}>
+        <Head>
+          <title>Travel and Food Reviews by {CMS_NAME}</title>
+        </Head>
         <Container>
           <BlogHeader title={title} description={description} level={1} />
 
-          <Hero />
-          <Welcome />
-          <Categories />
-          {heroPost && (
-            <HeroPost
-              title={heroPost.title}
-              coverImage={heroPost.coverImage}
-              date={heroPost.date}
-              author={heroPost.author}
-              slug={heroPost.slug}
-              excerpt={heroPost.excerpt}
-              hotelRating={heroPost.hotelRating}
-              location={heroPost.location}
-            />
-          )}
+          <ReviewHeader
+					title={"Stories & Guides"}
+					pattern={"hotelpattern"}
+					summary={"It's all about the adventure"}
+					animation={'/plane.json'}
+				/>
 
-          <IndexTopTen />
-
-          <div className=" container mx-auto mb-10 flex w-full flex-wrap">
-            <div className="mx-4 mb-6 w-full lg:mb-0 lg:w-1/2 ">
-              <h1 className="font-fancy  title-font mb-2 text-2xl font-medium text-gray-900 sm:text-3xl">
-                More Articles
-              </h1>
-              <div className="h-1 w-20 rounded bg-pink-500"></div>
-            </div>
-          </div>
-
-          {morePosts.length > 0 && <MoreStoriesIndex posts={morePosts} />}
+          {posts.length > 0 && <MoreStories posts={posts} />}
         </Container>
-        {/* <IntroTemplate /> */}
       </Layout>
       <Footer />
     </>

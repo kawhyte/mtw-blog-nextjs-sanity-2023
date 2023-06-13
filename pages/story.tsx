@@ -1,6 +1,6 @@
 import { PreviewSuspense } from '@sanity/preview-kit'
-import FoodReviewsPage from 'components/FoodReviewsPage'
-import { getFoodPosts, getSettings } from 'lib/sanity.client'
+import StoryReviewsPage from 'components/StoryReviewsPage'
+import { getSettings,getStoryPosts } from 'lib/sanity.client'
 import { Post, Settings } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
 import Head from "next/head";
@@ -32,7 +32,7 @@ export default function Page(props: PageProps) {
       return (
         <PreviewSuspense
           fallback={
-            <FoodReviewsPage loading preview posts={posts} settings={settings} />
+            <StoryReviewsPage loading preview posts={posts} settings={settings} />
           }
         >
           <PreviewIndexPage token={token} />
@@ -40,7 +40,7 @@ export default function Page(props: PageProps) {
       )
     }
   
-    return <FoodReviewsPage posts={posts} settings={settings} />
+    return <StoryReviewsPage posts={posts} settings={settings} />
   }
   
   export const getStaticProps: GetStaticProps<
@@ -53,7 +53,7 @@ export default function Page(props: PageProps) {
     const [settings, posts = []] = await Promise.all([
       getSettings(),
      // getAllPosts(),
-      getFoodPosts()
+      getStoryPosts()
     ])
   
     return {
@@ -65,4 +65,3 @@ export default function Page(props: PageProps) {
       },
     }
   }
-

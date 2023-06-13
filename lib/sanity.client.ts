@@ -9,6 +9,7 @@ import {
   postSlugsQuery,
   type Settings,
   settingsQuery,
+  storyQuery,
 } from 'lib/sanity.queries'
 import { createClient } from 'next-sanity'
 
@@ -43,6 +44,13 @@ export async function getHotelPosts(): Promise<Post[]> {
 export async function getFoodPosts(): Promise<Post[]> {
   if (client) {
     return (await client.fetch(foodQuery)) || []
+  }
+  return []
+}
+
+export async function getStoryPosts(): Promise<Post[]> {
+  if (client) {
+    return (await client.fetch(storyQuery)) || []
   }
   return []
 }

@@ -56,6 +56,9 @@ export const hotelQuery = groq`
 export const foodQuery = groq`
 *[_type == "post"&& linkType =="food"] | order(date desc, _updatedAt desc) {${postFields}}`
 
+export const storyQuery = groq`
+*[_type == "post"&& linkType =="story"] | order(date desc, _updatedAt desc) {${postFields}}`
+
 export interface Author {
   name?: string
   picture?: any

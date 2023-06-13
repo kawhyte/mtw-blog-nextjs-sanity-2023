@@ -1,6 +1,5 @@
 import { PreviewSuspense } from '@sanity/preview-kit'
 import AllReviewsPage from 'components/AllReviewsPage'
-import IndexPage from 'components/IndexPage'
 import { getAllPosts, getSettings } from 'lib/sanity.client'
 import { Post, Settings } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'

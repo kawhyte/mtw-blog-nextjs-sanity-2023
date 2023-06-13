@@ -5,8 +5,6 @@ import React, {useEffect, useRef} from "react";
 
 
 
-
-
 function ReviewHeader({ title, pattern, summary, animation }) {
 //	console.log("pattern ", animation)
 	
