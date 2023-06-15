@@ -1,5 +1,7 @@
 import ReactPlayer from 'react-player/youtube'
 
+import SectionSeparator from './SectionSeparator'
+
 export default function Youtube({ link }) {
   console.log('YOUTUBE ', link)
 

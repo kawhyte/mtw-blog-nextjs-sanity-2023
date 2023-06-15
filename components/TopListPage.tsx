@@ -5,29 +5,29 @@ import IndexPageHead from 'components/IndexPageHead'
 import MoreStories from 'components/MoreStories'
 import * as demo from 'lib/demo.data'
 import { urlForImage } from 'lib/sanity.image'
-import type { Post, Recommendation,Settings } from 'lib/sanity.queries'
+import type { Post, Recommendation, Settings } from 'lib/sanity.queries'
 import Head from 'next/head'
+import Image from 'next/image'
 import Link from 'next/link'
 
 import { CMS_NAME } from '../lib/constants'
 import Footer from './Footer'
 import ReviewHeader from './ReviewHeader'
-import Image from 'next/image'
 
 export interface IndexPageProps {
   preview?: boolean
   loading?: boolean
   posts: Recommendation[]
   settings: Settings
- 
 }
+let count = 2
 
 export default function IndexPage(props: IndexPageProps) {
   const { preview, loading, posts, settings } = props
   const [heroPost, ...morePosts] = posts || []
   const { title = demo.title, description = demo.description } = settings || {}
-  
-  console.log("NEW!6", posts[0].recommendations[1].post.coverImage.asset._ref)
+
+  // console.log('NEW!7', posts[0].recommendations[0].post)
   return (
     <>
       <IndexPageHead settings={settings} />
@@ -40,79 +40,126 @@ export default function IndexPage(props: IndexPageProps) {
           <BlogHeader title={title} description={description} level={1} />
 
           <ReviewHeader
-				title={"Our Top Picks"}
-				pattern={"foodpattern"}
-				summary={"We visited over 100 hotels and restaurants over the past few years, these are our top picks for the best service, location and value."}
-				animation={'/top.json'}
-			/>
+            title={'Our Top Picks'}
+            pattern={'foodpattern'}
+            summary={
+              'We visited over 100 hotels and restaurants over the past few years, these are our top picks for the best service, location and value.'
+            }
+            animation={'/top.json'}
+          />
 
-          {posts.length > 0 && 
-          
-          
-          
-          
-          
-          
-          
+          {posts.length > 0 && (
+            <>
+              <section className="body-font mb-6 text-gray-600 ">
+                <div className="container  mx-auto flex flex-col items-center justify-center px-5 py-10">
+                  <div className=" mb-4 rounded-xl border-8 border-yellow-300 bg-white md:p-6  ">
+                    <Link
+                      // as={`/posts/${numberOne.slug}`}
+                      href={`/posts/${posts[0].recommendations[0].post.slug.current}`}
+                      // aria-label={numberOne.title}
+                      className="block h-full w-full"
+                    >
+                      <p className="absolute   z-10 m-2 rounded-xl bg-yellow-300 px-2  text-xl font-medium text-black md:text-2xl ">
+                        1
+                      </p>
+                      <Image
+                        width={940}
+                        height={470}
+                        blurDataURL={urlForImage(
+                          posts[0].recommendations[0].post.coverImage.asset._ref
+                        )
+                          .width(1240)
+                          .height(744)
+                          .quality(1)
+                          .format('webp')
+                          .url()}
+                        placeholder="blur"
+                        alt={`Cover Image for ${posts[0].recommendations[0].title}`}
+                        className=" relative block object-cover  object-center md:rounded-xl  "
+                        src={urlForImage(
+                          posts[0].recommendations[0].post.coverImage.asset._ref
+                        )
+                          .width(1240)
+                          .height(744)
+                          .format('webp')
+                          .url()}
+                      />
+                    </Link>
+                    <div className=" my-4 w-full cursor-pointer px-2 text-left">
+                      <Link
+                        as={`/posts/${posts[0].recommendations[0].post.coverImage.asset._ref}`}
+                        href={`/posts/${posts[0].recommendations[0].post.coverImage.asset._ref}`}
+                        aria-label={posts[0].recommendations[0].title}
+                        className="block h-full w-full"
+                      >
+                        <h1 className="title-font mb-4 text-xl font-medium text-gray-900 sm:text-4xl">
+                          {posts[0].recommendations[0].post.title}
+                        </h1>
+                        <p className="text-md  truncate font-light text-gray-500">
+                          {posts[0].recommendations[0].post.location}
+                        </p>
+                      </Link>
+                      {/*<PostBody className="line-clamp-3" content={numberOne.blurb} />*/}
+                    </div>
+                  </div>
+                </div>
+              </section>
 
-
-
-
-
-
-          <section className='text-gray-600 body-font mb-6 '>
-						<div className='container  mx-auto flex px-5 py-10 items-center justify-center flex-col'>
-							<div className=' border-8 bg-white border-yellow-300 md:p-6 mb-4 rounded-xl  '>
-								
-							<Link
-                                // as={`/posts/${numberOne.slug}`}
-                                href='/posts/[slug]'
-                                // aria-label={numberOne.title}
-                                className='w-full block h-full'>
-
-                                <p className='text-black   absolute text-xl md:text-2xl font-medium bg-yellow-300  rounded-xl z-10 px-2 m-2 '>
-                                        1
-                                    </p>
-                                <Image
-									width={940}
-									height={470}
-									blurDataURL={urlForImage(posts[0].recommendations[1].post.coverImage.asset._ref)
-										.width(1240)
-										.height(744)
-										.quality(1)
-										.format("webp")
-										.url()}
-									placeholder='blur'
-									alt={`Cover Image for ${posts[0].recommendations[0].title}`}
-									className=' object-cover object-center block  relative md:rounded-xl  '
-									src={urlForImage(posts[0].recommendations[1].post.coverImage.asset._ref)
-										.width(1240)
-										.height(744)
-										.format("webp")
-										.url()}
-								/> 
-                            </Link>
-								<div className=' px-2 w-full my-4 cursor-pointer text-left'>
-									<Link
-                                        as={`/posts/${posts[0].recommendations[1].post.coverImage.asset._ref}`}
-                                        href={`/posts/${posts[0].recommendations[1].post.coverImage.asset._ref}`}
-                                        aria-label={posts[0].recommendations[0].title}
-                                        className='w-full block h-full'>
-
-                                        <h1 className='title-font text-xl sm:text-4xl mb-4 font-medium text-gray-900'>
-                                            {posts[0].recommendations[1].post.title}
-                                        </h1>
-                                        <p className='text-gray-500  font-light text-md truncate'>
-                                            {posts[0].recommendations[1].post.location}
-                                        </p>
-
-                                    </Link>
-									{/*<PostBody className="line-clamp-3" content={numberOne.blurb} />*/}
-								</div>
-							</div>
-						</div>
-					</section>
-                }
+              <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-12 xl:grid-cols-3">
+                {posts[0].recommendations.slice(1, 20).map(
+                  (item, i) =>
+                    // item.linkType === type &&
+                    count <= 10 && (
+                      <div
+                        key={item._id}
+                        className="h-90 m-auto w-60 cursor-pointer overflow-hidden rounded-lg shadow-lg md:w-80"
+                      >
+                        <div className="relative">
+                          <Link
+                            as={`/posts/${item.post.slug.current}`}
+                            href={`/posts/${item.post.slug.current}`}
+                            aria-label={item.title}
+                            className="block h-full w-full"
+                          >
+                            <p className="absolute z-10 m-2 rounded-xl bg-white px-2 text-xl font-medium text-black md:text-xl">
+                              {count++}
+                            </p>
+                            <Image
+                              width={1240}
+                              height={770}
+                              blurDataURL={urlForImage(
+                                item.post.coverImage.asset._ref
+                              )
+                                .width(1240)
+                                .height(744)
+                                .quality(1)
+                                .format('webp')
+                                .url()}
+                              placeholder="blur"
+                              alt={`Cover Image for ${item.title}`}
+                              className=" block object-cover object-center  "
+                              src={urlForImage(item.post.coverImage.asset._ref)
+                                .width(1240)
+                                .height(744)
+                                .format('webp')
+                                .url()}
+                            />
+                            <div className="w-full bg-white   p-4">
+                              <p className="mb-2  truncate text-xl font-medium text-gray-800">
+                                {item.post.title}
+                              </p>
+                              <p className="text-md  truncate font-light text-gray-500">
+                                {item.post.location}
+                              </p>
+                            </div>
+                          </Link>
+                        </div>
+                      </div>
+                    )
+                )}
+              </div>
+            </>
+          )}
         </Container>
         {/* <IntroTemplate /> */}
       </Layout>

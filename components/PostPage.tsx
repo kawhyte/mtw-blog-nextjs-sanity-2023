@@ -36,7 +36,7 @@ export default function PostPage(props: PostPageProps) {
     notFound()
   }
 
-  //console.log('Gallery ', post)
+  console.log('Post Page*** 1 ', post)
 
   return (
     <>
@@ -62,22 +62,28 @@ export default function PostPage(props: PostPageProps) {
                   hotelRating={post.hotelRating}
                   gallery={post.gallery}
                 />
-                <ProConList
-                  positives={post.positives}
-                  negatives={post.negatives}
-                  verdict2={post.verdict}
-                />
-                <RoomTech
-                  techAvailable={post.techRating}
-                  speed={post.internetSpeed}
-                />
-                <PostBody content= {post.content} />
-               
-                <Youtube link={post.youtube} />
-                <SectionSeparator />
-                <Gallery posts={post} heading={''} />
+                {post.linkType == 'hotel' || post.linkType == 'food' ? (
+                  <ProConList
+                    positives={post.positives}
+                    negatives={post.negatives}
+                    verdict2={post.verdict}
+                  />
+                ) : (
+                  ''
+                )}
+                {post.linkType == 'hotel' ? (
+                  <RoomTech
+                    techAvailable={post.techRating}
+                    speed={post.internetSpeed}
+                  />
+                ) : (
+                  ''
+                )}
+                <PostBody content={post.content} />
 
-               
+                <Youtube link={post.youtube} />
+
+                <Gallery posts={post} heading={''} />
               </article>
 
               {/* {morePosts?.length > 0 && <MoreStories posts={morePosts} />} */}
