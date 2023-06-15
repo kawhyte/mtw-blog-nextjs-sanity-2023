@@ -1,3 +1,4 @@
+
 /**
  * This config is used to set up Sanity Studio that's mounted on the `/pages/studio/[[...index]].tsx` route
  */
@@ -11,11 +12,14 @@ import { defineConfig } from 'sanity'
 import { deskTool } from 'sanity/desk'
 import { unsplashImageAsset } from 'sanity-plugin-asset-source-unsplash'
 // import amenitiesType from 'schemas/amenities'
-import authorType from 'schemas/author'
+// import authorType from 'schemas/author'
+// import {bookType} from 'schemas/bookType'
 import foodType from 'schemas/foodRating'
 import galleryType from 'schemas/gallery'
 import hotelType from 'schemas/hotelRating'
 import postType from 'schemas/post'
+import {recommendationListType} from 'schemas/recommendationListType'
+import {recommendationType} from 'schemas/recommendationType'
 import roomTechType from 'schemas/roomTechRatings'
 import settingsType from 'schemas/settings'
 
@@ -29,7 +33,7 @@ export default defineConfig({
   title,
   schema: {
     // If you want more content types, you can add them to this array
-    types: [authorType, galleryType,roomTechType,hotelType,foodType, postType, settingsType],
+    types: [galleryType,roomTechType,hotelType,foodType, postType, settingsType, recommendationListType,recommendationType],
   },
   plugins: [
     deskTool({

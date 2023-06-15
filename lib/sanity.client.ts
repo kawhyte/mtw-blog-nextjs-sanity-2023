@@ -7,6 +7,7 @@ import {
   postAndMoreStoriesQuery,
   postBySlugQuery,
   postSlugsQuery,
+  recommendationQuery,
   type Settings,
   settingsQuery,
   storyQuery,
@@ -51,6 +52,12 @@ export async function getFoodPosts(): Promise<Post[]> {
 export async function getStoryPosts(): Promise<Post[]> {
   if (client) {
     return (await client.fetch(storyQuery)) || []
+  }
+  return []
+}
+export async function getRecommendationPosts(): Promise<Post[]> {
+  if (client) {
+    return (await client.fetch(recommendationQuery)) || []
   }
   return []
 }

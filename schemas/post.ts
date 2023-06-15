@@ -2,9 +2,6 @@ import { BookIcon } from '@sanity/icons'
 import { format, parseISO } from 'date-fns'
 import { defineField, defineType } from 'sanity'
 
-import authorType from './author'
-import galleryType from './gallery'
-
 /**
  * This file is the schema definition for a post.
  *
@@ -19,7 +16,7 @@ import galleryType from './gallery'
 
 export default defineType({
   name: 'post',
-  title: 'Post',
+  title: 'Post (Hotel/Restaurant/Guides)',
   icon: BookIcon,
   type: 'document',
   fields: [

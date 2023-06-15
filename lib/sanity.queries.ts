@@ -20,6 +20,14 @@ const postFields = groq`
   "slug": slug.current,
   "author": author->{name, picture},
 `
+const recommendationFields = groq`
+id, title, recommendations[] {post->{title, slug, coverImage, location}
+
+}
+`
+
+export const recommendationQuery = groq`
+*[_type == "recommendationList"] | order(date desc, _updatedAt desc) {${recommendationFields}}`
 
 export const settingsQuery = groq`*[_type == "settings"][0]`
 
@@ -62,6 +70,11 @@ export const storyQuery = groq`
 export interface Author {
   name?: string
   picture?: any
+}
+export interface Recommendation {
+  _id: string
+  title?: string
+  recommendations?: any
 }
 
 export interface Post {
