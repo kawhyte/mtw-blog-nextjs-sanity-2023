@@ -21,7 +21,7 @@ export default function BlogHeader({
             {title}kk
 
           </h1> */}
-          <NavBar bgColor={undefined}/>
+          <NavBar bgColor={""}/>
           {/* <h4
             className={`mt-5 text-center text-lg md:pl-8 md:text-left ${styles.portableText}`}
           >
@@ -33,7 +33,7 @@ export default function BlogHeader({
     case 2:
       return (
         <header className="mb-10 sticky top-0  z-50  mt-4 flex flex-col items-center md:mb-12 md:flex-row md:justify-between">
-          <NavBar bgColor={undefined}/>
+          <NavBar bgColor={""}/>
           {/* <h2 className="mb-20 mt-8 text-2xl font-bold leading-tight tracking-tight md:text-4xl md:tracking-tighter">
             <Link href="/" className="hover:underline">
               {title}PP

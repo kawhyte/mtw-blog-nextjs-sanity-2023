@@ -16,6 +16,7 @@ import ProConList from './ProConList'
 import RoomTech from './RoomTech'
 import Youtube from './Youtube'
 
+
 export interface PostPageProps {
   preview?: boolean
   loading?: boolean
@@ -36,8 +37,8 @@ export default function PostPage(props: PostPageProps) {
     notFound()
   }
 
-  console.log('Post Page*** 1 ', post)
-
+  // console.log('Post Page*** 1 ', post)
+console.log("POST PAGE")
   return (
     <>
       <PostPageHead settings={settings} post={post} />

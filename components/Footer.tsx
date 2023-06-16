@@ -1,5 +1,6 @@
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
+
 import { EXAMPLE_PATH } from "../lib/constants";
 
 export default function Footer() {

@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const config = {
+  // staticPageGenerationTimeout: 120000,
   images: {
     remotePatterns: [
       { hostname: 'cdn.sanity.io' },

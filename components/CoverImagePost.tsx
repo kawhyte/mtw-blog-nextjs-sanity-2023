@@ -27,7 +27,7 @@ export default function CoverImage(props: CoverImageProps) {
     ? urlForImage(gallery?.images[3]).height(813).width(1240).url()
     : '/holder.jpg'
   // console.log("Source ", source)
-  console.log('Gallery .images[i] ', gallery?.images[0])
+  // console.log('Gallery .images[i] ', gallery?.images[0])
 
   const image = source?.asset?._ref ? (
     <section className=" text-gray-600 mt-8">

@@ -1,7 +1,10 @@
-import ReactPlayer from 'react-player/youtube'
+
+import dynamic from "next/dynamic";
+const ReactPlayer = dynamic(() => import("react-player/lazy"), { ssr: false });
+
 
 export default function Youtube({ link }) {
-  console.log('YOUTUBE ', link)
+  // console.log('YOUTUBE ', link)
 
   return (
     <>
@@ -25,7 +28,7 @@ export default function Youtube({ link }) {
           >
             <div className=" h-full w-full">
               <ReactPlayer
-                className="react-player"
+                // className="react-player"
                 url={link}
                 width={'100%'}
                 height={'100%'}

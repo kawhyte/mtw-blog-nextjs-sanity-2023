@@ -78,11 +78,11 @@ const StarRating = ({ rating, linkType }) => {
 										/>
 									</span>
 
-									 {item[1] > 0
+									 {Number(item[1]) > 0
 										? `${ratingItem[text]?.name}` 
 										: `No on-site ${ratingItem[text]?.name} availiable`}  
 								</div>
-								 {item[1] > 0 && <div className=' flex-1 flex flex-row align-middle items-center'>
+								 {Number(item[1]) > 0 && <div className=' flex-1 flex flex-row align-middle items-center'>
 									<p className='mr-2 my-1 text-base font-medium md:text-lg '>
 										
 									</p>
