@@ -33,8 +33,9 @@ export default function PostPreview({
           </h2>
           {/* <p className='text-base leading-relaxed mt-2'>{item.excerpt}</p> */}
           <div className="block   text-lg  text-pink-500">
-            {location ? location : 'No address provided'}{' '}
+            {location ? location : ''}{' '}
           </div>
+         
 
           {/* <h3 className="mb-3 text-3xl leading-snug">{title}</h3> */}
           <div className="mb-4 text-lg">

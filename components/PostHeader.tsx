@@ -50,9 +50,9 @@ export default function PostHeader(
         <div>
           <p className="p-1 text-center font-medium text-gray-900 md:text-left md:text-sm ">
             <span className="text-lg capitalize">
-              {location ? location : 'No address provided'}{' '}
+              {location ? location : ''}{' '}
             </span>
-            |{' '}
+            {' '}
             <span className="ml-1 text-lg font-medium text-gray-900">
               {linkType === 'hotel' || linkType === 'food'
                 ? 'Visited '
