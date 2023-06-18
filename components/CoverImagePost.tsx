@@ -31,8 +31,8 @@ export default function CoverImage(props: CoverImageProps) {
 
   const image = source?.asset?._ref ? (
     <section className=" text-gray-600 mt-8">
-      <div className=" bg-green-200   mx-auto grid md:grid-cols-2 justify-items-center ">
-        <div className=" bg-red-200  ">
+      <div className="   mx-auto grid md:grid-cols-2 justify-items-center ">
+        <div className="   ">
           <div className="    ">
             <Image
               width={740}
@@ -54,7 +54,7 @@ export default function CoverImage(props: CoverImageProps) {
             />
           </div>
         </div>
-        <div className=" ml-2  hidden md:block bg-blue-200  ">
+        <div className=" ml-2  hidden md:block  ">
           <div className="grid-row-2 grid grid-cols-2  gap-2  ">
             <div className="    ">
               <Image
