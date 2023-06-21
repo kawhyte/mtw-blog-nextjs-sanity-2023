@@ -14,8 +14,24 @@ export const recommendationListType = defineType({
   type: 'document',
   fields: [
     defineField({
+      title:'List title',
       name: 'title',
       type: 'string',
+    }),
+    defineField({
+      title:'List type',
+      name: 'listType',
+      type: 'string',
+      validation: (Rule) => Rule.required(),
+      options: {
+        list: [
+          { title: 'Hotel', value: 'hotel' },
+          { title: 'Food', value: 'food' },
+     
+        ],
+        layout: 'radio',
+      },
+     
     }),
     defineField({
       name: 'recommendations',

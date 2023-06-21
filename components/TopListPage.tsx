@@ -9,10 +9,12 @@ import type { Post, Recommendation, Settings } from 'lib/sanity.queries'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
+import post from 'schemas/post'
 
 import { CMS_NAME } from '../lib/constants'
 import Footer from './Footer'
 import ReviewHeader from './ReviewHeader'
+import TopListItems from './TopListItems'
 
 export interface IndexPageProps {
   preview?: boolean
@@ -27,14 +29,20 @@ export default function IndexPage(props: IndexPageProps) {
   const [heroPost, ...morePosts] = posts || []
   const { title = demo.title, description = demo.description } = settings || {}
 
-  // console.log('NEW!7', posts[0].recommendations[0].post)
+  // const r = posts.filter(d => d.recommendations.every(c => posts.includes(c.id)));
+  const hotels = posts.filter((word) => word.listType === 'hotel')
+  const restaurants = posts.filter((word) => word.listType === 'food')
+
+  //  console.log('NEW!7', posts[0].recommendations[0].post)
+  //  console.log('NEW!7', posts[0])
+  console.log('result666', hotels[0]?.recommendations[0])
   return (
     <>
       <IndexPageHead settings={settings} />
 
       <Layout preview={preview} loading={loading}>
         <Head>
-          <title>Travel and Food Reviews by {CMS_NAME}</title>
+          <title>{CMS_NAME}</title>
         </Head>
         <Container>
           <BlogHeader title={title} description={description} level={1} />
@@ -48,25 +56,41 @@ export default function IndexPage(props: IndexPageProps) {
             animation={'/top.json'}
           />
 
-          {posts.length > 0 && (
+          {hotels.length > 0 && (
             <>
-              <section className="body-font mb-6 text-gray-600 ">
+              <TopListItems posts={hotels} />
+              <TopListItems posts={restaurants} />
+
+              <section></section>
+            </>
+          )}
+        </Container>
+        {/* <IntroTemplate /> */}
+      </Layout>
+      <Footer />
+    </>
+  )
+}
+
+{
+  /* <section className="body-font mb-6 text-gray-600 ">
                 <div className="container  mx-auto flex flex-col items-center justify-center px-5 py-10">
                   <div className=" mb-4 rounded-xl border-8 border-yellow-300 bg-white md:p-6  ">
                     <Link
-                      // as={`/posts/${numberOne.slug}`}
-                      href={`/posts/${posts[0].recommendations[0].post.slug.current}`}
-                      // aria-label={numberOne.title}
+                    
+                      href={`/posts/${hotels[0].recommendations[0].post.slug.current}`}
+                    
                       className="block h-full w-full"
                     >
-                      <p className="absolute   z-10 m-2 rounded-xl bg-yellow-300 px-2  text-xl font-medium text-black md:text-2xl ">
+                      <p className="absolute   z-10 m-2 rounded-lg bg-yellow-300 px-2  text-xl font-medium text-black md:text-2xl ">
                         1
                       </p>
                       <Image
-                        width={940}
+                        width={440}
                         height={470}
                         blurDataURL={urlForImage(
-                          posts[0].recommendations[0].post.coverImage.asset._ref
+                          hotels[0]?.recommendations[0]?.post?.coverImage?.asset
+                            ?._ref
                         )
                           .width(1240)
                           .height(744)
@@ -74,10 +98,11 @@ export default function IndexPage(props: IndexPageProps) {
                           .format('webp')
                           .url()}
                         placeholder="blur"
-                        alt={`Cover Image for ${posts[0].recommendations[0].title}`}
+                        alt={`Cover Image for ${hotels[0].recommendations[0].title}`}
                         className=" relative block object-cover  object-center md:rounded-xl  "
                         src={urlForImage(
-                          posts[0].recommendations[0].post.coverImage.asset._ref
+                          hotels[0].recommendations[0].post.coverImage.asset
+                            ._ref
                         )
                           .width(1240)
                           .height(744)
@@ -87,83 +112,21 @@ export default function IndexPage(props: IndexPageProps) {
                     </Link>
                     <div className=" my-4 w-full cursor-pointer px-2 text-left">
                       <Link
-                        as={`/posts/${posts[0].recommendations[0].post.coverImage.asset._ref}`}
-                        href={`/posts/${posts[0].recommendations[0].post.coverImage.asset._ref}`}
-                        aria-label={posts[0].recommendations[0].title}
+                        as={`/posts/${hotels[0].recommendations[0].post.coverImage.asset._ref}`}
+                        href={`/posts/${hotels[0].recommendations[0].post.coverImage.asset._ref}`}
+                        aria-label={hotels[0].recommendations[0].title}
                         className="block h-full w-full"
                       >
-                        <h1 className="title-font mb-4 text-xl font-medium text-gray-900 sm:text-4xl">
-                          {posts[0].recommendations[0].post.title}
+                        <h1 className="title-font mb-4 text-lg font-medium text-gray-900 sm:text-2xl">
+                          {hotels[0].recommendations[0].post.title}
                         </h1>
                         <p className="text-md  truncate font-light text-gray-500">
-                          {posts[0].recommendations[0].post.location}
+                          {hotels[0].recommendations[0].post.location}
                         </p>
                       </Link>
-                      {/*<PostBody className="line-clamp-3" content={numberOne.blurb} />*/}
+                   
                     </div>
                   </div>
                 </div>
-              </section>
-
-              <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-12 xl:grid-cols-3">
-                {posts[0].recommendations.slice(1, 20).map(
-                  (item, i) =>
-                    // item.linkType === type &&
-                    count <= 10 && (
-                      <div
-                        key={item._id}
-                        className="h-90 m-auto w-60 cursor-pointer overflow-hidden rounded-lg shadow-lg md:w-80"
-                      >
-                        <div className="relative">
-                          <Link
-                            as={`/posts/${item.post.slug.current}`}
-                            href={`/posts/${item.post.slug.current}`}
-                            aria-label={item.title}
-                            className="block h-full w-full"
-                          >
-                            <p className="absolute z-10 m-2 rounded-xl bg-white px-2 text-xl font-medium text-black md:text-xl">
-                              {count++}
-                            </p>
-                            <Image
-                              width={1240}
-                              height={770}
-                              blurDataURL={urlForImage(
-                                item.post.coverImage.asset._ref
-                              )
-                                .width(1240)
-                                .height(744)
-                                .quality(1)
-                                .format('webp')
-                                .url()}
-                              placeholder="blur"
-                              alt={`Cover Image for ${item.title}`}
-                              className=" block object-cover object-center  "
-                              src={urlForImage(item.post.coverImage.asset._ref)
-                                .width(1240)
-                                .height(744)
-                                .format('webp')
-                                .url()}
-                            />
-                            <div className="w-full bg-white   p-4">
-                              <p className="mb-2  truncate text-xl font-medium text-gray-800">
-                                {item.post.title}
-                              </p>
-                              <p className="text-md  truncate font-light text-gray-500">
-                                {item.post.location}
-                              </p>
-                            </div>
-                          </Link>
-                        </div>
-                      </div>
-                    )
-                )}
-              </div>
-            </>
-          )}
-        </Container>
-        {/* <IntroTemplate /> */}
-      </Layout>
-      <Footer />
-    </>
-  )
+              </section> */
 }

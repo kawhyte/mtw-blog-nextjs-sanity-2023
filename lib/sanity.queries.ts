@@ -21,7 +21,7 @@ const postFields = groq`
   "author": author->{name, picture},
 `
 const recommendationFields = groq`
-id, title, recommendations[] {post->{title, slug, coverImage, location}
+id, title,listType, recommendations[] {post->{title, slug, coverImage, location,linkType}
 
 }
 `
@@ -75,6 +75,7 @@ export interface Recommendation {
   _id: string
   title?: string
   recommendations?: any
+  listType?:string
 }
 
 export interface Post {
