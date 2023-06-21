@@ -76,7 +76,9 @@ export interface Recommendation {
   title?: string
   recommendations?: any
   listType?:string
+  
 }
+
 
 export interface Post {
   _id: string
@@ -98,6 +100,7 @@ export interface Post {
   negatives?: any
   verdict?: any
   gallery?: any
+  color?:string
 }
 
 export interface Settings {

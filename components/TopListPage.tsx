@@ -35,7 +35,7 @@ export default function IndexPage(props: IndexPageProps) {
 
   //  console.log('NEW!7', posts[0].recommendations[0].post)
   //  console.log('NEW!7', posts[0])
-  console.log('result666', hotels[0]?.recommendations[0])
+  // console.log('result666', hotels[0]?.recommendations[0])
   return (
     <>
       <IndexPageHead settings={settings} />
@@ -58,8 +58,10 @@ export default function IndexPage(props: IndexPageProps) {
 
           {hotels.length > 0 && (
             <>
-              <TopListItems posts={hotels} />
-              <TopListItems posts={restaurants} />
+              <TopListItems posts={hotels}  />
+              <TopListItems posts={restaurants}  />
+
+        
 
               <section></section>
             </>
