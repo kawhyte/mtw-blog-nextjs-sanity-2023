@@ -3,17 +3,7 @@ import Link from "next/link";
 import React from "react";
 
 const category = [
-	{
-		name: "All Reviews",
-		href: "/allreviews",
-		image:
-			"/vista.webp",
-		// image:
-		// 	"https://res.cloudinary.com/babyhulk/image/upload/v1621897765/project/PXL_20210222_215622925.MP.webp",
-		text: "Hotel icon",
-		alt: "View of mountains",
-		bgcolor :"bg-yellow-50 p-5"
-	},
+
 	{
 		name: "Hotel Reviews",
 		href: "/hotel",
@@ -38,7 +28,7 @@ const category = [
 		bgcolor :"bg-green-50 p-5"
 	},
 	{
-		name: "Stories/Guides",
+		name: "Guides",
 		href: "/story",
 		image:
 			"/tahoe.webp",
@@ -47,6 +37,17 @@ const category = [
 		text: "Sunset",
 		alt: "View of Sunset at a hotel",
 		bgcolor :"bg-blue-50 p-5"
+	},
+    {
+		name: "Stuff We Like",
+		href: "/allreviews",
+		image:
+			"/vista.webp",
+		// image:
+		// 	"https://res.cloudinary.com/babyhulk/image/upload/v1621897765/project/PXL_20210222_215622925.MP.webp",
+		text: "Hotel icon",
+		alt: "View of mountains",
+		bgcolor :"bg-yellow-50 p-5"
 	},
 
 ];

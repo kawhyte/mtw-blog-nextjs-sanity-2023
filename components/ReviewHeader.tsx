@@ -24,10 +24,10 @@ function ReviewHeader({ title, pattern, summary, animation }) {
 
 	return (
 		<div className='mx-12  flex justify-center   '>
-		<div ></div>
-			<section className='text-gray-600 body-font'>
-				<div  className='container  rounded-2xl mt-12  mb-20 justify-center   mx-auto flex  pb-12 md:flex-row flex-col items-center'>
-					<div ref={container} className='lg:max-w-lg    lg:w-full  mb-10 md:mb-0'>
+		
+			<section className='text-gray-600'>
+				<div  className='container justify-center   mx-auto flex  md:flex-row flex-col items-center'>
+					<div ref={container} className=' hidden md:block lg:max-w-lg lg:p-10    lg:w-full '>
 						{/*<video
 							className='object-cover object-center h-96'
 							autoPlay

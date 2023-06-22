@@ -6,6 +6,11 @@ import IndexPageHead from 'components/IndexPageHead'
 import MoreStoriesIndex from 'components/MoreStories'
 import * as demo from 'lib/demo.data'
 import type { Post, Settings } from 'lib/sanity.queries'
+import {
+  InstagramEmbed,
+  TikTokEmbed,
+  YouTubeEmbed,
+} from 'react-social-media-embed'
 
 import Categories from './Categories'
 import Footer from './Footer'
@@ -62,6 +67,61 @@ export default function IndexPage(props: IndexPageProps) {
 
           {morePosts.length > 0 && <MoreStoriesIndex posts={morePosts} />}
         </Container>
+        <div className="rounded-xl bg-yellow-50 px-10 py-12 ">
+          <div className=" container mx-auto mb-10 flex w-full flex-wrap">
+            <div className="mx-4 mb-6 w-full lg:mb-0 lg:w-1/2 ">
+              <h1 className="font-fancy  title-font mb-2 text-2xl font-medium text-gray-900 sm:text-3xl">
+                Featured Instagram Posts
+              </h1>
+              <div className="h-1 w-20 rounded bg-pink-500"></div>
+            </div>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-2  xl:grid-cols-3 2xl:grid-cols-3 gap-5 content-start justify-start place-items-center  	">
+            <div>
+              <InstagramEmbed
+                url="https://www.instagram.com/p/CqzLI_or4QD/"
+                width={328}
+              />
+            </div>
+            {/* <div>
+              <InstagramEmbed
+                url="https://www.instagram.com/p/CkPVy5tt3P6/"
+                width={328}
+              />
+            </div> */}
+            <div>
+              <InstagramEmbed
+                url="https://www.instagram.com/p/CtDelhSOMYc/"
+                width={328}
+              />
+            </div>
+            <div>
+              <InstagramEmbed
+                url="https://www.instagram.com/p/CtSc9f5rTcL/"
+                width={328}
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* <div className="rounded-xl bg-pink-50 px-10 py-12 mt-12 ">
+          <div className=" container mx-auto mb-10 flex w-full flex-wrap">
+            <div className="mx-4 mb-6 w-full lg:mb-0 lg:w-1/2 ">
+              <h1 className="font-fancy  title-font mb-2 text-2xl font-medium text-gray-900 sm:text-3xl">
+                Featured Youtube Videos
+              </h1>
+              <div className="h-1 w-20 rounded bg-pink-500"></div>
+            </div>
+          </div>
+          <div className="grid grid-cols-3">
+          <YouTubeEmbed url="https://www.youtube.com/watch?v=SsJd34yM0K4" width={425} height={220} />
+          <YouTubeEmbed url="https://www.youtube.com/watch?v=SsJd34yM0K4" width={425} height={220} />
+          <YouTubeEmbed url="https://www.youtube.com/watch?v=SsJd34yM0K4" width={425} height={220} />
+
+          
+
+          </div>
+        </div> */}
         {/* <IntroTemplate /> */}
       </Layout>
       <Footer />

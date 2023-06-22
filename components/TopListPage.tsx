@@ -53,7 +53,7 @@ export default function IndexPage(props: IndexPageProps) {
             summary={
               'We visited over 100 hotels and restaurants over the past few years, these are our top picks for the best service, location and value.'
             }
-            animation={'/top.json'}
+            animation={'/top2.json'}
           />
 
           {hotels.length > 0 && (
