@@ -48,7 +48,7 @@ export default function IndexPage(props: IndexPageProps) {
               date={heroPost.date}
               author={heroPost.author}
               slug={heroPost.slug}
-              excerpt={heroPost.excerpt}
+              excerpt2={heroPost.excerpt2}
               hotelRating={heroPost.hotelRating}
               location={heroPost.location}
             />

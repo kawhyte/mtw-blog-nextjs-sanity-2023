@@ -60,20 +60,6 @@ export default function Nav({ color = 'bg-black', bgColor }) {
   const animation = 'food.json'
 
 
-
-
- 
-
-  useEffect(() => {
-    lottie.loadAnimation({
-      container: container.current,
-      renderer: 'svg',
-      loop: true,
-      autoplay: true,
-      path: animation,
-    })
-  }, [animation])
-
   return (
     <Disclosure
       as="nav"

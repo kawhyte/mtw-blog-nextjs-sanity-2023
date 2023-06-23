@@ -12,7 +12,7 @@ export default function HeroPost(
     | 'title'
     | 'coverImage'
     | 'date'
-    | 'excerpt'
+    | 'excerpt2'
     | 'author'
     | 'slug'
     | 'hotelRating'
@@ -23,7 +23,7 @@ export default function HeroPost(
     title,
     coverImage,
     date,
-    excerpt,
+    excerpt2,
     author,
     slug,
     hotelRating,

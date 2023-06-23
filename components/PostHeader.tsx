@@ -6,6 +6,7 @@ import type { Post } from 'lib/sanity.queries'
 
 import BodySectionSeparator from './body-section-separator'
 import CoverImagePost from './CoverImagePost'
+import PostBody from './PostBody'
 import StarRating from './StarRating'
 
 export default function PostHeader(
@@ -19,7 +20,7 @@ export default function PostHeader(
     | 'location'
     | 'linkType'
     | 'room'
-    | 'excerpt'
+    | 'excerpt2'
     | 'hotelRating'
     | 'gallery'
   >
@@ -33,7 +34,7 @@ export default function PostHeader(
     location,
     linkType,
     room,
-    excerpt,
+    excerpt2,
     hotelRating,
     gallery,
   } = props
@@ -73,11 +74,12 @@ export default function PostHeader(
       <div className="mb-8 sm:mx-0 md:mb-16">
         <CoverImagePost title={title} image={coverImage} priority slug={slug} gallery={gallery} />
 
-        {excerpt && (
+        {excerpt2 && (
           <>
             <div>
               <div className="mx-4 my-8 max-w-4xl text-justify lg:text-lg ">
-                {excerpt}
+                {/* {excerpt2} */}
+                <PostBody content={excerpt2} />
               </div>
             </div>
             <BodySectionSeparator />

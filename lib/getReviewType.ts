@@ -77,7 +77,7 @@ const ratingItem = {
 		rate:.20
 	},
 	Restaurant_Cleanliness: {
-		name: "Cleanliness/Covid Protocols",
+		name: "Cleanliness",
 		icon: "/icon/clean.svg",
 		rate:.20
 	},

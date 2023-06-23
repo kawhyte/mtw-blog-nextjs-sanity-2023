@@ -13,7 +13,7 @@ export default function MoreStories({ posts }: { posts: Post[] }) {
             date={post.date}
             author={post.author}
             slug={post.slug}
-            excerpt={post.excerpt}
+            excerpt2={post.excerpt2}
             location={post.location}
           />
         ))}

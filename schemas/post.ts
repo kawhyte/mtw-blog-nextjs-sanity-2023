@@ -96,6 +96,15 @@ export default defineType({
       hidden: ({ parent, value }) => parent?.linkType == 'story',
     }),
 
+    defineField({
+      name: 'excerpt2',
+      title: 'Post Blurb2',
+      description: 'Add a short summary',
+      type: 'array',
+      of: [{ type: 'block' }],
+      hidden: ({ parent, value }) => parent?.linkType == 'story',
+    }),
+
  
 
     // defineField({
@@ -200,7 +209,14 @@ export default defineType({
       title: 'Content',
       description: 'Optional content area',
       type: 'array',
-      of: [{ type: 'block' }],
+      of: [{ type: 'block' },
+      {
+        type: 'image'
+      }
+    
+    
+    
+    ],
     }),
 
     // defineField({

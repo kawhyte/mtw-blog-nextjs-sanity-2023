@@ -47,7 +47,7 @@ export default defineType({
 			},
 		},
 		{
-			title: "Room Cleanliness/Covid Protocols",
+			title: "Room Cleanliness",
 			name: "Room_Cleanliness",
 			type: "number",
 

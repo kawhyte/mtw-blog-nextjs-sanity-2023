@@ -23,3 +23,15 @@
 .portableText a:hover {
   @apply text-blue-800;
 }
+
+
+.portableText image {
+
+  @apply  py-2 lg:max-w-3xl  ;
+  
+}
+.portableText img {
+
+  @apply  py-2 lg:max-w-3xl  ;
+  
+}

@@ -59,7 +59,7 @@ console.log("POST PAGE")
                   location={post.location}
                   room={post.room}
                   linkType={post.linkType}
-                  excerpt={post.excerpt}
+                  excerpt2={post.excerpt2}
                   hotelRating={post.hotelRating}
                   gallery={post.gallery}
                 />
