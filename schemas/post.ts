@@ -56,7 +56,7 @@ export default defineType({
     }),
     defineField({
       name: 'date',
-      title: 'Visited Date',
+      title: 'Visited/Story Date',
       type: 'datetime',
      
       initialValue: () => new Date().toISOString(),
@@ -93,12 +93,12 @@ export default defineType({
       name: 'excerpt',
       title: 'Post Blurb',
       type: 'string',
-      hidden: ({ parent, value }) => parent?.linkType == 'story',
+      hidden: true,
     }),
 
     defineField({
       name: 'excerpt2',
-      title: 'Post Blurb2',
+      title: 'Post Blurb',
       description: 'Add a short summary',
       type: 'array',
       of: [{ type: 'block' }],
