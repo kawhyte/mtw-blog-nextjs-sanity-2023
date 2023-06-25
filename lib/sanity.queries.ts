@@ -12,7 +12,28 @@ const postFields = groq`
   gallery,
   internetSpeed,
   techRating,
-  hotelRating,
+  hotelRating{Value,Gym,Internet_Speed,Service,Room_Cleanliness,Bed_Comfort,Room_Amenities,Pool,Location},
+  foodRating{Flavor_and_Taste,Food_Value,Restaurant_Location,Presentation_on_Plate,Restaurant_Service,Memorability,Restaurant_Cleanliness},
+  positives,
+  negatives,
+  verdict,
+  linkType,
+  "slug": slug.current,
+  "author": author->{name, picture},
+`
+
+const hotelFields = groq`
+  _id,
+  title,
+  date,
+  excerpt2,
+  coverImage,
+  youtube,
+  location,
+  room,
+  gallery,
+  internetSpeed,
+  techRating,
   positives,
   negatives,
   verdict,
@@ -59,7 +80,7 @@ export const postBySlugQuery = groq`
 `
 
 export const hotelQuery = groq`
-*[_type == "post"&& linkType =="hotel"] | order(date desc, _updatedAt desc) {${postFields}}`
+*[_type == "post"&& linkType =="hotel"]  | order(date desc, _updatedAt desc) {${hotelFields}}`
 
 export const foodQuery = groq`
 *[_type == "post"&& linkType =="food"] | order(date desc, _updatedAt desc) {${postFields}}`
@@ -96,6 +117,7 @@ export interface Post {
   techRating?: any
   linkType?: any
   hotelRating?: any
+  foodRating?:any
   positives?: any
   negatives?: any
   verdict?: any

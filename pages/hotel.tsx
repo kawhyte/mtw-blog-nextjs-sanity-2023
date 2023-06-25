@@ -27,7 +27,7 @@ interface PreviewData {
 
 export default function Page(props: PageProps) {
     const { posts, settings, preview, token } = props
-  
+
     if (preview) {
       return (
         <PreviewSuspense

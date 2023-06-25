@@ -12,7 +12,7 @@ import { defineConfig } from 'sanity'
 import { deskTool } from 'sanity/desk'
 import { unsplashImageAsset } from 'sanity-plugin-asset-source-unsplash'
 // import amenitiesType from 'schemas/amenities'
-// import authorType from 'schemas/author'
+ import authorType from 'schemas/author'
 // import {bookType} from 'schemas/bookType'
 import foodType from 'schemas/foodRating'
 import galleryType from 'schemas/gallery'
@@ -33,7 +33,7 @@ export default defineConfig({
   title,
   schema: {
     // If you want more content types, you can add them to this array
-    types: [galleryType,roomTechType,hotelType,foodType, postType, settingsType, recommendationListType,recommendationType],
+    types: [galleryType,roomTechType,hotelType,foodType, postType, authorType, settingsType, recommendationListType,recommendationType],
   },
   plugins: [
     deskTool({

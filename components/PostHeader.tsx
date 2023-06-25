@@ -39,7 +39,8 @@ export default function PostHeader(
     gallery,
   } = props
 
-  //    console.log("PROPs ", props.hotelRating)
+      console.log("props.hotelRating PostHeader W",hotelRating)
+    //  console.log("linkType PostHeader W",linkType)
   return (
     <>
       <PostTitle>{title}</PostTitle>
@@ -84,7 +85,7 @@ export default function PostHeader(
             </div>
             <BodySectionSeparator />
 
-            {hotelRating && (
+            {/* {hotelRating && ( */}
               <div className=" mb-6 mt-4 block text-base md:mb-12">
                 <StarRating
                   rating={hotelRating}
@@ -93,7 +94,8 @@ export default function PostHeader(
                   linkType={linkType}
                 />
               </div>
-            )}
+           
+            {/* } */}
             {/* {rating && (
 				<div className=' block mt-4 text-base mb-6 md:mb-12'>
 					<StarRating

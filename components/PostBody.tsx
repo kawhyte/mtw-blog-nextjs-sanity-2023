@@ -17,7 +17,7 @@ import styles from './PostBody.module.css'
 // Barebones lazy-loaded image component
 const SampleImageComponent = ({value}) => {
 
-  console.log("Value ", value)
+  // console.log("Value ", value)
   const {width, height} = getImageDimensions(value)
   return (
     // eslint-disable-next-line @next/next/no-img-element

@@ -7,28 +7,12 @@ import { ratingItem } from "../lib/getReviewType";
 import ProgressRating from "./ProgressRating";
 
 const StarRating = ({ rating, linkType }) => {
-	// console.log("STAR RATING Beforree",rating);
+	 console.log("STAR RATING Beforree",rating);
 
 	// console.log("STAR RATING LinkType",linkType);
-	//console.log(categories);
-	// const seasons = {
-	// 	SUMMER: "summer",
-	// 	WINTER: "winter",
-	// 	SPRING: "spring",
-	// 	AUTUMN: "autumn",
-	// }
-
-	// console.log(seasons.AUTUMN)
-	//console.log("Star LinkTYPE", linkType)
-	//const { average, textRating } = calculateRating(propertyNames);
-	// console.log("getReviewType", ratingItem["Bed_Comfort"].name);
-	delete rating._type
-	const propertyNames = Object.entries(rating);
-
-
-	//propertyNames.pop();
 	
-
+	const propertyNames = Object.entries(rating);
+console.log("propertyNames",propertyNames)
 	const { average, textRating } = calculateRating(propertyNames);
 	// console.log("average",average)
 	// console.log("propertyNames",propertyNames)

@@ -8,6 +8,14 @@ import React, { useEffect, useRef } from 'react'
 
 const navigation = [
   {
+    name: 'Home',
+    href: '/',
+    // icon: '/icon/hotel.svg',
+    text: 'Hotel icon',
+    bg: '   underline decoration-pink-500 hover:decoration-pink-500/50 focus:decoration-pink-500/50',
+    current: false,
+  },
+  {
     name: 'Hotel Reviews',
     href: '/hotel',
     // icon: '/icon/hotel.svg',
@@ -59,7 +67,6 @@ export default function Nav({ color = 'bg-black', bgColor }) {
   const container = useRef(null)
   const animation = 'food.json'
 
-
   return (
     <Disclosure
       as="nav"
@@ -92,7 +99,7 @@ export default function Nav({ color = 'bg-black', bgColor }) {
                   legacyBehavior
                 >
                   <div className="flex flex-shrink-0 items-center justify-center  ">
-                    <div  className=" ">
+                    <div className=" ">
                       <Image
                         className="rounded-xl"
                         src="/icon/icon.jpg"
@@ -108,21 +115,27 @@ export default function Nav({ color = 'bg-black', bgColor }) {
                 <div className="hidden sm:ml-6 md:block">
                   <div className="flex flex-row items-center justify-center space-x-4  align-middle">
                     {navigation.map((item) => (
-                      <Link
-                        className={` + flex flex-row items-center justify-center rounded-xl px-2 py-2  align-middle decoration-[0.25rem] hover:decoration-[0.5rem] focus:decoration-[0.5rem] motion-safe:transition-all motion-safe:duration-200 ${item.bg}`}
-                        href={item.href}
-                        key={item.name}
-                      >
-                        {item.icon && (
-                          <Image
-                            className="mr-2"
-                            src={item.icon}
-                            alt={item.text}
-                            width={25}
-                            height={25}
-                          />
-                        )}
-                        {item.name}
+                      <Link key={item.name} href={item.href}>
+                        <div
+                          className={` + flex flex-row items-center justify-center rounded-xl px-2 py-2  align-middle decoration-[0.25rem] hover:decoration-[0.5rem] focus:decoration-[0.5rem] motion-safe:transition-all motion-safe:duration-200 ${item.bg}`}
+                        >
+                          <a>
+                            {' '}
+                            {item.icon && (
+                              <Image
+                                className="mr-2"
+                                src={item.icon}
+                                alt={item.text}
+                                width={25}
+                                height={25}
+                              />
+                            )}{' '}
+                          </a>
+                          <p className="tracking-widest text-blackgroup-hover:opacity-100">
+                            {' '}
+                            {item.name}{' '}
+                          </p>
+                        </div>
                       </Link>
                     ))}
                   </div>
@@ -164,4 +177,24 @@ export default function Nav({ color = 'bg-black', bgColor }) {
 		text: "Book icon",
 		current: false,
 	*/
+}
+
+{
+  /* <Link
+className={` + flex flex-row items-center justify-center rounded-xl px-2 py-2  align-middle decoration-[0.25rem] hover:decoration-[0.5rem] focus:decoration-[0.5rem] motion-safe:transition-all motion-safe:duration-200 ${item.bg}`}
+href={item.href}
+key={item.name}
+
+>
+<a>  {item.icon && (
+  <Image
+    className="mr-2"
+    src={item.icon}
+    alt={item.text}
+    width={25}
+    height={25}
+  />
+)}
+{item.name}</a> 
+</Link> */
 }
