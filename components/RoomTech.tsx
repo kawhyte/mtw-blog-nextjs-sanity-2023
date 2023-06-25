@@ -133,7 +133,7 @@ function RoomTech({ speed = 10, techAvailable }) {
 
 						{/*Ports, Plugs & TV */}
 
-						<div className='pt-4  w-full'>
+						<div className=' w-full'>
 							<div className='h-full p-6 rounded-lg border-2 border-pink-500 flex flex-col relative overflow-hidden'>
 								<h2 className='text-pink-500  text-base tracking-widest title-font mb-1 font-medium uppercase'>
 									TV Ports, Plugs   & other tech

@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 export default function BodySectionSeparator() {
   return (
-    <div className=" relative  flex-col overflow-hidden md:my-20 bg-green-50 pr-3 rounded-xl">
+    <div className=" relative my-8  flex-col overflow-hidden md:my-20 bg-green-50 pr-3 rounded-xl">
       <div className="z-20 w-full px-4  py-12 text-start sm:px-6 lg:w-1/2 lg:px-8 lg:py-16">
         <h2 className="text-3xl font-extrabold text-black  sm:text-4xl">
           <span className="font-fancy block">

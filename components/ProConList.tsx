@@ -11,7 +11,7 @@ function ProConList({ positives, negatives, verdict2 }) {
 					Bottom Line
 				</h1>
 				<div className='container md:px- py-6 lg:py-12 mx-auto flex flex-wrap'>
-					<div className=' grid grid-cols-1  2xl:grid-cols-3'>
+					<div className=' grid grid-cols-1  gap-6 2xl:grid-cols-3'>
 						<div className='md:  md:w-full'>
 							<div className='flex flex-col rounded-lg  bg-gradient-to-b from-gray-100 via-gray-200 to-green-100 border-opacity-50 p-2 md:p-5  '>
 								<div className='flex align-middle justify-start '>
@@ -55,8 +55,8 @@ function ProConList({ positives, negatives, verdict2 }) {
 								</div>
 							</div>
 						</div>
-						<div className='pt-8 md:w-full'>
-							<div className='flex flex-col rounded-lg  bg-gradient-to-b from-gray-100 via-gray-200 to-red-100 border-opacity-50 p-2 md:mr-4 mr-0 md:p-5  '>
+						<div className=' md:w-full'>
+							<div className='flex flex-col  rounded-lg  bg-gradient-to-b from-gray-100 via-gray-200 to-red-100 border-opacity-50 mr-0 md:p-5  '>
 								<div className='flex align-middle justify-start '>
 									<h2 className='font-fancy text-gray-900 text-lg md:text-2xl title-font font-bold mb-3 pr-3'>
 										What we did not like
@@ -97,7 +97,7 @@ function ProConList({ positives, negatives, verdict2 }) {
 								</div>
 							</div>
 						</div>
-						<div className='pt-8 md:w-full'>
+						<div className=' md:w-full'>
 							<div className='flex flex-col  rounded-lg  bg-gradient-to-r from-indigo-200 via-red-200 to-yellow-100 border-opacity-50 p-2 md:p-5  '>
 								<div className='flex align-middle justify-start '>
 									<h2 className='font-fancy text-gray-900 text-lg md:text-2xl title-font font-bold mb-3 pr-3'>
