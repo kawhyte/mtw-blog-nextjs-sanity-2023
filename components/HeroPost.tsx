@@ -30,7 +30,7 @@ export default function HeroPost(
     location,
   } = props
   return (
-    <section className="mt-20  ">
+    <section className="mt-20 max-w-4xl ">
       <div className=" container mx-auto mb-10 flex w-full flex-wrap">
         <div className="mx-4 mb-6 w-full lg:mb-0 lg:w-1/2 ">
           <h1 className="font-fancy  title-font mb-2 text-2xl font-medium text-gray-900 sm:text-3xl">
@@ -42,25 +42,15 @@ export default function HeroPost(
 
       <div className="flex flex-col items-center justify-start ">
         <div className=" relative ">
-          <MtwAward address={location} date={date} />
+          {/* <MtwAward address={location} date={date} /> */}
 
-          <div className="absolute bottom-0 right-0  -my-8 mx-6 flex flex-col items-start justify-start align-middle ">
-            {/* <p className='mb-2 z-20 md:mb-6 text-lg sm:text-xl md:text-4xl font-bold tracking-tighter leading-tight bg-white px-3 py-2 mx-3 md:mx-0 rounded-lg'>
-          
-            <Link
-                              as={`/${slugType}/${slug}`}
-                              href={`/${slugType}/[slug]`}
-                              className='hover:underline break-words'>
-
-                              {title}
-
-                          </Link>
-         </p>  */}
-          </div>
+          <div className="absolute bottom-0 right-0  -my-8 mx-6 flex flex-col items-start justify-start align-middle "></div>
           <CoverImage
             slug={slug}
             image={coverImage}
             title={title}
+            date={date}
+            location={location}
             // url={coverImage}
             // linkType={linkType}
           />

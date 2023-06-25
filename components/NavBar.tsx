@@ -1,58 +1,60 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
-import lottie from 'lottie-web'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useRef } from 'react'
+import { IoRestaurantOutline } from 'react-icons/io5'
+import { LiaCrownSolid } from 'react-icons/lia'
+import { PiSneakerLight } from "react-icons/pi";
+import { RiHotelLine } from 'react-icons/ri'
+import { TfiMapAlt } from 'react-icons/tfi'
+import SectionSeparator from './SectionSeparator'
+import BodySectionSeparator from './IndexTopTen'
 
+
+ const bg = '  underline decoration-pink-200 hover:decoration-pink-500/50 focus:decoration-pink-500/50 '
 const navigation = [
-  {
-    name: 'Home',
-    href: '/',
-    // icon: '/icon/hotel.svg',
-    text: 'Hotel icon',
-    bg: '   underline decoration-pink-500 hover:decoration-pink-500/50 focus:decoration-pink-500/50',
-    current: false,
-  },
   {
     name: 'Hotel Reviews',
     href: '/hotel',
-    // icon: '/icon/hotel.svg',
+    icon: <RiHotelLine className="h-6 w-10  text-pink-400" />,
     text: 'Hotel icon',
-    bg: '   underline decoration-pink-500 hover:decoration-pink-500/50 focus:decoration-pink-500/50',
+    bg: ' underline decoration-pink-200 hover:decoration-pink-500/50 focus:decoration-pink-500/50',
     current: false,
   },
   {
     name: 'Food Reviews',
     href: '/food',
-    // icon: '/icon/food2.svg',
+    icon: <IoRestaurantOutline className="h-6 w-10  text-green-500" />,
     text: 'Food icon',
-    bg: '   underline decoration-pink-500 hover:decoration-pink-500/50 focus:decoration-pink-500/50',
+    bg: ' underline decoration-green-200 hover:decoration-green-500/50 focus:decoration-green-500/50',
     current: false,
   },
   {
     name: 'Guides',
     href: '/story',
-    // icon: '/icon/book.svg',
+    icon: <TfiMapAlt className="h-6 w-10   text-indigo-400 " />,
     text: 'Book icon',
-    bg: '   underline decoration-pink-500 hover:decoration-pink-500/50 focus:decoration-pink-500/50',
+    bg: ' underline decoration-indigo-200 hover:decoration-indigo-500/50 focus:decoration-indigo-500/50',
     current: false,
   },
   {
     name: 'Stuff We Like',
     href: '/allreviews',
-    // icon: '/icon/walk.svg',
+        icon: <PiSneakerLight className="h-6 w-10  text-pink-600" />,
+
+    // icon: '/icon/walk.svg', PiSneakerLight
     text: 'Man walking',
-    bg: ' underline decoration-pink-500 hover:decoration-pink-500/50 focus:decoration-pink-500/50',
+    bg: bg,
     current: false,
   },
   {
     name: 'Our Top Picks',
     href: '/top_picks',
-    icon: '/icon/crown.svg',
+    icon: <LiaCrownSolid className="h-6 w-10  text-yellow-500" />,
     text: 'Book icon',
-    bg: '  border-dashed border-2 border-yellow-500  hover:decoration-yellow-500/50 focus:decoration-yellow-500/50 hover:bg-yellow-100 ',
+    bg: '  underline decoration-yellow-200 hover:decoration-yellow-500/50 focus:decoration-yellow-500/50',
     current: false,
   },
 ]
@@ -71,7 +73,7 @@ export default function Nav({ color = 'bg-black', bgColor }) {
     <Disclosure
       as="nav"
       className={
-        ' mt- blur-backdrop-filter  max-w-8xl firefox:bg-opacity-90 sticky top-0 z-50 mx-auto h-[72px]  w-full   whitespace-nowrap bg-transparent bg-white   bg-opacity-50 bg-clip-padding py-4 pt-6 backdrop-blur-sm backdrop-filter xl:px-8  ' +
+        ' mt- blur-backdrop-filter   max-w-8xl firefox:bg-opacity-90 sticky top-0 z-50 mx-auto h-[72px]  w-full   whitespace-nowrap bg-transparent bg-white   bg-opacity-50 bg-clip-padding py-4 pt-6 backdrop-blur-sm backdrop-filter xl:px-1  ' +
         bg
       }
     >
@@ -117,11 +119,10 @@ export default function Nav({ color = 'bg-black', bgColor }) {
                     {navigation.map((item) => (
                       <Link key={item.name} href={item.href}>
                         <div
-                          className={` + flex flex-row items-center justify-center rounded-xl px-2 py-2  align-middle decoration-[0.25rem] hover:decoration-[0.5rem] focus:decoration-[0.5rem] motion-safe:transition-all motion-safe:duration-200 ${item.bg}`}
+                          className={` + flex flex-col items-center justify-center rounded-xl px-4 py-2  align-middle decoration-[0.25rem] hover:decoration-[0.5rem] focus:decoration-[0.5rem] motion-safe:transition-all motion-safe:duration-200 ${item.bg} `}
                         >
-                          <a>
-                            {' '}
-                            {item.icon && (
+                          {item.icon}
+                          {/* {item.icon && (
                               <Image
                                 className="mr-2"
                                 src={item.icon}
@@ -129,12 +130,11 @@ export default function Nav({ color = 'bg-black', bgColor }) {
                                 width={25}
                                 height={25}
                               />
-                            )}{' '}
-                          </a>
-                          <p className="tracking-widest text-blackgroup-hover:opacity-100">
-                            {' '}
-                            {item.name}{' '}
-                          </p>
+                            )} */}
+
+                          <div className={`  text-blackgroup-hover:opacity-600 mt-1 text-sm text-gray-600 `}>
+                            {item.name}
+                          </div>
                         </div>
                       </Link>
                     ))}
@@ -163,6 +163,9 @@ export default function Nav({ color = 'bg-black', bgColor }) {
               ))}
             </div>
           </Disclosure.Panel>
+          
+
+   
         </>
       )}
     </Disclosure>

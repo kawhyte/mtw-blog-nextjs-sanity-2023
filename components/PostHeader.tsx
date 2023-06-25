@@ -50,7 +50,7 @@ export default function PostHeader(
 
       <div className="flex flex-col justify-start align-middle md:flex-row">
         <div>
-          <p className="p-1 text-center font-medium text-gray-900 md:text-left md:text-sm ">
+          <p className=" text-center font-medium text-gray-900 md:text-left md:text-sm ">
             <span className="text-lg capitalize">
               {location ? location : ''}{' '}
             </span>
@@ -78,7 +78,7 @@ export default function PostHeader(
         {excerpt2 && (
           <>
             <div>
-              <div className="mx-4 my-8 max-w-4xl text-justify lg:text-lg ">
+              <div className=" my-8 max-w-4xl text-justify lg:text-lg ">
                 {/* {excerpt2} */}
                 <PostBody content={excerpt2} />
               </div>

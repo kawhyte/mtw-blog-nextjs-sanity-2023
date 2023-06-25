@@ -6,7 +6,7 @@
 .portableText ul,
 .portableText ol,
 .portableText blockquote {
-  @apply my-6;
+  @apply my-6 mx-6;
 }
 
 .portableText h2 {
@@ -14,7 +14,7 @@
 }
 
 .portableText h3 {
-  @apply mb-4 mt-8 text-2xl leading-snug;
+  @apply mb-4 mt-8 mx-6 text-2xl leading-snug;
 }
 
 .portableText a {
@@ -32,6 +32,6 @@
 }
 .portableText img {
 
-  @apply  py-2 lg:max-w-3xl  ;
+  @apply  py-2 mx-5 lg:max-w-3xl  ;
   
 }

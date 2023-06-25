@@ -1,4 +1,5 @@
 import cn from 'classnames'
+import Date from 'components/PostDate'
 import { urlForImage } from 'lib/sanity.image'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -6,26 +7,28 @@ import Link from 'next/link'
 interface CoverImageProps {
   title: string
   slug?: string
+  date?: any
+  location?:string
   image: any
   priority?: boolean
 }
 
 export default function CoverImage(props: CoverImageProps) {
-  const { title, slug, image: source, priority } = props
+  const { title, date, slug,location, image: source, priority } = props
   const image = source?.asset?._ref ? (
     <div
-      className={cn('shadow-small', {
-        'transition-shadow duration-200 hover:shadow-medium bor': slug,
+      className={cn('', {
+        ' ': slug,
       })}
     >
       <Image
-      className={cn('shadow-small', {
-        'hover:shadow-medium transition-shadow duration-200 	rounded-2xl': slug,
-      })}
+        className={cn('', {
+          '	rounded-2xl': slug,
+        })}
         width={1040}
         height={540}
         alt={`Cover Image for ${title}`}
-        src={urlForImage(source).height(540).width(1240).url()}
+        src={urlForImage(source).height(237).width(498).url()}
         sizes="100vw"
         priority={priority}
       />
@@ -39,8 +42,12 @@ export default function CoverImage(props: CoverImageProps) {
       {slug ? (
         <Link href={`/posts/${slug}`} aria-label={title}>
           {image}
-          <p className='mb-2 pt-4 hover:underline break-words z-20 md:mb-6 text-lg sm:text-xl md:text-4xl font-bold tracking-tighter leading-tight bg-white px-3 py-2 mx-3 md:mx-0 rounded-lg'>
-          {title}
+          <p className="z-20 mb-2 break-words rounded-lg bg-white pt-4 text-lg font-semibold leading-tight  tracking-tighter hover:underline sm:text-xl md:mx-0 md:text-2xl">
+            {title}
+          </p>
+          <p>{location}</p>
+          <p>
+            <Date dateString={date} />
           </p>
         </Link>
       ) : (
@@ -50,14 +57,10 @@ export default function CoverImage(props: CoverImageProps) {
   )
 }
 
-
-        
 // <Link
 // as={`/${slugType}/${slug}`}
 // href={`/${slugType}/[slug]`}
 // className='hover:underline break-words'>
-
-
 
 // </Link>
 // </p>

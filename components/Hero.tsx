@@ -37,8 +37,8 @@ function Hero() {
 					Your browser does not support the video tag.
 					<source
 						// src='https://dl.dropboxusercontent.com/s/0c76v5mrs9duv12/MTW-video.mp4'
-						//  src='https://drive.google.com/uc?id=13HNQnXUK4iXBKktBCo_5lZyPRIinv5Hm'
-						src='/ramen.mp4'
+						 src='https://drive.google.com/uc?id=13HNQnXUK4iXBKktBCo_5lZyPRIinv5Hm'
+						// src='/ramen.mp4'
 						type='video/mp4'
 					/>
 				</video>

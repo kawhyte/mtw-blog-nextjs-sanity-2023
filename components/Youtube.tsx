@@ -8,7 +8,7 @@ export default function Youtube({ link }) {
 
   return (
     <>
-      <hr className="mb-24 mt-28 border-accent-2" />
+      <hr className="mb-12 mt-12 border-accent-2" />
 
       {link?.match(
         /^(http(s)?:\/\/)?((w){3}.)?youtu(be|.be)?(\.com)?\/.+/gm

@@ -19,7 +19,7 @@ const breakpointColumnsObj = {
 function Gallery({ posts, heading }) {
   return (
     <section className="body-font">
-      <div className="container mx-auto px-5">
+      <div className="container mx-auto">
         <div className="mb-10 flex w-full flex-col text-center font-medium lg:mb-12">
           <div className="flex ">
             <p className="font-fancy text-left text-5xl font-semibold leading-tight tracking-tighter md:text-5xl md:leading-none lg:text-5xl">
