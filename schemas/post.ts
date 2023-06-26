@@ -19,6 +19,7 @@ export default defineType({
   title: 'Post (Hotel/Restaurant/Guides)',
   icon: BookIcon,
   type: 'document',
+
   fields: [
     defineField({
       title: 'Select the type of review (Hotel or Food)',
@@ -131,6 +132,13 @@ export default defineType({
       description: 'For best results: Image size should be 566 x 525, webp quality 80%, 80% image resize.',
 
     }),
+    // defineField({
+    //   name: 'gallery2',
+    //   title: 'Photo Gallery222',
+    //   type: 'gallery',
+    //   description: 'For best results: Image size should be 566 x 525, webp quality 80%, 80% image resize.',
+
+    // }),
 
     defineField({
       name: 'youtube',

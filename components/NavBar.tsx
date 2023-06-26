@@ -13,14 +13,14 @@ import SectionSeparator from './SectionSeparator'
 import BodySectionSeparator from './IndexTopTen'
 
 
- const bg = '  underline decoration-pink-200 hover:decoration-pink-500/50 focus:decoration-pink-500/50 '
+ const bg = '  underline decoration-pink-200 underline-offset-8 hover:decoration-pink-500/50 focus:decoration-pink-500/50 '
 const navigation = [
   {
     name: 'Hotel Reviews',
     href: '/hotel',
     icon: <RiHotelLine className="h-6 w-10  text-pink-400" />,
     text: 'Hotel icon',
-    bg: ' underline decoration-pink-200 hover:decoration-pink-500/50 focus:decoration-pink-500/50',
+    bg: ' underline decoration-pink-200 underline-offset-8 hover:decoration-pink-500/50 focus:decoration-pink-500/50',
     current: false,
   },
   {
@@ -28,7 +28,7 @@ const navigation = [
     href: '/food',
     icon: <IoRestaurantOutline className="h-6 w-10  text-green-500" />,
     text: 'Food icon',
-    bg: ' underline decoration-green-200 hover:decoration-green-500/50 focus:decoration-green-500/50',
+    bg: ' underline decoration-green-200 underline-offset-8 hover:decoration-green-500/50 focus:decoration-green-500/50',
     current: false,
   },
   {
@@ -36,7 +36,7 @@ const navigation = [
     href: '/story',
     icon: <TfiMapAlt className="h-6 w-10   text-indigo-400 " />,
     text: 'Book icon',
-    bg: ' underline decoration-indigo-200 hover:decoration-indigo-500/50 focus:decoration-indigo-500/50',
+    bg: ' underline decoration-indigo-200  underline-offset-8 hover:decoration-indigo-500/50 focus:decoration-indigo-500/50',
     current: false,
   },
   {
@@ -52,9 +52,9 @@ const navigation = [
   {
     name: 'Our Top Picks',
     href: '/top_picks',
-    icon: <LiaCrownSolid className="h-6 w-10  text-yellow-500" />,
+    icon: <LiaCrownSolid className="h-6 w-10  text-yellow-400" />,
     text: 'Book icon',
-    bg: '  underline decoration-yellow-200 hover:decoration-yellow-500/50 focus:decoration-yellow-500/50',
+    bg: '  underline  decoration-yellow-200 underline-offset-8 hover:decoration-yellow-500/50 focus:decoration-yellow-500/50',
     current: false,
   },
 ]
@@ -101,7 +101,7 @@ export default function Nav({ color = 'bg-black', bgColor }) {
                   legacyBehavior
                 >
                   <div className="flex flex-shrink-0 items-center justify-center  ">
-                    <div className=" ">
+                    <div className="pl-2 ">
                       <Image
                         className="rounded-xl"
                         src="/icon/icon.jpg"

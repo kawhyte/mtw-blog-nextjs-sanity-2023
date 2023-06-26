@@ -30,7 +30,7 @@ export default function HeroPost(
     location,
   } = props
   return (
-    <section className="mt-20 max-w-4xl ">
+    <section className="mt-20 max-w-4xl  ">
       <div className=" container mx-auto mb-10 flex w-full flex-wrap">
         <div className="mx-4 mb-6 w-full lg:mb-0 lg:w-1/2 ">
           <h1 className="font-fancy  title-font mb-2 text-2xl font-medium text-gray-900 sm:text-3xl">
@@ -40,11 +40,11 @@ export default function HeroPost(
         </div>
       </div>
 
-      <div className="flex flex-col items-center justify-start ">
-        <div className=" relative ">
+      <div className="flex flex-col   ">
+        <div className=" ">
           {/* <MtwAward address={location} date={date} /> */}
 
-          <div className="absolute bottom-0 right-0  -my-8 mx-6 flex flex-col items-start justify-start align-middle "></div>
+          <div className=" bottom-0 right-0  my-8 mx-6 flex flex-col items-start justify-start align-middle ">
           <CoverImage
             slug={slug}
             image={coverImage}
@@ -54,6 +54,7 @@ export default function HeroPost(
             // url={coverImage}
             // linkType={linkType}
           />
+          </div>
         </div>
         {/* <div className='md:grid md:grid-cols-2 md:col-gap-16 lg:col-gap-8 mb-16 md:mb-12 '>
         <div>
