@@ -7,12 +7,12 @@ import { ratingItem } from "../lib/getReviewType";
 import ProgressRating from "./ProgressRating";
 
 const StarRating = ({ rating, linkType }) => {
-	 console.log("STAR RATING Beforree",rating);
+	 //console.log("STAR RATING Beforree",rating);
 
 	// console.log("STAR RATING LinkType",linkType);
 	
 	const propertyNames = Object.entries(rating);
-console.log("propertyNames",propertyNames)
+// console.log("propertyNames",propertyNames)
 	const { average, textRating } = calculateRating(propertyNames);
 	// console.log("average",average)
 	// console.log("propertyNames",propertyNames)

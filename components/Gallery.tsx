@@ -18,7 +18,7 @@ const breakpointColumnsObj = {
 
 function Gallery({ posts, heading }) {
 
-  console.log("NEW Gall posts gal ", posts.gallery)
+  //console.log("NEW Gall posts gal ", posts.gallery)
   return (
     <section className="body-font">
       <div className="container mx-auto">

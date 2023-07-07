@@ -39,7 +39,8 @@ export default function PostHeader(
     gallery,
   } = props
 
-      console.log("props.hotelRating PostHeader W",hotelRating)
+      //console.log("props.hotelRating PostHeader W",hotelRating)
+      //console.log("props PPPPOOOOOOOOOOO",gallery)
     //  console.log("linkType PostHeader W",linkType)
   return (
     <>

@@ -13,17 +13,17 @@ interface CoverImageProps {
 
 export default function CoverImage(props: CoverImageProps) {
   const { title, slug, image: source, priority, gallery } = props
- 
-  const image1 = gallery[0]
-    ? urlForImage(gallery[0]).height(813).width(1240).url()
+  //console.log("COVER IMage Post ", props)
+
+  const image1 = gallery ? urlForImage(gallery[0]).height(813).width(1240).url()
     : '/holder.jpg'
-  const image2 = gallery[1]
+  const image2 = gallery
     ? urlForImage(gallery[1]).height(813).width(1240).url()
     : '/holder.jpg'
-  const image3 = gallery[2]
+  const image3 = gallery
     ? urlForImage(gallery[2]).height(813).width(1240).url()
     : '/holder.jpg'
-  const image4 = gallery[3]
+  const image4 = gallery
     ? urlForImage(gallery[3]).height(813).width(1240).url()
     : '/holder.jpg'
   // console.log("Source ", source)
