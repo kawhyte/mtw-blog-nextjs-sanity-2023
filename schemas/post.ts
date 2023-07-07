@@ -52,14 +52,12 @@ export default defineType({
         isUnique: (value, context) => context.defaultIsUnique(value, context),
       },
       validation: (rule) => rule.required(),
-      
-
     }),
     defineField({
       name: 'date',
       title: 'Visited/Story Date',
       type: 'datetime',
-     
+
       initialValue: () => new Date().toISOString(),
     }),
     defineField({
@@ -67,7 +65,7 @@ export default defineType({
       title: 'Location',
       type: 'string',
       hidden: ({ parent, value }) => parent?.linkType == 'story',
-      
+
       //validation: (rule) => rule.required(),
     }),
 
@@ -76,7 +74,7 @@ export default defineType({
       title: 'Room Type',
       type: 'string',
       description: 'eg. 1 King Bed Lagoon Access (optional)',
-      hidden: ({ parent }) => parent?.linkType !== 'hotel' 
+      hidden: ({ parent }) => parent?.linkType !== 'hotel',
       //validation: (rule) => rule.required(),
     }),
 
@@ -84,10 +82,11 @@ export default defineType({
       name: 'coverImage',
       title: 'Main Image',
       type: 'image',
-      description: 'For best results: Image size should be 1240 x 540, webp quality 80%, 60% image resize.',
+      description:
+        'For best results: Image size should be 1240 x 540, webp quality 80%, 60% image resize.',
       options: {
         hotspot: true,
-      }
+      },
     }),
 
     defineField({
@@ -106,11 +105,9 @@ export default defineType({
       hidden: ({ parent, value }) => parent?.linkType == 'story',
     }),
 
- 
-
     // defineField({
-    //   title: 'Gallery',
-    //   name: 'gallery',
+    //   title: 'Gallery2223',
+    //   name: 'gallery2',
 
     //   description: 'Add multiple Photos',
     //   //validation: (Rule) => Rule.required(),
@@ -118,19 +115,36 @@ export default defineType({
     //   of: [{ type: 'image' }],
     // }),
     // {
-		// 	name: "amenities",
-		// 	title: "Additional rating",
-		// 	description: "Add additional rating ctaegory.",
-		// 	type: "array",
-		// 	of: [{ type: "amenities" }],
-		// },
+    // 	name: "amenities",
+    // 	title: "Additional rating",
+    // 	description: "Add additional rating ctaegory.",
+    // 	type: "array",
+    // 	of: [{ type: "amenities" }],
+    // },
 
     defineField({
       name: 'gallery',
       title: 'Photo Gallery',
-      type: 'gallery',
-      description: 'For best results: Image size should be 566 x 525, webp quality 80%, 80% image resize.',
+      // type: 'gallery',
+      description:
+        'For best results: Image size should be 566 x 525, webp quality 80%, 80% image resize.',
+      type: 'array',
+      of: [
+        {
+          type: 'image',
 
+          options: {
+            hotspot: true,
+          },
+          fields: [
+            {
+              name: 'alt',
+              type: 'string',
+              title: 'Alternative text',
+            },
+          ],
+        },
+      ],
     }),
     // defineField({
     //   name: 'gallery2',
@@ -144,7 +158,7 @@ export default defineType({
       name: 'youtube',
       title: 'Youtube URL (Optional)',
       type: 'string',
-      description: "Youtube link is Optional",
+      description: 'Youtube link is Optional',
       hidden: ({ parent, value }) => parent?.linkType == 'story',
       //validation: (rule) => rule.required(),
     }),
@@ -154,7 +168,7 @@ export default defineType({
       title: 'Rating for Hotels',
       description: 'Add a rating for each Hotel section.',
       type: 'hotelRating',
-      hidden: ({ parent }) => parent?.linkType !== 'hotel' ,
+      hidden: ({ parent }) => parent?.linkType !== 'hotel',
     },
     {
       name: 'foodRating',
@@ -217,14 +231,12 @@ export default defineType({
       title: 'Content',
       description: 'Optional content area',
       type: 'array',
-      of: [{ type: 'block' },
-      {
-        type: 'image'
-      }
-    
-    
-    
-    ],
+      of: [
+        { type: 'block' },
+        {
+          type: 'image',
+        },
+      ],
     }),
 
     // defineField({

@@ -17,6 +17,8 @@ const breakpointColumnsObj = {
 }
 
 function Gallery({ posts, heading }) {
+
+  console.log("NEW Gall posts gal ", posts.gallery)
   return (
     <section className="body-font">
       <div className="container mx-auto">
@@ -35,7 +37,7 @@ function Gallery({ posts, heading }) {
         {/* <div className="w-full max-w-7xl  p-5 pb-10 mx-auto mb-10 gap-5 columns-3 space-y-5">  */}
         <div className="">
           <div className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4  ">
-            {posts?.gallery?.images?.map((item, i) => (
+            {posts?.gallery?.map((item, i) => (
               
                 <div key={i} className=" rounded-md  ">
                   {/* <Zoom> */}
@@ -49,7 +51,7 @@ function Gallery({ posts, heading }) {
                     // .url()}
                     // placeholder='blur'
                     alt={item?.alt}
-                    src={urlForImage(posts.gallery.images[i]).width(1240)
+                    src={urlForImage(posts.gallery[i]).width(1240)
                         .height(744)
                         .format('webp')
                         .url()}

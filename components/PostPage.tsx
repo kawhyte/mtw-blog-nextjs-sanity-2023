@@ -37,8 +37,8 @@ export default function PostPage(props: PostPageProps) {
     notFound()
   }
 
-  const ratingCat = post.linkType === 'food' ? post.foodRating : post.hotelRating
-    console.log('Post Page post.foodRating  ', post.foodRating )
+  const ratingCat = post?.linkType === 'food' ? post?.foodRating : post?.hotelRating
+    // console.log('Post Page post.foodRating  ', post.foodRating )
 //  console.log("POST PAGE linkedtype ", post.linkType)
   return (
     <>
