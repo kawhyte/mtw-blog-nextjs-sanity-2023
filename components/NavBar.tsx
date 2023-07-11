@@ -9,16 +9,25 @@ import { LiaCrownSolid } from 'react-icons/lia'
 import { PiSneakerLight } from "react-icons/pi";
 import { RiHotelLine } from 'react-icons/ri'
 import { TfiMapAlt } from 'react-icons/tfi'
-import SectionSeparator from './SectionSeparator'
+
 import BodySectionSeparator from './IndexTopTen'
+import SectionSeparator from './SectionSeparator'
 
 
  const bg = '  underline decoration-pink-200 underline-offset-8 hover:decoration-pink-500/50 focus:decoration-pink-500/50 '
 const navigation = [
   {
+    name: 'Our Top Picks',
+    href: '/top_picks',
+    icon: <LiaCrownSolid className="h-6 w-10  text-gray-500" />,
+    text: 'Book icon',
+    bg: '  underline  decoration-yellow-200 underline-offset-8 hover:decoration-yellow-500/50 focus:decoration-yellow-500/50',
+    current: false,
+  },
+  {
     name: 'Hotel Reviews',
     href: '/hotel',
-    icon: <RiHotelLine className="h-6 w-10  text-pink-400" />,
+    icon: <RiHotelLine className="h-6 w-10  text-gray-500" />,
     text: 'Hotel icon',
     bg: ' underline decoration-pink-200 underline-offset-8 hover:decoration-pink-500/50 focus:decoration-pink-500/50',
     current: false,
@@ -26,7 +35,7 @@ const navigation = [
   {
     name: 'Food Reviews',
     href: '/food',
-    icon: <IoRestaurantOutline className="h-6 w-10  text-green-500" />,
+    icon: <IoRestaurantOutline className="h-6 w-10  text-gray-500" />,
     text: 'Food icon',
     bg: ' underline decoration-green-200 underline-offset-8 hover:decoration-green-500/50 focus:decoration-green-500/50',
     current: false,
@@ -34,7 +43,7 @@ const navigation = [
   {
     name: 'Guides',
     href: '/story',
-    icon: <TfiMapAlt className="h-6 w-10   text-indigo-400 " />,
+    icon: <TfiMapAlt className="h-6 w-10   text-gray-500 " />,
     text: 'Book icon',
     bg: ' underline decoration-indigo-200  underline-offset-8 hover:decoration-indigo-500/50 focus:decoration-indigo-500/50',
     current: false,
@@ -42,21 +51,14 @@ const navigation = [
   {
     name: 'Stuff We Like',
     href: '/allreviews',
-        icon: <PiSneakerLight className="h-6 w-10  text-pink-600" />,
+        icon: <PiSneakerLight className="h-6 w-10  text-gray-500" />,
 
     // icon: '/icon/walk.svg', PiSneakerLight
     text: 'Man walking',
     bg: bg,
     current: false,
   },
-  {
-    name: 'Our Top Picks',
-    href: '/top_picks',
-    icon: <LiaCrownSolid className="h-6 w-10  text-yellow-400" />,
-    text: 'Book icon',
-    bg: '  underline  decoration-yellow-200 underline-offset-8 hover:decoration-yellow-500/50 focus:decoration-yellow-500/50',
-    current: false,
-  },
+
 ]
 
 function classNames(...classes) {

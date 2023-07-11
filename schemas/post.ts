@@ -83,7 +83,7 @@ export default defineType({
       title: 'Main Image',
       type: 'image',
       description:
-        'For best results: Image size should be 1240 x 540, webp quality 80%, 60% image resize.',
+        'For best results: Image size should be 850 x 405, webp quality 80%, 60% image resize.',
       options: {
         hotspot: true,
       },
