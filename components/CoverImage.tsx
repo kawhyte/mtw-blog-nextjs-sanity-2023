@@ -25,10 +25,22 @@ export default function CoverImage(props: CoverImageProps) {
         className={cn('', {
           '	rounded-2xl': slug,
         })}
-        width={1040}
-        height={540}
+        width={740}
+        height={770}
+        blurDataURL={urlForImage(source)
+          .width(740)
+          .height(744)
+          .quality(1)
+          .format('webp')
+          .url()}
+          placeholder="blur"
         alt={`Cover Image for ${title}`}
-        src={urlForImage(source).height(237).width(498).url()}
+    
+        src={urlForImage(source)
+          .width(1240)
+          .height(801)
+          .format('webp')
+          .url()}
         sizes="100vw"
         priority={priority}
       />
