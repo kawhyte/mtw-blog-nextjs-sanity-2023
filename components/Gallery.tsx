@@ -41,7 +41,8 @@ function Gallery({ posts, heading }) {
               
                 <div key={i} className=" rounded-md  ">
                   {/* <Zoom> */}
-                  <Image
+                 
+                  <img
                     className=" rounded-xl object-cover h-full "
                     // blurDataURL={imageBuilder(posts.gallery.images[i])
                     // .width(1000)
