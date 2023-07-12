@@ -13,7 +13,7 @@ export default function Footer() {
 						<Link href='/' passHref legacyBehavior>
 							<div className='flex flex-row justify-center align-middle items-center'>
 								<div className=' hidden mx-4 sm:inline-block'>
-									<Image
+									<img
 										className='rounded-xl '
 										src='/icon/icon.jpg'
 										alt='MTW icon'

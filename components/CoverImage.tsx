@@ -58,7 +58,7 @@ export default function CoverImage(props: CoverImageProps) {
             {title}
           </p>
           <span >{location}  </span>
-          <span className=' px-1 text-pink-500 '> | </span>
+         
           <span>
             <Date dateString={date} />
           </span>

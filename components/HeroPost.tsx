@@ -49,7 +49,7 @@ export default function HeroPost(
               slug={slug}
               image={coverImage}
               title={title}
-              date={date}
+              // date={date}
               location={location}
               // url={coverImage}
               // linkType={linkType}

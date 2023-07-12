@@ -53,7 +53,7 @@ const StarRating = ({ rating, linkType }) => {
 							<div key={item[0]} className=' border flex flex-col justify-center p-3 rounded-2xl '>
 								<div className='flex flex-row justify-start items-center'>
 									<span className=' pr-4'>
-										<Image
+										<img
 											className=''
 											src={ratingItem[text]?.icon}
 											alt={"icon"}
