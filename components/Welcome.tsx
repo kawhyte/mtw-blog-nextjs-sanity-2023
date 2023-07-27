@@ -19,7 +19,6 @@ function Welcome() {
 						</p>
 					</div>
 
-
 					<div className='absolute bottom-0 right-0 h-48 '>
 					<Image
 						width={255}
