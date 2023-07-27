@@ -58,12 +58,10 @@ const category = [
 function Categories() {
   return (
     <>
-      <section className="my-8  text-gray-600 bg-yellow-50 ">
+      <section className="my-8  bg-yellow-50 text-gray-600 ">
         <div className="container mx-auto px-5 py-10 ">
-
-
           <div className="  ">
-            <div className="relative  grid  grid-cols-2 gap-4 lg:gap-0 place-items-center   md:grid-cols-2 lg:grid-cols-4  ">
+            <div className="relative  grid  grid-cols-2 place-items-center gap-4 md:grid-cols-2   lg:grid-cols-4 lg:gap-0  ">
               {category.map((item) => (
                 <div key={item.href}>
                   <Link
@@ -78,41 +76,6 @@ function Categories() {
                       {item.name}
                     </span>
                   </Link>
-
-                  {/* 
-                                <div className='relative   rounded-xl overflow-hidden  block'>
-                                    <Link
-                                        key={item.name}
-                                        href={item.href}
-                                        className='relative cursor-pointer'
-                                        passHref
-                                        legacyBehavior>
-
-                                            {item.image} */}
-                  {/* <Image
-                                            height={286}
-                                            width={286}
-                                            // blurDataURL={item.image}
-                                            placeholder='blur'
-                                            className='h-40 cursor-pointer rounded-xl w-full  object-cover object-center mb-6'
-                                            src={item.image}
-                                            alt={item.text}
-                                            quality={50}
-                                        /> */}
-                  {/* </Link>
-                                </div>
-                                 */}
-
-                  {/* <Link
-                                    key={item.name}
-                                    href={item.href}
-                                    className='relative cursor-pointer'
-                                    passHref
-                                    legacyBehavior>
-                                    <p className='  text-gray-700 text-xl cursor-pointer '>
-                                        {item.name}
-                                    </p>
-                                </Link> */}
                 </div>
               ))}
             </div>

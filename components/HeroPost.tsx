@@ -47,7 +47,7 @@ export default function HeroPost(
         <div className="">
           {/* <MtwAward address={location} date={date} /> */}
 
-          <div className="   my- flex flex-col items-center justify-start align-middle">
+          <div className="   mx-8 py-6 flex flex-col items-center justify-start align-middle">
             <CoverImage
               slug={slug}
               image={coverImage}
