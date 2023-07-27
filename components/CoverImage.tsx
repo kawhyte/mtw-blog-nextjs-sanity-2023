@@ -3,30 +3,38 @@ import { urlForImage } from 'lib/sanity.image'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import PostBody from './PostBody';
-import PostDate from "./PostDate";
+import PostBody from './PostBody'
+import PostDate from './PostDate'
 
 interface CoverImageProps {
   title: string
   slug?: string
   date?: any
-  location?:string
+  location?: string
   image: any
   priority?: boolean
-  excerpt2?:any
+  excerpt2?: any
 }
 
 export default function CoverImage(props: CoverImageProps) {
-  const { title, date, slug,location,excerpt2, image: source, priority } = props
+  const {
+    title,
+    date,
+    slug,
+    location,
+    excerpt2,
+    image: source,
+    priority,
+  } = props
   const image = source?.asset?._ref ? (
     <div
-      className={cn('', {
+      className={cn('	', {
         ' ': slug,
       })}
     >
       <Image
         className={cn('', {
-          '	rounded-2xl': slug,
+          '	rounded-2xl mx-auto': slug,
         })}
         width={740}
         height={770}
@@ -36,14 +44,9 @@ export default function CoverImage(props: CoverImageProps) {
           .quality(1)
           .format('webp')
           .url()}
-          placeholder="blur"
+        placeholder="blur"
         alt={`Cover Image for ${title}`}
-    
-        src={urlForImage(source)
-          .width(1240)
-          .height(801)
-          .format('webp')
-          .url()}
+        src={urlForImage(source).width(1240).height(801).format('webp').url()}
         sizes="100vw"
         priority={priority}
       />
@@ -57,17 +60,20 @@ export default function CoverImage(props: CoverImageProps) {
       {slug ? (
         <Link href={`/posts/${slug}`} aria-label={title}>
           {image}
-          <p className="z-20 mb-2 break-words text-pink-500    pt-4 text-2xl font-semibold leading-tight  tracking-tighter hover:underline  md:mx-0 md:text-4xl">
+          <p className="z-20 mb-2 text-center break-words pt-4 text-2xl font-semibold leading-tight tracking-tighter  text-pink-500 hover:underline  md:mx-0 md:text-4xl">
             {title}
           </p>
-          <div className='text-xl' >{location} </div>
-         
-          {/* <span>
+          <div className="text-2xl text-center">
+            {location}
+           
+             </div>
+
+          <div className="text-lg text-center">
             <PostDate dateString={date} />
        
    
-          </span> */}
-          <PostBody content={excerpt2} />
+          </div>
+          {/* <PostBody content={excerpt2} /> */}
         </Link>
       ) : (
         image
