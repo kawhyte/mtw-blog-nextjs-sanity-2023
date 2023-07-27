@@ -1,8 +1,9 @@
 import cn from 'classnames'
-import Date from 'components/PostDate'
 import { urlForImage } from 'lib/sanity.image'
 import Image from 'next/image'
 import Link from 'next/link'
+
+import PostDate from "./PostDate";
 
 interface CoverImageProps {
   title: string
@@ -57,10 +58,12 @@ export default function CoverImage(props: CoverImageProps) {
           <p className="z-20 mb-2 break-words text-pink-500  rounded-lg bg-white pt-4 text-lg font-semibold leading-tight  tracking-tighter hover:underline sm:text-xl md:mx-0 md:text-4xl">
             {title}
           </p>
-          <span >{location}  </span>
+          {/* <span >{location} </span> */}
          
           <span>
-            <Date dateString={date} />
+          {/* <PostDate dateString={date} />
+          <PostDate dateString={'2022-06-26 12:04'}></PostDate> */}
+   
           </span>
         </Link>
       ) : (

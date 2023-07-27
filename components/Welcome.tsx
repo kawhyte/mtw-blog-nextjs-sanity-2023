@@ -20,7 +20,7 @@ function Welcome() {
 					</div>
 
 
-					<div className='absolute bottom-0 right-0 '>
+					<div className='absolute bottom-0 right-0 h-48 '>
 					<Image
 						width={255}
 						height={272}

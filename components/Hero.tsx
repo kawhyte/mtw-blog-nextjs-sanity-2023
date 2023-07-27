@@ -20,7 +20,7 @@ function Hero() {
 						src='/hero.webp'
 						// src='/hero.webp'
 						className='block absolute h-full w-full object-cover'
-						layout='fill'
+						fill
 						sizes='50vw'
 						alt='poster photo'
 						quality={99}
