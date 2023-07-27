@@ -30,7 +30,7 @@ export default function HeroPost(
     location,
   } = props
 
-  console.log("PROPs", props)
+  // console.log("PROPs", props)
   // console.log("PROPs date ", date)
   return (
     <section className="mt-10  max-w-full  ">

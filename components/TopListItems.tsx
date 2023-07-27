@@ -5,10 +5,10 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 let count = 2
-export default function TopListItems({ posts }: { posts: Recommendation[] }, {color}) {
+export default function TopListItems({ posts }: { posts: Recommendation[] }, {color="bg-red-200"}) {
 console.log("color", color)
   return (
-    <section className={`my-16  bg-green-50  rounded-2xl`}>
+    <section className={`my-16    rounded-2xl`}>
       <div className=" container  mx-auto mb-10 flex w-full flex-wrap">
         <div className="mx-4 my-6 w-full lg:mb-0 lg:w-1/2 ">
           <h1 className="font-fancy  title-font mb-2 text-2xl font-medium text-gray-900 sm:text-3xl">
@@ -68,7 +68,7 @@ console.log("color", color)
         </div>
       </div>
 
-      <div className="mb-32 pb-20 gap-6 grid grid-cols-2  md:grid-cols-2 lg:grid-cols-3">
+      <div className="mb-32  pb-20 gap-6 grid grid-cols-2  md:grid-cols-2 lg:grid-cols-3">
         {/* {posts[0].recommendations.map( */}
 
         {posts[0].recommendations.slice(1, 20).map(
@@ -78,7 +78,7 @@ console.log("color", color)
                 key={item._id}
                 className="h-90  m-auto w-56 sm:w-72 lg:w-80 cursor-pointer overflow-hidden rounded-lg shadow-lg "
               >
-                <div className="relative">
+                <div key={item._id} className="relative">
                   <Link
                     as={`/posts/${item.post.slug.current}`}
                     href={`/posts/${item.post.slug.current}`}

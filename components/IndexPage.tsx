@@ -40,8 +40,8 @@ export default function IndexPage(props: IndexPageProps) {
 
           <Hero />
           <Welcome />
-         <Categories />
          <div className='bg-blue-50 rounded-xl py-1'>
+         <Categories />
           {heroPost && (
             <HeroPost
               title={heroPost.title}

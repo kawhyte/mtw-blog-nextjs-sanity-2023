@@ -57,10 +57,10 @@ export default function CoverImage(props: CoverImageProps) {
       {slug ? (
         <Link href={`/posts/${slug}`} aria-label={title}>
           {image}
-          <p className="z-20 mb-2 break-words text-pink-500    pt-4 text-lg font-semibold leading-tight  tracking-tighter hover:underline sm:text-xl md:mx-0 md:text-4xl">
+          <p className="z-20 mb-2 break-words text-pink-500    pt-4 text-2xl font-semibold leading-tight  tracking-tighter hover:underline  md:mx-0 md:text-4xl">
             {title}
           </p>
-          <div >{location} </div>
+          <div className='text-xl' >{location} </div>
          
           {/* <span>
             <PostDate dateString={date} />

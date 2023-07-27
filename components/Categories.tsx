@@ -58,7 +58,7 @@ const category = [
 function Categories() {
   return (
     <>
-      <section className="my-8  bg-yellow-50 text-gray-600 ">
+      <section className=" text-gray-600 ">
         <div className="container mx-auto px-5 py-10 ">
           <div className="  ">
             <div className="relative  grid  grid-cols-2 place-items-center gap-4 md:grid-cols-2   lg:grid-cols-4 lg:gap-0  ">
