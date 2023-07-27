@@ -29,16 +29,19 @@ export default function HeroPost(
     hotelRating,
     location,
   } = props
+
+  console.log("PROPs", props)
+  // console.log("PROPs date ", date)
   return (
-    <section className="mt-20  max-w-full  ">
-      <div className=" container mx-auto mb-10 flex w-full flex-wrap">
+    <section className="mt-10  max-w-full  ">
+     <div className=" container mx-auto mb-10 flex w-full flex-wrap">
         <div className="mx-4 mb-6 w-full lg:mb-0 lg:w-1/2 ">
           <h1 className="font-fancy  title-font mb-2 text-2xl font-medium text-gray-900 sm:text-3xl">
-            Latest Article
+            Latest Articles
           </h1>
           <div className="h-1 w-20 rounded bg-pink-500"></div>
         </div>
-      </div>
+      </div> 
 
       <div className=" ">
         <div className="">
@@ -49,8 +52,9 @@ export default function HeroPost(
               slug={slug}
               image={coverImage}
               title={title}
-              // date={date}
+              date={date}
               location={location}
+              excerpt2={excerpt2}
               // url={coverImage}
               // linkType={linkType}
             />

@@ -29,7 +29,7 @@ export default function IndexPage(props: IndexPageProps) {
   const { preview, loading, posts, settings } = props
   const [heroPost, ...morePosts] = posts || []
   const { title = demo.title, description = demo.description } = settings || {}
-  //  console.log("PODTs ",heroPost )
+    // console.log("PODTs ",heroPost )
   return (
     <>
       <IndexPageHead settings={settings} />
@@ -40,7 +40,8 @@ export default function IndexPage(props: IndexPageProps) {
 
           <Hero />
           <Welcome />
-          <Categories />
+         <Categories />
+         <div className='bg-blue-50 rounded-xl py-1'>
           {heroPost && (
             <HeroPost
               title={heroPost.title}
@@ -54,18 +55,21 @@ export default function IndexPage(props: IndexPageProps) {
             />
           )}
 
-          <IndexTopTen />
 
-          <div className=" container mx-auto mb-10 flex w-full flex-wrap">
+          {/* <div className=" container mx-auto mb-10 flex w-full flex-wrap">
             <div className="mx-4 mb-6 w-full lg:mb-0 lg:w-1/2 ">
               <h1 className="font-fancy  title-font mb-2 text-2xl font-medium text-gray-900 sm:text-3xl">
                 More Articles
               </h1>
               <div className="h-1 w-20 rounded bg-pink-500"></div>
             </div>
-          </div>
+          </div> */}
 
-          {morePosts.length > 0 && <MoreStoriesIndex posts={morePosts} />}
+         
+          {morePosts.length > 0 && <MoreStoriesIndex posts={morePosts.slice(0, 8)} />}
+          </div>
+       
+          <IndexTopTen />
         </Container>
         <div className="rounded-xl bg-yellow-50 px-10 py-12 ">
           <div className=" container mx-auto mb-10 flex w-full flex-wrap">

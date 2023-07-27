@@ -3,6 +3,7 @@ import { urlForImage } from 'lib/sanity.image'
 import Image from 'next/image'
 import Link from 'next/link'
 
+import PostBody from './PostBody';
 import PostDate from "./PostDate";
 
 interface CoverImageProps {
@@ -12,10 +13,11 @@ interface CoverImageProps {
   location?:string
   image: any
   priority?: boolean
+  excerpt2?:any
 }
 
 export default function CoverImage(props: CoverImageProps) {
-  const { title, date, slug,location, image: source, priority } = props
+  const { title, date, slug,location,excerpt2, image: source, priority } = props
   const image = source?.asset?._ref ? (
     <div
       className={cn('', {
@@ -55,16 +57,17 @@ export default function CoverImage(props: CoverImageProps) {
       {slug ? (
         <Link href={`/posts/${slug}`} aria-label={title}>
           {image}
-          <p className="z-20 mb-2 break-words text-pink-500  rounded-lg bg-white pt-4 text-lg font-semibold leading-tight  tracking-tighter hover:underline sm:text-xl md:mx-0 md:text-4xl">
+          <p className="z-20 mb-2 break-words text-pink-500    pt-4 text-lg font-semibold leading-tight  tracking-tighter hover:underline sm:text-xl md:mx-0 md:text-4xl">
             {title}
           </p>
-          {/* <span >{location} </span> */}
+          <div >{location} </div>
          
-          <span>
-          {/* <PostDate dateString={date} />
-          <PostDate dateString={'2022-06-26 12:04'}></PostDate> */}
+          {/* <span>
+            <PostDate dateString={date} />
+       
    
-          </span>
+          </span> */}
+          <PostBody content={excerpt2} />
         </Link>
       ) : (
         image

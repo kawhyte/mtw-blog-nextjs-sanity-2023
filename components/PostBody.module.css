@@ -6,7 +6,7 @@
 .portableText ul,
 .portableText ol,
 .portableText blockquote {
-  @apply my-6 mx-6;
+  @apply my-6 ;
 }
 
 .portableText h2 {
