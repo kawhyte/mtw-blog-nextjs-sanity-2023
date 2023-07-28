@@ -34,7 +34,7 @@ export default function CoverImage(props: CoverImageProps) {
     >
       <Image
         className={cn('', {
-          '	rounded-2xl mx-auto': slug,
+          '	mx-auto rounded-xl': slug,
         })}
         width={740}
         height={770}
@@ -60,18 +60,13 @@ export default function CoverImage(props: CoverImageProps) {
       {slug ? (
         <Link href={`/posts/${slug}`} aria-label={title}>
           {image}
-          <p className="z-20 mb-2 text-center break-words pt-4 text-2xl font-semibold leading-tight tracking-tighter  text-pink-500 hover:underline  md:mx-0 md:text-4xl">
+          <p className="z-20 mb-2 break-words pt-4 text-center text-xl font-semibold leading-tight tracking-tighter  text-pink-500 hover:underline  md:mx-0 md:text-3xl">
             {title}
           </p>
-          <div className="text-2xl text-center">
-            {location}
-           
-             </div>
+          <div className="text-center text-lg text-gray-500">{location}</div>
 
-          <div className="text-lg text-center">
+          <div className="text-center text-lg  text-gray-500">
             <PostDate dateString={date} />
-       
-   
           </div>
           {/* <PostBody content={excerpt2} /> */}
         </Link>

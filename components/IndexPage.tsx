@@ -29,7 +29,7 @@ export default function IndexPage(props: IndexPageProps) {
   const { preview, loading, posts, settings } = props
   const [heroPost, ...morePosts] = posts || []
   const { title = demo.title, description = demo.description } = settings || {}
-    // console.log("PODTs ",heroPost )
+  // console.log("PODTs ",heroPost )
   return (
     <>
       <IndexPageHead settings={settings} />
@@ -40,8 +40,8 @@ export default function IndexPage(props: IndexPageProps) {
 
           <Hero />
           <Welcome />
-         <div className='bg-blue-50 rounded-xl py-1'>
-         <Categories />
+
+          <Categories />
           {heroPost && (
             <HeroPost
               title={heroPost.title}
@@ -55,7 +55,6 @@ export default function IndexPage(props: IndexPageProps) {
             />
           )}
 
-
           {/* <div className=" container mx-auto mb-10 flex w-full flex-wrap">
             <div className="mx-4 mb-6 w-full lg:mb-0 lg:w-1/2 ">
               <h1 className="font-fancy  title-font mb-2 text-2xl font-medium text-gray-900 sm:text-3xl">
@@ -65,10 +64,10 @@ export default function IndexPage(props: IndexPageProps) {
             </div>
           </div> */}
 
-         
-          {morePosts.length > 0 && <MoreStoriesIndex posts={morePosts.slice(0, 8)} />}
-          </div>
-       
+          {morePosts.length > 0 && (
+            <MoreStoriesIndex posts={morePosts.slice(0, 8)} />
+          )}
+
           <IndexTopTen />
         </Container>
         <div className="rounded-xl bg-yellow-50 px-10 py-12 ">
@@ -80,7 +79,7 @@ export default function IndexPage(props: IndexPageProps) {
               <div className="h-1 w-20 rounded bg-pink-500"></div>
             </div>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-2  xl:grid-cols-3 2xl:grid-cols-3 gap-5 content-start justify-start place-items-center  	">
+          <div className="grid place-items-center content-start  justify-start gap-5 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3  	">
             <div>
               <InstagramEmbed
                 url="https://www.instagram.com/p/CqzLI_or4QD/"

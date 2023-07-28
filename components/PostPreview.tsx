@@ -25,20 +25,19 @@ export default function PostPreview({
       </div>
       <Link
         href={`/posts/${slug}`}
-        className=" title-font  mt-3 text-xl font-light text-gray-700 hover:underline"
+        className=" title-font  mt-3  font-light text-gray-700 hover:underline"
       >
         <div className="-mt-6">
-          <h2 className=" title-font mt-3 text-xl font-medium text-gray-700">
+          <h2 className=" title-font truncate mt-3 text-sm font-semibold  text-pink-500">
             {title}
           </h2>
           {/* <p className='text-base leading-relaxed mt-2'>{item.excerpt}</p> */}
-          <div className="block   text-lg  text-pink-500">
+          <div className="block   text-sm  text-gray-500">
             {location ? location : ''}{' '}
           </div>
-         
 
           {/* <h3 className="mb-3 text-3xl leading-snug">{title}</h3> */}
-          <div className="mb-4 text-lg">
+          <div className="mb-4 text-sm text-gray-500">
             <Date dateString={date} />
           </div>
           {/* {excerpt && <p className="mb-4 text-lg leading-relaxed">{excerpt}</p>}

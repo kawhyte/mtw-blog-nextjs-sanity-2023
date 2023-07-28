@@ -10,6 +10,11 @@ function ProConList({ positives, negatives, verdict2 }) {
 				<h1 className='font-fancy text-6xl md:text-5xl lg:text-5xl font-bold tracking-tighter leading-tight md:leading-none text-center md:text-left'>
 					Bottom Line
 				</h1>
+
+				
+
+
+				
 				<div className='container md:px- py-6 lg:py-12 mx-auto flex flex-wrap'>
 					<div className=' grid grid-cols-1  gap-6 2xl:grid-cols-3'>
 						<div className='md:  md:w-full'>
@@ -30,6 +35,10 @@ function ProConList({ positives, negatives, verdict2 }) {
 								</div>
 								<div className='grow bg-white p-8 rounded-xl'>
 									<div className='flex flex-col sm:items-start sm:text-left   items-center -mb-1 space-y-2.5'>
+
+
+
+
 										<ul>
 											{positives?.map((positive, index) => (
 												<li
