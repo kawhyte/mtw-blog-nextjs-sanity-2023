@@ -120,7 +120,7 @@ function ProConList({ positives, negatives, verdict2 }) {
 									</div>
 								</div>
 								<div className='grow bg-white p- rounded-xl'>
-									<div className='flex flex-col sm:items-start text-base lg:text-lg leading-relaxed '>
+									<div className='flex flex-col px-7 sm:items-start text-base lg:text-lg leading-relaxed '>
 										{/*<p className='font-sans text-base md:text-lg'>{verdict}</p>*/}
 										<PostBody content={verdict2} />
 									</div>
