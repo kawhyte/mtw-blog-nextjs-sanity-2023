@@ -67,7 +67,7 @@ function classNames(...classes) {
 
 export default function Nav({ color = 'bg-black', bgColor }) {
   let col = color ? ' text-gray-900' : ' text-white'
-  let bg = bgColor ? ' bg-white  shadow-l' : ' '
+  let bg = bgColor ? ' bg-white  ' : ' '
   const container = useRef(null)
   const animation = 'food.json'
 
@@ -75,7 +75,7 @@ export default function Nav({ color = 'bg-black', bgColor }) {
     <Disclosure
       as="nav"
       className={
-        ' mt- blur-backdrop-filter   max-w-8xl firefox:bg-opacity-90 sticky top-0 z-50 mx-auto h-[72px]  w-full   whitespace-nowrap bg-transparent bg-white   bg-opacity-50 bg-clip-padding py-4 pt-6 backdrop-blur-sm backdrop-filter xl:px-1  ' +
+        ' blur-backdrop-filter firefox:bg-opacity-90 sticky top-0 z-50  h-[72px]  w-full   whitespace-nowrap bg-transparent bg-white   bg-opacity-50 bg-clip-padding pt-6 backdrop-blur-sm backdrop-filter  ' +
         bg
       }
     >
@@ -102,8 +102,8 @@ export default function Nav({ color = 'bg-black', bgColor }) {
                   passHref
                   legacyBehavior
                 >
-                  <div className="flex flex-shrink-0 items-center justify-center  ">
-                    <div className="pl-2 ">
+                  <div className="flex flex-shrink-0 items-center justify-center pl-3  ">
+                    <div className=" flex flex-row space-x-4 items-center  ">
                       <Image
                         className="rounded-xl"
                         src="/icon/icon.jpg"
@@ -111,6 +111,7 @@ export default function Nav({ color = 'bg-black', bgColor }) {
                         width={45}
                         height={45}
                       />
+                    <p className='hidden lg:block'> meet the whytes</p>  
                     </div>
                   </div>
                 </Link>

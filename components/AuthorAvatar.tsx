@@ -7,7 +7,7 @@ export default function AuthorAvatar(props: Author) {
   return (
     <div className="flex items-center">
       <div className="relative mr-4 h-12 w-12">
-        <Image
+        <img
           src={
             picture?.asset?._ref
               ? urlForImage(picture).height(96).width(96).fit('crop').url()
