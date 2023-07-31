@@ -8,14 +8,29 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['var(--font-oswald)'],
+        mono: ['var(--font-roboto-mono)'],
+        test: ['var(--font-inter)'],
+      },
+
       colors: {
-        'accent-1': '#FAFAFA',
+        mtw:{ 
+        color:'#1F3447',
+        'light-yellow-background': '#fefce8',
+        background: '#fafaf9',
+        pink:'#f472b6',
+        green:'#34d399',
+        yellow:'#facc15',
+        indigo:'#818cf8',
+        'accent-1': '#6347F9',
         'accent-2': '#EAEAEA',
         'accent-7': '#333',
         success: '#0070f3',
         cyan: '#79FFE1',
         'blue-500': '#2276FC',
         'yellow-100': '#fef7da',
+      },
       },
       spacing: {
         28: '7rem',
