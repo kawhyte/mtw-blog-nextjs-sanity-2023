@@ -6,6 +6,7 @@ import IndexPageHead from 'components/IndexPageHead'
 import MoreStoriesIndex from 'components/MoreStories'
 import * as demo from 'lib/demo.data'
 import type { Post, Settings } from 'lib/sanity.queries'
+import Link from 'next/link'
 import {
   InstagramEmbed,
   TikTokEmbed,
@@ -16,8 +17,8 @@ import Categories from './Categories'
 import Footer from './Footer'
 import Hero from './Hero'
 import IndexTopTen from './IndexTopTen'
-import Welcome from './Welcome'
 import TravelEssentials from './TravelEssentials'
+import Welcome from './Welcome'
 
 export interface IndexPageProps {
   preview?: boolean
@@ -41,8 +42,7 @@ export default function IndexPage(props: IndexPageProps) {
 
           <Hero />
           <Welcome />
-          <TravelEssentials/>
-          {/* <Categories /> */}
+          <TravelEssentials />
 
           {/* {heroPost && (
             <HeroPost
@@ -66,11 +66,23 @@ export default function IndexPage(props: IndexPageProps) {
             </div>
           </div> */}
 
-          {posts.length > 0 && (
-            <MoreStoriesIndex posts={posts.slice(0, 8)} />
-          )}
+          <div className=" container mx-auto my-16 mb-10 flex w-full flex-row flex-wrap justify-between ">
+            <div className="mx-4 mb-6 w-full lg:mb-0 lg:w-1/2 ">
+              <h1 className="font-fancy  title-font mb-2 text-2xl font-medium text-gray-900 sm:text-3xl">
+                Our Latest Adventures
+              </h1>
+              <div className="h-1 w-20 rounded bg-pink-500"></div>
+            </div>
 
+            <Link href={'/hotel'} className="text-blue-600 underline">
+              View more
+            </Link>
+          </div>
+
+          {posts.length > 0 && <MoreStoriesIndex posts={posts.slice(0, 8)} />}
+          {/* <Categories /> */}
           <IndexTopTen />
+          {/* <Categories /> */}
         </Container>
         <div className="rounded-xl bg-yellow-50 px-10 py-12 ">
           <div className=" container mx-auto mb-10 flex w-full flex-wrap">

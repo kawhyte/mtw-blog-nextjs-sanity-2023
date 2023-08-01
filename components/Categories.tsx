@@ -59,7 +59,7 @@ const category = [
 function Categories() {
   return (
     <>
-      <section className=" xl:block container mx-auto   flex-col  text-center   w-2/4 bg-red-200 ">
+      <section className=" xl:block container mx-auto   flex-col  text-center   w-2/4 ">
         <div className=" border-[1px] w-full md:w-auto py-2 rounded-full shadow-sm hover:shadow-md transition cursor-pointer max-w-5xl">
           <div className=" container mx-auto px-1 py-3   ">
             <div className="relative  text-center  grid  grid-cols-4  gap-2 place-items-center   lg:grid-cols-4   ">
