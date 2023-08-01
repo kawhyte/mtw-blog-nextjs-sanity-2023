@@ -8,6 +8,7 @@ import BodySectionSeparator from './body-section-separator'
 import CoverImagePost from './CoverImagePost'
 import PostBody from './PostBody'
 import StarRating from './StarRating'
+import { inter } from 'app/fonts'
 
 export default function PostHeader(
   props: Pick<
@@ -49,14 +50,14 @@ export default function PostHeader(
         {author && <Avatar name={author.name} picture={author.picture} />}
       </div> */}
 
-      <div className="flex flex-col justify-start align-middle md:flex-row">
+      <div className={` ${inter.variable} font-secondary flex flex-col justify-start align-middle md:flex-row`}>
         <div>
-          <p className=" text-center font-medium text-gray-900 md:text-left md:text-sm ">
+          <p className=" text-center  text-gray-700 md:text-left md:text-sm ">
             <span className="text-lg capitalize">
               {location ? location : ''}{' '}
             </span>
             {' '}
-            <span className="ml-1 text-lg font-medium text-gray-900">
+            <span className="ml-1 text-lg  text-gray-700">
               {linkType === 'hotel' || linkType === 'food'
                 ? 'Visited '
                 : 'Published on '}{' '}
@@ -64,7 +65,7 @@ export default function PostHeader(
             </span>
           </p>
           {room && (
-            <p className=" text-center font-medium  text-gray-900  md:text-left md:text-lg">
+            <p className=" text-center   text-gray-700  md:text-left md:text-lg">
               {linkType === 'hotel' ? `${room || 'test'}` : ''}{' '}
             </p>
           )}
@@ -79,7 +80,7 @@ export default function PostHeader(
         {excerpt2 && (
           <>
             <div>
-              <div className=" my-8 max-w-4xl text-justify lg:text-lg ">
+              <div className={ `${inter.variable} font-secondary  my-8 max-w-4xl text-justify lg:text-lg` }>
                 {/* {excerpt2} */}
                 <PostBody content={excerpt2} />
               </div>

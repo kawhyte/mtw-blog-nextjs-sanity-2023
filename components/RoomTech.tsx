@@ -1,3 +1,4 @@
+import { inter } from "app/fonts";
 import React from "react";
 
 function RoomTech({ speed = 10, techAvailable }) {
@@ -97,7 +98,7 @@ function RoomTech({ speed = 10, techAvailable }) {
 
 								<h1 className='text-5xl text-gray-900 leading-none flex items-start pb-4 mb-4 border-b border-gray-200'>
 									<span className='text-8xl'>{speed}</span>
-									<span className='text-lg ml-1 font-normal text-gray-500'>
+									<span className='text-lg ml-1 font-normal text-gray-900'>
 										Mbps
 									</span>
 								</h1>
@@ -110,7 +111,7 @@ function RoomTech({ speed = 10, techAvailable }) {
 									{speedResult.map((item, i) => (
 										<p
 											key={i}
-											className='flex text-sm md:text-base  items-center text-gray-600 mb-2'>
+											className={`${inter.variable} font-secondary flex text-sm md:text-base  items-center text-gray-600 mb-2`}>
 											<span className='w-4 h-4 mb-2 mr-2 inline-flex items-center justify-center bg-green-400 text-white rounded-full flex-shrink-0'>
 												<svg
 													fill='none'
@@ -143,7 +144,7 @@ function RoomTech({ speed = 10, techAvailable }) {
 									Availiable in the room/hotel
 								</p>
 
-								<section className='text-gray-600 body-font'>
+								<section className={` ${inter.variable} font-secondary text-gray-600 `}>
 									<div className='container px-2 py-2 mx-auto'>
 										<div className=' grid grid-cols-2 sm:grid-cols-2 gap-4 text-center'>
 											<div className=' '>

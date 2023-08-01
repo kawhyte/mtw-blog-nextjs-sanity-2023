@@ -1,6 +1,7 @@
 import React from "react";
 
 import PostBody from "../components/PostBody";
+import { inter } from "app/fonts";
 
 function ProConList({ positives, negatives, verdict2 }) {
 	
@@ -43,7 +44,7 @@ function ProConList({ positives, negatives, verdict2 }) {
 											{positives?.map((positive, index) => (
 												<li
 													key={index}
-													className='my-3 leading-relaxed text-base md:text-lg font-extralight'>
+													className={`${inter.variable} font-secondary  my-3 leading-relaxed text-base md:text-lg font-extralight`}>
 													<span className='bg-green-100 text-green-500 w-4 h-4 mr-2 rounded-full inline-flex items-center justify-center'>
 														<svg
 															fill='none'
@@ -86,7 +87,7 @@ function ProConList({ positives, negatives, verdict2 }) {
 											{negatives?.map((negative, index) => (
 												<li
 													key={index}
-													className='my-3 leading-relaxed text-base md:text-lg font-extralight'>
+													className={`${inter.variable} font-secondary my-3 leading-relaxed text-base md:text-lg font-extralight`}>
 													<span className='bg-gray-100 text-red-500 w-4 h-4 mr-2 rounded-full inline-flex items-center justify-center'>
 														<svg
 															xmlns='http://www.w3.org/2000/svg'
@@ -129,7 +130,7 @@ function ProConList({ positives, negatives, verdict2 }) {
 									</div>
 								</div>
 								<div className='grow bg-white p- rounded-xl'>
-									<div className='flex flex-col px-7 sm:items-start text-base lg:text-lg leading-relaxed '>
+									<div className={`${inter.variable} font-secondary  flex flex-col px-7 sm:items-start text-base lg:text-lg leading-relaxed` }>
 										{/*<p className='font-sans text-base md:text-lg'>{verdict}</p>*/}
 										<PostBody content={verdict2} />
 									</div>

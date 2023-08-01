@@ -12,6 +12,7 @@ import { TfiMapAlt } from 'react-icons/tfi'
 
 import BodySectionSeparator from './IndexTopTen'
 import SectionSeparator from './SectionSeparator'
+import { inter } from 'app/fonts'
 
 
  const bg = '  underline decoration-pink-200 underline-offset-8 hover:decoration-pink-500/50 focus:decoration-pink-500/50 '
@@ -75,7 +76,7 @@ export default function Nav({ color = 'bg-black', bgColor }) {
     <Disclosure
       as="nav"
       className={
-        ' blur-backdrop-filter firefox:bg-opacity-90 sticky top-0 z-50  h-[72px]  w-full   whitespace-nowrap bg-transparent bg-white   bg-opacity-50 bg-clip-padding pt-6 backdrop-blur-sm backdrop-filter  ' +
+        ` ${inter.variable} font-secondary  blur-backdrop-filter firefox:bg-opacity-90 sticky top-0 z-50  h-[72px]  w-full   whitespace-nowrap bg-transparent bg-white   bg-opacity-50 bg-clip-padding pt-6 backdrop-blur-sm backdrop-filter  ` +
         bg
       }
     >
