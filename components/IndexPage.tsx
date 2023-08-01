@@ -17,6 +17,7 @@ import Footer from './Footer'
 import Hero from './Hero'
 import IndexTopTen from './IndexTopTen'
 import Welcome from './Welcome'
+import TravelEssentials from './TravelEssentials'
 
 export interface IndexPageProps {
   preview?: boolean
@@ -40,9 +41,10 @@ export default function IndexPage(props: IndexPageProps) {
 
           <Hero />
           <Welcome />
+          <TravelEssentials/>
+          {/* <Categories /> */}
 
-          <Categories />
-          {heroPost && (
+          {/* {heroPost && (
             <HeroPost
               title={heroPost.title}
               coverImage={heroPost.coverImage}
@@ -53,7 +55,7 @@ export default function IndexPage(props: IndexPageProps) {
               hotelRating={heroPost.hotelRating}
               location={heroPost.location}
             />
-          )}
+          )} */}
 
           {/* <div className=" container mx-auto mb-10 flex w-full flex-wrap">
             <div className="mx-4 mb-6 w-full lg:mb-0 lg:w-1/2 ">
@@ -64,8 +66,8 @@ export default function IndexPage(props: IndexPageProps) {
             </div>
           </div> */}
 
-          {morePosts.length > 0 && (
-            <MoreStoriesIndex posts={morePosts.slice(0, 8)} />
+          {posts.length > 0 && (
+            <MoreStoriesIndex posts={posts.slice(0, 8)} />
           )}
 
           <IndexTopTen />
