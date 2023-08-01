@@ -1,3 +1,4 @@
+import { inter } from 'app/fonts'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -14,7 +15,7 @@ export default function IndexTopTen() {
             recommendations.
           </span>
         </h2>
-        <p className="mt-4 text-xl text-gray-600">
+        <p className={`${inter.variable} font-secondary  mt-4 text-xl text-gray-600`}>
           Our very own curated list of places you should consider visiting.
         </p>
         <div className="lg:mt-0 lg:flex-shrink-0">

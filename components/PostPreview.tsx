@@ -1,3 +1,4 @@
+import { inter } from 'app/fonts'
 import Avatar from 'components/AuthorAvatar'
 import CoverImage from 'components/CoverImage'
 import Date from 'components/PostDate'
@@ -25,10 +26,10 @@ export default function PostPreview({
       </div>
       <Link
         href={`/posts/${slug}`}
-        className=" title-font  mt-3  font-light text-gray-700 hover:underline"
+        className={`  ${inter.variable} title-font   mt-3  font-secondary  font-light text-gray-700 hover:underline`}
       >
         <div className="-mt-6">
-          <h2 className=" title-font truncate mt-3 text-sm font-semibold  text-pink-500">
+          <h2 className=" title-font mt-3 truncate text-sm font-semibold  text-pink-500">
             {title}
           </h2>
           {/* <p className='text-base leading-relaxed mt-2'>{item.excerpt}</p> */}

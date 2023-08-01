@@ -1,3 +1,4 @@
+import { inter } from 'app/fonts';
 import lottie from 'lottie-web'
 import Image from "next/image";
 import React, {useEffect, useRef} from "react";
@@ -42,10 +43,10 @@ function ReviewHeader({ title, pattern, summary, animation }) {
 						</video>*/}
 					</div>
 					<div className='lg:grow  lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center'>
-						<h1 className='font-fancy mb-1 py-1 text-6xl md:text-7xl font-bold tracking-tighter leading-tight bg-white text-pink-500'>
+						<h1 className='font-fancy mb-1 py-1 text-6xl md:text-7xl font-bold tracking-tighter leading-tight  text-pink-500'>
 							{title}
 						</h1>
-						<p className='mb-8 leading-relaxed md:text-2xl'>{summary}</p>
+						<p className={`${inter.variable} font-secondary  mb-8 leading-relaxed md:text-2xl`}>{summary}</p>
 					</div>
 				</div>
 			</section>

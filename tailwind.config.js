@@ -11,7 +11,7 @@ module.exports = {
       fontFamily: {
         sans: ['var(--font-oswald)'],
         mono: ['var(--font-roboto-mono)'],
-        test: ['var(--font-inter)'],
+        secondary: ['var(--font-inter)'],
       },
 
       colors: {

@@ -25,7 +25,7 @@ function Hero() {
                 </div>
         
 
-                <p className={ ` ${inter.variable} font-test mt-8 md:text-lg lg:text-xl text-gray-700 lg:w-10/12`}>
+                <p className={ ` ${inter.variable} font-secondary mt-8 md:text-lg lg:text-xl text-gray-700 lg:w-10/12`}>
                   Our journey in discovering and reviewing food, hotels and
                   interesting locations.
                 </p>
