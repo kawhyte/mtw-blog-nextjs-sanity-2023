@@ -1,39 +1,62 @@
-import Image from "next/image";
-import React from "react";
 import { inter } from 'app/fonts'
+import Image from 'next/image'
+import React from 'react'
 
 function Welcome() {
-	return (
-		<div className=''>
-			<section className='text-gray-600 body-font '>
-				<div className='container relative px-5 py-2 md:py-6 mx-auto '>
-				
-					<div className=' flex flex-col py-12 text-center w-full   '>
-						<h2 className={` mb-2 font-fancy  text-4xl md:text-6xl font-bold tracking-tighter leading-tight z-10`} >
-							Hi! We are the Whytes. <br></br> Welcome to our space on the{" "}
-							<span className='text-pink-500'>interwebs </span>
-						</h2>
+  return (
+    <>
+      <section className="body-font text-gray-600">
+        <div className="container mx-auto px-5 py-24">
+          <div className=" flex w-full flex-col py-12 text-center   ">
+            <h2
+              className={` font-fancy z-10  mb-2 text-4xl font-bold leading-tight tracking-tighter md:text-6xl`}
+            >
+              Hi! We are the Whytes. <br></br> Welcome to our space on the{' '}
+              <span className="text-pink-500">interwebs </span>
+            </h2>
 
-						<p className={` ${inter.variable} font-secondary lg:w-2/3  mx-auto leading-relaxed text-2xl z-10`}>
-							We&apos;re a husband 👖 and wife 👗 duo. We love to travel & try
-							new food.
-						</p>
-					</div>
+            <p
+              className={` ${inter.variable} z-10 mx-auto  font-secondary text-2xl leading-relaxed lg:w-2/3`}
+            >
+              We&apos;re a husband 👖 and wife 👗 duo. We love to travel & try
+              new food.
+            </p>
+          </div>
+          <div className="-m-4 flex flex-wrap justify-evenly text-center ">
+            <div className="w-full p-4 sm:w-1/2 md:w-1/4">
+              <div className=" flex flex-col items-center  border-gray-200 px-4 py-6">
+                <img src="/plane.svg" width={120} />
 
-					<div className='absolute bottom-0 right-0 h-48 '>
-					<Image
-						width={255}
-						height={272}
-						alt={`Cover Image for`}
-						className='opacity-10 2xl:opacity-95 z-0  '
-						src='/luggage.svg'
-					/>
-				</div>
+                <h2 className="title-font pt-3 text-3xl font-medium text-gray-900 ">
+                  7
+                </h2>
+                <p className="leading-relaxed">Countries Visited</p>
+              </div>
+            </div>
+            <div className="w-full p-4 sm:w-1/2 md:w-1/4">
+              <div className=" flex flex-col items-center  border-gray-200 px-4 py-6">
+                <img src="/travel.svg" width={110} />
+                <h2 className="title-font pt-3 text-3xl font-medium text-gray-900">
+                  130
+                </h2>
+                <p className="leading-relaxed">Miles Walked</p>
+              </div>
+            </div>
+            <div className="w-full p-4 sm:w-1/2 md:w-1/4">
+              <div className="flex flex-col items-center border-gray-200 px-4 py-6">
+                <img src="/palm.svg" width={100} />
 
-				</div>
-			</section>
-		</div>
-	);
+                <h2 className="title-font pt-3 text-3xl font-medium text-gray-900">
+                  14
+                </h2>
+                <p className="leading-relaxed">Hotel Stays</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
+  )
 }
 
-export default Welcome;
+export default Welcome
