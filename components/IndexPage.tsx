@@ -1,3 +1,4 @@
+import { inter } from 'app/fonts'
 import Container from 'components/BlogContainer'
 import BlogHeader from 'components/BlogHeader'
 import Layout from 'components/BlogLayout'
@@ -66,17 +67,26 @@ export default function IndexPage(props: IndexPageProps) {
             </div>
           </div> */}
 
-          <div className=" container mx-auto my-16 mb-10 flex w-full flex-row flex-wrap justify-between ">
-            <div className="mx-4 mb-6 w-full lg:mb-0 lg:w-1/2 ">
-              <h1 className="font-fancy  title-font mb-2 text-2xl font-medium text-gray-900 sm:text-3xl">
+          <div className=" container mx-auto my-16 mb-10 flex w-full flex-row flex-wra justify-between ">
+            <div className=" mb-6 lg:mb-0 lg:w-1/2 ">
+              <h1 className=" title-font mb-2 text-2xl font-medium text-gray-900 sm:text-3xl">
                 Our Latest Adventures
               </h1>
               <div className="h-1 w-20 rounded bg-pink-500"></div>
             </div>
 
-            <Link href={'/hotel'} className="text-blue-600 underline">
-              View more
-            </Link>
+            <div className="lg:mt-0 lg:flex-shrink-0">
+              <div className=" inline-flex rounded-md shadow ">
+                <Link href="/hotel" passHref legacyBehavior>
+                  <button
+                    type="button"
+                    className={`${inter.variable} font-secondary py-2 px-4 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-xs md:text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg `}
+                  >
+                    View more
+                  </button>
+                </Link>
+              </div>
+            </div>
           </div>
 
           {posts.length > 0 && <MoreStoriesIndex posts={posts.slice(0, 8)} />}

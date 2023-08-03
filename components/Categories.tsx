@@ -44,7 +44,7 @@ const category = [
   },
   {
     name: 'Stuff We Like',
-    href: '/allreviews',
+    href: '/stuff_we_like',
     image: <PiSneakerLight className="h-6 w-10   text-pink-500" />,
     image2:"|",
     // image:

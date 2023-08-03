@@ -1,6 +1,7 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
+import { inter } from 'app/fonts'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useRef } from 'react'
@@ -12,7 +13,6 @@ import { TfiMapAlt } from 'react-icons/tfi'
 
 import BodySectionSeparator from './IndexTopTen'
 import SectionSeparator from './SectionSeparator'
-import { inter } from 'app/fonts'
 
 
  const bg = '  underline decoration-pink-200 underline-offset-8 hover:decoration-pink-500/50 focus:decoration-pink-500/50 '
@@ -51,7 +51,7 @@ const navigation = [
   },
   {
     name: 'Stuff We Like',
-    href: '/allreviews',
+    href: '/stuff_we_like',
         icon: <PiSneakerLight className="h-6 w-10  text-gray-500" />,
 
     // icon: '/icon/walk.svg', PiSneakerLight

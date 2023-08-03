@@ -17,7 +17,7 @@ export default function AuthorAvatar(props: Author) {
           height={96}
           width={96}
           // @TODO add alternative text to avatar image schema
-          alt=""
+          alt="author photo"
         />
       </div>
       <div className="text-xl font-bold">{name}</div>
