@@ -33,10 +33,11 @@ export default function IndexTopTen() {
       </div>
       <div className="max-w-1/2 absolute right-12 top-0  hidden h-full lg:block">
         <Image
-          src="/passport.svg"
+          src="/beach.svg"
           width={356}
           height={255}
-          alt="Passport Image"
+          alt="beach
+          ball"
           blurDataURL="/passport.svg"
           placeholder="blur"
         />
