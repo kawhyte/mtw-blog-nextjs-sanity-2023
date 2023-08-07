@@ -47,7 +47,7 @@ function Welcome() {
             </div> */}
 
 <div className="group  relative cursor-pointer overflow-hidden ">
-            <div className="hidden md:block pt-30 absolute inset-x-0 -bottom-2 z-50 flex  cursor-pointer items-end rounded-xl  text-black bg-transparent opacity-0 transition duration-300 ease-in-out group-hover:opacity-100">
+            <div className=" md:block pt-30 absolute inset-x-0 -bottom-2 z-50 flex  cursor-pointer items-end rounded-xl  text-black bg-transparent opacity-0 transition duration-300 ease-in-out group-hover:opacity-100">
               <div>
                 <div className="translate-y-9  transform  space-y-3 p-4 pb-10 text-xs md:text-sm transition duration-300 ease-in-out group-hover:translate-y-0 group-hover:opacity-100">
                   <div className="font-bold rounded-lg flex justify-center align-middle content-center">Nike Presto</div>
