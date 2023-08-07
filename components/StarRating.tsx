@@ -1,3 +1,4 @@
+import { inter } from "app/fonts";
 import { calculateRating } from "lib/calculateRating";
 // import { calculateRating } from "../lib/calculateRating";
 import Image from "next/image";
@@ -5,7 +6,6 @@ import React from "react";
 
 import { ratingItem } from "../lib/getReviewType";
 import ProgressRating from "./ProgressRating";
-import { inter } from "app/fonts";
 
 const StarRating = ({ rating, linkType }) => {
 	 //console.log("STAR RATING Beforree",rating);

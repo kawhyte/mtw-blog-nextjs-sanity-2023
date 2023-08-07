@@ -49,16 +49,16 @@ const navigation = [
     bg: ' underline decoration-indigo-200  underline-offset-8 hover:decoration-indigo-500/50 focus:decoration-indigo-500/50',
     current: false,
   },
-  {
-    name: 'Stuff We Like',
-    href: '/stuff_we_like',
-        icon: <PiSneakerLight className="h-6 w-10  text-gray-500" />,
+  // {
+  //   name: 'Stuff We Like',
+  //   href: '/stuff_we_like',
+  //       icon: <PiSneakerLight className="h-6 w-10  text-gray-500" />,
 
-    // icon: '/icon/walk.svg', PiSneakerLight
-    text: 'Man walking',
-    bg: bg,
-    current: false,
-  },
+   
+  //   text: 'Man walking',
+  //   bg: bg,
+  //   current: false,
+  // },
 
 ]
 

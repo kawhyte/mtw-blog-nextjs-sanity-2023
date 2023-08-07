@@ -5,9 +5,9 @@ import React from 'react'
 function Welcome() {
   return (
     <>
-      <section className="body-font text-gray-600">
-        <div className="container mx-auto px-5 py-24">
-          <div className=" flex w-full flex-col py-12 text-center   ">
+      <section className="body-font text-gray-600 ">
+        <div className="py container mx-auto px-5 pb-20 pt-48">
+          {/* <div className=" flex w-full flex-col py-12 text-center   ">
             <h2
               className={` z-10  mb-2 text-4xl font-bold leading-tight tracking-tighter md:text-6xl`}
             >
@@ -21,40 +21,38 @@ function Welcome() {
               We&apos;re a husband 👖 and wife 👗 duo. We love to travel & try
               new food.
             </p>
-          </div>
-          <div className="-m-4 flex flex-wrap justify-evenly text-center ">
+          </div> */}
+          <div className="-m-4 flex justify-evenly text-center ">
             <div className="w-full p-4 sm:w-1/2 md:w-1/4">
               <div className=" flex flex-col items-center  border-gray-200 px-4 py-6">
-                <img src="/plane.svg" width={120} alt='plane' />
+                <img src="/plane.svg" width={200} alt="plane" />
 
-                <h2 className="title-font pt-3 text-3xl font-medium text-gray-900 ">
+                <h2 className="title-font pt-3 text-5xl font-medium text-gray-900 ">
                   7
                 </h2>
-                <p className="leading-relaxed">Countries Visited</p>
+                <p className="leading-relaxed md:text-xl ">Countries Visited</p>
               </div>
             </div>
             <div className="w-full p-4 sm:w-1/2 md:w-1/4">
               <div className="flex flex-col items-center border-gray-200 px-4 py-6">
-                <img src="/palm.svg" width={100} alt='palm tree' />
+                <img src="/palm.svg" width={180} alt="palm tree" />
 
-                <h2 className="title-font pt-3 text-3xl font-medium text-gray-900">
+                <h2 className="title-font pt-3 text-5xl  font-medium text-gray-900">
                   14
                 </h2>
-                <p className="leading-relaxed">Hotel Stays</p>
+                <p className="leading-relaxed md:text-xl ">Hotel Stays</p>
               </div>
             </div>
 
             <div className="w-full p-4 sm:w-1/2 md:w-1/4">
               <div className=" flex flex-col items-center  border-gray-200 px-4 py-6">
-                <img src="/travel.svg" width={110} alt='travel icon'/>
-                <h2 className="title-font pt-3 text-3xl font-medium text-gray-900">
+                <img src="/travel.svg" width={180} alt="travel icon" />
+                <h2 className="title-font pt-3 text-5xl font-medium text-gray-900">
                   130
                 </h2>
-                <p className="leading-relaxed">Miles Walked</p>
+                <p className="leading-relaxed md:text-xl ">Miles Walked</p>
               </div>
             </div>
-
-
           </div>
         </div>
       </section>

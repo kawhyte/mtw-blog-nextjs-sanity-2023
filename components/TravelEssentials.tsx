@@ -7,7 +7,7 @@ function Welcome() {
   return (
     <>
       <section className="body-font bg-mtw-light-yellow-background text-gray-600">
-        <div className="container mx-auto px-5 py-16">
+        <div className="container mx-auto px-5 pt-16 py-24">
           <div className="mb-20 flex w-full flex-col text-center">
             <h1 className="title-font mb-4 text-3xl font-medium text-gray-900 sm:text-4xl">
               Our Travel Essentials
@@ -65,10 +65,10 @@ function Welcome() {
 
 
           <div className="group  relative cursor-pointer overflow-hidden ">
-            <div className="hidden md:block pt-30 absolute inset-x-0 -bottom-2 z-50 flex  cursor-pointer items-end rounded-xl  text-black bg-transparent opacity-0 transition duration-300 ease-in-out group-hover:opacity-100">
+            <div className=" md:block pt-30 absolute inset-x-0 -bottom-2 z-50 flex  cursor-pointer items-end rounded-xl  text-black bg-transparent opacity-0 transition duration-300 ease-in-out group-hover:opacity-100">
               <div>
                 <div className="translate-y-9  transform  space-y-3 p-4 pb-10 text-xs md:text-sm transition duration-300 ease-in-out group-hover:translate-y-0 group-hover:opacity-100">
-                  <div className="font-bold rounded-lg flex justify-center align-middle content-center">Nike Presto</div>
+                  <div className="font-bold rounded-lg flex justify-center align-middle content-center">Sunscreen</div>
                 </div>
               </div>
             </div>
@@ -80,10 +80,10 @@ function Welcome() {
           </div>
 
           <div className="group  relative cursor-pointer overflow-hidden ">
-            <div className="hidden  md:block pt-30 absolute inset-x-0 -bottom-2 z-50 flex  cursor-pointer items-end rounded-xl  text-black bg-transparent opacity-0 transition duration-300 ease-in-out group-hover:opacity-100">
+            <div className="  md:block pt-30 absolute inset-x-0 -bottom-2 z-50 flex  cursor-pointer items-end rounded-xl  text-black bg-transparent opacity-0 transition duration-300 ease-in-out group-hover:opacity-100">
               <div>
                 <div className="translate-y-9   transform  space-y-3 p-4 pb-10 text-xs md:text-sm transition duration-300 ease-in-out group-hover:translate-y-0 group-hover:opacity-100">
-                  <div className="font-bold rounded-lg bg-white flex justify-center align-middle content-center">Nike Presto</div>
+                  <div className="font-bold rounded-lg bg-white flex justify-center align-middle content-center">Cable bag</div>
                 </div>
               </div>
             </div>
@@ -95,10 +95,10 @@ function Welcome() {
           </div>
 
           <div className="group  relative cursor-pointer overflow-hidden ">
-            <div className="hidden  md:block pt-30 absolute inset-x-0 -bottom-2 z-50 flex  cursor-pointer items-end rounded-xl  text-black bg-transparent opacity-0 transition duration-300 ease-in-out group-hover:opacity-100">
+            <div className="  md:block pt-30 absolute inset-x-0 -bottom-2 z-50 flex  cursor-pointer items-end rounded-xl  text-black bg-transparent opacity-0 transition duration-300 ease-in-out group-hover:opacity-100">
               <div>
                 <div className="translate-y-9   transform  space-y-3 p-4 pb-10 text-xs md:text-sm transition duration-300 ease-in-out group-hover:translate-y-0 group-hover:opacity-100">
-                  <div className="font-bold rounded-lg bg-white flex justify-center align-middle content-center">Nike Presto</div>
+                  <div className="font-bold rounded-lg bg-white flex justify-center align-middle content-center">Kettle</div>
                 </div>
               </div>
             </div>
@@ -110,10 +110,10 @@ function Welcome() {
           </div>
 
           <div className="group  relative cursor-pointer overflow-hidden ">
-            <div className="hidden  md:block pt-30 absolute inset-x-0 -bottom-2 z-50 flex  cursor-pointer items-end rounded-xl  text-black bg-transparent opacity-0 transition duration-300 ease-in-out group-hover:opacity-100">
+            <div className="  md:block pt-30 absolute inset-x-0 -bottom-2 z-50 flex  cursor-pointer items-end rounded-xl  text-black bg-transparent opacity-0 transition duration-300 ease-in-out group-hover:opacity-100">
               <div>
                 <div className="translate-y-9   transform  space-y-3 p-4 pb-10 text-xs md:text-sm transition duration-300 ease-in-out group-hover:translate-y-0 group-hover:opacity-100">
-                  <div className="font-bold rounded-lg bg-white flex justify-center align-middle content-center">Nike Presto</div>
+                  <div className="font-bold rounded-lg bg-white flex justify-center align-middle content-center">Portable Charger</div>
                 </div>
               </div>
             </div>

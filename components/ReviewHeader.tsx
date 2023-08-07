@@ -28,7 +28,11 @@ function ReviewHeader({ title, pattern, summary, animation }) {
 		
 			<section className='text-gray-600'>
 				<div  className='container mx-auto justify-center    md:flex  md:flex-row flex-col items-center'>
-					<div ref={container} className=' hidden lg:block lg:max-w-lg lg:p-10    lg:w-full '>
+					<div  className=' hidden lg:block lg:max-w-lg lg:p-10    lg:w-full '>
+						
+						
+						<img src='https://tailus.io/sources/blocks/food-delivery/preview/images/food.webp' />
+						
 						{/*<video
 							className='object-cover object-center h-96'
 							autoPlay
