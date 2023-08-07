@@ -1,61 +1,28 @@
-import { inter } from 'app/fonts';
-import lottie from 'lottie-web'
-import Image from "next/image";
-import React, {useEffect, useRef} from "react";
-
-
-
+import { inter } from 'app/fonts'
+import Image from 'next/image'
+import React, { useEffect, useRef } from 'react'
 
 function ReviewHeader({ title, pattern, summary, animation }) {
-//	console.log("pattern ", animation)
-	
- const container = useRef(null)
+  
 
-	useEffect(() => {
-	lottie.loadAnimation({
-		container:container.current,
-		renderer:'svg',
-		loop:true,
-		autoplay:true,
-		path: animation
-	})	
+  return (
+    <div className="container mx-auto flex flex-col items-center justify-center md:flex-row">
+      <div className="  lg:w-full lg:max-w-lg    lg:p-10 ">
+        <img alt='' src={animation} />
 
-	
-	}, [animation])
-
-	return (
-		<div className='mx-12  flex justify-center   '>
-		
-			<section className='text-gray-600'>
-				<div  className='container mx-auto justify-center    md:flex  md:flex-row flex-col items-center'>
-					<div  className=' hidden lg:block lg:max-w-lg lg:p-10    lg:w-full '>
-						
-						
-						<img src='https://tailus.io/sources/blocks/food-delivery/preview/images/food.webp' />
-						
-						{/*<video
-							className='object-cover object-center h-96'
-							autoPlay
-							loop
-							muted>
-							Your browser does not support the video tag.
-							<source
-								// src='https://dl.dropboxusercontent.com/s/0c76v5mrs9duv12/MTW-video.mp4'
-								src={animation}
-								type='video/mp4'
-							/>
-						</video>*/}
-					</div>
-					<div className='lg:grow  lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center'>
-						<h1 className='font-fancy mb-1 py-1 text-6xl md:text-7xl font-bold tracking-tighter leading-tight  text-pink-500'>
-							{title}
-						</h1>
-						<p className={`${inter.variable} font-secondary  mb-8 leading-relaxed md:text-2xl`}>{summary}</p>
-					</div>
-				</div>
-			</section>
-		</div>
-	);
+      </div>
+      <div className="flex  flex-col items-center text-center md:items-start md:pl-16 md:text-left lg:grow lg:pl-24">
+        <h1 className="font-fancy mb-1 py-1 text-6xl font-bold leading-tight tracking-tighter text-pink-500  md:text-7xl">
+          {title}
+        </h1>
+        <p
+          className={`${inter.variable} mb-8  font-secondary leading-relaxed md:text-2xl`}
+        >
+          {summary}
+        </p>
+      </div>
+    </div>
+  )
 }
 
-export default ReviewHeader;
+export default ReviewHeader

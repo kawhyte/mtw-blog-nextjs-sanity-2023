@@ -44,7 +44,7 @@ export default function IndexPage(props: IndexPageProps) {
 					title={"Stories & Guides"}
 					pattern={"hotelpattern"}
 					summary={"It's all about the adventure"}
-					animation={'/plane.json'}
+					animation={'/books.svg'}
 				/>
 
           {posts.length > 0 && <MoreStories posts={posts} />}

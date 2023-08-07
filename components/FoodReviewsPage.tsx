@@ -39,7 +39,7 @@ export default function IndexPage(props: IndexPageProps) {
 					title={"Food Reviews"}
 					pattern={"foodpattern"}
 					summary={"Everything food, drink & restaurants"}
-					animation={'https://tailus.io/sources/blocks/food-delivery/preview/images/food.webp'}
+					animation={'/food_smiling.svg'}
 				/>
 
           {posts.length > 0 && <MoreStories posts={posts}  />}

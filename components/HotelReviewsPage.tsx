@@ -35,7 +35,7 @@ export default function IndexPage(props: IndexPageProps) {
         <Container>
           <BlogHeader title={title} description={description} level={1} />
 
-          <ReviewHeader title ={"Hotel Reviews"} pattern={'hotelpattern'} summary={"Rooms, Amenities, Service and Price"} animation={'/bath.json'}/>
+          <ReviewHeader title ={"Hotel Reviews"} pattern={'hotelpattern'} summary={"Rooms, Amenities, Service and Price"} animation={'/sand.svg'}/>
 
 
           {posts.length > 0 && <MoreStories posts={posts} />}
