@@ -114,7 +114,7 @@ export default function IndexPage(props: IndexPageProps) {
               <div className="h-1 w-20 rounded bg-pink-500"></div>
             </div>
           </div>
-          <div className="grid place-items-center content-start  justify-start gap-5 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3  	">
+          <div className="grid justify-items-center gap-5 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3">
             <div>
               <InstagramEmbed
                 url="https://www.instagram.com/p/CqzLI_or4QD/"
@@ -123,7 +123,7 @@ export default function IndexPage(props: IndexPageProps) {
             </div>
             <div>
               <InstagramEmbed
-                url="https://www.instagram.com/p/CkPVy5tt3P6/"
+                url="https://www.instagram.com/p/CuR4F1auNjp/"
                 width={328}
               />
             </div>
@@ -136,6 +136,18 @@ export default function IndexPage(props: IndexPageProps) {
             <div>
               <InstagramEmbed
                 url="https://www.instagram.com/p/CtSc9f5rTcL/"
+                width={328}
+              />
+            </div>
+            <div>
+              <InstagramEmbed
+                url="https://www.instagram.com/p/CuaSdGqvqf8/"
+                width={328}
+              />
+            </div>
+            <div>
+              <InstagramEmbed
+                url="https://www.instagram.com/p/CrW6zyzPxVK/"
                 width={328}
               />
             </div>
