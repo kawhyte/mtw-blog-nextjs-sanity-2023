@@ -67,14 +67,14 @@ export default function IndexPage(props: IndexPageProps) {
             </div>
           </div> */}
 
-          <div className=" container mx-auto my-16 mb-10 flex w-full flex-row flex-wra justify-between  ">
+          <div className=" flex-wra container mx-auto my-16 mb-10 flex w-full flex-row justify-between  ">
             <div className=" mb-6 lg:mb-0 lg:w-1/2 ">
               <h1 className=" title-font mb-2 text-2xl font-medium text-gray-900 sm:text-3xl">
                 Our Latest Adventures
               </h1>
               <div className="h-1 w-20 rounded bg-pink-500"></div>
             </div>
-{/* 
+            {/* 
             <div className="lg:mt-0 lg:flex-shrink-0">
               <div className=" inline-flex rounded-md shadow ">
                 <Link href="/hotel" passHref legacyBehavior>
@@ -88,17 +88,7 @@ export default function IndexPage(props: IndexPageProps) {
               </div>
             </div> */}
 
-
-
-
-
-
-
-
-
-
-
-{/* <div className="flex items-center ">
+            {/* <div className="flex items-center ">
 <Link href="/hotel" passHref legacyBehavior>
     <button type="button" className="  underline  hover:bg-indigo-100  text-indigo-500 hover:bg-indigo-100flex flex-row items-center text-base content-between text-gray-600 p-1 pr-4 pl-2 rounded-full">
       All Hotel Reviews
@@ -108,7 +98,6 @@ export default function IndexPage(props: IndexPageProps) {
       All Food Reviews
     </button></Link>
 </div> */}
-
           </div>
 
           {posts.length > 0 && <MoreStoriesIndex posts={posts.slice(0, 8)} />}
@@ -132,12 +121,12 @@ export default function IndexPage(props: IndexPageProps) {
                 width={328}
               />
             </div>
-            {/* <div>
+            <div>
               <InstagramEmbed
                 url="https://www.instagram.com/p/CkPVy5tt3P6/"
                 width={328}
               />
-            </div> */}
+            </div>
             <div>
               <InstagramEmbed
                 url="https://www.instagram.com/p/CtDelhSOMYc/"

@@ -1,7 +1,7 @@
+import { inter } from "app/fonts";
 import React from "react";
 
 import PostBody from "../components/PostBody";
-import { inter } from "app/fonts";
 
 function ProConList({ positives, negatives, verdict2 }) {
 	

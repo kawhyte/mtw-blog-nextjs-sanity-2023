@@ -1,7 +1,7 @@
 import 'tailwindcss/tailwind.css'
 
 import { AppProps } from 'next/app'
-import { Oswald,Lora } from 'next/font/google'
+import { Lora,Oswald } from 'next/font/google'
 
 
 const lora = Lora({
