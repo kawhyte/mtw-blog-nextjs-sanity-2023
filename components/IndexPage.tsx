@@ -154,6 +154,40 @@ export default function IndexPage(props: IndexPageProps) {
           </div>
         </div>
 
+        <div className="my-12 rounded-xl bg-pink-50 px-10 py-12 ">
+          <div className=" container mx-auto mb-10 flex w-full flex-wrap">
+            <div className="mx-4 mb-6 w-full lg:mb-0 lg:w-1/2 ">
+              <h1 className="font-fancy  title-font mb-2 text-2xl font-medium text-gray-900 sm:text-3xl">
+               Walking tours
+              </h1>
+              <div className="h-1 w-20 rounded bg-pink-500"></div>
+            </div>
+          </div>
+          <div className="grid justify-items-center gap-5 grid-col-1 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2">
+            <YouTubeEmbed
+              url="https://youtu.be/U1zTABvzInk"
+              width={425}
+              height={220}
+              
+            />
+            <YouTubeEmbed
+              url="https://youtu.be/WOX5m1Z0DoY"
+              width={425}
+              height={220}
+            />
+            <YouTubeEmbed
+              url="https://youtu.be/TietUAnVBoA"
+              width={425}
+              height={220}
+            />
+            <YouTubeEmbed
+              url="https://youtu.be/YGXaztMYl3M"
+              width={425}
+              height={220}
+            />
+    
+          </div>
+        </div>
         {/* <div className="rounded-xl bg-pink-50 px-10 py-12 mt-12 ">
           <div className=" container mx-auto mb-10 flex w-full flex-wrap">
             <div className="mx-4 mb-6 w-full lg:mb-0 lg:w-1/2 ">
