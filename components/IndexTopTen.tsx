@@ -9,7 +9,7 @@ export default function IndexTopTen() {
         <h2 className="text-3xl font-extrabold text-black  sm:text-4xl">
           <span className="font-fancy block">
             Check out our top{' '}
-            <span className="font-fancy text-yellow-500">
+            <span className="font-fancy text-mtw-yellow ">
               Hotels and Restaurants
             </span>{' '}
             recommendations.
@@ -23,7 +23,7 @@ export default function IndexTopTen() {
             <Link href="/top_picks" passHref legacyBehavior>
               <button
                 type="button"
-                className="w-full rounded-lg  bg-yellow-400 px-6 py-4 text-center text-base font-semibold text-black shadow-md transition duration-200 ease-in hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2  focus:ring-offset-yellow-200 "
+                className="w-full rounded-lg  bg-yellow-400 px-6 py-2 text-center text-base font-semibold text-black shadow-md transition duration-200 ease-in hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2  focus:ring-offset-yellow-200 "
               >
                 Top Picks
               </button>

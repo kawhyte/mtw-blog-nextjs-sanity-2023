@@ -8,6 +8,7 @@ import MoreStoriesIndex from 'components/MoreStories'
 import * as demo from 'lib/demo.data'
 import type { Post, Settings } from 'lib/sanity.queries'
 import Link from 'next/link'
+
 import {
   InstagramEmbed,
   TikTokEmbed,
@@ -20,6 +21,9 @@ import Hero from './Hero'
 import IndexTopTen from './IndexTopTen'
 import TravelEssentials from './TravelEssentials'
 import Welcome from './Welcome'
+
+import dynamic from 'next/dynamic'
+const ReactPlayer = dynamic(() => import("react-player/youtube"), { ssr: false });
 
 export interface IndexPageProps {
   preview?: boolean
@@ -74,19 +78,19 @@ export default function IndexPage(props: IndexPageProps) {
               </h1>
               <div className="h-1 w-20 rounded bg-pink-500"></div>
             </div>
-            {/* 
+          
             <div className="lg:mt-0 lg:flex-shrink-0">
-              <div className=" inline-flex rounded-md shadow ">
+              <div className=" inline-flex  ">
                 <Link href="/hotel" passHref legacyBehavior>
                   <button
                     type="button"
-                    className={`${inter.variable} font-secondary py-2 px-4 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-xs md:text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg `}
+                    className={`${inter.variable} font-secondary py-2 px-4 text-gray-500 hover:underline  w-full transition ease-in duration-200 text-center text-xs md:text-base font-semibold  `}
                   >
-                    View more
+                    Show all
                   </button>
                 </Link>
               </div>
-            </div> */}
+            </div> 
 
             {/* <div className="flex items-center ">
 <Link href="/hotel" passHref legacyBehavior>
@@ -163,49 +167,51 @@ export default function IndexPage(props: IndexPageProps) {
               <div className="h-1 w-20 rounded bg-pink-500"></div>
             </div>
           </div>
-          <div className="grid justify-items-center gap-5 grid-col-1 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2">
-            <YouTubeEmbed
-              url="https://youtu.be/U1zTABvzInk"
-              width={425}
-              height={220}
-              
-            />
-            <YouTubeEmbed
-              url="https://youtu.be/WOX5m1Z0DoY"
-              width={425}
-              height={220}
-            />
-            <YouTubeEmbed
-              url="https://youtu.be/TietUAnVBoA"
-              width={425}
-              height={220}
-            />
-            <YouTubeEmbed
-              url="https://youtu.be/YGXaztMYl3M"
-              width={425}
-              height={220}
-            />
-    
-          </div>
+           <div className="grid justify-items-center gap-5 grid-col-1 sm:grid-cols-1 rounded-lg lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+      
+              <ReactPlayer
+                // className="react-player"
+                url="https://youtu.be/U1zTABvzInk"
+                width={351}
+                height={197}
+                controls={false}
+                light
+                loop
+                muted
+               
+              />
+              <ReactPlayer
+                // className="react-player"
+                url="https://youtu.be/WOX5m1Z0DoY"
+                width={351}
+                height={197}
+                controls={false}
+                light
+                loop
+                muted
+              />
+              <ReactPlayer
+               className=""
+                url="https://youtu.be/TietUAnVBoA"
+                width={351}
+                height={197}
+                controls={false}
+                light
+                loop
+                muted
+              />
+              <ReactPlayer
+                // className="react-player"
+                url="https://youtu.be/YGXaztMYl3M"
+                width={351}
+                height={197}
+                controls={false}
+                light
+                loop
+                muted
+              />
+            </div> 
         </div>
-        {/* <div className="rounded-xl bg-pink-50 px-10 py-12 mt-12 ">
-          <div className=" container mx-auto mb-10 flex w-full flex-wrap">
-            <div className="mx-4 mb-6 w-full lg:mb-0 lg:w-1/2 ">
-              <h1 className="font-fancy  title-font mb-2 text-2xl font-medium text-gray-900 sm:text-3xl">
-                Featured Youtube Videos
-              </h1>
-              <div className="h-1 w-20 rounded bg-pink-500"></div>
-            </div>
-          </div>
-          <div className="grid grid-cols-3">
-          <YouTubeEmbed url="https://www.youtube.com/watch?v=SsJd34yM0K4" width={425} height={220} />
-          <YouTubeEmbed url="https://www.youtube.com/watch?v=SsJd34yM0K4" width={425} height={220} />
-          <YouTubeEmbed url="https://www.youtube.com/watch?v=SsJd34yM0K4" width={425} height={220} />
-
-          
-
-          </div>
-        </div> */}
         {/* <IntroTemplate /> */}
       </Layout>
       <Footer />
