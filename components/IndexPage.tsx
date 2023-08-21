@@ -7,8 +7,8 @@ import IndexPageHead from 'components/IndexPageHead'
 import MoreStoriesIndex from 'components/MoreStories'
 import * as demo from 'lib/demo.data'
 import type { Post, Settings } from 'lib/sanity.queries'
+import dynamic from 'next/dynamic'
 import Link from 'next/link'
-
 import {
   InstagramEmbed,
   TikTokEmbed,
@@ -21,8 +21,6 @@ import Hero from './Hero'
 import IndexTopTen from './IndexTopTen'
 import TravelEssentials from './TravelEssentials'
 import Welcome from './Welcome'
-
-import dynamic from 'next/dynamic'
 const ReactPlayer = dynamic(() => import("react-player/youtube"), { ssr: false });
 
 export interface IndexPageProps {

@@ -1,7 +1,7 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
-import { inter } from 'app/fonts'
+import { indie_flower, inter, roboto_mono } from 'app/fonts'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useRef } from 'react'
@@ -112,7 +112,7 @@ export default function Nav({ color = 'bg-black', bgColor }) {
                         width={45}
                         height={45}
                       />
-                    <p className='hidden lg:block'> meet the whytes</p>  
+                    <p className={`hidden lg:block ${roboto_mono.variable} font-mono `}> meet the whytes</p>  
                     </div>
                   </div>
                 </Link>
