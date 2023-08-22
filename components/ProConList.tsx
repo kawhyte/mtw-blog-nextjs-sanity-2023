@@ -1,7 +1,9 @@
 import { inter } from "app/fonts";
 import React from "react";
 
+
 import PostBody from "../components/PostBody";
+import { Spoiler } from "@mantine/core";
 
 function ProConList({ positives, negatives, verdict2 }) {
 	
@@ -37,8 +39,7 @@ function ProConList({ positives, negatives, verdict2 }) {
 								<div className='grow bg-white p-8 rounded-xl'>
 									<div className='flex flex-col sm:items-start sm:text-left   items-center -mb-1 space-y-2.5'>
 
-
-
+									<Spoiler maxHeight={320} color="pink" showLabel="Show more" hideLabel="Hide">
 
 										<ul>
 											{positives?.map((positive, index) => (
@@ -61,6 +62,7 @@ function ProConList({ positives, negatives, verdict2 }) {
 												</li>
 											))}
 										</ul>
+										</Spoiler>
 									</div>
 								</div>
 							</div>
