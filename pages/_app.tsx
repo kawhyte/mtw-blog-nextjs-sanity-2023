@@ -1,5 +1,6 @@
 import 'tailwindcss/tailwind.css'
 
+import { MantineProvider } from '@mantine/core'
 import { AppProps } from 'next/app'
 import { Lora,Oswald } from 'next/font/google'
 
@@ -19,8 +20,10 @@ const oswald = Oswald({
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
+    <MantineProvider> 
     <main className={`${oswald.variable} font-sans`}>
       <Component {...pageProps} />
     </main>
+    </MantineProvider>
   )
 }

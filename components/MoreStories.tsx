@@ -1,14 +1,32 @@
+import { Pagination } from '@mantine/core'
+import { range, usePagination } from '@mantine/hooks'
 import PostPreview from 'components/PostPreview'
 import type { Post } from 'lib/sanity.queries'
 import Link from 'next/link'
+import { useState } from 'react'
 
-import Categories from './Categories'
-
+const itemsPerPage = 12
 export default function MoreStories({ posts }: { posts: Post[] }) {
+  const [visiblePosts, setvisiblePosts] = useState(posts.slice(0, itemsPerPage))
+
+  const [activePage, setPage] = useState(1)
+
+  const total = Math.ceil(posts.length / itemsPerPage)
+  function displayNewPage(e) {
+    console.log('E', e)
+    setPage(e)
+
+    const start = (e - 1) * itemsPerPage
+    const end = start + itemsPerPage
+    setvisiblePosts(posts.slice(start, end))
+  }
+
+  // console.log('activePage', activePage)
+
   return (
     <section className="container mx-auto mt-8">
       <div className="xs:grid-cols-2 mb-12 grid grid-cols-1 gap-x-7 gap-y-9 sm:grid-cols-2 md:grid-cols-3 md:gap-x-7 lg:grid-cols-3 lg:gap-x-7 xl:grid-cols-4">
-        {posts.map((post) => (
+        {visiblePosts.map((post) => (
           <PostPreview
             key={post._id}
             title={post.title}
@@ -21,7 +39,26 @@ export default function MoreStories({ posts }: { posts: Post[] }) {
           />
         ))}
       </div>
-    
+      <div className="pb-8">
+        <Pagination
+          total={total}
+          value={activePage}
+          onChange={displayNewPage}
+          position="center"
+          size="lg"
+          styles={(theme) => ({
+            control: {
+              '&[data-active]': {
+                backgroundImage: theme.fn.gradient({
+                  from: '#F0BBDD',
+                  to: 'pink',
+                }),
+                border: 0,
+              },
+            },
+          })}
+        />
+      </div>
     </section>
   )
 }

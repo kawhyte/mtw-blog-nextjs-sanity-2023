@@ -16,14 +16,20 @@ export interface IndexPageProps {
   loading?: boolean
   posts: Post[]
   settings: Settings
- 
 }
+
+
+
 
 export default function IndexPage(props: IndexPageProps) {
   const { preview, loading, posts, settings } = props
   const [heroPost, ...morePosts] = posts || []
   const { title = demo.title, description = demo.description } = settings || {}
   //  console.log("PODTs ",heroPost )
+
+
+
+
   return (
     <>
       <IndexPageHead settings={settings} />
@@ -35,8 +41,12 @@ export default function IndexPage(props: IndexPageProps) {
         <Container>
           <BlogHeader title={title} description={description} level={1} />
 
-          <ReviewHeader title ={"Hotel Reviews"} pattern={'hotelpattern'} summary={"Rooms, Amenities, Service and Price"} animation={'/sand.svg'}/>
-
+          <ReviewHeader
+            title={'Hotel Reviews'}
+            pattern={'hotelpattern'}
+            summary={'Rooms, Amenities, Service and Price'}
+            animation={'/sand.svg'}
+          />
 
           {posts.length > 0 && <MoreStories posts={posts} />}
         </Container>

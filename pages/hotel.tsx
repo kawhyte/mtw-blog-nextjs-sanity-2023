@@ -7,6 +7,7 @@ import Head from "next/head";
 import { lazy } from 'react'
 
 
+
 const PreviewIndexPage = lazy(() => import('components/PreviewIndexPage'))
 
 interface PageProps {
@@ -23,6 +24,7 @@ interface Query {
 interface PreviewData {
   token?: string
 }
+
 
 
 export default function Page(props: PageProps) {
