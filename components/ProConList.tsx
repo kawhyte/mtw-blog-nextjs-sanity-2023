@@ -85,6 +85,9 @@ function ProConList({ positives, negatives, verdict2 }) {
 								</div>
 								<div className='grow bg-white p-8 rounded-xl'>
 									<div className='flex flex-col sm:items-start sm:text-left   items-center -mb-1 space-y-2.5'>
+									
+									<Spoiler maxHeight={320} color="pink" showLabel="Show more" hideLabel="Hide">
+
 										<ul>
 											{negatives?.map((negative, index) => (
 												<li
@@ -105,7 +108,11 @@ function ProConList({ positives, negatives, verdict2 }) {
 												</li>
 											))}
 										</ul>
+										</Spoiler>
 									</div>
+
+									
+
 								</div>
 							</div>
 						</div>
@@ -133,8 +140,12 @@ function ProConList({ positives, negatives, verdict2 }) {
 								</div>
 								<div className='grow bg-white p- rounded-xl'>
 									<div className={`${inter.variable} font-secondary  flex flex-col px-7 sm:items-start text-base lg:text-lg leading-relaxed` }>
+										
 										{/*<p className='font-sans text-base md:text-lg'>{verdict}</p>*/}
+										<Spoiler maxHeight={320} color="pink" showLabel="Show more" hideLabel="Hide">
+
 										<PostBody content={verdict2} />
+										</Spoiler>
 									</div>
 								</div>
 							</div>
