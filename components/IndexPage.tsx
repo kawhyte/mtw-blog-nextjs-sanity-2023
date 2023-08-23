@@ -19,47 +19,14 @@ import Categories from './Categories'
 import Footer from './Footer'
 import Hero from './Hero'
 import IndexTopTen from './IndexTopTen'
+import InstagramHighlights from './InstagramHighlights'
 import TravelEssentials from './TravelEssentials'
 import Welcome from './Welcome'
+import YoutubeHighlights from './YoutubeHighlights'
 const ReactPlayer = dynamic(() => import('react-player/youtube'), {
   ssr: false,
 })
 
-let instagram = [
-  {
-    url: 'https://www.instagram.com/p/CqzLI_or4QD/',
-  },
-  {
-    url: 'https://www.instagram.com/p/CtDelhSOMYc/',
-  },
-  {
-    url: 'https://www.instagram.com/p/CtSc9f5rTcL/',
-  },
-  {
-    url: 'https://www.instagram.com/p/CuaSdGqvqf8/',
-  },
-  {
-    url: 'https://www.instagram.com/p/CrW6zyzPxVK/',
-  },
-  {
-    url: "https://www.instagram.com/p/CtScyA3PdUH/",
-  },
-]
-
-let walking = [
-  {
-    url: 'https://youtu.be/U1zTABvzInk',
-  },
-  {
-    url: 'https://youtu.be/WOX5m1Z0DoY',
-  },
-  {
-    url: 'https://youtu.be/YGXaztMYl3M',
-  },
-  {
-    url: 'https://youtu.be/TietUAnVBoA',
-  },
-]
 export interface IndexPageProps {
   preview?: boolean
   loading?: boolean
@@ -108,7 +75,9 @@ export default function IndexPage(props: IndexPageProps) {
 
           <div className=" flex-wra container mx-auto my-16 mb-10 flex w-full flex-row justify-between  ">
             <div className=" mb-6 lg:mb-0 lg:w-1/2 ">
-              <h1 className={ `${oswald.variable}  font-heading title-font mb-2 text-2xl font-medium text-gray-900 sm:text-3xl`}>
+              <h1
+                className={`${oswald.variable}  title-font mb-2 font-heading text-2xl font-medium text-gray-900 sm:text-3xl`}
+              >
                 Our Latest Adventures
               </h1>
               <div className="h-1 w-20 rounded bg-pink-500"></div>
@@ -119,7 +88,7 @@ export default function IndexPage(props: IndexPageProps) {
                 <Link href="/hotel" passHref legacyBehavior>
                   <button
                     type="button"
-                    className={`${inter.variable} w-full px-4 py-2 text-center font-secondary  text-xs font-semibold text-gray-500 transition duration-200 ease-in hover:underline md:text-base  `}
+                    className={`${inter.variable} font-secondary w-full px-4 py-2 text-center  text-xs font-semibold text-gray-500 transition duration-200 ease-in hover:underline md:text-base  `}
                   >
                     Show all
                   </button>
@@ -129,54 +98,14 @@ export default function IndexPage(props: IndexPageProps) {
           </div>
 
           {posts.length > 0 && <MoreStoriesIndex posts={posts.slice(0, 8)} />}
-          {/* <Categories /> */}
+  
           <IndexTopTen />
           {/* <Categories /> */}
         </Container>
-        <div className="rounded-xl bg-yellow-50 px-10 py-12 ">
-          <div className=" container mx-auto mb-10 flex w-full flex-wrap">
-            <div className="mx-4 mb-6 w-full lg:mb-0 lg:w-1/2 ">
-              <h1 className={ `${oswald.variable}  font-heading  title-font mb-2 text-2xl font-medium text-gray-900 sm:text-3xl`}>
-                Featured Instagram Posts
-              </h1>
-              <div className="h-1 w-20 rounded bg-pink-500"></div>
-            </div>
-          </div>
-          <div className="grid justify-items-center gap-5 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3">
-            {instagram.map((item) => (
-              <div key={item.url}>
-                <InstagramEmbed url={item.url} width={328} />
-              </div>
-            ))}
-          </div>
-        </div>
 
-        <div className="my-12 rounded-xl bg-pink-50 px-10 py-12 ">
-          <div className=" container mx-auto mb-10 flex w-full flex-wrap">
-            <div className="mx-4 mb-6 w-full lg:mb-0 lg:w-1/2 ">
-            <h1 className={ `${oswald.variable}  font-heading  title-font mb-2 text-2xl font-medium text-gray-900 sm:text-3xl`}>
-                Walking tours
-              </h1>
-              <div className="h-1 w-20 rounded bg-pink-500"></div>
-            </div>
-          </div>
-          <div className="grid-col-1 grid justify-items-center gap-5 rounded-lg sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
-            {walking.map((item) => (
-              <div key={item.url}>
-                <ReactPlayer
-                  // className="react-player"
-                  url={item.url}
-                  width={351}
-                  height={197}
-                  controls={false}
-                  light
-                  loop
-                  muted
-                />
-              </div>
-            ))}
-          </div>
-        </div>
+        <YoutubeHighlights />
+        <InstagramHighlights />
+
         {/* <IntroTemplate /> */}
       </Layout>
       <Footer />
