@@ -80,7 +80,7 @@ export default function PostHeader(
             <div>
               <div className={ `${inter.variable} font-secondary  my-8 max-w-7xl text-justify lg:text-lg` }>
                 {/* {excerpt2} */}
-                <Blockquote color="pink" cite="– Google">
+                <Blockquote color="pink" >
                 <PostBody content={excerpt2} />
                 </Blockquote>
               </div>

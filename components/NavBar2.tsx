@@ -1,62 +1,153 @@
-import React from "react";
+/* This example requires Tailwind CSS v2.0+ */
+import { Disclosure, Menu, Transition } from '@headlessui/react'
+import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
+import {  inter, roboto_mono } from 'app/fonts'
+import Image from 'next/image'
+import Link from 'next/link'
+import React, { useEffect, useRef, useState } from 'react'
+import { IoRestaurantOutline } from 'react-icons/io5'
+import { LiaCrownSolid } from 'react-icons/lia'
+import { PiSneakerLight } from "react-icons/pi";
+import { RiHotelLine } from 'react-icons/ri'
+import { TfiMapAlt } from 'react-icons/tfi'
 
-export default function Navbar2({ fixed }) {
-  const [navbarOpen, setNavbarOpen] = React.useState(false);
+import BodySectionSeparator from './IndexTopTen'
+import SectionSeparator from './SectionSeparator'
+import { Box, NavLink } from '@mantine/core'
+
+
+
+ const bg = '  underline decoration-pink-200 underline-offset-8 hover:decoration-pink-500/50 focus:decoration-pink-500/50 '
+
+
+
+
+
+
+ const navigation = [
+  {
+    name: 'Our Top Picks',
+    href: '/top_picks',
+    icon: <LiaCrownSolid className="h-6 w-10  text-gray-500" />,
+    text: 'Book icon',
+    bg: '  underline  decoration-yellow-200 underline-offset-8 hover:decoration-yellow-500/50 focus:decoration-yellow-500/50',
+    current: false,
+  },
+  {
+    name: 'Hotel Reviews',
+    href: '/hotel',
+    icon: <RiHotelLine className="h-6 w-10  text-gray-500" />,
+    text: 'Hotel icon',
+    bg: ' underline decoration-pink-200 underline-offset-8 hover:decoration-pink-500/50 focus:decoration-pink-500/50',
+    current: false,
+  },
+  {
+    name: 'Food Reviews',
+    href: '/food',
+    icon: <IoRestaurantOutline className="h-6 w-10  text-gray-500" />,
+    text: 'Food icon',
+    bg: ' underline decoration-green-200 underline-offset-8 hover:decoration-green-500/50 focus:decoration-green-500/50',
+    current: false,
+  },
+  {
+    name: 'Guides',
+    href: '/story',
+    icon: <TfiMapAlt className="h-6 w-10   text-gray-500 " />,
+    text: 'Book icon',
+    bg: ' underline decoration-indigo-200  underline-offset-8 hover:decoration-indigo-500/50 focus:decoration-indigo-500/50',
+    current: false,
+  },
+  // {
+  //   name: 'Stuff We Like',
+  //   href: '/stuff_we_like',
+  //       icon: <PiSneakerLight className="h-6 w-10  text-gray-500" />,
+
+   
+  //   text: 'Man walking',
+  //   bg: bg,
+  //   current: false,
+  // },
+
+]
+
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ')
+}
+
+export default function Nav({ color = 'bg-black', bgColor }) {
+
+
+
+  const data = [
+    { icon: <LiaCrownSolid className="h-6 w-10  text-gray-500" />, label: 'Dashboard', description: 'Item with description' },
+    {
+      icon: <RiHotelLine className="h-6 w-10  text-gray-500" />,
+      label: 'Security',
+      rightSection: <RiHotelLine className="h-6 w-10  text-gray-500" />,
+    },
+    { icon: <RiHotelLine className="h-6 w-10  text-gray-500" />, label: 'Activity' },
+  ];
+  
+
+
+  const [active, setActive] = useState(0);
+
+  const items = data.map((item, index) => (
+    <NavLink
+      key={item.label}
+      active={index === active}
+      label={item.label}
+      description={item.description}
+      rightSection={item.rightSection}
+      
+      //  icon={<item.icon size="1rem" stroke={1.5} />}
+      onClick={() => setActive(index)}
+    />
+  ));
+
   return (
-    <>
-      <nav className="relative flex flex-wrap items-center justify-between px-2 py-3 bg-pink-500 mb-3">
-        <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
-          <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
-            <a
-              className="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white"
-              href="#pablo"
-            >
-              pink Tailwind Starter Kit
-            </a>
-            <button
-              className="text-white cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
-              type="button"
-              onClick={() => setNavbarOpen(!navbarOpen)}
-            >
-              <i className="fas fa-bars"></i>
-            </button>
-          </div>
-          <div
-            className={
-              "lg:flex flex-grow items-center" +
-              (navbarOpen ? " flex" : " hidden")
-            }
-            id="example-navbar-danger"
-          >
-            <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
-              <li className="nav-item">
-                <a
-                  className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
-                  href="#pablo"
-                >
-                  <i className="fab fa-facebook-square text-lg leading-lg text-white opacity-75"></i><span className="ml-2">Share</span>
-                </a>
-              </li>
-              <li className="nav-item">
-                <a
-                  className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
-                  href="#pablo"
-                >
-                  <i className="fab fa-twitter text-lg leading-lg text-white opacity-75"></i><span className="ml-2">Tweet</span>
-                </a>
-              </li>
-              <li className="nav-item">
-                <a
-                  className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
-                  href="#pablo"
-                >
-                  <i className="fab fa-pinterest text-lg leading-lg text-white opacity-75"></i><span className="ml-2">Pin</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </>
-  );
+
+
+
+
+
+
+
+   
+    
+      <Box w={220}>{items}</Box>
+
+
+    
+  )
+}
+
+{
+  /*
+		name: "Stories/Guides",
+		href: "/story",
+		icon: "/icon/book.svg",
+		text: "Book icon",
+		current: false,
+	*/
+}
+
+{
+  /* <Link
+className={` + flex flex-row items-center justify-center rounded-xl px-2 py-2  align-middle decoration-[0.25rem] hover:decoration-[0.5rem] focus:decoration-[0.5rem] motion-safe:transition-all motion-safe:duration-200 ${item.bg}`}
+href={item.href}
+key={item.name}
+
+>
+<a>  {item.icon && (
+  <Image
+    className="mr-2"
+    src={item.icon}
+    alt={item.text}
+    width={25}
+    height={25}
+  />
+)}
+{item.name}</a> 
+</Link> */
 }

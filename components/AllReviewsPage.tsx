@@ -36,10 +36,10 @@ export default function IndexPage(props: IndexPageProps) {
           <BlogHeader title={title} description={description} level={1} />
 
           <ReviewHeader
-            title={'All Reviews'}
+            title={'Stuff We Like'}
             pattern={'pattern'}
             summary={
-              'You want to get out and see the world, but you have so many questions. Check out our trips.'
+              'From sneakers to to the latest Game consoles... here you will find random items that we love ❤️'
             }
             animation={'/all.json'}
           />
