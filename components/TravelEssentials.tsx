@@ -67,9 +67,9 @@ function Welcome() {
             {essentials.map((item) => (
               <>
                 <div className="group  relative cursor-pointer overflow-hidden ">
-                  <div className=" pt-30 absolute   inset-x-0 z-50 flex cursor-pointer  items-end rounded-xl bg-transparent  text-black opacity-0 transition duration-300 ease-in-out group-hover:opacity-100 md:block">
+                  <div className=" hidden pt-30 absolute   inset-x-0 z-50 cursor-pointer  items-end rounded-xl bg-transparent  text-black opacity-0 transition duration-300 ease-in-out group-hover:opacity-100 lg:block">
                     <div className="translate-y-2   transform  space-y-3 p-4 pb-10 text-xs transition duration-300 ease-in-out group-hover:translate-y-0 group-hover:opacity-100 md:text-sm">
-                      <div className="flex content-center  justify-center rounded-lg bg-red-50 align-middle font-bold">
+                      <div className="flex content-center text-xs  justify-center rounded-lg bg-red-50 align-middle font-bold">
                         {item.name}
                       </div>
                     </div>
