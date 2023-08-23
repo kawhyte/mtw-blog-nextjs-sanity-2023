@@ -30,7 +30,7 @@ export default function CoverImage(props: CoverImageProps) {
   // console.log('Gallery .images[i] ', gallery?.images[0])
 
   const image = source?.asset?._ref ? (
-    <section className=" text-gray-600 mt-8">
+    <section className=" text-gray-600 mt-8 max-w-7xl ">
       <div className="   mx-auto grid md:grid-cols-2 justify-items-center ">
         <div className="   ">
           <div className="    ">

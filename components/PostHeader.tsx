@@ -40,9 +40,6 @@ export default function PostHeader(
     gallery,
   } = props
 
-      //console.log("props.hotelRating PostHeader W",hotelRating)
-      //console.log("props PPPPOOOOOOOOOOO",gallery)
-    //  console.log("linkType PostHeader W",linkType)
   return (
     <>
       <PostTitle>{title}</PostTitle>
@@ -80,7 +77,7 @@ export default function PostHeader(
         {excerpt2 && (
           <>
             <div>
-              <div className={ `${inter.variable} font-secondary  my-8 max-w-4xl text-justify lg:text-lg` }>
+              <div className={ `${inter.variable} font-secondary  my-8 max-w-7xl text-justify lg:text-lg` }>
                 {/* {excerpt2} */}
                 <PostBody content={excerpt2} />
               </div>
