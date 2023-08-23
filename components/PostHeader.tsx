@@ -1,3 +1,4 @@
+import { Blockquote } from '@mantine/core'
 import { inter } from 'app/fonts'
 import Avatar from 'components/AuthorAvatar'
 import CoverImage from 'components/CoverImage'
@@ -9,7 +10,6 @@ import BodySectionSeparator from './body-section-separator'
 import CoverImagePost from './CoverImagePost'
 import PostBody from './PostBody'
 import StarRating from './StarRating'
-import { Blockquote } from '@mantine/core'
 
 export default function PostHeader(
   props: Pick<

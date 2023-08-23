@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { roboto_mono } from "app/fonts";
 import Link from "next/link";
 
 import { EXAMPLE_PATH } from "../lib/constants";
@@ -12,7 +12,7 @@ export default function Footer() {
 					<div className='flex title-font font-medium items-center md:justify-start justify-center text-gray-900'>
 						<Link href='/' passHref legacyBehavior>
 							<div className='flex flex-row justify-center align-middle items-center'>
-								<div className=' hidden mx-4 sm:inline-block'>
+								{/* <div className=' hidden mx-4 sm:inline-block'>
 									<img
 										className='rounded-xl '
 										src='/icon/icon.jpg'
@@ -20,10 +20,10 @@ export default function Footer() {
 										width={45}
 										height={45}
 									/>
-								</div>
+								</div> */}
 
-								<p className='hidden text-base font-bold leading-relaxed md:inline-block mr-4 py-2 whitespace-nowrap uppercase text-black'>
-									Meet The Whytes
+								<p className={`  lg:block ${roboto_mono.variable} font-mono   hidden text-base  leading-relaxed md:inline-block mr-4 py-2 whitespace-nowrap  text-black`}>
+									meet the whytes
 								</p>
 							</div>
 						</Link>

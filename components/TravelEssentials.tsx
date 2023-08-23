@@ -68,16 +68,11 @@ function Welcome() {
               <>
                 <div className="group  relative cursor-pointer overflow-hidden ">
                   <div className=" pt-30 absolute   inset-x-0 z-50 flex cursor-pointer  items-end rounded-xl bg-transparent  text-black opacity-0 transition duration-300 ease-in-out group-hover:opacity-100 md:block">
-                  
-                      <div className="translate-y-2   transform  space-y-3 p-4 pb-10 text-xs transition duration-300 ease-in-out group-hover:translate-y-0 group-hover:opacity-100 md:text-sm">
-                        <div className="flex bg-red-50  content-center justify-center rounded-lg align-middle font-bold">
-                          {item.name}
-                        </div>
-
-
-
+                    <div className="translate-y-2   transform  space-y-3 p-4 pb-10 text-xs transition duration-300 ease-in-out group-hover:translate-y-0 group-hover:opacity-100 md:text-sm">
+                      <div className="flex content-center  justify-center rounded-lg bg-red-50 align-middle font-bold">
+                        {item.name}
                       </div>
-                    
+                    </div>
                   </div>
 
                   <img
@@ -85,7 +80,7 @@ function Welcome() {
                     className="flex h-full w-full content-end justify-center  object-scale-down object-center align-bottom"
                     src={item.url}
                   />
-                </div> 
+                </div>
                 {/* <Box maw={240} mx="auto">
                   <Image
                     radius="md"

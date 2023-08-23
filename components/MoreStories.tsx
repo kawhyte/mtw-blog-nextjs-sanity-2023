@@ -13,7 +13,7 @@ export default function MoreStories({ posts }: { posts: Post[] }) {
 
   const total = Math.ceil(posts.length / itemsPerPage)
   function displayNewPage(e) {
-    console.log('E', e)
+    //console.log('E', e)
     setPage(e)
 
     const start = (e - 1) * itemsPerPage
@@ -45,7 +45,7 @@ export default function MoreStories({ posts }: { posts: Post[] }) {
           value={activePage}
           onChange={displayNewPage}
           position="center"
-          size="lg"
+          size="md"
           styles={(theme) => ({
             control: {
               '&[data-active]': {

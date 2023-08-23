@@ -26,7 +26,7 @@ export default function PostPreview({
       </div>
       <Link
         href={`/posts/${slug}`}
-        className={`  ${inter.variable} title-font   mt-3  font-secondary  font-light text-gray-700 hover:underline`}
+        className={`${inter.variable} title-font mt-3 font-secondary font-light text-gray-700 hover:underline`}
       >
         <div className="-mt-6">
           <h2 className=" title-font mt-3 truncate text-sm font-semibold  text-pink-500">
@@ -34,7 +34,7 @@ export default function PostPreview({
           </h2>
           {/* <p className='text-base leading-relaxed mt-2'>{item.excerpt}</p> */}
           <div className="block   text-sm  text-gray-500">
-            {location ? location : ''}{' '}
+            {location ? location : ''}
           </div>
 
           {/* <h3 className="mb-3 text-3xl leading-snug">{title}</h3> */}

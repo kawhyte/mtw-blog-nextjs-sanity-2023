@@ -42,7 +42,7 @@ let instagram = [
     url: 'https://www.instagram.com/p/CrW6zyzPxVK/',
   },
   {
-    url: "https://www.instagram.com/p/CuR4F1auNjp/",
+    url: "https://www.instagram.com/p/CtScyA3PdUH/",
   },
 ]
 
