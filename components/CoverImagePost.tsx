@@ -32,7 +32,7 @@ export default function CoverImage(props: CoverImageProps) {
   const image = source?.asset?._ref ? (
     <section className=" text-gray-600 mt-8 max-w-7xl ">
       <div className="   mx-auto grid md:grid-cols-2 justify-items-center ">
-        <div className="   ">
+        <div className=" ">
           <div className="    ">
             <Image
               width={740}
@@ -47,14 +47,14 @@ export default function CoverImage(props: CoverImageProps) {
               alt={`Cover Image for ${title}`}
               className="   lg:rounded-l-2xl"
               src={urlForImage(source)
-                .width(1240)
+                .width(1227)
                 .height(801)
                 .format('webp')
                 .url()}
             />
           </div>
         </div>
-        <div className=" ml-2  hidden md:block  ">
+        <div className=" ml-2  hidden md:block   ">
           <div className="grid-row-2 grid grid-cols-2  gap-2  ">
             <div className="    ">
               <Image
@@ -70,7 +70,7 @@ export default function CoverImage(props: CoverImageProps) {
             <div className="  ">
               <Image
                 width={360}
-                height={770}
+                height={740}
                 blurDataURL={image2}
                 placeholder="blur"
                 alt={`Cover Image for ${title}`}
