@@ -9,6 +9,7 @@ import BodySectionSeparator from './body-section-separator'
 import CoverImagePost from './CoverImagePost'
 import PostBody from './PostBody'
 import StarRating from './StarRating'
+import { Blockquote } from '@mantine/core'
 
 export default function PostHeader(
   props: Pick<
@@ -79,7 +80,9 @@ export default function PostHeader(
             <div>
               <div className={ `${inter.variable} font-secondary  my-8 max-w-7xl text-justify lg:text-lg` }>
                 {/* {excerpt2} */}
+                <Blockquote color="pink" cite="– Google">
                 <PostBody content={excerpt2} />
+                </Blockquote>
               </div>
             </div>
             <BodySectionSeparator />
