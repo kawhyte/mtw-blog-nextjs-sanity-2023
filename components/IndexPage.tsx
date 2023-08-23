@@ -21,8 +21,45 @@ import Hero from './Hero'
 import IndexTopTen from './IndexTopTen'
 import TravelEssentials from './TravelEssentials'
 import Welcome from './Welcome'
-const ReactPlayer = dynamic(() => import("react-player/youtube"), { ssr: false });
+const ReactPlayer = dynamic(() => import('react-player/youtube'), {
+  ssr: false,
+})
 
+let instagram = [
+  {
+    url: 'https://www.instagram.com/p/CqzLI_or4QD/',
+  },
+  {
+    url: 'https://www.instagram.com/p/CtDelhSOMYc/',
+  },
+  {
+    url: 'https://www.instagram.com/p/CtSc9f5rTcL/',
+  },
+  {
+    url: 'https://www.instagram.com/p/CuaSdGqvqf8/',
+  },
+  {
+    url: 'https://www.instagram.com/p/CrW6zyzPxVK/',
+  },
+  {
+    url: "https://www.instagram.com/p/CuR4F1auNjp/",
+  },
+]
+
+let walking = [
+  {
+    url: 'https://youtu.be/U1zTABvzInk',
+  },
+  {
+    url: 'https://youtu.be/WOX5m1Z0DoY',
+  },
+  {
+    url: 'https://youtu.be/YGXaztMYl3M',
+  },
+  {
+    url: 'https://youtu.be/TietUAnVBoA',
+  },
+]
 export interface IndexPageProps {
   preview?: boolean
   loading?: boolean
@@ -76,30 +113,19 @@ export default function IndexPage(props: IndexPageProps) {
               </h1>
               <div className="h-1 w-20 rounded bg-pink-500"></div>
             </div>
-          
+
             <div className="lg:mt-0 lg:flex-shrink-0">
               <div className=" inline-flex  ">
                 <Link href="/hotel" passHref legacyBehavior>
                   <button
                     type="button"
-                    className={`${inter.variable} font-secondary py-2 px-4 text-gray-500 hover:underline  w-full transition ease-in duration-200 text-center text-xs md:text-base font-semibold  `}
+                    className={`${inter.variable} w-full px-4 py-2 text-center font-secondary  text-xs font-semibold text-gray-500 transition duration-200 ease-in hover:underline md:text-base  `}
                   >
                     Show all
                   </button>
                 </Link>
               </div>
-            </div> 
-
-            {/* <div className="flex items-center ">
-<Link href="/hotel" passHref legacyBehavior>
-    <button type="button" className="  underline  hover:bg-indigo-100  text-indigo-500 hover:bg-indigo-100flex flex-row items-center text-base content-between text-gray-600 p-1 pr-4 pl-2 rounded-full">
-      All Hotel Reviews
-    </button></Link>
-    <Link href="/food" passHref legacyBehavior>
-    <button type="button" className="  underline  hover:bg-pink-100 text-pink-500 flex flex-row items-center text-base content-between text-gray-600 p-1 pr-4 pl-2 rounded-full">
-      All Food Reviews
-    </button></Link>
-</div> */}
+            </div>
           </div>
 
           {posts.length > 0 && <MoreStoriesIndex posts={posts.slice(0, 8)} />}
@@ -117,42 +143,11 @@ export default function IndexPage(props: IndexPageProps) {
             </div>
           </div>
           <div className="grid justify-items-center gap-5 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3">
-            <div>
-              <InstagramEmbed
-                url="https://www.instagram.com/p/CqzLI_or4QD/"
-                width={328}
-              />
-            </div>
-            <div>
-              <InstagramEmbed
-                url="https://www.instagram.com/p/CuR4F1auNjp/"
-                width={328}
-              />
-            </div>
-            <div>
-              <InstagramEmbed
-                url="https://www.instagram.com/p/CtDelhSOMYc/"
-                width={328}
-              />
-            </div>
-            <div>
-              <InstagramEmbed
-                url="https://www.instagram.com/p/CtSc9f5rTcL/"
-                width={328}
-              />
-            </div>
-            <div>
-              <InstagramEmbed
-                url="https://www.instagram.com/p/CuaSdGqvqf8/"
-                width={328}
-              />
-            </div>
-            <div>
-              <InstagramEmbed
-                url="https://www.instagram.com/p/CrW6zyzPxVK/"
-                width={328}
-              />
-            </div>
+            {instagram.map((item) => (
+              <div key={item.url}>
+                <InstagramEmbed url={item.url} width={328} />
+              </div>
+            ))}
           </div>
         </div>
 
@@ -160,55 +155,27 @@ export default function IndexPage(props: IndexPageProps) {
           <div className=" container mx-auto mb-10 flex w-full flex-wrap">
             <div className="mx-4 mb-6 w-full lg:mb-0 lg:w-1/2 ">
               <h1 className="font-fancy  title-font mb-2 text-2xl font-medium text-gray-900 sm:text-3xl">
-               Walking tours
+                Walking tours
               </h1>
               <div className="h-1 w-20 rounded bg-pink-500"></div>
             </div>
           </div>
-           <div className="grid justify-items-center gap-5 grid-col-1 sm:grid-cols-1 rounded-lg lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
-      
-              <ReactPlayer
-                // className="react-player"
-                url="https://youtu.be/U1zTABvzInk"
-                width={351}
-                height={197}
-                controls={false}
-                light
-                loop
-                muted
-               
-              />
-              <ReactPlayer
-                // className="react-player"
-                url="https://youtu.be/WOX5m1Z0DoY"
-                width={351}
-                height={197}
-                controls={false}
-                light
-                loop
-                muted
-              />
-              <ReactPlayer
-               className=""
-                url="https://youtu.be/TietUAnVBoA"
-                width={351}
-                height={197}
-                controls={false}
-                light
-                loop
-                muted
-              />
-              <ReactPlayer
-                // className="react-player"
-                url="https://youtu.be/YGXaztMYl3M"
-                width={351}
-                height={197}
-                controls={false}
-                light
-                loop
-                muted
-              />
-            </div> 
+          <div className="grid-col-1 grid justify-items-center gap-5 rounded-lg sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+            {walking.map((item) => (
+              <div key={item.url}>
+                <ReactPlayer
+                  // className="react-player"
+                  url={item.url}
+                  width={351}
+                  height={197}
+                  controls={false}
+                  light
+                  loop
+                  muted
+                />
+              </div>
+            ))}
+          </div>
         </div>
         {/* <IntroTemplate /> */}
       </Layout>
