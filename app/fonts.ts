@@ -1,4 +1,4 @@
-import { Inter, Roboto_Mono } from 'next/font/google'
+import { Inter, Oswald, Roboto_Mono } from 'next/font/google'
  
 export const inter = Inter({
     subsets: ['latin'],
@@ -12,3 +12,11 @@ export const roboto_mono = Roboto_Mono({
     variable: '--font-roboto-mono',
 })
 
+export const oswald = Oswald({
+    weight:'500',
+    subsets: ['latin'],
+     variable: '--font-oswald',
+    // variable:
+  })
+  
+  

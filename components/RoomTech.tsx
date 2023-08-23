@@ -1,4 +1,4 @@
-import { inter } from "app/fonts";
+import { inter, oswald } from "app/fonts";
 import React from "react";
 
 function RoomTech({ speed = 10, techAvailable }) {
@@ -81,7 +81,7 @@ function RoomTech({ speed = 10, techAvailable }) {
 			<section className='text-gray-800 body-font overflow-hidden'>
 				<div className='container pb-20 mx-auto'>
 					<div className='flex flex-col text-center w-full mb-12'>
-						<h1 className='font-fancy text-6xl md:text-5xl lg:text-5xl font-bold tracking-tighter leading-tight md:leading-none text-center md:text-left'>
+					<h1 className= {`${oswald.variable} font-heading text-center text-6xl font-bold leading-tight tracking-tighter md:text-left md:text-5xl md:leading-none lg:text-5xl`}>
 							Hotel Techology
 						</h1>
 					</div>

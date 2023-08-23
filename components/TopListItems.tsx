@@ -1,3 +1,4 @@
+import { oswald } from 'app/fonts'
 import PostPreview from 'components/PostPreview'
 import { urlForImage } from 'lib/sanity.image'
 import type { Recommendation } from 'lib/sanity.queries'
@@ -11,7 +12,7 @@ console.log("color", color)
     <section className={`my-16    rounded-2xl`}>
       <div className=" container  mx-auto mb-10 flex w-full flex-wrap">
         <div className="mx-4 my-6 w-full lg:mb-0 lg:w-1/2 ">
-          <h1 className="font-fancy  title-font mb-2 text-2xl font-medium text-gray-900 sm:text-3xl">
+          <h1 className={`${oswald.variable} font-heading title-font mb-2 text-2xl font-medium text-gray-900 sm:text-3xl`}>
             {posts[0].title}
           </h1>
           <div className="h-1 w-20 rounded bg-pink-500"></div>

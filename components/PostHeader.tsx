@@ -48,7 +48,7 @@ export default function PostHeader(
         {author && <Avatar name={author.name} picture={author.picture} />}
       </div> */}
 
-      <div className={` ${inter.variable} font-secondary flex flex-col justify-start align-middle md:flex-row`}>
+      <div className={`  flex flex-col justify-start align-middle md:flex-row`}>
         <div>
           <p className=" text-center  text-gray-700 md:text-left md:text-sm ">
             <span className="text-lg capitalize">

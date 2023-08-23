@@ -2,26 +2,24 @@ import 'tailwindcss/tailwind.css'
 
 import { MantineProvider } from '@mantine/core'
 import { AppProps } from 'next/app'
-import { Lora,Oswald } from 'next/font/google'
+import { Inter, Lora,Oswald } from 'next/font/google'
 
 
 const lora = Lora({
   subsets: ['latin'],
   variable: '--font-lora',
 })
-const oswald = Oswald({
-  weight:'500',
+const inter = Inter({
   subsets: ['latin'],
-   variable: '--font-oswald',
-  // variable:
+  display: 'swap',
+  variable: '--font-inter',
 })
-
 
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <MantineProvider> 
-    <main className={`${oswald.variable} font-sans`}>
+    <main className={`${inter.variable} font-sans`}>
       <Component {...pageProps} />
     </main>
     </MantineProvider>

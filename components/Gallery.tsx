@@ -1,6 +1,7 @@
 // import "react-medium-image-zoom/dist/styles.css";
 
 import { getImageDimensions } from '@sanity/asset-utils'
+import { oswald } from 'app/fonts'
 // import Masonry from "react-masonry-css";
 // import Zoom from "react-medium-image-zoom";
 import { urlForImage } from 'lib/sanity.image'
@@ -24,7 +25,7 @@ function Gallery({ posts, heading }) {
       <div className="container mx-auto">
         <div className="mb-10 flex w-full flex-col text-center font-medium lg:mb-12">
           <div className="flex ">
-            <p className="font-fancy text-left text-5xl font-semibold leading-tight tracking-tighter md:text-5xl md:leading-none lg:text-5xl">
+            <p className={`${oswald.variable} font-heading text-left text-5xl font-semibold leading-tight tracking-tighter md:text-5xl md:leading-none lg:text-5xl`}>
               Photo Gallery
             </p>
           </div>

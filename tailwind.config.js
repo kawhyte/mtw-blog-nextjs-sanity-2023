@@ -9,9 +9,9 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['var(--font-oswald)'],
+        sans: ['var(--font-inter)'],
         mono: ['var(--font-roboto-mono)'],
-        secondary: ['var(--font-inter)'],
+        heading: ['var(--font-oswald)'],
       },
 
       colors: {

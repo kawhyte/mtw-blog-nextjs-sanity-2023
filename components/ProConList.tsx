@@ -1,5 +1,5 @@
 import { Spoiler } from '@mantine/core'
-import { inter } from 'app/fonts'
+import { inter, oswald } from 'app/fonts'
 import React from 'react'
 
 import PostBody from '../components/PostBody'
@@ -8,7 +8,7 @@ function ProConList({ positives, negatives, verdict2 }) {
   return (
     <>
       <section className="body-font text-gray-800">
-        <h1 className="font-fancy text-center text-6xl font-bold leading-tight tracking-tighter md:text-left md:text-5xl md:leading-none lg:text-5xl">
+        <h1 className= {`${oswald.variable} font-heading text-center text-6xl font-bold leading-tight tracking-tighter md:text-left md:text-5xl md:leading-none lg:text-5xl`}>
           Bottom Line
         </h1>
 

@@ -1,4 +1,4 @@
-import { inter } from 'app/fonts'
+import { inter, oswald } from 'app/fonts'
 import Container from 'components/BlogContainer'
 import BlogHeader from 'components/BlogHeader'
 import Layout from 'components/BlogLayout'
@@ -108,7 +108,7 @@ export default function IndexPage(props: IndexPageProps) {
 
           <div className=" flex-wra container mx-auto my-16 mb-10 flex w-full flex-row justify-between  ">
             <div className=" mb-6 lg:mb-0 lg:w-1/2 ">
-              <h1 className=" title-font mb-2 text-2xl font-medium text-gray-900 sm:text-3xl">
+              <h1 className={ `${oswald.variable}  font-heading title-font mb-2 text-2xl font-medium text-gray-900 sm:text-3xl`}>
                 Our Latest Adventures
               </h1>
               <div className="h-1 w-20 rounded bg-pink-500"></div>
@@ -136,7 +136,7 @@ export default function IndexPage(props: IndexPageProps) {
         <div className="rounded-xl bg-yellow-50 px-10 py-12 ">
           <div className=" container mx-auto mb-10 flex w-full flex-wrap">
             <div className="mx-4 mb-6 w-full lg:mb-0 lg:w-1/2 ">
-              <h1 className="font-fancy  title-font mb-2 text-2xl font-medium text-gray-900 sm:text-3xl">
+              <h1 className={ `${oswald.variable}  font-heading  title-font mb-2 text-2xl font-medium text-gray-900 sm:text-3xl`}>
                 Featured Instagram Posts
               </h1>
               <div className="h-1 w-20 rounded bg-pink-500"></div>
@@ -154,7 +154,7 @@ export default function IndexPage(props: IndexPageProps) {
         <div className="my-12 rounded-xl bg-pink-50 px-10 py-12 ">
           <div className=" container mx-auto mb-10 flex w-full flex-wrap">
             <div className="mx-4 mb-6 w-full lg:mb-0 lg:w-1/2 ">
-              <h1 className="font-fancy  title-font mb-2 text-2xl font-medium text-gray-900 sm:text-3xl">
+            <h1 className={ `${oswald.variable}  font-heading  title-font mb-2 text-2xl font-medium text-gray-900 sm:text-3xl`}>
                 Walking tours
               </h1>
               <div className="h-1 w-20 rounded bg-pink-500"></div>

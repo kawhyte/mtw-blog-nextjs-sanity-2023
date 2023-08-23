@@ -1,4 +1,4 @@
-import { inter } from 'app/fonts'
+import { inter, oswald } from 'app/fonts'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -6,8 +6,9 @@ export default function IndexTopTen() {
   return (
     <div className=" relative my-8  flex-col overflow-hidden md:my-20 bg-green-50 pr-3 rounded-xl">
       <div className="z-20 w-full px-4  py-12 text-start sm:px-6 lg:w-1/2 lg:px-8 lg:py-16">
-        <h2 className="text-3xl font-extrabold text-black  sm:text-4xl">
+        <h2 className={` ${oswald.variable}  font-heading text-3xl font-extrabold text-black  sm:text-4xl`}>
           <span className="font-fancy block">
+            
             Check out our top{' '}
             <span className="font-fancy text-mtw-yellow ">
               Hotels and Restaurants

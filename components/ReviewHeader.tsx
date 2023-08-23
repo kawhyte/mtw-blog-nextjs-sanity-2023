@@ -1,4 +1,4 @@
-import { inter } from 'app/fonts'
+import { inter, oswald } from 'app/fonts'
 import Image from 'next/image'
 import React, { useEffect, useRef } from 'react'
 
@@ -12,11 +12,11 @@ function ReviewHeader({ title, pattern, summary, animation }) {
 
       </div>
       <div className="flex  flex-col items-center text-center md:items-start md:pl-16 md:text-left lg:grow lg:pl-24">
-        <h1 className="font-fancy mb-1 py-1 text-6xl font-bold leading-tight tracking-tighter text-pink-500  md:text-7xl">
+        <h1 className={` ${oswald.variable}  font-heading mb-1 py-1 text-6xl font-bold leading-tight tracking-tighter text-pink-500  md:text-7xl`}>
           {title}
         </h1>
         <p
-          className={`${inter.variable} mb-8  font-secondary leading-relaxed md:text-2xl`}
+          className={` mb-8  font-secondary leading-relaxed md:text-2xl`}
         >
           {summary}
         </p>

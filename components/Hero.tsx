@@ -1,4 +1,4 @@
-import { inter } from 'app/fonts'
+import { oswald } from 'app/fonts'
 import lottie from 'lottie-web'
 import Image from 'next/image'
 import React from 'react'
@@ -54,14 +54,14 @@ function Hero() {
           <div className="container m-auto px-6  md:px-12 lg:px-7 lg:pt-[.01rem]">
             <div className="flex flex-wrap items-center justify-center px-2 align-middle md:px-0">
               <div className="relative lg:w-5/12 lg:py-24 xl:py-32">
-                <div className="text-6xl  font-bold text-gray-700  md:text-7xl lg:w-10/12 lg:text-8xl">
+                <div className={`  ${oswald.variable}  font-heading text-6xl  font-bold text-gray-700  md:text-7xl lg:w-10/12 lg:text-8xl`}>
                   <h1>
                     Travel.<span className="text-mtw-pink">Eat.</span>Explore.
                   </h1>
                 </div>
 
                 <p
-                  className={` ${inter.variable} mt-8 font-secondary text-gray-700 md:text-lg lg:w-10/12 lg:text-xl`}
+                  className={`  mt-8 text-gray-700 md:text-lg lg:w-10/12 lg:text-xl`}
                 >
                   Hi! We are the Whytes. <br></br> Welcome to our space on the{' '}
                   <span className="text-pink-500">interwebs. </span> We&apos;re

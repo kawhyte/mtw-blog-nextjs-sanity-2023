@@ -1,5 +1,5 @@
 import { Box, Group, Image, Text } from '@mantine/core'
-import { inter } from 'app/fonts'
+import { inter, oswald } from 'app/fonts'
 import Link from 'next/link'
 import React from 'react'
 
@@ -38,7 +38,7 @@ function Welcome() {
         <div className="container mx-auto px-5 py-24 pt-16">
           <div className="mb-20 flex w-full  justify-between">
             <div>
-              <h1 className="title-font mb-3 text-3xl font-medium text-gray-900 sm:text-4xl">
+              <h1 className={`${oswald.variable}  font-heading title-font mb-3 text-3xl font-medium text-gray-900 sm:text-4xl`}>
                 Our Travel Essentials
               </h1>
               <div className="h-1 w-20 rounded bg-pink-500"></div>

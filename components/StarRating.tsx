@@ -1,4 +1,4 @@
-import { inter } from "app/fonts";
+import {  oswald } from "app/fonts";
 import { calculateRating } from "lib/calculateRating";
 // import { calculateRating } from "../lib/calculateRating";
 import Image from "next/image";
@@ -21,7 +21,7 @@ const StarRating = ({ rating, linkType }) => {
 		<>
 			<div className='flex  justify-start items-end align-top mb-6   '>
 				<div className='flex flex-col justify-center items-center bg-pink-500 p-3 rounded-2xl'>
-					<h1 className={  ` ${inter.variable} font-secondary font-semibold text-white mx-2 text-4xl md:text-6xl lg:text-6xl tracking-tighter leading-tight md:leading-none md:text-left`}>
+					<h1 className={  ` font-semibold text-white mx-2 text-4xl md:text-6xl lg:text-6xl tracking-tighter leading-tight md:leading-none md:text-left`}>
 						{/*isFraction ? Math.floor(average) + ".5" : Math.floor(average)*/}
 						{average.toFixed(2)}
 					</h1>
@@ -39,10 +39,10 @@ const StarRating = ({ rating, linkType }) => {
 						</span>
 					</div>
 				</div>
-				<p className=' ml-4 text-3xl font-black '>{textRating}</p>
+				<p className={`${oswald.variable} font-heading ml-4 text-3xl font-black`  }>{textRating}</p>
 			</div>
 
-			<p className={ `${inter.variable} font-secondary    my-3 mt-2  text-lg `}>
+			<p className={ `   my-3 mt-2  text-lg `}>
 				{linkType === "hotel" ? "Hotel" : "Restaurant/Food"} rating breakdown{" "}
 			</p>
 			<div className='grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 max-w-8xl '>
@@ -51,7 +51,7 @@ const StarRating = ({ rating, linkType }) => {
 						let text = item[0];
 
 						return (
-							<div key={item[0]} className={`${inter.variable} font-secondary  border flex flex-col justify-center p-3 rounded-2xl `}>
+							<div key={item[0]} className={`  border flex flex-col justify-center p-3 rounded-2xl `}>
 								<div className='flex flex-row justify-start items-center'>
 									<span className=' pr-4'>
 										<img

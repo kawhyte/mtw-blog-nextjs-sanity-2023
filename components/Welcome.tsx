@@ -1,4 +1,4 @@
-import { inter } from 'app/fonts'
+import { inter, oswald } from 'app/fonts'
 import Image from 'next/image'
 import React from 'react'
 
@@ -27,7 +27,7 @@ function Welcome() {
               <div className=" flex flex-col items-center  border-gray-200 px-4 py-6">
                 <img src="/plane.svg" width={200} alt="plane" />
 
-                <h2 className="title-font pt-3 text-5xl font-medium text-gray-900 ">
+                <h2 className={` ${oswald.variable}  font-heading pt-3 text-5xl  font-medium text-gray-900`}>
                   7
                 </h2>
                 <p className="leading-relaxed md:text-xl ">Countries Visited</p>
@@ -37,7 +37,7 @@ function Welcome() {
               <div className="flex flex-col items-center border-gray-200 px-4 py-6">
                 <img src="/palm.svg" width={180} alt="palm tree" />
 
-                <h2 className="title-font pt-3 text-5xl  font-medium text-gray-900">
+                <h2 className={` ${oswald.variable}  font-heading pt-3 text-5xl  font-medium text-gray-900`}>
                   14
                 </h2>
                 <p className="leading-relaxed md:text-xl ">Hotel Stays</p>
@@ -47,7 +47,7 @@ function Welcome() {
             <div className="w-full p-4 sm:w-1/2 md:w-1/4">
               <div className=" flex flex-col items-center  border-gray-200 px-4 py-6">
                 <img src="/travel.svg" width={180} alt="travel icon" />
-                <h2 className="title-font pt-3 text-5xl font-medium text-gray-900">
+                <h2 className={` ${oswald.variable}  font-heading pt-3 text-5xl  font-medium text-gray-900`}>
                   130
                 </h2>
                 <p className="leading-relaxed md:text-xl ">Miles Walked</p>
