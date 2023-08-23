@@ -28,7 +28,7 @@ const YoutubeHighlights = () => {
           <h1
             className={`${oswald.variable}  title-font  mb-2 font-heading text-2xl font-medium text-gray-900 sm:text-3xl`}
           >
-            Walking tours
+            Featured Videos
           </h1>
           <div className="h-1 w-20 rounded bg-pink-500"></div>
         </div>
