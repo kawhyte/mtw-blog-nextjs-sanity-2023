@@ -2,20 +2,12 @@ import { inter, oswald } from 'app/fonts'
 import Container from 'components/BlogContainer'
 import BlogHeader from 'components/BlogHeader'
 import Layout from 'components/BlogLayout'
-import HeroPost from 'components/HeroPost'
 import IndexPageHead from 'components/IndexPageHead'
 import MoreStoriesIndex from 'components/MoreStories'
 import * as demo from 'lib/demo.data'
 import type { Post, Settings } from 'lib/sanity.queries'
-import dynamic from 'next/dynamic'
 import Link from 'next/link'
-import {
-  InstagramEmbed,
-  TikTokEmbed,
-  YouTubeEmbed,
-} from 'react-social-media-embed'
 
-import Categories from './Categories'
 import Footer from './Footer'
 import Hero from './Hero'
 import IndexTopTen from './IndexTopTen'
@@ -23,19 +15,17 @@ import InstagramHighlights from './InstagramHighlights'
 import TravelEssentials from './TravelEssentials'
 import Welcome from './Welcome'
 import YoutubeHighlights from './YoutubeHighlights'
-const ReactPlayer = dynamic(() => import('react-player/youtube'), {
-  ssr: false,
-})
 
 export interface IndexPageProps {
   preview?: boolean
   loading?: boolean
   posts: Post[]
   settings: Settings
+  instagram: any
 }
 
 export default function IndexPage(props: IndexPageProps) {
-  const { preview, loading, posts, settings } = props
+  const { preview, loading, posts, settings, instagram } = props
   const [heroPost, ...morePosts] = posts || []
   const { title = demo.title, description = demo.description } = settings || {}
   // console.log("PODTs ",heroPost )
@@ -104,7 +94,7 @@ export default function IndexPage(props: IndexPageProps) {
         </Container>
 
         <YoutubeHighlights />
-        <InstagramHighlights />
+        <InstagramHighlights instagram={instagram.data} />
 
         {/* <IntroTemplate /> */}
       </Layout>

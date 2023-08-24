@@ -132,3 +132,14 @@ export interface Settings {
     title?: string
   }
 }
+
+
+export interface Instagram {
+
+  id?:any
+  caption?:any
+  media_url?:any
+  timestamp?:any
+  media_type?:any
+  permalink?:any
+}

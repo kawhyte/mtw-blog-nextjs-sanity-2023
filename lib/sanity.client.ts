@@ -3,6 +3,7 @@ import {
   foodQuery,
   hotelQuery,
   indexQuery,
+  Instagram,
   type Post,
   postAndMoreStoriesQuery,
   postBySlugQuery,
@@ -34,6 +35,21 @@ export async function getAllPosts(): Promise<Post[]> {
     return (await client.fetch(indexQuery)) || []
   }
   return []
+}
+
+export async function getInstagramPosts(): Promise<Instagram> {
+
+  const url =`https://graph.instagram.com/me/media?fields=id,username,caption,media_url,timestamp,media_type,permalink&access_token=${process.env.INSTAGRAM_KEY}`
+  const data = await fetch(url)
+  const feed = await data.json()
+ 
+ //console.log("Instagram feed ", feed)
+
+ return feed
+  // if (client) {
+  //   return (await client.fetch(indexQuery)) || []
+  // }
+  //return []
 }
 
 export async function getHotelPosts(): Promise<Post[]> {
@@ -77,6 +93,8 @@ export async function getPostBySlug(slug: string): Promise<Post> {
   }
   return {} as any
 }
+
+
 
 export async function getPostAndMoreStories(
   slug: string,
