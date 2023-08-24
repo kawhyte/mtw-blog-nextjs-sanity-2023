@@ -35,7 +35,7 @@ export default function IndexPage(props: IndexPageProps) {
 
       <Layout preview={preview} loading={loading}>
         <Head>
-          <title>Travel and Food Reviews by {CMS_NAME}</title>
+          <title>{CMS_NAME} - Travel and Food Reviews </title>
         </Head>
         <Container>
           <BlogHeader title={title} description={description} level={1} />

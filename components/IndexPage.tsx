@@ -6,8 +6,10 @@ import IndexPageHead from 'components/IndexPageHead'
 import MoreStoriesIndex from 'components/MoreStories'
 import * as demo from 'lib/demo.data'
 import type { Post, Settings } from 'lib/sanity.queries'
+import Head from 'next/head'
 import Link from 'next/link'
 
+import { CMS_NAME } from '../lib/constants'
 import Footer from './Footer'
 import Hero from './Hero'
 import IndexTopTen from './IndexTopTen'
@@ -34,6 +36,9 @@ export default function IndexPage(props: IndexPageProps) {
       <IndexPageHead settings={settings} />
 
       <Layout preview={preview} loading={loading}>
+          <Head>
+          <title>{CMS_NAME} - Travel and Food Reviews </title>
+        </Head>
         <Container>
           <BlogHeader title={title} description={description} level={1} />
 
