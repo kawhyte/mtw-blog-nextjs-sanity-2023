@@ -1,9 +1,15 @@
-import { Inter, Oswald, Roboto_Mono } from 'next/font/google'
+import { Inter, Oswald, Roboto_Mono, Space_Grotesk } from 'next/font/google'
  
 export const inter = Inter({
     subsets: ['latin'],
     display: 'swap',
     variable: '--font-inter',
+})
+
+export const space = Space_Grotesk({
+    subsets: ['latin'],
+    display: 'swap',
+    variable: '--font-space-grotesk',
 })
  
 export const roboto_mono = Roboto_Mono({

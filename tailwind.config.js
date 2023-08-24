@@ -11,7 +11,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['var(--font-inter)'],
+        sans: ['var(--font-inter)'], 
+        logo: ['var(--font-space-grotesk)'],
         mono: ['var(--font-roboto-mono)'],
         heading: ['var(--font-oswald)'],
       },

@@ -1,4 +1,4 @@
-import { roboto_mono } from "app/fonts";
+import { space } from "app/fonts";
 import Link from "next/link";
 
 import { EXAMPLE_PATH } from "../lib/constants";
@@ -22,7 +22,7 @@ export default function Footer() {
 									/>
 								</div> */}
 
-								<p className={`  lg:block ${roboto_mono.variable} font-mono   hidden text-base  leading-relaxed md:inline-block mr-4 py-2 whitespace-nowrap  text-black`}>
+								<p className={`  lg:block ${ space.variable} font-logo   hidden text-base  leading-relaxed md:inline-block mr-4 py-2 whitespace-nowrap  text-black`}>
 									meet the whytes
 								</p>
 							</div>

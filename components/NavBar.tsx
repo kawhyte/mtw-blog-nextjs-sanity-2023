@@ -1,7 +1,7 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
-import {  inter, roboto_mono } from 'app/fonts'
+import {  inter,space } from 'app/fonts'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useRef } from 'react'
@@ -49,16 +49,16 @@ const navigation = [
     bg: ' underline decoration-indigo-200  underline-offset-8 hover:decoration-indigo-500/50 focus:decoration-indigo-500/50',
     current: false,
   },
-  {
-    name: 'Stuff We Like',
-    href: '/stuff_we_like',
-        icon: <PiSneakerLight className="h-6 w-10  text-gray-500" />,
+  // {
+  //   name: 'Stuff We Like',
+  //   href: '/stuff_we_like',
+  //       icon: <PiSneakerLight className="h-6 w-10  text-gray-500" />,
 
    
-    text: 'Man walking',
-    bg: bg,
-    current: false,
-  },
+  //   text: 'Man walking',
+  //   bg: bg,
+  //   current: false,
+  // },
 
 ]
 
@@ -112,7 +112,7 @@ export default function Nav({ color = 'bg-black', bgColor }) {
                         width={45}
                         height={45}
                       />
-                    <p className={`hidden lg:block ${roboto_mono.variable} font-mono `}> meet the whytes</p>  
+                    <p className={`hidden lg:block ${ space.variable} font-logo text-base `}> meet the whytes</p>  
                     </div>
                   </div>
                 </Link>
