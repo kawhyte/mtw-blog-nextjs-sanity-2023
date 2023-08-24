@@ -23,7 +23,7 @@ let animation = [
 ]
 
 let randomNum = Math.floor(Math.random() * 3)
-console.log('MY Random ', randomNum)
+
 function Hero() {
   // const videoRef = useRef(null);
   // useEffect(() => {

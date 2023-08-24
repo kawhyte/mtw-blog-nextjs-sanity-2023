@@ -13,7 +13,8 @@ export const roboto_mono = Roboto_Mono({
 })
 
 export const oswald = Oswald({
-    weight:'500',
+    
+    weight:'600',
     subsets: ['latin'],
      variable: '--font-oswald',
     // variable:

@@ -66,7 +66,7 @@ function Welcome() {
           <div className="-m-4 grid grid-cols-5 content-center gap-4 ">
             {essentials.map((item) => (
               <>
-                <div className="group  relative cursor-pointer overflow-hidden ">
+                <div key={item.name} className="group  relative cursor-pointer overflow-hidden ">
                   <div className=" hidden pt-30 absolute   inset-x-0 z-50 cursor-pointer  items-end rounded-xl bg-transparent  text-black opacity-0 transition duration-300 ease-in-out group-hover:opacity-100 lg:block">
                     <div className="translate-y-2   transform  space-y-3 p-4 pb-10 text-xs transition duration-300 ease-in-out group-hover:translate-y-0 group-hover:opacity-100 md:text-sm">
                       <div className="flex content-center text-xs  justify-center rounded-lg bg-red-50 align-middle font-bold">
