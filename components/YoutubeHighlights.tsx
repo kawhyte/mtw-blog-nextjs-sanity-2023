@@ -33,7 +33,7 @@ const YoutubeHighlights = () => {
           <div className="h-1 w-20 rounded bg-pink-500"></div>
         </div>
       </div>
-      <div className="grid-col-1 grid justify-items-center gap-9 rounded-lg sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3">
+      <div className="grid-col-2 grid justify-items-center gap-9 rounded-lg sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3">
         {walking.map((item) => (
           <div key={item.url}>
             <ReactPlayer
