@@ -49,12 +49,14 @@ function Hero() {
   // console.log("anim", animation[0].url)
   return (
     <>
-      <div className="relative -mt-10  lg:-mt-32 mb-12 w-full">
+      <div className="relative -mt-10  mb-12 w-full lg:-mt-32">
         <div className={`relative rounded  ${animation[randomNum].bg}`}>
           <div className="container m-auto px-6  md:px-12 lg:px-7 lg:pt-[.01rem]">
             <div className="flex flex-wrap items-center justify-center px-2 align-middle md:px-0">
               <div className="relative lg:w-5/12 lg:py-24 xl:py-32">
-                <div className={`  ${oswald.variable}  font-heading text-6xl  font-bold text-gray-700  md:text-7xl lg:w-10/12 lg:text-8xl`}>
+                <div
+                  className={`  ${oswald.variable}  font-heading text-6xl  font-bold text-gray-700  md:text-7xl lg:w-10/12 lg:text-8xl`}
+                >
                   <h1>
                     Travel.<span className="text-mtw-pink">Eat.</span>Explore.
                   </h1>

@@ -88,6 +88,8 @@ export const foodQuery = groq`
 export const storyQuery = groq`
 *[_type == "post"&& linkType =="story"] | order(date desc, _updatedAt desc) {${postFields}}`
 
+
+
 export interface Author {
   name?: string
   picture?: any
