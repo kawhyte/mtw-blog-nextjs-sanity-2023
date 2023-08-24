@@ -22,7 +22,7 @@ let walking = [
 
 const YoutubeHighlights = () => {
   return (
-    <div className="my-12 rounded-xl bg-pink-50 px-10 py-12 ">
+    <div className="container mx-auto  my-12 rounded-xl bg-pink-50 px-10 py-12 ">
       <div className=" container mx-auto mb-10 flex w-full flex-wrap">
         <div className="mx-4 mb-6 w-full lg:mb-0 lg:w-1/2 ">
           <h1

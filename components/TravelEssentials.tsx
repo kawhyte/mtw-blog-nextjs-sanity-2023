@@ -34,7 +34,7 @@ let essentials = [
 function Welcome() {
   return (
     <>
-      <section className="body-font bg-mtw-light-yellow-background text-gray-600">
+      <section className="container mx-auto  bg-mtw-light-yellow-background text-gray-600">
         <div className="container mx-auto px-5 py-24 pt-16">
           <div className="mb-20 flex w-full  justify-between">
             <div>

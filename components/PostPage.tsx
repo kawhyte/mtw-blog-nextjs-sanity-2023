@@ -41,7 +41,7 @@ export default function PostPage(props: PostPageProps) {
     // console.log('Post Page post.foodRating  ', post.foodRating )
 //  console.log("POST PAGE linkedtype ", post.linkType)
   return (
-    <>
+    <div className='container mx-auto '>
       <PostPageHead settings={settings} post={post} />
 
       <Layout preview={preview} loading={loading}>
@@ -93,6 +93,6 @@ export default function PostPage(props: PostPageProps) {
           )}
         </Container>
       </Layout>
-    </>
+    </div>
   )
 }

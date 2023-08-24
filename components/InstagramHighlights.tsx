@@ -10,7 +10,7 @@ const ReactPlayer = dynamic(() => import('react-player/youtube'), {
 const InstagramHighlights = ({ instagram }) => {
 
   return (
-    <div className="rounded-xl bg-yellow-50 px-10 py-12 ">
+    <div className="container mx-auto  rounded-xl bg-yellow-50 px-10 py-12 ">
       <div className=" container mx-auto mb-10 flex w-full flex-wrap">
         <div className="mx-4 mb-6 w-full lg:mb-0 lg:w-1/2 ">
           <h1
