@@ -49,7 +49,7 @@ function Hero() {
   // console.log("anim", animation[0].url)
   return (
     <>
-      <div className="relative mb-12 w-full">
+      <div className="relative -mt-10  lg:-mt-32 mb-12 w-full">
         <div className={`relative rounded  ${animation[randomNum].bg}`}>
           <div className="container m-auto px-6  md:px-12 lg:px-7 lg:pt-[.01rem]">
             <div className="flex flex-wrap items-center justify-center px-2 align-middle md:px-0">
