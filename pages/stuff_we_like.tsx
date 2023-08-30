@@ -40,7 +40,9 @@ export default function Page(props: PageProps) {
       )
     }
   
-    return <AllReviewsPage posts={posts} settings={settings} />
+    // return <AllReviewsPage posts={posts} settings={settings} />
+    return <AllReviewsPage posts={[]} settings={settings} />
+    
   }
   
   export const getStaticProps: GetStaticProps<
@@ -52,7 +54,7 @@ export default function Page(props: PageProps) {
   
     const [settings, posts = []] = await Promise.all([
       getSettings(),
-      getAllPosts(),
+      // getAllPosts(),
     ])
   
     return {

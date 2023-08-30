@@ -42,18 +42,18 @@ const category = [
     bgcolor:
       'text-indigo-500 hover:bg-indigo-100 ',
   },
-  {
-    name: 'Stuff We Like',
-    href: '/stuff_we_like',
-    image: <PiSneakerLight className="h-6 w-10   text-pink-500" />,
-    image2:"|",
-    // image:
-    // 	"https://res.cloudinary.com/babyhulk/image/upload/v1621897765/project/PXL_20210222_215622925.MP.webp",
-    text: 'Hotel icon',
-    alt: 'View of mountains',
-    bgcolor:
-      ' hover:bg-pink-100 text-pink-500',
-  },
+  // {
+  //   name: 'Stuff We Like',
+  //   href: '/stuff_we_like',
+  //   image: <PiSneakerLight className="h-6 w-10   text-pink-500" />,
+  //   image2:"|",
+  //   // image:
+  //   // 	"https://res.cloudinary.com/babyhulk/image/upload/v1621897765/project/PXL_20210222_215622925.MP.webp",
+  //   text: 'Hotel icon',
+  //   alt: 'View of mountains',
+  //   bgcolor:
+  //     ' hover:bg-pink-100 text-pink-500',
+  // },
 ]
 
 function Categories() {

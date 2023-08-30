@@ -1,6 +1,7 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
+import { Box, NavLink } from '@mantine/core'
 import {  inter, roboto_mono } from 'app/fonts'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -13,7 +14,6 @@ import { TfiMapAlt } from 'react-icons/tfi'
 
 import BodySectionSeparator from './IndexTopTen'
 import SectionSeparator from './SectionSeparator'
-import { Box, NavLink } from '@mantine/core'
 
 
 
