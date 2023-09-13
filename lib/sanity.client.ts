@@ -46,10 +46,7 @@ export async function getInstagramPosts(): Promise<Instagram> {
  //console.log("Instagram feed ", feed)
 
  return feed
-  // if (client) {
-  //   return (await client.fetch(indexQuery)) || []
-  // }
-  //return []
+
 }
 
 export async function getHotelPosts(): Promise<Post[]> {
