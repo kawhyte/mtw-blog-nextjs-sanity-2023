@@ -1,21 +1,21 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
-import {  inter,space } from 'app/fonts'
+import { inter, space } from 'app/fonts'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useRef, useState } from 'react'
 import { IoRestaurantOutline } from 'react-icons/io5'
 import { LiaCrownSolid } from 'react-icons/lia'
-import { PiSneakerLight } from "react-icons/pi";
+import { PiSneakerLight } from 'react-icons/pi'
 import { RiHotelLine } from 'react-icons/ri'
 import { TfiMapAlt } from 'react-icons/tfi'
 
 import BodySectionSeparator from './IndexTopTen'
 import SectionSeparator from './SectionSeparator'
 
-
- const bg = '  underline decoration-pink-200 underline-offset-8 hover:decoration-pink-500/50 focus:decoration-pink-500/50 '
+const bg =
+  '  underline decoration-pink-200 underline-offset-8 hover:decoration-pink-500/50 focus:decoration-pink-500/50 '
 const navigation = [
   {
     name: 'Our Top Picks',
@@ -54,12 +54,10 @@ const navigation = [
   //   href: '/stuff_we_like',
   //       icon: <PiSneakerLight className="h-6 w-10  text-gray-500" />,
 
-   
   //   text: 'Man walking',
   //   bg: bg,
   //   current: false,
   // },
-
 ]
 
 function classNames(...classes) {
@@ -72,53 +70,42 @@ export default function Nav({ color = 'bg-black', bgColor }) {
   const container = useRef(null)
   const animation = 'food.json'
 
-
-
-
-  const [navSize, setnavSize] = useState("5rem");
-  const [navImage, setnavImage] = useState("");
-  const [navColor, setnavColor] = useState("#ffffff");
+  const [navSize, setnavSize] = useState('5rem')
+  const [navImage, setnavImage] = useState('#eef2ff')
+  const [navColor, setnavColor] = useState('#eef2ff')
   const listenScrollEvent = () => {
-    window.scrollY > 10 ? setnavColor("#fcf2d7") : setnavColor("#ffffff");
-    window.scrollY > 10 ? setnavSize("5rem") : setnavSize("4.9rem");
-    window.scrollY > 10 ? setnavImage("linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%)") : setnavImage("");
-  };
+    window.scrollY > 10 ? setnavColor('#fcf2d7') : setnavColor('#eef2ff')
+    window.scrollY > 10 ? setnavSize('5rem') : setnavSize('4.9rem')
+    window.scrollY > 10
+      ? setnavImage('linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%)')
+      : setnavImage('')
+  }
   useEffect(() => {
-    window.addEventListener("scroll", listenScrollEvent);
+    window.addEventListener('scroll', listenScrollEvent)
     return () => {
-      window.removeEventListener("scroll", listenScrollEvent);
-    };
-  }, []);
-
-
-
-
-
-
+      window.removeEventListener('scroll', listenScrollEvent)
+    }
+  }, [])
 
   return (
     <Disclosure
       as="nav"
       className={
-        ` ${inter.variable} font-secondary  blur-backdrop-filter firefox:bg-opacity-90 sticky top-0 z-50  h-[72px]  w-full   whitespace-nowrap bg-transparent transition-all	 bg-white   bg-opacity-50 bg-clip-padding pt-6 backdrop-blur-sm backdrop-filter  ` +
+        ` ${inter.variable} font-secondary  blur-backdrop-filter firefox:bg-opacity-90 sticky top-0 z-50  h-[72px]  w-full   whitespace-nowrap bg-transparent bg-white	 bg-opacity-50   bg-clip-padding pt-6 backdrop-blur-sm backdrop-filter transition-all  ` +
         bg
       }
-
-
-
       style={{
         backgroundColor: navColor,
-        backgroundImage:navImage , 
+        backgroundImage: navImage,
         height: navSize,
-        transition: "all 2s ease "
-        
+        transition: 'all 2s ease ',
       }}
     >
       {({ open }) => (
         <>
           <div className="max-w-8xl  container mx-auto cursor-pointer">
             <div className="relative flex h-6 items-center justify-between">
-              <div className="absolute -top-2 right-0 flex items-center md:hidden">
+              <div className="absolute -top-2 pr-5 right-0 flex items-center md:hidden">
                 {/* Mobile menu button*/}
                 <Disclosure.Button className=" inline-flex items-center justify-center rounded-md bg-gray-700 p-2 text-gray-200  hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                   <span className="sr-only">Open main menu</span>
@@ -138,7 +125,7 @@ export default function Nav({ color = 'bg-black', bgColor }) {
                   legacyBehavior
                 >
                   <div className="flex flex-shrink-0 items-center justify-center pl-3  ">
-                    <div className=" flex flex-row space-x-4 items-center  ">
+                    <div className=" flex flex-row items-center space-x-4  ">
                       <Image
                         className="rounded-xl"
                         src="/icon/icon.jpg"
@@ -146,7 +133,12 @@ export default function Nav({ color = 'bg-black', bgColor }) {
                         width={45}
                         height={45}
                       />
-                    <p className={`hidden lg:block ${ space.variable} font-logo text-base `}> meet the whytes</p>  
+                      <p
+                        className={`hidden lg:block ${space.variable} font-logo text-base `}
+                      >
+                        {' '}
+                        meet the whytes
+                      </p>
                     </div>
                   </div>
                 </Link>
@@ -170,7 +162,9 @@ export default function Nav({ color = 'bg-black', bgColor }) {
                               />
                             )} */}
 
-                          <div className={`  text-blackgroup-hover:opacity-600 mt-1 text-sm text-gray-600 `}>
+                          <div
+                            className={`  text-blackgroup-hover:opacity-600 mt-1 text-sm text-gray-600 `}
+                          >
                             {item.name}
                           </div>
                         </div>
@@ -201,9 +195,6 @@ export default function Nav({ color = 'bg-black', bgColor }) {
               ))}
             </div>
           </Disclosure.Panel>
-          
-
-   
         </>
       )}
     </Disclosure>

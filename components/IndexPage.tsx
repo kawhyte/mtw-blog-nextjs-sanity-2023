@@ -42,8 +42,8 @@ export default function IndexPage(props: IndexPageProps) {
         <Container>
           <BlogHeader title={title} description={description} level={1} />
           <Hero />
-          <Welcome />
           <TravelEssentials />
+        
 
           {/* {heroPost && (
             <HeroPost
@@ -67,7 +67,7 @@ export default function IndexPage(props: IndexPageProps) {
             </div>
           </div> */}
 
-          <div className=" px-10 container mx-auto my-16 mb-10 flex w-full flex-row justify-between  ">
+          <div className=" px-10 container mx-auto my-10 mb-10 flex w-full flex-row justify-between  ">
             <div className=" mb-6 lg:mb-0 lg:w-1/2 ">
               <h1
                 className={`${oswald.variable}  title-font mb-2 font-heading text-2xl font-medium text-gray-900 sm:text-3xl`}
@@ -93,13 +93,13 @@ export default function IndexPage(props: IndexPageProps) {
           <div className='container mx-auto  px-10'>
           {posts.length > 0 && <MoreStoriesIndex posts={posts.slice(0, 8)} />}
 </div>
-  
+<IndexTopTen />
           
           {/* <Categories /> */}
         </Container>
-
+        <Welcome />
         <YoutubeHighlights />
-        <IndexTopTen />
+       
         {/* <InstagramHighlights instagram={instagram.data} /> */}
 
         {/* <IntroTemplate /> */}

@@ -26,7 +26,7 @@ function Welcome() {
   return (
     <>
       <section className="body-font text-gray-600 ">
-        <div className="py container mx-auto px-5 pb-20 pt-48">
+        <div className=" container mx-auto px-5 ">
           <div className="-m-4 flex justify-evenly text-center ">
             {stats.map((item) => (
               <div key={item.id} className="w-full p-4 sm:w-1/2 md:w-1/4">
