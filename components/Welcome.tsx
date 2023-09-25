@@ -25,7 +25,7 @@ let stats = [
 function Welcome() {
   return (
     <>
-      <section className="body-font text-gray-600 ">
+      <section className="body-font text-gray-600 pt-24 md:pt-32 ">
         <div className=" container mx-auto px-5 ">
           <div className="-m-4 flex justify-evenly text-center ">
             {stats.map((item) => (

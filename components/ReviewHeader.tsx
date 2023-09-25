@@ -6,8 +6,8 @@ function ReviewHeader({ title, pattern, summary, animation }) {
   
 
   return (
-    <div className="container mx-auto flex flex-col items-center justify-center md:flex-row">
-      <div className="  lg:w-full lg:max-w-lg    lg:p-10 ">
+    <div className="  flex flex-col pt-12 items-center justify-center lg:flex-row bg-indigo-50">
+      <div className=" mx-auto container  lg:w-full lg:max-w-xl p-10 ">
         <img alt='' src={animation} />
 
       </div>

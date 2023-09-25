@@ -34,7 +34,7 @@ export default function CoverImage(props: CoverImageProps) {
     >
       <Image
         className={cn('', {
-          '	mx-auto rounded-xl': slug,
+          '	mx-auto rounded-xl transition-all  hover:scale-110 hover:duration-200': slug,
         })}
         width={740}
         height={770}
