@@ -4,7 +4,7 @@ import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 import {  inter,space } from 'app/fonts'
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { IoRestaurantOutline } from 'react-icons/io5'
 import { LiaCrownSolid } from 'react-icons/lia'
 import { PiSneakerLight } from "react-icons/pi";
@@ -72,13 +72,47 @@ export default function Nav({ color = 'bg-black', bgColor }) {
   const container = useRef(null)
   const animation = 'food.json'
 
+
+
+
+  const [navSize, setnavSize] = useState("5rem");
+  const [navImage, setnavImage] = useState("");
+  const [navColor, setnavColor] = useState("#ffffff");
+  const listenScrollEvent = () => {
+    window.scrollY > 10 ? setnavColor("#fcf2d7") : setnavColor("#ffffff");
+    window.scrollY > 10 ? setnavSize("5rem") : setnavSize("4.9rem");
+    window.scrollY > 10 ? setnavImage("linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%)") : setnavImage("");
+  };
+  useEffect(() => {
+    window.addEventListener("scroll", listenScrollEvent);
+    return () => {
+      window.removeEventListener("scroll", listenScrollEvent);
+    };
+  }, []);
+
+
+
+
+
+
+
   return (
     <Disclosure
       as="nav"
       className={
-        ` ${inter.variable} font-secondary  blur-backdrop-filter firefox:bg-opacity-90 sticky top-0 z-50  h-[72px]  w-full   whitespace-nowrap bg-transparent bg-white   bg-opacity-50 bg-clip-padding pt-6 backdrop-blur-sm backdrop-filter  ` +
+        ` ${inter.variable} font-secondary  blur-backdrop-filter firefox:bg-opacity-90 sticky top-0 z-50  h-[72px]  w-full   whitespace-nowrap bg-transparent transition-all	 bg-white   bg-opacity-50 bg-clip-padding pt-6 backdrop-blur-sm backdrop-filter  ` +
         bg
       }
+
+
+
+      style={{
+        backgroundColor: navColor,
+        backgroundImage:navImage , 
+        height: navSize,
+        transition: "all 2s ease "
+        
+      }}
     >
       {({ open }) => (
         <>

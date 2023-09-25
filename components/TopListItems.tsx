@@ -82,17 +82,18 @@ export default function TopListItems(
             count <= 10 && (
               <div
                 key={item._id}
-                className="h-90  m-auto w-56 cursor-pointer overflow-hidden rounded-lg shadow-lg sm:w-72 lg:w-80 "
+                className="h-90  m-auto w-56 cursor-pointer  rounded-lg shadow-lg sm:w-72 lg:w-80 "
               >
-                <div key={item._id} className="relative">
+                <div key={item._id} className="">
                   <Link
                     as={`/posts/${item.post.slug.current}`}
                     href={`/posts/${item.post.slug.current}`}
                     aria-label={item.title}
                     className="block h-full w-full"
                   >
-                    <p className="absolute z-10 m-2 rounded-xl bg-white px-2 text-xl font-medium text-black md:text-xl">
+                    <p className=" absolute text-2xl z-30 -m-8 rounded-xl px-2   font-medium text-black md:text-9xl">
                       {i + 2}
+                      
                     </p>
                     <Image
                       width={1240}
