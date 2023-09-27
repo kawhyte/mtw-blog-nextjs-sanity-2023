@@ -41,6 +41,8 @@ export default function IndexPage(props: IndexPageProps) {
         </Head>
         <Container>
           <BlogHeader title={title} description={description} level={1} />
+
+          
           <Hero />
           <Welcome />
           <TravelEssentials />
@@ -97,10 +99,10 @@ export default function IndexPage(props: IndexPageProps) {
 <IndexTopTen />
           
           {/* <Categories /> */}
-        </Container>
-   
-        <YoutubeHighlights />
        
+   
+        {/* <YoutubeHighlights /> */}
+        </Container>
         {/* <InstagramHighlights instagram={instagram.data} /> */}
 
         {/* <IntroTemplate /> */}

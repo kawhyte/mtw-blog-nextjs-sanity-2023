@@ -25,12 +25,18 @@ export default function TopListItems(
       </div>
 
       <div className="mb-12 flex justify-center md:mb-20 md:p-6    ">
-        <div className="rounded-xl border-8 border-yellow-300 bg-white px-6 py-4">
+        <div className="rounded-xl  bg-white px-6 py-4">
           <Link
             href={`/posts/${posts[0].recommendations[0].post.slug.current}`}
             className="block w-full"
           >
-            <p className="absolute   z-10 m-2 rounded-lg  bg-yellow-300 px-2  text-xl font-medium text-black md:text-2xl ">
+            <p
+              className={`${oswald.variable} title-font absolute z-30 -m-8  px-2 text-2xl   text-white  md:text-9xl `}
+              style={{
+                textShadow:
+                  '0 0 1px #d1d5db, -1px -1px 0 #d1d5db,  1px -1px 0 #d1d5db,-1px 1px 0 #d1d5db,1px 1px 0 #d1d5db',
+              }}
+            >
               1
             </p>
             <Image
@@ -82,7 +88,7 @@ export default function TopListItems(
             count <= 10 && (
               <div
                 key={item._id}
-                className="h-90  m-auto w-56 cursor-pointer  rounded-lg shadow-lg sm:w-72 lg:w-80 "
+                className="h-90  m-auto w-56 cursor-pointer  rounded-lg  sm:w-72 lg:w-80 "
               >
                 <div key={item._id} className="">
                   <Link
@@ -91,9 +97,14 @@ export default function TopListItems(
                     aria-label={item.title}
                     className="block h-full w-full"
                   >
-                    <p className=" absolute text-2xl z-30 -m-8 rounded-xl px-2   font-medium text-black md:text-9xl">
+                    <p
+                      className=" absolute z-30 -m-8 rounded-xl stroke-cyan-500 px-2 text-2xl   font-medium text-white md:text-9xl"
+                      style={{
+                        textShadow:
+                          '0 0 1px #b5bc67, -1px -1px 0 #b5bc67,  1px -1px 0 #b5bc67,-1px 1px 0 #b5bc67,1px 1px 0 #b5bc67',
+                      }}
+                    >
                       {i + 2}
-                      
                     </p>
                     <Image
                       width={1240}
