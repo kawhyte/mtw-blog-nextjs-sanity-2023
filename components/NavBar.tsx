@@ -71,10 +71,10 @@ export default function Nav({ color = 'bg-black', bgColor }) {
   const animation = 'food.json'
 
   const [navSize, setnavSize] = useState('5rem')
-  const [navImage, setnavImage] = useState('#eef2ff')
-  const [navColor, setnavColor] = useState('#eef2ff')
+  const [navImage, setnavImage] = useState(bgColor)
+  const [navColor, setnavColor] = useState(bgColor)
   const listenScrollEvent = () => {
-    window.scrollY > 10 ? setnavColor('#fcf2d7') : setnavColor('#eef2ff')
+    window.scrollY > 10 ? setnavColor('#fcf2d7') : setnavColor(bgColor)
     window.scrollY > 10 ? setnavSize('5rem') : setnavSize('4.9rem')
     window.scrollY > 10
       ? setnavImage('linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%)')
@@ -85,7 +85,7 @@ export default function Nav({ color = 'bg-black', bgColor }) {
     return () => {
       window.removeEventListener('scroll', listenScrollEvent)
     }
-  }, [])
+  })
 
   return (
     <Disclosure
@@ -97,7 +97,7 @@ export default function Nav({ color = 'bg-black', bgColor }) {
       style={{
         backgroundColor: navColor,
         backgroundImage: navImage,
-        height: navSize,
+        // height: navSize,
         transition: 'all 2s ease ',
       }}
     >
