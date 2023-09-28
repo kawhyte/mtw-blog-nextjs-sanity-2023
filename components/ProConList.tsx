@@ -7,12 +7,12 @@ const boxHeight =390
 function ProConList({ positives, negatives, verdict2 }) {
   return (
     <>
-      <section className="body-font text-gray-800">
+      <section className="mx-6 md:mx-0 text-gray-800">
         <h1 className= {`${oswald.variable} font-heading text-center text-6xl font-bold leading-tight tracking-tighter md:text-left md:text-5xl md:leading-none lg:text-5xl`}>
           Bottom Line
         </h1>
 
-        <div className="md:px- container mx-auto flex flex-wrap py-6 lg:py-12">
+        <div className="container md:mx-auto flex flex-wrap py-6 lg:py-12">
           <div className=" grid grid-cols-1  gap-6 2xl:grid-cols-3">
             <div className="md:  md:w-full">
               <div className="flex flex-col rounded-lg  border-opacity-50 bg-gradient-to-b from-gray-100 via-gray-200 to-green-100 p-2 md:p-5  ">
@@ -69,7 +69,7 @@ function ProConList({ positives, negatives, verdict2 }) {
             </div>
             <div className=" md:w-full">
               <div className="mr-0 flex  flex-col  rounded-lg border-opacity-50 bg-gradient-to-b from-gray-100 via-gray-200 to-red-100 md:p-5  ">
-                <div className="flex justify-start align-middle ">
+                <div className="flex justify-start align-middle my-2 mx-2">
                   <h2 className="font-fancy title-font mb-3 pr-3 text-lg font-bold text-gray-900 md:text-2xl">
                     What we did not like
                   </h2>
@@ -84,7 +84,7 @@ function ProConList({ positives, negatives, verdict2 }) {
                     </svg>
                   </div>
                 </div>
-                <div className="grow rounded-xl bg-white p-8">
+                <div className="grow rounded-xl bg-white p-6 mx-2 mb-2 md:mx-0 md:mb-0">
                   <div className="-mb-1 flex flex-col items-center   space-y-2.5 sm:items-start sm:text-left">
                     <Spoiler
                       maxHeight={boxHeight}

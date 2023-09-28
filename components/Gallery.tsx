@@ -22,7 +22,7 @@ function Gallery({ posts, heading }) {
   //console.log("NEW Gall posts gal ", posts.gallery)
   return (
     <section className="body-font">
-      <div className="container mx-auto">
+      <div className=" mx-6 md:container md:mx-auto">
         <div className="mb-10 flex w-full flex-col text-center font-medium lg:mb-12">
           <div className="flex ">
             <p className={`${oswald.variable} font-heading text-left text-5xl font-semibold leading-tight tracking-tighter md:text-5xl md:leading-none lg:text-5xl`}>

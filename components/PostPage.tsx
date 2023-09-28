@@ -51,7 +51,9 @@ export default function PostPage(props: PostPageProps) {
             <PostTitle>Loading…</PostTitle>
           ) : (
             <>
+            
               <article>
+               
                 <PostHeader
                   title={post.title}
                   coverImage={post.coverImage}
@@ -64,6 +66,7 @@ export default function PostPage(props: PostPageProps) {
                   hotelRating={ratingCat}
                   gallery={post.gallery}
                 />
+               
                 {post.linkType == 'hotel' || post.linkType == 'food' ? (
                   <ProConList
                     positives={post.positives}

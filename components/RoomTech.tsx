@@ -79,7 +79,7 @@ function RoomTech({ speed = 10, techAvailable }) {
 	return (
 		<section className='mt-8'>
 			<section className='text-gray-800 body-font overflow-hidden'>
-				<div className='container pb-20 mx-auto'>
+				<div className='md:container pb-12 md:mx-auto mx-6'>
 					<div className='flex flex-col text-center w-full mb-12'>
 					<h1 className= {`${oswald.variable} font-heading text-center text-6xl font-bold leading-tight tracking-tighter md:text-left md:text-5xl md:leading-none lg:text-5xl`}>
 							Hotel Techology
