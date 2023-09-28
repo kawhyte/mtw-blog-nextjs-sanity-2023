@@ -34,7 +34,7 @@ function Welcome() {
                   <img src={item.url} alt={item.name} width={200} />
 
                   <h2
-                    className={` ${oswald.variable}  pt-3 font-heading text-3xl font-medium  text-gray-900 md:text-5xl`}
+                    className={` ${oswald.variable}  py-3 font-heading text-3xl font-medium  text-gray-900 md:text-5xl`}
                   >
                     {item.value}
                   </h2>

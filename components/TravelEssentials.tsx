@@ -81,11 +81,11 @@ function Welcome() {
                     </a>
                     <div className="px-5 pb-5">
                       <a href="#">
-                        <h3 className="text-xl font-semibold tracking-tight text-gray-900 ">
+                        <h3 className="md: text-base font-normal tracking-tight text-gray-900 ">
                           {item.name}
                         </h3>
                       </a>
-                      <div className="mb-5 mt-2.5 flex items-center">
+                      {/* <div className="mb-5 mt-2.5 flex items-center">
                         <svg
                           className="h-5 w-5 text-yellow-300"
                           fill="currentColor"
@@ -129,7 +129,7 @@ function Welcome() {
                         <span className="ml-3 mr-2 rounded bg-blue-100 px-2.5 py-0.5 text-xs font-semibold text-blue-800 dark:bg-blue-200 dark:text-blue-800">
                           5.0
                         </span>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>
