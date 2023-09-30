@@ -5,7 +5,7 @@ import React from 'react'
 
 let essentials = [
   {
-    name: 'Nike Presto',
+    name: 'Comfortable Shoes',
     url: '/presto.webp',
     bg: ' bg-yellow-50',
   },
@@ -15,12 +15,12 @@ let essentials = [
     bg: ' bg-green-50',
   },
   {
-    name: 'Kettle',
+    name: 'Portable Kettle',
     url: '/kettle.png',
     bg: ' bg-pink-50',
   },
   {
-    name: 'Wire Bag',
+    name: 'Wire Organizers',
     url: '/wire_bag.png',
     bg: ' bg-blue-50',
   },
@@ -28,6 +28,11 @@ let essentials = [
     name: 'Portable Charger',
     url: '/anker.png',
     bg: ' bg-indigo-50',
+  },
+  {
+    name: 'Backpack',
+    url: '/rei.png',
+    bg: ' bg-green-50',
   },
 ]
 
@@ -65,7 +70,7 @@ function Welcome() {
             </div>  */}
           </div>
 
-          <div className="  grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 content-center gap-4 ">
+          <div className="  grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6 content-center gap-4 ">
             {essentials.map((item) => (
               <>
                 <div className="mx-auto max-w-2xl">

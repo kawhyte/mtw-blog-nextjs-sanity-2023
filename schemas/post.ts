@@ -22,7 +22,7 @@ export default defineType({
 
   fields: [
     defineField({
-      title: 'Select the type of review (Hotel or Food)',
+      title: 'Select the type of review (Hotel, Food, Story, Things we like)',
       description: '',
       name: 'linkType',
       type: 'string',
@@ -32,10 +32,19 @@ export default defineType({
           { title: 'Hotel', value: 'hotel' },
           { title: 'Food', value: 'food' },
           { title: 'Story/Guide', value: 'story' },
+          { title: 'Things we like', value: 'favorite' },
         ],
         layout: 'radio',
       },
     }),
+
+    {
+      name: 'roomAmenities',
+      title: 'A breakdown of the Amenities in the room',
+      description: 'Say if the item was in the room',
+      type: 'roomAmenities',
+      hidden: ({ parent }) => parent?.linkType !== 'hotel',
+    },
     defineField({
       name: 'title',
       title: 'Title',
@@ -64,10 +73,57 @@ export default defineType({
       name: 'location',
       title: 'Location',
       type: 'string',
-      hidden: ({ parent, value }) => parent?.linkType == 'story',
+      hidden: ({ parent, value }) => parent?.linkType == 'story'|| parent?.linkType == 'favorite' ,
 
       //validation: (rule) => rule.required(),
     }),
+
+
+    defineField( {
+      title: 'Hotel Category',
+      name: 'genre',
+      type: 'string',
+      hidden: ({ parent }) => parent?.linkType !== 'hotel', // &lt;-- defaults to 'dropdown'
+      options: {
+      list: [
+      {title: 'Luxury', value: 'luxury'},
+      {title: 'All-Inclusive', value: 'all_inclusive'},
+      {title: 'Standard', value: 'standard'},
+      {title: 'Budget', value: 'budget'}
+      ], // &lt;-- predefined values
+      layout: 'radio',
+      }
+      }),
+
+      defineField ({
+        title: 'Lounge Access Availiable?',
+        name: 'lounge',
+        type: 'boolean',
+        hidden: ({ parent }) => parent?.linkType !== 'hotel',
+      }),
+  
+
+
+    defineField ({
+      name: 'link',
+      type: 'url',
+      title: 'Link',
+      hidden: ({ parent, value }) => parent?.linkType != 'favorite',
+      description:"URL - where this item can be found."
+    }),
+
+    defineField ({
+      name: 'cost',
+      type: 'number',
+      title: 'Item cost',
+      hidden: ({ parent, value }) => parent?.linkType != 'favorite',
+      description:"Cost."
+    }),
+
+ 
+
+
+
 
     defineField({
       name: 'room',
@@ -102,8 +158,24 @@ export default defineType({
       description: 'Add a short summary',
       type: 'array',
       of: [{ type: 'block' }],
-      hidden: ({ parent, value }) => parent?.linkType == 'story',
+      hidden: ({ parent, value }) => parent?.linkType == 'story' || parent?.linkType == 'favorite'  ,
     }),
+
+    defineField({
+      name: 'tip',
+      title: 'Quick Tip',
+      description: 'Add a Tip (optional)',
+      type: 'array',
+      of: [{ type: 'block' }],
+      hidden: ({ parent, value }) => parent?.linkType == 'story' || parent?.linkType == 'favorite'  ,
+    }),
+
+
+
+
+    
+
+
 
     // defineField({
     //   title: 'Gallery2223',
@@ -159,7 +231,7 @@ export default defineType({
       title: 'Youtube URL (Optional)',
       type: 'string',
       description: 'Youtube link is Optional',
-      hidden: ({ parent, value }) => parent?.linkType == 'story',
+      hidden: ({ parent, value }) => parent?.linkType == 'story' || parent?.linkType == 'favorite' ,
       //validation: (rule) => rule.required(),
     }),
 
@@ -194,13 +266,14 @@ export default defineType({
       type: 'techRating',
       hidden: ({ parent }) => parent?.linkType !== 'hotel',
     },
+  
 
     defineField({
       title: 'Positives',
       name: 'positives',
 
       description: 'Add multiple Positive points',
-      hidden: ({ parent, value }) => parent?.linkType == 'story',
+      hidden: ({ parent, value }) => parent?.linkType == 'story' || parent?.linkType == 'favorite' ,
       //validation: (Rule) => Rule.required(),
       type: 'array',
       of: [{ type: 'text' }],
@@ -209,7 +282,7 @@ export default defineType({
       title: 'Negatives',
       name: 'negatives',
       description: 'Add multiple Negative points',
-      hidden: ({ parent, value }) => parent?.linkType == 'story',
+      hidden: ({ parent, value }) => parent?.linkType == 'story' || parent?.linkType == 'favorite' ,
       //validation: (Rule) => Rule.required(),
       type: 'array',
       of: [{ type: 'text' }],
@@ -219,7 +292,7 @@ export default defineType({
       name: 'verdict',
       title: 'Verdict',
       description: 'Add your Verdict',
-      hidden: ({ parent, value }) => parent?.linkType == 'story',
+      hidden: ({ parent, value }) => parent?.linkType == 'story' || parent?.linkType == 'favorite' ,
       //validation: (Rule) => Rule.required(),
       type: 'array',
       of: [{ type: 'block' }],
@@ -238,6 +311,18 @@ export default defineType({
         },
       ],
     }),
+
+
+    defineField ({
+      title: 'Would you recommend?',
+      name: 'recommend',
+      type: 'boolean'
+    }),
+
+
+
+
+
 
     // defineField({
     //   name: 'author',

@@ -163,7 +163,7 @@ export default function Nav({ color = 'bg-black', bgColor }) {
                             )} */}
 
                           <div
-                            className={`  text-blackgroup-hover:opacity-600 mt-1 text-sm text-gray-600 `}
+                            className={`  text-blackgroup-hover:opacity-600 mt-1 text-sm text-gray-800 `}
                           >
                             {item.name}
                           </div>
