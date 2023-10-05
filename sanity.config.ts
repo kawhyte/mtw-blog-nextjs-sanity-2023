@@ -21,8 +21,8 @@ import hotelType from 'schemas/hotelRating'
 import postType from 'schemas/post'
 import {recommendationListType} from 'schemas/recommendationListType'
 import {recommendationType} from 'schemas/recommendationType'
-import roomTechType from 'schemas/roomTechRatings'
 import roomAmenitiesType from 'schemas/roomAmenities'
+import roomTechType from 'schemas/roomTechRatings'
 import settingsType from 'schemas/settings'
 
 

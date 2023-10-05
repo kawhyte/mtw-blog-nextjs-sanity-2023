@@ -4,6 +4,7 @@ import Link from 'next/link'
 import React from 'react'
 
 let essentials = [
+ 
   {
     name: 'Comfortable Shoes',
     url: '/presto.webp',

@@ -2,13 +2,16 @@ import { oswald } from 'app/fonts'
 import dynamic from 'next/dynamic'
 
 
+//  const url = encodeURIComponent("https://scontent-sjc3-1.cdninstagram.com/v/t51.29350-15/363827451_786834503238969_6827302780644465821_n.webp?stp=dst-jpg&_nc_cat=109&ccb=1-7&_nc_sid=8ae9d6&_nc_ohc=POPCItyJEboAX9KBQbd&_nc_ht=scontent-sjc3-1.cdninstagram.com&edm=ANo9K5cEAAAA&oh=00_AfDkaxgQL6p2RE-2G66Zh1Qhtac8cVRr1XOFVlO-1j3iKQ&oe=65247349")
+
 const ReactPlayer = dynamic(() => import('react-player/youtube'), {
   ssr: false,
 })
 
 
 const InstagramHighlights = ({ instagram }) => {
- console.log("Instgram ", instagram )
+ console.log("Instgram URLLL", instagram)
+//  console.log("url ", url )
   return (
     <div className="container mx-auto  rounded-xl bg-yellow-50 px-10 py-12 ">
       <div className=" container mx-auto mb-10 flex w-full flex-wrap">
@@ -23,7 +26,7 @@ const InstagramHighlights = ({ instagram }) => {
       </div>
       <div className="grid grid-cols-2 justify-items-center gap-5  md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-4">
         {instagram &&
-          instagram.slice(0, 15).map(
+          instagram.slice(0, 20).map(
             (item) =>
               item.media_type !== 'VIDEO' && (
                 <div key={item.id}>
