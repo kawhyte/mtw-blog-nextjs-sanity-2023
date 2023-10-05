@@ -92,7 +92,7 @@ export default function IndexPage(props: IndexPageProps) {
             </div>
           </div>
           <div className="container mx-auto  px-10">
-            {posts.length > 0 && <MoreStoriesIndex posts={posts.slice(0, 8)} />}
+            {posts.length > 0 && <MoreStoriesIndex posts={posts.slice(0, 6)} />}
           </div>
           <IndexTopTen />
 
