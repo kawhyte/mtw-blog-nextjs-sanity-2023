@@ -18,20 +18,20 @@ let essentials = [
     description: 'Black Girl Sunscreen',
     link: 'https://www.blackgirlsunscreen.com/',
   },
-  {
-    name: 'Collapsible Travel Kettle',
-    url: '/kettle.png',
-    bg: ' bg-pink-50',
-    description: 'Brentwood  Kettle',
-    link: 'https://www.amazon.com/gp/product/B07NMT99NB/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&th=1',
-  },
-  {
-    name: 'Travel Cable Organizers',
-    url: '/wire_bag.png',
-    bg: ' bg-blue-50',
-    description: 'Bubm Travel Cable Bag',
-    link: 'https://www.amazon.com/Organizer-BUBM-Electronics-Accessory-Organizer-Grey/dp/B01IPJPGW4?source=ps-sl-shoppingads-lpcontext&ref_=fplfs&smid=A14U021DT5YCUR&th=1',
-  },
+  // {
+  //   name: 'Collapsible Travel Kettle',
+  //   url: '/kettle.png',
+  //   bg: ' bg-pink-50',
+  //   description: 'Brentwood  Kettle',
+  //   link: 'https://www.amazon.com/gp/product/B07NMT99NB/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&th=1',
+  // },
+  // {
+  //   name: 'Travel Cable Organizers',
+  //   url: '/wire_bag.png',
+  //   bg: ' bg-blue-50',
+  //   description: 'Bubm Travel Cable Bag',
+  //   link: 'https://www.amazon.com/Organizer-BUBM-Electronics-Accessory-Organizer-Grey/dp/B01IPJPGW4?source=ps-sl-shoppingads-lpcontext&ref_=fplfs&smid=A14U021DT5YCUR&th=1',
+  // },
   {
     name: 'Portable Power Bank',
     url: '/anker.png',
@@ -82,7 +82,7 @@ function Welcome() {
             </div>  */}
           </div>
 
-          <div className="  grid grid-cols-2 content-center gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6 ">
+          <div className="  grid grid-cols-2 content-center gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 ">
             {essentials.map((item) => (
               <>
                 <div className="mx-auto max-w-2xl">
