@@ -58,7 +58,7 @@ function Hero() {
                   className={`  ${oswald.variable}  font-heading text-6xl  font-bold text-gray-700  md:text-7xl lg:w-10/12 lg:text-8xl`}
                 >
                   <h1 className='sm:pt-12 lg:pt-0 '>
-                    Travel.<span className="text-mtw-pink">Eat.</span>Explore.
+                    Travel.<span className="text-mtw-pink">Food.</span>Explore.
                   </h1>
                 </div>
 

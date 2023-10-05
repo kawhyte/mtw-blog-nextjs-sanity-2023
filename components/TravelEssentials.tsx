@@ -8,38 +8,50 @@ let essentials = [
     name: 'Comfortable Shoes',
     url: '/presto.webp',
     bg: ' bg-yellow-50',
+    description: 'Nike Presto',
+    link: 'https://www.nike.com/w/presto-shoes-9o4cyzy7ok',
   },
   {
     name: 'Sunscreen',
     url: '/sunscreen.webp',
     bg: ' bg-green-50',
+    description: 'Black Girl Sunscreen',
+    link: 'https://www.blackgirlsunscreen.com/',
   },
   {
-    name: 'Portable Kettle',
+    name: 'Collapsible Travel Kettle',
     url: '/kettle.png',
     bg: ' bg-pink-50',
+    description: 'Brentwood  Kettle',
+    link: 'https://www.amazon.com/gp/product/B07NMT99NB/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&th=1',
   },
   {
-    name: 'Wire Organizers',
+    name: 'Travel Cable Organizers',
     url: '/wire_bag.png',
     bg: ' bg-blue-50',
+    description: 'Bubm Travel Cable Bag',
+    link: 'https://www.amazon.com/Organizer-BUBM-Electronics-Accessory-Organizer-Grey/dp/B01IPJPGW4?source=ps-sl-shoppingads-lpcontext&ref_=fplfs&smid=A14U021DT5YCUR&th=1',
   },
   {
-    name: 'Portable Charger',
+    name: 'Portable Power Bank',
     url: '/anker.png',
     bg: ' bg-indigo-50',
+    description: 'Iniu Portable Charger',
+    link: 'https://www.amazon.com/gp/product/B08MZG8TN8/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&th=1',
   },
   {
     name: 'Backpack',
     url: '/rei.png',
     bg: ' bg-green-50',
+    description: 'REI Co-op backpack',
+    link: 'https://www.rei.com/b/rei-co-op/c/travel-backpacks?ir=category%3Atravel-backpacks&r=c%3Bb',
   },
 ]
 
 function Welcome() {
   return (
     <>
-      <section className="container mx-auto  text-gray-600 py-14 ">
+      <section className="container mx-auto  py-14 text-gray-600 ">
         <div className="container mx-auto px-5 py-24 pt-16">
           <div className="mb-20 flex w-full  justify-between">
             <div>
@@ -52,7 +64,7 @@ function Welcome() {
               <p
                 className={` ${inter.variable} font-secondary mt-4 leading-relaxed  lg:text-xl `}
               >
-                Just a few thing we like to take on our trips
+                Just a few things we like to take on all of our trips.
               </p>
             </div>
 
@@ -70,27 +82,32 @@ function Welcome() {
             </div>  */}
           </div>
 
-          <div className="  grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6 content-center gap-4 ">
+          <div className="  grid grid-cols-2 content-center gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6 ">
             {essentials.map((item) => (
               <>
                 <div className="mx-auto max-w-2xl">
                   <div
                     className={`${item.bg}  max-w-sm rounded-lg shadow-md  dark:border-gray-700 `}
                   >
-                    <a href="#">
+                    <h3 className="px-5 pt-5 text-xs font-normal tracking-tight text-gray-500 md:text-base ">
+                      {item.name}
+                    </h3>
+                    <Link href={item.link}>
                       <img
-                        className="rounded-t-lg p-8 transition-all  hover:translate-x-3 hover:translate-y-2 hover:duration-700"
+                        className="rounded-t-lg p-6 transition-all hover:translate-x-3  hover:translate-y-2 hover:duration-700 md:p-8"
                         src={item.url}
                         alt="product image"
                       />
-                    </a>
-                    <div className="px-5 pb-5">
-                      <a href="#">
-                        <h3 className="md: text-base font-normal tracking-tight text-gray-900 ">
-                          {item.name}
-                        </h3>
-                      </a>
-                      {/* <div className="mb-5 mt-2.5 flex items-center">
+
+                      <div className="flex flex-col px-5 pb-5 text-sm">
+                        <p className=" px-2  text-center text-xs font-normal  tracking-tight text-gray-500 md:text-sm">
+                          Our Pick
+                        </p>
+                        <p className="px-2 py-2 text-center text-xs text-pink-400   font-normal tracking-tight md:text-sm hover:text-pink-600  ">
+                          {item.description}
+                        </p>
+
+                        {/* <div className="mb-5 mt-2.5 flex items-center">
                         <svg
                           className="h-5 w-5 text-yellow-300"
                           fill="currentColor"
@@ -135,7 +152,8 @@ function Welcome() {
                           5.0
                         </span>
                       </div> */}
-                    </div>
+                      </div>
+                    </Link>
                   </div>
                 </div>
 
