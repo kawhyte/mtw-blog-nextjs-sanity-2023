@@ -36,7 +36,7 @@ export default defineType({
                     { title: "illy coffee", value: "illy" },
                     { title: "French Press", value: "French_Press" },
                     { title: "Generic Coffee", value: "Generic Coffee" },
-					{ title: "No Coffee Macine in room", value: "None" },
+					{ title: "No Coffee Machine in room", value: "None" },
 				],
 				layout: "radio",
 			},
@@ -53,8 +53,9 @@ export default defineType({
 
 			options: {
 				list: [
-					{ title: "Generic Soap", value: "Generic" },
-					{ title: "Upgraded Soap", value: "Upgraded" },
+					{ title: "Individual Bar Soap", value: "Individual" },
+					{ title: "Wall Mounted Soap", value: "Upgraded" },
+					
 				],
 				layout: "radio",
 			},
@@ -80,10 +81,10 @@ export default defineType({
 			//validation: (Rule) => Rule.required().min(1).max(5),
 		},
 		{
-			title: "Needle/sewing kit",
-			name: "Needle",
+			title: "Other Amenities Available", 
+			name: "Other",
 			type: "string",
-
+description:"Needle/sewing kit etc...",
 			options: {
 				list: [
 					{ title: "Yes", value: "Yes" },
