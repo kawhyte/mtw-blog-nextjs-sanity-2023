@@ -26,7 +26,7 @@ const InstagramHighlights = ({ instagram }) => {
       </div>
       <div className="grid grid-cols-2 justify-items-center gap-5  md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-4">
         {instagram &&
-          instagram.slice(0, 20).map(
+          instagram.slice(0, 25).map(
             (item) =>
               item.media_type !== 'VIDEO' && (
                 <div key={item.id}>

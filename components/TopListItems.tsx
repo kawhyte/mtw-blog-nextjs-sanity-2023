@@ -25,16 +25,16 @@ export default function TopListItems(
       </div>
 
       <div className="mb-12 flex justify-center md:mb-20 md:p-6    ">
-        <div className="rounded-xl  bg-white px-6 py-4">
+        <div className="rounded-xl  bg-yellow-100 px-6 py-4">
           <Link
             href={`/posts/${posts[0].recommendations[0].post.slug.current}`}
             className="block w-full"
           >
             <p
-              className={`${oswald.variable} title-font absolute z-30 md:-m-8  px-2 text-2xl   text-white  md:text-9xl `}
+              className={`${oswald.variable} title-font absolute z-30 md:-mb-8  px-2 text-2xl    text-white  md:text-9xl `}
               style={{
                 textShadow:
-                  '0 0 1px #d1d5db, -1px -1px 0 #d1d5db,  1px -1px 0 #d1d5db,-1px 1px 0 #d1d5db,1px 1px 0 #d1d5db',
+                  '0 0 1px #FFD700, -1px -1px 0 #FFD700 ,  1px -1px 0 #FFD700 ,-1px 1px 0 #FFD700 ,1px 1px 0 #FFD700 ',
               }}
             >
               1
@@ -80,7 +80,7 @@ export default function TopListItems(
         </div>
       </div>
 
-      <div className="mb-32  grid sm:grid-cols-2 gap-6 pb-20  md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div className="mb-32  grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 gap-6 pb-20  md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {/* {posts[0].recommendations.map( */}
 
         {posts[0].recommendations.slice(1, 20).map(
@@ -98,7 +98,7 @@ export default function TopListItems(
                     className="block h-full w-full"
                   >
                     <p
-                      className=" absolute z-30 md:-m-8 rounded-xl stroke-cyan-500 px-2 text-2xl   font-medium text-white md:text-9xl"
+                      className=" absolute z-30 md:-mb-8 rounded-xl stroke-cyan-500 px-2 text-2xl   font-medium text-white md:text-9xl"
                       style={{
                         textShadow:
                           '0 0 1px #b5bc67, -1px -1px 0 #b5bc67,  1px -1px 0 #b5bc67,-1px 1px 0 #b5bc67,1px 1px 0 #b5bc67',

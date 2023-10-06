@@ -20,7 +20,7 @@ const navigation = [
   {
     name: 'Our Top Picks',
     href: '/top_picks',
-    icon: <LiaCrownSolid className="h-6 w-10   text-yellow-700" />,
+    icon: <LiaCrownSolid className="h-6 w-10    text-yellow-700" />,
     text: 'Book icon',
     bg: '  hover:bg-gradient-to-r from-pink-100 to-yellow-100  focus:decoration-yellow-500/50',
     current: false,
@@ -149,7 +149,7 @@ export default function Nav({ color = 'bg-black', bgColor }) {
                     {navigation.map((item) => (
                       <Link key={item.name} href={item.href}>
                         <div
-                          className={` mt-2  flex flex-col items-center justify-center rounded-xl px-4 py-2 mb-2  align-middl decoration-[0.25rem] hover:decoration-[0.5rem] focus:decoration-[0.5rem] motion-safe:transition-all motion-safe:duration-200 ${item.bg} `}
+                          className={` mt-2 flex flex-col items-center justify-center rounded-xl px-4 py-2 mb-2  align-middl decoration-[0.25rem] hover:decoration-[0.5rem] focus:decoration-[0.5rem] motion-safe:transition-all motion-safe:duration-200 ${item.bg} `}
                         >
                           {item.icon}
                           {/* {item.icon && (
