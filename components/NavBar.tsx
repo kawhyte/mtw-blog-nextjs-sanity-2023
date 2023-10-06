@@ -15,38 +15,38 @@ import BodySectionSeparator from './IndexTopTen'
 import SectionSeparator from './SectionSeparator'
 
 const bg =
-  '  underline decoration-pink-200 underline-offset-8 hover:decoration-pink-500/50 focus:decoration-pink-500/50 '
+  '  underline decoration-pink-200 underline-offset-8 hover:decoration-pink-500 focus:decoration-pink-500/50 '
 const navigation = [
   {
     name: 'Our Top Picks',
     href: '/top_picks',
-    icon: <LiaCrownSolid className="h-6 w-10  text-gray-500" />,
+    icon: <LiaCrownSolid className="h-6 w-10   text-yellow-700" />,
     text: 'Book icon',
-    bg: '  underline  decoration-yellow-200 underline-offset-8 hover:decoration-yellow-500/50 focus:decoration-yellow-500/50',
+    bg: '  hover:bg-gradient-to-r from-pink-100 to-yellow-100  focus:decoration-yellow-500/50',
     current: false,
   },
   {
     name: 'Hotel Reviews',
     href: '/hotel',
-    icon: <RiHotelLine className="h-6 w-10  text-gray-500" />,
+    icon: <RiHotelLine className="h-6 w-10  text-blue-500" />,
     text: 'Hotel icon',
-    bg: ' underline decoration-pink-200 underline-offset-8 hover:decoration-pink-500/50 focus:decoration-pink-500/50',
+    bg: '  hover:bg-gradient-to-r from-blue-100 to-pink-100 focus:decoration-pink-500/50',
     current: false,
   },
   {
     name: 'Food Reviews',
     href: '/food',
-    icon: <IoRestaurantOutline className="h-6 w-10  text-gray-500" />,
+    icon: <IoRestaurantOutline className="h-6 w-10  text-green-500" />,
     text: 'Food icon',
-    bg: ' underline decoration-green-200 underline-offset-8 hover:decoration-green-500/50 focus:decoration-green-500/50',
+    bg: '  hover:bg-gradient-to-r from-pink-100 to-green-100 focus:decoration-green-500/50',
     current: false,
   },
   {
     name: 'Guides',
     href: '/story',
-    icon: <TfiMapAlt className="h-6 w-10   text-gray-500 " />,
+    icon: <TfiMapAlt className="h-6 w-10   text-pink-500 " />,
     text: 'Book icon',
-    bg: ' underline decoration-indigo-200  underline-offset-8 hover:decoration-indigo-500/50 focus:decoration-indigo-500/50',
+    bg: '  hover:bg-gradient-to-r from-pink-100 to-indigo-100  text-white w-full  focus:decoration-indigo-500/50',
     current: false,
   },
   // {
@@ -91,7 +91,7 @@ export default function Nav({ color = 'bg-black', bgColor }) {
     <Disclosure
       as="nav"
       className={
-        ` ${inter.variable} font-secondary  blur-backdrop-filter firefox:bg-opacity-90 sticky top-0 z-50  h-[72px]  w-full   whitespace-nowrap bg-transparent bg-white	 bg-opacity-50   bg-clip-padding pt-6 backdrop-blur-sm backdrop-filter transition-all  ` +
+        ` ${inter.variable} font-secondary   blur-backdrop-filter firefox:bg-opacity-90 sticky top-0 z-50  h-[72px]  w-full   whitespace-nowrap bg-transparent bg-white	 bg-opacity-50   bg-clip-padding pt-6 backdrop-blur-sm backdrop-filter transition-all  ` +
         bg
       }
       style={{
@@ -149,7 +149,7 @@ export default function Nav({ color = 'bg-black', bgColor }) {
                     {navigation.map((item) => (
                       <Link key={item.name} href={item.href}>
                         <div
-                          className={` + flex flex-col items-center justify-center rounded-xl px-4 py-2  align-middle decoration-[0.25rem] hover:decoration-[0.5rem] focus:decoration-[0.5rem] motion-safe:transition-all motion-safe:duration-200 ${item.bg} `}
+                          className={` mt-2  flex flex-col items-center justify-center rounded-xl px-4 py-2 mb-2  align-middl decoration-[0.25rem] hover:decoration-[0.5rem] focus:decoration-[0.5rem] motion-safe:transition-all motion-safe:duration-200 ${item.bg} `}
                         >
                           {item.icon}
                           {/* {item.icon && (

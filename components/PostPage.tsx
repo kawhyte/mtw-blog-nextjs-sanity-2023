@@ -41,17 +41,19 @@ export default function PostPage(props: PostPageProps) {
     // console.log('Post Page post.foodRating  ', post.foodRating )
 //  console.log("POST PAGE linkedtype ", post.linkType)
   return (
-    <div className='container mx-auto '>
+    <div className='containe mx-aut '>
       <PostPageHead settings={settings} post={post} />
 
       <Layout preview={preview} loading={loading}>
         <Container>
+       
           <BlogHeader title={title} level={2} />
+        
           {preview && !post ? (
             <PostTitle>Loading…</PostTitle>
           ) : (
             <>
-            
+             <div className='container mx-auto '>
               <article>
                
                 <PostHeader
@@ -66,6 +68,7 @@ export default function PostPage(props: PostPageProps) {
                   hotelRating={ratingCat}
                   gallery={post.gallery}
                 />
+                
                
                 {post.linkType == 'hotel' || post.linkType == 'food' ? (
                   <ProConList
@@ -90,6 +93,7 @@ export default function PostPage(props: PostPageProps) {
 
                 <Gallery posts={post} heading={''} />
               </article>
+              </div>
 
               {/* {morePosts?.length > 0 && <MoreStories posts={morePosts} />} */}
             </>
