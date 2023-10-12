@@ -10,7 +10,7 @@ const ReactPlayer = dynamic(() => import('react-player/youtube'), {
 
 
 const InstagramHighlights = ({ instagram }) => {
- console.log("Instgram URLLL", instagram)
+ //console.log("Instgram URLLL", instagram)
 //  console.log("url ", url )
   return (
     <div className="container mx-auto  rounded-xl bg-yellow-50 px-10 py-12 ">

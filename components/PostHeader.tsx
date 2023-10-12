@@ -50,25 +50,42 @@ export default function PostHeader(
       </div> */}
 
         <div
-          className={`  flex flex-col justify-start align-middle md:flex-row`}
+          className={`  flex flex-col justify-start  align-middle md:flex-row`}
         >
           <div>
-            <p className=" text-center  text-gray-700 md:text-left md:text-sm ">
-              <span className="text-lg capitalize">
+            <section className="text-base ml-3  text-gray-700 md:text-left md:text-lg ">
+              <span className=" capitalize">
+                <span className="text-base md:text-lg  text-pink-500">Location: </span>{' '}
                 {location ? location : ''}{' '}
-              </span>{' '}
-              <span className="ml-1 text-lg  text-gray-700">
-                {linkType === 'hotel' || linkType === 'food'
-                  ? 'Visited '
-                  : 'Published on '}{' '}
+              </span>
+            </section>
+            <section className="ml-3  text-base text-pink-500 md:text-left  md:text-lg">
+              {linkType === 'hotel' || linkType === 'food'
+                ? 'Date Visited: '
+                : 'Published on '}
+              <span className="text-gray-700">
+                {' '}
                 <Date dateString={date} />
               </span>
-            </p>
+            </section>
             {room && (
-              <p className=" text-center   text-gray-700  md:text-left md:text-lg">
-                {linkType === 'hotel' ? `${room || 'test'}` : ''}{' '}
-              </p>
+              <section className="ml-3  text-base text-pink-500 md:text-left  md:text-sm">
+                <span className=" text-center  text-pink-500    md:text-left md:text-lg">
+                  Room:{' '}
+                </span>
+                <span className=" text-center   text-gray-700  md:text-left md:text-lg">
+                  {linkType === 'hotel' ? `${room || 'test'}` : ''}{' '}
+                </span>
+              </section>
             )}
+            <section className="ml-3 text-base text-pink-500 md:text-left  md:text-sm">
+              <span className=" text-center  text-pink-500    md:text-left md:text-lg">
+                Hotel Type: {' '}
+              </span>
+              <span className=" text-center  text-gray-700    md:text-left md:text-lg">
+                Budget
+              </span>
+            </section>
           </div>
 
           {/* <ShareButtons shareURL={shareURL}></ShareButtons> */}
@@ -99,7 +116,7 @@ export default function PostHeader(
             <BodySectionSeparator />
 
             {/* {hotelRating && ( */}
-            <div className=" my-6 mx-6 md:mx-0 block text-base md:mb-12">
+            <div className=" mx-6 my-6 block text-base md:mx-0 md:mb-12">
               <StarRating
                 rating={hotelRating}
                 // amenities={amenities}
