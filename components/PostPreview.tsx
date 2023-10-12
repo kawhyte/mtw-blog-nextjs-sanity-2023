@@ -10,6 +10,7 @@ export default function PostPreview({
   coverImage,
   date,
   excerpt2,
+  category,
   author,
   slug,
   location,
@@ -22,6 +23,7 @@ export default function PostPreview({
           title={''}
           image={coverImage}
           priority={false}
+          category={category}
         />
       </div>
       <Link

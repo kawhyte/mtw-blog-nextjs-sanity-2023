@@ -30,7 +30,7 @@ export default function IndexPage(props: IndexPageProps) {
   const { preview, loading, posts, settings, instagram } = props
   const [heroPost, ...morePosts] = posts || []
   const { title = demo.title, description = demo.description } = settings || {}
-  // console.log("PODTs ",heroPost )
+   //console.log("PODTs ",posts )
   return (
     <>
       <IndexPageHead settings={settings} />

@@ -4,7 +4,7 @@ import Date from 'components/PostDate'
 import type { Post } from 'lib/sanity.queries'
 import Link from 'next/link'
 
-import MtwAward from './MtwAward'
+import MtwAward from './Badge'
 
 export default function HeroPost(
   props: Pick<

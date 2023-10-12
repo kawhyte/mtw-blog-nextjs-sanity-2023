@@ -21,7 +21,7 @@ export default function MoreStories({ posts }: { posts: Post[] }) {
     setvisiblePosts(posts.slice(start, end))
   }
 
-  // console.log('activePage', activePage)
+   console.log('activePage', posts[0])
 
   return (
     <section className="container mx-auto mt-8">
@@ -36,6 +36,7 @@ export default function MoreStories({ posts }: { posts: Post[] }) {
             slug={post.slug}
             excerpt2={post.excerpt2}
             location={post.location}
+            category={post.category}
           />
         ))}
       </div>

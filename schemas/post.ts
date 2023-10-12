@@ -110,7 +110,7 @@ export default defineType({
 
     defineField({
       title: 'Hotel Category',
-      name: 'genre',
+      name: 'category',
       type: 'string',
       hidden: ({ parent }) => parent?.linkType !== 'hotel', // &lt;-- defaults to 'dropdown'
       options: {

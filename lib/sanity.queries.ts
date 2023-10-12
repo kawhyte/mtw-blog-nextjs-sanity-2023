@@ -9,6 +9,7 @@ const postFields = groq`
   youtube,
   location,
   room,
+  category,
   gallery,
   internetSpeed,
   techRating,
@@ -37,6 +38,7 @@ const hotelFields = groq`
   positives,
   negatives,
   verdict,
+  category,
   linkType,
   "slug": slug.current,
   "author": author->{name, picture},
@@ -125,6 +127,7 @@ export interface Post {
   verdict?: any
   gallery?: any
   color?:string
+  category?:string
 }
 
 export interface Settings {
