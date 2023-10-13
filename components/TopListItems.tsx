@@ -10,7 +10,7 @@ export default function TopListItems(
   { posts }: { posts: Recommendation[] },
   { color = 'bg-red-200' }
 ) {
-  console.log('color', color)
+  //console.log('color', color)
   return (
     <section className={`my-16    rounded-2xl`}>
       <div className=" container  mx-auto mb-10 flex w-full flex-wrap">

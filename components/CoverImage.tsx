@@ -4,6 +4,7 @@ import { urlForImage } from 'lib/sanity.image'
 import Image from 'next/image'
 import Link from 'next/link'
 
+import { categoryRating } from "../lib/getHotelCategory";
 import PostBody from './PostBody'
 import PostDate from './PostDate'
 
@@ -59,14 +60,19 @@ export default function CoverImage(props: CoverImageProps) {
     <div style={{ paddingTop: '50%', backgroundColor: '#ddd' }} />
   )
 
+const categoryType = categoryRating(category)
+
+ console.log("categoryType----'] ", categoryType.name)
+// console.log("category ", category)
+
   return (
     <div className="sm:mx-0">
       {slug ? (
         <Link href={`/posts/${slug}`} aria-label={title}>
           <div> 
               {category && (
-                <Badge className="absolute z-50  m-3" size="sm" variant="light">
-                  {category}
+                <Badge className="absolute  z-10  m-3" size="sm" color={categoryType.color} variant={categoryType.variant}>
+                  {categoryType.name}
                 </Badge>
               )}
               {image}

@@ -1,12 +1,12 @@
 import { Blockquote } from '@mantine/core'
 import { inter } from 'app/fonts'
 import Avatar from 'components/AuthorAvatar'
-import CoverImage from 'components/CoverImage'
 import Date from 'components/PostDate'
 import PostTitle from 'components/PostTitle'
 import type { Post } from 'lib/sanity.queries'
 
 import BodySectionSeparator from './body-section-separator'
+import CoverImage from './CoverImage'
 import CoverImagePost from './CoverImagePost'
 import PostBody from './PostBody'
 import StarRating from './StarRating'
