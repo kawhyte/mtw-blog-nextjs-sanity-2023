@@ -62,7 +62,7 @@ export default function CoverImage(props: CoverImageProps) {
 
 const categoryType = categoryRating(category)
 
- console.log("categoryType----'] ", categoryType.name)
+ //console.log("categoryType----'] ", categoryType.name)
 // console.log("category ", category)
 
   return (
