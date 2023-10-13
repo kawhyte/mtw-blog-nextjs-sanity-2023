@@ -16,7 +16,7 @@ let essentials = [
     name: 'Comfortable Shoes',
     url: '/presto.webp',
     bg: ' bg-yellow-50',
-    description: 'Comfortable shoes are a must-have for everyone, regardless of your age, activity level, or style.  ',
+    description: 'Comfortable shoes are a must-have for every traveler.',
     our_pick: 'Nike Presto',
     link: 'https://www.nike.com/w/presto-shoes-9o4cyzy7ok',
     badges: [
@@ -31,7 +31,7 @@ let essentials = [
     name: 'Sunscreen',
     url: '/sunscreen.webp',
     bg: ' bg-green-50',
-    description: 'Sunscreen is the most important skincare product you can use, regardless of your skin type or age.',
+    description: 'Sunscreen is the most important skincare product you can use.',
     our_pick: 'Black Girl Sunscreen',
     link: 'https://www.blackgirlsunscreen.com/',
     badges: [
@@ -46,7 +46,7 @@ let essentials = [
     name: 'Travel Kettle',
     url: '/kettle.png',
     bg: ' bg-pink-50',
-    description: 'A travel kettle is a must-have for any traveler who loves a hot cup of tea or coffee on the go. ',
+    description: 'Great for a hot cup of tea or coffee on the go. ',
     our_pick: 'Brentwood  Kettle',
     link: 'https://www.amazon.com/gp/product/B07NMT99NB/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&th=1',
     badges: [
@@ -61,7 +61,7 @@ let essentials = [
     name: 'Cable Organizers',
     url: '/wire_bag.png',
     bg: ' bg-blue-50',
-    description: 'A cable bag is a must-have for anyone who wants to keep their electronic accessories organized and tangle-free.',
+    description: 'Keep your electronic accessories organized and tangle-free.',
     our_pick: 'Bubm Cable Bag',
     link: 'https://www.amazon.com/Organizer-BUBM-Electronics-Accessory-Organizer-Grey/dp/B01IPJPGW4?source=ps-sl-shoppingads-lpcontext&ref_=fplfs&smid=A14U021DT5YCUR&th=1',
     badges: [
@@ -74,7 +74,7 @@ let essentials = [
     name: 'Portable Power',
     url: '/anker.png',
     bg: ' bg-indigo-50',
-    description: 'Portable charger, also known as a power bank, is a device that can be used to recharge electronic devices on the go. ',
+    description: ' Recharge electronic devices on the go. ',
     our_pick: 'Iniu Portable Charger',
     link: 'https://www.amazon.com/gp/product/B08MZG8TN8/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&th=1',
     badges: [
@@ -86,7 +86,7 @@ let essentials = [
     name: 'Backpack',
     url: '/rei.png',
     bg: ' bg-green-50',
-    description: 'Travel backpacks come in a variety of sizes, from small daypacks to large multi-day backpacks.',
+    description: 'A good travel backpack is perfect for short trips.',
     our_pick: 'REI Co-op backpack',
     link: 'https://www.rei.com/b/rei-co-op/c/travel-backpacks?ir=category%3Atravel-backpacks&r=c%3Bb',
     badges: [

@@ -1,9 +1,11 @@
-import { Blockquote } from '@mantine/core'
+import { Alert, Blockquote } from '@mantine/core'
 import { inter } from 'app/fonts'
 import Avatar from 'components/AuthorAvatar'
 import Date from 'components/PostDate'
 import PostTitle from 'components/PostTitle'
 import type { Post } from 'lib/sanity.queries'
+import { FaRegFaceGrinHearts } from 'react-icons/fa6'
+import { LiaCrownSolid } from 'react-icons/lia'
 
 import BodySectionSeparator from './body-section-separator'
 import CoverImage from './CoverImage'
@@ -26,6 +28,7 @@ export default function PostHeader(
     | 'hotelRating'
     | 'gallery'
     | 'category'
+    | 'tip'
   >
 ) {
   const {
@@ -41,6 +44,7 @@ export default function PostHeader(
     hotelRating,
     gallery,
     category,
+    tip,
   } = props
 
   return (
@@ -131,6 +135,18 @@ export default function PostHeader(
                 linkType={linkType}
               />
             </div>
+
+            {tip && (
+              <Alert
+                variant="outline"
+                color="pink"
+                className=" capitalize"
+                title={`${linkType} Quick Tip `}
+                icon={<FaRegFaceGrinHearts />}
+              >
+                <PostBody content={tip} />
+              </Alert>
+            )}
 
             {/* } */}
             {/* {rating && (

@@ -38,7 +38,7 @@ export default function PostPage(props: PostPageProps) {
   }
 
   const ratingCat = post?.linkType === 'food' ? post?.foodRating : post?.hotelRating
-     console.log('Post Page post.category  ', post )
+     //console.log('Post Page post.category  ', post )
 //  console.log("POST PAGE linkedtype ", post.linkType)
   return (
     <div className='containe mx-aut '>
@@ -68,6 +68,7 @@ export default function PostPage(props: PostPageProps) {
                   hotelRating={ratingCat}
                   gallery={post.gallery}
                   category={post.category}
+                  tip={post.tip}
                 />
                 
                
