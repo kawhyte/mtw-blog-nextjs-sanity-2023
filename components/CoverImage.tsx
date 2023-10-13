@@ -37,7 +37,7 @@ export default function CoverImage(props: CoverImageProps) {
     >
       <Image
         className={cn('', {
-          '	mx-auto rounded-xl transition-all  hover:scale-110 hover:duration-200':
+          '	mx-auto rounded-xl relative transition-all  hover:scale-110 hover:duration-200':
             slug,
         })}
         width={740}
@@ -63,16 +63,14 @@ export default function CoverImage(props: CoverImageProps) {
     <div className="sm:mx-0">
       {slug ? (
         <Link href={`/posts/${slug}`} aria-label={title}>
-          <Card.Section className={''} mt="md">
-            <Group>
+          <div> 
               {category && (
-                <Badge className=" z-50 -mb-20 ml-3" size="sm" variant="light">
+                <Badge className="absolute z-50  m-3" size="sm" variant="light">
                   {category}
                 </Badge>
               )}
               {image}
-            </Group>
-          </Card.Section>
+           </div>
           <p className="z-20 mb-2 break-words pt-4 text-center text-xl font-semibold leading-tight tracking-tighter  text-pink-500 hover:underline  md:mx-0 md:text-3xl">
             {title}
           </p>

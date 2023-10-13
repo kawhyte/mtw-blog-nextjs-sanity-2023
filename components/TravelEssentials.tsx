@@ -1,51 +1,98 @@
-import { Box, Group, Image, Text } from '@mantine/core'
+import {
+  ActionIcon,
+  Badge,
+  Button,
+  Card,
+  Group,
+  Image,
+  Text,
+} from '@mantine/core'
 import { inter, oswald } from 'app/fonts'
 import Link from 'next/link'
 import React from 'react'
 
 let essentials = [
- 
   {
     name: 'Comfortable Shoes',
     url: '/presto.webp',
     bg: ' bg-yellow-50',
-    description: 'Nike Presto',
+    description: 'Comfortable shoes are a must-have for everyone, regardless of your age, activity level, or style.  ',
+    our_pick: 'Nike Presto',
     link: 'https://www.nike.com/w/presto-shoes-9o4cyzy7ok',
+    badges: [
+
+      { emoji: '🦓', label: 'Onsite zoo' },
+      { emoji: '🌊', label: 'long walks' },
+      { emoji: '🌲', label: 'Nature' },
+      { emoji: '🤽', label: 'Water sports' },
+    ],
   },
   {
     name: 'Sunscreen',
     url: '/sunscreen.webp',
     bg: ' bg-green-50',
-    description: 'Black Girl Sunscreen',
+    description: 'Sunscreen is the most important skincare product you can use, regardless of your skin type or age.',
+    our_pick: 'Black Girl Sunscreen',
     link: 'https://www.blackgirlsunscreen.com/',
+    badges: [
+      { emoji: '☀️', label: 'Sunny weather' },
+   
+      { emoji: '🌊', label: 'Long walks' },
+      { emoji: '🌲', label: 'Nature' },
+      { emoji: '🤽', label: 'Water sports' },
+    ],
   },
   {
     name: 'Travel Kettle',
     url: '/kettle.png',
     bg: ' bg-pink-50',
-    description: 'Brentwood  Kettle',
+    description: 'A travel kettle is a must-have for any traveler who loves a hot cup of tea or coffee on the go. ',
+    our_pick: 'Brentwood  Kettle',
     link: 'https://www.amazon.com/gp/product/B07NMT99NB/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&th=1',
+    badges: [
+      { emoji: '☀️', label: 'Sunny weather' },
+      { emoji: '🦓', label: 'Onsite zoo' },
+      { emoji: '🌊', label: 'Sea' },
+      { emoji: '🌲', label: 'Nature' },
+
+    ],
   },
   {
     name: 'Cable Organizers',
     url: '/wire_bag.png',
     bg: ' bg-blue-50',
-    description: 'Bubm Cable Bag',
+    description: 'A cable bag is a must-have for anyone who wants to keep their electronic accessories organized and tangle-free.',
+    our_pick: 'Bubm Cable Bag',
     link: 'https://www.amazon.com/Organizer-BUBM-Electronics-Accessory-Organizer-Grey/dp/B01IPJPGW4?source=ps-sl-shoppingads-lpcontext&ref_=fplfs&smid=A14U021DT5YCUR&th=1',
+    badges: [
+
+      { emoji: '🌲', label: 'Nature' },
+      { emoji: '🤽', label: 'Water sports' },
+    ],
   },
   {
     name: 'Portable Power',
     url: '/anker.png',
     bg: ' bg-indigo-50',
-    description: 'Iniu Portable Charger',
+    description: 'Portable charger, also known as a power bank, is a device that can be used to recharge electronic devices on the go. ',
+    our_pick: 'Iniu Portable Charger',
     link: 'https://www.amazon.com/gp/product/B08MZG8TN8/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&th=1',
+    badges: [
+      { emoji: '☀️', label: 'Sunny weather' },
+      { emoji: '☀️', label: 'day trips' },
+    ],
   },
   {
     name: 'Backpack',
     url: '/rei.png',
     bg: ' bg-green-50',
-    description: 'REI Co-op backpack',
+    description: 'Travel backpacks come in a variety of sizes, from small daypacks to large multi-day backpacks.',
+    our_pick: 'REI Co-op backpack',
     link: 'https://www.rei.com/b/rei-co-op/c/travel-backpacks?ir=category%3Atravel-backpacks&r=c%3Bb',
+    badges: [
+      { emoji: '☀️', label: 'day trips' },
+      { emoji: '🦓', label: 'Onsite zoo' },
+    ],
   },
 ]
 
@@ -59,13 +106,14 @@ function Welcome() {
               <h1
                 className={`${oswald.variable}  title-font mb-3 font-heading text-3xl font-medium text-gray-900 sm:text-4xl`}
               >
-                Our Travel Essentials
+                Our Travel Essentials Picks
               </h1>
               <div className="h-1 w-20 rounded bg-pink-500"></div>
               <p
-                className={` ${inter.variable} font-secondary mt-4 leading-relaxed  lg:text-xl `}
+                className={` ${inter.variable} font-secondary mt-4 text-sm leading-relaxed md:text-base  lg:text-base `}
               >
-                Just a few things we like to take on all of our trips.
+        
+                Traveling is a great way to experience new cultures and see the world. However, packing for a trip can be daunting, especially if you are trying to pack light. Here are a few travel essentials that you should never leave home without:
               </p>
             </div>
 
@@ -83,16 +131,18 @@ function Welcome() {
             </div>  */}
           </div>
 
-          <div className="  grid grid-cols-2 content-center gap-4 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-6 ">
+          <div className="  grid grid-cols-2 content-center gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 ">
             {essentials.map((item) => (
               <>
                 <div className="mx-auto max-w-2xl">
                   <div
                     className={`${item.bg}  max-w-sm rounded-lg shadow-md  dark:border-gray-700 `}
                   >
-                    <h3 className="px-5 pt-5 text-xs font-normal tracking-tight text-gray-500 md:text-base ">
+                    {/* <p
+                      className={`px-5 pt-5 text-xs font-black tracking-tight text-gray-500 md:text-base `}
+                    >
                       {item.name}
-                    </h3>
+                    </p> */}
                     <Link href={item.link}>
                       <img
                         className="rounded-t-lg p-6 transition-all hover:translate-x-3  hover:translate-y-2 hover:duration-700 md:p-8"
@@ -100,13 +150,45 @@ function Welcome() {
                         alt="product image"
                       />
 
+                      <Card.Section className={'mx-2'} mt="md">
+                        <Group>
+                          <Badge
+                            size="lg"
+                            variant="gradient"
+                            gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
+                          >
+                            {item.our_pick}
+                          </Badge>
+                        </Group>
+                        <Text fz="sm" mt="xs" className=''>
+                          {item.description}
+                        </Text>
+                      </Card.Section>
+{/* 
+                      <Card.Section className={'pl-2'}>
+                        <Text mt="sm" className={'pl-2 text-sm pb-2'} c="dimmed">
+                          Perfect for
+                        </Text>
+                        <Group mt={3}>
+                          {item.badges.map((badge) => (
+                            <Badge
+                              variant="light"
+                              key={badge.label}
+                              leftSection={badge.emoji}
+                            >
+                              {badge.label}
+                            </Badge>
+                          ))}
+                        </Group>
+                      </Card.Section> */}
+
                       <div className="flex flex-col px-5 pb-5 text-sm">
-                        <p className=" px-2  text-center text-xs font-normal  tracking-tight text-gray-500 md:text-sm">
+                        {/* <p className=" px-2  text-center text-xs font-normal  tracking-tight text-gray-500 md:text-sm">
                           Our Pick
                         </p>
-                        <p className="px-2 py-2 text-center text-xs text-pink-400   font-normal tracking-tight md:text-sm hover:text-pink-600  ">
+                        <p className="px-2 py-2 text-center text-xs font-normal   tracking-tight text-pink-400 hover:text-pink-600 md:text-sm  ">
                           {item.description}
-                        </p>
+                        </p> */}
 
                         {/* <div className="mb-5 mt-2.5 flex items-center">
                         <svg

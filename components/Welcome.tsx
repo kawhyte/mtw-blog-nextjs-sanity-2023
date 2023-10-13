@@ -34,11 +34,11 @@ function Welcome() {
                   <img src={item.url} alt={item.name} width={200} />
 
                   <h2
-                    className={` ${oswald.variable}  py-3 font-heading text-3xl font-medium  text-gray-900 md:text-5xl`}
+                    className={` ${oswald.variable}  py-3 font-heading text-2xl font-medium  text-gray-900 md:text-4xl`}
                   >
                     {item.value}
                   </h2>
-                  <p className="text-xs leading-relaxed md:text-xl ">
+                  <p className="text-xs leading-relaxed md:text-base font-light ">
                     {item.name}
                   </p>
                 </div>

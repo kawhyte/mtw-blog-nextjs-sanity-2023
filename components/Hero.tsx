@@ -63,7 +63,7 @@ function Hero() {
                 </div>
 
                 <p
-                  className={`  mt-8 text-gray-700 md:text-lg lg:w-10/12 lg:text-xl`}
+                  className={` font-light  mt-8 text-gray-700 md:text-base lg:w-10/12 lg:text-lg`}
                 >
                   Hi! We are the Whytes. <br></br> Welcome to our space on the{' '}
                   <span className="text-pink-500">interwebs. </span> We&apos;re
@@ -71,7 +71,7 @@ function Hero() {
                   new food.
                 </p>
 
-                <div></div>
+                
               </div>
               <div
                 ref={container}

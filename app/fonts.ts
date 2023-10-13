@@ -1,6 +1,7 @@
 import { Inter, Oswald, Roboto_Mono, Space_Grotesk } from 'next/font/google'
  
 export const inter = Inter({
+    weight:'400',
     subsets: ['latin'],
     display: 'swap',
     variable: '--font-inter',

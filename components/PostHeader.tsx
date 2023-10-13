@@ -52,18 +52,18 @@ export default function PostHeader(
       </div> */}
 
         <div
-          className={`  flex flex-col justify-start  align-middle md:flex-row`}
+          className={` mt-1 flex flex-col justify-start align-middle leading-relaxed md:flex-row`}
         >
           <div>
-            <section className="ml-3 text-base  text-gray-700 md:text-left md:text-lg ">
-              <span className=" capitalize">
-                <span className="text-base text-pink-500  md:text-lg">
-                  Location:{' '}
-                </span>{' '}
-                {location ? location : ''}{' '}
-              </span>
+            <section className="ml-3 text-gray-700 md:text-left md:text-base lg:text-lg ">
+              {location && (
+                <span className=" capitalize">
+                  <span className=" text-pink-500  ">Location: </span>{' '}
+                  {location ? location : ''}{' '}
+                </span>
+              )}
             </section>
-            <section className="ml-3  text-base text-pink-500 md:text-left  md:text-lg">
+            <section className="ml-3   text-pink-500 md:text-left  ">
               {linkType === 'hotel' || linkType === 'food'
                 ? 'Date Visited: '
                 : 'Published on '}
@@ -73,25 +73,26 @@ export default function PostHeader(
               </span>
             </section>
             {room && (
-              <section className="ml-3  text-base text-pink-500 md:text-left  md:text-sm">
-                <span className=" text-center  text-pink-500    md:text-left md:text-lg">
+              <section className="ml-3 text-pink-500 md:text-left  ">
+                <span className=" text-center  text-pink-500    md:text-left ">
                   Room:{' '}
                 </span>
-                <span className=" text-center   text-gray-700  md:text-left md:text-lg">
+                <span className=" text-center   text-gray-700  md:text-left ">
                   {linkType === 'hotel' ? `${room || 'test'}` : ''}{' '}
                 </span>
               </section>
             )}
 
-            {category &&  
-            <section className="ml-3 text-base text-pink-500 md:text-left  md:text-sm">
-              <span className=" text-center  text-pink-500    md:text-left md:text-lg pr-1">
-                Hotel Type:
-              </span>
-              <span className=" text-center  text-gray-700 capitalize   md:text-left md:text-lg">
-                {category}
-              </span>
-            </section> }
+            {category && (
+              <section className="ml-3  text-pink-500 md:text-left  ">
+                <span className=" pr-1  text-center    text-pink-500  md:text-left">
+                  Hotel Type:
+                </span>
+                <span className=" text-center  capitalize text-gray-700   md:text-left ">
+                  {category}
+                </span>
+              </section>
+            )}
           </div>
 
           {/* <ShareButtons shareURL={shareURL}></ShareButtons> */}
