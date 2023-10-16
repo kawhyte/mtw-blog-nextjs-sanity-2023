@@ -127,8 +127,8 @@ export default defineType({
       options: {
         list: [
           { title: 'Yes, paid or member only access', value: 'yes, paid or member only access' },
-          { title: 'Yes, free access', value: 'yes, free access' },
-          { title: 'No', value: 'no' },
+          { title: 'Yes, free access', value: 'Yes, free access' },
+          { title: 'No', value: 'No' },
       
       ],
       layout:'radio'
