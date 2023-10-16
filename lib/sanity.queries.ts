@@ -14,6 +14,7 @@ const postFields = groq`
   gallery,
   internetSpeed,
   techRating,
+  roomAmenities,
   hotelRating{Value,Gym,Internet_Speed,Service,Room_Cleanliness,Bed_Comfort,Room_Amenities,Pool,Location},
   foodRating{Flavor_and_Taste,Food_Value,Restaurant_Location,Presentation_on_Plate,Restaurant_Service,Memorability,Restaurant_Cleanliness},
   positives,
@@ -36,6 +37,7 @@ const hotelFields = groq`
   gallery,
   internetSpeed,
   techRating,
+  roomAmenities,
   positives,
   negatives,
   verdict,
@@ -121,6 +123,7 @@ export interface Post {
   room?: any
   internetSpeed?: number
   techRating?: any
+  roomAmenities?:any
   linkType?: any
   hotelRating?: any
   foodRating?:any

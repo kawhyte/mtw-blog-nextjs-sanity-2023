@@ -13,6 +13,7 @@ import { notFound } from 'next/navigation'
 
 import Gallery from './Gallery'
 import ProConList from './ProConList'
+import RoomAmenities from './RoomAmenities'
 import RoomTech from './RoomTech'
 import Youtube from './Youtube'
 
@@ -38,7 +39,7 @@ export default function PostPage(props: PostPageProps) {
   }
 
   const ratingCat = post?.linkType === 'food' ? post?.foodRating : post?.hotelRating
-     //console.log('Post Page post.category  ', post )
+     console.log('Post Page post.category  ', post )
 //  console.log("POST PAGE linkedtype ", post.linkType)
   return (
     <div className='containe mx-aut '>
@@ -82,13 +83,23 @@ export default function PostPage(props: PostPageProps) {
                   ''
                 )}
                 {post.linkType == 'hotel' ? (
+                  <> 
                   <RoomTech
                     techAvailable={post.techRating}
                     speed={post.internetSpeed}
+                    roomAmenitiesAvailiable={post.roomAmenities}
                   />
+                <RoomAmenities 
+                
+                roomAmenitiesAvailiable={post.roomAmenities}
+                
+                />
+                </>
                 ) : (
                   ''
                 )}
+
+
                 <PostBody content={post.content} />
 
                 <Youtube link={post.youtube} />

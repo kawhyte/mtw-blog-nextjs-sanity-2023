@@ -38,13 +38,7 @@ export default defineType({
       },
     }),
 
-    {
-      name: 'roomAmenities',
-      title: 'A breakdown of the Amenities in the room',
-      description: 'Say if the item was in the room',
-      type: 'roomAmenities',
-      hidden: ({ parent }) => parent?.linkType !== 'hotel',
-    },
+  
     defineField({
       name: 'title',
       title: 'Title',
@@ -262,6 +256,13 @@ export default defineType({
       hidden: ({ parent }) => parent?.linkType !== 'hotel',
       //validation: (rule) => rule.required(),
     }),
+    {
+      name: 'roomAmenities',
+      title: 'A breakdown of the Amenities in the room',
+      description: 'Say if the item was in the room',
+      type: 'roomAmenities',
+      hidden: ({ parent }) => parent?.linkType !== 'hotel',
+    },
 
     {
       name: 'techRating',
@@ -270,6 +271,7 @@ export default defineType({
       type: 'techRating',
       hidden: ({ parent }) => parent?.linkType !== 'hotel',
     },
+
 
     defineField({
       title: 'Positives',
