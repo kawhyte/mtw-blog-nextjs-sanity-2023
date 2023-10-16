@@ -1,4 +1,5 @@
 
+import { oswald } from "app/fonts";
 import dynamic from "next/dynamic";
 const ReactPlayer = dynamic(() => import("react-player/lazy"), { ssr: false });
 
@@ -16,7 +17,9 @@ export default function Youtube({ link }) {
         <>
           <div className="mb-10 flex w-full flex-col text-center font-medium lg:mb-12">
             <div className="flex ">
-              <p className="font-fancy text-left text-5xl font-semibold leading-tight tracking-tighter md:text-5xl md:leading-none lg:text-5xl">
+            <p className={`${oswald.variable} font-heading text-left text-5xl font-semibold leading-tight tracking-tighter md:text-5xl md:leading-none lg:text-5xl`}>
+
+              
                 {link.title ? link.title : 'Video'}
               </p>
             </div>
