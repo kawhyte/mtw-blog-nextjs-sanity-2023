@@ -132,7 +132,7 @@ function RoomTech({ speed = 10, techAvailable,roomAmenitiesAvailiable }) {
       </div> */}
 
       <section className="mt-8">
-        <section className="body-font overflow-hidden text-gray-800">
+        <section className="overflow-hidden text-gray-800">
           <div className="mx-6 pb-12 md:container md:mx-auto">
             <div className="mb-12 flex w-full flex-col text-center">
               <h1
@@ -141,7 +141,7 @@ function RoomTech({ speed = 10, techAvailable,roomAmenitiesAvailiable }) {
                 Hotel Techology & Amenities
               </h1>
             </div>
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 ">
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 ">
               <div className="  w-full">
                 {/*Internet Section */}
                 <div className="relative flex h-full flex-col overflow-hidden rounded-lg border-2 border-green-500 p-6">
@@ -159,7 +159,7 @@ function RoomTech({ speed = 10, techAvailable,roomAmenitiesAvailiable }) {
                     </span>
                   </h1>
 
-                  <p className="mb-3 pb-2 text-lg font-medium text-gray-900">
+                  <p className="mb-3 pb-2 text-base font-medium text-gray-900">
                     This internet speed is great for:
                   </p>
 
@@ -209,7 +209,7 @@ function RoomTech({ speed = 10, techAvailable,roomAmenitiesAvailiable }) {
                       <div className=" grid grid-cols-2 gap-4 text-center sm:grid-cols-2">
                         
                         
-                        <div className=" text-3xl ">
+                        <div className=" text-2xl ">
                           <h2 className="title-font   leading-none text-gray-900 uppercase">
                             {techAvailable.USB}
                           </h2>
@@ -219,7 +219,7 @@ function RoomTech({ speed = 10, techAvailable,roomAmenitiesAvailiable }) {
                         </div>
 
 
-                        <div className="text-3xl">
+                        <div className="text-2xl">
                           <h2 className="title-font   leading-none text-gray-900 uppercase">
                             {techAvailable.HDMI}
                           </h2>
@@ -229,7 +229,7 @@ function RoomTech({ speed = 10, techAvailable,roomAmenitiesAvailiable }) {
                           </p>
                         </div>
 
-                          <div className="text-3xl">
+                          <div className="text-2xl">
                           <h2 className="title-font   leading-none text-gray-900 uppercase">
                             {techAvailable.TV}
                           </h2>
@@ -237,7 +237,7 @@ function RoomTech({ speed = 10, techAvailable,roomAmenitiesAvailiable }) {
                         </div>
 
 
-                        <div className="text-3xl">
+                        <div className="text-2xl">
                         <h2 className="title-font   leading-none text-gray-900 uppercase">
                             {techAvailable.Chromecast}
                           </h2>
@@ -245,7 +245,7 @@ function RoomTech({ speed = 10, techAvailable,roomAmenitiesAvailiable }) {
                         </div>
 
 
-                        <div className="text-3xl">
+                        <div className="text-2xl">
                         <h2 className="title-font   leading-none text-gray-900 uppercase">
                             {techAvailable.Wired}
                           </h2>
@@ -253,12 +253,12 @@ function RoomTech({ speed = 10, techAvailable,roomAmenitiesAvailiable }) {
                         </div>
 
 
-                        <div className="text-3xl">
+                        <div className="text-2xl">
                         <h2 className="title-font   leading-none text-gray-900 uppercase">
                             {techAvailable.Bluetooth}
                           </h2>
                           <p className="leading-relaxed text-sm text-gray-500">
-                            Hospitality App/Texting Available
+                            Hospitality App/Texting
                           </p>
                         </div>
                       </div>
@@ -277,7 +277,7 @@ function RoomTech({ speed = 10, techAvailable,roomAmenitiesAvailiable }) {
                   </h2>
                   <h1 className="mb-4 flex items-center border-b border-gray-200 pb-4 text-5xl leading-none text-gray-900"></h1>
                   <p className="mb-3 pb-2 text-base font-medium text-gray-900">
-                    Breakdown of ameities availiable in the room
+                    Breakdown of ameities availiable in the room:
                   </p>
 
                   <section
@@ -285,49 +285,67 @@ function RoomTech({ speed = 10, techAvailable,roomAmenitiesAvailiable }) {
                   >
                     <div className="container mx-auto px-2 py-2">
                       <div className=" grid grid-cols-2 gap-4 text-center sm:grid-cols-2">
-                        <div className=" ">
-                          <h2 className="title-font text-3xl font-medium uppercase text-gray-900 sm:text-xl">
+                      
+                      <div className="text-2xl ">
+                      <h2 className="title-font   leading-none text-gray-900 uppercase">
                             {roomAmenitiesAvailiable?.Coffee}
                           </h2>
-                          <p className="leading-relaxed">
+                          <p className="leading-relaxed text-sm text-gray-500">
                             Coffee Machine Type
                           </p>
                         </div>
-                        <div className="">
-                          <h2 className="title-font  font-medium uppercase text-gray-900 ">
+
+
+                  
+
+                        <div className="text-2xl">
+                        <h2 className="title-font   leading-none text-gray-900 uppercase">
+                            {roomAmenitiesAvailiable?.Toothpaste}
+                          </h2>
+                          <p className="leading-relaxed text-sm text-gray-500">Toothpaste/Mouthwash</p>
+                        </div>
+
+
+                        <div className="text-2xl">
+                          <h2 className="title-font   leading-none text-gray-900 uppercase">
+                            {roomAmenitiesAvailiable?.Robes}
+                          </h2>
+                          <p className="leading-relaxed text-sm text-gray-500">Robes</p>
+                        </div>
+
+
+                        <div className="text-2xl">
+                        <h2 className="title-font   leading-none text-gray-900 uppercase">
+                            {roomAmenitiesAvailiable?.Slippers}
+                          </h2>
+                          <p className="leading-relaxed text-sm text-gray-500">Slippers</p>
+                        </div>
+
+
+                        <div className="text-2xl">
+                        <h2 className="title-font   leading-none text-gray-900 uppercase">
                             {roomAmenitiesAvailiable?.Soap}
                           </h2>
 
-                          <p className="leading-relaxed text-sm">
+                          <p className="leading-relaxed text-sm text-gray-500">
                             Soap Type
                           </p>
                         </div>
-                        <div className="">
-                          <h2 className="title-font text-3xl font-medium uppercase text-gray-900 sm:text-xl">
-                            {roomAmenitiesAvailiable?.Toothpaste}
-                          </h2>
-                          <p className="leading-relaxed">Toothpaste/Mouthwash available</p>
-                        </div>
-                        <div className="">
-                          <h2 className="title-font text-3xl font-medium uppercase text-gray-900 sm:text-xl">
-                            {roomAmenitiesAvailiable?.Robes}
-                          </h2>
-                          <p className="leading-relaxed">Robes available</p>
-                        </div>
-                        <div className="bg-yellow-50 p-2">
-                          <h2 className="title-font text-3xl font-medium text-gray-900 sm:text-xl">
-                            {roomAmenitiesAvailiable?.Slippers}
-                          </h2>
-                          <p className="leading-relaxed">Slippers available</p>
-                        </div>
-                        <div className="bg-blue-50 p-2 text-sm">
-                          <h2 className="title-font text-xl font-medium text-gray-900 sm:text-base">
+
+
+
+                        <div className="text-2xl">
+                        <h2 className="title-font   leading-none text-gray-900 uppercase">
                             {roomAmenitiesAvailiable?.Other}
                           </h2>
-                          <p className="leading-relaxed  text-base">
-						  Other Amenities Available
+                          <p className="leading-relaxed text-sm text-gray-500">
+						  Other Amenities
                           </p>
                         </div>
+
+
+
+
                       </div>
                     </div>
                   </section>
