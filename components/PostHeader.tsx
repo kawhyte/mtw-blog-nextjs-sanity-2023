@@ -139,8 +139,8 @@ export default function PostHeader(
             {tip && (
               <Alert
                 variant="light"
-                color="blue"
-                className="  text-base md:text-xl text-blue-500 font-normal md:leading-relaxed"
+                color="gray"
+                className="  text-base md:text-xl text-blue-500 bg-gradient-to-r from-violet-100 to-fuchsia-50 font-normal md:leading-relaxed"
                 title={`Quick tip for this ${linkType} `}
                 icon={<HiOutlineLightBulb />}
               >
