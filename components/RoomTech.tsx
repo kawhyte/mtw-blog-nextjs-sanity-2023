@@ -85,6 +85,8 @@ function RoomTech({ speed = 10, techAvailable,roomAmenitiesAvailiable }) {
     speedResult = ['No Internet']
     // Fall through
   }
+
+ 
   return (
     <>
       {/* <div className="w-64 rounded-2xl border-2 border-green-500 bg-white p-4 shadow-lg ">
@@ -301,6 +303,7 @@ function RoomTech({ speed = 10, techAvailable,roomAmenitiesAvailiable }) {
                         <div className="text-2xl">
                         <h2 className="title-font   leading-none text-gray-900 uppercase">
                             {roomAmenitiesAvailiable?.Toothpaste}
+                            {roomAmenitiesAvailiable?.constructor.Toothpaste}
                           </h2>
                           <p className="leading-relaxed text-sm text-gray-500">Toothpaste/Mouthwash</p>
                         </div>

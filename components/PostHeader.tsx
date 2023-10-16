@@ -4,7 +4,7 @@ import Avatar from 'components/AuthorAvatar'
 import Date from 'components/PostDate'
 import PostTitle from 'components/PostTitle'
 import type { Post } from 'lib/sanity.queries'
-import { FaRegFaceGrinHearts } from 'react-icons/fa6'
+import { HiOutlineLightBulb } from 'react-icons/hi2'
 import { LiaCrownSolid } from 'react-icons/lia'
 
 import BodySectionSeparator from './body-section-separator'
@@ -138,11 +138,11 @@ export default function PostHeader(
 
             {tip && (
               <Alert
-                variant="outline"
-                color="pink"
-                className=" capitalize"
-                title={`${linkType} Quick Tip `}
-                icon={<FaRegFaceGrinHearts />}
+                variant="light"
+                color="blue"
+                className="  text-base md:text-xl text-blue-500 font-normal md:leading-relaxed"
+                title={`Quick tip for this ${linkType} `}
+                icon={<HiOutlineLightBulb />}
               >
                 <PostBody content={tip} />
               </Alert>

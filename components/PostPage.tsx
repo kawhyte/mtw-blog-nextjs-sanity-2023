@@ -13,7 +13,6 @@ import { notFound } from 'next/navigation'
 
 import Gallery from './Gallery'
 import ProConList from './ProConList'
-import RoomAmenities from './RoomAmenities'
 import RoomTech from './RoomTech'
 import Youtube from './Youtube'
 
@@ -89,11 +88,7 @@ export default function PostPage(props: PostPageProps) {
                     speed={post.internetSpeed}
                     roomAmenitiesAvailiable={post.roomAmenities}
                   />
-                <RoomAmenities 
-                
-                roomAmenitiesAvailiable={post.roomAmenities}
-                
-                />
+          
                 </>
                 ) : (
                   ''

@@ -1,5 +1,5 @@
 .portableText {
-  @apply text-base md:text-lg md:leading-relaxed;
+  @apply text-base md:text-lg font-normal md:leading-relaxed ;
 }
 
 .portableText p,
@@ -10,7 +10,7 @@
 }
 
 .portableText h2 {
-  @apply mb-4 mt-12   text-3xl  leading-snug;
+  @apply mb-4 mt-12   text-2xl  leading-snug;
 }
 
 .portableText h3 {
