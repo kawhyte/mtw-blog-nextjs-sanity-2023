@@ -106,6 +106,7 @@ export default defineType({
       title: 'Hotel Category',
       name: 'category',
       type: 'string',
+      description: '(optional)',
       hidden: ({ parent }) => parent?.linkType !== 'hotel', // &lt;-- defaults to 'dropdown'
       options: {
         list: [
@@ -123,6 +124,7 @@ export default defineType({
       title: 'Lounge Access availiable at this hotel?',
       name: 'lounge',
       type: 'string',
+      description: '(optional)',
       hidden: ({ parent }) => parent?.linkType !== 'hotel',
       options: {
         list: [
@@ -167,6 +169,7 @@ export default defineType({
     defineField({
       name: 'tip',
       title: 'Hotel/Restaurant Quick Tip',
+      
       description: 'Add a Tip for this hotel or restaurant (optional)',
       type: 'array',
       of: [{ type: 'block' }],
@@ -225,7 +228,7 @@ export default defineType({
 
     defineField({
       name: 'youtube',
-      title: 'Youtube URL (Optional)',
+      title: 'Youtube URL (optional)',
       type: 'string',
       description: 'Youtube link is Optional',
       hidden: ({ parent, value }) =>
