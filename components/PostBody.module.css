@@ -27,12 +27,12 @@
 
 .portableText image {
 
-  @apply  py-2 lg:max-w-3xl  ;
+  @apply  py-2  lg:max-w-3xl  ;
   
 }
 .portableText img {
 
-  @apply  py-2 mx-5 lg:max-w-3xl  ;
+  @apply  py-2  lg:max-w-3xl  ;
   
 }
 
