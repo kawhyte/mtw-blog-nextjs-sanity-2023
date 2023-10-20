@@ -52,9 +52,15 @@ id, title,listType, recommendations[] {post->{title, slug, coverImage, location,
 
 }
 `
+const travelEssentialFields = groq`
+id, name,link, background, description, productImage,categoryName
+`
 
 export const recommendationQuery = groq`
 *[_type == "recommendationList"] | order(date desc, _updatedAt desc) {${recommendationFields}}`
+
+export const travelEssentialQuery = groq`
+*[_type == "essential"] {${travelEssentialFields}}`
 
 export const settingsQuery = groq`*[_type == "settings"][0]`
 
@@ -105,6 +111,16 @@ export interface Recommendation {
   title?: string
   recommendations?: any
   listType?:string
+  
+}
+export interface Esssential {
+  _id: string
+  name?: string
+  link?:string
+  background?:string
+  description?: any
+  productImage?:any
+  categoryName?:any
   
 }
 

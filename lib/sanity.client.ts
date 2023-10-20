@@ -1,5 +1,6 @@
 import { apiVersion, dataset, projectId, useCdn } from 'lib/sanity.api'
 import {
+  type Esssential,
   foodQuery,
   hotelQuery,
   indexQuery,
@@ -12,6 +13,7 @@ import {
   type Settings,
   settingsQuery,
   storyQuery,
+  travelEssentialQuery,
 } from 'lib/sanity.queries'
 import { createClient } from 'next-sanity'
 
@@ -72,6 +74,12 @@ export async function getStoryPosts(): Promise<Post[]> {
 export async function getRecommendationPosts(): Promise<Post[]> {
   if (client) {
     return (await client.fetch(recommendationQuery)) || []
+  }
+  return []
+}
+export async function getTravelEssentialPosts(): Promise<Esssential[]> {
+  if (client) {
+    return (await client.fetch(travelEssentialQuery)) || []
   }
   return []
 }

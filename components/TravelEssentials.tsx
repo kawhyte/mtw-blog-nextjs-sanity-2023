@@ -106,7 +106,7 @@ function Welcome() {
               <h1
                 className={`${oswald.variable}  title-font mb-3 font-heading text-3xl font-medium text-gray-900 sm:text-4xl`}
               >
-                Our Travel Essentials Picks
+                Our Travel Essential Picks
               </h1>
               <div className="h-1 w-20 rounded bg-pink-500"></div>
               <p
