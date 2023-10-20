@@ -146,7 +146,7 @@ function RoomTech({ speed = 10, techAvailable,roomAmenitiesAvailiable }) {
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 ">
               <div className="  w-full">
                 {/*Internet Section */}
-                <div className="relative flex h-full flex-col overflow-hidden rounded-lg border-2 border-green-500 p-6">
+                <div className="relative flex h-full flex-col overflow-hidden rounded-lg border-2 border-green-500 py-6 p-3">
                   <span className={`absolute right-0 top-0 m-1 ${bgColor} px-3 py-1 text-base uppercase tracking-widest text-white sm:hidden md:block`}>
                     {textResult}
                   </span>
@@ -195,7 +195,7 @@ function RoomTech({ speed = 10, techAvailable,roomAmenitiesAvailiable }) {
               {/*Ports, Plugs & TV */}
 
             { techAvailable &&  <div className=" w-full">
-                <div className="relative flex h-full flex-col overflow-hidden rounded-lg border-2 border-pink-500 p-6">
+                <div className="relative flex h-full flex-col overflow-hidden rounded-lg border-2 border-pink-500 py-6 p-3">
                   <h2 className="title-font  mb-1 text-base font-medium uppercase tracking-widest text-pink-500">
                     TV Ports, Plugs & other tech
                   </h2>
@@ -272,8 +272,8 @@ function RoomTech({ speed = 10, techAvailable,roomAmenitiesAvailiable }) {
  {/*Ports, Plugs & TV Ends  */}
   {/*Hotel Amenities*/}
 
-            { roomAmenitiesAvailiable &&  <div className=" w-full">
-                <div className="relative flex h-full flex-col overflow-hidden rounded-lg border-2 border-blue-500 p-6">
+            { roomAmenitiesAvailiable &&  <div className=" w-full ">
+                <div className="relative flex h-full flex-col overflow-hidden rounded-lg border-2 border-blue-500 py-6 p-3">
                   <h2 className="title-font  mb-1 text-base font-medium uppercase tracking-widest text-blue-500">
                      Hotel Amentities
                   </h2>
@@ -303,9 +303,9 @@ function RoomTech({ speed = 10, techAvailable,roomAmenitiesAvailiable }) {
                         <div className="text-2xl">
                         <h2 className="title-font   leading-none text-gray-900 uppercase">
                             {roomAmenitiesAvailiable?.Toothpaste}
-                            {roomAmenitiesAvailiable?.constructor.Toothpaste}
+                            
                           </h2>
-                          <p className="leading-relaxed text-sm text-gray-500">Toothpaste/Mouthwash</p>
+                          <p className="leading-relaxed text-sm text-gray-500">Toothpaste, Mouthwash etc.</p>
                         </div>
 
 

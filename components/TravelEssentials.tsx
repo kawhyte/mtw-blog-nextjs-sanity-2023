@@ -145,7 +145,7 @@ function Welcome() {
                     </p> */}
                     <Link href={item.link}>
                       <img
-                        className="rounded-t-lg p-6 transition-all hover:translate-x-3  hover:translate-y-2 hover:duration-700 md:p-8"
+                        className=" transition-all hover:translate-x-3  hover:translate-y-2 hover:duration-700 md:p-8"
                         src={item.url}
                         alt="product image"
                       />

@@ -53,8 +53,8 @@ export default defineType({
 
 			options: {
 				list: [
-					{ title: "Individual Bar Soap", value: "Individual" },
-					{ title: "Wall Mounted Soap", value: "Upgraded" },
+					{ title: "Individual Bar Soap", value: "Bar Soap" },
+					{ title: "Wall Mounted Soap", value: "Wall Mounted" },
 					
 				],
 				layout: "radio",
