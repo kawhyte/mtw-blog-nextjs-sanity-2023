@@ -17,6 +17,7 @@ import InstagramHighlights from './InstagramHighlights'
 import TravelEssentials from './TravelEssentials'
 import Welcome from './Welcome'
 import YoutubeHighlights from './YoutubeHighlights'
+import TravelEssentialLayout from './TravelEssentialsLayout'
 
 export interface IndexPageProps {
   preview?: boolean
@@ -45,6 +46,7 @@ export default function IndexPage(props: IndexPageProps) {
           <Hero />
           <Welcome />
           <TravelEssentials />
+          {/* <TravelEssentialLayout/> */}
 
           {/* {heroPost && (
             <HeroPost

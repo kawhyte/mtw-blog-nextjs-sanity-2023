@@ -12,7 +12,7 @@ import { lazy } from 'react'
 const PreviewIndexPage = lazy(() => import('components/PreviewIndexPage'))
 
 interface PageProps {
-  posts: Esssential[]
+  TravelEssentialposts: Esssential[]
   settings: Settings
   preview: boolean
   token: string | null
@@ -28,14 +28,14 @@ interface PreviewData {
 
 
 export default function Page(props: PageProps) {
-    const { posts, settings, preview, token } = props
+    const { TravelEssentialposts, settings, preview, token } = props
   
     //console.log("KENNY3 ", props )
     if (preview) {
       return (
         <PreviewSuspense
           fallback={
-            <TopListPage loading preview posts={posts} settings={settings} />
+            <TopListPage loading preview posts={TravelEssentialposts} settings={settings} />
           }
         >
           <PreviewIndexPage token={token} />
@@ -43,7 +43,7 @@ export default function Page(props: PageProps) {
       )
     }
  
-    return <TravelEssentialPage posts={posts} settings={settings} />
+    return <TravelEssentialPage posts={TravelEssentialposts} settings={settings} />
   }
   
   export const getStaticProps: GetStaticProps<
@@ -53,14 +53,14 @@ export default function Page(props: PageProps) {
   > = async (ctx) => {
     const { preview = false, previewData = {} } = ctx
   
-    const [settings, posts = []] = await Promise.all([
+    const [settings, TravelEssentialposts = []] = await Promise.all([
       getSettings(),
       getTravelEssentialPosts(),
     ])
   
     return {
       props: {
-        posts,
+        TravelEssentialposts,
         settings,
         preview,
         token: previewData.token ?? null,

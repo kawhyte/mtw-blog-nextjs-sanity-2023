@@ -40,7 +40,7 @@ export default function IndexPage(props: IndexPageProps) {
 					title={"Our Travel Essential Picks"}
 					pattern={"foodpattern"}
 					summary={"Traveling is a great way to experience new cultures and see the world. However, packing for a trip can be daunting, especially if you are trying to pack light. Here are a few travel essentials that you may want to cosider for your next trip"}
-					animation={'/food_smiling.svg'}
+					animation={'/travel2.svg'}
 				/>
 
           {posts.length > 0 && <TravelEssentialLayout posts={posts}  />}

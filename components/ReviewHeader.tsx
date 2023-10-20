@@ -16,7 +16,7 @@ function ReviewHeader({ title, pattern, summary, animation }) {
           {title}
         </h1>
         <p
-          className={` mb-8  font-secondary leading-relaxed md:text-base lg:text-lg`}
+          className={` mb-8 px-5 md:px-0  font-secondary leading-relaxed md:text-base lg:text-lg`}
         >
           {summary}
         </p>
