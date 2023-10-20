@@ -131,10 +131,10 @@ function Welcome() {
             </div>  */}
           </div>
 
-          <div className="  grid grid-cols-1 content-center gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 ">
+          <div className="  grid grid-cols-1 content-center gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3  ">
             {essentials.map((item) => (
               <>
-                <div className="mx-auto max-w-2xl">
+                <div className="mx-auto  max-w-2xl">
                   <div
                     className={`${item.bg}  max-w-sm rounded-lg shadow-md  dark:border-gray-700 `}
                   >
@@ -144,11 +144,13 @@ function Welcome() {
                       {item.name}
                     </p> */}
                     <Link href={item.link}>
+
+                      <div className=' mx-20 pt-4 md:pt-0 md:mx-0  '> 
                       <img
                         className=" transition-all hover:translate-x-3  hover:translate-y-2 hover:duration-700 md:p-8"
                         src={item.url}
                         alt="product image"
-                      />
+                      /></div>
 
                       <Card.Section className={'mx-2'} mt="md">
                         <Group>
