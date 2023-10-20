@@ -53,7 +53,7 @@ export const getStaticProps: GetStaticProps<
     getSettings(),
     getAllPosts(),
     getInstagramPosts(),
-    getTravelEssentialPosts(),
+    //getTravelEssentialPosts(),
   ])
 
   return {

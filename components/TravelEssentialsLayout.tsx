@@ -5,7 +5,6 @@ import Link from 'next/link'
 
 import PostBody from './PostBody'
 
-
 const TravelEssentialLayout = ({ posts }: { posts: Esssential[] }) => {
   //console.log('KENNY Essentials 2', posts)
   return (
@@ -33,12 +32,11 @@ const TravelEssentialLayout = ({ posts }: { posts: Esssential[] }) => {
                         >
                           {item.categoryName}
                         </Badge>
-<div className='pb-5'></div>
+                        <div className="pb-5"></div>
                         <div className=" mx-20  pt-10 md:mx-0 md:pt-0  ">
                           <img
                             width={400}
                             height={400}
-                            
                             alt={`Cover Image for ${item.name}`}
                             className=" transition-all hover:translate-x-3   hover:translate-y-2 hover:duration-700 md:p-6    lg:rounded-l-2xl"
                             src={urlForImage(item.productImage.asset._ref)
