@@ -5,7 +5,7 @@ import Layout from 'components/BlogLayout'
 import IndexPageHead from 'components/IndexPageHead'
 import MoreStoriesIndex from 'components/MoreStories'
 import * as demo from 'lib/demo.data'
-import type { Post, Settings } from 'lib/sanity.queries'
+import type { Esssential, Post, Settings } from 'lib/sanity.queries'
 import Head from 'next/head'
 import Link from 'next/link'
 
@@ -15,23 +15,25 @@ import Hero from './Hero'
 import IndexTopTen from './IndexTopTen'
 import InstagramHighlights from './InstagramHighlights'
 import TravelEssentials from './TravelEssentials'
+import TravelEssentialLayout from './TravelEssentialsLayout'
 import Welcome from './Welcome'
 import YoutubeHighlights from './YoutubeHighlights'
-import TravelEssentialLayout from './TravelEssentialsLayout'
 
 export interface IndexPageProps {
   preview?: boolean
   loading?: boolean
   posts: Post[]
+  Essentialposts:Esssential[]
   settings: Settings
   instagram: any
 }
 
 export default function IndexPage(props: IndexPageProps) {
-  const { preview, loading, posts, settings, instagram } = props
+  const { preview, loading, posts,Essentialposts, settings, instagram } = props
   const [heroPost, ...morePosts] = posts || []
   const { title = demo.title, description = demo.description } = settings || {}
    //console.log("PODTs ",posts )
+   console.log("Essentialposts 1 ",Essentialposts )
   return (
     <>
       <IndexPageHead settings={settings} />
@@ -45,9 +47,31 @@ export default function IndexPage(props: IndexPageProps) {
 
           <Hero />
           <Welcome />
-          <TravelEssentials />
-          {/* <TravelEssentialLayout/> */}
+          {/* <TravelEssentials /> */}
 
+          <section className="container mx-auto  pt-14 text-gray-600 ">
+        <div >
+          <div className=" flex w-full  justify-between">
+
+          <div>
+              <h1
+                className={`${oswald.variable}  title-font mb-3 font-heading text-3xl font-medium text-gray-900 sm:text-4xl`}
+              >
+                Our Travel Essential Picks
+              </h1>
+              <div className="h-1 w-20 rounded bg-pink-500"></div>
+              <p
+                className={` ${inter.variable} font-secondary mt-4 text-sm leading-relaxed md:text-base  lg:text-base `}
+              >
+        
+                Traveling is a great way to experience new cultures and see the world. However, packing for a trip can be daunting, especially if you are trying to pack light. Here are a few travel essentials that you should never leave home without:
+              </p>
+            </div>
+            </div>
+            </div>
+           
+          <TravelEssentialLayout posts={Essentialposts}/>
+ </section>
           {/* {heroPost && (
             <HeroPost
               title={heroPost.title}

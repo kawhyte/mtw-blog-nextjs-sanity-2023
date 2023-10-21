@@ -1,7 +1,7 @@
 import { PreviewSuspense } from '@sanity/preview-kit'
 import IndexPage from 'components/IndexPage'
 import { getAllPosts, getInstagramPosts, getSettings, getTravelEssentialPosts } from 'lib/sanity.client'
-import { Post, Settings } from 'lib/sanity.queries'
+import { Post, Esssential, Settings } from 'lib/sanity.queries'
 import { GetServerSideProps, GetStaticProps } from 'next'
 import { lazy } from 'react'
 
@@ -9,6 +9,8 @@ const PreviewIndexPage = lazy(() => import('components/PreviewIndexPage'))
 
 interface PageProps {
   posts: Post[]
+  Essentialposts: Esssential[]
+
   settings: Settings
   instagram: any
   preview: boolean
@@ -24,7 +26,7 @@ interface PreviewData {
 }
 
 export default function Page(props: PageProps) {
-  const { posts, settings,instagram, preview, token } = props
+  const { posts,Essentialposts, settings,instagram, preview, token } = props
 
   if (preview) {
     return (
@@ -39,7 +41,7 @@ export default function Page(props: PageProps) {
   }
 
 
-  return <IndexPage posts={posts} settings={settings} instagram={instagram} />
+  return <IndexPage posts={posts} settings={settings} instagram={instagram} Essentialposts={Essentialposts} />
 }
 
 export const getStaticProps: GetStaticProps<
@@ -49,11 +51,11 @@ export const getStaticProps: GetStaticProps<
 > = async (ctx) => {
   const { preview = false, previewData = {} } = ctx
 
-  const [settings, posts = [], instagram] = await Promise.all([
+  const [settings, posts = [], instagram,Essentialposts = []] = await Promise.all([
     getSettings(),
     getAllPosts(),
     getInstagramPosts(),
-    //getTravelEssentialPosts(),
+    getTravelEssentialPosts(),
   ])
 
   return {
@@ -61,6 +63,7 @@ export const getStaticProps: GetStaticProps<
       posts,
       settings,
       instagram,
+      Essentialposts,
       preview,
       token: previewData.token ?? null,
     },
