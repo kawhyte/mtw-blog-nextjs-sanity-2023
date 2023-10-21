@@ -102,7 +102,16 @@ export default function IndexPage(props: IndexPageProps) {
               >
                 Our Latest Adventures
               </h1>
-              <div className="h-1 w-20 rounded bg-pink-500"></div>
+              
+              <div className="h-1 w-20 rounded bg-pink-500">
+
+                
+              </div>
+              <p
+                    className={` ${inter.variable} font-secondary mt-4 text-sm leading-relaxed md:text-base  lg:text-base `}
+                  >
+               Check out some of the places we have been.
+                  </p>
             </div>
 
             <div className="lg:mt-0 lg:flex-shrink-0">
