@@ -12,7 +12,7 @@ const TravelEssentialLayout = ({ posts }: { posts: Esssential[] }) => {
       <section className="container mx-auto  text-gray-600 ">
         <div className="container mx-auto px-5 py-7 pt-16">
           <div className="mb-20 flex w-full  justify-between">
-            <div className="  grid grid-cols-1 content-center gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-5  ">
+            <div className="  grid grid-cols-1 content-center gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4  ">
               {posts.map((item) => (
                 <>
                   <div className="mx-aut0 relative   max-w-2xl">
