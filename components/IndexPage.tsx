@@ -70,7 +70,7 @@ export default function IndexPage(props: IndexPageProps) {
             </div>
             </div>
            
-          <TravelEssentialLayout posts={Essentialposts}/>
+          <TravelEssentialLayout posts={Essentialposts.slice(0, 5)}/>
  </section>
           {/* {heroPost && (
             <HeroPost

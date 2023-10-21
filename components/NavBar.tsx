@@ -124,7 +124,7 @@ export default function Nav({ color = 'bg-black', bgColor }) {
                   passHref
                   legacyBehavior
                 >
-                  <div className="flex flex-shrink-0 items-center justify-center pl-3  ">
+                  <div className="flex flex-shrink-0 items-center justify-center pl-3 transition-all hover:ease-in-out  hover:scale-110 hover:duration-150 hover:text-pink-500  ">
                     <div className=" flex flex-row items-center space-x-4  ">
                       <Image
                         className="rounded-xl"

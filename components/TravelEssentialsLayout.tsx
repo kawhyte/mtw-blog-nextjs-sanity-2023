@@ -19,7 +19,7 @@ const TravelEssentialLayout = ({ posts }: { posts: Esssential[] }) => {
                     <div
                       className={` ${item.background}  max-w-sm rounded-lg shadow-md  dark:border-gray-700 `}
                     >
-                      <Link href={item.link}>
+                      <Link href={item.link} passHref target="_blank" rel="noopener noreferrer">
                         {/* <span
                           className={` ${item.background}-500 absolute mx-5 mt-3  uppercase rounded px-2  py-1 text-base font-medium  text-white`}
                         >
