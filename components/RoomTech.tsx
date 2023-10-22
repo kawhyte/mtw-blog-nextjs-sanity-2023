@@ -6,7 +6,7 @@ function RoomTech({ speed = 10, techAvailable,roomAmenitiesAvailiable }) {
   let textResult = 'OK'
   let bgColor = 'bg-blue-200'
 
-  //console.log("roomAmenitiesAvailiable ", roomAmenitiesAvailiable)
+ console.log("roomAmenitiesAvailiable ", roomAmenitiesAvailiable)
 
   if (speed <= 2) {
     speedResult = ['Web Browsing', 'Emails']
@@ -311,9 +311,9 @@ function RoomTech({ speed = 10, techAvailable,roomAmenitiesAvailiable }) {
 
                         <div className="text-2xl">
                           <h2 className="title-font   leading-none text-gray-900 uppercase">
-                            {roomAmenitiesAvailiable?.Robes}
+                            {roomAmenitiesAvailiable?.Fridge}
                           </h2>
-                          <p className="leading-relaxed text-sm text-gray-500">Robes</p>
+                          <p className="leading-relaxed text-sm text-gray-500">Useable Fridge</p>
                         </div>
 
 
@@ -321,7 +321,7 @@ function RoomTech({ speed = 10, techAvailable,roomAmenitiesAvailiable }) {
                         <h2 className="title-font   leading-none text-gray-900 uppercase">
                             {roomAmenitiesAvailiable?.Slippers}
                           </h2>
-                          <p className="leading-relaxed text-sm text-gray-500">Slippers</p>
+                          <p className="leading-relaxed text-sm text-gray-500">Slippers/Robes</p>
                         </div>
 
 

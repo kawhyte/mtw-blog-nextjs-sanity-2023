@@ -124,7 +124,7 @@ export default defineType({
           { title: 'Green 🟢 (#dcfce7)', value: 'bg-green-100' },
           { title: 'Indigo 🟣 (#e0e7ff)', value: 'bg-indigo-50' },
           { title: 'Pink 👛 (#fce7f3)', value: 'bg-pink-50' },
-          { title: 'Blue 🔵 (#dbeafe)', value: 'bg-blue-100' },
+          { title: 'Gray 🩶  (#dbeafe)', value: 'bg-gray-100' },
           // { title: 'Orange 🟠 (#ffedd5)', value: 'bg-orange-50' },
           // { title: 'Teal 🍏 (#e6fffa)', value: 'bg-teal-100' },
         ],

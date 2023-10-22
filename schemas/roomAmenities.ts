@@ -99,8 +99,8 @@ description:"Needle/sewing kit etc...",
 		},
 
 		{
-			title: "Robes available",
-			name: "Robes",
+			title: "Useable Fridge available",
+			name: "Fridge",
 			type: "string",
 
 			options: {

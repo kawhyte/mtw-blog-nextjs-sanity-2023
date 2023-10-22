@@ -6,18 +6,19 @@ import Link from 'next/link'
 import PostBody from './PostBody'
 
 const TravelEssentialLayout = ({ posts }: { posts: Esssential[] }) => {
-  //console.log('KENNY Essentials 2', posts)
+//console.log('KENNY Essentials 2', posts)
   return (
     <>
-      <section className="container mx-auto  px-3 py-3 text-gray-600">
+    
+      <div className="container mx-auto  px-3 py-3 text-gray-600">
         <div className="  grid grid-cols-1 content-center gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  ">
           {posts.map((item) => (
-            <>
-              <div className="relative mx-auto   max-w-sm ">
+            <div key={item.name} >
+              <div key={item.name}  className="relative mx-auto   max-w-sm ">
                 <div
                   className={` ${item.background}  max-w-sm rounded-lg shadow-md  dark:border-gray-700 `}
                 >
-                  <Link
+                  <Link 
                     href={item.link}
                     passHref
                     target="_blank"
@@ -60,10 +61,10 @@ const TravelEssentialLayout = ({ posts }: { posts: Esssential[] }) => {
                   </Link>
                 </div>
               </div>
-            </>
+            </div>
           ))}
         </div>
-      </section>
+      </div>
     </>
   )
 }
