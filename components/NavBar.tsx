@@ -49,15 +49,15 @@ const navigation = [
     bg: '  hover:bg-gradient-to-r from-pink-100 to-indigo-100  text-white w-full  focus:decoration-indigo-500/50',
     current: false,
   },
-  // {
-  //   name: 'Stuff We Like',
-  //   href: '/stuff_we_like',
-  //       icon: <PiSneakerLight className="h-6 w-10  text-gray-500" />,
+  {
+    name: 'Travel Essentials',
+    href: '/essentials',
+        icon: <PiSneakerLight className="h-6 w-10  text-orange-500" />,
 
-  //   text: 'Man walking',
-  //   bg: bg,
-  //   current: false,
-  // },
+    text: 'Man walking',
+    bg:  'hover:bg-gradient-to-r from-pink-100 to-orange-100  text-white w-full  focus:decoration-orange-500/50',
+    current: false,
+  },
 ]
 
 function classNames(...classes) {
@@ -177,7 +177,7 @@ export default function Nav({ color = 'bg-black', bgColor }) {
           </div>
 
           <Disclosure.Panel className="sm:hidden ">
-            <div className="space-y-1 px-2 pb-3 pt-2">
+            <div className="space-y-1 px-2 pb-3 pt-4">
               {navigation.map((item) => (
                 <a
                   key={item.name}
@@ -185,8 +185,8 @@ export default function Nav({ color = 'bg-black', bgColor }) {
                   className={classNames(
                     item.current
                       ? 'bg-gray-900 text-white'
-                      : 'text-black hover:bg-gray-700 hover:text-white',
-                    'block rounded-md bg-green-100 px-3 py-2 text-base font-medium'
+                      : 'text-white hover:bg-gray-700 hover:text-pink-500',
+                    'block rounded-md bg-gray-700 px-3 py-2 text-base font-medium'
                   )}
                   aria-current={item.current ? 'page' : undefined}
                 >

@@ -72,6 +72,29 @@ export default function IndexPage(props: IndexPageProps) {
             </div>
 
             <TravelEssentialLayout posts={Essentialposts.slice(0, 4)} />
+
+
+
+            <div className="lg:mt-0 lg:flex-shrink-0  flex justify-center pt-9">
+              <div className=" inline-flex  ">
+                <Link href="/essentials" passHref legacyBehavior>
+                  <button
+                    type="button"
+                    className={`${inter.variable} font-secondary w-full rounded-full  border bg-pink-500 px-4  py-2 text-center text-base font-semibold text-white shadow-md transition duration-200 ease-in hover:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2  focus:ring-offset-pink-200`}
+                  >
+                    View more
+                  </button>
+
+                  {/* <button
+                    type="button"
+                    className={`${inter.variable} font-secondary w-full px-4 py-2 text-center  text-xs font-semibold text-gray-500 transition duration-200 ease-in hover:underline md:text-base  `}
+                  >
+                    Show all
+                  </button> */}
+                </Link>
+              </div>
+            </div>
+
           </section>
 
           <div className=" container mx-auto my-10 mb-10 flex w-full flex-row justify-between px-10  ">
