@@ -15,6 +15,7 @@ interface PageProps {
   instagram: any
   preview: boolean
   token: string | null
+ 
 }
 
 interface Query {
@@ -32,7 +33,7 @@ export default function Page(props: PageProps) {
     return (
       <PreviewSuspense
         fallback={
-          <IndexPage loading preview posts={posts} settings={settings} instagram={instagram} Essentialposts={Essentialposts} />
+          <IndexPage loading preview posts={posts} settings={settings} instagram={instagram} Essentialposts={Essentialposts}  />
         }
       >
         <PreviewIndexPage token={token} />
@@ -65,6 +66,7 @@ export const getStaticProps: GetStaticProps<
       instagram,
       Essentialposts,
       preview,
+      
       token: previewData.token ?? null,
     },
      revalidate:10

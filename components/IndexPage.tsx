@@ -25,6 +25,7 @@ export interface IndexPageProps {
   Essentialposts: Esssential[]
   settings: Settings
   instagram: any
+
 }
 
 export default function IndexPage(props: IndexPageProps) {
@@ -48,7 +49,7 @@ export default function IndexPage(props: IndexPageProps) {
           <Welcome />
           {/* <TravelEssentials /> */}
 
-          <section className="container mx-auto  pt-14 px-8 text-gray-600 ">
+          <section className="container mx-auto  py-14 text-gray-600 ">
             <div>
               <div className=" flex w-full  justify-between">
                 <div>
@@ -70,9 +71,8 @@ export default function IndexPage(props: IndexPageProps) {
               </div>
             </div>
 
-            <TravelEssentialLayout posts={Essentialposts.slice(0, 6)} />
+            <TravelEssentialLayout posts={Essentialposts.slice(0, 4)} />
           </section>
-       
 
           <div className=" container mx-auto my-10 mb-10 flex w-full flex-row justify-between px-10  ">
             <div className=" mb-6 lg:mb-0 lg:w-1/2 ">
@@ -81,33 +81,37 @@ export default function IndexPage(props: IndexPageProps) {
               >
                 Our Latest Adventures
               </h1>
-              
-              <div className="h-1 w-20 rounded bg-pink-500">
 
-                
-              </div>
+              <div className="h-1 w-20 rounded bg-pink-500"></div>
               <p
-                    className={` ${inter.variable} font-secondary mt-4 text-sm leading-relaxed md:text-base  lg:text-base `}
-                  >
-               Check out some of the places we have been.
-                  </p>
-            </div>
-
-            <div className="lg:mt-0 lg:flex-shrink-0">
-              <div className=" inline-flex  ">
-                <Link href="/hotel" passHref legacyBehavior>
-                  <button
-                    type="button"
-                    className={`${inter.variable} font-secondary w-full px-4 py-2 text-center  text-xs font-semibold text-gray-500 transition duration-200 ease-in hover:underline md:text-base  `}
-                  >
-                    Show all
-                  </button>
-                </Link>
-              </div>
+                className={` ${inter.variable} font-secondary mt-4 text-sm leading-relaxed md:text-base  lg:text-base `}
+              >
+                Check out some of the places we have been.
+              </p>
             </div>
           </div>
           <div className="container mx-auto  px-10">
             {posts.length > 0 && <MoreStoriesIndex posts={posts.slice(0, 6)} />}
+
+            <div className="lg:mt-0 lg:flex-shrink-0  flex justify-center">
+              <div className=" inline-flex  ">
+                <Link href="/hotel" passHref legacyBehavior>
+                  <button
+                    type="button"
+                    className={`${inter.variable} font-secondary w-full rounded-full  border bg-pink-500 px-4  py-2 text-center text-base font-semibold text-white shadow-md transition duration-200 ease-in hover:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2  focus:ring-offset-pink-200`}
+                  >
+                    View more
+                  </button>
+
+                  {/* <button
+                    type="button"
+                    className={`${inter.variable} font-secondary w-full px-4 py-2 text-center  text-xs font-semibold text-gray-500 transition duration-200 ease-in hover:underline md:text-base  `}
+                  >
+                    Show all
+                  </button> */}
+                </Link>
+              </div>
+            </div>
           </div>
           <IndexTopTen />
 

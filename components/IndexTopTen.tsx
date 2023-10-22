@@ -7,7 +7,7 @@ export default function IndexTopTen() {
     <div className=" container mx-auto  relative my-8  flex-col overflow-hidden md:my-20 bg-gradient-to-r from-indigo-200 via-pink-200 to-yellow-50 pr-3 rounded-xl">
       <div className="z-20 w-full px-4  py-12 text-start sm:px-6 lg:w-1/2 lg:px-8 lg:py-16">
         <h2 className={` ${oswald.variable}  font-heading text-2xl font-extrabold text-black  sm:text-3xl`}>
-          <span className="font-fancy block">
+          <span className="font-fancy block ">
             
             Check out our top Hotels & Restaurants recommendations.
          
