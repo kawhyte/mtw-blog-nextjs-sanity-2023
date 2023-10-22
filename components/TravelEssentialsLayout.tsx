@@ -12,26 +12,26 @@ const TravelEssentialLayout = ({ posts }: { posts: Esssential[] }) => {
       <section className="container mx-auto  text-gray-600 ">
         <div className="container mx-auto px-5 py-7 pt-16">
           <div className="mb-20 flex w-full  justify-between">
-            <div className="  grid grid-cols-1 content-center gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  ">
+            <div className="  grid grid-cols-1 content-center gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3  ">
               {posts.map((item) => (
                 <>
                   <div className="mx-aut0 relative   max-w-2xl">
                     <div
                       className={` ${item.background}  max-w-sm rounded-lg shadow-md  dark:border-gray-700 `}
                     >
-                      <Link href={item.link} passHref target="_blank" rel="noopener noreferrer">
-                        {/* <span
-                          className={` ${item.background}-500 absolute mx-5 mt-3  uppercase rounded px-2  py-1 text-base font-medium  text-white`}
-                        >
-                          {item.categoryName}
-                        </span> */}
-                        <Badge
+                      <Link
+                        href={item.link}
+                        passHref
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {/* <Badge
                           className="absolute mx-5 mt-3"
                           variant="dot"
                           color="gray"
                         >
                           {item.categoryName}
-                        </Badge>
+                        </Badge> */}
                         <div className="pb-5"></div>
                         <div className=" mx-20  pt-10 md:mx-0 md:pt-0  ">
                           <img
@@ -46,8 +46,6 @@ const TravelEssentialLayout = ({ posts }: { posts: Esssential[] }) => {
                               .url()}
                           />
                         </div>
-
-                        {/* <Text  fw={500}>  {item.name}</Text> */}
 
                         <Badge
                           size="lg"

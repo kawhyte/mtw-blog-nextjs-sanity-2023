@@ -53,14 +53,14 @@ id, title,listType, recommendations[] {post->{title, slug, coverImage, location,
 }
 `
 const travelEssentialFields = groq`
-id, name,link, background, description, productImage,categoryName
+id, name,link, background, description, productImage,categoryName 
 `
 
 export const recommendationQuery = groq`
 *[_type == "recommendationList"] | order(date desc, _updatedAt desc) {${recommendationFields}}`
 
 export const travelEssentialQuery = groq`
-*[_type == "essential"] {${travelEssentialFields}}`
+*[_type == "essential"] | order(date desc, _updatedAt desc)  {${travelEssentialFields}}`
 
 export const settingsQuery = groq`*[_type == "settings"][0]`
 

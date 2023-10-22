@@ -11,25 +11,25 @@ export default defineType({
   type: 'document',
 
   fields: [
-    defineField({
-      title:
-        'Select the Category Name of the item. ( ex. Comfortable shoe, Backpack, socks etc. )',
-      description: '',
-      name: 'categoryName',
-      type: 'string',
-      initialValue: 'random',
-      validation: (Rule) => Rule.required(),
-      options: {
-        list: [
-          { title: 'Shoes', value: 'shoes' },
-          { title: 'Organizer', value: 'organizer' },
-          //   { title: 'Packing', value: 'packing' },
-          { title: 'Security/Protection', value: 'security' },
-          { title: 'Miscellaneous Item', value: 'miscellaneous' },
-        ],
-        layout: 'radio',
-      },
-    }),
+    // defineField({
+    //   title:
+    //     'Select the Category Name of the item. ( ex. Comfortable shoe, Backpack, socks etc. )',
+    //   description: '',
+    //   name: 'categoryName',
+    //   type: 'string',
+    //   initialValue: 'random',
+    //   validation: (Rule) => Rule.required(),
+    //   options: {
+    //     list: [
+    //       { title: 'Shoes', value: 'shoes' },
+    //       { title: 'Organizer', value: 'organizer' },
+    //       //   { title: 'Packing', value: 'packing' },
+    //       { title: 'Security/Protection', value: 'security' },
+    //       { title: 'Miscellaneous Item', value: 'miscellaneous' },
+    //     ],
+    //     layout: 'radio',
+    //   },
+    // }),
 
     defineField({
       name: 'name',
@@ -51,6 +51,15 @@ export default defineType({
       description: 'External URL - where this item can be found.',
     }),
 
+    defineField({
+      name: 'date',
+      title: 'Date Added',
+      type: 'datetime',
+      description: 'This date will be used for sorting',
+
+
+      initialValue: () => new Date().toISOString(),
+    }),
     // defineField({
     //   name: 'background',
     //   title: 'Background Color',
@@ -64,7 +73,7 @@ export default defineType({
     defineField({
       name: 'description',
       title: 'Production description blurb',
-      description: 'Add a short summary',
+      description: 'Add a short summary. (use Heading 5 formatting)',
       validation: (Rule) => Rule.required(),
       type: 'array',
       of: [{ type: 'block' }],

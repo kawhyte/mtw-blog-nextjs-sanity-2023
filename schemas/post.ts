@@ -32,7 +32,7 @@ export default defineType({
           { title: 'Hotel', value: 'hotel' },
           { title: 'Food', value: 'food' },
           { title: 'Story/Guide', value: 'story' },
-          { title: 'Things we like', value: 'favorite' },
+          // { title: 'Things we like', value: 'favorite' },
         ],
         layout: 'radio',
       },

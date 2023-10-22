@@ -14,7 +14,6 @@ import Footer from './Footer'
 import Hero from './Hero'
 import IndexTopTen from './IndexTopTen'
 import InstagramHighlights from './InstagramHighlights'
-import TravelEssentials from './TravelEssentials'
 import TravelEssentialLayout from './TravelEssentialsLayout'
 import Welcome from './Welcome'
 import YoutubeHighlights from './YoutubeHighlights'
@@ -71,29 +70,9 @@ export default function IndexPage(props: IndexPageProps) {
               </div>
             </div>
 
-            <TravelEssentialLayout posts={Essentialposts.slice(0, 4)} />
+            <TravelEssentialLayout posts={Essentialposts.slice(0, 6)} />
           </section>
-          {/* {heroPost && (
-            <HeroPost
-              title={heroPost.title}
-              coverImage={heroPost.coverImage}
-              date={heroPost.date}
-              author={heroPost.author}
-              slug={heroPost.slug}
-              excerpt2={heroPost.excerpt2}
-              hotelRating={heroPost.hotelRating}
-              location={heroPost.location}
-            />
-          )} */}
-
-          {/* <div className=" container mx-auto mb-10 flex w-full flex-wrap">
-            <div className="mx-4 mb-6 w-full lg:mb-0 lg:w-1/2 ">
-              <h1 className="font-fancy  title-font mb-2 text-2xl font-medium text-gray-900 sm:text-3xl">
-                More Articles
-              </h1>
-              <div className="h-1 w-20 rounded bg-pink-500"></div>
-            </div>
-          </div> */}
+       
 
           <div className=" container mx-auto my-10 mb-10 flex w-full flex-row justify-between px-10  ">
             <div className=" mb-6 lg:mb-0 lg:w-1/2 ">
