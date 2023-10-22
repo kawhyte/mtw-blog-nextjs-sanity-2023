@@ -1,4 +1,4 @@
-import { BookIcon } from '@sanity/icons'
+import { BillIcon,BookIcon } from '@sanity/icons'
 import { format, parseISO } from 'date-fns'
 import { defineField, defineType } from 'sanity'
 
@@ -275,6 +275,39 @@ export default defineType({
       hidden: ({ parent }) => parent?.linkType !== 'hotel',
     },
 
+    // {
+    //   title: "Hotel Resort Fees",
+    //   type: "array",
+    //   name: "example",
+    //   description: 'Hotel Resort Fees breakdown',
+    //   hidden: ({ parent }) => parent?.linkType !== 'hotel',
+    //   of: [
+    //     {
+    //       type: "object",
+    //       name: "inline",
+    //       icon: BillIcon,
+    //       fields: [
+    //         { type: "string", name: "title" },
+    //         { type: "number", name: "amount" }
+    //       ]
+    //     }
+    //   ],
+    //   options: {
+    //     list: [
+    //       { _type: "inline", title: "Enhanced WIFI", amount: 100 },
+    //       { _type: "inline", title: "Local/Domestic calls", amount: 1 },
+    //       { _type: "inline", title: "Daily Newspaper", amount: 1 },
+    //       { _type: "inline", title: "Water/food credit", amount: 1 },
+    //       { _type: "inline", title: "Discount area attractions", amount: 1 },
+    //       { _type: "inline", title: "Retail Discount", amount: 1 },
+    //       { _type: "inline", title: "Access to the fitness center", amount: 1 },
+    //       { _type: "inline", title: "Self-parking", amount: 1 },
+    //       { _type: "inline", title: "Other", amount: 1 },
+    //     ]
+    //   }
+    // },
+
+
 
     defineField({
       title: 'Positives',
@@ -322,6 +355,16 @@ export default defineType({
         },
       ],
     }),
+    
+    // {
+    //   title: 'Tags',
+    //   name: 'tags',
+    //   type: 'array',
+    //   of: [{type: 'string'}],
+    //   options: {
+    //     layout: 'tags'
+    //   }
+    // },
 
     // defineField({
     //   title: 'Would you recommend?',

@@ -2,7 +2,7 @@ import { HeartFilledIcon } from '@sanity/icons'
 import { format, parseISO } from 'date-fns'
 import { defineField, defineType } from 'sanity'
 
-import { description } from './../lib/demo.data'
+
 
 export default defineType({
   name: 'essential',
@@ -30,6 +30,25 @@ export default defineType({
     //     layout: 'radio',
     //   },
     // }),
+
+
+    // {
+    //   title: 'Category Set',
+    //   name: 'categorySet',
+    //   type: 'array',
+    //   of: [{type: 'string'}],
+    //   options: {
+    //     list: [
+    //       {title: 'Building', value: 'building'},
+    //       {title: 'Master plan', value: 'masterPlan'},
+    //       {title: 'Infrastructure', value: 'infrastructure'},
+    //       {title: 'Private Home', value: 'privateHome'}
+    //     ]
+    //   }
+    // },
+
+    
+  
 
     defineField({
       name: 'name',

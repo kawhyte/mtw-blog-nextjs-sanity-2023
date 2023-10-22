@@ -32,7 +32,7 @@ export default function IndexPage(props: IndexPageProps) {
   const [heroPost, ...morePosts] = posts || []
   const { title = demo.title, description = demo.description } = settings || {}
   //console.log("PODTs ",posts )
-  console.log('Essentialposts 1 ', Essentialposts)
+  //console.log('Essentialposts 1 ', Essentialposts)
   return (
     <>
       <IndexPageHead settings={settings} />
