@@ -45,7 +45,7 @@ export async function getInstagramPosts(): Promise<Instagram> {
   const data = await fetch(url)
   const feed = await data.json()
  
- //console.log("Instagram feed ", feed)
+ console.log("Instagram feed ", feed)
 
  return feed
 
