@@ -70,7 +70,7 @@ export default function IndexPage(props: IndexPageProps) {
               </div>
             </div>
 
-            <TravelEssentialLayout posts={Essentialposts.slice(0, 4)} />
+            <TravelEssentialLayout posts={Essentialposts?.slice(0, 4)} />
 
             <div className="flex justify-center  pt-9 lg:mt-0 lg:flex-shrink-0">
               <div className=" inline-flex  ">
@@ -88,9 +88,9 @@ export default function IndexPage(props: IndexPageProps) {
                     >
                       <path
                         stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
                         d="M1 5h12m0 0L9 1m4 4L9 9"
                       />
                     </svg>

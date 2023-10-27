@@ -12,17 +12,17 @@ export default defineType({
 		collapsed: false, // Defines if the fieldset should be collapsed by default or not
 		columns: 3, // Defines a grid for the fields and how many columns it should have
 	},
-	initialValue: {
-		Bed_Comfort: 1,
-		Gym: 1,
-		Internet_Speed: 1,
-		Location: 1,
-		Pool: 1,
-		Room_Amenities: 1,
-		Room_Cleanliness: 1,
-		Service: 1,
-		Value: 1,
-	},
+	// initialValue: {
+	// 	Bed_Comfort: 1,
+	// 	Gym: 1,
+	// 	Internet_Speed: 1,
+	// 	Location: 1,
+	// 	Pool: 1,
+	// 	Room_Amenities: 1,
+	// 	Room_Cleanliness: 1,
+	// 	Service: 1,
+	// 	Value: 1,
+	// },
 
 	fields: [
 		{
@@ -121,7 +121,7 @@ export default defineType({
 					{ title: "5 stars (> 40)", value: 5 },
 					{ title: "4.5 stars (27 to 40)", value: 4.5 },
 					{ title: "4 stars (19 & 26)", value: 4 },
-					{ title: "3.5 stars (13 & 18)", value: 3.5 },
+					{ title: "3.5 stars (13 to 18)", value: 3.5 },
 					{ title: "3 stars (10 to 12)", value: 3 },
 					{ title: "2.5 stars (8 to 9)", value: 2.5 },
 					{ title: "2 stars (6 to 7)", value: 2 },

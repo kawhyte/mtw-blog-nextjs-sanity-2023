@@ -194,6 +194,52 @@ export default defineType({
     // 	of: [{ type: "amenities" }],
     // },
 
+
+
+    defineField({
+      name: 'individualFoodRating',
+      title: 'Individual Food Rating',
+      // type: 'gallery',
+      description:
+        'For best results: Image size webp quality 40%, 40% image resize.',
+      type: 'array',
+      hidden: ({ parent }) => parent?.linkType !== 'food',
+      //validation: Rule => Rule.required(),
+
+      of: [
+        {
+          type: 'image',
+
+          options: {
+            hotspot: true,
+          },
+          fields: [
+            {
+              name: 'name',
+              type: 'string',
+              title: 'Dish/Drink name',
+             
+              validation: Rule => Rule.max(40).warning(`The name shouldn't be more than 40 characters.`).required(),
+              // validation: Rule => Rule.max(120).warning(`A title shouldn't be more than 120 characters.`),
+
+            },
+            {
+              name: 'rating',
+              type: 'individualFoodType',
+              title: 'Rating',
+            },
+            {
+              name: 'review',
+              type: 'string',
+              title: 'Short "Twitter style" Review or additional info (optional)',
+              validation: Rule => Rule.max(120).warning(`A title shouldn't be more than 120 characters.`),
+
+            },
+          ],
+        },
+      ],
+    }),
+
     defineField({
       name: 'gallery',
       title: 'Photo Gallery',
@@ -218,6 +264,8 @@ export default defineType({
         },
       ],
     }),
+
+    
     // defineField({
     //   name: 'gallery2',
     //   title: 'Photo Gallery222',

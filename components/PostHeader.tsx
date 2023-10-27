@@ -141,7 +141,7 @@ export default function PostHeader(
                 variant="light"
                 color="yellow"
                 className="  text-base md:text-xl text-sky-500 border-dashed border-2 border-sky-500 font-normal md:leading-relaxed"
-                title={`Quick tip for this ${linkType}: `}
+                title={`Quick tip: `}
                 icon={<HiOutlineLightBulb />}
               >
                 <PostBody content={tip} />

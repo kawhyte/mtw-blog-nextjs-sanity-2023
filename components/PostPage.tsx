@@ -3,6 +3,7 @@ import BlogHeader from 'components/BlogHeader'
 import Layout from 'components/BlogLayout'
 import MoreStories from 'components/MoreStories'
 import PostBody from 'components/PostBody'
+import IndividualFoodRating from 'components/IndividualFoodRating'
 import PostHeader from 'components/PostHeader'
 import PostPageHead from 'components/PostPageHead'
 import PostTitle from 'components/PostTitle'
@@ -37,70 +38,69 @@ export default function PostPage(props: PostPageProps) {
     notFound()
   }
 
-  const ratingCat = post?.linkType === 'food' ? post?.foodRating : post?.hotelRating
-     console.log('Post Page post.category  ', post )
-//  console.log("POST PAGE linkedtype ", post.linkType)
+  const ratingCat =
+    post?.linkType === 'food' ? post?.foodRating : post?.hotelRating
+  console.log('Post Page post.individualFoodRating Ken  ', post)
+  //  console.log("POST PAGE linkedtype ", post.linkType)
   return (
-    <div className='containe mx-aut '>
+    <div className="containe mx-aut ">
       <PostPageHead settings={settings} post={post} />
 
       <Layout preview={preview} loading={loading}>
         <Container>
-       
           <BlogHeader title={title} level={2} />
-        
+
           {preview && !post ? (
             <PostTitle>Loading…</PostTitle>
           ) : (
             <>
-             <div className='container mx-auto '>
-              <article>
-               
-                <PostHeader
-                  title={post.title}
-                  coverImage={post.coverImage}
-                  date={post.date}
-                  author={post.author}
-                  location={post.location}
-                  room={post.room}
-                  linkType={post.linkType}
-                  excerpt2={post.excerpt2}
-                  hotelRating={ratingCat}
-                  gallery={post.gallery}
-                  category={post.category}
-                  tip={post.tip}
-                />
-                
-               
-                {post.linkType == 'hotel' || post.linkType == 'food' ? (
-                  <ProConList
-                    positives={post.positives}
-                    negatives={post.negatives}
-                    verdict2={post.verdict}
+              <div className="container mx-auto ">
+                <article>
+                  <PostHeader
+                    title={post.title}
+                    coverImage={post.coverImage}
+                    date={post.date}
+                    author={post.author}
+                    location={post.location}
+                    room={post.room}
+                    linkType={post.linkType}
+                    excerpt2={post.excerpt2}
+                    hotelRating={ratingCat}
+                    gallery={post.gallery}
+                    category={post.category}
+                    tip={post.tip}
                   />
-                ) : (
-                  ''
-                )}
-                {post.linkType == 'hotel' ? (
-                  <> 
-                  <RoomTech
-                    techAvailable={post.techRating}
-                    speed={post.internetSpeed}
-                    roomAmenitiesAvailiable={post.roomAmenities}
-                  />
-          
-                </>
-                ) : (
-                  ''
-                )}
+<IndividualFoodRating food={post} />
+             
 
+                  {post.linkType == 'hotel' || post.linkType == 'food' ? (
+                    <ProConList
+                      positives={post.positives}
+                      negatives={post.negatives}
+                      verdict2={post.verdict}
+                    />
+                  ) : (
+                    ''
+                  )}
 
-                <PostBody content={post.content} />
+                  {post.linkType == 'hotel' ? (
+                    <>
+                      <RoomTech
+                        techAvailable={post.techRating}
+                        speed={post.internetSpeed}
+                        roomAmenitiesAvailiable={post.roomAmenities}
+                      />
+                    </>
+                  ) : (
+                    ''
+                  )}
 
-                <Youtube link={post.youtube} />
+                  <PostBody content={post.content} />
 
-                <Gallery posts={post} heading={''} />
-              </article>
+                  <Youtube link={post.youtube} />
+
+                  <Gallery posts={post} heading={''} />
+                </article>
               </div>
 
               {/* {morePosts?.length > 0 && <MoreStories posts={morePosts} />} */}

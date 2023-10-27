@@ -8,6 +8,7 @@ const postFields = groq`
   coverImage,
   youtube,
   location,
+  individualFoodRating,
   room,
   category,
   tip,
@@ -136,6 +137,7 @@ export interface Post {
   content?: any
   youtube?: any
   location?: string
+  individualFoodRating?:any
   room?: any
   internetSpeed?: number
   techRating?: any
