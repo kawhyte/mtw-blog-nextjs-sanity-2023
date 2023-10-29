@@ -71,7 +71,7 @@ export default function PostPage(props: PostPageProps) {
                     tip={post.tip}
                   />
 
-{post.linkType == 'food' ? (
+{post.linkType == 'food' && post?.individualFoodRating?.length > 0  ? (
                   <> 
 <FoodRatings food={post?.individualFoodRating} />
              
