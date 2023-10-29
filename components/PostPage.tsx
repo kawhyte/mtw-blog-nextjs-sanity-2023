@@ -70,10 +70,15 @@ export default function PostPage(props: PostPageProps) {
                     category={post.category}
                     tip={post.tip}
                   />
+
+{post.linkType == 'food' ? (
+                  <> 
 <FoodRatings food={post?.individualFoodRating} />
              
-
-                  {post.linkType == 'hotel' || post.linkType == 'food' ? (
+</>
+        ) : (
+          ''
+        )}            {post.linkType == 'hotel' || post.linkType == 'food' ? (
                     <ProConList
                       positives={post.positives}
                       negatives={post.negatives}

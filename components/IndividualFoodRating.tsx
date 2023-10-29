@@ -8,7 +8,7 @@ import React from 'react'
 import SectionSeparator from './SectionSeparator'
 
 const individualFoodRating = ({ food }) => {
-  console.log('Mom', food)
+  //console.log('Mom', food)
   return (
     <>
       <div className="mx-7 pt-9">
