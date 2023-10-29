@@ -152,15 +152,15 @@ export default defineType({
 
 			options: {
 				list: [
-					{ title: "5 stars - Fo sho! 👍🏽", value: 5 },
-					{ title: "4.5 stars - Yes ", value: 4.5 },
+					{ title: "5 stars - Fo sho! we would travel for this food  👍🏽", value: 5 },
+					{ title: "4.5 stars - Yes, but only if we were in the area 😉", value: 4.5 },
 					{ title: "4 stars", value: 4 },
 					{ title: "3.5 stars", value: 3.5 },
 					{ title: "3 stars - Maybe", value: 3 },
 					{ title: "2.5 stars", value: 2.5 },
-					{ title: "2 stars", value: 2 },
-					{ title: "1.5 stars ", value: 1.5 },
-					{ title: "1 star", value: 1 },
+					{ title: "2 stars - ", value: 2 },
+					{ title: "1.5 stars - Only if we were starving  ", value: 1.5 },
+					{ title: "1 star - Nah 👎🏽", value: 1 },
 					{ title: ".5 star - F*ck No! 🤬", value: .5 },
 				],
 				layout: "radio",

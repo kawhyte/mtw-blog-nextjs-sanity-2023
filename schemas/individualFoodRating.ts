@@ -36,7 +36,7 @@ initialValue: {
 					{ title: "1 star", value: 1 },
 					{ title: ".5 star 🤮", value: .5 },
 				],
-				//layout: "radio",
+				layout: "radio",
 			},
 
             

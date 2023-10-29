@@ -1,7 +1,7 @@
 import Container from 'components/BlogContainer'
 import BlogHeader from 'components/BlogHeader'
 import Layout from 'components/BlogLayout'
-import IndividualFoodRating from 'components/IndividualFoodRating'
+import FoodRatings from 'components/IndividualFoodRating'
 import MoreStories from 'components/MoreStories'
 import PostBody from 'components/PostBody'
 import PostHeader from 'components/PostHeader'
@@ -40,7 +40,7 @@ export default function PostPage(props: PostPageProps) {
 
   const ratingCat =
     post?.linkType === 'food' ? post?.foodRating : post?.hotelRating
-  //console.log('Post Page post.individualFoodRating Ken  ', post)
+  //console.log('Post Page post.FoodRating Ken  ', post)
   //  console.log("POST PAGE linkedtype ", post.linkType)
   return (
     <div className="containe mx-aut ">
@@ -70,7 +70,7 @@ export default function PostPage(props: PostPageProps) {
                     category={post.category}
                     tip={post.tip}
                   />
-<IndividualFoodRating food={post} />
+<FoodRatings food={post?.individualFoodRating} />
              
 
                   {post.linkType == 'hotel' || post.linkType == 'food' ? (

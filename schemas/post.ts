@@ -2,6 +2,8 @@ import { BillIcon,BookIcon } from '@sanity/icons'
 import { format, parseISO } from 'date-fns'
 import { defineField, defineType } from 'sanity'
 
+import { description } from './../lib/demo.data';
+
 /**
  * This file is the schema definition for a post.
  *
@@ -218,7 +220,7 @@ export default defineType({
               name: 'name',
               type: 'string',
               title: 'Dish/Drink name',
-             
+             description:" The name should be 40 characters or less",
               validation: Rule => Rule.max(40).warning(`The name shouldn't be more than 40 characters.`).required(),
               // validation: Rule => Rule.max(120).warning(`A title shouldn't be more than 120 characters.`),
 
@@ -231,8 +233,8 @@ export default defineType({
             {
               name: 'review',
               type: 'string',
-              title: 'Short "Twitter style" Review or additional info (optional)',
-              validation: Rule => Rule.max(120).warning(`A title shouldn't be more than 120 characters.`),
+              title: 'Short "Twitter style" (120 characters or less) Review or additional info (optional)',
+              validation: Rule => Rule.max(120).warning(`shouldn't be more than 120 characters.`),
 
             },
           ],
