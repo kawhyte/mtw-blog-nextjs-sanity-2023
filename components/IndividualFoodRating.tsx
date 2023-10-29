@@ -51,7 +51,7 @@ const individualFoodRating = ({ food }) => {
                 <h2 className=" mt-4 pb-2 text-base font-extrabold text-pink-500 sm:text-base md:text-lg">
                   {item?.name}
                 </h2>
-               <p className=" mb-2 text-sm font-light text-gray-500 sm:text-sm md:text-base">
+               <p className=" mb-2 text-sm text-ellipsis line-clamp-5  font-light text-gray-500  lg:text-base">
                   {item?.review}
                 </p>
               </section> 
