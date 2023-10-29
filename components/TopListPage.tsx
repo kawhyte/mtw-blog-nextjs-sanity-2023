@@ -42,7 +42,8 @@ export default function IndexPage(props: IndexPageProps) {
 
       <Layout preview={preview} loading={loading}>
         <Head>
-          <title>{CMS_NAME}</title>
+        <title>{CMS_NAME}</title>
+          {/* <title>{CMS_NAME}</title> */}
         </Head>
         <Container>
           <BlogHeader title={title} description={description} level={1} />

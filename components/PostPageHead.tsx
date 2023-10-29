@@ -13,7 +13,8 @@ export default function PostPageHead({ settings, post }: PostPageHeadProps) {
   const title = settings.title ?? demo.title
   return (
     <Head>
-      <title>{post.title ? `${post.title} | ${title}` : title}</title>
+     <title> {post?.title}</title>
+      {/* <title>{post.title ? `${post.title} | ${title}` : title}</title> */}
       <BlogMeta />
       {post.coverImage?.asset?._ref && (
         <meta

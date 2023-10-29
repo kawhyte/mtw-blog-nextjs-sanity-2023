@@ -1,6 +1,6 @@
 const individualFoodRating = (food) => {
 
-    console.log("INdi Food11", food)
+    //console.log("INdi Food11", food)
     return ( <>
     
     
