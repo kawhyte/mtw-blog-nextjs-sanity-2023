@@ -34,8 +34,8 @@ const ArenasIndexPage = ({ arenas }) => {
             </div>
           </div>
         </div>
-        <div className="max-w-1/2  right-12 mt-9  hidden h-full lg:block">
-          <div className="grid grid-cols-4 gap-3 ml-2">
+        <div className="max-w-1/2  right-12 mt-9 mr-9  hidden h-full lg:block">
+          <div className="grid grid-cols-3 gap-3 ml-2">
             {arenas?.map((item) => (
               <div
                 key={item._id}
@@ -43,7 +43,7 @@ const ArenasIndexPage = ({ arenas }) => {
               >
                 <div
                   key={item.gallery[0].name}
-                  className="my-4 flex   items-center align-middle   "
+                  className="my-4 flex   items-center align-middle "
                 >
                   <img
                     src={
