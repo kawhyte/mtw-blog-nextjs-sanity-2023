@@ -77,7 +77,7 @@ export default function IndexPage(props: IndexPageProps) {
               </div>
             </div>
 
-            <TravelEssentialLayout posts={Essentialposts?.slice(0, 4)} />
+            <TravelEssentialLayout posts={Essentialposts?.slice(0, 6)} />
 
             <div className="flex justify-center  pt-9 lg:mt-0 lg:flex-shrink-0">
               <div className=" inline-flex  ">
@@ -85,7 +85,7 @@ export default function IndexPage(props: IndexPageProps) {
                   <button
                     className={`${inter.variable} inline-flex items-center rounded-lg bg-pink-500 px-3 py-2 text-center text-sm font-medium text-white hover:bg-pink-800 focus:outline-none focus:ring-4 focus:ring-pink-300 dark:bg-pink-500 dark:hover:bg-pink-600 dark:focus:ring-pink-800 `}
                   >
-                    View more
+                    More Travel Essentials
                     <svg
                       className="ml-2 h-3.5 w-3.5"
                       aria-hidden="true"

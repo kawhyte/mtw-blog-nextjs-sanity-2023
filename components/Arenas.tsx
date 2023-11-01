@@ -28,7 +28,7 @@ const Arenas = ({ arenas }) => {
       {arenas?.map((item) => (
         <div
           key={item._id}
-          className={`w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-lg dark:bg-gray-800 ${item.visited === false ? "grayscale opacity-80" : "grayscale-0" } `}
+          className={`w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-lg dark:bg-gray-800 ${item.visited === false ? "grayscale opacity-40" : "grayscale-0" } `}
         >
           <div className="static">
             {item.visited === true ?

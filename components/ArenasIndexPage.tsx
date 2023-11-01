@@ -1,14 +1,15 @@
 import { inter, oswald } from 'app/fonts'
 import { urlForImage } from 'lib/sanity.image'
-import PostDate from './PostDate'
 import Link from 'next/link'
+
+
 
 const ArenasIndexPage = ({ arenas }) => {
   console.log('arenas 77 ', arenas[0])
 
   return (
 <> 
-<div className=" container mx-auto flex   md:mt-96 my-44 bg-gradient-to-r from-indigo-200 via-pink-200 to-yellow-50 pr-3 rounded-xl">
+<div className=" container mx-auto flex   mb-20  mt-44 md:mt-96  bg-gradient-to-r from-indigo-200 via-pink-200 to-yellow-50 rounded-xl">
       <div className="z-20 w-full px-4  py-12 text-start sm:px-6 lg:w-1/2 lg:px-8 lg:py-16">
       <h1
             className={`${oswald.variable}  title-font mb-3 font-heading text-3xl font-medium text-gray-900 sm:text-4xl`}
@@ -40,7 +41,7 @@ const ArenasIndexPage = ({ arenas }) => {
       {arenas?.map((item) => (
         <div
           key={item._id}
-          className={`w-full max-w-sm overflow-hidden  text-gray-500 ${item.visited === false ? "grayscale opacity-80" : "grayscale-0" } `}
+          className={`w-full max-w-sm overflow-hidden  text-gray-500 `}
         >
           <div className="static">
             {/* {item.visited === true ?
@@ -148,7 +149,7 @@ const ArenasIndexPage = ({ arenas }) => {
                 />
 
                 <a
-                  className="mt-2 cursor-pointer font-bold text-gray-900 "
+                  className="mt-2 cursor-pointer font-extralight text-gray-400 "
                   role="link"
                 >
                   {item.gallery[0].name}
