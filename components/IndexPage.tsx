@@ -18,6 +18,7 @@ import InstagramHighlights from './InstagramHighlights'
 import TravelEssentialLayout from './TravelEssentialsLayout'
 import Welcome from './Welcome'
 import YoutubeHighlights from './YoutubeHighlights'
+import ArenasIndexPage from './ArenasIndexPage'
 
 export interface IndexPageProps {
   preview?: boolean
@@ -50,8 +51,8 @@ export default function IndexPage(props: IndexPageProps) {
           <Hero />
 
           
-<Arenas arenas={arenaPosts}/>
-          <Welcome />
+<ArenasIndexPage arenas={arenaPosts}/>
+          {/* <Welcome /> */}
           {/* <TravelEssentials /> */}
 
           <section className="container mx-auto px-10  py-14 text-gray-600 ">
