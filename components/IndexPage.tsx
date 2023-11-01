@@ -5,13 +5,14 @@ import Layout from 'components/BlogLayout'
 import IndexPageHead from 'components/IndexPageHead'
 import MoreStoriesIndex from 'components/MoreStories'
 import * as demo from 'lib/demo.data'
-import type { Esssential, Post, Settings } from 'lib/sanity.queries'
+import type { Arena, Esssential, Post, Settings } from 'lib/sanity.queries'
 import Head from 'next/head'
 import Link from 'next/link'
 
 import { CMS_NAME } from '../lib/constants'
 import Footer from './Footer'
 import Hero from './Hero'
+import Arenas from './Arenas'
 import IndexTopTen from './IndexTopTen'
 import InstagramHighlights from './InstagramHighlights'
 import TravelEssentialLayout from './TravelEssentialsLayout'
@@ -23,15 +24,16 @@ export interface IndexPageProps {
   loading?: boolean
   posts: Post[]
   Essentialposts: Esssential[]
+  arenaPosts:Arena[]
   settings: Settings
   instagram: any
 }
 
 export default function IndexPage(props: IndexPageProps) {
-  const { preview, loading, posts, Essentialposts, settings, instagram } = props
+  const { preview, loading, posts, Essentialposts, arenaPosts, settings, instagram } = props
   const [heroPost, ...morePosts] = posts || []
   const { title = demo.title, description = demo.description } = settings || {}
-  //console.log("PODTs ",posts )
+  //console.log("arenaPosts={arenaPosts} ",arenaPosts )
   //console.log('Essentialposts 1 ', Essentialposts)
   return (
     <>
@@ -40,16 +42,19 @@ export default function IndexPage(props: IndexPageProps) {
       <Layout preview={preview} loading={loading}>
         <Head>
           <title>{CMS_NAME}</title>
-        {/* <title> { `${CMS_NAME} - Travel and Food Reviews`}</title> */}
+          {/* <title> { `${CMS_NAME} - Travel and Food Reviews`}</title> */}
         </Head>
         <Container>
           <BlogHeader title={title} description={description} level={1} />
 
           <Hero />
+
+          
+<Arenas arenas={arenaPosts}/>
           <Welcome />
           {/* <TravelEssentials /> */}
 
-          <section className="container mx-auto  py-14 text-gray-600 ">
+          <section className="container mx-auto px-10  py-14 text-gray-600 ">
             <div>
               <div className=" flex w-full  justify-between">
                 <div>

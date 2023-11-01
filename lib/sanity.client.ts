@@ -14,6 +14,8 @@ import {
   settingsQuery,
   storyQuery,
   travelEssentialQuery,
+  arenaQuery,
+  Arena,
 } from 'lib/sanity.queries'
 import { createClient } from 'next-sanity'
 
@@ -80,6 +82,13 @@ export async function getRecommendationPosts(): Promise<Post[]> {
 export async function getTravelEssentialPosts(): Promise<Esssential[]> {
   if (client) {
     return (await client.fetch(travelEssentialQuery)) || []
+  }
+  return []
+}
+
+export async function getArenaPosts(): Promise<Arena[]> {
+  if (client) {
+    return (await client.fetch(arenaQuery)) || []
   }
   return []
 }

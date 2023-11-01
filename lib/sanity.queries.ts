@@ -49,19 +49,26 @@ const hotelFields = groq`
   "author": author->{name, picture},
 `
 const recommendationFields = groq`
-id, title,listType, recommendations[] {post->{title, slug, coverImage, location,linkType}
+_id, title,listType, recommendations[] {post->{title, slug, coverImage, location,linkType}
 
 }
 `
 const travelEssentialFields = groq`
-id, name,link, background, description, productImage,categoryName 
+_id, name,link, background, description, productImage,categoryName 
+`
+const arenaFields = groq`
+_id, name,arenaImage, gallery, location, visited,date 
 `
 
 export const recommendationQuery = groq`
 *[_type == "recommendationList"] | order(date desc, _updatedAt desc) {${recommendationFields}}`
 
 export const travelEssentialQuery = groq`
+
 *[_type == "essential"] | order(date desc, _updatedAt desc)  {${travelEssentialFields}}`
+
+export const arenaQuery = groq`
+*[_type == "arenas"] | order(date desc, _updatedAt desc)  {${arenaFields}}`
 
 export const settingsQuery = groq`*[_type == "settings"][0]`
 
@@ -122,6 +129,17 @@ export interface Esssential {
   description?: any
   productImage?:any
   categoryName?:any
+  
+}
+export interface Arena {
+  _id: string
+  name?: string
+  gallery?:any
+  location?:string
+  description?: any
+  arenaImage?:any
+  visited?:string
+  date?:string
   
 }
 
