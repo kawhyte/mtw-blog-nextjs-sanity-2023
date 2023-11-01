@@ -1,9 +1,10 @@
 import { inter, oswald } from 'app/fonts'
 import { urlForImage } from 'lib/sanity.image'
+
 import PostDate from './PostDate'
 
 const Arenas = ({ arenas }) => {
-  console.log('arenas 77 ', arenas[0])
+  //console.log('arenas 77 ', arenas[0])
 
   return (
     <div className="container mx-auto px-10 pb-24 pt-44">
