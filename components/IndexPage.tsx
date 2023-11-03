@@ -10,28 +10,36 @@ import Head from 'next/head'
 import Link from 'next/link'
 
 import { CMS_NAME } from '../lib/constants'
+import Arenas from './Arenas'
+import ArenasIndexPage from './ArenasIndexPage'
 import Footer from './Footer'
 import Hero from './Hero'
-import Arenas from './Arenas'
 import IndexTopTen from './IndexTopTen'
 import InstagramHighlights from './InstagramHighlights'
 import TravelEssentialLayout from './TravelEssentialsLayout'
 import Welcome from './Welcome'
 import YoutubeHighlights from './YoutubeHighlights'
-import ArenasIndexPage from './ArenasIndexPage'
 
 export interface IndexPageProps {
   preview?: boolean
   loading?: boolean
   posts: Post[]
   Essentialposts: Esssential[]
-  arenaPosts:Arena[]
+  arenaPosts: Arena[]
   settings: Settings
   instagram: any
 }
 
 export default function IndexPage(props: IndexPageProps) {
-  const { preview, loading, posts, Essentialposts, arenaPosts, settings, instagram } = props
+  const {
+    preview,
+    loading,
+    posts,
+    Essentialposts,
+    arenaPosts,
+    settings,
+    instagram,
+  } = props
   const [heroPost, ...morePosts] = posts || []
   const { title = demo.title, description = demo.description } = settings || {}
   //console.log("arenaPosts={arenaPosts} ",arenaPosts )
@@ -50,8 +58,7 @@ export default function IndexPage(props: IndexPageProps) {
 
           <Hero />
 
-          
-<ArenasIndexPage arenas={arenaPosts}/>
+          <ArenasIndexPage arenas={arenaPosts?.slice(0, 9)} />
           {/* <Welcome /> */}
           {/* <TravelEssentials /> */}
 
@@ -149,7 +156,7 @@ export default function IndexPage(props: IndexPageProps) {
                   <button
                     className={`${inter.variable} inline-flex items-center rounded-lg bg-pink-500 px-3 py-2 text-center text-sm font-medium text-white hover:bg-pink-800 focus:outline-none focus:ring-4 focus:ring-pink-300 dark:bg-pink-500 dark:hover:bg-pink-600 dark:focus:ring-pink-800`}
                   >
-                    View more
+                    More Adventures
                     <svg
                       className="ml-2 h-3.5 w-3.5"
                       aria-hidden="true"

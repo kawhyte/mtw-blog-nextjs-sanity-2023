@@ -14,8 +14,8 @@ const TravelEssentialLayout = ({ posts }: { posts: Esssential[] }) => {
         <div className="  grid grid-cols-1 content-center gap-10   md:gap-16 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2  ">
           {posts?.map((item) => (
             <div key={item._id}>
-              <div className={`${item.background} flex flex-col items-center md:items-start  md:flex-row  max-w-lg overflow-hidden rounded-lg  shadow-lg`}>
-                <div className=" w-1/2 md:w-2/3 bg-cover">
+              <div className={`${item.background} flex flex-col justify-center items-center align-middle md:items-start  md:flex-row  max-w-lg overflow-hidden rounded-lg `}>
+                <div className=" w-1/2 md:w-1/3 bg-cover">
                   {/* <img src='https://images.unsplash.com/photo-1494726161322-5360d4d0eeae?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80'  /> */}
                   <Link
                     href={item.link}
@@ -27,22 +27,22 @@ const TravelEssentialLayout = ({ posts }: { posts: Esssential[] }) => {
                     width={400}
                     height={400}
                     alt={`Cover Image for ${item.name}`}
-                    className=" transition-all hover:translate-x-3   hover:translate-y-2 hover:duration-700 md:p-6    lg:rounded-l-2xl mt-4 md:mt-0"
+                    className=" transition-all hover:translate-x-3   hover:translate-y-2 hover:duration-700 md:p-4    lg:rounded-l-2xl mt-4 md:mt-0"
                     src={urlForImage(item.productImage.asset._ref)
-                      .width(400)
-                      .height(400)
+                      .width(300)
+                      .height(300)
                       .format('webp')
                       .url()}
                   />
                   </Link>
                 </div>
 
-                <div className="md:w-2/3 p-4 md:p-4">
-                  <h1 className={`${oswald.variable}  title-font mb-3 font-heading text-xl  font-normal text-gray-900  sm:text-xl`}>
+                <div className="flex flex-col justify-center mt-5  align-middle md:w-2/3 p-4 md:p-4">
+                  <h1 className={`${oswald.variable}  title-font mb-3 font-heading text-lg  font-normal text-gray-900  sm:text-2xl`}>
                     {item.name}
                   </h1>
 
-                  <div className="mt-2 text-sm -ml-5 text-gray-500 ">
+                  <div className="-mt-4 text-xs md:text-sm -mx-6 text-gray-500 ">
                   <PostBody content={item.description} />
                   </div>
 
@@ -58,9 +58,11 @@ const TravelEssentialLayout = ({ posts }: { posts: Esssential[] }) => {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <button className="transform rounded bg-gray-800 px-2 py-1 text-xs font-bold uppercase text-white transition-colors duration-300 hover:bg-gray-700 focus:bg-gray-700 focus:outline-none dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:bg-gray-600">
+                    {/* <button className="transform rounded bg-gray-800 px-4 py-2 text-xs font-bold uppercase text-white transition-colors duration-300 hover:bg-gray-700 focus:bg-gray-700 focus:outline-none dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:bg-gray-600">
                       Get Item
-                    </button></Link>
+                    </button>
+                     */}
+                    </Link>
                   </div> 
                 </div>
               </div>

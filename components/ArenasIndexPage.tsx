@@ -7,7 +7,7 @@ const ArenasIndexPage = ({ arenas }) => {
 
   return (
     <>
-      <div className=" container mx-auto mb-20   mt-44  flex rounded-xl  bg-gradient-to-r from-indigo-200 via-pink-200 to-yellow-50 md:mt-96">
+      <div className=" container mx-auto mb-20   mt-44  flex rounded-xl  bg-gradient-to-r from-indigo-200 via-pink-200 to-yellow-50 md:mt-52">
         <div className="z-20 w-full px-4  py-12 text-start sm:px-6 lg:w-1/2 lg:px-8 lg:py-16">
           <h1
             className={`${oswald.variable}  title-font mb-3 font-heading text-3xl font-medium text-gray-900 sm:text-4xl`}
@@ -55,7 +55,7 @@ const ArenasIndexPage = ({ arenas }) => {
                             .url()
                         : ''
                     }
-                    className=" h-16  w-16  rounded-full"
+                    className=" h-16  w-16  "
                     height={96}
                     width={96}
                     alt={`${item.gallery[0].name} logo`}

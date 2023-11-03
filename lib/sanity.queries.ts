@@ -57,7 +57,7 @@ const travelEssentialFields = groq`
 _id, name,link, background, description, productImage,categoryName 
 `
 const arenaFields = groq`
-_id, name,arenaImage, gallery, location, visited,date 
+_id, name,arenaImage, gallery, location, visited,date,"visitedCount": count(*[_type == 'arenas' && visited == true]), "galleryCount": count(gallery) 
 `
 
 export const recommendationQuery = groq`
