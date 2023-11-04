@@ -61,12 +61,12 @@ const ArenasIndexPage = ({ arenas }) => {
                     alt={`${item.gallery[0].name} logo`}
                   />
 
-                  <a
+                  <p
                     className="text-gray-4=500 ml-2  mt-2 cursor-pointer font-extralight "
                     role="link"
                   >
                     {item.gallery[0].name}
-                  </a>
+                  </p>
                 </div>
               </div>
             ))}

@@ -59,53 +59,53 @@ const Arenas = ({ arenas }) => {
             </div>
 
             <div className=" container mx-auto  p-10 lg:w-full lg:max-w-xl ">
-              <div className="rounded-lg border bg-white p-4  pt-6 ">
-                <p className="title-font mb-6 text-3xl font-medium text-gray-900">
+              <div className="rounded-lg border bg-gray-800 p-4  py-5 ">
+                <p className="title-font mb-6 text-3xl font-medium text-gray-200">
                   {' '}
                   Our Progress
                 </p>
 
-                <div className="mt-3 flex flex-row justify-between">
-                  <span className="text-xs  font-medium text-blue-700 ">
+                <div className="mt-3 flex flex-row  justify-between">
+                  <span className="text-xs  font-medium text-gray-200 ">
                     0%
                   </span>
-                  <span className="text-xs font-medium text-blue-700 ">
+                  <span className="text-xs font-medium text-gray-200 ">
                     100%
                   </span>
                 </div>
-                <div className=" h-4 w-full rounded-full bg-gray-400">
-                  <div className="w-full rounded-full bg-gray-200 dark:bg-gray-700">
+                <div className=" h-4 w-full rounded-full bg-gray-900">
+                  <div className="w-full rounded-full  dark:bg-gray-700">
                     <div
-                      className="h-6  bg-gradient-to-r from-green-500 to-blue-500 p-0.5 pt-2 text-center text-xs font-medium leading-none text-blue-100"
+                      className="h-6  bg-gradient-to-r rounded-r-full  from-green-500 to-blue-500 -p-1.5 text-center text-xs font-medium leading-none text-gray-100"
                       style={{ width: `${percentage}%` }}
                     >
-                      {percentage}%
+                      {percentage}%   <span className='text-xl animate-pulse'>&nbsp;&nbsp;🏀</span>
                     </div>
                   </div>
                 </div>
 
-                <div className="mt-10 flex justify-evenly">
-                  <div className="rounded-lg border-2 border-gray-200 px-4 py-6">
-                    <h2 className="title-font text-2xl font-medium text-gray-900">
-                      {arenas[0].visitedCount}{' '}
+                <div className="mt-10 flex gap-3 justify-evenly">
+                  <div className="rounded-lg border-2 border-blue-200 px-4 py-6">
+                    <h2 className="title-font text-2xl font-medium text-gray-200">
+                      {arenas[4].visitedCount}{' '}
                     </h2>
-                    <p className="leading-relaxed text-gray-500">
+                    <p className="leading-relaxed text-gray-400">
                       of 37 visited
                     </p>
                   </div>
 
-                  <div className="rounded-lg border-2 border-gray-200 px-4 py-6">
-                    <h2 className="title-font text-2xl font-medium text-gray-900">
-                      {arenas[0].name}
+                  <div className="rounded-lg border-2 border-green-200 px-4 py-6">
+                    <h2 className="title-font text-2xl font-medium text-gray-200">
+                      {arenas[24].name}
                     </h2>
-                    <p className="leading-relaxed text-gray-500">last visit</p>
+                    <p className="leading-relaxed text-gray-400">recently visited </p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="mt-14 grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="mt-14 container mx-auto grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {arenas?.map((item) => (
               <div
                 key={item._id}
@@ -194,19 +194,19 @@ const Arenas = ({ arenas }) => {
                                 .url()
                             : 'https://source.unsplash.com/96x96/?face'
                         }
-                        className="h-12 w-12 "
+                        className="h-12 w-12  "
                         height={96}
                         width={96}
                         // @TODO add alternative text to avatar image schema
                         alt={`${photo.name} logo`}
                       />
 
-                      <a
-                        className="mt-2 cursor-pointer font-bold text-gray-700 dark:text-gray-200"
-                        role="link"
+                      <p
+                        className="mt-2 mx-1 text-sm cursor-pointer font-bold text-gray-700 dark:text-gray-200"
+                        
                       >
                         {photo.name}
-                      </a>
+                      </p>
                     </div>
                   ))}
                 </div>
