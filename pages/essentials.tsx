@@ -65,6 +65,6 @@ export default function Page(props: PageProps) {
         preview,
         token: previewData.token ?? null,
       },
-      // revalidate:10
+       revalidate:10
     }
   }
