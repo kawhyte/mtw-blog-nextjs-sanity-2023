@@ -26,7 +26,7 @@ const Arenas = ({ arenas }) => {
 
   // console.log("totalDistance ", totalDistance)
 
-  const percentage = ((arenas[0].visitedCount / totalDistance) * 100).toFixed(2)
+  const percentage = ((arenas[0]?.visitedCount / totalDistance) * 100).toFixed(2)
 
   console.log('percentage ', percentage)
 

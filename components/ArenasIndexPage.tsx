@@ -6,7 +6,7 @@ const ArenasIndexPage = ({ arenas }) => {
   //console.log('arenas 77 ', arenas[0])
 
   return (
-    <div className='mx-7 pt-0   lg:pt-28'>
+    <div className='mx-7 pt-0 md:pt-10   lg:pt-12'>
       <div className=" container mx-auto mb-20   mt-44  flex rounded-xl  bg-gradient-to-r from-indigo-200 via-pink-200 to-yellow-50 md:mt-52">
         <div className="z-20 w-full px-4  py-12 text-start sm:px-6 lg:w-1/2 lg:px-8 lg:py-16">
           <h1
@@ -29,6 +29,10 @@ const ArenasIndexPage = ({ arenas }) => {
                   className="w-full rounded-lg  bg-yellow-400 px-6 py-2 text-center text-base font-semibold text-black shadow-md transition duration-200 ease-in hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2  focus:ring-offset-yellow-200 "
                 >
                   View Our Journey ⛹🏾‍♀️
+
+
+
+                  
                 </button>
               </Link>
             </div>

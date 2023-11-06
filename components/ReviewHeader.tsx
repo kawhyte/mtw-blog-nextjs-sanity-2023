@@ -18,7 +18,7 @@ function ReviewHeader({ title, arenas, summary, animation }) {
 
   console.log('arenaLastVisited ', arenaLastVisited[0])
 
-  const percentage = ((arenas[0].visitedCount / totalDistance) * 100).toFixed(2)
+  const percentage = ((arenas[0]?.visitedCount / totalDistance) * 100).toFixed(2)
 
   // console.log('percentage ', percentage)
 
@@ -39,17 +39,17 @@ function ReviewHeader({ title, arenas, summary, animation }) {
           {summary}
         </p>
 
-        {arenas && (
+        {arenas.length > 1 && (
           <div className="    md:w-full md:pr-6 lg:max-w-xl mb-8 lg:mb-0 ">
             <div className="relative flex h-full flex-col overflow-hidden rounded-lg border-2 border-gray-300 p-6">
               <h2 className="title-font mb-1 text-sm font-medium tracking-widest">
                 ARENA LAST VISITED
               </h2>
               <h1 className="mb-4  border-gray-200 text-5xl leading-none text-gray-900">
-                {arenaLastVisited[0].name}
+                {arenaLastVisited[0]?.name}
               </h1>
               <p className="mb-4 border-b border-gray-200 pb-4 text-base leading-none text-gray-500">
-                {arenaLastVisited[0].location}
+                {arenaLastVisited[0]?.location}
               </p>
 
               <div className=" ">
@@ -65,7 +65,7 @@ function ReviewHeader({ title, arenas, summary, animation }) {
                       className="h-6  rounded-r-full bg-gradient-to-r  from-green-500 to-blue-500 p-1.5 text-center text-xs font-medium leading-none text-gray-100  "
                       style={{ width: `${percentage}%` }}
                     >
-                      {arenas[4].visitedCount} 
+                      {arenas[4]?.visitedCount} 
                     </div>
                   </div>
                 </div>

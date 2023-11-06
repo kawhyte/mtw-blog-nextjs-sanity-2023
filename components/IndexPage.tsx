@@ -84,7 +84,7 @@ export default function IndexPage(props: IndexPageProps) {
               </div>
             </div>
 
-            <TravelEssentialLayout posts={Essentialposts?.slice(0, 6)} />
+            <TravelEssentialLayout posts={Essentialposts?.slice(0, 4)} />
 
             <div className="flex justify-center  pt-9 lg:mt-0 lg:flex-shrink-0">
               <div className=" inline-flex  ">
