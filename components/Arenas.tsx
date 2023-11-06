@@ -28,7 +28,7 @@ const Arenas = ({ arenas }) => {
 
   const percentage = ((arenas[0]?.visitedCount / totalDistance) * 100).toFixed(2)
 
-  console.log('percentage ', percentage)
+  //console.log('percentage ', percentage)
 
   return (
     <>
@@ -88,9 +88,9 @@ const Arenas = ({ arenas }) => {
                   </div>
                 </div>
 
-                <div className="flex flex-col items-center justify-center bg-gray-900 px-2 py-3">
+                <div className="flex flex-col items-center align-middle justify-center bg-gray-900 px-2 py-3">
                   <h1
-                    className={`${oswald.variable}  title-font mb-4 font-heading text-3xl font-medium text-gray-200 sm:text-4xl`}
+                    className={`${oswald.variable}  title-font text-center mb-4 font-heading text-3xl font-medium text-gray-200 sm:text-4xl`}
                   >
                     {item.name}
                   </h1>
