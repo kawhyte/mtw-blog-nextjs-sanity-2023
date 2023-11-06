@@ -68,7 +68,7 @@ export const travelEssentialQuery = groq`
 *[_type == "essential"] | order(date desc, _updatedAt desc)  {${travelEssentialFields}}`
 
 export const arenaQuery = groq`
-*[_type == "arenas"] | order(date desc, _updatedAt desc)  {${arenaFields}}`
+*[_type == "arenas"] | order(name asc)  {${arenaFields}}`
 
 export const settingsQuery = groq`*[_type == "settings"][0]`
 

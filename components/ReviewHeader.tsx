@@ -8,19 +8,15 @@ function ReviewHeader({ title, arenas, summary, animation }) {
     0
   )
 
-  //console.log("gg ", arenas )
-
   const filteredList = arenas.filter((item) => item.visited === true)
 
   const arenaLastVisited = filteredList.sort(function (a, b) {
-    return a.date - b.date
+    return new Date(b.date).valueOf() - new Date(a.date).valueOf()
   })
 
-  console.log('arenaLastVisited ', arenaLastVisited[0])
-
-  const percentage = ((arenas[0]?.visitedCount / totalDistance) * 100).toFixed(2)
-
-  // console.log('percentage ', percentage)
+  const percentage = ((arenas[0]?.visitedCount / totalDistance) * 100).toFixed(
+    2
+  )
 
   return (
     <div className="  flex flex-col items-center justify-center bg-indigo-50 pt-12 lg:flex-row">
@@ -40,7 +36,7 @@ function ReviewHeader({ title, arenas, summary, animation }) {
         </p>
 
         {arenas.length > 1 && (
-          <div className="    md:w-full md:pr-6 lg:max-w-xl mb-8 lg:mb-0 ">
+          <div className="    mb-8 md:w-full md:pr-6 lg:mb-0 lg:max-w-xl ">
             <div className="relative flex h-full flex-col overflow-hidden rounded-lg border-2 border-gray-300 p-6">
               <h2 className="title-font mb-1 text-sm font-medium tracking-widest">
                 ARENA LAST VISITED
@@ -55,7 +51,7 @@ function ReviewHeader({ title, arenas, summary, animation }) {
               <div className=" ">
                 <div className="mt-2 flex flex-row  justify-between">
                   <span className="title-font mb-1 text-xs  font-medium tracking-widest text-gray-500 ">
-                  Arenas visited
+                    Arenas visited
                   </span>
                   <span className="text-xs font-medium text-gray-500 ">37</span>
                 </div>
@@ -65,7 +61,7 @@ function ReviewHeader({ title, arenas, summary, animation }) {
                       className="h-6  rounded-r-full bg-gradient-to-r  from-green-500 to-blue-500 p-1.5 text-center text-xs font-medium leading-none text-gray-100  "
                       style={{ width: `${percentage}%` }}
                     >
-                      {arenas[4]?.visitedCount} 
+                      {arenas[4]?.visitedCount}
                     </div>
                   </div>
                 </div>

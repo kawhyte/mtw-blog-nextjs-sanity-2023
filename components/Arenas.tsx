@@ -50,7 +50,7 @@ const Arenas = ({ arenas }) => {
 					animation={'/basketball.svg'}
 				/>
           
-<div> </div>
+
           <div className="mt-14 container  mx-auto px-6 place-items-stretch grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {arenas?.map((item) => (
               <div
