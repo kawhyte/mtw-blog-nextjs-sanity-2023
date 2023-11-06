@@ -91,9 +91,9 @@ export default defineType({
    
     defineField({
       name: 'description',
-      title: 'Production description blurb',
-      description: 'Add a short summary. (use Heading 5 formatting)',
-      validation: (Rule) => Rule.required(),
+      title: 'Production description blurb (Optional)',
+      description: '(Optional) Add a short summary. (use Heading 5 formatting)',
+      //validation: (Rule) => Rule.required(),
       type: 'array',
       of: [{ type: 'block' }],
     }),

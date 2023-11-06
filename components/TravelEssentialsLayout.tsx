@@ -9,16 +9,16 @@ import PostBody from './PostBody'
 const TravelEssentialLayout = ({ posts }: { posts: Esssential[] }) => {
   //console.log('KENNY Essentials 2', posts)
 
- const  bgcolor="bg-gradient-to-r from-indigo-200 via-pink-200 to-yellow-50"
- const  bgcolor2="bg-gradient-to-r from-green-200 via-indigo-200 to-pink-50"
- const  bgcolor3="bg-gradient-to-r from-blue-200 via-pink-50 to-green-50"
+//  const  bgcolor="bg-gradient-to-r from-indigo-200 via-pink-200 to-yellow-50"
+//  const  bgcolor2="bg-gradient-to-r from-green-200 via-indigo-200 to-pink-50"
+//  const  bgcolor3="bg-gradient-to-r from-blue-200 via-pink-50 to-green-50"
   return (
     <>
       <div className="mt-10 sm:container sm:mx-auto sm:mt-20 mb-5  sm:px-3 sm:py-3 text-gray-600">
         <div className="  grid grid-cols-1 content-center gap-5   md:gap-6 lg:gap-10 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6  ">
           {posts?.map((item) => (
             <div key={item._id}>
-              <div className={`hover:${item.background} hover:${bgcolor3} flex   flex-col  border justify-center items-center align-middle md:items-center  max-w-lg overflow-hidden rounded-lg `}>
+              <div className={`hover:${item.background} flex   flex-col  border justify-center items-center align-middle md:items-center  max-w-lg overflow-hidden rounded-lg `}>
                 <div className="p-8 sm:p-0 bg-cover">
                   {/* <img src='https://images.unsplash.com/photo-1494726161322-5360d4d0eeae?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80'  /> */}
                   <Link
