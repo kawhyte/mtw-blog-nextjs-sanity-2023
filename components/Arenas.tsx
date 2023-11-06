@@ -42,7 +42,7 @@ const Arenas = ({ arenas }) => {
         <Container>
           <BlogHeader title={'title'} description={[]} level={1} />
 
-          <div className="  flex flex-col items-center justify-center bg-indigo-50 pt-12 lg:flex-row">
+          <div className="  flex flex-col items-center justify-center bg-indigo-50 pt-12  lg:flex-row">
             <div className="flex  flex-col items-center text-center md:items-start md:pl-16 md:text-left lg:grow lg:pl-24">
               <h1
                 className={` ${oswald.variable}  mb-1 py-1 font-heading text-5xl font-bold leading-tight tracking-tighter text-pink-500  md:text-6xl`}

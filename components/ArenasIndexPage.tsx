@@ -6,7 +6,7 @@ const ArenasIndexPage = ({ arenas }) => {
   //console.log('arenas 77 ', arenas[0])
 
   return (
-    <div className='mx-7'>
+    <div className='mx-7 pt-0   lg:pt-28'>
       <div className=" container mx-auto mb-20   mt-44  flex rounded-xl  bg-gradient-to-r from-indigo-200 via-pink-200 to-yellow-50 md:mt-52">
         <div className="z-20 w-full px-4  py-12 text-start sm:px-6 lg:w-1/2 lg:px-8 lg:py-16">
           <h1
