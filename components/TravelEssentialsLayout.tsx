@@ -8,14 +8,18 @@ import PostBody from './PostBody'
 
 const TravelEssentialLayout = ({ posts }: { posts: Esssential[] }) => {
   //console.log('KENNY Essentials 2', posts)
+
+ const  bgcolor="bg-gradient-to-r from-indigo-200 via-pink-200 to-yellow-50"
+ const  bgcolor2="bg-gradient-to-r from-green-200 via-indigo-200 to-pink-50"
+ const  bgcolor3="bg-gradient-to-r from-blue-200 via-pink-50 to-green-50"
   return (
     <>
-      <div className="container mx-auto mt-20 mb-5  px-3 py-3 text-gray-600">
-        <div className="  grid grid-cols-1 content-center gap-10   md:gap-16 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3  ">
+      <div className="mt-10 sm:container sm:mx-auto sm:mt-20 mb-5  sm:px-3 sm:py-3 text-gray-600">
+        <div className="  grid grid-cols-1 content-center gap-5   md:gap-6 lg:gap-10 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6  ">
           {posts?.map((item) => (
             <div key={item._id}>
-              <div className={`${item.background} flex flex-col justify-center items-center align-middle md:items-center  md:flex-row  max-w-lg overflow-hidden rounded-lg `}>
-                <div className=" w-1/2 md:w-2/3 bg-cover">
+              <div className={`hover:${item.background} hover:${bgcolor3} flex   flex-col  border justify-center items-center align-middle md:items-center  max-w-lg overflow-hidden rounded-lg `}>
+                <div className="p-8 sm:p-0 bg-cover">
                   {/* <img src='https://images.unsplash.com/photo-1494726161322-5360d4d0eeae?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80'  /> */}
                   <Link
                     href={item.link}
@@ -27,7 +31,7 @@ const TravelEssentialLayout = ({ posts }: { posts: Esssential[] }) => {
                     width={400}
                     height={400}
                     alt={`Cover Image for ${item.name}`}
-                    className=" transition-all hover:translate-x-3   hover:translate-y-2 hover:duration-700 md:p-2    lg:rounded-l-2xl mt-4 md:mt-0"
+                    className=" transition-all hover:translate-x-3   hover:translate-y-2 hover:duration-700 md:p-2    lg:rounded-l-2xl md:mt-0"
                     src={urlForImage(item.productImage.asset._ref)
                       .width(300)
                       .height(300)
@@ -37,8 +41,8 @@ const TravelEssentialLayout = ({ posts }: { posts: Esssential[] }) => {
                   </Link>
                 </div>
 
-                <div className="flex flex-col justify-center mt-5  align-middle md:w-2/3 p-4 md:p-4">
-                  <h1 className={`${oswald.variable}  title-font mb-3 font-heading text-xl  font-normal text-gray-900  sm:text-xl`}>
+                <div className="flex flex-col justify-center sm:mt-5  align-middle sm:p-4">
+                  <h1 className={` mb-3 font-heading text-base  font-normal text-gray-900 md:text-base  lg:text-base  xl:text-sm`}>
                     {item.name}
                   </h1>
 

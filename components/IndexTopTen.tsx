@@ -9,7 +9,7 @@ export default function IndexTopTen() {
         <h2 className={` ${oswald.variable}  font-heading text-2xl font-extrabold text-black  sm:text-3xl`}>
           <span className="font-fancy block ">
             
-            Check out our top Hotels & Restaurants recommendations.
+            Our top Hotels & Restaurants recommendations.
          
           </span>
         </h2>
