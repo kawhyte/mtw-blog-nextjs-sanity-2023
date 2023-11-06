@@ -38,7 +38,7 @@ export default function IndexPage(props: IndexPageProps) {
 
           <ReviewHeader
             title={'Stuff We Like'}
-            pattern={'pattern'}
+            arenas={[]}
             summary={
               'From sneakers to to the latest Game consoles... here you will find random items that we love ❤️'
             }

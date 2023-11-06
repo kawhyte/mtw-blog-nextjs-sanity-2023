@@ -44,7 +44,7 @@ export default function IndexPage(props: IndexPageProps) {
 
           <ReviewHeader
             title={'Hotel Reviews'}
-            pattern={'hotelpattern'}
+            arenas={[]}
             summary={'Rooms, Amenities, Service and Price'}
             animation={'/sand.svg'}
           />

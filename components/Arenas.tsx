@@ -42,68 +42,14 @@ const Arenas = ({ arenas }) => {
         <Container>
           <BlogHeader title={'title'} description={[]} level={1} />
 
-          <div className="  flex flex-col items-center justify-center bg-indigo-50 pt-12  lg:flex-row">
-            <div className="flex  flex-col items-center text-center md:items-start md:pl-16 md:text-left lg:grow lg:pl-24">
-              <h1
-                className={` ${oswald.variable}  mb-1 py-1 font-heading text-5xl font-bold leading-tight tracking-tighter text-pink-500  md:text-6xl`}
-              >
-                {'Our Quest to Visit Every NBA & WNBA Arena 🏀'}
-              </h1>
-              <p
-                className={` font-secondary mb-8 px-5  leading-relaxed md:px-0 md:text-base lg:text-lg`}
-              >
-                {
-                  'We are traveling near and far to every state/country to visit all the NBA and WNBA arena across the US and Canada. Follow us on this journey.'
-                }
-              </p>
-            </div>
-
-            <div className=" container mx-auto  p-10 lg:w-full lg:max-w-xl ">
-              <div className="rounded-lg border bg-gray-800 p-4  py-5 ">
-                <p className="title-font mb-6 text-3xl font-medium text-gray-200">
-                  {' '}
-                  Our Progress
-                </p>
-
-                <div className="mt-3 flex flex-row  justify-between">
-                  <span className="text-xs  font-medium text-gray-200 ">
-                    0%
-                  </span>
-                  <span className="text-xs font-medium text-gray-200 ">
-                    100%
-                  </span>
-                </div>
-                <div className=" h-4 w-full rounded-full bg-gray-900">
-                  <div className="w-full rounded-full  dark:bg-gray-700">
-                    <div
-                      className="h-6  bg-gradient-to-r rounded-r-full  from-green-500 to-blue-500 p-1.5 text-center text-xs font-medium leading-none text-gray-100"
-                      style={{ width: `${percentage}%` }}
-                    >
-                      {percentage}%   
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mt-10 flex gap-3 justify-evenly">
-                  <div className="rounded-lg border-2 border-blue-200 px-4 py-6">
-                    <h2 className="title-font text-2xl font-medium text-gray-200">
-                      {arenas[4].visitedCount}{' '}
-                    </h2>
-                    <p className="leading-relaxed text-gray-400">
-                      of 37 visited
-                    </p>
-                  </div>
-
-                  <div className="rounded-lg border-2 border-green-200 px-4 py-6">
-                    <h2 className="title-font text-2xl font-medium text-gray-200">
-                      {arenas[24].name}
-                    </h2>
-                    <p className="leading-relaxed text-gray-400">recently visited </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <ReviewHeader
+					title={"Our Quest to Visit Every NBA & WNBA Arena"}
+					arenas={arenas}
+					summary={'We are traveling near and far to every state/country to visit all the NBA and WNBA arenas (37) across the US and Canada. Follow us on this journey.'
+        }
+					animation={'/basketball.svg'}
+				/>
+          
 
           <div className="mt-14 container mx-auto grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {arenas?.map((item) => (
