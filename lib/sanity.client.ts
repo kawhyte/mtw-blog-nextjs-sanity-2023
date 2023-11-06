@@ -1,5 +1,7 @@
 import { apiVersion, dataset, projectId, useCdn } from 'lib/sanity.api'
 import {
+  Arena,
+  arenaQuery,
   type Esssential,
   foodQuery,
   hotelQuery,
@@ -14,8 +16,6 @@ import {
   settingsQuery,
   storyQuery,
   travelEssentialQuery,
-  arenaQuery,
-  Arena,
 } from 'lib/sanity.queries'
 import { createClient } from 'next-sanity'
 
