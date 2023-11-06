@@ -1,12 +1,11 @@
 import { inter, oswald } from 'app/fonts'
-import Image from 'next/image'
 import Link from 'next/link'
 
 export default function IndexTopTen() {
   return (
     <div className='mx-7'>
-    <div className=" container mx-auto  relative my-8  flex-col overflow-hidden md:my-20 bg-gradient-to-r from-indigo-200 via-pink-200 to-yellow-50 pr-3 rounded-xl">
-      <div className="z-20 w-full px-4  py-12 text-start sm:px-6 lg:w-1/2 lg:px-8 lg:py-16">
+    <div className=" container mx-auto flex flex-row justify-between  relative my-8  overflow-hidden md:my-20 bg-gradient-to-r from-indigo-200 via-pink-200 to-yellow-50 pr-3 rounded-xl">
+      <div className="z-2   w-full px-4  py-12 text-start sm:px-6 lg:w-1/2 lg:px-8 lg:py-16">
         <h2 className={` ${oswald.variable}  font-heading text-2xl font-extrabold text-black  sm:text-3xl`}>
           <span className="font-fancy block ">
             
@@ -30,15 +29,14 @@ export default function IndexTopTen() {
           </div>
         </div>
       </div>
-      <div className="max-w-1/2 absolute right-12 top-0  hidden h-full lg:block">
-        <Image
-          src="/beach.svg"
+      <div className=" hidden mt-12 h-full lg:block">
+        <img
+          src="/relaxing.svg"
           width={356}
           height={255}
-          alt="beach
+          alt="Lady on beach
           ball"
-          blurDataURL="/passport.svg"
-          placeholder="blur"
+         
         />
       </div>
     </div>
