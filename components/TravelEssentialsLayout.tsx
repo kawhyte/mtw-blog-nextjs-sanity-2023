@@ -15,7 +15,7 @@ const TravelEssentialLayout = ({ posts }: { posts: Esssential[] }) => {
         <div className="  grid grid-cols-2 content-center gap-5   md:gap-6 lg:gap-6 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4  ">
           {posts?.map((item) => (
             <div key={item._id}>
-              <div className={`hover:${item.background} flex   flex-col  border justify-center items-center align-middle md:items-center  max-w-lg overflow-hidden rounded-lg `}>
+              <div className={` bg-gray-50 hover:bg-gradient-to-r from-pink-200  to-yellow-50' flex   flex-col  border justify-center items-center align-middle md:items-center  max-w-lg overflow-hidden rounded-lg `}>
                 
                    <Link
                     href={item.link}
