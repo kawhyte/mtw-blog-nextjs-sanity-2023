@@ -14,8 +14,8 @@ export default function Youtube({ link }) {
       {link?.match(
         /^(http(s)?:\/\/)?((w){3}.)?youtu(be|.be)?(\.com)?\/.+/gm
       ) && (
-        <>
-          <div className="mb-10 flex w-full flex-col text-center font-medium lg:mb-12">
+        <div className="mx-5 sm:mx-0">
+          <div className="mb-10 flex  w-full flex-col text-center font-medium lg:mb-12">
             <div className="flex ">
             <p className={`${oswald.variable} font-heading text-left text-5xl font-semibold leading-tight tracking-tighter md:text-5xl md:leading-none lg:text-5xl`}>
 
@@ -26,7 +26,7 @@ export default function Youtube({ link }) {
           </div>
 
           <div
-            className="-mx-5 mb-12 max-w-5xl sm:mx-0 md:mb-24"
+            className=" mb-12 max-w-5xl sm:mx-0 md:mb-24"
             style={{ aspectRatio: 16 / 9 }}
           >
             <div className=" h-full w-full">
@@ -41,7 +41,7 @@ export default function Youtube({ link }) {
               />
             </div>
           </div>
-        </>
+        </div>
       )}
     </>
   )
