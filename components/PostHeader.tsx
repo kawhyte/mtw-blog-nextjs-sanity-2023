@@ -140,7 +140,7 @@ export default function PostHeader(
               <Alert
                 variant="light"
                 color="yellow"
-                className="  text-base md:text-xl text-sky-500 border-dashed border-2 border-sky-500 font-normal md:leading-relaxed"
+                className="  text-base md:text-xl  mx-6 sm:mx-0 text-sky-500 border-dashed border-2 border-sky-500 font-normal md:leading-relaxed"
                 title={`Quick tip: `}
                 icon={<HiOutlineLightBulb />}
               >

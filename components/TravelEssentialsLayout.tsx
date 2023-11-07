@@ -12,7 +12,7 @@ const TravelEssentialLayout = ({ posts }: { posts: Esssential[] }) => {
   return (
     <>
       <div className="mt-10 sm:container sm:mx-auto sm:mt-20 mb-5  sm:px-3 sm:py-3 text-gray-600">
-        <div className="  grid grid-cols-2 content-center gap-5   md:gap-6 lg:gap-6 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4  ">
+        <div className="  grid grid-cols-2 mx-3 content-center gap-5   md:gap-6 lg:gap-6 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4  ">
           {posts?.map((item) => (
             <div key={item._id}>
               <div className={` bg-gray-50 hover:bg-gradient-to-r from-pink-200  to-yellow-50' flex   flex-col  border justify-center items-center align-middle md:items-center  max-w-lg overflow-hidden rounded-lg `}>
@@ -23,7 +23,7 @@ const TravelEssentialLayout = ({ posts }: { posts: Esssential[] }) => {
                     target="_blank"
                     rel="noopener noreferrer"
                   > 
-                <div className="p-8 sm:p-0 bg-cover">              
+                <div className="p-2 sm:p-0 bg-cover">              
                   <img
                     width={1500}
                     height={1500}
@@ -38,8 +38,8 @@ const TravelEssentialLayout = ({ posts }: { posts: Esssential[] }) => {
                
                 </div>
 
-                <div className="flex flex-col justify-center sm:mt-5 px-2  align-middle sm:p-4">
-                  <h1 className={` mb-3 pb-2 font-heading text-base  font-normal text-gray-900 md:text-base  lg:text-base  xl:text-sm`}>
+                <div className="flex flex-col justify-center sm:mt-5 px-2 align-middle sm:p-4">
+                  <h1 className={` mb-3 pb-2 font-heading text-sm sm:text-base  font-normal text-gray-900 md:text-base  lg:text-base  xl:text-sm`}>
                     {item.name}
                   </h1>
 
