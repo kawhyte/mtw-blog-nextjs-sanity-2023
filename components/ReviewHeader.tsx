@@ -25,7 +25,7 @@ function ReviewHeader({ title, arenas, summary, animation }) {
       </div>
       <div className="flex  flex-col items-center text-center md:items-start md:pl-16 md:text-left lg:grow lg:pl-24">
         <h1
-          className={` ${oswald.variable} px-3  mb-1 py-1 font-heading text-5xl font-bold leading-tight tracking-tighter text-pink-500  md:text-6xl`}
+          className={` ${oswald.variable} mb-1 px-3  py-1 font-heading text-5xl font-bold leading-tight tracking-tighter text-pink-500 sm:px-0  md:text-6xl`}
         >
           {title}
         </h1>
