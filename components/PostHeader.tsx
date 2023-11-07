@@ -49,7 +49,7 @@ export default function PostHeader(
 
   return (
     <>
-      <div className=" pt-12 ">
+      <div className=" pt-12 ml-3 sm:ml-0 ">
         <PostTitle>{title}</PostTitle>
         {/* <div className="hidden md:mb-12 md:block">
         {author && <Avatar name={author.name} picture={author.picture} />}
@@ -59,7 +59,7 @@ export default function PostHeader(
           className={` mt-1 flex flex-col justify-start align-middle leading-relaxed md:flex-row`}
         >
           <div>
-            <section className="ml-3 text-gray-700 md:text-left md:text-base lg:text-lg ">
+            <section className=" text-gray-700 md:text-left md:text-base lg:text-lg ">
               {location && (
                 <span className=" capitalize">
                   <span className=" text-pink-500  ">Location: </span>{' '}
@@ -67,7 +67,7 @@ export default function PostHeader(
                 </span>
               )}
             </section>
-            <section className="ml-3   text-pink-500 md:text-left  ">
+            <section className="   text-pink-500 md:text-left  ">
               {linkType === 'hotel' || linkType === 'food'
                 ? 'Date Visited: '
                 : 'Published on '}
@@ -77,7 +77,7 @@ export default function PostHeader(
               </span>
             </section>
             {room && (
-              <section className="ml-3 text-pink-500 md:text-left  ">
+              <section className=" text-pink-500 md:text-left  ">
                 <span className=" text-center  text-pink-500    md:text-left ">
                   Room:{' '}
                 </span>
@@ -88,7 +88,7 @@ export default function PostHeader(
             )}
 
             {category && (
-              <section className="ml-3  text-pink-500 md:text-left  ">
+              <section className="  text-pink-500 md:text-left  ">
                 <span className=" pr-1  text-center    text-pink-500  md:text-left">
                   Hotel Type:
                 </span>
