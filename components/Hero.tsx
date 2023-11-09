@@ -7,17 +7,17 @@ import { useEffect, useRef } from 'react'
 let animation = [
   {
     name: 'Bath',
-    url: '/bath.json',
+    url: '/bath2.json',
     bg: ' bg-indigo-50',
   },
   {
     name: 'Bath',
-    url: '/bath.json',
+    url: '/bath2.json',
     bg: ' bg-indigo-50',
   },
   {
     name: 'Bath',
-    url: '/bath.json',
+    url: '/bath2.json',
     bg: ' bg-indigo-50',
   },
 ]

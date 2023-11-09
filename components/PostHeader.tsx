@@ -1,4 +1,4 @@
-import { Alert, Blockquote } from '@mantine/core'
+import { Alert, Blockquote, Skeleton } from '@mantine/core'
 import { inter } from 'app/fonts'
 import Avatar from 'components/AuthorAvatar'
 import Date from 'components/PostDate'
@@ -104,6 +104,7 @@ export default function PostHeader(
       </div>
 
       <div className="mb-8 sm:mx-0 md:mb-16">
+    
         <CoverImagePost
           title={title}
           image={coverImage}
@@ -111,6 +112,7 @@ export default function PostHeader(
           slug={slug}
           gallery={gallery}
         />
+        
 
         {excerpt2 && (
           <>

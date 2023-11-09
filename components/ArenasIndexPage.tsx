@@ -8,11 +8,11 @@ const ArenasIndexPage = ({ arenas }) => {
   return (
     <div className='mx-7 pt-0 md:pt-1   lg:pt-1 xl:p-10'>
       <div className=" container mx-auto mb-20   mt-44  flex rounded-xl  bg-gradient-to-r from-indigo-200 via-pink-200 to-yellow-50 md:mt-52">
-        <div className="z-20 w-full px-4  py-12 text-start sm:px-6 lg:w-1/2 lg:px-8 lg:py-16">
+        <div className="z-20 w-full px-4  py-12 text-start sm:px-6 lg:w-3/5 lg:px-8 lg:py-16">
           <h1
             className={`${oswald.variable}  title-font mb-3 font-heading text-3xl font-medium text-gray-900 sm:text-4xl`}
           >
-            Our Quest to Visit Every NBA & WNBA Arena 🏀
+            Our Quest to Visit Every NBA & WNBA Arenas 🏀
           </h1>
           <p
             className={` ${inter.variable} font-secondary mt-4 text-sm leading-relaxed md:text-base  lg:text-base `}
@@ -38,8 +38,8 @@ const ArenasIndexPage = ({ arenas }) => {
             </div>
           </div>
         </div>
-        <div className="max-w-1/2  right-12 mt-9 mr-9  hidden h-full lg:block">
-          <div className="grid grid-cols-3 gap-3 ml-2">
+        <div className="max-w-2/5  right-12 mt-9  hidden h-full lg:block">
+          <div className="grid grid-cols-3 gap-4 ml-2 place-items-center">
             {arenas?.map((item) => (
               <div
                 key={item._id}
@@ -47,7 +47,7 @@ const ArenasIndexPage = ({ arenas }) => {
               >
                 <div
                   key={item.gallery[0].name}
-                  className="my-4 flex   items-center align-middle "
+                  className="my-4 flex flex-col   items-center align-middle "
                 >
                   <img
                     src={
@@ -66,7 +66,7 @@ const ArenasIndexPage = ({ arenas }) => {
                   />
 
                   <p
-                    className="text-gray-4=500 ml-2  mt-2 cursor-pointer font-extralight "
+                    className="text-gray-4=500 ml-2 text-sm  mt-2  font-extralight "
                     role="link"
                   >
                     {item.gallery[0].name}
