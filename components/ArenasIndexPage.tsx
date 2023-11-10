@@ -18,7 +18,7 @@ const ArenasIndexPage = ({ arenas }) => {
             className={` ${inter.variable} font-secondary mt-4 text-sm leading-relaxed md:text-base  lg:text-base `}
           >
             We are traveling near and far to every state/country to visit all
-            the NBA and WNBA arena across the US and Canada. Follow us on this
+            the NBA and WNBA arenas across the US and Canada. Follow us on this
             journey.
           </p>
           <div className="lg:mt-0 lg:flex-shrink-0">
@@ -66,7 +66,7 @@ const ArenasIndexPage = ({ arenas }) => {
                   />
 
                   <p
-                    className="text-gray-4=500 ml-2 text-sm  mt-2  font-extralight "
+                    className="text-gray-500 ml-2 text-sm  mt-2  font-extralight text-center "
                     role="link"
                   >
                     {item.gallery[0].name}
