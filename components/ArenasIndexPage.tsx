@@ -18,6 +18,7 @@ const ArenasIndexPage = ({ arenas }) => {
             className={` ${inter.variable} font-secondary mt-4 text-sm leading-relaxed md:text-base  lg:text-base `}
           >
             We are traveling near and far to every state/country to visit all
+
             the NBA and WNBA arenas across the US and Canada. Follow us on this
             journey.
           </p>

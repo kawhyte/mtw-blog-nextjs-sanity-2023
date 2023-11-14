@@ -62,13 +62,13 @@ const Arenas = ({ arenas }) => {
                 } `}
               >
                 <div className="hidden sm:block static">
-                  {item.visited === true ? (
-                    <span className="absolute z-10 ml-3  mt-3 rounded-full bg-gray-200 px-4 py-2  text-sm text-gray-600 ">
+                  {/* {item.visited === true ? (
+                    <span className="absolute z-10 ml-3  mt-3  text-xs rounded-full text-green-600  bg-green-200 ">
                       Visited: <PostDate dateString={item.date} />
                     </span>
                   ) : (
                     ''
-                  )}
+                  )} */}
                   <div className="relative">
                     <img
                       src={
@@ -117,6 +117,11 @@ const Arenas = ({ arenas }) => {
 
                     <h1 className="px-2 text-sm"> {item.location}</h1>
                   </div>
+                  {item.visited === true ? (
+                  <span className="px-4 py-2 mt-3  text-xs rounded-full text-green-600  bg-green-200 ">
+                  Visited: <PostDate dateString={item.date} />
+    </span>) :""
+}
                 </div>
                 <div className=" flex flex-row flex-wrap items-center justify-evenly">
                   {item.gallery?.map((photo) => (
