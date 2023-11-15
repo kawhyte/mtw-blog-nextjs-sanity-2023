@@ -4,14 +4,13 @@ import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 import { inter, space } from 'app/fonts'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from "next/router";
+import { useRouter } from 'next/router'
 import React, { useEffect, useRef, useState } from 'react'
 import { IoRestaurantOutline } from 'react-icons/io5'
 import { LiaCrownSolid } from 'react-icons/lia'
 import { PiSneakerLight } from 'react-icons/pi'
 import { RiHotelLine } from 'react-icons/ri'
 import { TfiMapAlt } from 'react-icons/tfi'
-
 
 const bg =
   '  underline decoration-pink-200 underline-offset-8 hover:decoration-pink-500 focus:decoration-pink-500/50 '
@@ -51,10 +50,10 @@ const navigation = [
   {
     name: 'Travel Essentials',
     href: '/essentials',
-        icon: <PiSneakerLight className="h-6 w-10  text-orange-500" />,
+    icon: <PiSneakerLight className="h-6 w-10  text-orange-500" />,
 
     text: 'Man walking',
-    bg:  'hover:bg-gradient-to-r from-pink-100 to-orange-100  text-white w-full  focus:decoration-orange-500/50',
+    bg: 'hover:bg-gradient-to-r from-pink-100 to-orange-100  text-white w-full  focus:decoration-orange-500/50',
     current: false,
   },
 ]
@@ -69,7 +68,7 @@ export default function Nav({ color = 'bg-black', bgColor }) {
   const container = useRef(null)
   const animation = 'food.json'
 
-  const router = useRouter();
+  const router = useRouter()
 
   const [navSize, setnavSize] = useState('5rem')
   const [navImage, setnavImage] = useState(bgColor)
@@ -106,7 +105,7 @@ export default function Nav({ color = 'bg-black', bgColor }) {
         <>
           <div className="max-w-8xl  container mx-auto cursor-pointer">
             <div className="relative flex h-6 items-center justify-between">
-              <div className="absolute -top-2 pr-5 right-0 flex items-center md:hidden">
+              <div className="absolute -top-2 right-0 flex items-center pr-5 md:hidden">
                 {/* Mobile menu button*/}
                 <Disclosure.Button className=" inline-flex items-center justify-center rounded-md bg-gray-700 p-2 text-gray-200  hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                   <span className="sr-only">Open main menu</span>
@@ -125,7 +124,7 @@ export default function Nav({ color = 'bg-black', bgColor }) {
                   passHref
                   legacyBehavior
                 >
-                  <div className="flex flex-shrink-0 items-center justify-center pl-3 transition-all hover:ease-in-out  hover:scale-110 hover:duration-150 hover:text-pink-500  ">
+                  <div className="flex flex-shrink-0 items-center justify-center pl-3 transition-all hover:scale-110  hover:text-pink-500 hover:duration-150 hover:ease-in-out  ">
                     <div className=" flex flex-row items-center space-x-4  ">
                       <Image
                         className="rounded-xl"
@@ -150,7 +149,7 @@ export default function Nav({ color = 'bg-black', bgColor }) {
                     {navigation.map((item) => (
                       <Link key={item.name} href={item.href}>
                         <div
-                          className={` mt-2 flex flex-col items-center justify-center rounded-xl px-4 py-2 mb-2  align-middl decoration-[0.25rem] hover:decoration-[0.5rem] focus:decoration-[0.5rem] motion-safe:transition-all motion-safe:duration-200 ${item.bg} `}
+                          className={` align-middl mb-2 mt-2 flex flex-col items-center justify-center rounded-xl px-4  py-2 decoration-[0.25rem] hover:decoration-[0.5rem] focus:decoration-[0.5rem] motion-safe:transition-all motion-safe:duration-200 ${item.bg} `}
                         >
                           {item.icon}
                           {/* {item.icon && (
@@ -170,11 +169,18 @@ export default function Nav({ color = 'bg-black', bgColor }) {
                           </div> */}
 
                           <div
-               className={classNames("inline-flex items-center px-1 pt-1 border-b-4 text-sm font-medium", router.route === item.href ?  `border-pink-500 text-gray-900` : "border-transparent text-gray-500  hover:text-gray-700")}
-               aria-current={router.route === item.href ? "page" : undefined}
-             >
-               {item.name}
-             </div>
+                            className={classNames(
+                              'inline-flex items-center border-b-4 px-1 pt-1 text-sm font-medium',
+                              router.route === item.href
+                                ? `border-pink-500 text-gray-900`
+                                : 'border-transparent text-gray-500  hover:text-gray-700'
+                            )}
+                            aria-current={
+                              router.route === item.href ? 'page' : undefined
+                            }
+                          >
+                            {item.name}
+                          </div>
                         </div>
                       </Link>
                     ))}
