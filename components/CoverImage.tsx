@@ -1,3 +1,5 @@
+import { AdvancedImage } from '@cloudinary/react'
+import { Cloudinary } from '@cloudinary/url-gen'
 import { ActionIcon, Badge, Button, Card, Group, Skeleton, Text } from '@mantine/core'
 import cn from 'classnames'
 import { urlForImage } from 'lib/sanity.image'
@@ -8,8 +10,6 @@ import { CldImage } from 'next-cloudinary'
 import { categoryRating } from '../lib/getHotelCategory'
 import PostBody from './PostBody'
 import PostDate from './PostDate'
-import { Cloudinary } from '@cloudinary/url-gen'
-import { AdvancedImage } from '@cloudinary/react'
 //import { useState } from 'react';
 interface CoverImageProps {
   title: string
