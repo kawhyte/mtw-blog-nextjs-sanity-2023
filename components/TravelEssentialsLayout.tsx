@@ -8,15 +8,7 @@ import { CldImage } from 'next-cloudinary'
 import PostBody from './PostBody'
 
 const TravelEssentialLayout = ({ posts }: { posts: Esssential[] }) => {
-  // console.log('KENNY Essentials 2', posts[0])
-  console.log(
-    'KENNY Essentials 2',
-    urlForImage(posts[0].productImage.asset._ref)
-      // .width(400)
-      // .height(400)
-      // .format('webp').blur(20)
-      .url()
-  )
+ 
 
   return (
     <>

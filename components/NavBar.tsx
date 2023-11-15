@@ -4,6 +4,7 @@ import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 import { inter, space } from 'app/fonts'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from 'react'
 import { IoRestaurantOutline } from 'react-icons/io5'
 import { LiaCrownSolid } from 'react-icons/lia'
@@ -11,8 +12,6 @@ import { PiSneakerLight } from 'react-icons/pi'
 import { RiHotelLine } from 'react-icons/ri'
 import { TfiMapAlt } from 'react-icons/tfi'
 
-import BodySectionSeparator from './IndexTopTen'
-import SectionSeparator from './SectionSeparator'
 
 const bg =
   '  underline decoration-pink-200 underline-offset-8 hover:decoration-pink-500 focus:decoration-pink-500/50 '
@@ -69,6 +68,8 @@ export default function Nav({ color = 'bg-black', bgColor }) {
   let bg = bgColor ? ' bg-white  ' : ' '
   const container = useRef(null)
   const animation = 'food.json'
+
+  const router = useRouter();
 
   const [navSize, setnavSize] = useState('5rem')
   const [navImage, setnavImage] = useState(bgColor)
@@ -162,11 +163,18 @@ export default function Nav({ color = 'bg-black', bgColor }) {
                               />
                             )} */}
 
-                          <div
-                            className={`  text-blackgroup-hover:opacity-600 mt-1 text-sm text-gray-800 `}
+                          {/* <div
+                            className={`  group-hover:opacity-600 mt-1 text-sm text-gray-800 `}
                           >
                             {item.name}
-                          </div>
+                          </div> */}
+
+                          <a
+               className={classNames("inline-flex items-center px-1 pt-1 border-b-4 text-sm font-medium", router.route === item.href ?  `border-pink-500 text-gray-900` : "border-transparent text-gray-500  hover:text-gray-700")}
+               aria-current={router.route === item.href ? "page" : undefined}
+             >
+               {item.name}
+             </a>
                         </div>
                       </Link>
                     ))}
