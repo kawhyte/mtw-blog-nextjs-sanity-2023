@@ -8,8 +8,6 @@ import { CldImage } from 'next-cloudinary'
 import PostBody from './PostBody'
 
 const TravelEssentialLayout = ({ posts }: { posts: Esssential[] }) => {
- 
-
   return (
     <>
       <div className="mb-5 mt-10 text-gray-600 sm:container sm:mx-auto  sm:mt-20 sm:px-3 sm:py-3">
@@ -17,7 +15,7 @@ const TravelEssentialLayout = ({ posts }: { posts: Esssential[] }) => {
           {posts?.map((item) => (
             <div key={item._id}>
               <div
-                className={` to-yellow-50 flex max-w-lg  flex-col items-center   justify-center  overflow-hidden rounded-lg border bg-gray-50 from-pink-200  align-middle hover:bg-gradient-to-r md:items-center `}
+                className={` flex max-w-lg flex-col  items-center justify-center   overflow-hidden  rounded-lg to-yellow-50  align-middle hover:bg-gradient-to-r md:items-center `}
               >
                 <Link
                   href={item.link}
@@ -25,16 +23,13 @@ const TravelEssentialLayout = ({ posts }: { posts: Esssential[] }) => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <div className="bg-cover p-2 sm:p-0">
+                  <div className="rounded-xl bg-gray-100 bg-cover p-2 sm:p-0">
                     <CldImage
                       deliveryType="fetch"
                       width="960"
                       height="600"
-                      className=" transition-all hover:translate-x-3   hover:translate-y-2 hover:duration-700 md:mt-0 md:px-4 md:py-4 lg:rounded-l-2xl"
+                      className=" p-4 transition-all   hover:translate-x-3 hover:translate-y-2 hover:duration-700 md:mt-0 md:px-4 md:py-4 lg:rounded-l-2xl"
                       format="webp"
-                   
-                     
-
                       src={urlForImage(item.productImage.asset._ref).url()}
                       sizes="(max-width: 640px) 100vw,
           (max-width: 768px) 80vw,
@@ -56,9 +51,9 @@ const TravelEssentialLayout = ({ posts }: { posts: Esssential[] }) => {
                   /> */}
                   </div>
 
-                  <div className="flex flex-col justify-center px-2 align-middle sm:mt-5 sm:p-4">
+                  <div className="flex flex-col justify-center  align-middle mt-1 sm:py-2">
                     <h1
-                      className={` mb-3 pb-2 font-heading text-sm font-normal  text-gray-900 sm:text-base md:text-base  lg:text-base  xl:text-sm`}
+                      className={` mb-3 pb-2 font-heading text-sm font-normal  text-gray-500 sm:text-base md:text-base  lg:text-base  xl:text-sm`}
                     >
                       {item.name}
                     </h1>
