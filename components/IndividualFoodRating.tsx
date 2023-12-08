@@ -1,3 +1,4 @@
+import { webp } from '@cloudinary/url-gen/qualifiers/format'
 import { Badge } from '@mantine/core'
 import { getImageDimensions } from '@sanity/asset-utils'
 import { oswald } from 'app/fonts'
@@ -17,48 +18,76 @@ const individualFoodRating = ({ food }) => {
         >
           Food/Drink we tried
         </h1>
-        <div className="  grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 ">
-          {food?.map((item, i) => (
-            <div key={i} className=" rounded-md my-5  ">
-          
-              <div className="absolute flex flex-col align-bottom justify-between">
-                <Badge
-                  size="lg"
-                  variant="gradient"
-                  className="  z-10 m-3 text-sm "
-                  gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
-                >
-                  {item.rating.Dish}
-                </Badge>
-                {/* <h2 className="z-10 mt-4 pb-2 text-sm font-extrabold text-pink-500 sm:text-base md:text-lg">
-                  {item?.name}
-                </h2> */}
-              </div>
-      <div className='relative w-full h-48'> 
-              <img
-                className=" h-full rounded-xl object-cover "
-                alt={item?.name}
-                src={urlForImage(item.asset._ref)
-                  .width(940)
-                  .height(480)
-                  .format('webp')
-                  .url()}
-                width={'440'}
-                height={'480'}
-              /></div>
 
-               <section className="  mt-3 md:block ">
-                <h2 className=" mt-4 pb-2 text-base font-extrabold text-pink-500 sm:text-base md:text-lg">
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-3">
+          {food?.map((item, i) => (
+            <div key={i} className="overflow-hidden rounded ">
+              <div className="relative">
+                <img
+                  className="w-full"
+                  src={urlForImage(item.asset._ref).format('webp').url()}
+               
+                  alt={item?.name}
+                />
+                {/* <div className="absolute bottom-0 left-0 right-0 top-0 bg-gray-900 opacity-25 transition duration-300 hover:bg-transparent"></div> */}
+
+                <div className="absolute right-0 top-0 mr-3 mt-3 flex h-16 w-16 flex-col items-center justify-center rounded-full bg-indigo-500 px-4 text-sm text-white transition duration-500 ease-in-out hover:bg-white hover:text-indigo-600">
+                  <span className="font-bold"> {item.rating.Dish}/5</span>
+                  {/* <small>⭐️</small> */}
+                </div>
+              </div>
+              <div className=" py-4">
+                <p
+                  
+                  className="inline-block text-lg font-semibold  text-indigo-500"
+                >
                   {item?.name}
-                </h2>
-               <p className=" mb-2 text-sm text-ellipsis line-clamp-5  font-light text-gray-500  lg:text-base">
-                  {item?.review}
                 </p>
-              </section> 
+                <p className="text-sm text-gray-500">
+                {item?.review}
+                </p>
+              </div>
             </div>
+
+            //       <div key={i} className=" rounded-md my-5  ">
+
+            //         <div className="absolute flex flex-col align-bottom justify-between">
+            //           <Badge
+            //             size="lg"
+            //             variant="gradient"
+            //             className="  z-10 m-3 text-sm "
+            //             gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
+            //           >
+            //             {item.rating.Dish}
+            //           </Badge>
+
+            //         </div>
+            // <div className='relative w-full h-48'>
+            //         <img
+            //           className="   object-contain h-48 w-96"
+            //           alt={item?.name}
+            //           src={urlForImage(item.asset._ref)
+            //             .width(940)
+            //             .height(480)
+            //             .format('webp')
+            //             .url()}
+            //           width={'440'}
+            //           height={'480'}
+            //         /></div>
+
+            //          <section className="  mt-3 md:block ">
+            //           <h2 className=" mt-4 pb-2 text-base font-extrabold text-pink-500 sm:text-base md:text-lg">
+            //             {item?.name}
+            //           </h2>
+            //          <p className=" mb-2 text-sm text-ellipsis line-clamp-5  font-light text-gray-500  lg:text-base">
+            //             {item?.review}
+            //           </p>
+            //         </section>
+            //       </div>
           ))}
         </div>
       </div>
+
       <SectionSeparator />
     </>
   )
