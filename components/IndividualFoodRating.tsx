@@ -31,9 +31,9 @@ const individualFoodRating = ({ food }) => {
                 />
                 {/* <div className="absolute bottom-0 left-0 right-0 top-0 bg-gray-900 opacity-25 transition duration-300 hover:bg-transparent"></div> */}
 
-                <div className="absolute right-0 top-0 mr-3 mt-3 flex h-16 w-16 flex-col items-center justify-center rounded-full bg-indigo-500 px-4 text-sm text-white transition duration-500 ease-in-out hover:bg-white hover:text-indigo-600">
+                <div className="absolute right-0 top-0 mr-3 mt-3 flex  h-14 w-14 flex-col items-center justify-center rounded-2xl bg-indigo-500 px-4 text-sm text-white    ">
                   <span className="font-bold"> {item.rating.Dish}/5</span>
-                  {/* <small>⭐️</small> */}
+                  {/* <small>out of 5</small>  */}
                 </div>
               </div>
               <div className=" py-4">
