@@ -57,9 +57,9 @@ export default function IndexPage(props: IndexPageProps) {
           <BlogHeader title={title} description={description} level={1} />
 
           <Hero />
-
+ <Welcome />
           <ArenasIndexPage arenas={arenaPosts?.slice(0, 9)} />
-          {/* <Welcome /> */}
+         
           {/* <TravelEssentials /> */}
 
           <section className="container mx-auto px-10  py-14 text-gray-600 ">

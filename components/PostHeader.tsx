@@ -124,6 +124,8 @@ export default function PostHeader(
                 <Blockquote color="pink">
                   <PostBody content={excerpt2} />
                 </Blockquote>
+
+      
               </div>
             </div>
             <BodySectionSeparator />
