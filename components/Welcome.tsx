@@ -5,27 +5,27 @@ import React from 'react'
 let duo = [
   {
     id: 1,
-    color:"blue",
+    color: 'indigo',
     name: 'Mr.',
     blurb: '',
     image: 'https://tailone.tailwindtemplate.net/src/img/dummy/avatar1.png',
     food: 'Jerk Pork',
     music: '',
     hotel: '',
-    quote_by:" - Oscar Wilde",
+    quote_by: ' - Oscar Wilde',
     place_to_visit: '',
     quote: 'Be yourself; everyone else is already taken.',
   },
   {
     id: 2,
-    color:"pink",
+    color: 'pink',
     name: 'Mrs.',
     blurb: '',
     image: 'https://tailone.tailwindtemplate.net/src/img/dummy/avatar3.png',
     food: 'Pasta e Fagioli Soup',
     music: '',
     hotel: '',
-    quote_by:"- Frank Zappa",
+    quote_by: '- Frank Zappa',
     place_to_visit: '',
     quote: 'So many books, so little time',
   },
@@ -34,15 +34,19 @@ let duo = [
 function Welcome() {
   return (
     <>
-      <div className="section relative bg-white pb-8 pt-20 dark:bg-gray-100 md:pt-16 ">
+      <div className="section relative  bg-white  pb-8  dark:bg-gray-100 ">
         <div className="container mx-auto px-4 xl:max-w-6xl">
           <header className="mx-auto mb-12 text-center">
             <h2 className="mb-2 text-2xl font-bold leading-normal text-gray-800 dark:text-gray-900">
-              <span className="font-light">Meet the Dynamic </span> Duo
+              <span
+                className={`${oswald.variable}  title-font mb-3 font-heading text-3xl font-medium text-gray-900 sm:text-4xl`}
+              >
+                Meet the Dynamic Duo
+              </span>
             </h2>
           </header>
 
-          <div className="-mx-9 flex flex-row flex-wrap justify-center">
+          <div className="-mx-32 flex flex-row flex-wrap justify-center">
             {duo.map((person) => (
               <div
                 key={person.id}
@@ -60,16 +64,25 @@ function Welcome() {
                     />
                   </div>
                   <div className="pt-6 text-center ">
-                    <p className="mb-1 text-lg font-bold leading-normal ">{person.name}</p>
+                    <p className={`${oswald.variable}  title-font mb-3 font-heading text-3xl font-medium text-${person.color}-500 text-gray-900 sm:text-4xl`}>
+                      {person.name}
+                    </p>
 
-                    <Blockquote className="mb-1 -my-2 text-base font-bold leading-normal " color={person.color}  cite={person.quote_by}    mt="xl">
-                {person.quote}
-    </Blockquote>
-   
+                    <Blockquote
+                      className="-my-2 mb-1 text-base font-bold leading-normal "
+                      color={person.color}
+                      cite={person.quote_by}
+                      mt="xl"
+                    >
+                      {person.quote}
+                    </Blockquote>
+
                     {/* <p className="mb-1 text-md font-bold leading-normal ">{person.quote} - {person.quote_by}</p> */}
 
-                    <p className="mb-1 text-lg font-bold leading-normal border-t mx-6"></p>
-                    <p className="mb-1 text-lg font-bold leading-normal">Favorites</p>
+                    <p className="mx-6 mb-1 border-t text-lg font-bold leading-normal"></p>
+                    <p className="mb-1 text-lg font-bold leading-normal">
+                      Favorites
+                    </p>
                   </div>
                   <p className="font-light leading-relaxed text-gray-500">
                     Food: {person.food}
@@ -78,16 +91,12 @@ function Welcome() {
                     Music: {person.music}
                   </p>
                   <p className="font-light leading-relaxed text-gray-500">
-                 Trip:{person.place_to_visit}
+                    Trip:{person.place_to_visit}
                   </p>
                   <p className="font-light leading-relaxed text-gray-500">
-                  Hotel:{person.hotel}
+                    Hotel:{person.hotel}
                   </p>
-
-      
-  </div>                  
-                
-               
+                </div>
               </div>
             ))}
           </div>
