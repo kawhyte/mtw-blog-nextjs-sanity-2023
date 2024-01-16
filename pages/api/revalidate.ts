@@ -59,14 +59,14 @@ export default async function revalidate(
     return res.status(500).send(err.message)
   }
 }
-
+ //console.log("TSST")
 type StaleRoute = '/' | `/posts/${string}`
 
 async function queryStaleRoutes(
   body: Pick<ParseBody['body'], '_type' | '_id' | 'date' | 'slug'>
 ): Promise<StaleRoute[]> {
   const client = createClient({ projectId, dataset, apiVersion, useCdn: false })
-
+ console.log("BODY")
   // Handle possible deletions
   if (body._type === 'post') {
     const exists = await client.fetch(groq`*[_id == $id][0]`, { id: body._id })

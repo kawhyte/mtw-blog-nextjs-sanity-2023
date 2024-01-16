@@ -58,7 +58,7 @@ export default function IndexPage(props: IndexPageProps) {
 
           <Hero />
           <ArenasIndexPage arenas={arenaPosts?.slice(0, 9)} />
- <Welcome />
+ {/* <Welcome /> */}
          
           {/* <TravelEssentials /> */}
 
