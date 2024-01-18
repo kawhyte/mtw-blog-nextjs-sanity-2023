@@ -149,7 +149,7 @@ export default function Nav({ color = 'bg-black', bgColor }) {
                     {navigation.map((item) => (
                       <Link key={item.name} href={item.href}>
                         <div
-                          className={` align-middl mb-2 mt-2 flex flex-col items-center justify-center rounded-xl px-4  py-2 decoration-[0.25rem] hover:decoration-[0.5rem] focus:decoration-[0.5rem] motion-safe:transition-all motion-safe:duration-200 ${item.bg} `}
+                          className={` align-middl mb-2 mt-2 flex flex-col items-center justify-center rounded-xl px-2  py-1 decoration-[0.25rem] hover:decoration-[0.5rem] focus:decoration-[0.5rem] motion-safe:transition-all motion-safe:duration-200 ${item.bg} `}
                         >
                           {item.icon}
                           {/* {item.icon && (
