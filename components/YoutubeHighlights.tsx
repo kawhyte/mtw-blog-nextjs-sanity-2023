@@ -43,7 +43,7 @@ const YoutubeHighlights = () => {
                className="aspect-video"
               url={item.url}
               width={300}
-              height={150}
+              height={200}
               controls={false}
               light
               loop
