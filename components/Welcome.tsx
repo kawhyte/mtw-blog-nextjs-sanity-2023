@@ -22,7 +22,7 @@ let duo = [
     name: 'Mrs.',
     blurb: '',
     image: '/avatar_mrs.png',
-    food: 'Pasta e Fagioli Soup',
+    food: 'Pepperoni Pizza',
     music: '',
     hotel: '',
     quote_by: '- Frank Zappa',
@@ -34,7 +34,7 @@ let duo = [
 function Welcome() {
   return (
     <>
-      <div className="section relative  bg-white  pb-8  dark:bg-gray-100 ">
+      <div className=" container mx-auto mb-20   mt-44  flex rounded-xl  bg-gradient-to-r from-indigo-200 via-pink-200 to-yellow-50 md:mt-52">
         <div className="container mx-auto px-4 xl:max-w-6xl">
           <header className="mx-auto mb-12 text-center">
             <h2 className="mb-2 text-2xl font-bold leading-normal text-gray-800 dark:text-gray-900">
@@ -46,14 +46,15 @@ function Welcome() {
             </h2>
           </header>
 
-          <div className="-mx-32 flex flex-row flex-wrap justify-center">
+          <div className="grid grid-cols-2 gap-4">
             {duo.map((person) => (
               <div
                 key={person.id}
-                className="w-2/3 max-w-full flex-shrink px-4 sm:w-1/2 md:w-5/12 lg:w-1/4 xl:px-6"
+                // className=" w-full  px-4 bg-red-200"
               >
                 <div
-                  className="hover-grayscale-0 wow fadeInUp relative mb-12 overflow-hidden bg-white dark:bg-gray-800"
+                  className="hover-grayscale-0 wow fadeInUp relative mb-12 overflow-hidden bg-white 
+                  "
                   data-wow-duration="1s"
                 >
                   <div className="relative overflow-hidden px-6">
@@ -64,38 +65,50 @@ function Welcome() {
                     />
                   </div>
                   <div className="pt-6 text-center ">
-                    <p className={`${oswald.variable}  title-font mb-3 font-heading text-3xl font-medium text-${person.color}-500 text-gray-900 sm:text-4xl`}>
+                    <p
+                      className={`${oswald.variable}  title-font mb-3 font-heading text-3xl font-medium text-${person.color}-500 text-gray-900 sm:text-4xl`}
+                    >
                       {person.name}
                     </p>
-
-                    <Blockquote
-                      className="-my-2 mb-1 text-base font-bold leading-normal "
-                      color={person.color}
-                      cite={person.quote_by}
-                      mt="xl"
-                    >
-                      {person.quote}
-                    </Blockquote>
-
+                    <div className="container px-12 ">
+                      <Blockquote
+                        className="-my-2 mb-1 text-base font-bold leading-normal "
+                        color={person.color}
+                        cite={person.quote_by}
+                        mt="xl"
+                      >
+                        {person.quote}
+                      </Blockquote>
+                    </div>
                     {/* <p className="mb-1 text-md font-bold leading-normal ">{person.quote} - {person.quote_by}</p> */}
 
                     <p className="mx-6 mb-1 border-t text-lg font-bold leading-normal"></p>
-                    <p className="mb-1 text-lg font-bold leading-normal">
-                      Favorites
+                  </div>
+                  <p className="mb-1 text-center text-lg font-bold leading-normal">
+                    Things I like 
+                  </p>
+                  <div className="grid grid-cols-3 gap-4">
+                    <p className="border border-dashed m-2 font-light leading-relaxed text-gray-500 flex flex-col text-center">
+                    <img
+                      src={person.image}
+                      className="mx-auto h-auto max-w-full rounded-full bg-gray-50 grayscale"
+                      alt="title image"
+                      width={80}
+                      height={80}
+                    />
+                       {person.food}
+                      <p> Food</p> 
+                    </p>
+                    <p className="font-light leading-relaxed text-gray-500">
+                      Music: {person.music}
+                    </p>
+                    <p className="font-light leading-relaxed text-gray-500">
+                      Trip:{person.place_to_visit}
+                    </p>
+                    <p className="font-light leading-relaxed text-gray-500">
+                      Hotel:{person.hotel}
                     </p>
                   </div>
-                  <p className="font-light leading-relaxed text-gray-500">
-                    Food: {person.food}
-                  </p>
-                  <p className="font-light leading-relaxed text-gray-500">
-                    Music: {person.music}
-                  </p>
-                  <p className="font-light leading-relaxed text-gray-500">
-                    Trip:{person.place_to_visit}
-                  </p>
-                  <p className="font-light leading-relaxed text-gray-500">
-                    Hotel:{person.hotel}
-                  </p>
                 </div>
               </div>
             ))}

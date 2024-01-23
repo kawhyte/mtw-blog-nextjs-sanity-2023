@@ -7,6 +7,9 @@ const ReactPlayer = dynamic(() => import('react-player/youtube'), {
 
 let walking = [
   {
+    url: 'https://youtu.be/ylK35CxiGtU',
+  },
+  {
     url: 'https://www.youtube.com/watch?v=2lOgqf0MDIQ',
   },
   {

@@ -11,7 +11,7 @@ const ReactPlayer = dynamic(() => import('react-player/youtube'), {
 
 
 const InstagramHighlights = ({ instagram }) => {
- console.log("Instgram URLLL", instagram)
+//  console.log("Instgram URLLL", instagram)
 //  console.log("url ", url )
   return (
     <div className="container mx-auto  rounded-xl bg-yellow-50 px-10 py-12 ">
@@ -60,8 +60,7 @@ const InstagramHighlights = ({ instagram }) => {
                       width={700}
                       height={700}
                       src={item.thumbnail_url}
-                      // src={`${item.permalink}media/?size=m`}
-                      // src={'https://www.instagram.com/p/CtmGR04Lx-I/media/?size=m'}
+
                     
                       alt={item.caption}
                     />
