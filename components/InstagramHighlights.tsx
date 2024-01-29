@@ -25,7 +25,7 @@ const InstagramHighlights = ({ instagram }) => {
           <div className="h-1 w-20 rounded bg-pink-500"></div>
         </div>
       </div>
-      <div className="grid grid-cols-2 justify-items-center gap-5  md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-4">
+      <div className="grid grid-cols-2 justify-items-center gap-5  md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4">
         {instagram &&
           instagram.slice(0, 12).map(
             (item) =>
