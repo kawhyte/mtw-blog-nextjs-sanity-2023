@@ -1,5 +1,5 @@
 import { Blockquote } from '@mantine/core'
-import { oswald } from 'app/fonts'
+import { inter, oswald } from 'app/fonts'
 import React from 'react'
 
 let duo = [
@@ -7,26 +7,27 @@ let duo = [
     id: 1,
     color: 'indigo',
     name: 'Mr.',
-    blurb: '',
+
     image: '/avatar_mr.png',
-    food: 'Jerk Pork',
-    music: '',
-    hotel: '',
+    favorite: [
+      { id: 3, name: 'Sneakers', img: 'fav/sneakers.webp' },
+      { id: 4, name: 'Video Games', img: 'fav/videogame.webp' },
+      { id: 5, name: 'Coffee', img: 'fav/coffee.webp' },
+    ],
     quote_by: ' - Oscar Wilde',
-    place_to_visit: '',
     quote: 'Be yourself; everyone else is already taken.',
   },
   {
     id: 2,
     color: 'pink',
     name: 'Mrs.',
-    blurb: '',
     image: '/avatar_mrs.png',
-    food: 'Pepperoni Pizza',
-    music: '',
-    hotel: '',
+    favorite: [
+      { id: 6, name: 'Weightlifting', img: 'fav/weightlifting.webp' },
+      { id: 7, name: 'Pepperoni Pizza', img: 'fav/pizza.webp' },
+      { id: 8, name: 'Reading', img: 'fav/reading.webp' },
+    ],
     quote_by: '- Frank Zappa',
-    place_to_visit: '',
     quote: 'So many books, so little time',
   },
 ]
@@ -34,9 +35,9 @@ let duo = [
 function Welcome() {
   return (
     <>
-      <div className=" container mx-auto mb-20   mt-44  flex rounded-xl  bg-gradient-to-r from-indigo-200 via-pink-200 to-yellow-50 md:mt-52">
-        <div className="container mx-auto px-4 xl:max-w-6xl">
-          <header className="mx-auto mb-12 text-center">
+      <div className=" container mx-auto mt-44 flex  md:mt-72">
+        <div className="container mx-auto rounded-xl bg-pink-50 px-4 xl:max-w-6xl">
+          <header className="mx-auto my-10 text-center">
             <h2 className="mb-2 text-2xl font-bold leading-normal text-gray-800 dark:text-gray-900">
               <span
                 className={`${oswald.variable}  title-font mb-3 font-heading text-3xl font-medium text-gray-900 sm:text-4xl`}
@@ -46,33 +47,30 @@ function Welcome() {
             </h2>
           </header>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="m-6 mb-5 grid grid-cols-1 md:grid-cols-2 md:gap-10">
             {duo.map((person) => (
-              <div
-                key={person.id}
-                // className=" w-full  px-4 bg-red-200"
-              >
+              <div key={person.id}>
                 <div
-                  className="hover-grayscale-0 wow fadeInUp relative mb-12 overflow-hidden bg-white 
+                  className="hover-grayscale-0 fadeInUp relative mb-12 overflow-hidden  bg-white
                   "
-                  data-wow-duration="1s"
                 >
-                  <div className="relative overflow-hidden px-6">
+                  <div className="relative flex flex-col items-center overflow-hidden  px-6">
                     <img
                       src={person.image}
-                      className="mx-auto h-auto max-w-full rounded-full bg-gray-50 grayscale"
+                      className="mx-auto mt-6 h-auto max-w-full rounded-full bg-gray-200 p-2 grayscale"
                       alt="title image"
                     />
-                  </div>
-                  <div className="pt-6 text-center ">
+
                     <p
-                      className={`${oswald.variable}  title-font mb-3 font-heading text-3xl font-medium text-${person.color}-500 text-gray-900 sm:text-4xl`}
+                      className={`${oswald.variable}  title-font my-2  font-heading text-3xl font-medium text-${person.color}-500 text-gray-900 sm:text-4xl`}
                     >
                       {person.name}
                     </p>
+                  </div>
+                  <div className=" text-center ">
                     <div className="container px-12 ">
                       <Blockquote
-                        className="-my-2 mb-1 text-base font-bold leading-normal "
+                        className={` ${inter.variable} font-secondary mt-4 text-sm italic leading-relaxed md:text-base  lg:text-base `}
                         color={person.color}
                         cite={person.quote_by}
                         mt="xl"
@@ -80,34 +78,34 @@ function Welcome() {
                         {person.quote}
                       </Blockquote>
                     </div>
-                    {/* <p className="mb-1 text-md font-bold leading-normal ">{person.quote} - {person.quote_by}</p> */}
 
-                    <p className="mx-6 mb-1 border-t text-lg font-bold leading-normal"></p>
+                    <p className="mx-6  mb-1 border-t text-lg font-bold leading-normal"></p>
                   </div>
-                  <p className="mb-1 text-center text-lg font-bold leading-normal">
-                    Things I like 
+                  <p
+                    className={`${oswald.variable} title-font my-5 mb-3 text-center font-heading text-xl font-medium text-gray-500 sm:text-3xl`}
+                  >
+                    Things I like
                   </p>
-                  <div className="grid grid-cols-3 gap-4">
-                    <p className="border border-dashed m-2 font-light leading-relaxed text-gray-500 flex flex-col text-center">
-                    <img
-                      src={person.image}
-                      className="mx-auto h-auto max-w-full rounded-full bg-gray-50 grayscale"
-                      alt="title image"
-                      width={80}
-                      height={80}
-                    />
-                       {person.food}
-                      <p> Food</p> 
-                    </p>
-                    <p className="font-light leading-relaxed text-gray-500">
-                      Music: {person.music}
-                    </p>
-                    <p className="font-light leading-relaxed text-gray-500">
-                      Trip:{person.place_to_visit}
-                    </p>
-                    <p className="font-light leading-relaxed text-gray-500">
-                      Hotel:{person.hotel}
-                    </p>
+                  <div className="my-5 grid grid-cols-3  gap-4">
+                    {person.favorite?.map((item) => (
+                      <div
+                        key={item.id}
+                        className="m-2 flex flex-col  text-center font-light leading-relaxed text-gray-500"
+                      >
+                        <img
+                          src={item.img}
+                          className="mx-auto h-auto max-w-full rounded-full "
+                          alt="title image"
+                          width={80}
+                          height={80}
+                        />
+
+                        <p className="ml-2 mt-2 text-center  text-sm  font-extralight text-gray-500 ">
+                          {' '}
+                          {item.name}
+                        </p>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>

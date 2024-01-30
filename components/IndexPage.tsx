@@ -57,7 +57,7 @@ export default function IndexPage(props: IndexPageProps) {
           <BlogHeader title={title} description={description} level={1} />
 
           <Hero />
- {/* <Welcome /> */}
+ <Welcome />
           <ArenasIndexPage arenas={arenaPosts?.slice(0, 9)} />
          
           {/* <TravelEssentials /> */}
