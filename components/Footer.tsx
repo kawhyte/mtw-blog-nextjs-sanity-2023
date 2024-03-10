@@ -49,7 +49,7 @@ export default function Footer() {
 							className='ml-3  text-pink-500'
 							rel='noopener noreferrer nofollow'
 							target='_blank'
-							href='https://www.instagram.com/thepixelprince/?hl=en'>
+							href='https://www.instagram.com/mtwtravel/'>
 							<svg
 								fill='none'
 								stroke='currentColor'
