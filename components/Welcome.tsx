@@ -35,7 +35,7 @@ let duo = [
 function Welcome() {
   return (
     <>
-      <div className=" container mx-auto mt-44 flex  md:mt-72">
+      <div className=" container mx-auto mt-20 flex  md:mt-40">
         <div className="container mx-auto rounded-xl bg-pink-50 px-4 xl:max-w-6xl">
           <header className="mx-auto my-10 text-center">
             <h2 className="mb-2 text-2xl font-bold leading-normal text-gray-800 dark:text-gray-900">

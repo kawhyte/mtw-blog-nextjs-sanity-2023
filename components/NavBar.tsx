@@ -73,18 +73,26 @@ export default function Nav({ color = 'bg-black', bgColor }) {
   const [navSize, setnavSize] = useState('5rem')
   const [navImage, setnavImage] = useState(bgColor)
   const [navColor, setnavColor] = useState(bgColor)
+  
+  
   const listenScrollEvent = () => {
+    if (window !== undefined) {
+
     window.scrollY > 10 ? setnavColor('#fcf2d7') : setnavColor(bgColor)
     window.scrollY > 10 ? setnavSize('5rem') : setnavSize('4.9rem')
     window.scrollY > 10
       ? setnavImage('linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%)')
       : setnavImage('')
+
+    }
   }
   useEffect(() => {
+    if (window !== undefined) {
     window.addEventListener('scroll', listenScrollEvent)
     return () => {
       window.removeEventListener('scroll', listenScrollEvent)
     }
+  }
   })
 
   return (

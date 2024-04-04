@@ -20,6 +20,7 @@
     "@emotion/server": "^11.11.0",
     "@headlessui/react": "^1.7.15",
     "@heroicons/react": "^1.0.6",
+    "@lottiefiles/react-lottie-player": "^3.5.3",
     "@mantine/core": "^6.0.19",
     "@mantine/hooks": "^6.0.19",
     "@mantine/next": "^6.0.19",

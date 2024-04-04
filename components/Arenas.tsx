@@ -36,7 +36,7 @@ const Arenas = ({ arenas }) => {
 
       <Layout preview={false} loading={false}>
         <Head>
-          {/* <title>{CMS_NAME}</title> */}
+          <title>{CMS_NAME}</title>
           {/* <title> { `${CMS_NAME} - Travel and Food Reviews`}</title> */}
         </Head>
         <Container>
