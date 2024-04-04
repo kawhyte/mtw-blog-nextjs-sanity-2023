@@ -59,7 +59,7 @@ function Hero() {
         <div className="container mx-auto flex flex-col  items-center px-5 md:pb-24 pt-12 md:flex-row">
           <div className=" sm:mb-0 flex flex-col  items-center text-center md:mb-0 md:w-1/2 md:items-start md:pr-16 md:text-left lg:flex-grow lg:pr-5">
             <div
-              className={`  ${oswald.variable}  flex flex-col lg:flex-row lg:space-y-0  -space-y-8  z-30 font-heading text-7xl font-bold  uppercase text-gray-700  md:text-7xl lg:w-10/12 lg:text-8xl`}
+              className={`  ${oswald.variable}  flex flex-col -space-y-8    lg:-space-y-12  z-30 font-heading text-7xl font-bold  uppercase text-gray-700  md:text-7xl lg:w-10/12 lg:text-8xl xl:flex-row xl:-space-y-0`}
             >
               <p className="">Travel.</p>
               <p className="text-pink-500">Food.</p>
