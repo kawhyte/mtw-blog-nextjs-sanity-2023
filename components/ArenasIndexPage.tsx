@@ -1,13 +1,31 @@
 import { inter, oswald } from 'app/fonts'
 import { urlForImage } from 'lib/sanity.image'
 import Link from 'next/link'
+import dynamic from 'next/dynamic'
 
 const ArenasIndexPage = ({ arenas }) => {
   //console.log('arenas 77 ', arenas[0])
 
   return (
-    <div className='mx-7 pt-0 md:pt-1   lg:pt-1 xl:p-10'>
-      <div className=" container mx-auto mb-20   mt-44  flex rounded-xl  bg-gradient-to-r from-indigo-200 via-pink-200 to-yellow-50 md:mt-52">
+
+    <>
+   
+    
+  
+    <div className='mx-7 pt-0 md:pt-1    lg:pt-1 xl:p-10'>
+       
+      <div className="hidden   -mb-72 md:mt-0 lg:block w-2/6 md:w-5/6 lg:w-full lg:max-w-xs">
+          <PlayerWithNoSSR
+                  autoplay
+                  keepLastFrame
+                  loop
+                  src={'/basketball.json'}
+                />
+        </div>  
+      
+      <div className="  container mx-auto mb-20   mt-44  flex rounded-xl  bg-gradient-to-r from-indigo-200 via-pink-200 to-yellow-50 md:mt-52">
+     
+       
         <div className="z-20 w-full px-4  py-12 text-start sm:px-6 lg:w-3/5 lg:px-8 lg:py-16">
           <h1
             className={`${oswald.variable}  title-font mb-3 font-heading text-3xl font-medium text-gray-900 sm:text-4xl`}
@@ -99,8 +117,19 @@ const ArenasIndexPage = ({ arenas }) => {
           </div>
         </div>
       </div>
+
+
+    
     </div>
+    </>
   )
 }
 
 export default ArenasIndexPage
+
+
+const PlayerWithNoSSR = dynamic(
+  () =>
+    import('@lottiefiles/react-lottie-player').then((module) => module.Player),
+  { ssr: false }
+)

@@ -42,11 +42,11 @@ const InstagramHighlights = ({ instagram }) => {
           <div className="h-1 w-20 rounded bg-pink-500"></div>
         </div>
       </div>
-      <div className="grid grid-cols-1 justify-items-center gap-5 lg:gap-4   md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-4">
+      <div className="grid grid-cols-1 justify-items-center gap-5 lg:gap-x-20   md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:gap-x-4  2xl:grid-cols-4">
       
           {featuredInstagram?.map((item) => (
             <div key={item.url} >
-              <InstagramEmbed  url={item.url} width={328}  />
+              <InstagramEmbed  url={item.url} width={328} height={380} />
             </div>
           ))}
    
