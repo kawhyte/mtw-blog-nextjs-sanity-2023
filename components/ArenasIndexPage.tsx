@@ -1,7 +1,7 @@
 import { inter, oswald } from 'app/fonts'
 import { urlForImage } from 'lib/sanity.image'
-import Link from 'next/link'
 import dynamic from 'next/dynamic'
+import Link from 'next/link'
 
 const ArenasIndexPage = ({ arenas }) => {
   //console.log('arenas 77 ', arenas[0])
@@ -12,7 +12,7 @@ const ArenasIndexPage = ({ arenas }) => {
    
     
   
-    <div className='mx-7 pt-0 md:pt-1    lg:pt-1 xl:p-10'>
+    <div className=' pt-0 md:pt-1 container mx-auto   lg:pt-1 xl:p-10'>
        
       <div className="hidden   -mb-72 md:mt-0 lg:block w-2/6 md:w-5/6 lg:w-full lg:max-w-xs">
           <PlayerWithNoSSR

@@ -13,8 +13,19 @@ let featuredInstagram = [
   {
     url: 'https://www.instagram.com/p/C2TkjCHryfn/?next=%2Fmeet_the_whytes%2F',
   },
+  {
+    url: 'https://www.instagram.com/p/Cy5uiOEOoLu/?img_index=1',
+  },
+  {
+    url: 'https://www.instagram.com/p/CtdHfmHLUj1/?img_index=1',
+  },
+  {
+    url: 'https://www.instagram.com/p/CyUqgHgrT-n/?img_index=1',
+  },
+  {
+    url: 'https://www.instagram.com/p/C0H9G2RysKT/?img_index=1',
+  },
 
- 
   {
     url: 'https://www.instagram.com/p/C0LgXzauvCo/?next=%2Fmeet_the_whytes%2F',
   },
@@ -31,7 +42,7 @@ const InstagramHighlights = ({ instagram }) => {
   //  console.log("Instgram URLLL", instagram)
   //  console.log("url ", url )
   return (
-    <div className="container mx-auto  rounded-xl bg-yellow-50 px-10 py-12 ">
+    <div className="container mx-auto my-12 rounded-xl bg-yellow-50 px-10 py-12 ">
       <div className=" container mx-auto mb-10 flex w-full flex-wrap">
         <div className="mx-4 mb-6 w-full lg:mb-0 lg:w-1/2 ">
           <h1

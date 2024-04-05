@@ -16,7 +16,7 @@ export default function TopListItems(
       <div className=" container  mx-auto mb-10 flex w-full flex-wrap">
         <div className="mx-4 my-6 w-full lg:mb-0 lg:w-1/2 ">
           <h1
-            className={`${oswald.variable} title-font mb-2 font-heading text-2xl font-medium text-gray-900 sm:text-3xl`}
+            className={`${oswald.variable} title-font mb-2 font-heading text-3xl font-medium text-gray-900 sm:text-5xl`}
           >
             {posts[0].title}
           </h1>
@@ -24,13 +24,16 @@ export default function TopListItems(
         </div>
       </div>
 
-      <div className="mb-12 flex justify-center md:mb-20 md:p-6    ">
-        <div className="rounded-xl  bg-yellow-100 px-6 py-4">
+      <div className="mb-12 p-6  flex justify-center md:mb-20 md:p-6    ">
+        <span className=" -mr-8  md:-mr-7 flex flex-col   font-serif text-[9.25rem]  font-bold leading-[0.88] tracking-[-0.03em] text-pink-500 drop-shadow-xl sm:text-[25rem]">
+          1
+        </span>
+        <div className="md:z-30 rounded-xl  bg-pink-100 px-6 py-4">
           <Link
             href={`/posts/${posts[0].recommendations[0].post.slug.current}`}
             className="block w-full"
           >
-            <p
+            {/* <p
               className={`${oswald.variable} title-font absolute z-30 md:-mb-8  px-2 text-2xl    text-white  md:text-9xl `}
               style={{
                 textShadow:
@@ -38,7 +41,7 @@ export default function TopListItems(
               }}
             >
               1
-            </p>
+            </p> */}
             <Image
               width={440}
               height={470}
@@ -80,7 +83,7 @@ export default function TopListItems(
         </div>
       </div>
 
-      <div className="mb-32  grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 gap-6 pb-20  md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div className="xs:grid-cols-3  mb-32 grid grid-cols-2 md:gap-6 pb-20 sm:grid-cols-2  md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 container mx-auto">
         {/* {posts[0].recommendations.map( */}
 
         {posts[0].recommendations.slice(1, 20).map(
@@ -88,16 +91,20 @@ export default function TopListItems(
             count <= 10 && (
               <div
                 key={item._id}
-                className="h-90  m-auto w-56 cursor-pointer  rounded-lg  sm:w-72 lg:w-80 "
+                className="h-90 m-auto flex   w-56 cursor-pointer flex-col  rounded-lg  sm:w-72 lg:w-80 "
               >
-                <div key={item._id} className="">
+                <span className="-mb-2 -mr-2 flex  flex-col font-serif text-[5.25rem]  font-bold leading-[0.88] tracking-[-0.03em] drop-shadow-xl sm:text-[5rem]">
+                  {i + 2}
+                </span>
+
+                <div key={item._id} className="flex flex-col ">
                   <Link
                     as={`/posts/${item.post.slug.current}`}
                     href={`/posts/${item.post.slug.current}`}
                     aria-label={item.title}
                     className="block h-full w-full"
                   >
-                    <p
+                    {/* <p
                       className=" absolute z-30 md:-mb-8 rounded-xl stroke-cyan-500 px-2 text-2xl   font-medium text-white md:text-9xl"
                       style={{
                         textShadow:
@@ -105,7 +112,8 @@ export default function TopListItems(
                       }}
                     >
                       {i + 2}
-                    </p>
+                    </p> */}
+
                     <Image
                       width={1240}
                       height={770}

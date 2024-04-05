@@ -19,18 +19,20 @@ function ReviewHeader({ title, arenas, summary, animation }) {
   )
 
   return (
-    <div className="  flex flex-col items-center justify-center bg-indigo-50 pt-12 lg:flex-row">
-      <div className=" container mx-auto  p-10 lg:w-full lg:max-w-xl ">
+    <div className="   flex flex-col items-center justify-center bg-indigo-50 pt-12 mb-20  lg:flex-row">
+
+      <div className='container mx-auto'>
+      <div className=" hidden md:block container mx-auto  p-10 lg:w-full lg:max-w-xl ">
         <img alt="" src={animation} />
       </div>
-      <div className="flex  flex-col items-center text-center md:items-start md:pl-16 md:text-left lg:grow lg:pl-24">
+      <div className="flex container mx-auto flex-col items-center text-center md:items-start md:pl-16 md:text-left lg:grow lg:pl-24">
         <h1
-          className={` ${oswald.variable} mb-1 px-3  py-1 font-heading text-5xl font-bold leading-tight tracking-tighter text-pink-500 sm:px-0  md:text-6xl`}
+          className={` ${oswald.variable} mb-1 px-3  text-center container mx-auto py-1 font-heading text-5xl font-bold leading-tight tracking-tighter text-pink-500 sm:px-0  md:text-[7rem]`}
         >
           {title}
         </h1>
         <p
-          className={` font-secondary mb-8 px-5  leading-relaxed md:px-0 md:text-base lg:text-lg`}
+          className={` font-secondary mb-12 px-5 text-center   container mx-auto leading-relaxed md:px-0 md:text-base lg:text-lg`}
         >
           {summary}
         </p>
@@ -70,7 +72,9 @@ function ReviewHeader({ title, arenas, summary, animation }) {
           </div>
         )}
       </div>
+      </div>
     </div>
+    
   )
 }
 
