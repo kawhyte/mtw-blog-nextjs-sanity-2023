@@ -24,7 +24,7 @@ export const oswald = Oswald({
     weight:'600',
     subsets: ['latin'],
      variable: '--font-oswald',
-     display:"swap"
+    //  display:"swap"
     // variable:
   })
   
