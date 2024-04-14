@@ -60,7 +60,7 @@ function Hero() {
   return (
     <>
       <section className="body-font container mx-auto max-w-6xl text-gray-600">
-        <div className="container mx-auto flex flex-col  items-center px-5 md:pb-24 pt-12 md:flex-row">
+        <div className="container mx-auto flex flex-col  items-center px-5 md:pb-8 pt-12 md:flex-row">
           <div className="sm:mb-0 flex flex-col  items-center text-center md:mb-0 md:w-1/2 md:items-start md:pr-16 md:text-left lg:flex-grow lg:pr-5">
             <div
               className={`  ${oswald.variable}  flex flex-col -space-y-8    lg:-space-y-12  z-30 font-heading text-7xl  font-bold  uppercase text-gray-700  md:text-7xl lg:w-10/12 lg:text-[9rem]  xl:-space-y-20`}
