@@ -78,7 +78,7 @@ function Hero() {
               food.
             </p>
           </div>
-          <div className="hidden max-w-sm  -mt-12 lg:-ml-10 md:mt-0  sm:block w-5/6 md:w-1/2 lg:w-full  lg:max-w-md">
+          <div className="hidden max-w-sm   -mt-12 lg:-ml-10 md:mt-0  sm:block w-5/6 md:w-1/2 lg:w-full  lg:max-w-md">
           <PlayerWithNoSSR
                   autoplay
                   keepLastFrame

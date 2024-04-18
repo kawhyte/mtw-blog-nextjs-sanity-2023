@@ -189,8 +189,8 @@ export default function IndexPage(props: IndexPageProps) {
           {/* <Categories /> */}
 
           <YoutubeHighlights />
+        {/* <InstagramHighlights instagram={instagram.data} /> */}
         </Container>
-        <InstagramHighlights instagram={instagram.data} />
 
         {/* <IntroTemplate /> */}
       </Layout>
