@@ -47,7 +47,7 @@ const Arenas = ({ arenas }) => {
 					arenas={arenas}
 					summary={'We are traveling near and far to every state/country to visit all the NBA and WNBA arenas (37) across the US and Canada. Follow us on this journey.'
         }
-					animation={'/basketball.sv'}
+					animation={'/basketball.svg'}
 				/>
           
 

@@ -28,10 +28,10 @@ function ReviewHeader({ title, arenas, summary, animation }) {
       <img className="object-cover object-center rounded" alt="hero" src={animation}/>
     </div>
     <div className="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
-      <h1 className={` ${oswald.variable} container mx-auto  mb-1 px-3 py-1  font-heading text-5xl font-bold leading-tight tracking-tighter text-pink-500 sm:px-0  md:text-[6rem]`}>{title}
+      <h1 className={` ${oswald.variable} container mx-auto  mb-1 px-3 py-1  font-heading text-5xl font-bold leading-tight tracking-tighter text-pink-500 sm:px-0  md:text-[4.5rem]`}>{title}
        
       </h1>
-      <p className="mb-8 leading-relaxed"> {summary}.</p>
+      <p className="mb-8 leading-relaxed"> {summary}</p>
     
     </div>
   </div>
