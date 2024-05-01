@@ -43,11 +43,11 @@ const Arenas = ({ arenas }) => {
           <BlogHeader title={'title'} description={[]} level={1} />
 
           <ReviewHeader
-					title={"Our Quest to Visit Every NBA & WNBA Arena"}
+					title={"Visiting Every NBA & WNBA Arena"}
 					arenas={arenas}
 					summary={'We are traveling near and far to every state/country to visit all the NBA and WNBA arenas (37) across the US and Canada. Follow us on this journey.'
         }
-					animation={'/basketball.svg'}
+					animation={'/basketball.sv'}
 				/>
           
 
