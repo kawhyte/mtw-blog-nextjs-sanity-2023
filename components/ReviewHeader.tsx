@@ -22,15 +22,17 @@ function ReviewHeader({ title, arenas, summary, animation }) {
     <div className="   mb-10 flex flex-col items-center justify-center bg-indigo-50 pt-10  lg:flex-row">
       <div className="container mx-auto">
         <section className="body-font text-gray-600">
-          <div className="container mx-auto flex flex-col items-center px-5 py-20 md:flex-row">
-            <div className="mb-10 container mx-auto w-5/6 md:mb-0 md:w-3/6 lg:w-full lg:max-w-lg">
+          <div className="container mx-auto flex flex-col items-center px-5 py-7 lg:flex-row">
+            <div className="mb-10 flex items-center justify-center container mx-auto w-full md:mb-0  lg:w-full lg:max-w-xl">
+              
+              <div>
               <img
-                className=" object-cover object-center h-96"
+                className=" object-cover object-center h-64 md:h-96"
                 alt="hero"
                 src={animation}
-              />
+              /></div>
             </div>
-            <div className="flex flex-col items-center text-center md:w-3/6 md:items-start md:pl-16 md:text-left lg:w-4/6  lg:flex-grow lg:pl-24">
+            <div className="flex flex-col items-center text-center xl:w-3/6 md:items-start md:pl-16 md:text-left  lg:flex-grow lg:pl-24">
               <h1
                 className={` ${oswald.variable} container mx-auto  mb-1 px-3 py-1  font-heading text-5xl font-bold leading-tight tracking-tighter text-pink-500 sm:px-0  md:text-[4.5rem]`}
               >
