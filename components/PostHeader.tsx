@@ -5,6 +5,7 @@ import Date from 'components/PostDate'
 import PostTitle from 'components/PostTitle'
 import type { Post } from 'lib/sanity.queries'
 import { HiOutlineLightBulb } from 'react-icons/hi2'
+import { IoBedOutline, IoCalendarNumberOutline,IoLocationOutline, IoStorefrontOutline } from "react-icons/io5";
 import { LiaCrownSolid } from 'react-icons/lia'
 
 import BodySectionSeparator from './body-section-separator'
@@ -56,44 +57,46 @@ export default function PostHeader(
       </div> */}
 
         <div
-          className={` mt-1 flex flex-col justify-start align-middle leading-relaxed md:flex-row`}
+          className={` `}
         >
-          <div>
-            <section className=" text-gray-700 md:text-left md:text-base lg:text-lg ">
+          <div className='flex flex-col gap-1.5  md:grid grid-cols-4 md:mt-5 max-w-5xl'>
+            <section className=" text-gray-700 md:text-left md:text-base lg:text-lg  ">
               {location && (
-                <span className=" capitalize">
-                  <span className=" text-pink-500  ">Location: </span>{' '}
+                <span className=" capitalize flex flex-row  ">
+                  <span className=" text-pink-500 mr-3  "><IoLocationOutline className='h-6 w-6'  /> </span>{' '}
                   {location ? location : ''}{' '}
                 </span>
               )}
             </section>
-            <section className="   text-pink-500 md:text-left  ">
+            <section className="   text-pink-500 md:text-left flex flex-row ">
               {linkType === 'hotel' || linkType === 'food'
-                ? 'Date Visited: '
-                : 'Published on '}
-              <span className="text-gray-700">
+                ? <IoCalendarNumberOutline className='h-6 w-6' />
+                : <IoCalendarNumberOutline className='h-6 w-6' />}
+              <span className="text-gray-700 ml-3">
                 {' '}
                 <Date dateString={date} />
               </span>
             </section>
-            {room && (
-              <section className=" text-pink-500 md:text-left  ">
-                <span className=" text-center  text-pink-500    md:text-left ">
-                  Room:{' '}
+       
+
+            {category && (
+              <section className="  text-pink-500 md:text-left flex   ">
+                <span className="  text-center    text-pink-500  md:text-left mr-3">
+                <IoStorefrontOutline className='h-6 w-6'/>
+
                 </span>
-                <span className=" text-center   text-gray-700  md:text-left ">
-                  {linkType === 'hotel' ? `${room || 'test'}` : ''}{' '}
+                <span className=" text-center  capitalize text-gray-700   md:text-left ">
+                  {category} Hotel
                 </span>
               </section>
             )}
-
-            {category && (
-              <section className="  text-pink-500 md:text-left  ">
-                <span className=" pr-1  text-center    text-pink-500  md:text-left">
-                  Hotel Type:
+                 {room && (
+              <section className=" text-pink-500 md:text-left flex flex-row   ">
+                <span className=" text-center  text-pink-500    md:text-left mr-3 ">
+                <IoBedOutline className='h-6 w-6' />
                 </span>
-                <span className=" text-center  capitalize text-gray-700   md:text-left ">
-                  {category}
+                <span className=" text-center text-nowrap    text-gray-700  md:text-left ">
+                  {linkType === 'hotel' ? `${room || 'test'}` : ''}{' '}
                 </span>
               </section>
             )}
@@ -153,17 +156,17 @@ export default function PostHeader(
 <PostBody content={tip} />
 </div> */}
 
-                <div className="mx-5  border-t border-b text-gray-900 ">
-                  <div className="me-2 ml-3 mt-3   w-32 flex align-middle items-center justify-around rounded border border-gray-500 bg-gray-700 px-2.5 py-0.5 text-gray-400">
+                <div className="mx-5  border-t border-b ">
+                  <div className="me-2 ml-3 mt-3   w-32 flex align-middle items-center justify-around rounded border border-white bg-pink-500 px-2.5 py-0.5 text-white">
                     {/* <span>
                       <HiOutlineLightBulb className="h-8 w-6 text-gray-200" />
                     </span> */}
-                    <span className="text-sm font-medium text-gray-200 ">Quick Tip</span>
+                    <span className="text-sm font-medium  ">Quick Tip</span>
                   </div>
 
-                  <p className="py-2 text-sm font-normal ">
+                  <div className="py-2 text-sm font-normal ">
                     <PostBody content={tip} />
-                  </p>
+                  </div>
                 </div>
 
                 {/* <div className="flex flex-col w-full max-w-[1000px] leading-1.5 p-4 border-gray-700 bg-gray-100 rounded-e-xl rounded-es-xl">

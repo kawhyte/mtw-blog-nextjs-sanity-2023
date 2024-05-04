@@ -7,10 +7,12 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useEffect, useRef, useState } from 'react'
 import { IoRestaurantOutline } from 'react-icons/io5'
+import { IoBasketballOutline } from "react-icons/io5";
 import { LiaCrownSolid } from 'react-icons/lia'
 import { PiSneakerLight } from 'react-icons/pi'
 import { RiHotelLine } from 'react-icons/ri'
 import { TfiMapAlt } from 'react-icons/tfi'
+
 
 const bg =
   '  underline decoration-pink-200 underline-offset-8 hover:decoration-pink-500 focus:decoration-pink-500/50 '
@@ -26,7 +28,7 @@ const navigation = [
   {
     name: 'Hotel Reviews',
     href: '/hotel',
-    icon: <RiHotelLine className="h-6 w-10  text-blue-500" />,
+    icon: <RiHotelLine className="h-6 w-10  text-gray-500" />,
     text: 'Hotel icon',
     bg: '  hover:bg-gradient-to-r from-blue-100 to-pink-100 focus:decoration-pink-500/50',
     current: false,
@@ -34,7 +36,7 @@ const navigation = [
   {
     name: 'Food Reviews',
     href: '/food',
-    icon: <IoRestaurantOutline className="h-6 w-10  text-green-500" />,
+    icon: <IoRestaurantOutline className="h-6 w-10  text-gray-500" />,
     text: 'Food icon',
     bg: '  hover:bg-gradient-to-r from-pink-100 to-green-100 focus:decoration-green-500/50',
     current: false,
@@ -42,16 +44,15 @@ const navigation = [
   {
     name: 'Guides',
     href: '/story',
-    icon: <TfiMapAlt className="h-6 w-10   text-pink-500 " />,
+    icon: <TfiMapAlt className="h-6 w-10   text-gray-500 " />,
     text: 'Book icon',
     bg: '  hover:bg-gradient-to-r from-pink-100 to-indigo-100  text-white w-full  focus:decoration-indigo-500/50',
     current: false,
   },
   {
-    name: 'Travel Essentials',
-    href: '/essentials',
-    icon: <PiSneakerLight className="h-6 w-10  text-orange-500" />,
-
+    name: 'NBA & WNBA Arenas',
+    href: '/arenas',
+    icon: <IoBasketballOutline className="h-6 w-10  text-gray-500" />,
     text: 'Man walking',
     bg: 'hover:bg-gradient-to-r from-pink-100 to-orange-100  text-white w-full  focus:decoration-orange-500/50',
     current: false,
@@ -132,7 +133,7 @@ export default function Nav({ color = 'bg-black', bgColor }) {
                   passHref
                   legacyBehavior
                 >
-                  <div className="flex flex-shrink-0 items-center justify-center pl-3 transition-all hover:scale-110  hover:text-pink-500 hover:duration-150 hover:ease-in-out  ">
+                  <div className="flex flex-shrink-0 items-center justify-center pl-3 transition-all  hover:text-pink-500 hover:duration-150 hover:ease-in-out  ">
                     <div className=" flex flex-row items-center space-x-4  ">
                       <Image
                         className="rounded-xl"
