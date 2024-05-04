@@ -83,7 +83,7 @@ export default function TopListItems(
         </div>
       </div>
 
-      <div className="xs:grid-cols-3  mb-32 grid grid-cols-2 md:gap-6 pb-20 sm:grid-cols-2  md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 container mx-auto">
+      <div className="xs:grid-cols-3   mb-32 grid grid-cols-2 md:gap-6 pb-20 sm:grid-cols-2  md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 container mx-auto">
         {/* {posts[0].recommendations.map( */}
 
         {posts[0].recommendations.slice(1, 20).map(
@@ -91,7 +91,7 @@ export default function TopListItems(
             count <= 10 && (
               <div
                 key={item._id}
-                className="h-90 m-auto flex   w-56 cursor-pointer flex-col  rounded-lg  sm:w-72 lg:w-80 "
+                className="h-90 m-auto   w-56 cursor-pointer   rounded-lg  sm:w-72 lg:w-80 "
               >
                 <span className="-mb-2 -mr-2 flex  flex-col font-serif text-[5.25rem]  font-bold leading-[0.88] tracking-[-0.03em] drop-shadow-xl sm:text-[5rem]">
                   {i + 2}
@@ -113,32 +113,27 @@ export default function TopListItems(
                     >
                       {i + 2}
                     </p> */}
-
+<div> 
                     <Image
-                      width={1240}
-                      height={770}
-                      blurDataURL={urlForImage(
-                        item?.post?.coverImage?.asset?._ref
-                      )
-                        .width(1240)
-                        .height(744)
-                        .quality(1)
-                        .format('webp')
-                        .url()}
+                      width={300}
+                      height={200}
+                      blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAO0lEQVR4nGNgYGBg+P//P1t9fT0TiM0we3ZjxZxZjQ9XLpwwe9nCHkOGGZOyanraY9aumN2wbsn0hmQA/MEWfj4ocjcAAAAASUVORK5CYII='
                       placeholder="blur"
                       alt={`Cover Image for ${item.title}`}
                       className=" block object-cover object-center  "
                       src={urlForImage(item.post.coverImage.asset._ref)
-                        .width(1240)
-                        .height(744)
+                        .width(300)
+                        .height(200)
                         .format('webp')
                         .url()}
                     />
-                    <div className="w-full bg-white   p-4">
-                      <p className="mb-2  truncate text-xl font-medium text-gray-800">
+                    
+                    </div>
+                    <div className="  mt-2 w-72">
+                      <p className="mb-2 line-clamp-1  text-base clam font-small text-gray-800">
                         {item.post.title}
                       </p>
-                      <p className="text-md  truncate font-light text-gray-500">
+                      <p className="text-sm font-light text-gray-500">
                         {item.post.location}
                       </p>
                     </div>

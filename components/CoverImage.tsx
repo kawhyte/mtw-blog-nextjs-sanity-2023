@@ -3,6 +3,7 @@ import { Cloudinary } from '@cloudinary/url-gen'
 import { ActionIcon, Badge, Button, Card, Group, Skeleton, Text } from '@mantine/core'
 import cn from 'classnames'
 import { urlForImage } from 'lib/sanity.image'
+import Image from 'next/image'
 //import Image from 'next/image'
 import Link from 'next/link'
 import { CldImage } from 'next-cloudinary'
@@ -43,18 +44,22 @@ export default function CoverImage(props: CoverImageProps) {
     
 
     
-        <Skeleton className="z-10">
+        {/* //<Skeleton className="z-10"> */}
 
      
 
-          <CldImage
+          <Image
             className={cn('', {
-              '	relative mx-auto rounded-xl z-20 transition-all  hover:scale-110 hover:duration-200':
+              '	relative mx-auto rounded-xl z-20 transition-all  hover:scale-105 hover:duration-200':
                 slug,
             })}
-            deliveryType="fetch"
-            width={1200}
-            height={801}
+            //deliveryType="fetch"
+
+            placeholder='blur'
+            blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAO0lEQVR4nGNgYGBg+P//P1t9fT0TiM0we3ZjxZxZjQ9XLpwwe9nCHkOGGZOyanraY9aumN2wbsn0hmQA/MEWfj4ocjcAAAAASUVORK5CYII='
+
+            width={502}
+            height={203}
             //rawTransformations={['e_blur:2000']}
             //placeholder="vectorize"
             //plugins={[placeholder({mode: 'blur'})]}
@@ -76,20 +81,20 @@ export default function CoverImage(props: CoverImageProps) {
             //placeholder="blur"
             //unoptimized={true}
             alt={`Cover Image for ${title}`}
-            src={urlForImage(source).url()} //.width(1240).height(801).format('webp').url()}
+            src={urlForImage(source)?.height(203)?.width(402)?.url()} //.width(1240).height(801).format('webp').url()}
             //src={urlBlurred}//.width(1240).height(801).format('webp').url()}
-            sizes="(max-width: 640px) 100vw,
-        (max-width: 768px) 80vw,
-        (max-width: 1024px) 60vw,
-        50vw"
-            format="auto"
+        //     sizes="(max-width: 640px) 100vw,
+        // (max-width: 768px) 80vw,
+        // (max-width: 1024px) 60vw,
+        // 50vw"
+            //format="auto"
             //quality="auto"
-            crop="thumb"
-            gravity="auto"
-            loading="lazy"
+            // crop="thumb"
+            // gravity="auto"
+            //loading="lazy"
             //priority={priority}
           />
-        </Skeleton>
+        {/* </Skeleton> */}
      
       
       {/* <Image

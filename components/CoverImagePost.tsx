@@ -34,7 +34,7 @@ export default function CoverImage(props: CoverImageProps) {
     <>
       <div className=" flex flex-row  gap-2 mt-10">
         <div>
-          <img
+          <Image
             className="h-auto max-w-full md:rounded-lg"
             src={urlForImage(source)
               .width(560)
@@ -42,6 +42,11 @@ export default function CoverImage(props: CoverImageProps) {
               .format('webp')
               .url()}
             alt=""
+            placeholder='blur'
+            blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAO0lEQVR4nGNgYGBg+P//P1t9fT0TiM0we3ZjxZxZjQ9XLpwwe9nCHkOGGZOyanraY9aumN2wbsn0hmQA/MEWfj4ocjcAAAAASUVORK5CYII='
+
+            width={560}
+            height={560}
           />
 
  {/* <div>
@@ -57,14 +62,17 @@ Extra small
         
      {gallery?.length > 3 ?    <div className="hidden md:grid grid-cols-2 gap-2  max-w-5xl ">
 
-
-
           {gallery.slice(0, 4).map((item, i) => (
             <div key={item._key} >
-              <img
+              <Image
                 className="h-auto max-w-full  rounded-lg"
                 src={urlForImage(item)?.height(276)?.width(330)?.url()}
                 alt=""
+                width={330}
+                height={276}
+                placeholder='blur'
+                blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAO0lEQVR4nGNgYGBg+P//P1t9fT0TiM0we3ZjxZxZjQ9XLpwwe9nCHkOGGZOyanraY9aumN2wbsn0hmQA/MEWfj4ocjcAAAAASUVORK5CYII='
+    
               />
             </div>
           ))}
