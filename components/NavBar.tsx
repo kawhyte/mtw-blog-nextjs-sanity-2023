@@ -8,7 +8,7 @@ import { useRouter } from 'next/router'
 import React, { useEffect, useRef, useState } from 'react'
 import { IoRestaurantOutline } from 'react-icons/io5'
 import { IoBasketballOutline } from "react-icons/io5";
-import { LiaCrownSolid } from 'react-icons/lia'
+import { LiaBasketballBallSolid,LiaBathSolid,LiaCrownSolid } from 'react-icons/lia'
 import { PiSneakerLight } from 'react-icons/pi'
 import { RiHotelLine } from 'react-icons/ri'
 import { TfiMapAlt } from 'react-icons/tfi'
@@ -28,7 +28,8 @@ const navigation = [
   {
     name: 'Hotel Reviews',
     href: '/hotel',
-    icon: <RiHotelLine className="h-6 w-10  text-gray-500" />,
+
+    icon:<LiaBathSolid className="h-6 w-10  text-gray-500"  />,
     text: 'Hotel icon',
     bg: '  hover:bg-gradient-to-r from-blue-100 to-pink-100 focus:decoration-pink-500/50',
     current: false,
@@ -52,7 +53,7 @@ const navigation = [
   {
     name: 'NBA & WNBA Arenas',
     href: '/arenas',
-    icon: <IoBasketballOutline className="h-6 w-10  text-gray-500" />,
+    icon:<LiaBasketballBallSolid className="h-6 w-10  text-gray-500" />,
     text: 'Man walking',
     bg: 'hover:bg-gradient-to-r from-pink-100 to-orange-100  text-white w-full  focus:decoration-orange-500/50',
     current: false,

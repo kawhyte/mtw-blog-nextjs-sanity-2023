@@ -59,7 +59,7 @@ export default function PostHeader(
         <div
           className={` `}
         >
-          <div className='flex flex-col gap-1.5  md:grid grid-cols-4 md:mt-5 max-w-5xl'>
+          <div className='flex flex-col gap-1.5 md:gap-4  md:grid grid-cols-4 md:mt-5 max-w-5xl'>
             <section className=" text-gray-700 md:text-left md:text-base lg:text-lg  ">
               {location && (
                 <span className=" capitalize flex flex-row  ">

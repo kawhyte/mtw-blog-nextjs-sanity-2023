@@ -27,7 +27,7 @@ function ReviewHeader({ title, arenas, summary, animation }) {
               
               <div>
               <img
-                className=" object-cover object-center h-64 md:h-96"
+                className=" object-cover object-center h-64 md:h-72"
                 alt="hero"
                 src={animation}
               /></div>

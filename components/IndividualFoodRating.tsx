@@ -36,7 +36,7 @@ const individualFoodRating = ({ food }) => {
                 />
                 {/* <div className="absolute bottom-0 left-0 right-0 top-0 bg-gray-900 opacity-25 transition duration-300 hover:bg-transparent"></div> */}
 
-                <div className="absolute right-0 top-0 mr-3 mt-3 flex  h-14 w-14 flex-col items-center justify-center rounded-2xl bg-indigo-500 px-4 text-sm text-white    ">
+                <div className="absolute right-0 top-0 mr-2 mt-2 flex  h-10 w-10 flex-col items-center justify-center rounded-xl bg-gray-50 px-3 text-sm text-black font-black   ">
                   <span className="font-bold"> {item.rating.Dish}/5</span>
                   {/* <small>out of 5</small>  */}
                 </div>
@@ -44,7 +44,7 @@ const individualFoodRating = ({ food }) => {
               <div className=" p-2">
                 <p
                   
-                  className="inline-bloc text-lg font-semibold  text-indigo-500"
+                  className="inline-bloc text-lg font-black  text-black-500"
                 >
                   {item?.name}
                 </p>
@@ -54,41 +54,7 @@ const individualFoodRating = ({ food }) => {
               </div>
             </div>
 
-            //       <div key={i} className=" rounded-md my-5  ">
-
-            //         <div className="absolute flex flex-col align-bottom justify-between">
-            //           <Badge
-            //             size="lg"
-            //             variant="gradient"
-            //             className="  z-10 m-3 text-sm "
-            //             gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
-            //           >
-            //             {item.rating.Dish}
-            //           </Badge>
-
-            //         </div>
-            // <div className='relative w-full h-48'>
-            //         <img
-            //           className="   object-contain h-48 w-96"
-            //           alt={item?.name}
-            //           src={urlForImage(item.asset._ref)
-            //             .width(940)
-            //             .height(480)
-            //             .format('webp')
-            //             .url()}
-            //           width={'440'}
-            //           height={'480'}
-            //         /></div>
-
-            //          <section className="  mt-3 md:block ">
-            //           <h2 className=" mt-4 pb-2 text-base font-extrabold text-pink-500 sm:text-base md:text-lg">
-            //             {item?.name}
-            //           </h2>
-            //          <p className=" mb-2 text-sm text-ellipsis line-clamp-5  font-light text-gray-500  lg:text-base">
-            //             {item?.review}
-            //           </p>
-            //         </section>
-            //       </div>
+           
           ))}
           </Masonry>
             </ResponsiveMasonry>
