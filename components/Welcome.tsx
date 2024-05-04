@@ -49,7 +49,7 @@ function Welcome() {
   return (
     <>
       <div className=" hidden  container mx-auto mt-20 lg:flex  md:mt-40 ">
-        <div className="container mx-auto rounded-xl bg-pink-50 px-4 pb-6 xl:max-w-6xl">
+        <div className="container mx-auto rounded-xl  px-4 pb-6 xl:max-w-6xl">
           <header className="  m mx-auto my-10 text-center">
             <h2 className="mb-2 text-2xl font-bold leading-normal text-gray-800 dark:text-gray-900">
               <span
@@ -68,11 +68,11 @@ function Welcome() {
                 <div className="bg-white">
                   <div className="flex min-w-full items-center justify-center">
                     <div className="lg:relative flex">
-                      <div className="absolute h-96 w-72 transform rounded-lg bg-green-400 transition-all"></div>
-                      <div className="absolute -left-4 -top-4 h-96 w-72  transform rounded-lg bg-yellow-400 transition-all"></div>
-                      <div className="lg:absolute hidden lg:block -left-8 -top-8 h-96 w-72  transform rounded-lg bg-red-400 transition-all"></div>
-                      <div className="lg:absolute hidden lg:block -left-12 -top-12 h-96 w-72  transform rounded-lg bg-black transition-all"></div>
-                      <div className="lg:absolute hidden lg:block -left-16 -top-16 h-96 w-72  transform rounded-lg bg-purple-400 transition-all"></div>
+               
+                      <div className="absolute -left-4 -top-4 h-96 w-72  transform rounded-lg bg-yellow-100 transition-all"></div>
+                      <div className="lg:absolute hidden lg:block -left-8 -top-8 h-96 w-72  transform rounded-lg bg-green-200 transition-all"></div>
+                      <div className="lg:absolute hidden lg:block -left-12 -top-12 h-96 w-72  transform rounded-lg bg-purple-200 transition-all"></div>
+                      <div className="lg:absolute hidden lg:block -left-16 -top-16 h-96 w-72  transform rounded-lg bg-black transition-all"></div>
                       <div className="lg:absolute -left-20  -top-20 flex h-96 w-72  transform flex-col items-center justify-center rounded-lg  border-2 border-black bg-white transition-all">
                         <div className="lg:relative flex flex-col  items-center overflow-hidden pb-12  ">
                           <img
