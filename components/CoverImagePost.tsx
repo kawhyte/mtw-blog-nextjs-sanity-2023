@@ -32,13 +32,13 @@ export default function CoverImage(props: CoverImageProps) {
 
   const image = source?.asset?._ref ? (
     <>
-      <div className=" flex flex-col  gap-4 mt-10">
+      <div className=" flex flex-row  gap-2 mt-10">
         <div>
           <img
             className="h-auto max-w-full md:rounded-lg"
             src={urlForImage(source)
-              .width(1020)
-              .height(550)
+              .width(560)
+              .height(560)
               .format('webp')
               .url()}
             alt=""
@@ -55,7 +55,7 @@ Extra small
 </button></div>  */}
         </div>
         
-     {gallery.length > 3 ?    <div className="hidden md:grid grid-cols-4 gap-4  max-w-5xl ">
+     {gallery.length > 3 ?    <div className="hidden md:grid grid-cols-2 gap-2  max-w-5xl ">
 
 
 
@@ -63,7 +63,7 @@ Extra small
             <div key={item._key} >
               <img
                 className="h-auto max-w-full  rounded-lg"
-                src={urlForImage(item)?.height(213)?.width(340)?.url()}
+                src={urlForImage(item)?.height(276)?.width(330)?.url()}
                 alt=""
               />
             </div>

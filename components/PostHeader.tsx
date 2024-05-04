@@ -153,15 +153,15 @@ export default function PostHeader(
 <PostBody content={tip} />
 </div> */}
 
-                <div className="mx-5 rounded-xl border text-gray-900 ">
+                <div className="mx-5  border-t border-b text-gray-900 ">
                   <div className="me-2 ml-3 mt-3   w-32 flex align-middle items-center justify-around rounded border border-gray-500 bg-gray-700 px-2.5 py-0.5 text-gray-400">
-                    <span>
+                    {/* <span>
                       <HiOutlineLightBulb className="h-8 w-6 text-gray-200" />
-                    </span>
+                    </span> */}
                     <span className="text-sm font-medium text-gray-200 ">Quick Tip</span>
                   </div>
 
-                  <p className="py-2.5 text-sm font-normal ">
+                  <p className="py-2 text-sm font-normal ">
                     <PostBody content={tip} />
                   </p>
                 </div>
