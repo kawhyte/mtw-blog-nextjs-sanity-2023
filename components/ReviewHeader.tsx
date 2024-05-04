@@ -26,7 +26,12 @@ function ReviewHeader({ title, arenas, summary, animation }) {
             <div className="mb-10 flex items-center justify-center container mx-auto w-full md:mb-0  lg:w-full lg:max-w-xl">
               
               <div>
-              <img
+              <Image
+              width={389}
+              height={288}
+              placeholder='blur'
+              blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAO0lEQVR4nGNgYGBg+P//P1t9fT0TiM0we3ZjxZxZjQ9XLpwwe9nCHkOGGZOyanraY9aumN2wbsn0hmQA/MEWfj4ocjcAAAAASUVORK5CYII='
+
                 className=" object-cover object-center h-64 md:h-72"
                 alt="hero"
                 src={animation}

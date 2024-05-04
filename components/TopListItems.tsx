@@ -44,23 +44,17 @@ export default function TopListItems(
             </p> */}
             <Image
               width={440}
-              height={470}
-              blurDataURL={urlForImage(
-                posts[0]?.recommendations[0]?.post?.coverImage?.asset?._ref
-              )
-                .width(1240)
-                .height(744)
-                .quality(1)
-                .format('webp')
-                .url()}
+              height={264}
+              blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAO0lEQVR4nGNgYGBg+P//P1t9fT0TiM0we3ZjxZxZjQ9XLpwwe9nCHkOGGZOyanraY9aumN2wbsn0hmQA/MEWfj4ocjcAAAAASUVORK5CYII='
+
               placeholder="blur"
               alt={`Cover Image for ${posts[0].recommendations[0].title}`}
               className=" relative block object-cover  object-center md:rounded-xl  "
               src={urlForImage(
                 posts[0].recommendations[0].post.coverImage.asset._ref
               )
-                .width(1240)
-                .height(744)
+                .width(440)
+                .height(264)
                 .format('webp')
                 .url()}
             />
