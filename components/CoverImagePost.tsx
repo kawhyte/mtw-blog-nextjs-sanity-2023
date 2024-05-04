@@ -13,103 +13,140 @@ interface CoverImageProps {
 
 export default function CoverImage(props: CoverImageProps) {
   const { title, slug, image: source, priority, gallery } = props
-  // console.log("COVER IMage Post ", props)
+  //console.log('COVER IMage Post ', props)
 
-  const image1 = gallery ? urlForImage(gallery[0])?.height(813)?.width(1240)?.url()
-    : '/holder.jpg'
-  const image2 = gallery
-    ? urlForImage(gallery[1])?.height(813)?.width(1240)?.url()
-    : '/holder.jpg'
-  const image3 = gallery
-    ? urlForImage(gallery[2])?.height(813)?.width(1240)?.url()
-    : '/holder.jpg'
-  const image4 = gallery
-    ? urlForImage(gallery[3])?.height(813)?.width(1240)?.url()
-    : '/holder.jpg'
+  // const image1 = gallery
+  //   ? urlForImage(gallery[0])?.height(813)?.width(1240)?.url()
+  //   : '/holder.jpg'
+  // const image2 = gallery
+  //   ? urlForImage(gallery[1])?.height(813)?.width(1240)?.url()
+  //   : '/holder.jpg'
+  // const image3 = gallery
+  //   ? urlForImage(gallery[2])?.height(813)?.width(1240)?.url()
+  //   : '/holder.jpg'
+  // const image4 = gallery
+  //   ? urlForImage(gallery[3])?.height(813)?.width(1240)?.url()
+  //   : '/holder.jpg'
   // console.log("Source ", source)
   // console.log('Gallery .images[i] ', gallery?.images[0])
 
   const image = source?.asset?._ref ? (
-    <section className=" text-gray-600 mt-8 max-w-7xl ">
-      <div className="   mx-auto grid md:grid-cols-2 justify-items-center ">
-        <div className=" ">
-          <div className="    ">
-            <Image
-              width={740}
-              height={770}
-              blurDataURL={urlForImage(source)
-                .width(740)
-                .height(744)
-                .quality(1)
-                .format('webp')
-                .url()}
-              placeholder="blur"
-              alt={`Cover Image for ${title}`}
-              className="   lg:rounded-l-2xl"
-              src={urlForImage(source)
-                .width(1227)
-                .height(801)
-                .format('webp')
-                .url()}
-            />
-          </div>
+    <>
+      <div className=" flex flex-col  gap-4 mt-10">
+        <div>
+          <img
+            className="h-auto max-w-full md:rounded-lg"
+            src={urlForImage(source)
+              .width(1020)
+              .height(550)
+              .format('webp')
+              .url()}
+            alt=""
+          />
+
+ {/* <div>
+
+<button type="button" className="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+<svg className="w-3 h-3 text-white me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 16">
+<path d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z"/>
+<path d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z"/>
+</svg>
+Extra small
+</button></div>  */}
         </div>
-        <div className=" ml-2  hidden md:block   ">
-          <div className="grid-row-2 grid grid-cols-2  gap-2  ">
+        
+     {gallery.length > 3 ?    <div className="hidden md:grid grid-cols-4 gap-4  max-w-5xl ">
+
+
+
+          {gallery.slice(0, 4).map((item, i) => (
+            <div key={item._key} >
+              <img
+                className="h-auto max-w-full  rounded-lg"
+                src={urlForImage(item)?.height(213)?.width(340)?.url()}
+                alt=""
+              />
+            </div>
+          ))}
+        </div> : <></>}
+      </div>
+
+      {/* <section className=" mt-8 max-w-7xl text-gray-600 ">
+        <div className="   mx-auto grid justify-items-center md:grid-cols-2 ">
+          <div className=" ">
             <div className="    ">
               <Image
-                width={360}
-                height={740}
-                blurDataURL={image1}
+                width={740}
+                height={770}
+                blurDataURL={urlForImage(source)
+                  .width(740)
+                  .height(744)
+                  .quality(1)
+                  .format('webp')
+                  .url()}
                 placeholder="blur"
                 alt={`Cover Image for ${title}`}
-                className="  "
-                src={image1}
-              />
-            </div>
-            <div className="  ">
-              <Image
-                width={360}
-                height={740}
-                blurDataURL={image2}
-                placeholder="blur"
-                alt={`Cover Image for ${title}`}
-                className="  block rounded-tr-2xl"
-                src={image2}
-              />
-            </div>
-            <div className="">
-              <Image
-                width={360}
-                height={740}
-                blurDataURL={image3}
-                placeholder="blur"
-                alt={`Cover Image for ${title}`}
-                className=" block "
-                src={image3}
-              />
-            </div>
-            <div className=" ">
-              {/*<span className='  px-3 ml-6  md:mx-3 my-4 z-20  text-base rounded-lg flex   bg-white border-black border-2 shadow-lg absolute bottom-0 right-0  mb-6 mr-6 '>
-							<a href="gallery" className='text-black font-medium text-xs md:text-sm p-1  '>
-							View all photos
-								
-							</a>
-							</span>*/}
-              <Image
-                width={360}
-                height={740}
-                blurDataURL={image4}
-                placeholder="blur"
-                alt={`Cover Image for ${title}`}
-                className=" rounded-br-2xl"
-                src={image4}
+                className="   lg:rounded-l-2xl"
+                src={urlForImage(source)
+                  .width(1227)
+                  .height(801)
+                  .format('webp')
+                  .url()}
               />
             </div>
           </div>
+          <div className=" ml-2  hidden md:block   ">
+            <div className="grid-row-2 grid grid-cols-2  gap-2  ">
+              <div className="    ">
+                <Image
+                  width={360}
+                  height={740}
+                  blurDataURL={image1}
+                  placeholder="blur"
+                  alt={`Cover Image for ${title}`}
+                  className="  "
+                  src={image1}
+                />
+              </div>
+              <div className="  ">
+                <Image
+                  width={360}
+                  height={740}
+                  blurDataURL={image2}
+                  placeholder="blur"
+                  alt={`Cover Image for ${title}`}
+                  className="  block rounded-tr-2xl"
+                  src={image2}
+                />
+              </div>
+              <div className="">
+                <Image
+                  width={360}
+                  height={740}
+                  blurDataURL={image3}
+                  placeholder="blur"
+                  alt={`Cover Image for ${title}`}
+                  className=" block "
+                  src={image3}
+                />
+              </div>
+              <div className=" ">
+           
+                <Image
+                  width={360}
+                  height={740}
+                  blurDataURL={image4}
+                  placeholder="blur"
+                  alt={`Cover Image for ${title}`}
+                  className=" rounded-br-2xl"
+                  src={image4}
+                />
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
+      </section> */}
+    </>
   ) : (
     <div style={{ paddingTop: '50%', backgroundColor: '#ddd' }} />
   )

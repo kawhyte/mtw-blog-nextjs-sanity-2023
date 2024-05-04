@@ -5,8 +5,10 @@ const config = {
     remotePatterns: [
       { hostname: 'cdn.sanity.io' },
       { hostname: 'source.unsplash.com' },
+      
       // { hostname: 'github.com' },
     ],
+    unoptimized:true,
   },
   typescript: {
     // Set this to false if you want production builds to abort if there's type errors
