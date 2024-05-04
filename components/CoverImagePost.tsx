@@ -55,7 +55,7 @@ Extra small
 </button></div>  */}
         </div>
         
-     {gallery.length > 3 ?    <div className="hidden md:grid grid-cols-2 gap-2  max-w-5xl ">
+     {gallery?.length > 3 ?    <div className="hidden md:grid grid-cols-2 gap-2  max-w-5xl ">
 
 
 
