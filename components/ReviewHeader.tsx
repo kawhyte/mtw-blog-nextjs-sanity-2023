@@ -32,7 +32,7 @@ function ReviewHeader({ title, arenas, summary, animation }) {
               placeholder='blur'
               blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAO0lEQVR4nGNgYGBg+P//P1t9fT0TiM0we3ZjxZxZjQ9XLpwwe9nCHkOGGZOyanraY9aumN2wbsn0hmQA/MEWfj4ocjcAAAAASUVORK5CYII='
 
-                className=" object-cover object-center h-64 md:h-72"
+                className=" object-cover object-center h-full"
                 alt="hero"
                 src={animation}
               /></div>

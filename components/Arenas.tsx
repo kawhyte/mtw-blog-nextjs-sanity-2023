@@ -51,7 +51,7 @@ const Arenas = ({ arenas }) => {
 				/>
           
 
-          <div className="mt-14 container  mx-auto px-6 place-items-stretch grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="mt-14 container  mx-auto px-3 md:px-6 gap-3 place-items-stretch grid grid-cols-2 md:gap-10 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {arenas?.map((item) => (
               <div
                 key={item._id}
@@ -90,7 +90,7 @@ const Arenas = ({ arenas }) => {
 
                 <div className="flex flex-col items-center align-middle justify-center bg-gray-900 px-2 py-3">
                   <h1
-                    className={`${oswald.variable}  title-font text-center mb-4 font-heading text-3xl font-medium text-gray-200 sm:text-4xl`}
+                    className={`${oswald.variable} text-lg title-font text-center mb-4 font-heading md:text-3xl font-medium text-gray-200 sm:text-4xl`}
                   >
                     {item.name}
                   </h1>
@@ -98,7 +98,7 @@ const Arenas = ({ arenas }) => {
                   <div className=" flex items-center text-gray-700 dark:text-gray-200">
                     <svg
                       aria-label="location pin icon"
-                      className="h-6 w-6 fill-current"
+                      className=" h-4 w-4 md:h-6 md:w-6 fill-current"
                       viewBox="0 0 24 24"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
@@ -115,11 +115,11 @@ const Arenas = ({ arenas }) => {
                       />
                     </svg>
 
-                    <h1 className="px-2 text-sm"> {item.location}</h1>
+                    <h1 className="px-2 text-xs md:text-sm"> {item.location}</h1>
                   </div>
                   {item.visited === true ? (
-                  <span className="px-4 py-2 mt-3  text-xs rounded-full text-green-600  bg-green-200 ">
-                  Visited: <PostDate dateString={item.date} />
+                  <span className="px-4 py-2 mt-3 text-[.6rem]  md:text-xs rounded-full text-green-600  bg-green-200 ">
+                  Visited: <PostDate  dateString={item.date} />
     </span>) :""
 }
                 </div>
@@ -153,7 +153,7 @@ const Arenas = ({ arenas }) => {
                       />
 
                       <p
-                        className="mt-2 mx-1 text-sm cursor-pointer font-bold text-gray-700 dark:text-gray-200"
+                        className="mt-2 mx-1 text-xs md:text-sm cursor-pointer font-bold text-gray-700 dark:text-gray-200"
                         
                       >
                         {photo.name}

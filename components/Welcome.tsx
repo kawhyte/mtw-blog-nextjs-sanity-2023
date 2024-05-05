@@ -86,7 +86,7 @@ function Welcome() {
                         <div className="flex flex-col items-center  overflow-hidden pb-12 lg:relative  ">
                           <img
                             src={person.image}
-                            className="mx-auto h-auto w-32 max-w-full rounded-full bg-gray-200 p-3 grayscale"
+                            className="mx-auto h-auto w-32 mt-3 max-w-full rounded-full bg-gray-200 p-3 grayscale"
                             alt="title image"
                           />
 
