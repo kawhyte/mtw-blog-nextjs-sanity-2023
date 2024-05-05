@@ -1,6 +1,15 @@
 import { Blockquote } from '@mantine/core'
 import { inter, oswald } from 'app/fonts'
+import Image from 'next/image'
 import React from 'react'
+import { FaCode } from 'react-icons/fa6'
+import { FiCoffee } from 'react-icons/fi'
+import { IoGameControllerOutline } from 'react-icons/io5'
+import { PiBarbell } from 'react-icons/pi'
+import { PiHamburger } from 'react-icons/pi'
+import { PiSuitcaseRolling } from 'react-icons/pi'
+import { SiNike } from 'react-icons/si'
+import { SlNotebook } from 'react-icons/sl'
 
 let duo = [
   {
@@ -10,10 +19,14 @@ let duo = [
 
     image: '/avatar_mr.png',
     favorite: [
-      { id: 3, name: 'Sneakers', img: 'fav/sneakers.webp' },
-      { id: 4, name: 'Retro Games', img: 'fav/videogame.webp' },
-      { id: 5, name: 'Coffee', img: 'fav/coffee.webp' },
-      { id: 6, name: 'Weightlifting', img: 'fav/weightlifting.webp' },
+      { id: 3, name: 'Coding', img: <FaCode className="h-7 w-7 " /> },
+      {
+        id: 4,
+        name: 'Retro Games',
+        img: <IoGameControllerOutline className="h-7 w-7 " />,
+      },
+      { id: 5, name: 'Coffee', img: <FiCoffee className="h-7 w-7 " /> },
+      { id: 6, name: 'Sneakers', img: <SiNike className="h-7 w-7" /> },
     ],
     quote_by: ' - Oscar Wilde',
     quote: 'Be yourself; everyone else is already taken.',
@@ -24,10 +37,10 @@ let duo = [
     name: 'Mrs.',
     image: '/avatar_mrs.png',
     favorite: [
-      { id: 6, name: 'Weightlifting', img: 'fav/weightlifting.webp' },
-      { id: 7, name: 'Pizza', img: 'fav/pizza.webp' },
-      { id: 8, name: 'Reading', img: 'fav/reading.webp' },
-      { id: 3, name: 'Sneakers', img: 'fav/sneakers.webp' },
+      { id: 7, name: 'Burgers', img: <PiHamburger className="h-7 w-7" /> },
+      { id: 8, name: 'Reading', img: <SlNotebook className="h-7 w-6" /> },
+      { id: 3, name: 'Travel', img: <PiSuitcaseRolling className="h-7 w-7" /> },
+      { id: 6, name: 'Weightlifting', img: <PiBarbell className="h-7 w-7 " /> },
     ],
     quote_by: '- Frank Zappa',
     quote: 'So many books, so little time',
@@ -35,20 +48,17 @@ let duo = [
 ]
 
 let colors = [
-  
   { shade: 'bg-red-400' },
   { shade: 'bg-red-400' },
   { shade: 'bg-red-400' },
   { shade: 'bg-red-400' },
   { shade: 'bg-red-400' },
-
-
 ]
 
 function Welcome() {
   return (
     <>
-      <div className=" hidden  container mx-auto mt-20 lg:flex  md:mt-40 ">
+      <div className=" container  mx-auto mt-20 hidden md:mt-40  lg:flex ">
         <div className="container mx-auto rounded-xl  px-4 pb-6 xl:max-w-6xl">
           <header className="  m mx-auto my-10 text-center">
             <h2 className="mb-2 text-2xl font-bold leading-normal text-gray-800 dark:text-gray-900">
@@ -62,22 +72,21 @@ function Welcome() {
 
           <div className="h-16"></div>
 
-          <div className=" mb-3 grid  h-96 md:w-5/6  grid-cols-2 justify-items-center gap-y-52 md:gap-x-20 md:grid-cols-2 md:gap-10">
+          <div className=" mb-3 grid  h-96 grid-cols-2  justify-items-center gap-y-52 md:w-5/6 md:grid-cols-2 md:gap-10 md:gap-x-20">
             {duo.map((person) => (
               <div key={person.id}>
                 <div className="bg-white">
                   <div className="flex min-w-full items-center justify-center">
-                    <div className="lg:relative flex">
-               
+                    <div className="flex lg:relative">
                       <div className="absolute -left-4 -top-4 h-96 w-72  transform rounded-lg bg-yellow-100 transition-all"></div>
-                      <div className="lg:absolute hidden lg:block -left-8 -top-8 h-96 w-72  transform rounded-lg bg-green-200 transition-all"></div>
-                      <div className="lg:absolute hidden lg:block -left-12 -top-12 h-96 w-72  transform rounded-lg bg-purple-200 transition-all"></div>
-                      <div className="lg:absolute hidden lg:block -left-16 -top-16 h-96 w-72  transform rounded-lg bg-black transition-all"></div>
-                      <div className="lg:absolute -left-20  -top-20 flex h-96 w-72  transform flex-col items-center justify-center rounded-lg  border-2 border-black bg-white transition-all">
-                        <div className="lg:relative flex flex-col  items-center overflow-hidden pb-12  ">
+                      <div className="-left-8 -top-8 hidden h-96 w-72 transform rounded-lg  bg-green-200 transition-all lg:absolute lg:block"></div>
+                      <div className="-left-12 -top-12 hidden h-96 w-72 transform rounded-lg  bg-purple-200 transition-all lg:absolute lg:block"></div>
+                      <div className="-left-16 -top-16 hidden h-96 w-72 transform rounded-lg  bg-black transition-all lg:absolute lg:block"></div>
+                      <div className="-left-20 -top-20  flex h-96 w-72 transform  flex-col items-center justify-center rounded-lg border-2  border-black bg-white transition-all lg:absolute">
+                        <div className="flex flex-col items-center  overflow-hidden pb-12 lg:relative  ">
                           <img
                             src={person.image}
-                            className="mx-auto h-auto w-36 max-w-full rounded-full bg-gray-200 p-3 grayscale"
+                            className="mx-auto h-auto w-32 max-w-full rounded-full bg-gray-200 p-3 grayscale"
                             alt="title image"
                           />
 
@@ -89,57 +98,30 @@ function Welcome() {
                         </div>
 
                         <div className="-mt-10 px-3">
-                          <span className=" text-gray-500 ml-2 text-sm  mt-2  font-extralight text-center">
+                          <span className=" ml-2 mt-2 text-center  text-sm  font-extralight text-gray-500">
                             &quot;{person.quote}&quot; {person.quote_by}
                           </span>
                         </div>
-                        <div className=" hidden lg:block mb-2 rounded-3xl  p-2">
-                          <p className=" text-gray-500 ml-2 text-sm  mt-2  font-extralight text-start">Likes:</p>
-                          <div className="text-nowrap mt-2 grid grid-cols-2 gap-x-1 gap-y-1 px-3">
+                        <div className=" mb-2 mt-4 hidden  p-2  lg:block border-t">
+                          <p className=" ml-2 mt- text-start  text-sm  font-extralight text-gray-500">
+                            Likes:
+                          </p>
+                          <div className="text-nowrap mt-2 grid grid-cols-4 gap-x-4 gap-y-1 px-3">
                             {person.favorite?.map((item) => (
                               <div
                                 key={item.id}
-                                className=" text-nowrap gap-x-2 text-center font-light leading-relaxed text-gray-500"
+                                className=" text-nowrap flex flex-col items-center gap-x-2 text-center font-light leading-relaxed text-gray-500"
                               >
-                                <span className={`text-nowrap rounded-full bg-${person.color}-500  px-2 py-1 text-xs    font-extralight  text-white `}>
+                                <span>{item.img} </span>
+                                <span
+                                  className={`text-nowrap rounded-full   px-2 py-1 text-xs    font-extralight  text-gray-500 `}
+                                >
                                   {item.name}
                                 </span>
                               </div>
                             ))}
                           </div>
                         </div>
-
-                        {/* <div
-                          className="hover-grayscale-0 fadeInUp relative mb-12 overflow-hidden  bg-white
-                  "
-                        >
-                          <p
-                            className={`${oswald.variable} title-font my-5 mb-3 text-center font-heading text-xl font-medium text-gray-500 sm:text-3xl`}
-                          >
-                            Things I like
-                          </p>
-                          <div className="my-5 grid grid-cols-3  gap-4">
-                            {person.favorite?.map((item) => (
-                              <div
-                                key={item.id}
-                                className="m-2 flex flex-col  text-center font-light leading-relaxed text-gray-500"
-                              >
-                                <img
-                                  src={item.img}
-                                  className="mx-auto h-auto max-w-full rounded-full "
-                                  alt="title image"
-                                  width={80}
-                                  height={80}
-                                />
-
-                                <p className="ml-2 mt-2 text-center  text-sm  font-extralight text-gray-500 ">
-                                  {' '}
-                                  {item.name}
-                                </p>
-                              </div>
-                            ))}
-                          </div>
-                        </div>*/}
                       </div>
                     </div>
                   </div>

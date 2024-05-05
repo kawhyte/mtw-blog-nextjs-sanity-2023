@@ -5,6 +5,8 @@ import Image from 'next/image'
 import React from 'react'
 import { useEffect, useRef } from 'react'
 
+
+
 let animation = [
   {
     name: 'watermelon',
