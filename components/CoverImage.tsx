@@ -1,6 +1,14 @@
 import { AdvancedImage } from '@cloudinary/react'
 import { Cloudinary } from '@cloudinary/url-gen'
-import { ActionIcon, Badge, Button, Card, Group, Skeleton, Text } from '@mantine/core'
+import {
+  ActionIcon,
+  Badge,
+  Button,
+  Card,
+  Group,
+  Skeleton,
+  Text,
+} from '@mantine/core'
 import cn from 'classnames'
 import { urlForImage } from 'lib/sanity.image'
 import Image from 'next/image'
@@ -41,90 +49,24 @@ export default function CoverImage(props: CoverImageProps) {
         ' ': slug,
       })}
     >
-    
-
-    
-        {/* //<Skeleton className="z-10"> */}
-
-     
-
-          <Image
-            className={cn('', {
-              '	relative mx-auto rounded-xl z-20 transition-all  hover:scale-105 hover:duration-200':
-                slug,
-            })}
-            //deliveryType="fetch"
-
-            placeholder='blur'
-            blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAO0lEQVR4nGNgYGBg+P//P1t9fT0TiM0we3ZjxZxZjQ9XLpwwe9nCHkOGGZOyanraY9aumN2wbsn0hmQA/MEWfj4ocjcAAAAASUVORK5CYII='
-
-            width={502}
-            height={203}
-            //rawTransformations={['e_blur:2000']}
-            //placeholder="vectorize"
-            //plugins={[placeholder({mode: 'blur'})]}
-
-            //blurDataURL=""
-
-            // {urlForImage(source)
-            //   .width(740)
-            //   .height(744)
-            //   .quality(1)
-            //   .format('webp')
-            //   .url()}
-            // blurDataURL={urlForImage(source)
-            //   .width(740)
-            //   .height(744)
-            //   .quality(1)
-            //   .format('webp')
-            //   .url()}
-            //placeholder="blur"
-            //unoptimized={true}
-            alt={`Cover Image for ${title}`}
-            src={urlForImage(source)?.height(203)?.width(402)?.url()} //.width(1240).height(801).format('webp').url()}
-            //src={urlBlurred}//.width(1240).height(801).format('webp').url()}
-        //     sizes="(max-width: 640px) 100vw,
-        // (max-width: 768px) 80vw,
-        // (max-width: 1024px) 60vw,
-        // 50vw"
-            //format="auto"
-            //quality="auto"
-            // crop="thumb"
-            // gravity="auto"
-            //loading="lazy"
-            //priority={priority}
-          />
-        {/* </Skeleton> */}
-     
-      
-      {/* <Image
+      <Image
         className={cn('', {
-          '	mx-auto rounded-xl relative transition-all  hover:scale-110 hover:duration-200':
+          '	relative z-20 mx-auto rounded-xl transition-all  hover:scale-105 hover:duration-200':
             slug,
         })}
-        width={740}
-        height={770}
-        blurDataURL={urlForImage(source)
-          .width(740)
-          .height(744)
-          .quality(1)
-          .format('webp')
-          .url()}
         placeholder="blur"
+        blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAO0lEQVR4nGNgYGBg+P//P1t9fT0TiM0we3ZjxZxZjQ9XLpwwe9nCHkOGGZOyanraY9aumN2wbsn0hmQA/MEWfj4ocjcAAAAASUVORK5CYII="
+        width={502}
+        height={203}
         alt={`Cover Image for ${title}`}
-        src={urlForImage(source).width(1240).height(801).format('webp').url()}
-        sizes="100vw"
-        priority={priority}
-      /> */}
+        src={urlForImage(source)?.height(203)?.width(402)?.url()}
+      />
     </div>
   ) : (
     <div style={{ paddingTop: '50%', backgroundColor: '#ddd' }} />
   )
 
   const categoryType = categoryRating(category)
-
-  //console.log("categoryType----'] ", categoryType.name)
-  // console.log("category ", category)
 
   return (
     <div className="sm:mx-0">
@@ -155,7 +97,6 @@ export default function CoverImage(props: CoverImageProps) {
           <div className="text-center text-lg  text-gray-500">
             <PostDate dateString={date} />
           </div>
-          {/* <PostBody content={excerpt2} /> */}
         </Link>
       ) : (
         image
@@ -163,11 +104,3 @@ export default function CoverImage(props: CoverImageProps) {
     </div>
   )
 }
-
-// <Link
-// as={`/${slugType}/${slug}`}
-// href={`/${slugType}/[slug]`}
-// className='hover:underline break-words'>
-
-// </Link>
-// </p>
