@@ -161,32 +161,7 @@ const Arenas = ({ arenas }) => {
                     </div>
                   ))}
                 </div>
-                {/* <div className="flex flex-col items-center">
-                <img
-                  className="mx-4 hidden h-10 w-10 rounded-full object-cover sm:block"
-                  src="https://ssl.gstatic.com/onebox/media/sports/logos/F36nQLCQ2FND3za-Eteeqg_96x96.png"
-                  alt="avatar"
-                />
-                <a
-                  className="cursor-pointer font-bold text-gray-700 dark:text-gray-200"
-                  role="link"
-                >
-                  Clippers
-                </a>
-              </div>
-              <div className="flex flex-col items-center">
-                <img
-                  className="mx-4 hidden h-10 w-10 rounded-full object-cover sm:block"
-                  src="https://ssl.gstatic.com/onebox/media/sports/logos/clUGrhmWLos42p7HrNfumA_96x96.png"
-                  alt="avatar"
-                />
-                <a
-                  className="cursor-pointer font-bold text-gray-700 dark:text-gray-200"
-                  role="link"
-                >
-                Sparks
-                </a>
-              </div> */}
+            
               </div>
             ))}
           </div>
