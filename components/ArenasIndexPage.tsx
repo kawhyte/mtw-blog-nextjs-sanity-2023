@@ -30,7 +30,7 @@ const ArenasIndexPage = ({ arenas }) => {
           <h1
             className={`${oswald.variable}  title-font mb-3 font-heading text-3xl font-medium text-gray-900 sm:text-4xl`}
           >
-            Our Quest to Visit Every NBA & WNBA Arenas 🏀
+            Our Quest to Visit Every NBA & WNBA Arenas
           </h1>
           <p
             className={` ${inter.variable} font-secondary mt-4 text-sm leading-relaxed md:text-base  lg:text-base `}

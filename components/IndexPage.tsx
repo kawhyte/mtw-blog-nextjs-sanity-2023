@@ -57,66 +57,80 @@ export default function IndexPage(props: IndexPageProps) {
           <BlogHeader title={title} description={description} level={1} />
 
           <Hero />
- <Welcome />
+          <Welcome />
           <ArenasIndexPage arenas={arenaPosts?.slice(0, 9)} />
-         
+
           {/* <TravelEssentials /> */}
 
-          <section className="container mx-auto px-10  py-14 text-gray-600 ">
-            <div>
-              <div className=" flex w-full  justify-between">
+          <section className="container mx-auto  rounded-2xl  px-10 py-14  text-gray-600 bg-gray-100 lg:mb-24  ">
+            <div className="flex-cols flex flex-row-reverse justify-between ">
+              {/* <div className='bg-red-200 w-1/2 grid grid-cols-3'>
+                <div>Image 1</div>
+                <div>Image 1</div>
+                <div>Image 1</div>
+                <div>Image 1</div>
+                <div>Image 1</div>
+                <div>Image 1</div>
+              </div> */}
+
+              <div>
                 <div>
-                  <h1
-                    className={`${oswald.variable}  title-font mb-3 font-heading text-3xl font-medium text-gray-900 sm:text-4xl`}
-                  >
-                    Our Travel Essential Picks
-                  </h1>
-                  <div className="h-1 w-20 rounded bg-pink-500"></div>
-                  <p
-                    className={` ${inter.variable} font-secondary mt-4 text-sm leading-relaxed md:text-base  lg:text-base `}
-                  >
-                    Traveling is a great way to experience new cultures and see
-                    the world. However, packing for a trip can be daunting,
-                    especially if you are trying to pack light. Here are a few
-                    travel essentials that you should never leave home without:
-                  </p>
+                  <div className=" flex w-full  justify-between">
+                    <div>
+                      <h1
+                        className={`${oswald.variable}  title-font mb-3 font-heading text-3xl font-medium text-gray-900 sm:text-4xl`}
+                      >
+                        Our Travel Essential Picks
+                      </h1>
+                      <div className="h-1 w-20 rounded bg-pink-500"></div>
+                      <p
+                        className={` ${inter.variable} font-secondary mt-4 text-sm leading-relaxed md:text-base  lg:text-base `}
+                      >
+                        Traveling is a great way to experience new cultures and
+                        see the world. However, packing for a trip can be
+                        daunting, especially if you are trying to pack light.
+                        Check out  a few travel essentials that you should never
+                        leave home without.
+                      </p>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
 
-            <TravelEssentialLayout posts={Essentialposts?.slice(0, 4)} />
+                {/* <TravelEssentialLayout posts={Essentialposts?.slice(0, 4)} /> */}
 
-            <div className="flex justify-center  pt-9 lg:mt-0 lg:flex-shrink-0">
-              <div className=" inline-flex  ">
-                <Link href="/essentials" passHref legacyBehavior>
-                  <button
-                    className={`${inter.variable} inline-flex items-center rounded-lg bg-pink-500 px-3 py-2 text-center text-sm font-medium text-white hover:bg-pink-800 focus:outline-none focus:ring-4 focus:ring-pink-300 dark:bg-pink-500 dark:hover:bg-pink-600 dark:focus:ring-pink-800 `}
-                  >
-                    More Travel Essentials
-                    <svg
-                      className="ml-2 h-3.5 w-3.5"
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 14 10"
-                    >
-                      <path
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M1 5h12m0 0L9 1m4 4L9 9"
-                      />
-                    </svg>
-                  </button>
+                <div className="flex   pt-9 lg:mt-0 lg:flex-shrink-0">
+                  <div className=" inline-flex  ">
+                    <Link href="/essentials" passHref legacyBehavior>
+                      <button
+                        className={`${inter.variable} inline-flex items-center rounded-lg bg-pink-500 px-3 py-2 text-center text-sm font-medium text-white hover:bg-pink-800 focus:outline-none focus:ring-4 focus:ring-pink-300 dark:bg-pink-500 dark:hover:bg-pink-600 dark:focus:ring-pink-800 `}
+                      >
+                        View our  Travel Essentials
+                        <svg
+                          className="ml-2 h-3.5 w-3.5"
+                          aria-hidden="true"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 14 10"
+                        >
+                          <path
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M1 5h12m0 0L9 1m4 4L9 9"
+                          />
+                        </svg>
+                      </button>
 
-                  {/* <button
+                      {/* <button
                     type="button"
                     className={`${inter.variable} font-secondary w-full px-4 py-2 text-center  text-xs font-semibold text-gray-500 transition duration-200 ease-in hover:underline md:text-base  `}
                   >
                     Show all
                   </button> */}
-                </Link>
+                    </Link>
+                  </div>
+                </div>
               </div>
             </div>
           </section>
@@ -189,7 +203,7 @@ export default function IndexPage(props: IndexPageProps) {
           {/* <Categories /> */}
 
           <YoutubeHighlights />
-        {/* <InstagramHighlights instagram={instagram.data} /> */}
+          {/* <InstagramHighlights instagram={instagram.data} /> */}
         </Container>
 
         {/* <IntroTemplate /> */}
