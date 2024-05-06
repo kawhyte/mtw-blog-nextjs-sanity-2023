@@ -59,7 +59,7 @@ export default function PostHeader(
         <div
           className={` `}
         >
-          <div className='flex flex-col gap-1.5 md:gap-4  md:grid grid-cols-4 md:mt-5 max-w-5xl'>
+          <div className=' gap-4 mt-3.5 text-sm md:text-base   md:gap-4 grid-cols-2   grid md:grid-cols-4 md:mt-5 max-w-5xl'>
             <section className=" text-gray-700 md:text-left md:text-base lg:text-lg  ">
               {location && (
                 <span className=" capitalize flex flex-row  ">
@@ -95,7 +95,7 @@ export default function PostHeader(
                 <span className=" text-center  text-pink-500    md:text-left mr-3 ">
                 <IoBedOutline className='h-6 w-6' />
                 </span>
-                <span className=" text-center text-nowrap    text-gray-700  md:text-left ">
+                <span className=" text-nowrap    text-gray-700  md:text-left ">
                   {linkType === 'hotel' ? `${room || 'test'}` : ''}{' '}
                 </span>
               </section>
