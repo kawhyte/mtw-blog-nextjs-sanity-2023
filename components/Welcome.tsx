@@ -58,31 +58,35 @@ let colors = [
 function Welcome() {
   return (
     <>
-      <div className=" container  mx-auto mt-20 hidden md:mt-40  lg:flex ">
-        <div className="container mx-auto rounded-xl  px-4 pb-6 xl:max-w-6xl">
-          <header className="  m mx-auto my-10 text-center">
+      <div className=" lg:container   lg:mx-auto mt-20  md:mt-40  lg:flex ">
+        <div className="lg:container lg:mx-auto rounded-xl  px-4 pb-6 xl:max-w-6xl">
+          <header className="  m mx-auto mt-12 mb-16 text-center">
             <h2 className="mb-2 text-2xl font-bold leading-normal text-gray-800 dark:text-gray-900">
               <span
-                className={`${oswald.variable}  title-font mb-3 font-heading text-3xl font-medium text-gray-900 sm:text-4xl`}
+                className={`${oswald.variable}  title-font mb-6 font-heading text-3xl font-medium text-gray-900 sm:text-4xl`}
               >
                 Meet the Dynamic Duo
               </span>
             </h2>
           </header>
 
-          <div className="h-16"></div>
+          <div className="h-1 lg:h-16"></div>
 
-          <div className=" mb-3 grid  h-96 grid-cols-2  justify-items-center gap-y-52 md:w-5/6 md:grid-cols-2 md:gap-10 md:gap-x-20">
+          <div className=" mb-3 grid md:ml-20 lg:ml-0  lg:h-96 grid-cols-1  gap-3  justify-items-center md:gap-y-52 md:w-5/6 md:grid-cols-2  md:gap-x-20">
             {duo.map((person) => (
               <div key={person.id}>
                 <div className="bg-white">
                   <div className="flex min-w-full items-center justify-center">
                     <div className="flex lg:relative">
-                      <div className="absolute -left-4 -top-4 h-96 w-72  transform rounded-lg bg-yellow-100 transition-all"></div>
-                      <div className="-left-8 -top-8 hidden h-96 w-72 transform rounded-lg  bg-green-200 transition-all lg:absolute lg:block"></div>
-                      <div className="-left-12 -top-12 hidden h-96 w-72 transform rounded-lg  bg-purple-200 transition-all lg:absolute lg:block"></div>
-                      <div className="-left-16 -top-16 hidden h-96 w-72 transform rounded-lg  bg-black transition-all lg:absolute lg:block"></div>
-                      <div className="-left-20 -top-20  flex h-96 w-72 transform  flex-col items-center justify-center rounded-lg border-2  border-black bg-white transition-all lg:absolute">
+                      
+                   
+                          <div className="lg:absolute hidden -left-4 -top-4 h-96 w-72  transform rounded-lg bg-yellow-100 transition-all"></div>
+                          <div className="-left-8 -top-8 hidden h-96 w-72 transform rounded-lg  bg-green-200 transition-all lg:absolute lg:block"></div>
+                          <div className="-left-12 -top-12 hidden h-96 w-72 transform rounded-lg  bg-purple-200 transition-all lg:absolute lg:block"></div>
+                          <div className="-left-16 -top-16 hidden h-96 w-72 transform rounded-lg  bg-black transition-all lg:absolute lg:block"></div>
+                          <div className="-left-20 -top-20   lg:flex  h-72 lg:h-96 w-72 transform  flex-col items-center justify-center rounded-lg border-2  border-black bg-white transition-all lg:absolute">
+                     
+                        
                         <div className="flex flex-col items-center  overflow-hidden pb-12 lg:relative  ">
                           <img
                             src={person.image}
