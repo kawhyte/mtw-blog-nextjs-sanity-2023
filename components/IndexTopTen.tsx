@@ -1,5 +1,6 @@
 import { inter, oswald } from 'app/fonts'
 import Link from 'next/link'
+import Button from 'ui/Button'
 
 export default function IndexTopTen() {
   return (
@@ -17,15 +18,15 @@ export default function IndexTopTen() {
           Our very own curated list of places you should consider visiting.
         </p>
         <div className="lg:mt-0 lg:flex-shrink-0">
-          <div className="mt-12 inline-flex rounded-md shadow ">
-            <Link href="/top_picks" passHref legacyBehavior>
+          <div className="mt-12 inline-flex  ">
+            {/* <Link href="/top_picks" passHref legacyBehavior> */}
               {/* <button
                 type="button"
                 className="w-full rounded-lg  bg-yellow-400 px-6 py-2 text-center text-base font-semibold text-black shadow-md transition duration-200 ease-in hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2  focus:ring-offset-yellow-200 "
               >
                 Top Picks
               </button> */}
-              <button
+              {/* <button
                     className={`${inter.variable} inline-flex items-center rounded-lg bg-pink-500 px-3 py-2 text-center text-sm font-medium text-white hover:bg-pink-800 focus:outline-none focus:ring-4 focus:ring-pink-300 dark:bg-pink-500 dark:hover:bg-pink-600 dark:focus:ring-pink-800 `}
                   >
                    Our Top Picks
@@ -44,9 +45,11 @@ export default function IndexTopTen() {
                         d="M1 5h12m0 0L9 1m4 4L9 9"
                       />
                     </svg>
-                  </button>
+                  </button> */}
+
+                  <Button text=" Our Top Picks" link={'/top_picks'} />
               
-            </Link>
+            {/* </Link> */}
           </div>
         </div>
       </div>
