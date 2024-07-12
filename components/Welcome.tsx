@@ -84,7 +84,7 @@ function Welcome() {
                           <div className="-left-8 -top-8 hidden h-96 w-72 transform rounded-lg  bg-green-200 transition-all lg:absolute lg:block"></div>
                           <div className="-left-12 -top-12 hidden h-96 w-72 transform rounded-lg  bg-purple-200 transition-all lg:absolute lg:block"></div>
                           <div className="-left-16 -top-16 hidden h-96 w-72 transform rounded-lg  bg-black transition-all lg:absolute lg:block"></div>
-                          <div className="-left-20 -top-20   lg:flex  h-72 lg:h-96 w-72 transform  flex-col items-center justify-center rounded-lg border-2  border-black bg-white transition-all lg:absolute">
+                          <div className="-left-20 -top-20   lg:flex  h-72 lg:h-96 w-72 transform  flex-col items-center justify-center rounded-lg border-4  border-black bg-white transition-all lg:absolute">
                      
                         
                         <div className="flex flex-col items-center  overflow-hidden pb-12 lg:relative  ">

@@ -50,8 +50,8 @@ export default function CoverImage(props: CoverImageProps) {
       })}
     >
       <Image
-        className={cn('', {
-          '	relative z-20 mx-auto rounded-xl transition-all  hover:scale-105 hover:duration-200':
+        className={cn('object-contain', {
+          '	relative z-20   transition-all  ':
             slug,
         })}
         placeholder="blur"

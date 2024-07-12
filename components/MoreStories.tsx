@@ -25,7 +25,7 @@ export default function MoreStories({ posts }: { posts: Post[] }) {
 
   return (
     <section className="container mx-auto mt-8">
-      <div className="mx-2 mb-12 grid grid-cols-1 gap-x-7 gap-y-9 sm:grid-cols-2 md:grid-cols-2 md:gap-x-7 lg:grid-cols-3 lg:gap-x-7 xl:grid-cols-3">
+      <div className="mx-2 mb-12 grid grid-cols-1 gap-x-9  md:gap-y-10 md:gap-x-24  sm:grid-cols-1  md:grid-cols-2  lg:grid-cols-2 lg:gap-x-7 xl:grid-cols-3 xl:gap-x-28">
         {visiblePosts.map((post) => (
           <PostPreview
             key={post._id}

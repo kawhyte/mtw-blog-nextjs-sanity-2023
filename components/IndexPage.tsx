@@ -8,6 +8,7 @@ import * as demo from 'lib/demo.data'
 import type { Arena, Esssential, Post, Settings } from 'lib/sanity.queries'
 import Head from 'next/head'
 import Link from 'next/link'
+import Button from 'ui/Button'
 
 import { CMS_NAME } from '../lib/constants'
 import Arenas from './Arenas'
@@ -156,7 +157,7 @@ export default function IndexPage(props: IndexPageProps) {
 
             <div className="flex justify-center  lg:mt-0 lg:flex-shrink-0">
               <div className=" inline-flex  ">
-                <Link href="/hotel" passHref legacyBehavior>
+                {/* <Link href="/hotel" passHref legacyBehavior> */}
                   {/* <button
                     type="button"
                     className={`${inter.variable} inline-flex justify-center align-middle font-secondary w-full rounded-full  border bg-pink-500 px-4  py-2 text-center text-base font-semibold text-white shadow-md transition duration-200 ease-in hover:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2  focus:ring-offset-pink-200`}
@@ -167,7 +168,15 @@ export default function IndexPage(props: IndexPageProps) {
             </svg>
                   </button> */}
 
-                  <button
+
+ <Button text='More Adventures' link="/hotel" />
+
+
+
+
+
+
+                  {/* <button
                     className={`${inter.variable} inline-flex items-center rounded-lg bg-pink-500 px-3 py-2 text-center text-sm font-medium text-white hover:bg-pink-800 focus:outline-none focus:ring-4 focus:ring-pink-300 dark:bg-pink-500 dark:hover:bg-pink-600 dark:focus:ring-pink-800`}
                   >
                     More Adventures
@@ -186,7 +195,10 @@ export default function IndexPage(props: IndexPageProps) {
                         d="M1 5h12m0 0L9 1m4 4L9 9"
                       />
                     </svg>
-                  </button>
+                  </button> */}
+
+
+                  
 
                   {/* <button
                     type="button"
@@ -194,7 +206,7 @@ export default function IndexPage(props: IndexPageProps) {
                   >
                     Show all
                   </button> */}
-                </Link>
+                {/* </Link> */}
               </div>
             </div>
           </div>
