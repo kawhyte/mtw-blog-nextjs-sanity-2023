@@ -6,7 +6,7 @@ export default function Button({
   text,
   link,
 }: {
-  text?: string
+  text: string
   link: string
 }) {
   //if (!preview) return null

@@ -101,35 +101,10 @@ export default function IndexPage(props: IndexPageProps) {
 
                 <div className="flex   pt-9 lg:mt-0 lg:flex-shrink-0">
                   <div className=" inline-flex  ">
-                    <Link href="/essentials" passHref legacyBehavior>
-                      <button
-                        className={`${inter.variable} inline-flex items-center rounded-lg bg-pink-500 px-3 py-2 text-center text-sm font-medium text-white hover:bg-pink-800 focus:outline-none focus:ring-4 focus:ring-pink-300 dark:bg-pink-500 dark:hover:bg-pink-600 dark:focus:ring-pink-800 `}
-                      >
-                        View our  Travel Essentials
-                        <svg
-                          className="ml-2 h-3.5 w-3.5"
-                          aria-hidden="true"
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 14 10"
-                        >
-                          <path
-                            stroke="currentColor"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M1 5h12m0 0L9 1m4 4L9 9"
-                          />
-                        </svg>
-                      </button>
-
-                      {/* <button
-                    type="button"
-                    className={`${inter.variable} font-secondary w-full px-4 py-2 text-center  text-xs font-semibold text-gray-500 transition duration-200 ease-in hover:underline md:text-base  `}
-                  >
-                    Show all
-                  </button> */}
-                    </Link>
+                    
+                    <Button text='View our  Travel Essentials' link={'/essentials'}/> 
+                    
+                    
                   </div>
                 </div>
               </div>
