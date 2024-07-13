@@ -1,4 +1,5 @@
 import { inter, oswald } from 'app/fonts'
+import { urlForImage } from 'lib/sanity.image'
 import Image from 'next/image'
 import React, { useEffect, useRef } from 'react'
 
@@ -19,13 +20,33 @@ function ReviewHeader({ title, arenas, summary, animation }) {
   )
 
   return (
-    <div className="   mb-10 flex flex-col items-center justify-center bg-indigo-50 pt-10  lg:flex-row">
+    <div className="mb-10 flex flex-col items-center justify-center bg-indigo-50 pt-10  lg:flex-row">
       <div className="container mx-auto">
         <section className="body-font text-gray-600">
-          <div className="container mx-auto flex flex-col items-center px-5 py-7 lg:flex-row">
-            <div className="mb-10 flex items-center justify-center container mx-auto w-full md:mb-0  lg:w-full lg:max-w-xl">
-              
-              <div>
+          <div className=" flex flex-col items-center px-5 py-7 ">
+            <div className="grid grid-cols-5 place-content-center place-items-center  gap-2 max-w-4xl   ">
+              {arenas.slice(0,25).map((item) => (
+                <div key={item.name}>
+                  <Image
+                    width={189}
+                    height={189}
+                    placeholder="blur"
+                    blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAO0lEQVR4nGNgYGBg+P//P1t9fT0TiM0we3ZjxZxZjQ9XLpwwe9nCHkOGGZOyanraY9aumN2wbsn0hmQA/MEWfj4ocjcAAAAASUVORK5CYII="
+                    className="  object-cover object-center  h-28 w-28"
+                    alt="hero"
+                    src={
+                      item?.gallery[0].asset?._ref
+                        ? urlForImage(item?.gallery[0].asset?._ref)
+                            .height(200)
+                            .width(200)
+                            .fit('crop')
+                            .url()
+                        : 'https://fakeimg.pl/1240x801'
+                    }
+                  />
+                </div>
+              ))}
+              {/* <div>
               <Image
               width={389}
               height={288}
@@ -35,11 +56,11 @@ function ReviewHeader({ title, arenas, summary, animation }) {
                 className=" object-cover object-center h-full"
                 alt="hero"
                  src={animation}
-              /></div>
+              /></div> */}
             </div>
-            <div className="flex flex-col items-center text-center xl:w-3/6 md:items-start md:pl-16 md:text-left  lg:flex-grow lg:pl-24">
+            <div className="flex flex-col items-center align-middle justify-center text-center md:items-start pt-8   lg:flex-grow max-w-4xl  ">
               <h1
-                className={` ${oswald.variable} container mx-auto  mb-1 px-3 py-1  font-heading text-5xl font-bold leading-tight tracking-tighter text-pink-500 sm:px-0  md:text-[4.5rem]`}
+                className={` ${oswald.variable} container mx-auto  mb-1  font-heading text-4xl font-bold leading-tight tracking-tighter text-pink-500 sm:px-0  md:text-[3.3rem]`}
               >
                 {title}
               </h1>
@@ -47,7 +68,7 @@ function ReviewHeader({ title, arenas, summary, animation }) {
                 <p className="mb-8 leading-relaxed"> {summary}</p>
 
                 {arenas.length > 1 && (
-                  <div className="    mb-8 md:w-full md:pr-6 lg:mb-0 lg:max-w-xl ">
+                  <div className=" container mx-auto    mb-8 md:w-full md:pr-6 lg:mb-0 lg:max-w-xl ">
                     <div className="relative flex h-full flex-col overflow-hidden rounded-lg border-4 border-black p-6">
                       <h2 className="title-font mb-1 text-sm font-medium tracking-widest">
                         ARENA LAST VISITED

@@ -54,7 +54,7 @@ const Arenas = ({ arenas }) => {
             animation={'/basketball.svg'}
           />
 
-          <div className="container md:mx-auto  mt-14 grid grid-cols-1 place-items-stretch gap-y-10 gap-x-16 px-3 sm:grid-cols-2 md:grid-cols-2 md:gap-10 md:px-6 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="container mx-auto  mt-14 grid grid-cols-1 place-content-center place-items-center gap-y-10 gap-x-16 px-3 sm:grid-cols-2 md:grid-cols-2 md:gap-10 md:px-6 lg:grid-cols-3 xl:grid-cols-4">
             {arenas?.map((item) => (
               <div
                 key={item._id}
@@ -117,7 +117,7 @@ const Arenas = ({ arenas }) => {
 
                 <div className="flex flex-col items-center justify-center bg-gray-900 px-2 py-3 align-middle">
                   <h1
-                    className={`${oswald.variable} title-font mb-4 text-center font-heading text-2xl font-medium text-gray-200 sm:text-4xl md:text-3xl`}
+                    className={`${oswald.variable} title-font  text-center font-heading text-2xl font-medium text-gray-200  md:text-2xl`}
                   >
                     {item.name}
                   </h1>
