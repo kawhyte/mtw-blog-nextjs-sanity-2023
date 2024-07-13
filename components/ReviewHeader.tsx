@@ -2,7 +2,10 @@ import { inter, oswald } from 'app/fonts'
 import { urlForImage } from 'lib/sanity.image'
 import Image from 'next/image'
 import React, { useEffect, useRef } from 'react'
-import { IoLocationOutline } from "react-icons/io5";
+import { FaRegCalendarAlt } from 'react-icons/fa'
+import { IoLocationOutline } from 'react-icons/io5'
+
+import PostDate from './PostDate'
 
 function ReviewHeader({ title, arenas, summary, animation }) {
   const totalDistance = arenas.reduce(
@@ -20,20 +23,22 @@ function ReviewHeader({ title, arenas, summary, animation }) {
     2
   )
 
+  console.log('Arennas', arenas)
+
   return (
     <div className="mb-10 flex flex-col items-center justify-center bg-indigo-50 pt-10  lg:flex-row">
       <div className="container mx-auto">
         <section className="body-font text-gray-600">
           <div className=" flex flex-col items-center px-5 py-7 ">
-            <div className="grid grid-cols-5 place-content-center place-items-center  gap-2 max-w-4xl   ">
-              {arenas.slice(5,25).map((item) => (
+            <div className="grid max-w-4xl grid-cols-5 place-content-center  place-items-center gap-2   ">
+              {arenas.slice(11, 26).map((item) => (
                 <div key={item.name}>
                   <Image
                     width={189}
                     height={189}
                     placeholder="blur"
                     blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAO0lEQVR4nGNgYGBg+P//P1t9fT0TiM0we3ZjxZxZjQ9XLpwwe9nCHkOGGZOyanraY9aumN2wbsn0hmQA/MEWfj4ocjcAAAAASUVORK5CYII="
-                    className="  object-cover object-center  h-28 w-28"
+                    className="  md:h-28 md:w-28  object-cover object-center"
                     alt="hero"
                     src={
                       item?.gallery[0].asset?._ref
@@ -59,7 +64,7 @@ function ReviewHeader({ title, arenas, summary, animation }) {
                  src={animation}
               /></div> */}
             </div>
-            <div className="flex flex-col items-center align-middle justify-center text-center md:items-start pt-8   lg:flex-grow max-w-4xl  ">
+            <div className="flex max-w-4xl flex-col items-center justify-center pt-8 text-center align-middle   md:items-start lg:flex-grow  ">
               <h1
                 className={` ${oswald.variable} container mx-auto  mb-1  font-heading text-4xl font-bold leading-tight tracking-tighter text-pink-500 sm:px-0  md:text-[3.3rem]`}
               >
@@ -67,7 +72,7 @@ function ReviewHeader({ title, arenas, summary, animation }) {
               </h1>
               <div>
                 <p className="mb-8 leading-relaxed"> {summary}</p>
-               
+
                 {arenas.length > 1 && (
                   <div className=" container mx-auto    mb-8 md:w-full md:pr-6 lg:mb-0 lg:max-w-xl ">
                     <div className="relative flex h-full flex-col overflow-hidden rounded-lg border-4 border-black p-6">
@@ -77,9 +82,20 @@ function ReviewHeader({ title, arenas, summary, animation }) {
                       <h1 className="mb-4  border-gray-200 text-5xl leading-none text-gray-900">
                         {arenaLastVisited[0]?.name}
                       </h1>
-                      <div className="mb-4 border-b flex justify-center align-middle items-center border-gray-200 pb-4 text-base leading-none text-gray-500">
-                      <IoLocationOutline className='h-5 w-5'/>
-                     <p className='ml-2'>  {arenaLastVisited[0]?.location}</p>
+                      <div className="mb-4 flex items-center   justify-around border-b border-gray-200 pb-4 align-middle text-base leading-none text-gray-500">
+                        <div className="flex">
+                          <FaRegCalendarAlt className="ml-1 mr-2 h-4 w-5   " />
+                          <p className=" pr-2 text-sm ">
+                            <PostDate dateString={arenaLastVisited[0]?.date} />
+                          </p>
+                        </div>
+                        <div className="flex items-center align-middle">
+                          <IoLocationOutline className="h-5 w-5" />
+                          <p className="ml-2">
+                            {' '}
+                            {arenaLastVisited[0]?.location}
+                          </p>
+                        </div>
                       </div>
 
                       <div className=" ">
