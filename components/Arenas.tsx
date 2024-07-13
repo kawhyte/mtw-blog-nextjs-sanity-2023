@@ -6,13 +6,14 @@ import { urlForImage } from 'lib/sanity.image'
 import type { Post, Settings } from 'lib/sanity.queries'
 import Head from 'next/head'
 import { useState } from 'react'
+import { FaRegCalendarAlt } from 'react-icons/fa'
+import { IoLocationOutline } from "react-icons/io5";
 
 import { CMS_NAME } from '../lib/constants'
 import Container from './BlogContainer'
 import BlogHeader from './BlogHeader'
 import Layout from './BlogLayout'
 import Footer from './Footer'
-import IndexPageHead from './IndexPageHead'
 import PostDate from './PostDate'
 import ReviewHeader from './ReviewHeader'
 
@@ -26,7 +27,9 @@ const Arenas = ({ arenas }) => {
 
   // console.log("totalDistance ", totalDistance)
 
-  const percentage = ((arenas[0]?.visitedCount / totalDistance) * 100).toFixed(2)
+  const percentage = ((arenas[0]?.visitedCount / totalDistance) * 100).toFixed(
+    2
+  )
 
   //console.log('percentage ', percentage)
 
@@ -43,25 +46,25 @@ const Arenas = ({ arenas }) => {
           <BlogHeader title={'title'} description={[]} level={1} />
 
           <ReviewHeader
-					title={"Visiting Every NBA & WNBA Arena"}
-					arenas={arenas}
-					summary={'We are traveling near and far to every state/country to visit all the NBA and WNBA arenas (37) across the US and Canada. Follow us on this journey.'
-        }
-					animation={'/basketball.svg'}
-				/>
-          
+            title={'Visiting Every NBA & WNBA Arena'}
+            arenas={arenas}
+            summary={
+              'We are traveling near and far to every state/country to visit all the NBA and WNBA arenas (37) across the US and Canada. Follow us on this journey.'
+            }
+            animation={'/basketball.svg'}
+          />
 
-          <div className="mt-14 container  mx-auto px-3 md:px-6 gap-3 place-items-stretch grid grid-cols-2 md:gap-10 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="container md:mx-auto  mt-14 grid grid-cols-1 place-items-stretch gap-y-10 gap-x-16 px-3 sm:grid-cols-2 md:grid-cols-2 md:gap-10 md:px-6 lg:grid-cols-3 xl:grid-cols-4">
             {arenas?.map((item) => (
               <div
                 key={item._id}
-                className={`w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-lg dark:bg-gray-800 ${
+                className={`w-full max-w-sm overflow-hidden rounded-lg border-4 border-black bg-white shadow-offsetGreen dark:bg-gray-800 ${
                   item.visited === false
                     ? 'opacity-40 grayscale'
                     : 'grayscale-0'
                 } `}
               >
-                <div className="hidden sm:block static">
+                <div className="static ">
                   {/* {item.visited === true ? (
                     <span className="absolute z-10 ml-3  mt-3  text-xs rounded-full text-green-600  bg-green-200 ">
                       Visited: <PostDate dateString={item.date} />
@@ -85,20 +88,44 @@ const Arenas = ({ arenas }) => {
                       width={224}
                       alt={`${item.name} arena`}
                     />
+
+                    <div className="absolute left-3 top-2  flex flex-row items-center justify-center rounded-full bg-pink-600/80 px-1 py-1 align-middle ">
+                   
+                      <IoLocationOutline className="ml-1 h-5 w-5 text-red-50" />
+
+
+                      <h1 className="px-2 text-xs text-white md:text-sm">
+                        
+                        {item.location}
+                      </h1>
+                    </div>
+
+                    {item.visited === true ? (
+                      <>
+                        <div className="absolute left-3 top-10  flex flex-row items-center justify-center rounded-full bg-green-900/80 px-1 py-1 align-middle ">
+                          <FaRegCalendarAlt className="ml-1 mr-2 h-4 w-5     text-white" />
+                          <p className=" pr-2 text-sm text-white">
+                            <PostDate dateString={item.date} />
+                          </p>
+                        </div>
+                      </>
+                    ) : (
+                      ''
+                    )}
                   </div>
                 </div>
 
-                <div className="flex flex-col items-center align-middle justify-center bg-gray-900 px-2 py-3">
+                <div className="flex flex-col items-center justify-center bg-gray-900 px-2 py-3 align-middle">
                   <h1
-                    className={`${oswald.variable} text-lg title-font text-center mb-4 font-heading md:text-3xl font-medium text-gray-200 sm:text-4xl`}
+                    className={`${oswald.variable} title-font mb-4 text-center font-heading text-2xl font-medium text-gray-200 sm:text-4xl md:text-3xl`}
                   >
                     {item.name}
                   </h1>
 
-                  <div className=" flex items-center text-gray-700 dark:text-gray-200">
+                  {/* <div className=" flex items-center text-gray-700 dark:text-gray-200">
                     <svg
                       aria-label="location pin icon"
-                      className=" h-4 w-4 md:h-6 md:w-6 fill-current"
+                      className=" h-4 w-4 fill-current md:h-6 md:w-6"
                       viewBox="0 0 24 24"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
@@ -115,13 +142,18 @@ const Arenas = ({ arenas }) => {
                       />
                     </svg>
 
-                    <h1 className="px-2 text-xs md:text-sm"> {item.location}</h1>
-                  </div>
-                  {item.visited === true ? (
-                  <span className="px-4 py-2 mt-3 text-[.6rem]  md:text-xs rounded-full text-green-600  bg-green-200 ">
-                  Visited: <PostDate  dateString={item.date} />
-    </span>) :""
-}
+                    <h1 className="px-2 text-xs md:text-sm">
+                      {' '}
+                      {item.location}
+                    </h1>
+                  </div> */}
+                  {/* {item.visited === true ? (
+                    <span className="mt-3 rounded-full bg-green-200 px-4  py-2 text-[.6rem] text-green-600  md:text-xs ">
+                      Visited: <PostDate dateString={item.date} />
+                    </span>
+                  ) : (
+                    ''
+                  )} */}
                 </div>
                 <div className=" flex flex-row flex-wrap items-center justify-evenly">
                   {item.gallery?.map((photo) => (
@@ -145,31 +177,25 @@ const Arenas = ({ arenas }) => {
                                 .url()
                             : 'https://source.unsplash.com/96x96/?face'
                         }
-                        className="h-12 w-12  "
+                        className=" h-9 w-9   md:h-12 md:w-12  "
                         height={96}
                         width={96}
                         // @TODO add alternative text to avatar image schema
                         alt={`${photo.name} logo`}
                       />
 
-                      <p
-                        className="mt-2 mx-1 text-xs md:text-sm cursor-pointer font-bold text-gray-700 dark:text-gray-200"
-                        
-                      >
+                      <p className="mx-1 mt-2 cursor-pointer text-xs font-bold text-gray-700 dark:text-gray-200 md:text-sm">
                         {photo.name}
                       </p>
                     </div>
                   ))}
                 </div>
-            
               </div>
             ))}
           </div>
         </Container>
       </Layout>
       <Footer />
-
-      
     </>
   )
 }

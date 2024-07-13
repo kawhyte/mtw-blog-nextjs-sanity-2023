@@ -57,7 +57,8 @@ module.exports = {
       boxShadow: {
         small: '0 5px 10px rgba(0, 0, 0, 0.12)',
         medium: '0 8px 30px rgba(0, 0, 0, 0.12)',
-        offsetGreen: '18px 18px 0 -4px rgba(211, 34, 255, 0.12)',  
+        offsetGreen: '18px 18px 0 -4px rgba(26, 219, 107, 0.57)',  
+        offsetPink: '18px 18px 0 -4px rgba(75, 254, 133, 1)',  
       },
     },
   },

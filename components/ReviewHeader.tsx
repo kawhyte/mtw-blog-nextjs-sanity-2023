@@ -34,7 +34,7 @@ function ReviewHeader({ title, arenas, summary, animation }) {
 
                 className=" object-cover object-center h-full"
                 alt="hero"
-                src={animation}
+                 src={animation}
               /></div>
             </div>
             <div className="flex flex-col items-center text-center xl:w-3/6 md:items-start md:pl-16 md:text-left  lg:flex-grow lg:pl-24">
@@ -48,7 +48,7 @@ function ReviewHeader({ title, arenas, summary, animation }) {
 
                 {arenas.length > 1 && (
                   <div className="    mb-8 md:w-full md:pr-6 lg:mb-0 lg:max-w-xl ">
-                    <div className="relative flex h-full flex-col overflow-hidden rounded-lg border-2 border-gray-300 p-6">
+                    <div className="relative flex h-full flex-col overflow-hidden rounded-lg border-4 border-black p-6">
                       <h2 className="title-font mb-1 text-sm font-medium tracking-widest">
                         ARENA LAST VISITED
                       </h2>
