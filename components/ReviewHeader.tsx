@@ -2,6 +2,7 @@ import { inter, oswald } from 'app/fonts'
 import { urlForImage } from 'lib/sanity.image'
 import Image from 'next/image'
 import React, { useEffect, useRef } from 'react'
+import { IoLocationOutline } from "react-icons/io5";
 
 function ReviewHeader({ title, arenas, summary, animation }) {
   const totalDistance = arenas.reduce(
@@ -25,7 +26,7 @@ function ReviewHeader({ title, arenas, summary, animation }) {
         <section className="body-font text-gray-600">
           <div className=" flex flex-col items-center px-5 py-7 ">
             <div className="grid grid-cols-5 place-content-center place-items-center  gap-2 max-w-4xl   ">
-              {arenas.slice(0,25).map((item) => (
+              {arenas.slice(5,25).map((item) => (
                 <div key={item.name}>
                   <Image
                     width={189}
@@ -66,7 +67,7 @@ function ReviewHeader({ title, arenas, summary, animation }) {
               </h1>
               <div>
                 <p className="mb-8 leading-relaxed"> {summary}</p>
-
+               
                 {arenas.length > 1 && (
                   <div className=" container mx-auto    mb-8 md:w-full md:pr-6 lg:mb-0 lg:max-w-xl ">
                     <div className="relative flex h-full flex-col overflow-hidden rounded-lg border-4 border-black p-6">
@@ -76,17 +77,18 @@ function ReviewHeader({ title, arenas, summary, animation }) {
                       <h1 className="mb-4  border-gray-200 text-5xl leading-none text-gray-900">
                         {arenaLastVisited[0]?.name}
                       </h1>
-                      <p className="mb-4 border-b border-gray-200 pb-4 text-base leading-none text-gray-500">
-                        {arenaLastVisited[0]?.location}
-                      </p>
+                      <div className="mb-4 border-b flex justify-center align-middle items-center border-gray-200 pb-4 text-base leading-none text-gray-500">
+                      <IoLocationOutline className='h-5 w-5'/>
+                     <p className='ml-2'>  {arenaLastVisited[0]?.location}</p>
+                      </div>
 
                       <div className=" ">
                         <div className="mt-2 flex flex-row  justify-between">
-                          <span className="title-font mb-1 text-xs  font-medium tracking-widest text-gray-500 ">
+                          <span className="title-font mb-1 text-sm  font-medium tracking-widest text-gray-500 ">
                             Arenas visited
                           </span>
-                          <span className="text-xs font-medium text-gray-500 ">
-                            37
+                          <span className="text-sm font-extrabold text-gray-500 ">
+                            Goal
                           </span>
                         </div>
                         <div className=" h-4 w-full rounded-full bg-gray-900">
@@ -95,7 +97,7 @@ function ReviewHeader({ title, arenas, summary, animation }) {
                               className="h-6  rounded-r-full bg-gradient-to-r  from-yellow-200 to-pink-500 p-1.5 text-center text-sm font-medium leading-none text-gray-600  "
                               style={{ width: `${percentage}%` }}
                             >
-                              {arenas[4]?.visitedCount}
+                              {arenas[4]?.visitedCount} of 37
                             </div>
                           </div>
                         </div>
