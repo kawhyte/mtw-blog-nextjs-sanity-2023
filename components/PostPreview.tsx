@@ -18,55 +18,54 @@ export default function PostPreview({
   location,
 }: Omit<Post, '_id'>) {
   const categoryType = categoryRating(category)
-  console.log('Categories Hex', categoryType.HEX.toString())
+  const colorVariants = {
+    blue: 'shadow-offsetBlue',
+    yellow: 'shadow-offsetYellow',
+    green: 'shadow-offsetGreen',
+    red: 'shadow-offsetRed',
+  }
+
+  console.log("CATT", category)
+
   return (
-
-
-<>
-
-
-
-
-    <div
-      className={`mx-auto mb-12 max-w-[18rem]  md:max-w-[32rem] flex-[1_0_0] rounded-lg border-4 border-black shadow-offsetGreen bg-white hover:scale-105 hover:duration-200  lg:mb-0 lg:mr-20 `}
-    >
-
-
-
-
-      
-      <div className="mb-5">
-        <CoverImage
-          slug={slug}
-          title={''}
-          image={coverImage}
-          priority={false}
-          category={category}
-        />
-      </div>
-      <Link
-        href={`/posts/${slug}`}
-        className={`${inter.variable} title-font  font-secondary mt-3 font-light text-gray-700 `}
+    <>
+      <div
+        className={
+          `mx-auto mb-12 max-w-[18rem]  flex-[1_0_0] rounded-lg border-4 border-black bg-white  hover:scale-105 hover:duration-200 md:max-w-[32rem]  lg:mb-0 lg:mr-20 ` +
+          ` ${colorVariants[categoryType.color]}`
+        }
       >
-        <div className="mx-3 -mt-6 ">
-          <h2 className=" title-font my-2 md:w-80 truncate  text-sm font-semibold  text-pink-500">
-            {title}
-          </h2>
-          {/* <p className='text-base leading-relaxed mt-2'>{item.excerpt}</p> */}
-          <div className="my-1   block text-sm text-gray-500">
-            {location ? location : ''}
-          </div>
-
-          {/* <h3 className="mb-3 text-3xl leading-snug">{title}</h3> */}
-          <div className="mb-4 text-sm text-gray-500">
-        <Date dateString={date} />
-          </div>
-          {/* {excerpt && <p className="mb-4 text-lg leading-relaxed">{excerpt}</p>}
-      {author && <Avatar name={author.name} picture={author.picture} />} */}
+        <div className="mb-5">
+          <CoverImage
+            slug={slug}
+            title={''}
+            image={coverImage}
+            priority={false}
+            category={category}
+          />
         </div>
-      </Link>
-    </div>
+        <Link
+          href={`/posts/${slug}`}
+          className={`${inter.variable} title-font  font-secondary mt-3 font-light text-gray-700 `}
+        >
+          <div className="mx-3 -mt-6 ">
+            <h2 className=" title-font my-2 truncate text-sm  font-semibold text-pink-500  md:w-80">
+              {title}
+            </h2>
+            {/* <p className='text-base leading-relaxed mt-2'>{item.excerpt}</p> */}
+            <div className="my-1   block text-sm text-gray-500">
+              {location ? location : ''}
+            </div>
 
+            {/* <h3 className="mb-3 text-3xl leading-snug">{title}</h3> */}
+            <div className="mb-4 text-sm text-gray-500">
+              <Date dateString={date} />
+            </div>
+            {/* {excerpt && <p className="mb-4 text-lg leading-relaxed">{excerpt}</p>}
+      {author && <Avatar name={author.name} picture={author.picture} />} */}
+          </div>
+        </Link>
+      </div>
     </>
   )
 }

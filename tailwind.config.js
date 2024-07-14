@@ -58,8 +58,10 @@ module.exports = {
         small: '0 5px 10px rgba(0, 0, 0, 0.12)',
         medium: '0 8px 30px rgba(0, 0, 0, 0.12)',
         offsetGreen: '18px 18px 0 -4px rgba(187, 247, 208, 1)',  
-        offsetIndigo: '18px 18px 0 -4px rgba(199, 210, 254, 0.70)',  
-        offsetPink: '18px 18px 0 -4px rgba(75, 254, 133, 1)',  
+        offsetRed: '18px 18px 0 -4px rgba(255, 241, 242, 1)',  
+        offsetBlue: '18px 18px 0 -4px rgba(147, 197, 253, .5)',  
+        offsetIndigo: '18px 18px 0 -4px rgba(199, 210, 254, 0.50)',  
+        offsetYellow: '18px 18px 0 -4px rgba(253, 224, 71, 0.5)',  
         
       },
     },
