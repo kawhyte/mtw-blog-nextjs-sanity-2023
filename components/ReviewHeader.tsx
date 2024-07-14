@@ -30,15 +30,15 @@ function ReviewHeader({ title, arenas, summary, animation }) {
       <div className="container mx-auto">
         <section className="body-font text-gray-600">
           <div className=" flex flex-col items-center px-5 py-7 ">
-            <div className="grid max-w-4xl grid-cols-5 place-content-center  place-items-center gap-2   ">
-              {arenas.slice(11, 26).map((item) => (
+            <div className="grid max-w-4xl grid-cols-9 place-content-center  place-items-center gap-2   ">
+              {arenas.slice(0, 27).map((item) => (
                 <div key={item.name}>
                   <Image
                     width={189}
                     height={189}
                     placeholder="blur"
                     blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAO0lEQVR4nGNgYGBg+P//P1t9fT0TiM0we3ZjxZxZjQ9XLpwwe9nCHkOGGZOyanraY9aumN2wbsn0hmQA/MEWfj4ocjcAAAAASUVORK5CYII="
-                    className="  md:h-28 md:w-28  object-cover object-center"
+                    className="  md:h-16 md:w-16 object-cover object-center"
                     alt="hero"
                     src={
                       item?.gallery[0].asset?._ref
@@ -71,7 +71,7 @@ function ReviewHeader({ title, arenas, summary, animation }) {
                 {title}
               </h1>
               <div>
-                <p className="mb-8 leading-relaxed"> {summary}</p>
+                <p className="mb-8 mt-4 leading-relaxed max-w-2xl"> {summary}</p>
 
                 {arenas.length > 1 && (
                   <div className=" container mx-auto    mb-8 md:w-full md:pr-6 lg:mb-0 lg:max-w-xl ">

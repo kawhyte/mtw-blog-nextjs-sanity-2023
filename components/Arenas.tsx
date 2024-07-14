@@ -60,8 +60,8 @@ const Arenas = ({ arenas }) => {
                 key={item._id}
                 className={`w-full max-w-sm overflow-hidden rounded-lg border-4 border-black bg-white shadow-offsetGreen dark:bg-gray-800 ${
                   item.visited === false
-                    ? 'opacity-40 grayscale'
-                    : 'grayscale-0'
+                    ? 'opacity-40 grayscale '
+                    : 'grayscale-0 '
                 } `}
               >
                 <div className="static ">
@@ -72,7 +72,7 @@ const Arenas = ({ arenas }) => {
                   ) : (
                     ''
                   )} */}
-                  <div className="relative">
+                  <div className="relative bg-muted">
                     <img
                       src={
                         item?.arenaImage.asset?._ref
@@ -83,18 +83,27 @@ const Arenas = ({ arenas }) => {
                               .url()
                           : 'https://fakeimg.pl/1240x801'
                       }
-                      className="h-56 w-full object-cover object-center "
+                      className="h-56 w-full object-cover object-center brightness-[0.7] grayscale "
                       height={300}
                       width={224}
                       alt={`${item.name} arena`}
                     />
 
+
+
+<h1
+                    className={`${oswald.variable} absolute inset-x-0 bottom-2 text-center font-heading text-2xl font-medium text-gray-50  `}
+                  >
+                    {item.name}
+                  </h1>
+
+
                     <div className="absolute left-3 top-2  flex flex-row items-center justify-center rounded-full bg-pink-600/80 px-1 py-1 align-middle ">
                    
-                      <IoLocationOutline className="ml-1 h-5 w-5 text-red-50" />
+                      <IoLocationOutline className="ml-1 h-4 w-4 text-red-50" />
 
 
-                      <h1 className="px-2 text-xs text-white md:text-sm">
+                      <h1 className="px-2 text-xs text-white ">
                         
                         {item.location}
                       </h1>
@@ -102,9 +111,9 @@ const Arenas = ({ arenas }) => {
 
                     {item.visited === true ? (
                       <>
-                        <div className="absolute left-3 top-10  flex flex-row items-center justify-center rounded-full bg-green-900/80 px-1 py-1 align-middle ">
-                          <FaRegCalendarAlt className="ml-1 mr-2 h-4 w-5     text-white" />
-                          <p className=" pr-2 text-sm text-white">
+                        <div className="absolute left-3 top-10  flex flex-row items-center justify-center rounded-full bg-indigo-900/80 px-1 py-1 align-middle ">
+                          <FaRegCalendarAlt className="ml-1 mr-2 h-4 w-4 my-1    text-white" />
+                          <p className=" pr-2 text-xs text-white">
                             <PostDate dateString={item.date} />
                           </p>
                         </div>
@@ -115,12 +124,12 @@ const Arenas = ({ arenas }) => {
                   </div>
                 </div>
 
-                <div className="flex flex-col items-center justify-center bg-gray-900 px-2 py-3 align-middle">
-                  <h1
+                {/*<div className="flex flex-col items-center justify-center bg-gray-900 px-2 py-3 align-middle">
+                   <h1
                     className={`${oswald.variable} title-font  text-center font-heading text-2xl font-medium text-gray-200  md:text-2xl`}
                   >
                     {item.name}
-                  </h1>
+                  </h1> */}
 
                   {/* <div className=" flex items-center text-gray-700 dark:text-gray-200">
                     <svg
@@ -153,8 +162,8 @@ const Arenas = ({ arenas }) => {
                     </span>
                   ) : (
                     ''
-                  )} */}
-                </div>
+                  )} 
+                </div>*/}
                 <div className=" flex flex-row flex-wrap items-center justify-evenly">
                   {item.gallery?.map((photo) => (
                     <div
@@ -177,14 +186,14 @@ const Arenas = ({ arenas }) => {
                                 .url()
                             : 'https://source.unsplash.com/96x96/?face'
                         }
-                        className=" h-9 w-9   md:h-12 md:w-12  "
+                        className=" h-9 w-9   md:h-11 md:w-11  "
                         height={96}
                         width={96}
                         // @TODO add alternative text to avatar image schema
                         alt={`${photo.name} logo`}
                       />
 
-                      <p className="mx-1 mt-2 cursor-pointer text-xs font-bold text-gray-700 dark:text-gray-200 md:text-sm">
+                      <p className="mx-1 mt-1 cursor-pointer text-xs font-bold text-gray-700 dark:text-gray-200 md:text-xs">
                         {photo.name}
                       </p>
                     </div>

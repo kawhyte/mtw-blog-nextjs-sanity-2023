@@ -17,6 +17,7 @@ import Footer from './Footer'
 import Hero from './Hero'
 import IndexTopTen from './IndexTopTen'
 import InstagramHighlights from './InstagramHighlights'
+import SneakersIndexPage from './SneakersIndexPage'
 import TravelEssentialLayout from './TravelEssentialsLayout'
 import Welcome from './Welcome'
 import YoutubeHighlights from './YoutubeHighlights'
@@ -190,6 +191,8 @@ export default function IndexPage(props: IndexPageProps) {
           {/* <Categories /> */}
 
           <YoutubeHighlights />
+
+          {/* <SneakersIndexPage arenas={undefined} /> */}
           {/* <InstagramHighlights instagram={instagram.data} /> */}
         </Container>
 
