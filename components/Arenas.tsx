@@ -98,7 +98,7 @@ const Arenas = ({ arenas }) => {
                   </h1>
 
 
-                    <div className="absolute left-3 top-2  flex flex-row items-center justify-center rounded-full bg-pink-600/80 px-1 py-1 align-middle ">
+                    <div className="absolute left-3 top-2  flex flex-row items-center justify-center rounded-full bg-pink-500/80 px-1 py-1 align-middle ">
                    
                       <IoLocationOutline className="ml-1 h-4 w-4 text-red-50" />
 
@@ -111,8 +111,8 @@ const Arenas = ({ arenas }) => {
 
                     {item.visited === true ? (
                       <>
-                        <div className="absolute left-3 top-10  flex flex-row items-center justify-center rounded-full bg-indigo-900/80 px-1 py-1 align-middle ">
-                          <FaRegCalendarAlt className="ml-1 mr-2 h-4 w-4 my-1    text-white" />
+                        <div className="absolute right-3 top-2  flex flex-row items-center justify-center rounded-full bg-indigo-500/80 px-1 py-1 align-middle ">
+                          <FaRegCalendarAlt className="ml-1 mr-2 h-4 w-4    text-white" />
                           <p className=" pr-2 text-xs text-white">
                             <PostDate dateString={item.date} />
                           </p>

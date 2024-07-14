@@ -29,22 +29,22 @@ interface PreviewData {
 
 
 export default function Page(props: PageProps) {
-    const {  settings,arenaPosts, preview, token } = props
+    const {  arenaPosts,settings, preview, token } = props
   
     //console.log("KENNY3 ", props )
-    // if (preview) {
-    //   return (
-    //     <PreviewSuspense
-    //       fallback={
-    //         <TopListPage loading preview  settings={settings} />
-    //       }
-    //     >
-    //       <PreviewIndexPage token={token} />
-    //     </PreviewSuspense>
-    //   )
-    // }
+    if (preview) {
+      return (
+        <PreviewSuspense
+          fallback={
+            <AllReviewsPage loading preview posts={arenaPosts} settings={settings} />
+          }
+        >
+          <PreviewIndexPage token={token} />
+        </PreviewSuspense>
+      )
+    }
  
-    return <Arenas arenas={arenaPosts}  />
+    return <Arenas arenas={arenaPosts}    />
   }
   
   export const getStaticProps: GetStaticProps<
