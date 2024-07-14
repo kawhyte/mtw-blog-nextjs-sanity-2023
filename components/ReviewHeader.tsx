@@ -83,7 +83,7 @@ function ReviewHeader({ title, arenas, summary, animation }) {
                         {arenaLastVisited[0]?.name}
                       </h1>
                       <div className="mb-4 flex items-center   justify-around border-b border-gray-200 pb-4 align-middle text-base leading-none text-gray-500">
-                        <div className="flex">
+                        <div className="flex items-center align-middle">
                           <FaRegCalendarAlt className="ml-1 mr-2 h-4 w-5   " />
                           <p className=" pr-2 text-sm ">
                             <PostDate dateString={arenaLastVisited[0]?.date} />
@@ -91,8 +91,7 @@ function ReviewHeader({ title, arenas, summary, animation }) {
                         </div>
                         <div className="flex items-center align-middle">
                           <IoLocationOutline className="h-5 w-5" />
-                          <p className="ml-2">
-                            {' '}
+                          <p className="ml-2 text-sm">
                             {arenaLastVisited[0]?.location}
                           </p>
                         </div>
@@ -100,12 +99,12 @@ function ReviewHeader({ title, arenas, summary, animation }) {
 
                       <div className=" ">
                         <div className="mt-2 flex flex-row  justify-between">
-                          <span className="title-font mb-1 text-sm  font-medium tracking-widest text-gray-500 ">
-                            Arenas visited
+                          <span className="title-font mb-1 text-sm  font-medium text-gray-500 ">
+                            # of arenas visited
                           </span>
-                          <span className="text-sm font-extrabold text-gray-500 ">
+                          {/* <span className="text-sm font-extrabold text-gray-500 ">
                             Goal
-                          </span>
+                          </span> */}
                         </div>
                         <div className=" h-4 w-full rounded-full bg-gray-900">
                           <div className="w-full rounded-full  dark:bg-gray-700">

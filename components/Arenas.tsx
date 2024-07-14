@@ -58,7 +58,7 @@ const Arenas = ({ arenas }) => {
             {arenas?.map((item) => (
               <div
                 key={item._id}
-                className={`w-full max-w-sm overflow-hidden rounded-lg border-4 border-black bg-white shadow-offsetGreen dark:bg-gray-800 ${
+                className={`w-full max-w-sm overflow-hidden rounded-lg border-4 border-black bg-white shadow-offsetIndigo dark:bg-gray-800 ${
                   item.visited === false
                     ? 'opacity-40 grayscale '
                     : 'grayscale-0 '
