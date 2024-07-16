@@ -45,7 +45,7 @@ const SneakersIndexPage = ({ arenas }) => {
             <div className="mt-12 inline-flex ">
 
 
-              <Button text={'View Our Journey'} link={'/arenas'}/>
+              <Button link={'/arenas'}>View Our Journey</Button>
               
             </div>
           </div>

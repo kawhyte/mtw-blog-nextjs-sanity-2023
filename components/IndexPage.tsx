@@ -82,7 +82,7 @@ export default function IndexPage(props: IndexPageProps) {
                       <h1
                         className={`${oswald.variable}  title-font mb-3 font-heading text-3xl font-medium text-gray-900 sm:text-4xl`}
                       >
-                        Our Travel Essential Picks
+                        Our Travel Essential Reviews
                       </h1>
                       <div className="h-1 w-20 rounded bg-pink-500"></div>
                       <p
@@ -103,7 +103,7 @@ export default function IndexPage(props: IndexPageProps) {
                 <div className="flex   pt-9 lg:mt-0 lg:flex-shrink-0">
                   <div className=" inline-flex  ">
                     
-                    <Button text='View our  Travel Essentials' link={'/essentials'}/> 
+                    <Button link={'/essentials'}>Travel Essentials Reviews</Button> 
                     
                     
                   </div>
@@ -145,7 +145,7 @@ export default function IndexPage(props: IndexPageProps) {
                   </button> */}
 
 
- <Button text='More Adventures' link="/hotel" />
+ <Button  link="/hotel" >More Adventures</Button>
 
 
 

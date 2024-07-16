@@ -13,7 +13,7 @@
   @apply mb-4 mt-12   text-2xl  leading-snug;
 }
 .portableText h5 {
-  @apply mb-4 text-sm mt-4 md:mt-6 md:text-base    leading-snug;
+  @apply mb-4 mr-2 text-xs mt-3 md:mt-1 md:text-sm    leading-snug;
 }
 
 .portableText h3 {

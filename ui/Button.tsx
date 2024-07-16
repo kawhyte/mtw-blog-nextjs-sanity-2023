@@ -1,14 +1,21 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 import { inter } from 'app/fonts'
 import Link from 'next/link'
+import { ReactNode } from 'react'
 
+
+type ButtonProps = {
+
+children?:ReactNode
+link:string;
+text?:string;
+
+}
 export default function Button({
   text,
   link,
-}: {
-  text: string
-  link: string
-}) {
+  children
+}: ButtonProps) {
   //if (!preview) return null
 
   return (
@@ -59,7 +66,7 @@ after:rounded-[36px]
                         after:[background-size:auto_100%]
                         hover:scale-100 hover:bg-pink-200 hover:before:opacity-100 after:hover:[animation-fill-mode:forwards] focus:scale-100 focus:before:opacity-100 motion-reduce:hover:scale-95 motion-reduce:after:hover:animate-none motion-reduce:focus:scale-95 sm:text-xl md:leading-none"
       >
-        {text}
+        {text}{children}
       </a>
     </Link>
   )

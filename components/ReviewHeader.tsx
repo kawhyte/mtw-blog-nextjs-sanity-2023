@@ -23,7 +23,6 @@ function ReviewHeader({ title, arenas, summary, animation }) {
     2
   )
 
-  console.log('Arennas', arenas)
 
   return (
     <div className="mb-10 flex flex-col items-center justify-center bg-indigo-50 pt-10  lg:flex-row">

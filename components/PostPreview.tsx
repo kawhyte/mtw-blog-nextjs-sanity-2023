@@ -25,7 +25,7 @@ export default function PostPreview({
     red: 'shadow-offsetRed',
   }
 
-  console.log("CATT", category)
+
 
   return (
     <>

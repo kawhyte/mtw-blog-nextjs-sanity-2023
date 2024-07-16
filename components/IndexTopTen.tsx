@@ -47,7 +47,7 @@ export default function IndexTopTen() {
                     </svg>
                   </button> */}
 
-                  <Button text=" Our Top Picks" link={'/top_picks'} />
+                  <Button  link={'/top_picks'} >Our Top Picks</Button>
               
             {/* </Link> */}
           </div>

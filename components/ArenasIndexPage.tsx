@@ -43,10 +43,10 @@ const ArenasIndexPage = ({ arenas }) => {
           </p>
           <div className="lg:mt-0 lg:flex-shrink-0">
             <div className="mt-12 inline-flex ">
+          
 
-
-              <Button text={'View Our Journey'} link={'/arenas'}/>
-              
+              <Button link={'/arenas'}>View Our Journey</Button>
+             
             </div>
           </div>
         </div>
