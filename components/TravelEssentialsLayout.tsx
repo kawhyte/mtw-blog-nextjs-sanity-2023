@@ -21,12 +21,19 @@ const TravelEssentialLayout = ({ posts }: { posts: Esssential[] }) => {
                 className={` rounded-lg border-4 max-w-md   border-black  shadow-offsetIndigo  `}
               >
 
-                <div> 
-                <Badge className=" ml-3 mt-3">
+                <div> { item.recommend ? 
+                <Badge  color="green" className=" ml-3 mt-3">
+                  <p className={`${oswald.variable} text-xs uppercase`}>
+                    {'Recommended'}
+                  </p>
+                </Badge>   : <Badge color="red"  className=" ml-3 mt-3">
                   <p className={`${oswald.variable} text-xs uppercase`}>
                     {'Not Recommended'}
                   </p>
                 </Badge>
+                
+                
+                }
                 <div className="relative my-4 flex justify-center ">
                   <Image
                     width={200}
@@ -59,26 +66,24 @@ const TravelEssentialLayout = ({ posts }: { posts: Esssential[] }) => {
                       .url()}
                   /> */}
 
-                <div className="ml-6 flex flex-col  ">
+                <div className="ml-6 flex flex-col   ">
                   <h2
-                    className={` mb-1  font-heading text-sm font-normal  text-pink-500 sm:text-base md:text-base  lg:text-base  xl:text-base`}
+                    className={` text-lg font-extrabold leading-8 text-gray-900 sm:text-xl sm:leading-9 `}
                   >
                     {item.name}
                   </h2>
 
-                  <p className="mb-1  font-heading text-sm font-normal  text-gray-500 sm:text-base md:text-base  lg:text-base  xl:text-sm">
+                  <p className="mt-2 text-base leading-6 text-gray-500 ">
                     $20
                   </p>
 
-                  <PostBody content={item.description} />
                 </div>
 
-                <div className="border-t-2 text-sm mx-6 pt-3 ">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel
-                  cupiditate ut ratione quasi repellendus, magni expedita quas
-                  ducimus ad error repudiandae sequi assumenda perferendis
-                  deleniti sunt pariatur perspiciatis rem exercitationem.
-                </div>
+                
+
+                <div className='ml-6 my-2'> 
+                  <PostBody content={item.description} />
+</div>
                 <div className="mx-20 my-6">
                   {' '}
                   <Button link={item.link}> Get Item</Button>

@@ -54,7 +54,7 @@ _id, title,listType, recommendations[] {post->{title, slug, coverImage, location
 }
 `
 const travelEssentialFields = groq`
-_id, name,link, background, description, productImage,categoryName 
+_id, name,link, background, description,recommend, productImage,categoryName 
 `
 const arenaFields = groq`
 _id, name,arenaImage, gallery, location, visited,date,"visitedCount": count(*[_type == 'arenas' && visited == true]), "galleryCount": count(gallery) 
@@ -127,8 +127,11 @@ export interface Esssential {
   link?:string
   background?:string
   description?: any
+  // textRating?: any
   productImage?:any
   categoryName?:any
+  recommend?:boolean
+
   
 }
 export interface Arena {

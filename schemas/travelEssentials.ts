@@ -2,8 +2,6 @@ import { HeartFilledIcon } from '@sanity/icons'
 // import { format, parseISO } from 'date-fns'
 import { defineField, defineType } from 'sanity'
 
-
-
 export default defineType({
   name: 'essential',
   title: 'Travel Essential Picks',
@@ -31,7 +29,6 @@ export default defineType({
     //   },
     // }),
 
-
     // {
     //   title: 'Category Set',
     //   name: 'categorySet',
@@ -46,9 +43,6 @@ export default defineType({
     //     ]
     //   }
     // },
-
-    
-  
 
     defineField({
       name: 'name',
@@ -76,7 +70,6 @@ export default defineType({
       type: 'datetime',
       description: 'This date will be used for sorting',
 
-
       initialValue: () => new Date().toISOString(),
     }),
     // defineField({
@@ -88,15 +81,54 @@ export default defineType({
     //   //validation: (rule) => rule.required(),
     // }),
 
-   
     defineField({
       name: 'description',
-      title: 'Production description blurb (Optional)',
+      title: 'Production description and rating ',
       description: '(Optional) Add a short summary. (use Heading 5 formatting)',
       //validation: (Rule) => Rule.required(),
+      validation: (Rule) =>
+        Rule.max(120).warning(
+          `The description/rating shouldn't be more than 120 characters.`
+        ),
+
       type: 'array',
-      of: [{ type: 'block' }],
+      of: [{ type: 'block',
+
+
+          // Only allow these block styles
+          styles: [{ title: 'H5', value: 'h5' }],
+
+       }],
     }),
+
+
+    // defineField({
+    //   name: 'textRating',
+    //   title: 'Production rating',
+    //   description: 'Add a short review. (use Heading 5 formatting)',
+    //   validation: (Rule) =>
+    //     Rule.max(120).warning(
+    //       `The production rating shouldn't be more than 120 characters.`
+    //     ),
+
+    //   type: 'array',
+    //   of: [
+    //     {
+    //       type: 'block',
+
+    //       // Only allow these block styles
+    //       styles: [{ title: 'H5', value: 'h5' }],
+    //     },
+    //   ],
+    // }),
+    defineField({
+      title: 'Would you recommend this product?',
+      name: 'recommend',
+      type: 'boolean',
+      description: 'Set to true if you like the item',
+      validation: (Rule) => Rule.required(),
+    }),
+
 
     defineField({
       name: 'productImage',
@@ -131,6 +163,5 @@ export default defineType({
     //     layout: 'radio',
     //   },
     // }),
-
   ],
 })
