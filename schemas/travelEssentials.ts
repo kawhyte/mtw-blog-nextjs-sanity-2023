@@ -82,6 +82,12 @@ export default defineType({
     // }),
 
     defineField({
+      title: 'Purchase price',
+      name: 'price',
+      type: 'number'
+    }),
+
+    defineField({
       name: 'description',
       title: 'Production description and rating ',
       description: '(Optional) Add a short summary. (use Heading 5 formatting)',

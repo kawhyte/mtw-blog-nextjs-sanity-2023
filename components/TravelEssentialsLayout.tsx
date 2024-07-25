@@ -36,17 +36,17 @@ const TravelEssentialLayout = ({ posts }: { posts: Esssential[] }) => {
                 }
                 <div className="relative my-4 flex justify-center ">
                   <Image
-                    width={200}
-                    height={200}
+                    width={250}
+                    height={250}
                     placeholder="blur"
-                    // blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAO0lEQVR4nGNgYGBg+P//P1t9fT0TiM0we3ZjxZxZjQ9XLpwwe9nCHkOGGZOyanraY9aumN2wbsn0hmQA/MEWfj4ocjcAAAAASUVORK5CYII="
-                    className=" "
-                    alt="hero"
+                     //blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAO0lEQVR4nGNgYGBg+P//P1t9fT0TiM0we3ZjxZxZjQ9XLpwwe9nCHkOGGZOyanraY9aumN2wbsn0hmQA/MEWfj4ocjcAAAAASUVORK5CYII="
+                   
+                    alt="product"
                     src={
                       item?.productImage?.asset?._ref
                         ? urlForImage(item?.productImage?.asset?._ref)
-                            .height(200)
-                            .width(200)
+                            .height(250)
+                            .width(250)
                             .fit('crop')
                             .url()
                         : 'https://fakeimg.pl/1240x801'
@@ -74,7 +74,7 @@ const TravelEssentialLayout = ({ posts }: { posts: Esssential[] }) => {
                   </h2>
 
                   <p className="mt-2 text-base leading-6 text-gray-500 ">
-                    $20
+                {item.price > 0 ? `$${item.price}` : "FREE"}
                   </p>
 
                 </div>

@@ -49,7 +49,7 @@ export default function PostPreview({
           className={`${inter.variable} title-font  font-secondary mt-3 font-light text-gray-700 `}
         >
           <div className="mx-3 -mt-6 ">
-            <h2 className=" title-font my-2 truncate text-sm  font-semibold text-pink-500  md:w-80">
+            <h2 className=" title-font my-2 truncate text-md font-extrabold text-pink-500  md:w-80">
               {title}
             </h2>
             {/* <p className='text-base leading-relaxed mt-2'>{item.excerpt}</p> */}
