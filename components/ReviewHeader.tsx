@@ -8,10 +8,14 @@ import { IoLocationOutline } from 'react-icons/io5'
 import PostDate from './PostDate'
 
 function ReviewHeader({ title, arenas, summary, animation }) {
-  const totalDistance = arenas.reduce(
-    (total, item) => total + item.galleryCount,
-    0
-  )
+  // const totalDistance = arenas.reduce(
+  //   (total, item) => total + item.galleryCount,
+  //   0
+  // )
+
+  console.log("AREANS",arenas)
+  console.log("AREANS",arenas.length)
+  console.log("AREANS",arenas)
 
   const filteredList = arenas.filter((item) => item.visited === true)
 
@@ -19,7 +23,7 @@ function ReviewHeader({ title, arenas, summary, animation }) {
     return new Date(b.date).valueOf() - new Date(a.date).valueOf()
   })
 
-  const percentage = ((arenas[0]?.visitedCount / totalDistance) * 100).toFixed(
+  const percentage = ((arenas[0]?.visitedCount / arenas.length) * 100).toFixed(
     2
   )
 
@@ -97,21 +101,27 @@ function ReviewHeader({ title, arenas, summary, animation }) {
                       </div>
 
                       <div className=" ">
-                        <div className="mt-2 flex flex-row  justify-between">
+                        {/* <div className="mt-2 flex flex-row  justify-between">
                           <span className="title-font mb-1 text-sm  font-medium text-gray-500 ">
-                            # of arenas visited
+                          {arenas[4]?.visitedCount} of 37 arenas visited
                           </span>
-                          {/* <span className="text-sm font-extrabold text-gray-500 ">
-                            Goal
-                          </span> */}
+                          
+                        </div> */}
+                        <div className="mt-2 flex flex-row  justify-between">
+                          <span className=" mb-2 text-sm  font-medium text-gray-500 ">
+                          We&apos;ve visited <span className='font-black text-lg text-indigo-500'> {arenas[4]?.visitedCount}</span> arenas so far
+                          </span>
+                          
                         </div>
                         <div className=" h-4 w-full rounded-full bg-gray-900">
                           <div className="w-full rounded-full  dark:bg-gray-700">
                             <div
-                              className="h-6  rounded-r-full bg-gradient-to-r  from-yellow-200 to-pink-500 p-1.5 text-center text-sm font-medium leading-none text-gray-600  "
+                              className="h-6  rounded-r-full bg-gradient-to-r  from-yellow-200 to-pink-500 p-1.5 text-center text-sm font-black leading-none text-gray-600  "
                               style={{ width: `${percentage}%` }}
                             >
-                              {arenas[4]?.visitedCount} of 37
+                              {/* {Math.round((arenas[4]?.visitedCount/37) *100)}%  */}
+                           {percentage}%
+                           {/* {totalDistance} */}
                             </div>
                           </div>
                         </div>
