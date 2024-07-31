@@ -13,9 +13,7 @@ function ReviewHeader({ title, arenas, summary, animation }) {
   //   0
   // )
 
-  console.log("AREANS",arenas)
-  console.log("AREANS",arenas.length)
-  console.log("AREANS",arenas)
+
 
   const filteredList = arenas.filter((item) => item.visited === true)
 
