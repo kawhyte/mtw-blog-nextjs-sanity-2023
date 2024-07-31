@@ -57,11 +57,11 @@ module.exports = {
       boxShadow: {
         small: '0 5px 10px rgba(0, 0, 0, 0.12)',
         medium: '0 8px 30px rgba(0, 0, 0, 0.12)',
-        offsetGreen: '18px 18px 10px -4px rgba(187, 247, 208, 1)',  
-        offsetRed: '18px 18px 0 -4px rgba(255, 241, 242, 1)',  
-        offsetBlue: '18px 18px 0 -4px rgba(147, 197, 253, .5)',  
-        offsetIndigo: '18px 18px 0 -4px rgba(199, 210, 254, 0.50)',  
-        offsetYellow: '18px 18px 0 -4px rgba(253, 224, 71, 0.5)',  
+        offsetGreen: '18px 18px 0 -4px rgba(187, 247, 208, .4)',  
+        offsetRed: '18px 18px 0 -4px rgba(255, 241, 242, .3)',  
+        offsetBlue: '18px 18px 0 -4px rgba(147, 197, 253, .3)',  
+        offsetIndigo: '18px 18px 0 -4px rgba(199, 210, 254, 0.3)',  
+        offsetYellow: '18px 18px 0 -4px rgba(253, 224, 71, 0.3)',  
         
       },
     },

@@ -7,7 +7,7 @@ import type { Post, Settings } from 'lib/sanity.queries'
 import Head from 'next/head'
 import { useState } from 'react'
 import { FaRegCalendarAlt } from 'react-icons/fa'
-import { IoLocationOutline } from "react-icons/io5";
+import { IoLocationOutline } from 'react-icons/io5'
 
 import { CMS_NAME } from '../lib/constants'
 import Container from './BlogContainer'
@@ -54,7 +54,7 @@ const Arenas = ({ arenas }) => {
             animation={'/basketball.svg'}
           />
 
-          <div className="container mx-auto  mt-14 grid grid-cols-1 place-content-center place-items-center gap-y-10 gap-x-16 px-3 sm:grid-cols-2 md:grid-cols-2 md:gap-10 md:px-6 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="container mx-auto  mt-14 grid grid-cols-1 place-content-center place-items-center gap-x-16 gap-y-10 px-3 sm:grid-cols-2 md:grid-cols-2 md:gap-10 md:px-6 lg:grid-cols-3 xl:grid-cols-4">
             {arenas?.map((item) => (
               <div
                 key={item._id}
@@ -72,7 +72,7 @@ const Arenas = ({ arenas }) => {
                   ) : (
                     ''
                   )} */}
-                  <div className="relative bg-muted">
+                  <div className="bg-muted relative">
                     <img
                       src={
                         item?.arenaImage.asset?._ref
@@ -89,31 +89,27 @@ const Arenas = ({ arenas }) => {
                       alt={`${item.name} arena`}
                     />
 
+                    <h1
+                      className={`${oswald.variable} absolute inset-x-0 bottom-2 text-center font-heading text-2xl font-medium text-gray-50  `}
+                    >
+                      {item.name}
+                    </h1>
 
+                    <div className='left-0 top-2  w-48 lg:w-full px-2 absolute flex flex-col gap-2 lg:flex-row justify-between '> 
 
-<h1
-                    className={`${oswald.variable} absolute inset-x-0 bottom-2 text-center font-heading text-2xl font-medium text-gray-50  `}
-                  >
-                    {item.name}
-                  </h1>
-
-
-                    <div className="absolute left-3 top-2  flex flex-row items-center justify-center rounded-full bg-pink-500/80 px-1 py-1 align-middle ">
-                   
+                    <div className="  flex flex-row items-center justify-start rounded-full bg-pink-500/80 px-1 py-1 align-middle ">
                       <IoLocationOutline className="ml-1 h-4 w-4 text-red-50" />
 
-
-                      <h1 className="px-2 text-xs text-white ">
-                        
+                      <h1 className="px-2 text-xs text-white line-clamp-1 ">
                         {item.location}
                       </h1>
                     </div>
 
                     {item.visited === true ? (
                       <>
-                        <div className="absolute right-3 top-2  flex flex-row items-center justify-center rounded-full bg-indigo-500/80 px-1 py-1 align-middle ">
+                        <div className="  flex flex-row items-center justify-start rounded-full bg-indigo-500/80 px-1 py-1 align-middle ">
                           <FaRegCalendarAlt className="ml-1 mr-2 h-4 w-4    text-white" />
-                          <p className=" pr-2 text-xs text-white">
+                          <p className=" pr-2 text-xs text-white line-clamp-1">
                             <PostDate dateString={item.date} />
                           </p>
                         </div>
@@ -121,6 +117,7 @@ const Arenas = ({ arenas }) => {
                     ) : (
                       ''
                     )}
+                  </div>
                   </div>
                 </div>
 
@@ -131,7 +128,7 @@ const Arenas = ({ arenas }) => {
                     {item.name}
                   </h1> */}
 
-                  {/* <div className=" flex items-center text-gray-700 dark:text-gray-200">
+                {/* <div className=" flex items-center text-gray-700 dark:text-gray-200">
                     <svg
                       aria-label="location pin icon"
                       className=" h-4 w-4 fill-current md:h-6 md:w-6"
@@ -156,7 +153,7 @@ const Arenas = ({ arenas }) => {
                       {item.location}
                     </h1>
                   </div> */}
-                  {/* {item.visited === true ? (
+                {/* {item.visited === true ? (
                     <span className="mt-3 rounded-full bg-green-200 px-4  py-2 text-[.6rem] text-green-600  md:text-xs ">
                       Visited: <PostDate dateString={item.date} />
                     </span>

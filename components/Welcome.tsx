@@ -47,13 +47,7 @@ let duo = [
   },
 ]
 
-let colors = [
-  { shade: 'bg-red-400' },
-  { shade: 'bg-red-400' },
-  { shade: 'bg-red-400' },
-  { shade: 'bg-red-400' },
-  { shade: 'bg-red-400' },
-]
+
 
 function Welcome() {
   return (
@@ -81,9 +75,9 @@ function Welcome() {
                       
                    
                           <div className="lg:absolute hidden -left-4 -top-4 h-96 w-72  transform rounded-lg bg-yellow-100 transition-all"></div>
-                          <div className="-left-8 -top-8 hidden h-96 w-72 transform rounded-lg  bg-green-200 transition-all lg:absolute lg:block"></div>
-                          <div className="-left-12 -top-12 hidden h-96 w-72 transform rounded-lg  bg-purple-200 transition-all lg:absolute lg:block"></div>
-                          <div className="-left-16 -top-16 hidden h-96 w-72 transform rounded-lg  bg-black transition-all lg:absolute lg:block"></div>
+                          <div className="-left-8 -top-8 hidden h-96 w-72 transform rounded-lg  bg-green-100 transition-all lg:absolute lg:block"></div>
+                          <div className="-left-12 -top-12 hidden h-96 w-72 transform rounded-lg  bg-purple-100 transition-all lg:absolute lg:block"></div>
+                          <div className="-left-16 -top-16 hidden h-96 w-72 transform rounded-lg  bg-gray-300 transition-all lg:absolute lg:block"></div>
                           <div className="-left-20 -top-20   lg:flex  h-72 lg:h-96 w-72 transform  flex-col items-center justify-center rounded-lg border-4  border-black bg-white transition-all lg:absolute">
                      
                         
