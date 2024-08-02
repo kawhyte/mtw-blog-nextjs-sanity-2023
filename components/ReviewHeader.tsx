@@ -1,3 +1,4 @@
+import { Progress } from '@mantine/core'
 import { inter, oswald } from 'app/fonts'
 import { urlForImage } from 'lib/sanity.image'
 import Image from 'next/image'
@@ -115,48 +116,35 @@ function ReviewHeader({ title, arenas, summary, animation }) {
                             arenas so far
                           </span>
                         </div>
+                        {/* <div className=""> 
+                        <Progress value={parseInt(percentage)} animate  />
+                        <div className='text-xs'> {percentage}%</div> 
+
+</div> */}
                         <div className="flex items-center justify-center gap-x-2">
-                          <div className=" h-3 w-full rounded-full bg-gray-200">
-                            <div className="w-full rounded-full  dark:bg-gray-200">
+                          <div className=" h-3 w-full rounded-full ">
+                            {/* <div className="w-full rounded-full  dark:bg-gray-200">
                               <div
                                 className="h-3  rounded-r-full bg-gradient-to-r  from-pink-200 to-pink-500 p-0 text-center text-sm font-black leading-none text-gray-600  "
                                 style={{ width: `${percentage}%` }}
                               >
-                                {/* {Math.round((arenas[4]?.visitedCount/37) *100)}%  */}
-                                {/* {percentage}% */}
-                                {/* {totalDistance} */}
+                        
+
+
                               </div>
-                            </div>
+                            </div> */}
+                            <Progress
+                              color="rgba(255, 79, 208, 0.95)"
+                              radius="lg"
+                              size="lg"
+                              value={40}
+                              animate
+                            />
                           </div>
-                        <div className='text-xs'> {percentage}%</div>  
+                          <div className="text-xs"> {percentage}%</div>
                         </div>
                       </div>
-                      {/* <div className="  ">
-                  
-                        <div className="mt-2 flex flex-row  justify-between">
-                          <span className=" mb-2 text-sm  font-medium text-gray-500 ">
-                            We&apos;ve seen{' '}
-                            <span className=" font-black text-indigo-500">
-                              {' '}
-                              {arenas[4]?.visitedCount}
-                            </span>{' '}
-                            WNBA teams
-                          </span>
-                        </div>
-                        <div className="flex items-center justify-center gap-x-2">
-                          <div className=" h-3 w-full rounded-full bg-gray-200">
-                            <div className="w-full rounded-full  dark:bg-gray-200">
-                              <div
-                                className="h-3  rounded-r-full bg-indigo-500/80 p-0 text-center text-sm font-black leading-none text-gray-600  "
-                                style={{ width: `${22}%` }}
-                              >
-                            
-                              </div>
-                            </div>
-                          </div>
-                        <div className='text-xs'> {22}%</div>  
-                        </div>
-                      </div> */}
+                      
                     </div>
                   </div>
                 )}
