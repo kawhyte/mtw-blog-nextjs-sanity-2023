@@ -18,7 +18,7 @@ import PostDate from './PostDate'
 import ReviewHeader from './ReviewHeader'
 
 const Arenas = ({ arenas }) => {
-  //console.log('arenas 77 ', arenas)
+  console.log('arenas 77 ', arenas)
 
   const totalDistance = arenas.reduce(
     (total, item) => total + item.galleryCount,
