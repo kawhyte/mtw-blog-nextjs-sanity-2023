@@ -119,7 +119,7 @@ function ReviewHeader({ title, arenas, summary, animation }) {
                           <div className=" h-3 w-full rounded-full bg-gray-200">
                             <div className="w-full rounded-full  dark:bg-gray-200">
                               <div
-                                className="h-3  rounded-r-full bg-gradient-to-r  from-yellow-200 to-pink-500 p-0 text-center text-sm font-black leading-none text-gray-600  "
+                                className="h-3  rounded-r-full bg-gradient-to-r  from-pink-200 to-pink-500 p-0 text-center text-sm font-black leading-none text-gray-600  "
                                 style={{ width: `${percentage}%` }}
                               >
                                 {/* {Math.round((arenas[4]?.visitedCount/37) *100)}%  */}

@@ -91,7 +91,19 @@ export default defineType({
       type: 'string',
       validation: (rule) => rule.required(),
     }),
+    defineField({
+      name: 'capacity',
+      title: 'Arena Capacity',
+      type: 'number',
+      // validation: (rule) => rule.required(),
+    }),
 
+    defineField({
+      name: 'buildDate',
+      title: 'Arena build date',
+      type: 'date',
+      // validation: (rule) => rule.required(),
+    }),
     defineField({
       title: 'Did  we visit this Arena?',
       name: 'visited',

@@ -7,32 +7,32 @@ import type { Post, Settings } from 'lib/sanity.queries'
 import Head from 'next/head'
 import { useState } from 'react'
 import { FaRegCalendarAlt } from 'react-icons/fa'
-import { IoLocationOutline } from 'react-icons/io5'
-import { IoMdEye,IoMdEyeOff  } from "react-icons/io";
-
-
+import { FaPersonWalking } from 'react-icons/fa6'
+import { IoMdEye, IoMdEyeOff } from 'react-icons/io'
+import { IoHammer, IoLocation,IoLocationOutline } from 'react-icons/io5'
+import { TbRulerMeasure } from 'react-icons/tb'
 
 import { CMS_NAME } from '../lib/constants'
 import Container from './BlogContainer'
 import BlogHeader from './BlogHeader'
 import Layout from './BlogLayout'
 import Footer from './Footer'
-import PostDate from './PostDate'
+import PostDate, { PostYear } from './PostDate'
 import ReviewHeader from './ReviewHeader'
 
 const Arenas = ({ arenas }) => {
-  console.log('arenas 77 ', arenas)
+  // console.log('arenas 77 ', arenas)
 
-  const totalDistance = arenas.reduce(
-    (total, item) => total + item.gallery.teamType==="nba",
-    0
-  )
+  // const totalDistance = arenas.reduce(
+  //   (total, item) => total + item.gallery.teamType === 'nba',
+  //   0
+  // )
 
   // console.log("totalDistance ", totalDistance)
 
-  const percentage = ((arenas[0]?.visitedCount / totalDistance) * 100).toFixed(
-    2
-  )
+  // const percentage = ((arenas[0]?.visitedCount / totalDistance) * 100).toFixed(
+  //   2
+  // )
 
   //console.log('percentage ', percentage)
 
@@ -52,12 +52,12 @@ const Arenas = ({ arenas }) => {
             title={'Visiting Every NBA & WNBA Arena'}
             arenas={arenas}
             summary={
-              'We are traveling near and far to every state/country to visit all the NBA and WNBA arenas (36) across the US and Canada. Follow us on this journey.'
+              `We are traveling near and far to every state/country to visit all the NBA and WNBA arenas (${(arenas.length)}) across the US and Canada. Follow us on this journey.`
             }
             animation={'/basketball.svg'}
           />
 
-          <div className="container mx-auto  mt-14 grid grid-cols-1 place-content-center place-items-center gap-x-16 gap-y-10 px-3 sm:grid-cols-2 md:grid-cols-2 md:gap-10 md:px-6 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="container mx-auto  mt-14 grid grid-cols-1 place-content-center place-items-center gap-x-16 gap-y-10 px-3 sm:grid-cols-1 md:grid-cols-2 md:gap-10 md:px-6 lg:grid-cols-3 2xl:grid-cols-4">
             {arenas?.map((item) => (
               <div
                 key={item._id}
@@ -91,8 +91,6 @@ const Arenas = ({ arenas }) => {
                       width={224}
                       alt={`${item.name} arena`}
                     />
-
-                    
                   </div>
                 </div>
 
@@ -120,7 +118,7 @@ const Arenas = ({ arenas }) => {
 
                   <div className="flex w-full flex-row items-center justify-between py-2 align-middle ">
                     <div className="flex">
-                      <IoLocationOutline className=" h-4 w-4 text-red-50" />
+                      <IoLocation className=" h-4 w-4 text-red-50" />
 
                       <h1 className="line-clamp-1 px-1 text-sm text-white ">
                         {item.location}
@@ -129,7 +127,7 @@ const Arenas = ({ arenas }) => {
 
                     {item.visited === true ? (
                       <>
-                        <div className="  my-1 flex flex-row items-center justify-start rounded-full bg-indigo-500/80  px-1 py-1 align-middle ">
+                        <div className="  my-1 flex flex-row items-center justify-start rounded-full bg-pink-500/80  px-1 py-1 align-middle ">
                           <FaRegCalendarAlt className="ml-1 mr-2 h-4 w-4    text-white" />
                           <p className=" line-clamp-1 pr-2 text-xs text-white">
                             <PostDate dateString={item.date} />
@@ -142,27 +140,26 @@ const Arenas = ({ arenas }) => {
                   </div>
                 </div>
 
-                <div className='border-t border-gray-500 mx-4'></div>
+                <div className="mx-4 border-t border-gray-500"></div>
 
-                <div className=" mx-3 flex items-center  justify-between  align-middle text-xs font-bold text-gray-700 dark:text-gray-200 md:text-xs ">
-                  <div className="my-4 flex items-center gap-1">
-                    <IoLocationOutline className="ml-1 h-4 w-4 text-red-50" />
-                    <p> Year built</p>
+                <div className=" flex items-center  justify-evenly  align-middle text-xs font-bold text-gray-700 dark:text-gray-200 md:text-xs ">
+                  <div className="my-4 flex items-center ">
+                    <IoHammer className=" h-4 w-4 text-red-50" />
+                    <p className='px-1'>Constructed in <PostYear dateString={item.buildDate}/></p>
                   </div>
                   <div className="flex items-center gap-1">
-                    <IoLocationOutline className="ml-1 h-4 w-4 text-red-50" />
-                    <p> Capacity</p>
+                    <FaPersonWalking className=" h-4 w-4 text-red-50" />
+                    <p className='px-1'>Capacity {new Intl.NumberFormat().format(item.capacity)}
+
+                    </p>
                   </div>
-                  <div className="flex items-center gap-1">
-                    <IoLocationOutline className="ml-1 h-4 w-4 text-red-50" />
-                    <p> Sq foot</p>
-                  </div>
+                
                 </div>
 
-                <div className='border-t border-gray-500 mx-4'></div>
+                <div className="mx-4 border-t border-gray-500"></div>
 
-                <div className=" mx-3 gap-x-2 mt-2 flex flex-row flex-wrap justify-start  align-top ">
-                  {item.gallery?.map((photo, index) => (
+                <div className=" mx-3 mt-2 flex flex-row flex-wrap justify-start gap-x-2  align-top ">
+                  {item.gallery?.map((photo) => (
                     <div
                       key={photo.name}
                       className="  mb-3 mt-4 flex flex-col items-center justify-between pr-2 "
@@ -183,30 +180,29 @@ const Arenas = ({ arenas }) => {
                                   .url()
                               : 'https://source.unsplash.com/96x96/?face'
                           }
-                          className=" h-8 w-8 rounded-full border-2 md:h-9 md:w-9 p-1   "
+                          className=" h-8 w-8 rounded-full border-2 p-1 md:h-9 md:w-9   "
                           height={96}
                           width={96}
                           // @TODO add alternative text to avatar image schema
                           alt={`${photo.name} logo`}
                         />
 
-                        <div className="mt-2 flex flex-col ">
+                        <div className="flex flex-col ">
                           <p className="mx-1  cursor-pointer text-xs font-bold text-gray-700 dark:text-gray-200 md:text-xs">
                             {photo.name}
                           </p>
 
-                        {photo.played === true ?    
-                          <div className='flex items-center'>
-                          <IoMdEye className='w-4 h-4 text-green-300 mr-1' />
-                          <p className="my-1 cursor-pointer text-xs font-bold text-gray-500 dark:text-gray-500 md:text-xs"> Watched
-                          </p></div> : 
-                          <IoMdEyeOff className='w-4 h-4 text-red-300 my-1' />
-
-                          
-                        
-                          
-                          
-                          }
+                          {photo.played === true ? (
+                            <div className="flex items-center">
+                              <IoMdEye className="mx-1 h-4 w-4 text-green-300" />
+                              <p className="my-1 cursor-pointer text-xs font-bold text-gray-400 dark:text-gray-400 md:text-xs">
+                                {' '}
+                                Watched team
+                              </p>
+                            </div>
+                          ) : (
+                            <IoMdEyeOff className="mx-1 my-1 h-4 w-4 text-gray-300" />
+                          )}
                         </div>
                       </div>
                     </div>
