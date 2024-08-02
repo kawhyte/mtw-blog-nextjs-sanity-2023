@@ -8,6 +8,9 @@ import Head from 'next/head'
 import { useState } from 'react'
 import { FaRegCalendarAlt } from 'react-icons/fa'
 import { IoLocationOutline } from 'react-icons/io5'
+import { IoMdEye,IoMdEyeOff  } from "react-icons/io";
+
+
 
 import { CMS_NAME } from '../lib/constants'
 import Container from './BlogContainer'
@@ -21,7 +24,7 @@ const Arenas = ({ arenas }) => {
   console.log('arenas 77 ', arenas)
 
   const totalDistance = arenas.reduce(
-    (total, item) => total + item.galleryCount,
+    (total, item) => total + item.gallery.teamType==="nba",
     0
   )
 
@@ -139,7 +142,9 @@ const Arenas = ({ arenas }) => {
                   </div>
                 </div>
 
-                <div className=" mx-3 flex items-center  justify-between border-t border-gray-500 align-middle text-xs font-bold text-gray-700 dark:text-gray-200 md:text-xs ">
+                <div className='border-t border-gray-500 mx-4'></div>
+
+                <div className=" mx-3 flex items-center  justify-between  align-middle text-xs font-bold text-gray-700 dark:text-gray-200 md:text-xs ">
                   <div className="my-4 flex items-center gap-1">
                     <IoLocationOutline className="ml-1 h-4 w-4 text-red-50" />
                     <p> Year built</p>
@@ -154,20 +159,20 @@ const Arenas = ({ arenas }) => {
                   </div>
                 </div>
 
-                
+                <div className='border-t border-gray-500 mx-4'></div>
 
-                <div className=" mx-4 flex flex-row flex-wrap items-center border-t border-gray-500 ">
+                <div className=" mx-3 gap-x-2 mt-2 flex flex-row flex-wrap justify-start  align-top ">
                   {item.gallery?.map((photo, index) => (
                     <div
                       key={photo.name}
-                      className="my-5 flex flex-col items-center justify-between pr-2 "
+                      className="  mb-3 mt-4 flex flex-col items-center justify-between pr-2 "
                     >
                       {/* <img
                   className="mx-4 hidden h-10 w-10 rounded-full object-cover sm:block"
                   src="https://ssl.gstatic.com/onebox/media/sports/logos/4ndR-n-gall7_h3f7NYcpQ_96x96.png"
                   alt="avatar"
                 /> */}
-                      <div className="flex flex-row">
+                      <div className="flex flex-row gap-x-1">
                         <img
                           src={
                             photo?.asset?._ref
@@ -185,14 +190,23 @@ const Arenas = ({ arenas }) => {
                           alt={`${photo.name} logo`}
                         />
 
-                        <div className="mx-1 flex flex-col ">
+                        <div className="mt-2 flex flex-col ">
                           <p className="mx-1  cursor-pointer text-xs font-bold text-gray-700 dark:text-gray-200 md:text-xs">
                             {photo.name}
                           </p>
 
-                        {item.played === true ?    <p className="mx-1 mb-1 cursor-pointer text-xs font-bold text-gray-500 dark:text-gray-500 md:text-xs">
-                            {'Watched'}
-                          </p> :""}
+                        {photo.played === true ?    
+                          <div className='flex items-center'>
+                          <IoMdEye className='w-4 h-4 text-green-300 mr-1' />
+                          <p className="my-1 cursor-pointer text-xs font-bold text-gray-500 dark:text-gray-500 md:text-xs"> Watched
+                          </p></div> : 
+                          <IoMdEyeOff className='w-4 h-4 text-red-300 my-1' />
+
+                          
+                        
+                          
+                          
+                          }
                         </div>
                       </div>
                     </div>

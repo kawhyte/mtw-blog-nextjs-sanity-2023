@@ -58,6 +58,23 @@ export default defineType({
               type: 'boolean',
             },
             {
+              title: 'Team type',
+              description: '',
+              name: 'teamType',
+              type: 'string',
+              // validation: (Rule) => Rule.required(),
+              options: {
+                list: [
+                  { title: 'NBA', value: 'nba' },
+                  { title: 'WNBA', value: 'wnba' },
+            
+                ],
+                layout: 'radio',
+              },
+            },
+
+
+            {
               name: 'link',
               type: 'string',
               title: 'Link to arena page',

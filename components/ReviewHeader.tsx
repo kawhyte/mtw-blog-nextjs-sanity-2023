@@ -131,13 +131,8 @@ function ReviewHeader({ title, arenas, summary, animation }) {
                         <div className='text-xs'> {percentage}%</div>  
                         </div>
                       </div>
-                      <div className="  ">
-                        {/* <div className="mt-2 flex flex-row  justify-between">
-                          <span className="title-font mb-1 text-sm  font-medium text-gray-500 ">
-                          {arenas[4]?.visitedCount} of 37 arenas visited
-                          </span>
-                          
-                        </div> */}
+                      {/* <div className="  ">
+                  
                         <div className="mt-2 flex flex-row  justify-between">
                           <span className=" mb-2 text-sm  font-medium text-gray-500 ">
                             We&apos;ve seen{' '}
@@ -155,15 +150,13 @@ function ReviewHeader({ title, arenas, summary, animation }) {
                                 className="h-3  rounded-r-full bg-indigo-500/80 p-0 text-center text-sm font-black leading-none text-gray-600  "
                                 style={{ width: `${22}%` }}
                               >
-                                {/* {Math.round((arenas[4]?.visitedCount/37) *100)}%  */}
-                                {/* {percentage}% */}
-                                {/* {totalDistance} */}
+                            
                               </div>
                             </div>
                           </div>
                         <div className='text-xs'> {22}%</div>  
                         </div>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 )}
