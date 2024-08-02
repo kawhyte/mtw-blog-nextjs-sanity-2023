@@ -1,4 +1,4 @@
-import { Progress } from '@mantine/core'
+import { Badge, Progress } from '@mantine/core'
 import { inter, oswald } from 'app/fonts'
 import MoreStories from 'components/MoreStories'
 import * as demo from 'lib/demo.data'
@@ -18,7 +18,7 @@ import PostDate from './PostDate'
 import ReviewHeader from './ReviewHeader'
 
 const Arenas = ({ arenas }) => {
-  //  console.log('arenas 77 ', arenas[0])
+  console.log('arenas 77 ', arenas)
 
   const totalDistance = arenas.reduce(
     (total, item) => total + item.galleryCount,
@@ -58,7 +58,7 @@ const Arenas = ({ arenas }) => {
             {arenas?.map((item) => (
               <div
                 key={item._id}
-                className={`w-full max-w-sm overflow-hidden rounded-lg border-4 border-black bg-white shadow-offsetIndigo dark:bg-gray-800 ${
+                className={`w-full max-w-sm overflow-hidden rounded-3xl border-4 border-black bg-white shadow-offsetIndigo dark:bg-gray-800 ${
                   item.visited === false
                     ? 'opacity-40 grayscale '
                     : 'grayscale-0 '
@@ -83,33 +83,79 @@ const Arenas = ({ arenas }) => {
                               .url()
                           : 'https://fakeimg.pl/1240x801'
                       }
-                      className="h-56 w-full object-cover object-center brightness-[0.7] grayscale "
+                      className=" h-42 h- w-full object-cover object-center brightness-[0.7]  "
                       height={300}
                       width={224}
                       alt={`${item.name} arena`}
                     />
 
-                    <h1
+                    {/* <h1
                       className={`${oswald.variable} absolute inset-x-0 bottom-2 text-center font-heading text-2xl font-medium text-gray-50  `}
+                    >
+                      {item.name}
+                    </h1> */}
+
+                    {/* <div className="absolute left-0  top-2 flex w-48 flex-col justify-between gap-2 px-2 lg:w-full lg:flex-row ">
+                      <div className="  flex flex-row items-center justify-start rounded-full bg-pink-500/80 px-1 py-1 align-middle ">
+                        <IoLocationOutline className="ml-1 h-4 w-4 text-red-50" />
+
+                        <h1 className="line-clamp-1 px-2 text-xs text-white ">
+                          {item.location}
+                        </h1>
+                      </div>
+
+                      {item.visited === true ? (
+                        <>
+                          <div className="  flex flex-row items-center justify-start rounded-full bg-indigo-500/80  px-1 py-1 align-middle ">
+                            <FaRegCalendarAlt className="ml-1 mr-2 h-4 w-4    text-white" />
+                            <p className=" line-clamp-1 pr-2 text-xs text-white">
+                              <PostDate dateString={item.date} />
+                            </p>
+                          </div>
+                        </>
+                      ) : (
+                        ''
+                      )}
+                    </div> */}
+                  </div>
+                </div>
+
+                <div className=" mx-3 mb-3 mt-4 flex flex-col items-start justify-between gap-y-2 align-middle ">
+                  <div className="flex w-full justify-between align-middle">
+                    <h1
+                      className={`${oswald.variable}    text-center font-heading text-2xl font-medium text-gray-50  `}
                     >
                       {item.name}
                     </h1>
 
-                    <div className='left-0 top-2  w-48 lg:w-full px-2 absolute flex flex-col gap-2 lg:flex-row justify-between '> 
+                    {/* {item.visited === true ? (
+                      <>
+                        <div className="  my-1 flex flex-row items-center justify-start rounded-full bg-indigo-500/80  px-1 py-1 align-middle ">
+                          <FaRegCalendarAlt className="ml-1 mr-2 h-4 w-4    text-white" />
+                          <p className=" line-clamp-1 pr-2 text-xs text-white">
+                            <PostDate dateString={item.date} />
+                          </p>
+                        </div>
+                      </>
+                    ) : (
+                      ''
+                    )} */}
+                  </div>
 
-                    <div className="  flex flex-row items-center justify-start rounded-full bg-pink-500/80 px-1 py-1 align-middle ">
-                      <IoLocationOutline className="ml-1 h-4 w-4 text-red-50" />
+                  <div className="flex flex-row items-center justify-between py-2 align-middle w-full ">
+                    <div className='flex'>
+                      <IoLocationOutline className=" h-4 w-4 text-red-50" />
 
-                      <h1 className="px-2 text-xs text-white line-clamp-1 ">
+                      <h1 className="line-clamp-1 px-1 text-sm text-white ">
                         {item.location}
                       </h1>
                     </div>
 
                     {item.visited === true ? (
                       <>
-                        <div className="  flex flex-row items-center justify-start rounded-full bg-indigo-500/80 px-1 py-1 align-middle ">
+                        <div className="  my-1 flex flex-row items-center justify-start rounded-full bg-indigo-500/80  px-1 py-1 align-middle ">
                           <FaRegCalendarAlt className="ml-1 mr-2 h-4 w-4    text-white" />
-                          <p className=" pr-2 text-xs text-white line-clamp-1">
+                          <p className=" line-clamp-1 pr-2 text-xs text-white">
                             <PostDate dateString={item.date} />
                           </p>
                         </div>
@@ -118,6 +164,20 @@ const Arenas = ({ arenas }) => {
                       ''
                     )}
                   </div>
+                </div>
+
+                <div className=" mx-3 flex items-center  justify-between border-t border-gray-500 align-middle text-xs font-bold text-gray-700 dark:text-gray-200 md:text-xs ">
+                  <div className="my-4 flex items-center gap-1">
+                    <IoLocationOutline className="ml-1 h-4 w-4 text-red-50" />
+                    <p> Year built</p>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <IoLocationOutline className="ml-1 h-4 w-4 text-red-50" />
+                    <p> Capacity</p>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <IoLocationOutline className="ml-1 h-4 w-4 text-red-50" />
+                    <p> Sq foot</p>
                   </div>
                 </div>
 
@@ -161,38 +221,45 @@ const Arenas = ({ arenas }) => {
                     ''
                   )} 
                 </div>*/}
-                <div className=" flex flex-row flex-wrap items-center justify-evenly">
-                  {item.gallery?.map((photo) => (
+
+                <div className=" mx-3 flex flex-row flex-wrap items-center border-t border-gray-500 ">
+                  {item.gallery?.map((photo, index) => (
                     <div
                       key={photo.name}
-                      className="my-4 flex flex-col items-center justify-between "
+                      className="my-4 flex flex-col items-center justify-between pr-2 "
                     >
                       {/* <img
                   className="mx-4 hidden h-10 w-10 rounded-full object-cover sm:block"
                   src="https://ssl.gstatic.com/onebox/media/sports/logos/4ndR-n-gall7_h3f7NYcpQ_96x96.png"
                   alt="avatar"
                 /> */}
+                      <div className="flex flex-row">
+                        <img
+                          src={
+                            photo?.asset?._ref
+                              ? urlForImage(photo)
+                                  .height(86)
+                                  .width(86)
+                                  .fit('crop')
+                                  .url()
+                              : 'https://source.unsplash.com/96x96/?face'
+                          }
+                          className=" h-8 w-8 rounded-full border-2 md:h-11 md:w-11   "
+                          height={96}
+                          width={96}
+                          // @TODO add alternative text to avatar image schema
+                          alt={`${photo.name} logo`}
+                        />
 
-                      <img
-                        src={
-                          photo?.asset?._ref
-                            ? urlForImage(photo)
-                                .height(86)
-                                .width(86)
-                                .fit('crop')
-                                .url()
-                            : 'https://source.unsplash.com/96x96/?face'
-                        }
-                        className=" h-9 w-9   md:h-11 md:w-11  "
-                        height={96}
-                        width={96}
-                        // @TODO add alternative text to avatar image schema
-                        alt={`${photo.name} logo`}
-                      />
-
-                      <p className="mx-1 mt-1 cursor-pointer text-xs font-bold text-gray-700 dark:text-gray-200 md:text-xs">
-                        {photo.name}
-                      </p>
+                        <div className="mx-1 flex flex-col ">
+                          <p className="mx-1  cursor-pointer text-xs font-bold text-gray-700 dark:text-gray-200 md:text-xs">
+                            {photo.name}
+                          </p>
+                          <p className="mx-1 mb-1 cursor-pointer text-xs font-bold text-gray-500 dark:text-gray-500 md:text-xs">
+                            {'Watched'}
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   ))}
                 </div>

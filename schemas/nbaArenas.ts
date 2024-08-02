@@ -53,6 +53,11 @@ export default defineType({
               validation: (Rule) => Rule.required(),
             },
             {
+              title: 'Did we see this team play?',
+              name: 'played',
+              type: 'boolean',
+            },
+            {
               name: 'link',
               type: 'string',
               title: 'Link to arena page',

@@ -13,8 +13,6 @@ function ReviewHeader({ title, arenas, summary, animation }) {
   //   0
   // )
 
-
-
   const filteredList = arenas.filter((item) => item.visited === true)
 
   const arenaLastVisited = filteredList.sort(function (a, b) {
@@ -22,9 +20,8 @@ function ReviewHeader({ title, arenas, summary, animation }) {
   })
 
   const percentage = ((arenas[0]?.visitedCount / arenas.length) * 100).toFixed(
-    2
+    0
   )
-
 
   return (
     <div className="mb-10 flex flex-col items-center justify-center bg-indigo-50 pt-10  lg:flex-row">
@@ -39,7 +36,7 @@ function ReviewHeader({ title, arenas, summary, animation }) {
                     height={189}
                     placeholder="blur"
                     blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAO0lEQVR4nGNgYGBg+P//P1t9fT0TiM0we3ZjxZxZjQ9XLpwwe9nCHkOGGZOyanraY9aumN2wbsn0hmQA/MEWfj4ocjcAAAAASUVORK5CYII="
-                    className="  md:h-16 md:w-16 object-cover object-center"
+                    className="  object-cover object-center md:h-16 md:w-16"
                     alt="hero"
                     src={
                       item?.gallery[0].asset?._ref
@@ -72,7 +69,10 @@ function ReviewHeader({ title, arenas, summary, animation }) {
                 {title}
               </h1>
               <div>
-                <p className="mb-8 mt-4 leading-relaxed max-w-2xl"> {summary}</p>
+                <p className="mb-8 mt-4 max-w-2xl leading-relaxed">
+                  {' '}
+                  {summary}
+                </p>
 
                 {arenas.length > 1 && (
                   <div className=" container mx-auto    mb-8 md:w-full md:pr-6 lg:mb-0 lg:max-w-xl ">
@@ -98,7 +98,7 @@ function ReviewHeader({ title, arenas, summary, animation }) {
                         </div>
                       </div>
 
-                      <div className=" ">
+                      <div className="  ">
                         {/* <div className="mt-2 flex flex-row  justify-between">
                           <span className="title-font mb-1 text-sm  font-medium text-gray-500 ">
                           {arenas[4]?.visitedCount} of 37 arenas visited
@@ -107,21 +107,61 @@ function ReviewHeader({ title, arenas, summary, animation }) {
                         </div> */}
                         <div className="mt-2 flex flex-row  justify-between">
                           <span className=" mb-2 text-sm  font-medium text-gray-500 ">
-                          We&apos;ve visited <span className='font-black text-lg text-indigo-500'> {arenas[4]?.visitedCount}</span> arenas so far
+                            We&apos;ve visited{' '}
+                            <span className=" font-black text-pink-500">
+                              {' '}
+                              {arenas[4]?.visitedCount}
+                            </span>{' '}
+                            arenas so far
                           </span>
-                          
                         </div>
-                        <div className=" h-4 w-full rounded-full bg-gray-900">
-                          <div className="w-full rounded-full  dark:bg-gray-700">
-                            <div
-                              className="h-6  rounded-r-full bg-gradient-to-r  from-yellow-200 to-pink-500 p-1.5 text-center text-sm font-black leading-none text-gray-600  "
-                              style={{ width: `${percentage}%` }}
-                            >
-                              {/* {Math.round((arenas[4]?.visitedCount/37) *100)}%  */}
-                           {percentage}%
-                           {/* {totalDistance} */}
+                        <div className="flex items-center justify-center gap-x-2">
+                          <div className=" h-3 w-full rounded-full bg-gray-200">
+                            <div className="w-full rounded-full  dark:bg-gray-200">
+                              <div
+                                className="h-3  rounded-r-full bg-gradient-to-r  from-yellow-200 to-pink-500 p-0 text-center text-sm font-black leading-none text-gray-600  "
+                                style={{ width: `${percentage}%` }}
+                              >
+                                {/* {Math.round((arenas[4]?.visitedCount/37) *100)}%  */}
+                                {/* {percentage}% */}
+                                {/* {totalDistance} */}
+                              </div>
                             </div>
                           </div>
+                        <div className='text-xs'> {percentage}%</div>  
+                        </div>
+                      </div>
+                      <div className="  ">
+                        {/* <div className="mt-2 flex flex-row  justify-between">
+                          <span className="title-font mb-1 text-sm  font-medium text-gray-500 ">
+                          {arenas[4]?.visitedCount} of 37 arenas visited
+                          </span>
+                          
+                        </div> */}
+                        <div className="mt-2 flex flex-row  justify-between">
+                          <span className=" mb-2 text-sm  font-medium text-gray-500 ">
+                            We&apos;ve seen{' '}
+                            <span className=" font-black text-indigo-500">
+                              {' '}
+                              {arenas[4]?.visitedCount}
+                            </span>{' '}
+                            WNBA teams
+                          </span>
+                        </div>
+                        <div className="flex items-center justify-center gap-x-2">
+                          <div className=" h-3 w-full rounded-full bg-gray-200">
+                            <div className="w-full rounded-full  dark:bg-gray-200">
+                              <div
+                                className="h-3  rounded-r-full bg-indigo-500/80 p-0 text-center text-sm font-black leading-none text-gray-600  "
+                                style={{ width: `${22}%` }}
+                              >
+                                {/* {Math.round((arenas[4]?.visitedCount/37) *100)}%  */}
+                                {/* {percentage}% */}
+                                {/* {totalDistance} */}
+                              </div>
+                            </div>
+                          </div>
+                        <div className='text-xs'> {22.8}%</div>  
                         </div>
                       </div>
                     </div>
