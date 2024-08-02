@@ -5,7 +5,7 @@ import Link from 'next/link'
 import Button from 'ui/Button'
 
 const ArenasIndexPage = ({ arenas }) => {
-  //console.log('arenas 77 ', arenas[0])
+  console.log('arenasH ', arenas[0])
 
   return (
 

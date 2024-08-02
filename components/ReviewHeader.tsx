@@ -161,7 +161,7 @@ function ReviewHeader({ title, arenas, summary, animation }) {
                               </div>
                             </div>
                           </div>
-                        <div className='text-xs'> {22.8}%</div>  
+                        <div className='text-xs'> {22}%</div>  
                         </div>
                       </div>
                     </div>

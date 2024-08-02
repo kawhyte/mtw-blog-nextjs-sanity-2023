@@ -18,7 +18,7 @@ import PostDate from './PostDate'
 import ReviewHeader from './ReviewHeader'
 
 const Arenas = ({ arenas }) => {
-  console.log('arenas 77 ', arenas)
+  //console.log('arenas 77 ', arenas)
 
   const totalDistance = arenas.reduce(
     (total, item) => total + item.galleryCount,
@@ -89,34 +89,7 @@ const Arenas = ({ arenas }) => {
                       alt={`${item.name} arena`}
                     />
 
-                    {/* <h1
-                      className={`${oswald.variable} absolute inset-x-0 bottom-2 text-center font-heading text-2xl font-medium text-gray-50  `}
-                    >
-                      {item.name}
-                    </h1> */}
-
-                    {/* <div className="absolute left-0  top-2 flex w-48 flex-col justify-between gap-2 px-2 lg:w-full lg:flex-row ">
-                      <div className="  flex flex-row items-center justify-start rounded-full bg-pink-500/80 px-1 py-1 align-middle ">
-                        <IoLocationOutline className="ml-1 h-4 w-4 text-red-50" />
-
-                        <h1 className="line-clamp-1 px-2 text-xs text-white ">
-                          {item.location}
-                        </h1>
-                      </div>
-
-                      {item.visited === true ? (
-                        <>
-                          <div className="  flex flex-row items-center justify-start rounded-full bg-indigo-500/80  px-1 py-1 align-middle ">
-                            <FaRegCalendarAlt className="ml-1 mr-2 h-4 w-4    text-white" />
-                            <p className=" line-clamp-1 pr-2 text-xs text-white">
-                              <PostDate dateString={item.date} />
-                            </p>
-                          </div>
-                        </>
-                      ) : (
-                        ''
-                      )}
-                    </div> */}
+                    
                   </div>
                 </div>
 
@@ -142,8 +115,8 @@ const Arenas = ({ arenas }) => {
                     )} */}
                   </div>
 
-                  <div className="flex flex-row items-center justify-between py-2 align-middle w-full ">
-                    <div className='flex'>
+                  <div className="flex w-full flex-row items-center justify-between py-2 align-middle ">
+                    <div className="flex">
                       <IoLocationOutline className=" h-4 w-4 text-red-50" />
 
                       <h1 className="line-clamp-1 px-1 text-sm text-white ">
@@ -181,52 +154,13 @@ const Arenas = ({ arenas }) => {
                   </div>
                 </div>
 
-                {/*<div className="flex flex-col items-center justify-center bg-gray-900 px-2 py-3 align-middle">
-                   <h1
-                    className={`${oswald.variable} title-font  text-center font-heading text-2xl font-medium text-gray-200  md:text-2xl`}
-                  >
-                    {item.name}
-                  </h1> */}
+                
 
-                {/* <div className=" flex items-center text-gray-700 dark:text-gray-200">
-                    <svg
-                      aria-label="location pin icon"
-                      className=" h-4 w-4 fill-current md:h-6 md:w-6"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
-                        d="M16.2721 10.2721C16.2721 12.4813 14.4813 14.2721 12.2721 14.2721C10.063 14.2721 8.27214 12.4813 8.27214 10.2721C8.27214 8.063 10.063 6.27214 12.2721 6.27214C14.4813 6.27214 16.2721 8.063 16.2721 10.2721ZM14.2721 10.2721C14.2721 11.3767 13.3767 12.2721 12.2721 12.2721C11.1676 12.2721 10.2721 11.3767 10.2721 10.2721C10.2721 9.16757 11.1676 8.27214 12.2721 8.27214C13.3767 8.27214 14.2721 9.16757 14.2721 10.2721Z"
-                      />
-                      <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
-                        d="M5.79417 16.5183C2.19424 13.0909 2.05438 7.3941 5.48178 3.79418C8.90918 0.194258 14.6059 0.0543983 18.2059 3.48179C21.8058 6.90919 21.9457 12.606 18.5183 16.2059L12.3124 22.7241L5.79417 16.5183ZM17.0698 14.8268L12.243 19.8965L7.17324 15.0698C4.3733 12.404 4.26452 7.9732 6.93028 5.17326C9.59603 2.37332 14.0268 2.26454 16.8268 4.93029C19.6267 7.59604 19.7355 12.0269 17.0698 14.8268Z"
-                      />
-                    </svg>
-
-                    <h1 className="px-2 text-xs md:text-sm">
-                      {' '}
-                      {item.location}
-                    </h1>
-                  </div> */}
-                {/* {item.visited === true ? (
-                    <span className="mt-3 rounded-full bg-green-200 px-4  py-2 text-[.6rem] text-green-600  md:text-xs ">
-                      Visited: <PostDate dateString={item.date} />
-                    </span>
-                  ) : (
-                    ''
-                  )} 
-                </div>*/}
-
-                <div className=" mx-3 flex flex-row flex-wrap items-center border-t border-gray-500 ">
+                <div className=" mx-4 flex flex-row flex-wrap items-center border-t border-gray-500 ">
                   {item.gallery?.map((photo, index) => (
                     <div
                       key={photo.name}
-                      className="my-4 flex flex-col items-center justify-between pr-2 "
+                      className="my-5 flex flex-col items-center justify-between pr-2 "
                     >
                       {/* <img
                   className="mx-4 hidden h-10 w-10 rounded-full object-cover sm:block"
@@ -244,7 +178,7 @@ const Arenas = ({ arenas }) => {
                                   .url()
                               : 'https://source.unsplash.com/96x96/?face'
                           }
-                          className=" h-8 w-8 rounded-full border-2 md:h-11 md:w-11   "
+                          className=" h-8 w-8 rounded-full border-2 md:h-9 md:w-9 p-1   "
                           height={96}
                           width={96}
                           // @TODO add alternative text to avatar image schema
@@ -255,9 +189,10 @@ const Arenas = ({ arenas }) => {
                           <p className="mx-1  cursor-pointer text-xs font-bold text-gray-700 dark:text-gray-200 md:text-xs">
                             {photo.name}
                           </p>
-                          <p className="mx-1 mb-1 cursor-pointer text-xs font-bold text-gray-500 dark:text-gray-500 md:text-xs">
+
+                        {item.played === true ?    <p className="mx-1 mb-1 cursor-pointer text-xs font-bold text-gray-500 dark:text-gray-500 md:text-xs">
                             {'Watched'}
-                          </p>
+                          </p> :""}
                         </div>
                       </div>
                     </div>
