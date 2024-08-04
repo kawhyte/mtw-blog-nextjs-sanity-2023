@@ -1,5 +1,8 @@
+
+
 import { oswald } from 'app/fonts'
 import dynamic from 'next/dynamic'
+
 import SectionTitle from './SectionTitle'
 
 const ReactPlayer = dynamic(() => import('react-player/youtube'), {
@@ -29,7 +32,7 @@ let walking = [
 
 const YoutubeHighlights = () => {
   return (
-    <div className="container mx-auto  my-12 rounded-xl bg-pink-50 px-10 py-12 ">
+    <div className="container mx-auto  my-12 rounded-xl  px-10 py-12 ">
       {/* <div className=" container mx-auto mb-10 flex w-full flex-wrap">
         <div className="mx-4 mb-6 w-full lg:mb-0 lg:w-1/2 ">
           <h1
@@ -40,14 +43,21 @@ const YoutubeHighlights = () => {
           <div className="h-1 w-20 rounded bg-pink-500"></div>
         </div>
       </div> */}
-        <SectionTitle>{"Featured Videos"}</SectionTitle>
-      <div className="grid-col-2 mt-6  grid justify-items-center gap-9 rounded-lg grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4">
+      <SectionTitle>{'Featured Videos'}</SectionTitle>
+      <p className="pt-5 text-gray-700"> Walking Tour from our trips </p>
+
+      <div className="grid-col-2 mt-6   grid grid-cols-1 justify-items-center gap-9 rounded-lg md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3">
         {walking.map((item) => (
-          <div key={item.url}>
+
+          
+          <div
+            key={item.url}
+            className=" w-full max-w-sm overflow-hidden rounded-3xl border-4 border-black bg-white shadow-offsetIndigo dark:bg-gray-800"
+          >
             <ReactPlayer
-               className="aspect-video"
+              className=""
               url={item.url}
-              width={300}
+              width={370}
               height={200}
               controls={false}
               light
