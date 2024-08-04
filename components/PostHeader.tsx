@@ -4,8 +4,9 @@ import Avatar from 'components/AuthorAvatar'
 import Date from 'components/PostDate'
 import PostTitle from 'components/PostTitle'
 import type { Post } from 'lib/sanity.queries'
+import { FaRegCalendarAlt } from 'react-icons/fa'
 import { HiOutlineLightBulb } from 'react-icons/hi2'
-import { IoBedOutline, IoCalendarNumberOutline,IoLocationOutline, IoStorefrontOutline } from "react-icons/io5";
+import { IoBed, IoCalendarNumber,IoLocation, IoStorefront } from "react-icons/io5";
 import { LiaCrownSolid } from 'react-icons/lia'
 
 import BodySectionSeparator from './body-section-separator'
@@ -59,20 +60,24 @@ export default function PostHeader(
         <div
           className={` `}
         >
-          <div className=' gap-4 mt-3.5 text-sm md:text-base   md:gap-4 grid-cols-2   grid md:grid-cols-4 md:mt-5 max-w-5xl'>
-            <section className=" text-gray-700 md:text-left md:text-base lg:text-lg  ">
-              {location && (
-                <span className=" capitalize flex flex-row  ">
-                  <span className=" text-pink-500 mr-3  "><IoLocationOutline className='h-6 w-6'  /> </span>{' '}
+          <div className=' gap-4 mt-3.5 text-sm w-full   md:gap-4 grid-cols-2   grid md:grid-cols-4 md:mt-5 max-w-6xl'>
+            
+            
+            <section className=" text-gray-700 md:text-left flex flex-row items-end ">
+            <IoLocation className='h-6 w-6 text-pink-500 mr-3 '  /> 
+            {location && (
+                <span className=" capitalize   ">
                   {location ? location : ''}{' '}
                 </span>
               )}
             </section>
-            <section className="   text-pink-500 md:text-left flex flex-row ">
+
+
+            <section className="text-gray-700 md:text-left flex flex-row items-end">
               {linkType === 'hotel' || linkType === 'food'
-                ? <IoCalendarNumberOutline className='h-6 w-6' />
-                : <IoCalendarNumberOutline className='h-6 w-6' />}
-              <span className="text-gray-700 ml-3">
+                ? <FaRegCalendarAlt className='h-6 w-6 text-pink-500 ' />
+                : <FaRegCalendarAlt className='h-6 w-6 text-pink-500 ' />}
+              <span className="text-gray-700 ml-3 ">
                 {' '}
                 <Date dateString={date} />
               </span>
@@ -80,24 +85,22 @@ export default function PostHeader(
        
 
             {category && (
-              <section className="  text-pink-500 md:text-left flex   ">
-                <span className="  text-center    text-pink-500  md:text-left mr-3">
-                <IoStorefrontOutline className='h-6 w-6'/>
-
-                </span>
+              <section className="  text-gray-700 md:text-left flex flex-row items-end  ">
+               
+                <IoStorefront className='h-6 w-6  text-pink-500 mr-3'/>
                 <span className=" text-center  capitalize text-gray-700   md:text-left ">
                   {category} Hotel
                 </span>
               </section>
             )}
-                 {room && (
-              <section className=" text-pink-500 md:text-left flex flex-row   ">
-                <span className=" text-center  text-pink-500    md:text-left mr-3 ">
-                <IoBedOutline className='h-6 w-6' />
-                </span>
-                <span className=" text-nowrap    text-gray-700  md:text-left ">
-                  {linkType === 'hotel' ? `${room || 'test'}` : ''}{' '}
-                </span>
+            {room && (
+              <section className=" text-gray-700 md:text-left flex flex-row items-end  ">
+              
+                <IoBed className='h-6 w-6 text-pink-500  mr-3' />
+            
+               <span className=" text-nowrap capitalize w-full line-clamp-1    text-gray-700  md:text-left ">
+                  {linkType === 'hotel' ? `${room || 'NA'}` : ''}
+                </span> 
               </section>
             )}
           </div>

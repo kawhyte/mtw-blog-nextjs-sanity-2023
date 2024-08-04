@@ -17,7 +17,6 @@ import ProConList from './ProConList'
 import RoomTech from './RoomTech'
 import Youtube from './Youtube'
 
-
 export interface PostPageProps {
   preview?: boolean
   loading?: boolean
@@ -54,7 +53,7 @@ export default function PostPage(props: PostPageProps) {
             <PostTitle>Loading…</PostTitle>
           ) : (
             <>
-              <div className="container mx-auto ">
+              <div className="flex justify-center items-center ">
                 <article>
                   <PostHeader
                     title={post.title}
@@ -70,15 +69,15 @@ export default function PostPage(props: PostPageProps) {
                     category={post.category}
                     tip={post.tip}
                   />
-
-{post.linkType == 'food' && post?.individualFoodRating?.length > 0  ? (
-                  <> 
-<FoodRatings food={post?.individualFoodRating} />
-             
-</>
-        ) : (
-          ''
-        )}            {post.linkType == 'hotel' || post.linkType == 'food' ? (
+                  {post.linkType == 'food' &&
+                  post?.individualFoodRating?.length > 0 ? (
+                    <>
+                      <FoodRatings food={post?.individualFoodRating} />
+                    </>
+                  ) : (
+                    ''
+                  )}{' '}
+                  {post.linkType == 'hotel' || post.linkType == 'food' ? (
                     <ProConList
                       positives={post.positives}
                       negatives={post.negatives}
@@ -87,7 +86,6 @@ export default function PostPage(props: PostPageProps) {
                   ) : (
                     ''
                   )}
-
                   {post.linkType == 'hotel' ? (
                     <>
                       <RoomTech
@@ -99,11 +97,8 @@ export default function PostPage(props: PostPageProps) {
                   ) : (
                     ''
                   )}
-
                   <PostBody content={post.content} />
-
                   <Youtube link={post.youtube} />
-
                   <Gallery posts={post} heading={''} />
                 </article>
               </div>
