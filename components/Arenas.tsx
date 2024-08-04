@@ -56,7 +56,7 @@ const Arenas = ({ arenas }) => {
             animation={'/basketball.svg'}
           />
 
-          <div className="container mx-auto  mt-14 grid grid-cols-1 place-content-center place-items-center gap-x-16 gap-y-10 px-3 sm:grid-cols-1 md:grid-cols-2 md:gap-10 md:px-6 lg:grid-cols-3 2xl:grid-cols-4">
+          <div className="container mx-auto   mt-14 grid grid-cols-1 place-content-center place-items-center gap-x-16  gap-y-10 px-3 sm:grid-cols-1 md:grid-cols-2 md:gap-10 md:px-6  lg:grid-cols-3 2xl:grid-cols-4">
             {arenas?.map((item) => (
               <div
                 key={item._id}
@@ -196,7 +196,7 @@ const Arenas = ({ arenas }) => {
                               <IoMdEye className="mx-1 h-4 w-4 text-green-300" />
                               <p className="my-1 cursor-pointer text-xs font-bold text-gray-400 dark:text-gray-400 md:text-xs">
                                 {' '}
-                                Watched team
+                                Watched
                               </p>
                             </div>
                           ) : (
