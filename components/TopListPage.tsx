@@ -48,7 +48,7 @@ export default function IndexPage(props: IndexPageProps) {
             title={'Our Top Picks'}
             arenas={[]}
             summary={
-              'We visited over 100 hotels and restaurants over the past few years, these are our top picks for the best service, location and value.'
+              'Our top 10 hotels and food guide curates the best experiences. Luxurious stays, cozy retreats, gourmet feasts, and local flavors await. Let us inspire your next adventure.'
             }
             animation={'/relaxing.svg'}
           />

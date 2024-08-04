@@ -11,7 +11,6 @@ import { CMS_NAME } from '../lib/constants'
 import Footer from './Footer'
 import ReviewHeader from './ReviewHeader'
 
-
 export interface IndexPageProps {
   preview?: boolean
   loading?: boolean
@@ -30,20 +29,22 @@ export default function IndexPage(props: IndexPageProps) {
 
       <Layout preview={preview} loading={loading}>
         <Head>
-        <title>{CMS_NAME}</title>
-        {/* <title> { `${CMS_NAME} - Travel and Food Reviews`}</title> */}
+          <title>{CMS_NAME}</title>
+          {/* <title> { `${CMS_NAME} - Travel and Food Reviews`}</title> */}
         </Head>
         <Container>
           <BlogHeader title={title} description={description} level={1} />
 
           <ReviewHeader
-					title={"Food Reviews"}
-					arenas={[]}
-					summary={"Everything food, drink & restaurants"}
-					animation={'/food_smiling.svg'}
-				/>
+            title={'Food Reviews'}
+            arenas={[]}
+            summary={
+              "Join us on a culinary adventure as we explore the best (and sometimes, the worst) eateries in town. From hidden gems to fancy hotspots, We’ll dish out honest reviews, mouthwatering photos, and insider tips. Let's eat!"
+            }
+            animation={'/food_smiling.svg'}
+          />
 
-          {posts.length > 0 && <MoreStories posts={posts}  />}
+          {posts.length > 0 && <MoreStories posts={posts} />}
         </Container>
       </Layout>
       <Footer />

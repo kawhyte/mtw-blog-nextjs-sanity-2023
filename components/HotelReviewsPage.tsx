@@ -18,17 +18,11 @@ export interface IndexPageProps {
   settings: Settings
 }
 
-
-
-
 export default function IndexPage(props: IndexPageProps) {
   const { preview, loading, posts, settings } = props
   const [heroPost, ...morePosts] = posts || []
   const { title = demo.title, description = demo.description } = settings || {}
   //  console.log("PODTs ",heroPost )
-
-
-
 
   return (
     <>
@@ -36,8 +30,8 @@ export default function IndexPage(props: IndexPageProps) {
 
       <Layout preview={preview} loading={loading}>
         <Head>
-        <title>{CMS_NAME}</title>
-        {/* <title> { `${CMS_NAME} - Travel and Food Reviews`}</title> */}
+          <title>{CMS_NAME}</title>
+          {/* <title> { `${CMS_NAME} - Travel and Food Reviews`}</title> */}
         </Head>
         <Container>
           <BlogHeader title={title} description={description} level={1} />
@@ -45,7 +39,9 @@ export default function IndexPage(props: IndexPageProps) {
           <ReviewHeader
             title={'Hotel Reviews'}
             arenas={[]}
-            summary={'Rooms, Amenities, Service and Price'}
+            summary={
+              'Discover honest reviews from real travelers. We’ve stayed in the hotels, experienced the good, the bad, and the ugly. No fluff, just real talk on everything from beds to breakfast. Let’s explore the world together, one hotel at a time!'
+            }
             animation={'/sand.svg'}
           />
 
