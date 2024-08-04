@@ -16,12 +16,12 @@ const TravelEssentialLayout = ({ posts }: { posts: Esssential[] }) => {
   console.log('Essential', posts)
   return (
     <>
-      <div className="container mx-auto mt-10 flex justify-center px-3  text-gray-600 sm:py-3">
-        <div className=" mx-3 grid grid-cols-1  place-content-center gap-10   sm:grid-cols-1 md:grid-cols-2 md:gap-6 lg:grid-cols-2 lg:gap-12 xl:grid-cols-3  ">
+          <div className="container mx-auto  mt-14 grid grid-cols-1 place-content-center place-items-center gap-x-16 gap-y-10 px-3 sm:grid-cols-1 md:grid-cols-2 md:gap-10 md:px-6 lg:grid-cols-3 2xl:grid-cols-4">
+          {/* <div className=" mx-3 grid grid-cols-1  place-content-center gap-10   sm:grid-cols-1 md:grid-cols-2 md:gap-6 lg:grid-cols-2 lg:gap-12 xl:grid-cols-3  "> */}
           {posts?.map((item) => (
             <div key={item._id}>
               <div
-                className={` max-w-md rounded-3xl border-4   border-black    shadow-offsetIndigo  `}
+                className={` w-full max-w-sm overflow-hidden rounded-3xl border-4 border-black bg-white shadow-offsetIndigo   `}
               >
                 <div>
                   {/*           
@@ -80,26 +80,27 @@ const TravelEssentialLayout = ({ posts }: { posts: Esssential[] }) => {
                       <p>{item.price > 0 ? `$${item.price}` : 'FREE'}</p>
                     </div>
                     <div className=" my-5 border-t border-gray-500"></div>
-                    <div className="flex justify-between">
+                    <div className="flex justify-between ">
                       {/* <p className=" text-base leading-6 text-gray-500 ">
                         {item.price > 0 ? `$${item.price}` : 'FREE'}
                       </p> */}
 
-                      <div className="  my-1 flex flex-row items-center justify-start rounded-full  px-1 py-1 align-middle ">
+                      <div className="  my-1 flex flex-row items-center justify-start rounded-full   py-1 align-middle ">
                         <FaRegCalendarAlt className="ml-1 mr-2 h-5 w-5    text-gray-500" />
                         <p className=" line-clamp-1 pr-2 text-sm text-gray-500">
                           <PostDate dateString={item.date} />
                         </p>
                       </div>
-
+<div className='flex items-center'> 
                       {item.recommend ? (
                         <Badge
                           pl={0}
-                          size="lg"
+                          size="md"
                           color="green"
+                          variant='outline'
                           radius="xl"
                           leftSection={
-                            <FaRegThumbsUp className="ml-1 mr-2 h-5 w-5" />
+                            <FaRegThumbsUp className="ml-1 p-1 h-10 w-6" />
                           }
                         >
                           Recommended
@@ -107,16 +108,19 @@ const TravelEssentialLayout = ({ posts }: { posts: Esssential[] }) => {
                       ) : (
                         <Badge
                           pl={0}
-                          size="lg"
+
+                          size="md"
                           color="red"
+                          variant='outline'
                           radius="xl"
                           leftSection={
-                            <FaRegThumbsDown className="ml-1 mr-2 h-5 w-5" />
+                            <FaRegThumbsDown className="ml-1 p-1 h-10 w-6" />
                           }
                         >
-                          Not Recommended
+                          Disapprove
                         </Badge>
                       )}
+                      </div>
 
                       {/* 
                       {item.recommend ? (
@@ -149,7 +153,7 @@ const TravelEssentialLayout = ({ posts }: { posts: Esssential[] }) => {
             </div>
           ))}
         </div>
-      </div>
+      {/* </div> */}
     </>
   )
 }

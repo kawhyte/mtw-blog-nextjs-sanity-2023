@@ -50,7 +50,7 @@ export default function CoverImage(props: CoverImageProps) {
       })}
     >
       <Image
-        className={cn('object-contain', {
+        className={cn('w-full object-cover object-center brightness-[0.85]', {
           '	relative z-20   transition-all  ':
             slug,
         })}
@@ -85,18 +85,18 @@ export default function CoverImage(props: CoverImageProps) {
             )}
             {image}
           </div>
-          <p className="z-20 mb-2 break-words pt-4 text-center text-xl font-semibold leading-tight tracking-tighter  text-pink-500 hover:underline  md:mx-0 md:text-3xl">
+          {/* <p className="z-20 mb-2 break-words text-center text-xl font-semibold leading-tight tracking-tighter  text-pink-500 hover:underline  md:mx-0 md:text-3xl">
             {title}
-          </p>
+          </p> */}
 
-          <section>
+          {/* <section>
             <span className="text-center text-lg text-gray-500">
               {location}
             </span>
-          </section>
-          <div className="text-center text-lg  text-gray-500">
+          </section> */}
+          {/* <div className="text-center text-lg  text-gray-500">
             <PostDate dateString={date} />
-          </div>
+          </div> */}
         </Link>
       ) : (
         image

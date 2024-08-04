@@ -7,20 +7,16 @@ import MoreStoriesIndex from 'components/MoreStories'
 import * as demo from 'lib/demo.data'
 import type { Arena, Esssential, Post, Settings } from 'lib/sanity.queries'
 import Head from 'next/head'
-import Link from 'next/link'
 import Button from 'ui/Button'
 
 import { CMS_NAME } from '../lib/constants'
-import Arenas from './Arenas'
 import ArenasIndexPage from './ArenasIndexPage'
 import Footer from './Footer'
 import Hero from './Hero'
 import IndexTopTen from './IndexTopTen'
-import InstagramHighlights from './InstagramHighlights'
-import SneakersIndexPage from './SneakersIndexPage'
-import TravelEssentialLayout from './TravelEssentialsLayout'
 import Welcome from './Welcome'
 import YoutubeHighlights from './YoutubeHighlights'
+import SectionTitle from './SectionTitle'
 
 export interface IndexPageProps {
   preview?: boolean
@@ -44,8 +40,7 @@ export default function IndexPage(props: IndexPageProps) {
   } = props
   const [heroPost, ...morePosts] = posts || []
   const { title = demo.title, description = demo.description } = settings || {}
-  //console.log("arenaPosts={arenaPosts} ",arenaPosts )
-  //console.log('Essentialposts 1 ', Essentialposts)
+
   return (
     <>
       <IndexPageHead settings={settings} />
@@ -62,36 +57,27 @@ export default function IndexPage(props: IndexPageProps) {
           <Welcome />
           <ArenasIndexPage arenas={arenaPosts?.slice(0, 9)} />
 
-          {/* <TravelEssentials /> */}
-
-          <section className="container mx-auto  rounded-2xl  px-10 py-14  text-gray-600 bg-gray-100 lg:mb-24  ">
+          <section className="container mx-auto  rounded-2xl  bg-gray-100 px-10  py-14 text-gray-600 lg:mb-24  ">
             <div className="flex-cols flex flex-row-reverse justify-between ">
-              {/* <div className='bg-red-200 w-1/2 grid grid-cols-3'>
-                <div>Image 1</div>
-                <div>Image 1</div>
-                <div>Image 1</div>
-                <div>Image 1</div>
-                <div>Image 1</div>
-                <div>Image 1</div>
-              </div> */}
-
               <div>
                 <div>
                   <div className=" flex w-full  justify-between">
                     <div>
-                      <h1
+                      {/* <h1
                         className={`${oswald.variable}  title-font mb-3 font-heading text-3xl font-medium text-gray-900 sm:text-4xl`}
                       >
                         Our Travel Essential Reviews
                       </h1>
-                      <div className="h-1 w-20 rounded bg-pink-500"></div>
+                      <div className="h-1 w-20 rounded bg-pink-500"></div> */}
+<SectionTitle>{"Our Travel Essential Reviews"}</SectionTitle>
+
                       <p
                         className={` ${inter.variable} font-secondary mt-4 text-sm leading-relaxed md:text-base  lg:text-base `}
                       >
                         Traveling is a great way to experience new cultures and
                         see the world. However, packing for a trip can be
                         daunting, especially if you are trying to pack light.
-                        Check out  a few travel essentials that you should never
+                        Check out a few travel essentials that you should never
                         leave home without.
                       </p>
                     </div>
@@ -102,10 +88,9 @@ export default function IndexPage(props: IndexPageProps) {
 
                 <div className="flex   pt-9 lg:mt-0 lg:flex-shrink-0">
                   <div className=" inline-flex  ">
-                    
-                    <Button link={'/essentials'}>Travel Essentials Reviews</Button> 
-                    
-                    
+                    <Button link={'/essentials'}>
+                      Travel Essentials Reviews
+                    </Button>
                   </div>
                 </div>
               </div>
@@ -114,13 +99,15 @@ export default function IndexPage(props: IndexPageProps) {
 
           <div className=" container mx-auto my-10 mb-10 flex w-full flex-row justify-between px-10  ">
             <div className=" mb-6 lg:mb-0 lg:w-1/2 ">
-              <h1
+              {/* <h1
                 className={`${oswald.variable}  title-font mb-3 font-heading text-3xl font-medium text-gray-900 sm:text-4xl`}
               >
                 Our Latest Adventures
-              </h1>
+              </h1> */}
 
-              <div className="h-1 w-20 rounded bg-pink-500"></div>
+              {/* <div className="h-1 w-20 rounded bg-pink-500"></div> */}
+
+              <SectionTitle>{"Our Latest Adventures"}</SectionTitle>
               <p
                 className={` ${inter.variable} font-secondary mt-4 text-sm leading-relaxed md:text-base  lg:text-base `}
               >
@@ -128,61 +115,12 @@ export default function IndexPage(props: IndexPageProps) {
               </p>
             </div>
           </div>
-          <div className="container mx-auto  px-10">
+          <div className="container mx-auto  px-10 ">
             {posts.length > 0 && <MoreStoriesIndex posts={posts.slice(0, 6)} />}
 
-            <div className="flex justify-center  lg:mt-0 lg:flex-shrink-0">
-              <div className=" inline-flex  ">
-                {/* <Link href="/hotel" passHref legacyBehavior> */}
-                  {/* <button
-                    type="button"
-                    className={`${inter.variable} inline-flex justify-center align-middle font-secondary w-full rounded-full  border bg-pink-500 px-4  py-2 text-center text-base font-semibold text-white shadow-md transition duration-200 ease-in hover:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2  focus:ring-offset-pink-200`}
-                  >
-                    View more
-                    <svg className="w-3.5 h-3.5 ml-2 mt-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                <path stroke="currentColor" strokeLinecap="round" stroke-linejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-            </svg>
-                  </button> */}
-
-
- <Button  link="/hotel" >More Adventures</Button>
-
-
-
-
-
-
-                  {/* <button
-                    className={`${inter.variable} inline-flex items-center rounded-lg bg-pink-500 px-3 py-2 text-center text-sm font-medium text-white hover:bg-pink-800 focus:outline-none focus:ring-4 focus:ring-pink-300 dark:bg-pink-500 dark:hover:bg-pink-600 dark:focus:ring-pink-800`}
-                  >
-                    More Adventures
-                    <svg
-                      className="ml-2 h-3.5 w-3.5"
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 14 10"
-                    >
-                      <path
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M1 5h12m0 0L9 1m4 4L9 9"
-                      />
-                    </svg>
-                  </button> */}
-
-
-                  
-
-                  {/* <button
-                    type="button"
-                    className={`${inter.variable} font-secondary w-full px-4 py-2 text-center  text-xs font-semibold text-gray-500 transition duration-200 ease-in hover:underline md:text-base  `}
-                  >
-                    Show all
-                  </button> */}
-                {/* </Link> */}
+            <div className="flex justify-center  pt-10  lg:mt-0 lg:flex-shrink-0">
+              <div className=" inline-flex ">
+                <Button link="/hotel">More Adventures</Button>
               </div>
             </div>
           </div>

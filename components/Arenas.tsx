@@ -10,7 +10,6 @@ import { FaRegCalendarAlt } from 'react-icons/fa'
 import { FaPersonWalking } from 'react-icons/fa6'
 import { IoMdEye, IoMdEyeOff } from 'react-icons/io'
 import { IoHammer, IoLocation,IoLocationOutline } from 'react-icons/io5'
-import { TbRulerMeasure } from 'react-icons/tb'
 
 import { CMS_NAME } from '../lib/constants'
 import Container from './BlogContainer'
@@ -86,7 +85,7 @@ const Arenas = ({ arenas }) => {
                               .url()
                           : 'https://fakeimg.pl/1240x801'
                       }
-                      className=" h-42 h- w-full object-cover object-center brightness-[0.7]  "
+                      className=" h-42  w-full object-cover object-center brightness-[0.7]  "
                       height={300}
                       width={224}
                       alt={`${item.name} arena`}

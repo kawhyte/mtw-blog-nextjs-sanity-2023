@@ -1,8 +1,6 @@
 import { Pagination } from '@mantine/core'
-import { range, usePagination } from '@mantine/hooks'
 import PostPreview from 'components/PostPreview'
 import type { Post } from 'lib/sanity.queries'
-import Link from 'next/link'
 import { useState } from 'react'
 
 const itemsPerPage = 12
@@ -25,8 +23,8 @@ export default function MoreStories({ posts }: { posts: Post[] }) {
 
   return (
     <section className="container mx-auto mt-8">
-      <div className="mx-2 mb-12 grid grid-cols-1 gap-x-9  md:gap-y-10 md:gap-x-24  sm:grid-cols-1  md:grid-cols-2  lg:grid-cols-2 lg:gap-x-7 xl:grid-cols-3 xl:gap-x-28">
-        {visiblePosts.map((post) => (
+          <div className="container mx-auto  mt-14 grid grid-cols-1 place-content-center place-items-center gap-x-16 gap-y-10 px-3 sm:grid-cols-1 md:grid-cols-2 md:gap-10 md:px-6 lg:grid-cols-3 2xl:grid-cols-4">
+          {visiblePosts.map((post) => (
           <PostPreview
             key={post._id}
             title={post.title}
