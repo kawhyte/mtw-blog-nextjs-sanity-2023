@@ -69,8 +69,8 @@ function ReviewHeader({ title, arenas, summary, animation }) {
               >
                 {title}
               </h1>
-              <div>
-                <p className="mb-8 mt-4 max-w-2xl leading-relaxed">
+              <div className='container mx-auto flex flex-col items-center'>
+                <p className="mb-8  mt-4 max-w-2xl leading-relaxed">
                   {' '}
                   {summary}
                 </p>
