@@ -39,3 +39,8 @@
   
 }
 
+.portableText p {
+
+@apply leading-loose text-sm md:text-base
+
+}

@@ -1,12 +1,17 @@
 import { Alert, Blockquote, Skeleton } from '@mantine/core'
-import { inter } from 'app/fonts'
+import { inter, oswald } from 'app/fonts'
 import Avatar from 'components/AuthorAvatar'
 import Date from 'components/PostDate'
 import PostTitle from 'components/PostTitle'
 import type { Post } from 'lib/sanity.queries'
 import { FaRegCalendarAlt } from 'react-icons/fa'
 import { HiOutlineLightBulb } from 'react-icons/hi2'
-import { IoBed, IoCalendarNumber,IoLocation, IoStorefront } from "react-icons/io5";
+import {
+  IoBed,
+  IoCalendarNumber,
+  IoLocation,
+  IoStorefront,
+} from 'react-icons/io5'
 import { LiaCrownSolid } from 'react-icons/lia'
 
 import BodySectionSeparator from './body-section-separator'
@@ -57,50 +62,44 @@ export default function PostHeader(
         {author && <Avatar name={author.name} picture={author.picture} />}
       </div> */}
 
-        <div
-          className={` `}
-        >
-          <div className=' gap-4 mt-3.5 text-sm w-full   md:gap-4 grid-cols-2   grid md:grid-cols-4 md:mt-5 max-w-6xl'>
-            
-            
-            <section className=" text-gray-700 md:text-left flex flex-row items-end ">
-            <IoLocation className='h-6 w-6 text-pink-500 mr-3 '  /> 
-            {location && (
+        <div className={` `}>
+          <div className=" mt-3.5 grid w-full max-w-6xl   grid-cols-2 gap-4   text-sm md:mt-5 md:grid-cols-4 md:gap-4">
+            <section className=" flex flex-row items-end text-gray-700 md:text-left ">
+              <IoLocation className="mr-3 h-6 w-6 text-pink-500 " />
+              {location && (
                 <span className=" capitalize   ">
                   {location ? location : ''}{' '}
                 </span>
               )}
             </section>
 
-
-            <section className="text-gray-700 md:text-left flex flex-row items-end">
-              {linkType === 'hotel' || linkType === 'food'
-                ? <FaRegCalendarAlt className='h-6 w-6 text-pink-500 ' />
-                : <FaRegCalendarAlt className='h-6 w-6 text-pink-500 ' />}
-              <span className="text-gray-700 ml-3 ">
+            <section className="flex flex-row items-end text-gray-700 md:text-left">
+              {linkType === 'hotel' || linkType === 'food' ? (
+                <FaRegCalendarAlt className="h-6 w-6 text-pink-500 " />
+              ) : (
+                <FaRegCalendarAlt className="h-6 w-6 text-pink-500 " />
+              )}
+              <span className="ml-3 text-gray-700 ">
                 {' '}
                 <Date dateString={date} />
               </span>
             </section>
-       
 
             {category && (
-              <section className="  text-gray-700 md:text-left flex flex-row items-end  ">
-               
-                <IoStorefront className='h-6 w-6  text-pink-500 mr-3'/>
+              <section className="  flex flex-row items-end text-gray-700 md:text-left  ">
+                <IoStorefront className="mr-3 h-6  w-6 text-pink-500" />
                 <span className=" text-center  capitalize text-gray-700   md:text-left ">
                   {category} Hotel
                 </span>
               </section>
             )}
             {room && (
-              <section className=" text-gray-700 md:text-left flex flex-row items-end  ">
-              
-                <IoBed className='h-6 w-6 text-pink-500  mr-3' />
-            
-               <span className=" text-nowrap capitalize w-full line-clamp-1    text-gray-700  md:text-left ">
+              <section className=" flex flex-row items-end text-gray-700 md:text-left  ">
+                <IoBed className="mr-3 h-6 w-6  text-pink-500" />
+
+                <span className=" text-nowrap line-clamp-1 w-full capitalize    text-gray-700  md:text-left ">
                   {linkType === 'hotel' ? `${room || 'NA'}` : ''}
-                </span> 
+                </span>
               </section>
             )}
           </div>
@@ -144,42 +143,28 @@ export default function PostHeader(
 
             {tip && (
               <>
-                {/* <Alert
-                variant="light"
-                color="yellow"
-                className="  text-base md:text-xl  mx-6 sm:mx-0 text-sky-500 border-dashed border-2 border-sky-500 font-normal md:leading-relaxed"
-                title={`Quick tip: `}
-                icon={<HiOutlineLightBulb />}
-              >
-                <PostBody content={tip} />
-              </Alert> */}
                 {/* 
-<div className="flex flex-col rounded-lg  border-opacity-50 bg-gradient-to-b from-gray-100 via-gray-200 to-green-100 p-2 md:p-5  ">
-<p> Quick Tip:</p>
-<PostBody content={tip} />
-</div> */}
-
-                <div className="mx-5  border-t border-b ">
-                  <div className="me-2 ml-3 mt-3   w-32 flex align-middle items-center justify-around rounded border border-white bg-pink-500 px-2.5 py-0.5 text-white">
-                    {/* <span>
-                      <HiOutlineLightBulb className="h-8 w-6 text-gray-200" />
-                    </span> */}
+                <div className="mx-5  border w-full  rounded-xl ">
+                  <div className=" ml-3 mt-3   w-32 flex align-middle items-center justify-around rounded border border-white bg-pink-500 px-2.5 py-0.5 text-white">
+                
                     <span className="text-sm font-medium  ">Quick Tip</span>
                   </div>
 
                   <div className="py-2 text-sm font-normal ">
                     <PostBody content={tip} />
                   </div>
-                </div>
+                </div> */}
 
-                {/* <div className="flex flex-col w-full max-w-[1000px] leading-1.5 p-4 border-gray-700 bg-gray-100 rounded-e-xl rounded-es-xl">
-      <div className="flex items-center space-x-2 rtl:space-x-reverse">
-         <span><HiOutlineLightBulb className='text-indigo-400' /></span>
-         <span className="text-md font-normal text-indigo-400">Quick Tip:</span>
-      </div>
-      <p className="text-sm font-normal py-2.5 text-gray-900 dark:text-white"><PostBody content={tip} /></p>
-   
-   </div> */}
+                <div className="max-w-3xl rounded-lg border-l-4 border-yellow-500 bg-yellow-100 p-4 text-yellow-600">
+                  <p
+                    className={`${oswald.variable} flex items-baseline text-center font-heading text-2xl font-bold md:text-left md:text-2xl md:leading-none lg:text-2xl`}
+                  >
+                    Quick Tip
+                  </p>
+                  <p>
+                    <PostBody content={tip} />
+                  </p>
+                </div>
               </>
             )}
 

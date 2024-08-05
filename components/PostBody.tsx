@@ -38,7 +38,7 @@ const SampleImageComponent = ({value}) => {
 
 export default function PostBody({ content }) {
   return (
-    <div className={` max-w-7xl leading-relaxed text-sm md:text-base font-thin ${styles.portableText}`}>
+    <div className={` max-w-7xl leading-loose text-sm md:text-base font-thin ${styles.portableText}`}>
       <PortableText value={content} 
       components={{
         // ...
