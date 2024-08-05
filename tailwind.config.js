@@ -60,7 +60,7 @@ module.exports = {
         offsetGreen: '18px 18px 0 -4px rgba(187, 247, 208, .4)',  
         offsetRed: '18px 18px 0 -4px rgba(255, 241, 242, .3)',  
         offsetBlue: '18px 18px 0 -4px rgba(147, 197, 253, .3)',  
-        offsetIndigo: '18px 18px 0 -4px rgba(199, 210, 254, 0.3)',  
+        offsetIndigo: '18px 18px 0 -4px rgba(199, 210, 254, 0.2)',  
         offsetYellow: '18px 18px 0 -4px rgba(253, 224, 71, 0.3)',  
         
       },
