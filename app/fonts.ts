@@ -4,7 +4,7 @@ export const inter = Inter({
     weight:'400',
     subsets: ['latin'],
     display: 'swap',
-    variable: '--font-inter',
+    variable: '--font-inter'
 })
 
 export const space = Space_Grotesk({

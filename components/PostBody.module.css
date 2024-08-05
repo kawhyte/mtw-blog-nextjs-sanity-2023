@@ -2,7 +2,7 @@
   @apply text-base md:text-lg font-normal md:leading-relaxed ;
 }
 
-.portableText p,
+
 .portableText ul,
 .portableText ol,
 .portableText blockquote {
@@ -39,8 +39,8 @@
   
 }
 
-.portableText p {
+.portableText h6 {
 
-@apply leading-loose text-sm md:text-base
+@apply  text-sm md:text-base mt-3 leading-loose;
 
 }

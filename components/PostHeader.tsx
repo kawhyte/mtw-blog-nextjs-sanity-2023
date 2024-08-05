@@ -129,21 +129,24 @@ export default function PostHeader(
                 </Blockquote>
               </div>
             </div>
+
             <BodySectionSeparator />
+          </>
+        )}
 
-            {/* {hotelRating && ( */}
-            <div className=" mx-6 my-6 block text-base md:mx-0 md:mb-12">
-              <StarRating
-                rating={hotelRating}
-                // amenities={amenities}
-                // categories={categories}
-                linkType={linkType}
-              />
-            </div>
+        {/* {hotelRating && ( */}
+        <div className=" mx-6 my-6 block text-base md:mx-0 md:mb-12">
+          <StarRating
+            rating={hotelRating}
+            // amenities={amenities}
+            // categories={categories}
+            linkType={linkType}
+          />
+        </div>
 
-            {tip && (
-              <>
-                {/* 
+        {tip && (
+          <>
+            {/* 
                 <div className="mx-5  border w-full  rounded-xl ">
                   <div className=" ml-3 mt-3   w-32 flex align-middle items-center justify-around rounded border border-white bg-pink-500 px-2.5 py-0.5 text-white">
                 
@@ -155,41 +158,19 @@ export default function PostHeader(
                   </div>
                 </div> */}
 
-                <div className="max-w-4xl rounded-lg border-l-4 border-yellow-500 bg-yellow-100 p-4 text-yellow-600">
-                  <p
-                    className={`${oswald.variable} flex items-baseline text-center font-heading text-2xl font-bold md:text-left md:text-2xl md:leading-none lg:text-2xl`}
-                  >
-                    Quick Tip
-                  </p>
-                  <p>
-                    <PostBody content={tip} />
-                  </p>
-                </div>
-              </>
-            )}
-
-            {/* } */}
-            {/* {rating && (
-				<div className=' block mt-4 text-base mb-6 md:mb-12'>
-					<StarRating
-						rating={rating}
-						amenities={amenities}
-						categories={categories}
-						linkType={linkType}
-					/>
-				</div>
-			)} */}
+            <div className="max-w-4xl rounded-lg border-l-4 border-yellow-500 bg-yellow-100 p-4 text-yellow-600">
+              <p
+                className={`${oswald.variable} flex items-baseline text-center font-heading text-2xl font-bold md:text-left md:text-2xl md:leading-none lg:text-2xl`}
+              >
+                Quick Tip
+              </p>
+              <p>
+                <PostBody content={tip} />
+              </p>
+            </div>
           </>
         )}
       </div>
-      {/* <div className="mx-auto max-w-2xl">
-        <div className="mb-6 block md:hidden">
-          {author && <Avatar name={author.name} picture={author.picture} />}
-        </div>
-        <div className="mb-6 text-lg">
-          <Date dateString={date} />
-        </div>
-      </div> */}
     </>
   )
 }

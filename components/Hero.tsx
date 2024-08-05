@@ -1,4 +1,4 @@
-import { oswald } from 'app/fonts'
+import { oswald, inter } from 'app/fonts'
 import dynamic from 'next/dynamic'
 //import lottie from 'lottie-web'
 import Image from 'next/image'
@@ -72,7 +72,7 @@ function Hero() {
               <p className="">Explore.</p>
             </div>
 
-            <p className="mb-8 text-lg xl:text-xl max-w-2xl  leading-relaxed z-30">
+            <p className={` ${inter.variable} font-sans  mb-8 text-lg xl:text-xl max-w-2xl  leading-relaxed z-30`}>
               {' '}
               Hi! We are the Whytes. Welcome to our space on the{' '}
               <span className="text-pink-500">interwebs. </span> We&apos;re a

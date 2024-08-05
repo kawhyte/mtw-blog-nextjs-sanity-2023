@@ -101,7 +101,7 @@ export default function Nav({ color = 'bg-black', bgColor }) {
     <Disclosure
       as="nav"
       className={
-        ` ${inter.variable} font-secondary   blur-backdrop-filter firefox:bg-opacity-90 sticky top-0 z-50  h-[72px]  w-full   whitespace-nowrap bg-transparent bg-white	 bg-opacity-50   bg-clip-padding pt-6 backdrop-blur-sm backdrop-filter transition-all  ` +
+        ` ${inter.variable} font-sans   blur-backdrop-filter firefox:bg-opacity-90 sticky top-0 z-50  h-[72px]  w-full   whitespace-nowrap bg-transparent bg-white	 bg-opacity-50   bg-clip-padding pt-6 backdrop-blur-sm backdrop-filter transition-all  ` +
         bg
       }
       style={{
