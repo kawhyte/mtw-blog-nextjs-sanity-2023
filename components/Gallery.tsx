@@ -3,19 +3,22 @@ import { urlForImage } from 'lib/sanity.image'
 import Image from 'next/image'
 import React from 'react'
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry'
+import SectionTitle from './SectionTitle'
 
 function Gallery({ posts, heading }) {
   return (
     <section className="body-font">
       <div className=" mx-6 md:container md:mx-auto">
-        <div className="mb-10 flex w-full flex-col text-center font-medium lg:mb-12">
-          <div className="flex ">
+        <div className="mb-8 flex w-full flex-col  font-medium lg:mb-10">
+          {/* <div className="flex ">
             <p
               className={`${oswald.variable} text-left font-heading text-5xl font-semibold leading-tight tracking-tighter md:text-5xl md:leading-none lg:text-5xl`}
             >
               Photo Collage
             </p>
-          </div>
+          </div> */}
+
+          <SectionTitle>Photo Collage</SectionTitle>
         </div>
 
         <ResponsiveMasonry

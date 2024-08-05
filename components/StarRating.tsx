@@ -51,8 +51,8 @@ const StarRating = ({ rating, linkType }) => {
           {textRating}
         </p>
       </div>
-
-      <p className={`   my-3 mt-2  text-lg `}>
+    
+      <p className={`   my-3 mt-2  title-font  mb-1  text-base font-medium uppercase tracking-widest text-gray-700 `}>
         {linkType === 'hotel' ? 'Hotel' : 'Restaurant/Food'} rating breakdown{' '}
       </p>
       <div className="max-w-8xl grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 ">

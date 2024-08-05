@@ -1,10 +1,12 @@
 import { Spoiler } from '@mantine/core'
 import { inter, oswald } from 'app/fonts'
 import React from 'react'
-import { FaThumbsDown,FaThumbsUp } from 'react-icons/fa6'
+import { FaThumbsDown, FaThumbsUp } from 'react-icons/fa6'
 import { FaCheck } from 'react-icons/fa6'
+import { IoMdCheckmarkCircle } from 'react-icons/io'
 import { IoClose } from 'react-icons/io5'
-import { RiLightbulbFlashLine } from "react-icons/ri";
+import { RiLightbulbFlashLine } from 'react-icons/ri'
+import { IoMdCloseCircle } from 'react-icons/io'
 
 import PostBody from '../components/PostBody'
 import SectionTitle from './SectionTitle'
@@ -22,13 +24,11 @@ function ProConList({ positives, negatives, verdict2 }) {
         <div className="container flex flex-wrap py-6 md:mx-auto lg:py-12">
           <div className=" grid grid-cols-1  gap-6 2xl:grid-cols-3">
             <div className="md:w-full">
-              <div className="flex flex-col rounded-lg  border-opacity-50  bg-yellow-100/70  p-2 md:p-5  shadow-lg shadow-yellow- shadow-yellow-200/40  ">
-                <div className="flex justify-start align-middle ">
-                  <FaThumbsUp className='h-7 w-7 mr-3 bg-green-100 text-green-500 p-1 rounded-2xl ' />
+              <div className="flex flex-col rounded-lg  border-2 border-green-500 border-opacity-50  p-2 shadow-sm  shadow-green-200/40  md:p-5  ">
+                <div className="mb-3 flex justify-start border-b border-gray-200 pb-4 align-middle ">
+                  <FaThumbsUp className="mr-3 h-7 w-7 rounded-2xl bg-green-100 p-1 text-green-500 " />
 
-                  <h2
-                    className={` flex items-baseline text-center mb-3 font-heading text-2xl font-bold text-gray-600 md:text-left md:text-2xl md:leading-none lg:text-xl`}
-                  >
+                  <h2 className="title-font  mb-1   text-base font-medium uppercase tracking-widest text-green-500">
                     What we loved
                   </h2>
                 </div>
@@ -36,9 +36,10 @@ function ProConList({ positives, negatives, verdict2 }) {
                 <div className="-mb-1 flex flex-col items-center   space-y-2.5 sm:items-start sm:text-left">
                   <Spoiler
                     maxHeight={boxHeight}
-                    color="pink"
+              
+                  
                     showLabel="Show more"
-                    hideLabel="Hide"
+                    hideLabel="Show less"
                   >
                     <ul>
                       {positives?.map((positive, index) => (
@@ -46,8 +47,10 @@ function ProConList({ positives, negatives, verdict2 }) {
                           key={index}
                           className={`${inter.variable} font-secondary  my-3 text-sm font-extralight leading-loose md:text-base`}
                         >
-                          <div className="flex items-baseline align-bottom">
-                            <FaCheck className="mr-3 inline-flex h-4 w-4 items-center justify-center rounded-full bg-green-100 text-green-500" />
+                          <div className="flex items-baseline align-bottom ">
+                            <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-green-400">
+                              <IoMdCheckmarkCircle className="h-5 w-5" />
+                            </div>
                             {/* <span className="mr-2 inline-flex h-4 w-4 items-center justify-center rounded-full bg-green-100 text-green-500">
                               <svg
                                 fill="none"
@@ -73,16 +76,13 @@ function ProConList({ positives, negatives, verdict2 }) {
             </div>
 
             <div className="md:w-full">
-              <div className="flex flex-col rounded-lg  border-opacity-50  bg-gray-100  p-2 md:p-5 shadow-lg shadow-gray-200/60  ">
-                <div className="flex justify-start align-middle ">
+              <div className="flex flex-col rounded-lg  border-2 border-red-500 border-opacity-50    p-2 shadow-sm shadow-red-200/60 md:p-5  ">
+                <div className="mb-3 flex justify-start border-b border-gray-200 pb-4 align-middle">
                   {/* <FaThumbsUp className='h-7 w-7 mr-3 bg-green-100 text-green-500 p-1 rounded-lg ' /> */}
 
-                  <FaThumbsDown className='h-7 w-7 mr-3 bg-red-100 text-red-500 p-1 rounded-2xl ' />
+                  <FaThumbsDown className="mr-3 h-7 w-7 rounded-2xl bg-red-100 p-1 text-red-500 " />
 
-
-                  <h2
-                    className={` flex items-baseline text-center mb-3 font-heading text-2xl font-bold text-gray-600 md:text-left md:text-2xl md:leading-none lg:text-xl`}
-                  >
+                  <h2 className="title-font  mb-1  text-base font-medium uppercase tracking-widest text-red-500">
                     What we did not like
                   </h2>
                 </div>
@@ -90,9 +90,9 @@ function ProConList({ positives, negatives, verdict2 }) {
                 <div className="-mb-1 flex flex-col items-center   space-y-2.5 sm:items-start sm:text-left">
                   <Spoiler
                     maxHeight={boxHeight}
-                    color="pink"
+             
                     showLabel="Show more"
-                    hideLabel="Hide"
+                    hideLabel="Show less"
                   >
                     <ul>
                       {negatives?.map((positive, index) => (
@@ -101,8 +101,8 @@ function ProConList({ positives, negatives, verdict2 }) {
                           className={`${inter.variable} font-secondary  my-3 text-sm font-extralight leading-loose md:text-base`}
                         >
                           <div className="flex flex-row  items-baseline align-bottom">
-                            <div className="mr-3 inline-flex h-4 w-4 items-center justify-center rounded-full bg-red-100 text-red-500">
-                              <IoClose />
+                            <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-red-500">
+                              <IoMdCloseCircle className="h-5 w-5" />
                             </div>
                             {/* <span className="mr-2 inline-flex h-4 w-4 items-center justify-center rounded-full bg-red-100 text-red-400">
                             <svg
@@ -180,14 +180,11 @@ function ProConList({ positives, negatives, verdict2 }) {
               </div>
             </div> */}
             <div className=" md:w-full">
-              <div className="flex flex-col  rounded-lg  border-opacity-50 bg-indigo-100  p-2 md:p-5 shadow-lg shadow-indigo-100/50  ">
-                <div className="flex justify-start align-middle ">
-                 
-                <RiLightbulbFlashLine className='h-7 w-7 mr-3 bg-yellow-100 text-yellow-500 p-1 rounded-2xl ' />
+              <div className="flex flex-col  rounded-lg  border-2 border-indigo-500 border-opacity-50 p-2 shadow-md shadow-indigo-100/50 md:p-5  ">
+                <div className="mb-3 flex justify-start border-b border-gray-200 pb-4 align-middle ">
+                  <RiLightbulbFlashLine className="mr-3 h-7 w-7 rounded-2xl bg-indigo-100 p-1 text-indigo-500 " />
 
-                 
-                  <h2 className={` flex items-baseline text-center font-heading text-2xl font-bold text-gray-600 md:text-left md:text-2xl md:leading-none lg:text-xl`}
-                  >
+                  <h2 className="title-font  mb-1  text-base font-medium uppercase tracking-widest text-indigo-500">
                     Verdict
                   </h2>
                   {/* <div className="mx-3 mb-4 inline-flex  h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-yellow-100  text-yellow-500 sm:mb-0  sm:mr-8">
@@ -207,21 +204,20 @@ function ProConList({ positives, negatives, verdict2 }) {
                     </svg>
                   </div> */}
                 </div>
-               
-                  <div
-                    className={`${inter.variable} font-secondary  flex flex-col px-7 text-base leading-relaxed sm:items-start lg:text-lg`}
+
+                <div
+                  className={`${inter.variable} font-secondary  flex flex-col px-7 text-base leading-relaxed sm:items-start lg:text-lg`}
+                >
+                  {/*<p className='font-sans text-base md:text-lg'>{verdict}</p>*/}
+                  <Spoiler
+                    maxHeight={boxHeight}
+              
+                    showLabel="Show more"
+                    hideLabel="Show less"
                   >
-                    {/*<p className='font-sans text-base md:text-lg'>{verdict}</p>*/}
-                    <Spoiler
-                      maxHeight={boxHeight}
-                      color="pink"
-                      showLabel="Show more"
-                      hideLabel="Hide"
-                    >
-                      <PostBody content={verdict2} />
-                    </Spoiler>
-                  </div>
-                
+                    <PostBody content={verdict2} />
+                  </Spoiler>
+                </div>
               </div>
             </div>
           </div>

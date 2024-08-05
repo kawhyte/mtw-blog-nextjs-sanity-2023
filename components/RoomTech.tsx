@@ -1,12 +1,16 @@
 import { inter, oswald } from 'app/fonts'
 import React from 'react'
+import SectionTitle from './SectionTitle'
+import { IoMdCheckmarkCircle, IoMdCloseCircle } from 'react-icons/io'
 
-function RoomTech({ speed = 10, techAvailable,roomAmenitiesAvailiable }) {
+function RoomTech({ speed = 10, techAvailable, roomAmenitiesAvailiable }) {
   let speedResult = ['Web Browsing', 'Email']
   let textResult = 'OK'
   let bgColor = 'bg-blue-200'
 
- //console.log("roomAmenitiesAvailiable ", roomAmenitiesAvailiable)
+  // console.log("roomAmenitiesAvailiable ", roomAmenitiesAvailiable)
+
+  // console.log("techAvailable",techAvailable)
 
   if (speed <= 2) {
     speedResult = ['Web Browsing', 'Emails']
@@ -86,7 +90,6 @@ function RoomTech({ speed = 10, techAvailable,roomAmenitiesAvailiable }) {
     // Fall through
   }
 
- 
   return (
     <>
       {/* <div className="w-64 rounded-2xl border-2 border-green-500 bg-white p-4 shadow-lg ">
@@ -136,21 +139,25 @@ function RoomTech({ speed = 10, techAvailable,roomAmenitiesAvailiable }) {
       <section className="mt-8">
         <section className="overflow-hidden text-gray-800">
           <div className="mx-6 pb-12 md:container md:mx-auto">
-            <div className="mb-12 flex w-full flex-col text-center">
-              <h1
+            <div className="mb-12 flex w-full flex-col">
+              {/* <h1
                 className={`${oswald.variable} text-center font-heading text-6xl font-bold leading-tight tracking-tighter md:text-left md:text-5xl md:leading-none lg:text-5xl`}
               >
                 Hotel Techology & Amenities
-              </h1>
+              </h1> */}
+
+              <SectionTitle>Hotel Techology & Amenities</SectionTitle>
             </div>
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 ">
               <div className="  w-full">
                 {/*Internet Section */}
-                <div className="relative flex h-full flex-col overflow-hidden rounded-lg border-2 border-green-500 py-6 p-3">
-                  <span className={`absolute right-0 top-0 m-1 ${bgColor} px-3 py-1 text-base uppercase tracking-widest text-white sm:hidden md:block`}>
+                <div className="relative flex h-full flex-col overflow-hidden rounded-lg border-2 border-green-500 p-3 py-6">
+                  <span
+                    className={`absolute right-0 top-0 m-1 ${bgColor} px-3 py-1 text-base uppercase tracking-widest text-white sm:hidden md:block`}
+                  >
                     {textResult}
                   </span>
-                  <h2 className="title-font  mb-1  text-base font-medium uppercase tracking-widest text-pink-500">
+                  <h2 className="title-font  mb-1  text-base font-medium uppercase tracking-widest text-green-500">
                     Internet Speed
                   </h2>
 
@@ -171,7 +178,7 @@ function RoomTech({ speed = 10, techAvailable,roomAmenitiesAvailiable }) {
                         key={i}
                         className={`${inter.variable} font-secondary mb-2 flex items-center  text-sm text-gray-600 md:text-base`}
                       >
-                        <span className="mb-2 mr-2 inline-flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full bg-green-400 text-white">
+                        {/* <span className="mb-2 mr-2 inline-flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full bg-green-400 text-white">
                           <svg
                             fill="none"
                             stroke="currentColor"
@@ -183,8 +190,15 @@ function RoomTech({ speed = 10, techAvailable,roomAmenitiesAvailiable }) {
                           >
                             <path d="M20 6L9 17l-5-5"></path>
                           </svg>
-                        </span>
-                        <p className="leading-relaxed text-sm text-gray-500">{item}</p>
+                        </span> */}
+
+                        <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-green-400">
+                          <IoMdCheckmarkCircle className="h-5 w-5" />
+                        </div>
+
+                        <p className="text-sm leading-relaxed text-gray-500">
+                          {item}
+                        </p>
                       </div>
                     ))}
                   </div>
@@ -194,166 +208,372 @@ function RoomTech({ speed = 10, techAvailable,roomAmenitiesAvailiable }) {
 
               {/*Ports, Plugs & TV */}
 
-            { techAvailable &&  <div className=" w-full">
-                <div className="relative flex h-full flex-col overflow-hidden rounded-lg border-2 border-pink-500 py-6 p-3">
-                  <h2 className="title-font  mb-1 text-base font-medium uppercase tracking-widest text-pink-500">
-                    TV Ports, Plugs & other tech
-                  </h2>
-                  <h1 className="mb-4 flex items-center border-b border-gray-200 pb-4 text-5xl leading-none text-gray-900"></h1>
-                  <p className="mb-3 pb-2 text-base font-medium text-gray-900">
-                    Availiable in the room/hotel:
-                  </p>
+              {techAvailable && (
+                <div className=" w-full">
+                  <div className="relative flex h-full flex-col overflow-hidden rounded-lg border-2 border-pink-500 p-3 py-6">
+                    <h2 className="title-font  mb-1 text-base font-medium uppercase tracking-widest text-pink-500">
+                      TV Ports, Plugs & other tech
+                    </h2>
+                    <h1 className="mb-4 flex items-center border-b border-gray-200 pb-4 text-5xl leading-none text-gray-900"></h1>
+                    <p className="mb-3 pb-2 text-base font-medium text-gray-900">
+                      Availiable in the room/hotel:
+                    </p>
 
-                  <section
-                    className={` ${inter.variable} font-secondary text-gray-600 `}
-                  >
-                    <div className="container mx-auto px-2 py-2">
-                      <div className=" grid grid-cols-2 gap-4 text-center sm:grid-cols-2">
-                        
-                        
-                        <div className=" text-2xl ">
-                          <h2 className="title-font   leading-none text-gray-900 uppercase">
-                            {techAvailable.USB}
-                          </h2>
-                          <p className="leading-relaxed text-sm text-gray-500">
-                            Key Card needed for Elevator
-                          </p>
-                        </div>
+                    <section
+                      className={` ${inter.variable} font-secondary text-gray-600 `}
+                    >
+                      <div className="container mx-auto px-2 py-2">
+                        <div className=" grid grid-cols-2 gap-5 sm:grid-cols-1">
+                          <div className=" flex text-2xl ">
+                            <div className="title-font   uppercase leading-none text-gray-900">
+                              {techAvailable.USB ==="Yes" ? (
+                                <div className="mr-3 inline-flex  rounded-full  text-green-400">
+                                  <IoMdCheckmarkCircle className="h-5 w-5" />
+                                </div>
+                              ) : (
+                                <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-red-500">
+                                  <IoMdCloseCircle className="h-5 w-5" />
+                                </div>
+                              )}
+                            </div>
+                            <p className="text-sm leading-relaxed text-gray-500">
+                               Elevator Key Card required
+                            </p>
+                          </div>
 
-
-                        <div className="text-2xl">
-                          <h2 className="title-font   leading-none text-gray-900 uppercase">
-                            {techAvailable.HDMI}
-                          </h2>
-
-                          <p className="leading-relaxed text-sm text-gray-500">
+                          <div className=" flex text-2xl ">
+                            <div className="title-font   uppercase leading-none text-gray-900">
+                              {techAvailable.HDMI ==="Yes" ? (
+                                <div className="mr-3 inline-flex  items-start justify-start rounded-full  text-green-400">
+                                  <IoMdCheckmarkCircle className="h-5 w-5" />
+                                </div>
+                              ) : (
+                                <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-red-500">
+                                  <IoMdCloseCircle className="h-5 w-5" />
+                                </div>
+                              )}
+                            </div>
+                            <p className="text-sm leading-relaxed text-gray-500">
                             Guest In-Room Tablet
-                          </p>
-                        </div>
+                            </p>
+                          </div>
 
-                          <div className="text-2xl">
-                          <h2 className="title-font   leading-none text-gray-900 uppercase">
-                            {techAvailable.TV}
-                          </h2>
-                          <p className="leading-relaxed text-sm text-gray-500">Mobile Key Access</p>
-                        </div>
+                          <div className=" flex text-2xl ">
+                            <div className="title-font   uppercase leading-none text-gray-900">
+                              {    techAvailable.TV ==="Yes" ? (
+                                <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-green-400">
+                                  <IoMdCheckmarkCircle className="h-5 w-5" />
+                                </div>
+                              ) : (
+                                <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-red-500">
+                                  <IoMdCloseCircle className="h-5 w-5" />
+                                </div>
+                              )}
+                            </div>
+                            <p className="text-sm leading-relaxed text-gray-500">
+                            Mobile Key Access
+                            </p>
+                          </div>
 
+                          <div className=" flex text-2xl ">
+                            <div className="title-font   uppercase leading-none text-gray-900">
+                              {    techAvailable.Chromecast ==="Yes" ? (
+                                <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-green-400">
+                                  <IoMdCheckmarkCircle className="h-5 w-5" />
+                                </div>
+                              ) : (
+                                <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-red-500">
+                                  <IoMdCloseCircle className="h-5 w-5" />
+                                </div>
+                              )}
+                            </div>
+                            <p className="text-sm leading-relaxed text-gray-500">
+                            Chromecast/Smart TV
+                            </p>
+                          </div>
 
-                        <div className="text-2xl">
-                        <h2 className="title-font   leading-none text-gray-900 uppercase">
-                            {techAvailable.Chromecast}
-                          </h2>
-                          <p className="leading-relaxed text-sm text-gray-500">Chromecast/Smart TV</p>
-                        </div>
-
-
-                        <div className="text-2xl">
-                        <h2 className="title-font   leading-none text-gray-900 uppercase">
-                            {techAvailable.Wired}
-                          </h2>
-                          <p className="leading-relaxed text-sm text-gray-500">Wired Internet</p>
-                        </div>
-
-
-                        <div className="text-2xl">
-                        <h2 className="title-font   leading-none text-gray-900 uppercase">
-                            {techAvailable.Bluetooth}
-                          </h2>
-                          <p className="leading-relaxed text-sm text-gray-500">
+                          <div className=" flex text-2xl ">
+                            <div className="title-font   uppercase leading-none text-gray-900">
+                              {    techAvailable.Wired ==="Yes" ? (
+                                <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-green-400">
+                                  <IoMdCheckmarkCircle className="h-5 w-5" />
+                                </div>
+                              ) : (
+                                <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-red-500">
+                                  <IoMdCloseCircle className="h-5 w-5" />
+                                </div>
+                              )}
+                            </div>
+                            <p className="text-sm leading-relaxed text-gray-500">
+                            Wired Internet
+                            </p>
+                          </div>
+                          <div className=" flex text-2xl ">
+                            <div className="title-font   uppercase leading-none text-gray-900">
+                              {    techAvailable.Bluetooth ==="Yes" ? (
+                                <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-green-400">
+                                  <IoMdCheckmarkCircle className="h-5 w-5" />
+                                </div>
+                              ) : (
+                                <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-red-500">
+                                  <IoMdCloseCircle className="h-5 w-5" />
+                                </div>
+                              )}
+                            </div>
+                            <p className="text-sm leading-relaxed text-gray-500">
                             Hospitality App/Texting
-                          </p>
+                            </p>
+                          </div>
+
+                          
+
+                          {/* <div className="text-2xl">
+                            <h2 className="title-font   uppercase leading-none text-gray-900">
+                              {techAvailable.HDMI}
+                            </h2>
+
+                            <p className="text-sm leading-relaxed text-gray-500">
+                              Guest In-Room Tablet
+                            </p>
+                          </div> */}
+
+                          {/* <div className="text-2xl">
+                            <h2 className="title-font   uppercase leading-none text-gray-900">
+                              {techAvailable.TV}
+                            </h2>
+                            <p className="text-sm leading-relaxed text-gray-500">
+                              Mobile Key Access
+                            </p>
+                          </div> */}
+
+                          {/* <div className="text-2xl">
+                            <h2 className="title-font   uppercase leading-none text-gray-900">
+                              {techAvailable.Chromecast}
+                            </h2>
+                            <p className="text-sm leading-relaxed text-gray-500">
+                              Chromecast/Smart TV
+                            </p>
+                          </div> */}
+
+                          {/* <div className="text-2xl">
+                            <h2 className="title-font   uppercase leading-none text-gray-900">
+                              {techAvailable.Wired}
+                            </h2>
+                            <p className="text-sm leading-relaxed text-gray-500">
+                              Wired Internet
+                            </p>
+                          </div> */}
+
+                          {/* <div className="text-2xl">
+                            <h2 className="title-font   uppercase leading-none text-gray-900">
+                              {techAvailable.Bluetooth}
+                            </h2>
+                            <p className="text-sm leading-relaxed text-gray-500">
+                              Hospitality App/Texting
+                            </p>
+                          </div> */}
                         </div>
                       </div>
-                    </div>
-                  </section>
+                    </section>
+                  </div>
                 </div>
-              </div> }
+              )}
 
- {/*Ports, Plugs & TV Ends  */}
-  {/*Hotel Amenities*/}
+              {/*Ports, Plugs & TV Ends  */}
+              {/*Hotel Amenities*/}
 
-            { roomAmenitiesAvailiable &&  <div className=" w-full ">
-                <div className="relative flex h-full flex-col overflow-hidden rounded-lg border-2 border-blue-500 py-6 p-3">
-                  <h2 className="title-font  mb-1 text-base font-medium uppercase tracking-widest text-blue-500">
-                     Hotel Amentities
-                  </h2>
-                  <h1 className="mb-4 flex items-center border-b border-gray-200 pb-4 text-5xl leading-none text-gray-900"></h1>
-                  <p className="mb-3 pb-2 text-base font-medium text-gray-900">
-                    Breakdown of ameities availiable in the room:
-                  </p>
+              {roomAmenitiesAvailiable && (
+                <div className=" w-full ">
+                  <div className="relative flex h-full flex-col overflow-hidden rounded-lg border-2 border-blue-500 p-3 py-6">
+                    <h2 className="title-font  mb-1 text-base font-medium uppercase tracking-widest text-blue-500">
+                      Hotel Amentities
+                    </h2>
+                    <h1 className="mb-4 flex items-center border-b border-gray-200 pb-4 text-5xl leading-none text-gray-900"></h1>
+                    <p className="mb-3 pb-2 text-base font-medium text-gray-900">
+                      Breakdown of ameities availiable in the room:
+                    </p>
 
-                  <section
-                    className={` ${inter.variable} font-secondary text-gray-600 text-base `}
-                  >
-                    <div className="container mx-auto px-2 py-2">
-                      <div className=" grid grid-cols-2 gap-4 text-center sm:grid-cols-2">
-                      
-                      <div className="text-2xl ">
-                      <h2 className="title-font   leading-none text-gray-900 uppercase">
-                            {roomAmenitiesAvailiable?.Coffee}
-                          </h2>
-                          <p className="leading-relaxed text-sm text-gray-500">
-                            Coffee Machine Type
-                          </p>
+                    <section
+                      className={` ${inter.variable} font-secondary text-base text-gray-600 `}
+                    >
+                      <div className="container mx-auto px-2 py-2">
+                        <div className=" grid grid-cols-2 gap-4 text-center sm:grid-cols-1">
+                         
+                         
+                        <div className=" flex text-2xl ">
+                            <div className="title-font   uppercase leading-none text-gray-900">
+                              {    techAvailable.Chromecast ==="Yes" ? (
+                                <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-green-400">
+                                  <IoMdCheckmarkCircle className="h-5 w-5" />
+                                </div>
+                              ) : (
+                                <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-red-500">
+                                  <IoMdCloseCircle className="h-5 w-5" />
+                                </div>
+                              )}
+                            </div>
+                            <p className="text-sm leading-relaxed text-gray-500 capitalize">
+                            Coffee Machine ({roomAmenitiesAvailiable?.Coffee})
+                            </p>
+                          </div>
+                         
+                        <div className=" flex text-2xl ">
+                            <div className="title-font   uppercase leading-none text-gray-900">
+                              {   roomAmenitiesAvailiable?.Toothpaste ==="Yes" ? (
+                                <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-green-400">
+                                  <IoMdCheckmarkCircle className="h-5 w-5" />
+                                </div>
+                              ) : (
+                                <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-red-500">
+                                  <IoMdCloseCircle className="h-5 w-5" />
+                                </div>
+                              )}
+                            </div>
+                            <p className="text-sm leading-relaxed text-gray-500 capitalize">
+                            Toothpaste, Mouthwash etc.
+                            </p>
+                          </div>
+                         
+                        <div className=" flex text-2xl ">
+                            <div className="title-font   uppercase leading-none text-gray-900">
+                              {   roomAmenitiesAvailiable?.Fridge ==="Yes" ? (
+                                <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-green-400">
+                                  <IoMdCheckmarkCircle className="h-5 w-5" />
+                                </div>
+                              ) : (
+                                <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-red-500">
+                                  <IoMdCloseCircle className="h-5 w-5" />
+                                </div>
+                              )}
+                            </div>
+                            <p className="text-sm leading-relaxed text-gray-500 capitalize">
+                            Useable Fridge
+                            </p>
+                          </div>
+                         
+                         
+                        <div className=" flex text-2xl ">
+                            <div className="title-font   uppercase leading-none text-gray-900">
+                              {   roomAmenitiesAvailiable?.Slippers ==="Yes" ? (
+                                <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-green-400">
+                                  <IoMdCheckmarkCircle className="h-5 w-5" />
+                                </div>
+                              ) : (
+                                <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-red-500">
+                                  <IoMdCloseCircle className="h-5 w-5" />
+                                </div>
+                              )}
+                            </div>
+                            <p className="text-sm leading-relaxed text-gray-500 capitalize">
+                            Slippers/Robes
+                            </p>
+                          </div>
+                         
+                        <div className=" flex text-2xl ">
+                            <div className="title-font   uppercase leading-none text-gray-900">
+                              {   roomAmenitiesAvailiable?.Slippers ==="Yes" ? (
+                                <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-green-400">
+                                  <IoMdCheckmarkCircle className="h-5 w-5" />
+                                </div>
+                              ) : (
+                                <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-red-500">
+                                  <IoMdCloseCircle className="h-5 w-5" />
+                                </div>
+                              )}
+                            </div>
+                            <p className="text-sm leading-relaxed text-gray-500 capitalize">
+                            Soap ({roomAmenitiesAvailiable?.Soap})
+                            </p>
+                          </div>
+
+                        <div className=" flex text-2xl ">
+                            <div className="title-font   uppercase leading-none text-gray-900">
+                              {   roomAmenitiesAvailiable?.Other ==="Yes" ? (
+                                <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-green-400">
+                                  <IoMdCheckmarkCircle className="h-5 w-5" />
+                                </div>
+                              ) : (
+                                <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-red-500">
+                                  <IoMdCloseCircle className="h-5 w-5" />
+                                </div>
+                              )}
+                            </div>
+                            <p className="text-sm leading-relaxed text-gray-500 capitalize">
+                            Additional Amenities  - Sewing kit etc. 
+                            </p>
+                          </div>
+                         
+                         
+                         
+                         
+                         
+                          {/* <div className="text-2xl ">
+                            <h2 className="title-font   uppercase leading-none text-gray-900">
+                              {roomAmenitiesAvailiable?.Coffee}
+                            </h2>
+                            <p className="text-sm leading-relaxed text-gray-500">
+                              Coffee Machine Type
+                            </p>
+                          </div> */}
+
+
+
+
+
+
+
+
+                          {/* <div className="text-2xl">
+                            <h2 className="title-font   uppercase leading-none text-gray-900">
+                              {roomAmenitiesAvailiable?.Toothpaste}
+                            </h2>
+                            <p className="text-sm leading-relaxed text-gray-500">
+                              Toothpaste, Mouthwash etc.
+                            </p>
+                          </div> */}
+
+                          {/* <div className="text-2xl">
+                            <h2 className="title-font   uppercase leading-none text-gray-900">
+                              {roomAmenitiesAvailiable?.Fridge}
+                            </h2>
+                            <p className="text-sm leading-relaxed text-gray-500">
+                              Useable Fridge
+                            </p>
+                          </div> */}
+
+                          {/* <div className="text-2xl">
+                            <h2 className="title-font   uppercase leading-none text-gray-900">
+                              {roomAmenitiesAvailiable?.Slippers}
+                            </h2>
+                            <p className="text-sm leading-relaxed text-gray-500">
+                              Slippers/Robes
+                            </p>
+                          </div> */}
+
+                          {/* <div className="text-2xl">
+                            <h2 className="title-font   uppercase leading-none text-gray-900">
+                              {roomAmenitiesAvailiable?.Soap}
+                            </h2>
+
+                            <p className="text-sm leading-relaxed text-gray-500">
+                              Soap Type
+                            </p>
+                          </div> */}
+{/* 
+                          <div className="text-2xl">
+                            <h2 className="title-font   uppercase leading-none text-gray-900">
+                              {roomAmenitiesAvailiable?.Other}
+                            </h2>
+                            <p className="text-sm leading-relaxed text-gray-500">
+                              Other Amenities
+                            </p>
+                          </div> */}
                         </div>
-
-
-                  
-
-                        <div className="text-2xl">
-                        <h2 className="title-font   leading-none text-gray-900 uppercase">
-                            {roomAmenitiesAvailiable?.Toothpaste}
-                            
-                          </h2>
-                          <p className="leading-relaxed text-sm text-gray-500">Toothpaste, Mouthwash etc.</p>
-                        </div>
-
-
-                        <div className="text-2xl">
-                          <h2 className="title-font   leading-none text-gray-900 uppercase">
-                            {roomAmenitiesAvailiable?.Fridge}
-                          </h2>
-                          <p className="leading-relaxed text-sm text-gray-500">Useable Fridge</p>
-                        </div>
-
-
-                        <div className="text-2xl">
-                        <h2 className="title-font   leading-none text-gray-900 uppercase">
-                            {roomAmenitiesAvailiable?.Slippers}
-                          </h2>
-                          <p className="leading-relaxed text-sm text-gray-500">Slippers/Robes</p>
-                        </div>
-
-
-                        <div className="text-2xl">
-                        <h2 className="title-font   leading-none text-gray-900 uppercase">
-                            {roomAmenitiesAvailiable?.Soap}
-                          </h2>
-
-                          <p className="leading-relaxed text-sm text-gray-500">
-                            Soap Type
-                          </p>
-                        </div>
-
-
-
-                        <div className="text-2xl">
-                        <h2 className="title-font   leading-none text-gray-900 uppercase">
-                            {roomAmenitiesAvailiable?.Other}
-                          </h2>
-                          <p className="leading-relaxed text-sm text-gray-500">
-						  Other Amenities
-                          </p>
-                        </div>
-
-
-
-
                       </div>
-                    </div>
-                  </section>
+                    </section>
+                  </div>
                 </div>
-              </div>}
+              )}
               {/*Hotel Amenities here*/}
             </div>
           </div>
