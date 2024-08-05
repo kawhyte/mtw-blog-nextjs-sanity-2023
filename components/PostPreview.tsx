@@ -49,7 +49,7 @@ export default function PostPreview({
         >
           <div className="mx-4 mb-6 mt-1 ">
             <h1
-              className={`${oswald.variable}  line-clamp-2  font-heading text-2xl font-medium text-gray-700  `}
+              className={`${oswald.variable}  line-clamp-2 no-underline hover:underline decoration-pink-500 decoration-4 decoration-dashed font-heading text-2xl font-medium text-gray-700  `}
             >
               {title}
             </h1>
@@ -57,7 +57,7 @@ export default function PostPreview({
             <div className="align-start mt-3 flex flex-col items-start justify-between gap-y-2">
               <div className="flex gap-x-2 text-sm text-gray-500">
                 <IoLocation className=" h-4 w-4 " />
-                <p className="line-clamp-1"> {location ? location : ''}</p>
+                <p className="line-clamp-1 "> {location ? location : ''}</p>
               </div>
 
               <div className=" flex gap-x-2 text-sm text-gray-500 ">

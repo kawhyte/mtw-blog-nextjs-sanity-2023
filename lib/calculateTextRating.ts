@@ -11,21 +11,27 @@ export function calculateTextRating(value) {
     rating.backgroundColor = 'red'
   } else if (value >= 2 && value < 3) {
     rating.textRating = 'Poor'
-    rating.backgroundColor = 'orange'
+    rating.backgroundColor = 'gray'
   } else if (value >= 3 && value < 3.75) {
-    rating.textRating = 'Fair'
-    rating.backgroundColor = 'yellow'
-  } else if (value >= 3.75 && value < 4) {
     rating.textRating = 'Good'
     rating.backgroundColor = 'blue'
+  } else if (value >= 3.75 && value < 4) {
+    rating.textRating = 'Really Good'
+    rating.backgroundColor = 'yellow'
   } else if (value >= 4 && value < 4.5) {
     rating.textRating = 'Great'
     rating.backgroundColor = 'indigo'
   } else if (value >= 4.5) {
     rating.textRating = 'Excellent'
+    rating.backgroundColor = 'lime'
+  } else if(value >= 5){
+
+rating.textRating = 'Extraordinary'
     rating.backgroundColor = 'green'
-  } else {
-    rating.textRating = 'HMMMM'
+  }
+  
+  else {
+    rating.textRating = 'Pending'
     // Fall through
   }
 
