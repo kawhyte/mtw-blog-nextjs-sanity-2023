@@ -158,9 +158,9 @@ export default function PostHeader(
                   </div>
                 </div> */}
 
-            <div className="max-w-4xl rounded-lg border-l-4 border-yellow-500 bg-yellow-100 p-4 text-yellow-600">
+            <div className="max-w-4xl rounded-lg border-l-4 border-green-500 bg-green-100 p-4 text-green-600">
               <p
-                className={`${oswald.variable} flex items-baseline text-center font-heading text-2xl font-bold md:text-left md:text-2xl md:leading-none lg:text-2xl`}
+                className={`${oswald.variable} flex items-baseline text-center mb-2 font-heading text-2xl font-bold md:text-left md:text-2xl md:leading-none lg:text-2xl`}
               >
                 Quick Tip
               </p>

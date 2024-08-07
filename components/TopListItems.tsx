@@ -12,8 +12,8 @@ export default function TopListItems(
 ) {
   //console.log('color', color)
   return (
-    <section className={`my-16    rounded-2xl`}>
-      <div className=" container  mx-auto mb-10 flex w-full flex-wrap">
+    <section className={`my-16    rounded-2xl container  mx-auto `}>
+      <div className="  mb-10 flex w-full flex-wrap ">
         <div className="mx-4 my-6 w-full lg:mb-0 lg:w-1/2 ">
           <h1
             className={`${oswald.variable} title-font mb-2 font-heading text-3xl font-medium text-gray-900 sm:text-5xl`}
