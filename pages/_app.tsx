@@ -25,7 +25,7 @@ const antonio = Antonio({
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <MantineProvider> 
-    <main className={`${inter.variable} font-sans `}>
+    <main className={`${inter.variable} font-sans  `}>
       <Component {...pageProps} />
     </main>
     </MantineProvider>

@@ -44,3 +44,8 @@
 @apply  text-sm md:text-base mt-3 leading-loose;
 
 }
+.portableText p {
+
+@apply  text-base md:text-base mt-3 leading-loose;
+
+}
