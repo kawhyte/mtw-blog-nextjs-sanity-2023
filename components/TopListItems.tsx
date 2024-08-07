@@ -4,8 +4,9 @@ import { urlForImage } from 'lib/sanity.image'
 import type { Recommendation } from 'lib/sanity.queries'
 import Image from 'next/image'
 import Link from 'next/link'
+
 import PostHeader from './PostHeader'
-import  PostTitle, { CardTitle } from './PostTitle'
+import PostTitle, { CardTitle } from './PostTitle'
 import SectionTitle from './SectionTitle'
 
 let count = 2
@@ -69,41 +70,34 @@ export default function TopListItems(
           </h1>
           <div className="h-1 w-20 rounded bg-pink-500"></div> */}
 
-<SectionTitle> {posts[0].title}</SectionTitle>
-
+          <SectionTitle> {posts[0].title} We&apos;ve Visited</SectionTitle>
         </div>
       </div>
 
-
-
-      <div className="container mx-auto  mt-14 grid grid-cols-1 place-content-center place-items-center gap-x-5 gap-y-10 px-3 sm:grid-cols-1 md:grid-cols-2 md:gap-10 md:px-6 lg:grid-cols-3 2xl:grid-cols-3">
-      {/* {posts[0].recommendations.map( */}
+      <div className="container mx-auto  mt-14 grid grid-cols-1 place-content-center place-items-center gap-x-5 gap-y-10 px-3 sm:grid-cols-1 md:grid-cols-2 md:gap-10 md:px-6 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+        {/* {posts[0].recommendations.map( */}
 
         {posts[0].recommendations.slice(0, 11).map(
           (item, i) =>
             count <= 10 && (
               <div
                 key={item._id}
-                className="h-90 m-auto   flex w-56   cursor-pointer  rounded-lg sm:w-72 lg:w-96  group  "
+                className="h-90 group   m-auto flex items-baseline     cursor-pointer rounded-lg   xl:w-96  "
               >
-                <span className=" -mr-5 w-20  flex flex-col font-serif   text-[9.25rem] font-bold  leading-[0.88] tracking-[-2rem] text-pink-500 drop-shadow-xl sm:text-[12rem] md:mr-2">
+                <span className=" -mr-5 flex  w-20 flex-col font-san   text-[9.25rem] font-bold  leading-[0.88] tracking-[-2.3rem] text-pink-500 drop-shadow-lg   md:text-[12rem] md:mr-2">
                   {i + 1}
                 </span>
 
                 <PostPreview
-                
-                key={item.post._id}
-                title={item.post.title}
-                coverImage={item.post.coverImage}
-                date={item.post.date}
-                author={item.post.author}
-                slug={item.post.slug.current}
-                excerpt2={item.post.excerpt2}
-                location={item.post.location}
-                category={item.post.category}
-                
-                
-                
+                  key={item.post._id}
+                  title={item.post.title}
+                  coverImage={item.post.coverImage}
+                  date={item.post.date}
+                  author={item.post.author}
+                  slug={item.post.slug.current}
+                  excerpt2={item.post.excerpt2}
+                  location={item.post.location}
+                  category={item.post.category}
                 />
 
                 {/* <div key={item._id} className="z-10 flex flex-col w-full max-w-md  rounded-3xl border-4 border-black bg-white shadow-offsetIndigo  ">
