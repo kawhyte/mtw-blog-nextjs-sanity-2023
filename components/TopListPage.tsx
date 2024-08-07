@@ -15,6 +15,7 @@ import { CMS_NAME } from '../lib/constants'
 import Footer from './Footer'
 import ReviewHeader from './ReviewHeader'
 import TopListItems from './TopListItems'
+import SectionSeparator from './SectionSeparator'
 
 export interface IndexPageProps {
   preview?: boolean
@@ -56,6 +57,8 @@ export default function IndexPage(props: IndexPageProps) {
           {hotels.length > 0 && (
             <>
               <TopListItems posts={hotels}  />
+
+              <SectionSeparator />
               <TopListItems posts={restaurants}  />
 
         

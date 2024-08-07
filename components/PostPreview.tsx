@@ -21,7 +21,7 @@ export default function PostPreview({
   const categoryType = categoryRating(category)
   const colorVariants = {
     blue: 'shadow-offsetBlue',
-    yellow: 'shadow-offsetYellow',
+    yellow: '',
     green: 'shadow-offsetGreen',
     red: 'shadow-offsetRed',
   }
@@ -64,7 +64,7 @@ export default function PostPreview({
               </div>
 
             { date &&  <div className=" flex gap-x-2 text-sm text-gray-500 ">
-                <FaRegCalendarAlt className=" h-5 w-5    " />
+                <FaRegCalendarAlt className=" h-5 w-5 text-pink-500   " />
 
                 <Date dateString={date} />
               </div>}

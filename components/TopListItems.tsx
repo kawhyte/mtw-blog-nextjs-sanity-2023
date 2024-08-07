@@ -16,7 +16,7 @@ export default function TopListItems(
 ) {
   //console.log('color', color)
   return (
-    <section className={`container    mx-auto my-16  rounded-2xl  `}>
+    <section className={`container    mx-auto my-16  rounded-2xl   `}>
       {/* <div className="mb-12 flex  justify-center p-6 md:mb-20 md:p-6    ">
         <span className=" -mr-8  flex flex-col font-serif   text-[9.25rem] font-bold  leading-[0.88] tracking-[-0.03em] text-pink-500 drop-shadow-xl sm:text-[25rem] md:-mr-7">
           1
@@ -82,7 +82,7 @@ export default function TopListItems(
             count <= 10 && (
               <div
                 key={item._id}
-                className="h-90 group   m-auto flex items-baseline     cursor-pointer rounded-lg   xl:w-96  "
+                className="h-90 group   m-auto flex items-baseline     cursor-pointer rounded-lg   xl:w-96   "
               >
                 <span className=" -mr-5 flex  w-20 flex-col font-san   text-[9.25rem] font-bold  leading-[0.88] tracking-[-2.3rem] text-pink-500 drop-shadow-lg   md:text-[12rem] md:mr-2">
                   {i + 1}
