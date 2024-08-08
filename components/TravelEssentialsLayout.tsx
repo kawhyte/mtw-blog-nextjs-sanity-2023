@@ -86,7 +86,7 @@ const TravelEssentialLayout = ({ posts }: { posts: Esssential[] }) => {
                       </p> */}
 
                       <div className="  my-1 flex flex-row items-center justify-start rounded-full   py-1 align-middle ">
-                        <FaRegCalendarAlt className="ml-1 mr-2 h-5 w-5    text-gray-500" />
+                        <FaRegCalendarAlt className="ml-1 mr-2 h-5 w-5    text-pink-500" />
                         <p className=" line-clamp-1 pr-2 text-sm text-gray-500">
                           <PostDate dateString={item.date} />
                         </p>

@@ -38,7 +38,7 @@ export default function MoreStories({ posts }: { posts: Post[] }) {
           />
         ))}
       </div>
-    { visiblePosts.length >= 10 ?  <div className="pb-8">
+    { visiblePosts.length >= 10 ?  <div className="pt-14 pb-6">
         <Pagination
           total={total}
           value={activePage}
