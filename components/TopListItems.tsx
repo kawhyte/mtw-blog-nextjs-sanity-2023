@@ -70,7 +70,7 @@ export default function TopListItems(
           </h1>
           <div className="h-1 w-20 rounded bg-pink-500"></div> */}
 
-          <SectionTitle> {posts[0].title} We&apos;ve Visited</SectionTitle>
+          <SectionTitle header={`${posts[0].title} We've Visited`} description={undefined} /> 
         </div>
       </div>
 

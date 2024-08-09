@@ -9,40 +9,36 @@ const ArenasIndexPage = ({ arenas }) => {
   //console.log('arenasH ', arenas[0])
 
   return (
-    <>
-      <div className=" container mx-auto pt-0 md:pt-1   lg:pt-1 xl:p-10">
-        <div className="-mb-72   hidden w-2/6 md:mt-0 md:w-5/6 lg:block lg:w-full lg:max-w-xs">
-          <PlayerWithNoSSR
-            autoplay
-            keepLastFrame
-            loop
-            src={'/basketball.json'}
-          />
-        </div>
-
-        <div className="  container mx-auto mb-20   mt-44  flex rounded-xl  bg-gradient-to-r from-indigo-200 via-pink-200 to-yellow-50 md:mt-52">
-          <div className="z-20 w-full px-4  py-12 text-start sm:px-6 lg:w-3/5 lg:px-8 lg:py-16">
+    <div className='relative '>
+   
+      <div className="absolute -left-36  -top-64 h-16   hidden w-2/6 md:mt-0 md:w-5/6 lg:block lg:w-full lg:max-w-xs   ">
+        <PlayerWithNoSSR autoplay keepLastFrame loop src={'/basketball.json'} />
+      </div>
+      <div className=" ">
+        <div className="   flex rounded-xl ">
+          <div className="z-20 w-full  text-start  lg:w-3/5 ">
             {/* <h1
               className={`${oswald.variable}  title-font mb-3 font-heading text-3xl font-medium text-gray-900 sm:text-4xl`}
             >
               Our Quest to Visit Every NBA & WNBA Arenas
             </h1> */}
 
-            <SectionTitle>{"Our Quest to Visit Every NBA & WNBA Arenas"}</SectionTitle>
+            <SectionTitle
+              header={'Our Quest to Visit Every NBA & WNBA Arenas'}
+              description={`We are traveling near and far to every state/country to visit all
+              the NBA and WNBA arenas across the US and Canada. Follow us on
+              this journey.`}
+            />
             <p
               className={` ${inter.variable} font-secondary mt-4 text-sm leading-relaxed md:text-base  lg:text-base `}
-            >
-              We are traveling near and far to every state/country to visit all
-              the NBA and WNBA arenas across the US and Canada. Follow us on
-              this journey.
-            </p>
+            ></p>
             <div className="lg:mt-0 lg:flex-shrink-0">
               <div className="mt-12 inline-flex ">
                 <Button link={'/arenas'}>View Our Journey</Button>
               </div>
             </div>
           </div>
-          <div className="max-w-2/5  right-12 mt-9  hidden h-full lg:block">
+          <div className="max-w-2/5  right-12   hidden h-full lg:block">
             <div className="ml-2 grid grid-cols-3 place-items-center gap-4">
               {arenas?.map((item) => (
                 <div
@@ -82,7 +78,7 @@ const ArenasIndexPage = ({ arenas }) => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

@@ -17,6 +17,7 @@ import IndexTopTen from './IndexTopTen'
 import Welcome from './Welcome'
 import YoutubeHighlights from './YoutubeHighlights'
 import SectionTitle from './SectionTitle'
+import BlogSection from './BlogSection'
 
 export interface IndexPageProps {
   preview?: boolean
@@ -55,23 +56,32 @@ export default function IndexPage(props: IndexPageProps) {
 
           <Hero />
           <Welcome />
-          <ArenasIndexPage arenas={arenaPosts?.slice(0, 9)} />
 
-          <section className="container mx-auto  rounded-2xl  bg-gray-100 px-10  py-14 text-gray-600 lg:mb-24  ">
-            <div className="flex-cols flex flex-row-reverse justify-between ">
-              <div>
-                <div>
-                  <div className=" flex w-full  justify-between">
-                    <div>
-                      {/* <h1
+          <BlogSection
+            className={
+              'bg-gradient-to-r from-indigo-200 via-pink-200 to-yellow-50 my-24 md:mt-24'
+            }
+          >
+            <ArenasIndexPage arenas={arenaPosts?.slice(0, 9)} />
+          </BlogSection>
+          {/* <section className="container mx-auto  rounded-2xl  bg-gray-100 px-10  py-14 text-gray-600 lg:mb-24  ">
+            <div className="flex-cols flex flex-row-reverse justify-between "> */}
+          <BlogSection className="bg-gray-100">
+            {/* <h1
                         className={`${oswald.variable}  title-font mb-3 font-heading text-3xl font-medium text-gray-900 sm:text-4xl`}
                       >
                         Our Travel Essential Reviews
                       </h1>
                       <div className="h-1 w-20 rounded bg-pink-500"></div> */}
-<SectionTitle>{"Our Travel Essential Reviews"}</SectionTitle>
+            <SectionTitle
+              header={'Our Travel Essential Reviews'}
+              description={` Traveling is a great way to experience new cultures and see the world. However, packing for a trip can be
+                        daunting, especially if you are trying to pack light.
+                        Check out a few travel essentials that you should never
+                        leave home without.`}
+            />
 
-                      <p
+            {/* <p
                         className={` ${inter.variable} font-secondary mt-4 text-sm leading-relaxed md:text-base  lg:text-base `}
                       >
                         Traveling is a great way to experience new cultures and
@@ -79,56 +89,68 @@ export default function IndexPage(props: IndexPageProps) {
                         daunting, especially if you are trying to pack light.
                         Check out a few travel essentials that you should never
                         leave home without.
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                      </p> */}
 
-                {/* <TravelEssentialLayout posts={Essentialposts?.slice(0, 4)} /> */}
+            {/* </div> */}
 
-                <div className="flex   pt-9 lg:mt-0 lg:flex-shrink-0">
-                  <div className=" inline-flex  ">
-                    <Button link={'/essentials'}>
-                      Travel Essentials Reviews
-                    </Button>
-                  </div>
-                </div>
+            {/* <TravelEssentialLayout posts={Essentialposts?.slice(0, 4)} /> */}
+
+            <div className="flex   pt-9 lg:mt-0 lg:flex-shrink-0">
+              <div className=" inline-flex  ">
+                <Button link={'/essentials'}>Travel Essentials Reviews</Button>
               </div>
             </div>
-          </section>
+          </BlogSection>
+          {/* </section> */}
 
-          <div className=" container mx-auto my-10 mb-10 flex w-full flex-row justify-between px-10  ">
-            <div className=" mb-6 lg:mb-0 lg:w-1/2 ">
-              {/* <h1
+          {/* <div className=" container mx-auto my-10 mb-10 flex w-full flex-row justify-between px-10  ">
+            <div className=" mb-6 lg:mb-0 lg:w-1/2 "> */}
+          {/* <h1
                 className={`${oswald.variable}  title-font mb-3 font-heading text-3xl font-medium text-gray-900 sm:text-4xl`}
               >
                 Our Latest Adventures
               </h1> */}
 
-              {/* <div className="h-1 w-20 rounded bg-pink-500"></div> */}
+          {/* <div className="h-1 w-20 rounded bg-pink-500"></div> */}
 
-              <SectionTitle>{"Our Latest Adventures"}</SectionTitle>
-              <p
-                className={` ${inter.variable} font-secondary mt-4 text-sm leading-relaxed md:text-base  lg:text-base `}
-              >
-                Check out some of the places we have been.
-              </p>
-            </div>
-          </div>
-          <div className="container mx-auto  px-10 ">
-            {posts.length > 0 && <MoreStoriesIndex posts={posts.slice(0, 6)} showPagination={false} />}
+          {/* </div>
+          </div> */}
+          <BlogSection className={''}>
+            <SectionTitle
+              header={'Our Latest Adventures'}
+              description={'Check out some of the places we have been.'}
+            />
 
-            <div className="flex justify-start  pt-10  lg:mt-0 lg:flex-shrink-0">
+            {posts.length > 0 && (
+              <MoreStoriesIndex
+                posts={posts.slice(0, 6)}
+                showPagination={false}
+              />
+            )}
+
+            <div className="flex   pt-9 lg:mt-0 lg:flex-shrink-0">
               <div className=" inline-flex ">
                 <Button link="/hotel">More Adventures</Button>
               </div>
             </div>
-          </div>
-          <IndexTopTen />
+          </BlogSection>
+
+          <BlogSection
+            className={
+              'bg-gradient-to-r from-indigo-200 via-pink-200 to-yellow-50'
+            }
+          >
+            <IndexTopTen />
+          </BlogSection>
 
           {/* <Categories /> */}
-
-          <YoutubeHighlights />
+          <BlogSection className={undefined}>
+            <SectionTitle
+              header={'Featured Videos'}
+              description={'Walking Tour from our trips'}
+            />
+            <YoutubeHighlights />
+          </BlogSection>
 
           {/* <SneakersIndexPage arenas={undefined} /> */}
           {/* <InstagramHighlights instagram={instagram.data} /> */}

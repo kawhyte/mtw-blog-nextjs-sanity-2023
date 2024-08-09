@@ -52,7 +52,7 @@ export default function PostPreview({
         >
           <div className="mx-4 mb-6 mt-1 ">
             <h1
-              className={`${oswald.variable}     line-clamp-2 no-underline group-hover:underline decoration-pink-500 decoration-4 decoration-dashed font-heading text-2xl font-medium text-gray-700  `}
+              className={`${oswald.variable}     line-clamp-2 no-underline group-hover:underline decoration-pink-500 decoration-4 decoration-dashed font-heading text-lg font-medium text-gray-700  `}
             >
               {title}
             </h1>

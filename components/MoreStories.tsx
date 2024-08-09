@@ -16,8 +16,8 @@ export default function MoreStories({ posts, showPagination }: { posts: Post[], 
 
   const total = Math.ceil(posts.length / itemsPerPage)
   function displayNewPage(e) {
-    console.log('displayNewPage E', e)
-    console.log('total E', total)
+    // console.log('displayNewPage E', e)
+    // console.log('total E', total)
     setPage(e)
 
     const start = (e - 1) * itemsPerPage
@@ -28,8 +28,8 @@ export default function MoreStories({ posts, showPagination }: { posts: Post[], 
   //  console.log('activePage', posts[0])
 
   return (
-    <section className="container mx-auto mt-8">
-      <div className="container mx-auto  mt-14 grid grid-cols-1 place-content-center place-items-center gap-x-16 gap-y-10 px-3 sm:grid-cols-1 md:grid-cols-2 md:gap-10 md:px-6 lg:grid-cols-3 2xl:grid-cols-4">
+    <section className="container mx-auto mt-2">
+      <div className="container mx-auto  mt-10 grid grid-cols-1 place-content-center place-items-center gap-x-16 gap-y-10 px-3 sm:grid-cols-1 md:grid-cols-2 md:gap-10 md:px-6 lg:grid-cols-3 2xl:grid-cols-4">
         {visiblePosts.map((post) => (
           <PostPreview
             key={post._id}
@@ -44,9 +44,6 @@ export default function MoreStories({ posts, showPagination }: { posts: Post[], 
           />
         ))}
       </div>
-
-      {/* { visiblePosts.length >= 10 ?  <div className="pt-14 pb-6"></div>
-       :""} */}
 
     { showPagination &&  <div className="pb-6 pt-14">
         <Pagination
