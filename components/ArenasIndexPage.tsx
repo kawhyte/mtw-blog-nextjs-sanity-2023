@@ -17,12 +17,6 @@ const ArenasIndexPage = ({ arenas }) => {
       <div className=" ">
         <div className="   flex rounded-xl ">
           <div className="z-20 w-full  text-start  lg:w-3/5 ">
-            {/* <h1
-              className={`${oswald.variable}  title-font mb-3 font-heading text-3xl font-medium text-gray-900 sm:text-4xl`}
-            >
-              Our Quest to Visit Every NBA & WNBA Arenas
-            </h1> */}
-
             <SectionTitle
               header={'Our Quest to Visit Every NBA & WNBA Arenas'}
               description={`We are traveling near and far to every state/country to visit all

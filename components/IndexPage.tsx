@@ -59,20 +59,13 @@ export default function IndexPage(props: IndexPageProps) {
 
           <BlogSection
             className={
-              'bg-gradient-to-r from-indigo-200 via-pink-200 to-yellow-50 my-24 md:mt-24'
+              'my-24 bg-gradient-to-r from-indigo-200 via-pink-200 to-yellow-50 md:mt-24'
             }
           >
             <ArenasIndexPage arenas={arenaPosts?.slice(0, 9)} />
           </BlogSection>
-          {/* <section className="container mx-auto  rounded-2xl  bg-gray-100 px-10  py-14 text-gray-600 lg:mb-24  ">
-            <div className="flex-cols flex flex-row-reverse justify-between "> */}
+
           <BlogSection className="bg-gray-100">
-            {/* <h1
-                        className={`${oswald.variable}  title-font mb-3 font-heading text-3xl font-medium text-gray-900 sm:text-4xl`}
-                      >
-                        Our Travel Essential Reviews
-                      </h1>
-                      <div className="h-1 w-20 rounded bg-pink-500"></div> */}
             <SectionTitle
               header={'Our Travel Essential Reviews'}
               description={` Traveling is a great way to experience new cultures and see the world. However, packing for a trip can be
@@ -81,40 +74,13 @@ export default function IndexPage(props: IndexPageProps) {
                         leave home without.`}
             />
 
-            {/* <p
-                        className={` ${inter.variable} font-secondary mt-4 text-sm leading-relaxed md:text-base  lg:text-base `}
-                      >
-                        Traveling is a great way to experience new cultures and
-                        see the world. However, packing for a trip can be
-                        daunting, especially if you are trying to pack light.
-                        Check out a few travel essentials that you should never
-                        leave home without.
-                      </p> */}
-
-            {/* </div> */}
-
-            {/* <TravelEssentialLayout posts={Essentialposts?.slice(0, 4)} /> */}
-
             <div className="flex   pt-9 lg:mt-0 lg:flex-shrink-0">
               <div className=" inline-flex  ">
                 <Button link={'/essentials'}>Travel Essentials Reviews</Button>
               </div>
             </div>
           </BlogSection>
-          {/* </section> */}
 
-          {/* <div className=" container mx-auto my-10 mb-10 flex w-full flex-row justify-between px-10  ">
-            <div className=" mb-6 lg:mb-0 lg:w-1/2 "> */}
-          {/* <h1
-                className={`${oswald.variable}  title-font mb-3 font-heading text-3xl font-medium text-gray-900 sm:text-4xl`}
-              >
-                Our Latest Adventures
-              </h1> */}
-
-          {/* <div className="h-1 w-20 rounded bg-pink-500"></div> */}
-
-          {/* </div>
-          </div> */}
           <BlogSection className={''}>
             <SectionTitle
               header={'Our Latest Adventures'}

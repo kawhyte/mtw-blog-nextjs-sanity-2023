@@ -18,7 +18,7 @@ function Gallery({ posts, heading }) {
             </p>
           </div> */}
 
-          <SectionTitle>Photo Collage</SectionTitle>
+          <SectionTitle header={"Photo Collage"} description={undefined}></SectionTitle>
         </div>
 
         <ResponsiveMasonry

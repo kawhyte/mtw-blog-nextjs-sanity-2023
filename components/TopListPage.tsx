@@ -39,7 +39,7 @@ export default function IndexPage(props: IndexPageProps) {
 
       <Layout preview={preview} loading={loading}>
         <Head>
-        <title>{CMS_NAME}</title>
+          <title>{CMS_NAME}</title>
           {/* <title>{CMS_NAME}</title> */}
         </Head>
         <Container>
@@ -56,21 +56,17 @@ export default function IndexPage(props: IndexPageProps) {
 
           {hotels.length > 0 && (
             <>
-              <TopListItems posts={hotels}  />
+              <TopListItems posts={hotels} />
 
               <SectionSeparator />
-              <TopListItems posts={restaurants}  />
-
-        
+              <TopListItems posts={restaurants} />
 
               <section></section>
             </>
           )}
         </Container>
-
       </Layout>
       <Footer />
     </>
   )
 }
-

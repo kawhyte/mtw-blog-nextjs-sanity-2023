@@ -19,15 +19,11 @@ const individualFoodRating = ({ food }) => {
   return (
     <>
       <div className="mx-7 pt-9">
-        {/* <h1
-          className={`${oswald.variable} py-8 text-center font-heading text-6xl font-bold leading-tight tracking-tighter md:text-left md:text-5xl md:leading-none lg:text-5xl`}
-        >
-          Food/Drink we tried
-        </h1> */}
+      
 
-        <SectionTitle> Food/Drink we tried</SectionTitle>
+        <SectionTitle header={ "Food/Drink we tried"} description={undefined}/>
 
-        {/* <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-3  bg-red-200"> */}
+      
         <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}>
           <Masonry>
             {food?.map((item, i) => (
@@ -92,33 +88,7 @@ const individualFoodRating = ({ food }) => {
                   </div>
                 </div>
 
-                {/* <div
-                  key={i}
-                  className="w-full max-w-sm overflow-hidden rounded-3xl border-4 border-black bg-white shadow-offsetIndigo"
-                >
-                  <div className="relative mr-2">
-                    <img
-                      width={502}
-                      height={203}
-                   
-                      className="h-42  w-full object-cover object-center brightness-[0.9] "
-                      src={urlForImage(item.asset._ref).format('webp').url()}
-                      alt={item?.name}
-                      style={{ display: 'bloc', padding: '1px', margin: '5px' }}
-                    />
-
-                    <div className="absolute right-0 top-0 mr-2 mt-2 flex  h-10 w-10 flex-col items-center justify-center rounded-xl bg-gray-50 px-3 text-sm font-black text-black   ">
-                      <span className="font-bold"> {item.rating.Dish}/5</span>
-                   
-                    </div>
-                  </div>
-                  <div className=" p-2">
-                    <p className="inline-bloc text-black-500 text-lg  font-black">
-                      {item?.name}
-                    </p>
-                    <p className="text-sm text-gray-500">{item?.review}</p>
-                  </div>
-                </div> */}
+                
               </>
             ))}
           </Masonry>

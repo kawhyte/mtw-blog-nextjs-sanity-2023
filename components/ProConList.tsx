@@ -19,7 +19,7 @@ function ProConList({ positives, negatives, verdict2 }) {
         {/* <h1 className= {`${oswald.variable} font-heading text-center text-6xl font-bold leading-tight tracking-tighter md:text-left md:text-5xl md:leading-none lg:text-5xl`}>
           Bottom Line
         </h1> */}
-        <SectionTitle> Bottom Line</SectionTitle>
+        <SectionTitle header={"Bottom Line"} description={undefined}/> 
 
         <div className="container flex flex-wrap py-6 md:mx-auto lg:py-12">
           <div className=" grid grid-cols-1  gap-6 2xl:grid-cols-3">

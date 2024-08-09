@@ -20,24 +20,11 @@ import PostDate, { PostYear } from './PostDate'
 import ReviewHeader from './ReviewHeader'
 
 const Arenas = ({ arenas }) => {
-  // console.log('arenas 77 ', arenas)
 
-  // const totalDistance = arenas.reduce(
-  //   (total, item) => total + item.gallery.teamType === 'nba',
-  //   0
-  // )
-
-  // console.log("totalDistance ", totalDistance)
-
-  // const percentage = ((arenas[0]?.visitedCount / totalDistance) * 100).toFixed(
-  //   2
-  // )
-
-  //console.log('percentage ', percentage)
 
   return (
     <>
-      {/* <IndexPageHead settings={settings} />*/}
+    
 
       <Layout preview={false} loading={false}>
         <Head>
@@ -67,13 +54,7 @@ const Arenas = ({ arenas }) => {
                 } `}
               >
                 <div className="static ">
-                  {/* {item.visited === true ? (
-                    <span className="absolute z-10 ml-3  mt-3  text-xs rounded-full text-green-600  bg-green-200 ">
-                      Visited: <PostDate dateString={item.date} />
-                    </span>
-                  ) : (
-                    ''
-                  )} */}
+        
                   <div className="bg-muted relative">
                     <img
                       src={
@@ -101,18 +82,7 @@ const Arenas = ({ arenas }) => {
                       {item.name}
                     </h1>
 
-                    {/* {item.visited === true ? (
-                      <>
-                        <div className="  my-1 flex flex-row items-center justify-start rounded-full bg-indigo-500/80  px-1 py-1 align-middle ">
-                          <FaRegCalendarAlt className="ml-1 mr-2 h-4 w-4    text-white" />
-                          <p className=" line-clamp-1 pr-2 text-xs text-white">
-                            <PostDate dateString={item.date} />
-                          </p>
-                        </div>
-                      </>
-                    ) : (
-                      ''
-                    )} */}
+           
                   </div>
 
                   <div className="flex w-full flex-row items-center justify-between py-2 align-middle ">
@@ -163,11 +133,7 @@ const Arenas = ({ arenas }) => {
                       key={photo.name}
                       className="  mb-3 mt-4 flex flex-col items-center justify-between pr-2 "
                     >
-                      {/* <img
-                  className="mx-4 hidden h-10 w-10 rounded-full object-cover sm:block"
-                  src="https://ssl.gstatic.com/onebox/media/sports/logos/4ndR-n-gall7_h3f7NYcpQ_96x96.png"
-                  alt="avatar"
-                /> */}
+               
                       <div className="flex flex-row gap-x-1">
                         <img
                           src={

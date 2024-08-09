@@ -92,61 +92,14 @@ function RoomTech({ speed = 10, techAvailable, roomAmenitiesAvailiable }) {
 
   return (
     <>
-      {/* <div className="w-64 rounded-2xl border-2 border-green-500 bg-white p-4 shadow-lg ">
-        <p className="text-md mb-4 font-medium  uppercase text-pink-500 ">
-          Internet Speed
-        </p>
-
-        <section className="text-8xl font-bold text-gray-900 ">
-          {speed}
-          <span className="text-sm text-gray-500">Mbps</span>
-
-          <p
-            className={`px-4 py-2 ${bgColor}   w-full rounded-lg  text-center text-base font-semibold text-white shadow-md`}
-          >
-            {textResult}
-          </p>
-        </section>
-
-        <p className="mt-4 text-base text-gray-600 ">
-          This internet speed is great for:
-        </p>
-        <ul className="mb-6 mt-6 w-full text-sm text-gray-600 ">
-          {speedResult.map((item, i) => (
-            <li
-              key={i}
-              className={`${inter.variable} font-secondary mb-2 flex items-center  text-sm text-gray-600 md:text-base`}
-            >
-              <span className="mb-2 mr-2 inline-flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full bg-green-400 text-white">
-                <svg
-                  fill="none"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2.5"
-                  className="h-3 w-3"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M20 6L9 17l-5-5"></path>
-                </svg>
-              </span>
-              {item}
-            </li>
-          ))}
-        </ul>
-      </div> */}
-
       <section className="mt-8">
         <section className="overflow-hidden text-gray-800">
           <div className="mx-6 pb-12 md:container md:mx-auto">
             <div className="mb-12 flex w-full flex-col">
-              {/* <h1
-                className={`${oswald.variable} text-center font-heading text-6xl font-bold leading-tight tracking-tighter md:text-left md:text-5xl md:leading-none lg:text-5xl`}
-              >
-                Hotel Techology & Amenities
-              </h1> */}
-
-              <SectionTitle>Hotel Techology & Amenities</SectionTitle>
+              <SectionTitle
+                header={'Hotel Techology & Amenities'}
+                description={undefined}
+              />
             </div>
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 ">
               <div className="  w-full">
@@ -178,20 +131,6 @@ function RoomTech({ speed = 10, techAvailable, roomAmenitiesAvailiable }) {
                         key={i}
                         className={`${inter.variable} font-secondary mb-2 flex items-center  text-sm text-gray-600 md:text-base`}
                       >
-                        {/* <span className="mb-2 mr-2 inline-flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full bg-green-400 text-white">
-                          <svg
-                            fill="none"
-                            stroke="currentColor"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2.5"
-                            className="h-3 w-3"
-                            viewBox="0 0 24 24"
-                          >
-                            <path d="M20 6L9 17l-5-5"></path>
-                          </svg>
-                        </span> */}
-
                         <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-green-400">
                           <IoMdCheckmarkCircle className="h-5 w-5" />
                         </div>
@@ -226,7 +165,7 @@ function RoomTech({ speed = 10, techAvailable, roomAmenitiesAvailiable }) {
                         <div className=" grid grid-cols-2 gap-5 sm:grid-cols-1">
                           <div className=" flex text-2xl ">
                             <div className="title-font   uppercase leading-none text-gray-900">
-                              {techAvailable.USB ==="Yes" ? (
+                              {techAvailable.USB === 'Yes' ? (
                                 <div className="mr-3 inline-flex  rounded-full  text-green-400">
                                   <IoMdCheckmarkCircle className="h-5 w-5" />
                                 </div>
@@ -237,13 +176,13 @@ function RoomTech({ speed = 10, techAvailable, roomAmenitiesAvailiable }) {
                               )}
                             </div>
                             <p className="text-sm leading-relaxed text-gray-500">
-                               Elevator Key Card required
+                              Elevator Key Card required
                             </p>
                           </div>
 
                           <div className=" flex text-2xl ">
                             <div className="title-font   uppercase leading-none text-gray-900">
-                              {techAvailable.HDMI ==="Yes" ? (
+                              {techAvailable.HDMI === 'Yes' ? (
                                 <div className="mr-3 inline-flex  items-start justify-start rounded-full  text-green-400">
                                   <IoMdCheckmarkCircle className="h-5 w-5" />
                                 </div>
@@ -254,124 +193,76 @@ function RoomTech({ speed = 10, techAvailable, roomAmenitiesAvailiable }) {
                               )}
                             </div>
                             <p className="text-sm leading-relaxed text-gray-500">
-                            Guest In-Room Tablet
-                            </p>
-                          </div>
-
-                          <div className=" flex text-2xl ">
-                            <div className="title-font   uppercase leading-none text-gray-900">
-                              {    techAvailable.TV ==="Yes" ? (
-                                <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-green-400">
-                                  <IoMdCheckmarkCircle className="h-5 w-5" />
-                                </div>
-                              ) : (
-                                <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-red-500">
-                                  <IoMdCloseCircle className="h-5 w-5" />
-                                </div>
-                              )}
-                            </div>
-                            <p className="text-sm leading-relaxed text-gray-500">
-                            Mobile Key Access
-                            </p>
-                          </div>
-
-                          <div className=" flex text-2xl ">
-                            <div className="title-font   uppercase leading-none text-gray-900">
-                              {    techAvailable.Chromecast ==="Yes" ? (
-                                <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-green-400">
-                                  <IoMdCheckmarkCircle className="h-5 w-5" />
-                                </div>
-                              ) : (
-                                <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-red-500">
-                                  <IoMdCloseCircle className="h-5 w-5" />
-                                </div>
-                              )}
-                            </div>
-                            <p className="text-sm leading-relaxed text-gray-500">
-                            Chromecast/Smart TV
-                            </p>
-                          </div>
-
-                          <div className=" flex text-2xl ">
-                            <div className="title-font   uppercase leading-none text-gray-900">
-                              {    techAvailable.Wired ==="Yes" ? (
-                                <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-green-400">
-                                  <IoMdCheckmarkCircle className="h-5 w-5" />
-                                </div>
-                              ) : (
-                                <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-red-500">
-                                  <IoMdCloseCircle className="h-5 w-5" />
-                                </div>
-                              )}
-                            </div>
-                            <p className="text-sm leading-relaxed text-gray-500">
-                            Wired Internet
-                            </p>
-                          </div>
-                          <div className=" flex text-2xl ">
-                            <div className="title-font   uppercase leading-none text-gray-900">
-                              {    techAvailable.Bluetooth ==="Yes" ? (
-                                <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-green-400">
-                                  <IoMdCheckmarkCircle className="h-5 w-5" />
-                                </div>
-                              ) : (
-                                <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-red-500">
-                                  <IoMdCloseCircle className="h-5 w-5" />
-                                </div>
-                              )}
-                            </div>
-                            <p className="text-sm leading-relaxed text-gray-500">
-                            Hospitality App/Texting
-                            </p>
-                          </div>
-
-                          
-
-                          {/* <div className="text-2xl">
-                            <h2 className="title-font   uppercase leading-none text-gray-900">
-                              {techAvailable.HDMI}
-                            </h2>
-
-                            <p className="text-sm leading-relaxed text-gray-500">
                               Guest In-Room Tablet
                             </p>
-                          </div> */}
+                          </div>
 
-                          {/* <div className="text-2xl">
-                            <h2 className="title-font   uppercase leading-none text-gray-900">
-                              {techAvailable.TV}
-                            </h2>
+                          <div className=" flex text-2xl ">
+                            <div className="title-font   uppercase leading-none text-gray-900">
+                              {techAvailable.TV === 'Yes' ? (
+                                <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-green-400">
+                                  <IoMdCheckmarkCircle className="h-5 w-5" />
+                                </div>
+                              ) : (
+                                <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-red-500">
+                                  <IoMdCloseCircle className="h-5 w-5" />
+                                </div>
+                              )}
+                            </div>
                             <p className="text-sm leading-relaxed text-gray-500">
                               Mobile Key Access
                             </p>
-                          </div> */}
+                          </div>
 
-                          {/* <div className="text-2xl">
-                            <h2 className="title-font   uppercase leading-none text-gray-900">
-                              {techAvailable.Chromecast}
-                            </h2>
+                          <div className=" flex text-2xl ">
+                            <div className="title-font   uppercase leading-none text-gray-900">
+                              {techAvailable.Chromecast === 'Yes' ? (
+                                <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-green-400">
+                                  <IoMdCheckmarkCircle className="h-5 w-5" />
+                                </div>
+                              ) : (
+                                <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-red-500">
+                                  <IoMdCloseCircle className="h-5 w-5" />
+                                </div>
+                              )}
+                            </div>
                             <p className="text-sm leading-relaxed text-gray-500">
                               Chromecast/Smart TV
                             </p>
-                          </div> */}
+                          </div>
 
-                          {/* <div className="text-2xl">
-                            <h2 className="title-font   uppercase leading-none text-gray-900">
-                              {techAvailable.Wired}
-                            </h2>
+                          <div className=" flex text-2xl ">
+                            <div className="title-font   uppercase leading-none text-gray-900">
+                              {techAvailable.Wired === 'Yes' ? (
+                                <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-green-400">
+                                  <IoMdCheckmarkCircle className="h-5 w-5" />
+                                </div>
+                              ) : (
+                                <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-red-500">
+                                  <IoMdCloseCircle className="h-5 w-5" />
+                                </div>
+                              )}
+                            </div>
                             <p className="text-sm leading-relaxed text-gray-500">
                               Wired Internet
                             </p>
-                          </div> */}
-
-                          {/* <div className="text-2xl">
-                            <h2 className="title-font   uppercase leading-none text-gray-900">
-                              {techAvailable.Bluetooth}
-                            </h2>
+                          </div>
+                          <div className=" flex text-2xl ">
+                            <div className="title-font   uppercase leading-none text-gray-900">
+                              {techAvailable.Bluetooth === 'Yes' ? (
+                                <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-green-400">
+                                  <IoMdCheckmarkCircle className="h-5 w-5" />
+                                </div>
+                              ) : (
+                                <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-red-500">
+                                  <IoMdCloseCircle className="h-5 w-5" />
+                                </div>
+                              )}
+                            </div>
                             <p className="text-sm leading-relaxed text-gray-500">
                               Hospitality App/Texting
                             </p>
-                          </div> */}
+                          </div>
                         </div>
                       </div>
                     </section>
@@ -398,11 +289,9 @@ function RoomTech({ speed = 10, techAvailable, roomAmenitiesAvailiable }) {
                     >
                       <div className="container mx-auto px-2 py-2">
                         <div className=" grid grid-cols-2 gap-4 text-center sm:grid-cols-1">
-                         
-                         
-                        <div className=" flex text-2xl ">
+                          <div className=" flex text-2xl ">
                             <div className="title-font   uppercase leading-none text-gray-900">
-                              {    techAvailable.Chromecast ==="Yes" ? (
+                              {techAvailable.Chromecast === 'Yes' ? (
                                 <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-green-400">
                                   <IoMdCheckmarkCircle className="h-5 w-5" />
                                 </div>
@@ -412,14 +301,14 @@ function RoomTech({ speed = 10, techAvailable, roomAmenitiesAvailiable }) {
                                 </div>
                               )}
                             </div>
-                            <p className="text-sm leading-relaxed text-gray-500 capitalize">
-                            Coffee Machine ({roomAmenitiesAvailiable?.Coffee})
+                            <p className="text-sm capitalize leading-relaxed text-gray-500">
+                              Coffee Machine ({roomAmenitiesAvailiable?.Coffee})
                             </p>
                           </div>
-                         
-                        <div className=" flex text-2xl ">
+
+                          <div className=" flex text-2xl ">
                             <div className="title-font   uppercase leading-none text-gray-900">
-                              {   roomAmenitiesAvailiable?.Toothpaste ==="Yes" ? (
+                              {roomAmenitiesAvailiable?.Toothpaste === 'Yes' ? (
                                 <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-green-400">
                                   <IoMdCheckmarkCircle className="h-5 w-5" />
                                 </div>
@@ -429,145 +318,78 @@ function RoomTech({ speed = 10, techAvailable, roomAmenitiesAvailiable }) {
                                 </div>
                               )}
                             </div>
-                            <p className="text-sm leading-relaxed text-gray-500 capitalize">
-                            Toothpaste, Mouthwash etc.
-                            </p>
-                          </div>
-                         
-                        <div className=" flex text-2xl ">
-                            <div className="title-font   uppercase leading-none text-gray-900">
-                              {   roomAmenitiesAvailiable?.Fridge ==="Yes" ? (
-                                <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-green-400">
-                                  <IoMdCheckmarkCircle className="h-5 w-5" />
-                                </div>
-                              ) : (
-                                <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-red-500">
-                                  <IoMdCloseCircle className="h-5 w-5" />
-                                </div>
-                              )}
-                            </div>
-                            <p className="text-sm leading-relaxed text-gray-500 capitalize">
-                            Useable Fridge
-                            </p>
-                          </div>
-                         
-                         
-                        <div className=" flex text-2xl ">
-                            <div className="title-font   uppercase leading-none text-gray-900">
-                              {   roomAmenitiesAvailiable?.Slippers ==="Yes" ? (
-                                <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-green-400">
-                                  <IoMdCheckmarkCircle className="h-5 w-5" />
-                                </div>
-                              ) : (
-                                <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-red-500">
-                                  <IoMdCloseCircle className="h-5 w-5" />
-                                </div>
-                              )}
-                            </div>
-                            <p className="text-sm leading-relaxed text-gray-500 capitalize">
-                            Slippers/Robes
-                            </p>
-                          </div>
-                         
-                        <div className=" flex text-2xl ">
-                            <div className="title-font   uppercase leading-none text-gray-900">
-                              {   roomAmenitiesAvailiable?.Slippers ==="Yes" ? (
-                                <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-green-400">
-                                  <IoMdCheckmarkCircle className="h-5 w-5" />
-                                </div>
-                              ) : (
-                                <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-red-500">
-                                  <IoMdCloseCircle className="h-5 w-5" />
-                                </div>
-                              )}
-                            </div>
-                            <p className="text-sm leading-relaxed text-gray-500 capitalize">
-                            Soap ({roomAmenitiesAvailiable?.Soap})
-                            </p>
-                          </div>
-
-                        <div className=" flex text-2xl ">
-                            <div className="title-font   uppercase leading-none text-gray-900">
-                              {   roomAmenitiesAvailiable?.Other ==="Yes" ? (
-                                <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-green-400">
-                                  <IoMdCheckmarkCircle className="h-5 w-5" />
-                                </div>
-                              ) : (
-                                <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-red-500">
-                                  <IoMdCloseCircle className="h-5 w-5" />
-                                </div>
-                              )}
-                            </div>
-                            <p className="text-sm leading-relaxed text-gray-500 capitalize">
-                            Additional Amenities  - Sewing kit etc. 
-                            </p>
-                          </div>
-                         
-                         
-                         
-                         
-                         
-                          {/* <div className="text-2xl ">
-                            <h2 className="title-font   uppercase leading-none text-gray-900">
-                              {roomAmenitiesAvailiable?.Coffee}
-                            </h2>
-                            <p className="text-sm leading-relaxed text-gray-500">
-                              Coffee Machine Type
-                            </p>
-                          </div> */}
-
-
-
-
-
-
-
-
-                          {/* <div className="text-2xl">
-                            <h2 className="title-font   uppercase leading-none text-gray-900">
-                              {roomAmenitiesAvailiable?.Toothpaste}
-                            </h2>
-                            <p className="text-sm leading-relaxed text-gray-500">
+                            <p className="text-sm capitalize leading-relaxed text-gray-500">
                               Toothpaste, Mouthwash etc.
                             </p>
-                          </div> */}
+                          </div>
 
-                          {/* <div className="text-2xl">
-                            <h2 className="title-font   uppercase leading-none text-gray-900">
-                              {roomAmenitiesAvailiable?.Fridge}
-                            </h2>
-                            <p className="text-sm leading-relaxed text-gray-500">
+                          <div className=" flex text-2xl ">
+                            <div className="title-font   uppercase leading-none text-gray-900">
+                              {roomAmenitiesAvailiable?.Fridge === 'Yes' ? (
+                                <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-green-400">
+                                  <IoMdCheckmarkCircle className="h-5 w-5" />
+                                </div>
+                              ) : (
+                                <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-red-500">
+                                  <IoMdCloseCircle className="h-5 w-5" />
+                                </div>
+                              )}
+                            </div>
+                            <p className="text-sm capitalize leading-relaxed text-gray-500">
                               Useable Fridge
                             </p>
-                          </div> */}
+                          </div>
 
-                          {/* <div className="text-2xl">
-                            <h2 className="title-font   uppercase leading-none text-gray-900">
-                              {roomAmenitiesAvailiable?.Slippers}
-                            </h2>
-                            <p className="text-sm leading-relaxed text-gray-500">
+                          <div className=" flex text-2xl ">
+                            <div className="title-font   uppercase leading-none text-gray-900">
+                              {roomAmenitiesAvailiable?.Slippers === 'Yes' ? (
+                                <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-green-400">
+                                  <IoMdCheckmarkCircle className="h-5 w-5" />
+                                </div>
+                              ) : (
+                                <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-red-500">
+                                  <IoMdCloseCircle className="h-5 w-5" />
+                                </div>
+                              )}
+                            </div>
+                            <p className="text-sm capitalize leading-relaxed text-gray-500">
                               Slippers/Robes
                             </p>
-                          </div> */}
+                          </div>
 
-                          {/* <div className="text-2xl">
-                            <h2 className="title-font   uppercase leading-none text-gray-900">
-                              {roomAmenitiesAvailiable?.Soap}
-                            </h2>
+                          <div className=" flex text-2xl ">
+                            <div className="title-font   uppercase leading-none text-gray-900">
+                              {roomAmenitiesAvailiable?.Slippers === 'Yes' ? (
+                                <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-green-400">
+                                  <IoMdCheckmarkCircle className="h-5 w-5" />
+                                </div>
+                              ) : (
+                                <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-red-500">
+                                  <IoMdCloseCircle className="h-5 w-5" />
+                                </div>
+                              )}
+                            </div>
+                            <p className="text-sm capitalize leading-relaxed text-gray-500">
+                              Soap ({roomAmenitiesAvailiable?.Soap})
+                            </p>
+                          </div>
 
-                            <p className="text-sm leading-relaxed text-gray-500">
-                              Soap Type
+                          <div className=" flex text-2xl ">
+                            <div className="title-font   uppercase leading-none text-gray-900">
+                              {roomAmenitiesAvailiable?.Other === 'Yes' ? (
+                                <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-green-400">
+                                  <IoMdCheckmarkCircle className="h-5 w-5" />
+                                </div>
+                              ) : (
+                                <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-red-500">
+                                  <IoMdCloseCircle className="h-5 w-5" />
+                                </div>
+                              )}
+                            </div>
+                            <p className="text-sm capitalize leading-relaxed text-gray-500">
+                              Additional Amenities - Sewing kit etc.
                             </p>
-                          </div> */}
-{/* 
-                          <div className="text-2xl">
-                            <h2 className="title-font   uppercase leading-none text-gray-900">
-                              {roomAmenitiesAvailiable?.Other}
-                            </h2>
-                            <p className="text-sm leading-relaxed text-gray-500">
-                              Other Amenities
-                            </p>
-                          </div> */}
+                          </div>
                         </div>
                       </div>
                     </section>
