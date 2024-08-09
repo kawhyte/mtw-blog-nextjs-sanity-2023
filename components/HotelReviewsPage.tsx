@@ -45,7 +45,7 @@ export default function IndexPage(props: IndexPageProps) {
             animation={'/sand.svg'}
           />
 
-          {posts.length > 0 && <MoreStories posts={posts} />}
+          {posts.length > 0 && <MoreStories posts={posts} showPagination={true} />}
         </Container>
         {/* <IntroTemplate /> */}
       </Layout>

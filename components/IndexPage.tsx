@@ -116,9 +116,9 @@ export default function IndexPage(props: IndexPageProps) {
             </div>
           </div>
           <div className="container mx-auto  px-10 ">
-            {posts.length > 0 && <MoreStoriesIndex posts={posts.slice(0, 6)} />}
+            {posts.length > 0 && <MoreStoriesIndex posts={posts.slice(0, 6)} showPagination={false} />}
 
-            <div className="flex justify-center  pt-10  lg:mt-0 lg:flex-shrink-0">
+            <div className="flex justify-start  pt-10  lg:mt-0 lg:flex-shrink-0">
               <div className=" inline-flex ">
                 <Button link="/hotel">More Adventures</Button>
               </div>
