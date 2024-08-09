@@ -146,19 +146,8 @@ export default function PostHeader(
 
         {tip && (
           <>
-            {/* 
-                <div className="mx-5  border w-full  rounded-xl ">
-                  <div className=" ml-3 mt-3   w-32 flex align-middle items-center justify-around rounded border border-white bg-pink-500 px-2.5 py-0.5 text-white">
-                
-                    <span className="text-sm font-medium  ">Quick Tip</span>
-                  </div>
-
-                  <div className="py-2 text-sm font-normal ">
-                    <PostBody content={tip} />
-                  </div>
-                </div> */}
-
-            <div className="max-w-4xl rounded-lg border-l-4 border-green-500 bg-green-100 p-4 text-green-600">
+      
+            <div className="max-w-4xl rounded-lg border-l-4 border-green-500 bg-green-100 p-4 text-gray-600">
               <p
                 className={`${oswald.variable} flex items-baseline text-center mb-2 font-heading text-2xl font-bold md:text-left md:text-2xl md:leading-none lg:text-2xl`}
               >
