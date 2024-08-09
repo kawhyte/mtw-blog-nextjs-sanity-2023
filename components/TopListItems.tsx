@@ -84,7 +84,7 @@ export default function TopListItems(
                 key={item._id}
                 className="h-90 group   m-auto flex items-baseline     cursor-pointer rounded-lg   xl:w-96   "
               >
-                <span className=" -mr-4 flex  w-20 flex-col font-san   text-[9.25rem] font-bold  leading-[0.88] tracking-[-2rem] text-pink-500 drop-shadow-lg   md:text-[12rem] md:mr-2">
+                <span className=" -mr-4 flex  w-20 flex-col font-san   text-[6.1rem] font-bold  leading-[0.88] tracking-[-1.0rem] text-pink-500 drop-shadow-lg sm:text-[7.8rem] sm:tracking-[-1.2rem]   md:text-[9.5rem] md:mr-2">
                   {i + 1}
                 </span>
 
