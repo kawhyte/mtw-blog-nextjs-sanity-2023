@@ -3,25 +3,18 @@ import { inter } from 'app/fonts'
 import Link from 'next/link'
 import { ReactNode } from 'react'
 
-
 type ButtonProps = {
-
-children?:ReactNode
-link:string;
-text?:string;
-
+  children?: ReactNode
+  link: string
+  text?: string
 }
-export default function Button({
-  text,
-  link,
-  children
-}: ButtonProps) {
+export default function Button({ text, link, children }: ButtonProps) {
   //if (!preview) return null
 
   return (
     <Link href={link} passHref legacyBehavior>
       <a
-        className="text-shopifysans
+        className="
                        text-shade-90
                        after:bg-shine
                        after:hover:animate-shine
@@ -59,14 +52,14 @@ export default function Button({
                         before:transition-opacity
                         before:duration-500
                         after:absolute
-                        after:inset-0
-after:rounded-[36px]
+                        after:inset-0 after:rounded-[36px]
                         after:bg-[position:-3em]
                         after:bg-no-repeat
                         after:[background-size:auto_100%]
                         hover:scale-100 hover:bg-pink-200 hover:before:opacity-100 after:hover:[animation-fill-mode:forwards] focus:scale-100 focus:before:opacity-100 motion-reduce:hover:scale-95 motion-reduce:after:hover:animate-none motion-reduce:focus:scale-95 sm:text-xl md:leading-none"
       >
-        {text}{children}
+        {text}
+        {children}
       </a>
     </Link>
   )

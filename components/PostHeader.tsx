@@ -121,7 +121,7 @@ export default function PostHeader(
           <>
             <div>
               <div
-                className={`${inter.variable} font-secondary  my-8 max-w-7xl text-justify lg:text-lg`}
+                className={`${inter.variable} font-secondary  my-8 max-w-6xl text-justify lg:text-lg`}
               >
                 {/* {excerpt2} */}
                 <Blockquote color="pink">

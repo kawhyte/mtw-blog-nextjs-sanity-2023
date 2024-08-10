@@ -34,7 +34,7 @@ export default function IndexPage(props: IndexPageProps) {
           {/* <title> { `${CMS_NAME} - Travel and Food Reviews`}</title> */}
         </Head>
         <Container>
-          <BlogHeader title={title} description={description} level={1} />
+          {/* <BlogHeader title={title} description={description} level={1} /> */}
 
           <ReviewHeader
             title={'Stuff We Like'}

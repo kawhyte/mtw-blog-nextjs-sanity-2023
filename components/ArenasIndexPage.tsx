@@ -27,7 +27,7 @@ const ArenasIndexPage = ({ arenas }) => {
               className={` ${inter.variable} font-secondary mt-4 text-sm leading-relaxed md:text-base  lg:text-base `}
             ></p>
             <div className="lg:mt-0 lg:flex-shrink-0">
-              <div className="mt-12 inline-flex ">
+              <div className="mt-6 inline-flex ">
                 <Button link={'/arenas'}>View Our Journey</Button>
               </div>
             </div>

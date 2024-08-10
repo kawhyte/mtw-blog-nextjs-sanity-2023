@@ -17,16 +17,9 @@ export default function BlogHeader({
     case 1:
       return (
         <header className=" sticky top-0  z-50   flex flex-col items-center  md:flex-row md:justify-between">
-          {/* <h1 className="text-6xl font-bold leading-tight tracking-tighter md:pr-8 md:text-8xl">
-            {title}kk
-
-          </h1> */}
+     
           <NavBar bgColor={"#eef2ff"}/>
-          {/* <h4
-            className={`mt-5 text-center text-lg md:pl-8 md:text-left ${styles.portableText}`}
-          >
-            <PortableText value={description} />
-          </h4> */}
+      
         </header>
       )
 
@@ -34,11 +27,7 @@ export default function BlogHeader({
       return (
         <header className="sticky top-0  z-50 flex flex-col items-center  md:flex-row md:justify-between">
           <NavBar bgColor={"#FFFFFF"}/>
-          {/* <h2 className="mb-20 mt-8 text-2xl font-bold leading-tight tracking-tight md:text-4xl md:tracking-tighter">
-            <Link href="/" className="hover:underline">
-              {title}PP
-            </Link>
-          </h2> */}
+        
         </header>
       )
 

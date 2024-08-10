@@ -2,6 +2,7 @@ import cn from 'classnames'
 import { urlForImage } from 'lib/sanity.image'
 import Image from 'next/image'
 import Link from 'next/link'
+import { twMerge } from 'tailwind-merge'
 
 interface CoverImageProps {
   title: string
@@ -11,34 +12,30 @@ interface CoverImageProps {
   gallery: any
 }
 
+const ImageBorder = {
+  0: 'rounded-none',
+  1: 'rounded-tr-xl',
+  2: 'rounded-none',
+  3: 'rounded-br-xl',
+}
+
+
+
 export default function CoverImage(props: CoverImageProps) {
   const { title, slug, image: source, priority, gallery } = props
   //console.log('COVER IMage Post ', props)
 
-  // const image1 = gallery
-  //   ? urlForImage(gallery[0])?.height(813)?.width(1240)?.url()
-  //   : '/holder.jpg'
-  // const image2 = gallery
-  //   ? urlForImage(gallery[1])?.height(813)?.width(1240)?.url()
-  //   : '/holder.jpg'
-  // const image3 = gallery
-  //   ? urlForImage(gallery[2])?.height(813)?.width(1240)?.url()
-  //   : '/holder.jpg'
-  // const image4 = gallery
-  //   ? urlForImage(gallery[3])?.height(813)?.width(1240)?.url()
-  //   : '/holder.jpg'
-  // console.log("Source ", source)
-  // console.log('Gallery .images[i] ', gallery?.images[0])
+
 
   const image = source?.asset?._ref ? (
     <>
       <div className=" flex flex-row  gap-2 mt-10">
         <div>
           <Image
-            className="h-auto max-w-full md:rounded-lg"
+            className={ `h-auto max-w-full md:rounded-l-xl`}
             src={urlForImage(source)
               .width(560)
-              .height(560)
+              .height(428)
               .format('webp')
               .url()}
             alt=""
@@ -46,7 +43,7 @@ export default function CoverImage(props: CoverImageProps) {
             blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAO0lEQVR4nGNgYGBg+P//P1t9fT0TiM0we3ZjxZxZjQ9XLpwwe9nCHkOGGZOyanraY9aumN2wbsn0hmQA/MEWfj4ocjcAAAAASUVORK5CYII='
 
             width={560}
-            height={560}
+            height={428}
           />
 
  {/* <div>
@@ -64,12 +61,14 @@ Extra small
 
           {gallery.slice(0, 4).map((item, i) => (
             <div key={item._key} >
+
+
               <Image
-                className="h-auto max-w-full  rounded-lg"
-                src={urlForImage(item)?.height(276)?.width(330)?.url()}
+                className={twMerge(`h-auto max-w-full  `,ImageBorder[i])}
+                src={urlForImage(item)?.height(209)?.width(272)?.url()}
                 alt=""
-                width={330}
-                height={276}
+                width={272}
+                height={209}
                 placeholder='blur'
                 blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAO0lEQVR4nGNgYGBg+P//P1t9fT0TiM0we3ZjxZxZjQ9XLpwwe9nCHkOGGZOyanraY9aumN2wbsn0hmQA/MEWfj4ocjcAAAAASUVORK5CYII='
     
@@ -160,7 +159,7 @@ Extra small
   )
 
   return (
-    <div className="sm:mx-0">
+    <div className="">
       {slug ? (
         <Link href={`/posts/${slug}`} aria-label={title}>
           {image}

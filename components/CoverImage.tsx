@@ -75,8 +75,8 @@ export default function CoverImage(props: CoverImageProps) {
           <div>
             {category && (
               <Badge
-                className="absolute z-30  m-3"
-                size="sm"
+                className="absolute z-30 py-2  m-3"
+                size="md"
                 color={categoryType.color}
                 variant={categoryType.variant}
               >

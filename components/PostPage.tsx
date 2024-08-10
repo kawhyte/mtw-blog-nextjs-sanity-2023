@@ -42,12 +42,14 @@ export default function PostPage(props: PostPageProps) {
   //console.log('Post Page post.FoodRating Ken  ', post)
   //  console.log("POST PAGE linkedtype ", post.linkType)
   return (
-    <div className="containe mx-aut ">
+
+   
+    <div className="container mx-auto  flex justify-center items-center ">
       <PostPageHead settings={settings} post={post} />
 
       <Layout preview={preview} loading={loading}>
         <Container>
-          <BlogHeader title={title} level={2} />
+          {/* <BlogHeader title={title} level={2} /> */}
 
           {preview && !post ? (
             <PostTitle>Loading…</PostTitle>
