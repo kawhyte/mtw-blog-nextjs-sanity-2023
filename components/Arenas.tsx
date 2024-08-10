@@ -31,7 +31,7 @@ const Arenas = ({ arenas }) => {
           <title>{CMS_NAME}</title>
           {/* <title> { `${CMS_NAME} - Travel and Food Reviews`}</title> */}
         </Head>
-        <Container>
+        {/* <Container> */}
           {/* <BlogHeader title={'title'} description={[]} level={1} /> */}
 
           <ReviewHeader
@@ -176,7 +176,7 @@ const Arenas = ({ arenas }) => {
               </div>
             ))}
           </div>
-        </Container>
+        {/* </Container> */}
       </Layout>
     
     </>
