@@ -26,6 +26,7 @@ export default function PostPreview({
     red: 'shadow-offsetRed',
   }
 
+
   return (
     <>
       <div
@@ -58,10 +59,10 @@ export default function PostPreview({
             </h1>
 
             <div className="align-start mt-3 flex flex-col items-start justify-between gap-y-2">
-              <div className="flex gap-x-2 text-sm text-gray-500">
+           {  location &&  <div className="flex gap-x-2 text-sm text-gray-500">
                 <IoLocation className=" h-5 w-5 text-pink-500 " />
                 <p className="line-clamp-1 "> {location ? location : ''}</p>
-              </div>
+              </div>}
 
             { date &&  <div className=" flex gap-x-2 text-sm text-gray-500 ">
                 <FaRegCalendarAlt className=" h-5 w-5 text-pink-500   " />
