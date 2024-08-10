@@ -9,7 +9,7 @@ function Gallery({ posts, heading }) {
   return (
     <section className="body-font">
       <div className=" mx-6 md:container md:mx-auto">
-        <div className="mb-8 flex w-full flex-col  font-medium lg:mb-10">
+        <div className="mb-8 flex w-full flex-col  font-medium lg:mb-9">
           {/* <div className="flex ">
             <p
               className={`${oswald.variable} text-left font-heading text-5xl font-semibold leading-tight tracking-tighter md:text-5xl md:leading-none lg:text-5xl`}

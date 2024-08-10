@@ -21,7 +21,7 @@ function ProConList({ positives, negatives, verdict2 }) {
         </h1> */}
         <SectionTitle header={"Bottom Line"} description={undefined}/> 
 
-        <div className="container flex flex-wrap py-6 md:mx-auto lg:py-12">
+        <div className="container flex flex-wrap py-6 md:mx-auto lg:py-8">
           <div className=" grid grid-cols-1  gap-6 2xl:grid-cols-3">
             <div className="md:w-full">
               <div className="flex flex-col rounded-lg  border-2 border-green-500 border-opacity-50  p-2 shadow-sm  shadow-green-200/40  md:p-5  ">

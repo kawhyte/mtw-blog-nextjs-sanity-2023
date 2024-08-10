@@ -1,5 +1,5 @@
 
-import { oswald } from 'app/fonts'
+import { inter, oswald } from 'app/fonts'
 import { calculateRating } from 'lib/calculateRating'
 // import { calculateRating } from "../lib/calculateRating";
 import Image from 'next/image'
@@ -66,23 +66,23 @@ const StarRating = ({ rating, linkType }) => {
                 className={`  flex flex-col justify-center rounded-2xl border p-3 `}
               >
                 <div className="flex flex-row items-center justify-start">
-                  <span className=" pr-4">
+                  <span className=" pr-3">
                     <img
                       className=""
                       src={ratingItem[text]?.icon}
                       alt={'icon'}
-                      width={25}
-                      height={25}
+                      width={20}
+                      height={20}
                     />
                   </span>
 
                   {Number(item[1]) > 0
-                    ? `${ratingItem[text]?.name}`
-                    : `No on-site ${ratingItem[text]?.name} availiable`}
+                    ? <p className={`${inter.variable} font-secondary text-sm font-extralight leading-loose md:text-sm`}> {ratingItem[text]?.name}</p>
+                    : <p className={`${inter.variable} font-secondary text-sm font-extralight leading-loose md:text-sm`}> No on-site {ratingItem[text]?.name} availiable</p>}
                 </div>
                 {Number(item[1]) > 0 && (
-                  <div className=" flex flex-1 flex-row items-center align-middle">
-                    <p className="my-1 mr-2 text-base font-medium md:text-lg "></p>
+                  <div className=" flex flex-1 flex-row items-center align-middle text-sm">
+                    <p className="my-1 mr-2 text-sm font-medium md:text-sm "></p>
                     <ProgressRating progress={item[1]} />
                   </div>
                 )}

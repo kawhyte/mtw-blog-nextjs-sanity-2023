@@ -32,9 +32,9 @@ export default function CoverImage(props: CoverImageProps) {
       <div className=" flex flex-row  gap-2 mt-10">
         <div>
           <Image
-            className={ `h-auto max-w-full md:rounded-l-xl`}
+            className={ `h-auto w-full max-w-full md:rounded-l-xl`}
             src={urlForImage(source)
-              .width(560)
+              .width(660)
               .height(428)
               .format('webp')
               .url()}
@@ -42,7 +42,7 @@ export default function CoverImage(props: CoverImageProps) {
             placeholder='blur'
             blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAO0lEQVR4nGNgYGBg+P//P1t9fT0TiM0we3ZjxZxZjQ9XLpwwe9nCHkOGGZOyanraY9aumN2wbsn0hmQA/MEWfj4ocjcAAAAASUVORK5CYII='
 
-            width={560}
+            width={660}
             height={428}
           />
 
@@ -57,7 +57,7 @@ Extra small
 </button></div>  */}
         </div>
         
-     {gallery?.length > 3 ?    <div className="hidden md:grid grid-cols-2 gap-2  max-w-5xl ">
+     {gallery?.length > 3 ?    <div className="hidden md:grid grid-cols-2 gap-2  max-w-5x ">
 
           {gallery.slice(0, 4).map((item, i) => (
             <div key={item._key} >

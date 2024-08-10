@@ -1,4 +1,4 @@
-import { space } from "app/fonts";
+import { inter, oswald, space } from "app/fonts";
 import Link from "next/link";
 
 import { EXAMPLE_PATH } from "../lib/constants";
@@ -38,9 +38,13 @@ export default function Footer() {
 							{" "}
 							<p
 								id='copyright-year'
-								className='text-sm text-gray-900 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4'>
+								className={` ${inter.variable} font-sans  mt-4 text-sm leading-relaxed md:text-sm  lg:text-sm        text-gray-900 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0`}
+
+								
+								>
 								© {year} Created by Kenny
 							</p>
+
 						</a>
 					</div>
 

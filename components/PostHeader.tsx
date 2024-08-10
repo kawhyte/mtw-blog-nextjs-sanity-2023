@@ -62,10 +62,10 @@ export default function PostHeader(
         {author && <Avatar name={author.name} picture={author.picture} />}
       </div> */}
 
-        <div className={` `}>
+        <div className={` max-w-4xl `}>
           <div className=" mt-3.5 grid w-full max-w-6xl   grid-cols-2 gap-4   text-sm md:mt-5 md:grid-cols-4 md:gap-4">
             <section className=" flex flex-row items-end text-gray-700 md:text-left ">
-              <IoLocation className="mr-3 h-6 w-6 text-pink-500 " />
+              <IoLocation className="mr-2 h-5 w-5 text-pink-500 " />
               {location && (
                 <span className=" capitalize   ">
                   {location ? location : ''}{' '}
@@ -75,11 +75,11 @@ export default function PostHeader(
 
             <section className="flex flex-row items-end text-gray-700 md:text-left">
               {linkType === 'hotel' || linkType === 'food' ? (
-                <FaRegCalendarAlt className="h-6 w-6 text-pink-500 " />
+                <FaRegCalendarAlt className="h-5 w-5 text-pink-500 " />
               ) : (
-                <FaRegCalendarAlt className="h-6 w-6 text-pink-500 " />
+                <FaRegCalendarAlt className="h-5 w-5 text-pink-500 " />
               )}
-              <span className="ml-3 text-gray-700 ">
+              <span className="ml-2 text-gray-700 ">
                 {' '}
                 <Date dateString={date} />
               </span>
@@ -87,7 +87,7 @@ export default function PostHeader(
 
             {category && (
               <section className="  flex flex-row items-end text-gray-700 md:text-left  ">
-                <IoStorefront className="mr-3 h-6  w-6 text-pink-500" />
+                <IoStorefront className="mr-2 h-5  w-5 text-pink-500" />
                 <span className=" text-center  capitalize text-gray-700   md:text-left ">
                   {category} Hotel
                 </span>
@@ -95,7 +95,7 @@ export default function PostHeader(
             )}
             {room && (
               <section className=" flex flex-row items-end text-gray-700 md:text-left  ">
-                <IoBed className="mr-3 h-6 w-6  text-pink-500" />
+                <IoBed className="mr-2 h-5 w-5  text-pink-500" />
 
                 <span className=" text-nowrap line-clamp-1 w-full capitalize    text-gray-700  md:text-left ">
                   {linkType === 'hotel' ? `${room || 'NA'}` : ''}

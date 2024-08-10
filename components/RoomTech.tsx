@@ -95,7 +95,7 @@ function RoomTech({ speed = 10, techAvailable, roomAmenitiesAvailiable }) {
       <section className="mt-8">
         <section className="overflow-hidden text-gray-800">
           <div className="mx-6 pb-12 md:container md:mx-auto">
-            <div className="mb-12 flex w-full flex-col">
+            <div className="mb-9 flex w-full flex-col">
               <SectionTitle
                 header={'Hotel Techology & Amenities'}
                 description={undefined}

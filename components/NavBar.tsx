@@ -20,7 +20,7 @@ const navigation = [
   {
     name: 'Our Top Picks',
     href: '/top_picks',
-    icon: <LiaCrownSolid className="h-6 w-10    text-yellow-600" />,
+    icon: <LiaCrownSolid className="h-6 w-10    text-pink-500" />,
     text: 'Book icon',
     bg: '  hover:bg-gradient-to-r from-pink-100 to-yellow-100  focus:decoration-yellow-500/50',
     current: false,
@@ -29,7 +29,7 @@ const navigation = [
     name: 'Hotel Reviews',
     href: '/hotel',
 
-    icon:<LiaBathSolid className="h-6 w-10  text-gray-500"  />,
+    icon:<LiaBathSolid className="h-6 w-10  text-gray-700"  />,
     text: 'Hotel icon',
     bg: '  hover:bg-gradient-to-r from-blue-100 to-pink-100 focus:decoration-pink-500/50',
     current: false,
@@ -37,7 +37,7 @@ const navigation = [
   {
     name: 'Food Reviews',
     href: '/food',
-    icon: <IoRestaurantOutline className="h-6 w-10  text-gray-500" />,
+    icon: <IoRestaurantOutline className="h-6 w-10  text-gray-700" />,
     text: 'Food icon',
     bg: '  hover:bg-gradient-to-r from-pink-100 to-green-100 focus:decoration-green-500/50',
     current: false,
@@ -45,7 +45,7 @@ const navigation = [
   {
     name: 'Guides',
     href: '/story',
-    icon: <TfiMapAlt className="h-6 w-10   text-gray-500 " />,
+    icon: <TfiMapAlt className="h-6 w-10   text-gray-700 " />,
     text: 'Book icon',
     bg: '  hover:bg-gradient-to-r from-pink-100 to-indigo-100  text-white w-full  focus:decoration-indigo-500/50',
     current: false,
@@ -53,7 +53,7 @@ const navigation = [
   {
     name: 'NBA & WNBA Arenas',
     href: '/arenas',
-    icon:<LiaBasketballBallSolid className="h-6 w-10  text-gray-500" />,
+    icon:<LiaBasketballBallSolid className="h-6 w-10  text-gray-700" />,
     text: 'Man walking',
     bg: 'hover:bg-gradient-to-r from-pink-100 to-orange-100  text-white w-full  focus:decoration-orange-500/50',
     current: false,
@@ -189,7 +189,7 @@ export default function Nav({ color = 'bg-black', bgColor }) {
                               router.route === item.href ? 'page' : undefined
                             }
                           >
-                            {item.name}
+                          <p className='text-gray-700'> {item.name}</p>  
                           </div>
                         </div>
                       </Link>

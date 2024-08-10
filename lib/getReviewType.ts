@@ -38,7 +38,7 @@ const ratingItem = {
 		rate:.05
 	},
 	Room_Amenities: {
-		name: "Room Amenities (TV, Coffee machine etc.)",
+		name: "Room Amenities (TV, Fridge etc.)",
 		icon: "/icon/amenities.svg",
 		rate:.10
 	},
