@@ -19,7 +19,7 @@ function RoomTech({ speed = 10, techAvailable, roomAmenitiesAvailiable }) {
   } else if (speed >= 3 && speed < 5) {
     speedResult = ['Web Browsing', 'Emails', 'Streaming Music']
     textResult = 'Slow'
-    bgColor = 'bg-pink-500'
+    bgColor = 'bg-orange-500'
   } else if (speed >= 6 && speed < 8) {
     speedResult = [
       'Web Browsing',
@@ -61,7 +61,7 @@ function RoomTech({ speed = 10, techAvailable, roomAmenitiesAvailiable }) {
     ]
   } else if (speed >= 30 && speed < 40) {
     textResult = 'Very Fast'
-    bgColor = 'bg-indigo-500'
+    bgColor = 'bg-green-500'
     speedResult = [
       'Web Browsing',
       'Emails',
@@ -73,7 +73,7 @@ function RoomTech({ speed = 10, techAvailable, roomAmenitiesAvailiable }) {
     ]
   } else if (speed >= 40) {
     textResult = 'Excellent'
-    bgColor = 'bg-green-500'
+    bgColor = 'bg-green-700'
     speedResult = [
       'Web Browsing',
       'Emails',
