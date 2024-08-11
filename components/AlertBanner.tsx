@@ -11,7 +11,7 @@ export default function Alert({
   if (!preview) return null
 
   return (
-    <div className="border-b border-accent-7 bg-accent-7 text-white">
+    <div className="border-b border-accent-7 bg-accent-7 text-black">
       <Container>
         <div className="py-2 text-center text-sm">
           {loading ? 'Loading... ' : 'This page is a preview. '}
