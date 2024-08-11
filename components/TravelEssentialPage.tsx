@@ -34,20 +34,20 @@ export default function IndexPage(props: IndexPageProps) {
         <title>{CMS_NAME}</title>
         {/* <title> { `${CMS_NAME} - Travel and Food Reviews`}</title> */}
         </Head>
-        <Container>
-          <BlogHeader title={title} description={description} level={1} />
+        {/* <Container> */}
+          {/* <BlogHeader title={title} description={description} level={1} /> */}
 
           <ReviewHeader
 					title={"Our Travel Essential Reviews"}
 					arenas={[]}
-					summary={"Traveling is a great way to experience new cultures and see the world. However, packing for a trip can be daunting, especially if you are trying to pack light. Here are a few travel essentials that you may want to cosider for your next trip"}
+					summary={"Traveling is a great way to experience new cultures and see the world. However, packing for a trip can be daunting, especially if you are trying to pack light. Here are a few travel essentials that you may want to cosider for your next trip."}
 					animation={'/travel2.svg'}
 				/>
 
           {posts.length > 0 && <TravelEssentialLayout posts={posts}  />}
-        </Container>
+        {/* </Container> */}
       </Layout>
-      <Footer />
+      {/* <Footer /> */}
     </>
   )
 }

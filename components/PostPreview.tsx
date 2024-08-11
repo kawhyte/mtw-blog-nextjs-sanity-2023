@@ -26,12 +26,11 @@ export default function PostPreview({
     red: 'shadow-offsetRed',
   }
 
-
   return (
     <>
       <div
         className={
-          `w-full max-w-sm overflow-hidden rounded-3xl z-10 border-4 group duration-300     border-black bg-white shadow-offsetIndigo dark:bg-gray-50 ` +
+          `group z-10  w-full max-w-sm overflow-hidden rounded-3xl border-4 border-black    bg-white shadow-offsetIndigo duration-300 dark:bg-gray-50 ` +
           ` ${colorVariants[categoryType.color]}`
         }
       >
@@ -45,30 +44,32 @@ export default function PostPreview({
           />
         </div>
 
-     
-      
         <Link
           href={`/posts/${slug}`}
           className={`${inter.variable} title-font  font-secondary mt-3 font-light text-gray-700 `}
         >
-          <div className="mx-4 mb-6 mt-1 ">
+          <div className="mx-4 my-4 mb-6 mt-1 flex flex-col ">
             <h1
-              className={`${oswald.variable}     line-clamp-2 no-underline group-hover:underline decoration-pink-500 decoration-4 decoration-dashed font-heading text-lg font-medium text-gray-700  `}
+              className={`${oswald.variable}     line-clamp-2 font-heading text-lg font-medium text-gray-700 no-underline decoration-pink-500 decoration-dashed decoration-4 group-hover:underline  `}
             >
               {title}
             </h1>
 
-            <div className="align-start mt-3 flex flex-col items-start justify-between gap-y-2">
-           {  location &&  <div className="flex gap-x-2 text-sm text-gray-500">
-                <IoLocation className=" h-5 w-5 text-pink-500 " />
-                <p className="line-clamp-1 "> {location ? location : ''}</p>
-              </div>}
+            <div className="align-end mt-3 flex flex-col items-start justify-between gap-y-2">
+              {location && (
+                <div className="flex gap-x-2 text-sm text-gray-500">
+                  <IoLocation className=" h-5 w-5 text-pink-500 " />
+                  <p className="line-clamp-1 "> {location ? location : ''}</p>
+                </div>
+              )}
 
-            { date &&  <div className=" flex gap-x-2 text-sm text-gray-500 ">
-                <FaRegCalendarAlt className=" h-5 w-5 text-pink-500   " />
+              {date && (
+                <div className=" flex gap-x-2 text-sm text-gray-500 ">
+                  <FaRegCalendarAlt className=" h-5 w-5 text-pink-500   " />
 
-                <Date dateString={date} />
-              </div>}
+                  <Date dateString={date} />
+                </div>
+              )}
             </div>
           </div>
         </Link>
