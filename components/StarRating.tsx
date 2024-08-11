@@ -77,12 +77,12 @@ const StarRating = ({ rating, linkType }) => {
                   </span>
 
                   {Number(item[1]) > 0
-                    ? <p className={`${inter.variable} font-secondary text-sm font-extralight leading-loose md:text-sm`}> {ratingItem[text]?.name}</p>
-                    : <p className={`${inter.variable} font-secondary text-sm font-extralight leading-loose md:text-sm`}> No on-site {ratingItem[text]?.name} availiable</p>}
+                    ? <p className={`${inter.variable} font-secondary text-sm font-extralight leading-loose md:text-base`}> {ratingItem[text]?.name}</p>
+                    : <p className={`${inter.variable} font-secondary text-sm font-extralight leading-loose md:text-base`}> No on-site {ratingItem[text]?.name} availiable</p>}
                 </div>
                 {Number(item[1]) > 0 && (
                   <div className=" flex flex-1 flex-row items-center align-middle text-sm">
-                    <p className="my-1 mr-2 text-sm font-medium md:text-sm "></p>
+                    <p className="my-1 mr-2 text-sm font-medium md:text-base "></p>
                     <ProgressRating progress={item[1]} />
                   </div>
                 )}

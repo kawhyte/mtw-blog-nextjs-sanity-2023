@@ -63,15 +63,15 @@ export default function PostHeader(
       </div> */}
 
         <div className={` max-w-4xl `}>
-          <div className=" mt-3.5 grid w-full max-w-6xl   grid-cols-2 gap-4   text-sm md:mt-5 md:grid-cols-4 md:gap-4">
-            <section className=" flex flex-row items-end text-gray-700 md:text-left ">
+          <div className=" mt-3.5 grid w-full max-w-6xl   grid-cols-2 gap-4   text-base md:mt-5 md:grid-cols-4 md:gap-4">
+          {linkType === 'hotel' || linkType === 'food' &&  <section className=" flex flex-row items-end text-gray-700 md:text-left ">
               <IoLocation className="mr-2 h-5 w-5 text-pink-500 " />
               {location && (
                 <span className=" capitalize   ">
-                  {location ? location : ''}{' '}
+                  {location ? location : ''}
                 </span>
               )}
-            </section>
+            </section> } 
 
             <section className="flex flex-row items-end text-gray-700 md:text-left">
               {linkType === 'hotel' || linkType === 'food' ? (
@@ -135,14 +135,14 @@ export default function PostHeader(
         )}
 
         {/* {hotelRating && ( */}
-        <div className=" mx-6 my-6 block text-base md:mx-0 md:mb-12">
+       {linkType === 'hotel' || linkType === 'food' &&  <div className=" mx-6 my-6 block text-base md:mx-0 md:mb-12">
           <StarRating
             rating={hotelRating}
             // amenities={amenities}
             // categories={categories}
             linkType={linkType}
           />
-        </div>
+        </div>}
 
         {tip && (
           <>
