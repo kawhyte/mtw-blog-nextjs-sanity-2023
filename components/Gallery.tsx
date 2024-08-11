@@ -3,6 +3,7 @@ import { urlForImage } from 'lib/sanity.image'
 import Image from 'next/image'
 import React from 'react'
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry'
+
 import SectionTitle from './SectionTitle'
 
 function Gallery({ posts, heading }) {
