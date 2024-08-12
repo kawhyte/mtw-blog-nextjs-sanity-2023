@@ -35,7 +35,7 @@ export default function IndexPage(props: IndexPageProps) {
         {/* <title> { `${CMS_NAME} - Travel and Food Reviews`}</title> */}
         </Head>
         {/* <Container> */}
-          {/* <BlogHeader title={title} description={description} level={1} /> */}
+          <BlogHeader title={title} description={description} level={1} />
 
           <ReviewHeader
 					title={"Our Travel Essential Reviews"}
@@ -47,7 +47,7 @@ export default function IndexPage(props: IndexPageProps) {
           {posts.length > 0 && <TravelEssentialLayout posts={posts}  />}
         {/* </Container> */}
       </Layout>
-      {/* <Footer /> */}
+      <Footer />
     </>
   )
 }

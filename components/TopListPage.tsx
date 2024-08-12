@@ -43,7 +43,7 @@ export default function IndexPage(props: IndexPageProps) {
           {/* <title>{CMS_NAME}</title> */}
         </Head>
         {/* <Container> */}
-          {/* <BlogHeader title={title} description={description} level={1} /> */}
+          <BlogHeader title={title} description={description} level={1} />
 
           <ReviewHeader
             title={'Our Top Picks'}
@@ -66,7 +66,7 @@ export default function IndexPage(props: IndexPageProps) {
           )}
         {/* </Container> */}
       </Layout>
-      {/* <Footer /> */}
+      <Footer />
     </>
   )
 }

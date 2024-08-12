@@ -28,15 +28,15 @@ const antonio = Antonio({
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <> 
-    <BlogHeader title={'title'} description={undefined}  level={1} />
+    {/* <BlogHeader title={'title'} description={undefined}  level={1} /> */}
 
     <MantineProvider> 
-    <main className={`${inter.variable} font-sans`}>
+    <main className={`${inter.variable} font-sans `}>
       <Component {...pageProps} />
     </main>
     </MantineProvider>
 
-    <Footer />
+    {/* <Footer /> */}
     </>
   )
 }

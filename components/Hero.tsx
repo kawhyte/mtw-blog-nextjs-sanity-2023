@@ -1,11 +1,9 @@
-import { oswald, inter } from 'app/fonts'
+import { inter, oswald } from 'app/fonts'
 import dynamic from 'next/dynamic'
 //import lottie from 'lottie-web'
 import Image from 'next/image'
 import React from 'react'
 import { useEffect, useRef } from 'react'
-
-
 
 let animation = [
   {
@@ -63,7 +61,7 @@ function Hero() {
     <>
       <section className="body-font container mx-auto max-w-6xl text-gray-600">
         <div className="container mx-auto flex flex-col  items-center px-5  pt-12 md:flex-row">
-          <div className="sm:mb-0 flex flex-col  items-center text-center md:mb-0 md:w-1/2 md:items-start md:pr-16 md:text-left lg:flex-grow lg:pr-5">
+          <div className="flex flex-col items-center  text-center sm:mb-0 md:mb-0 md:w-1/2 md:items-start md:pr-16 md:text-left lg:flex-grow lg:pr-5">
             <div
               className={`  ${oswald.variable}  flex flex-col -space-y-8    lg:-space-y-12  z-30 font-heading text-7xl  font-bold  uppercase text-gray-700  md:text-7xl lg:w-10/12 lg:text-[9rem]  xl:-space-y-20`}
             >
@@ -79,19 +77,27 @@ function Hero() {
               husband 👖 and wife 👗 duo. We love to travel, relax & try new
               food.
             </p>
+
+            {/* <div
+              className={`  ${oswald.variable}  z-30 w-full  bg-red-200 leading-none  font-heading text-7xl font-bold  uppercase  text-gray-700 md:text-7xl  lg:text-[8rem]  `}
+            >
+              
+              <p className='text-7xl'>Adventues</p>
+              <p>of the</p>
+              <p>Whytes</p>
+                
+            </div> */}
           </div>
-          <div className="hidden max-w-sm   -mt-12 lg:-ml-10 md:mt-0  sm:block w-5/6 md:w-1/2 lg:w-full  lg:max-w-md">
-          <PlayerWithNoSSR
-                  autoplay
-                  keepLastFrame
-                  loop
-                  src={animation[randomNum].url}
-                />
+          <div className="-mt-12 hidden   w-5/6 max-w-sm sm:block  md:mt-0 md:w-1/2 lg:-ml-10 lg:w-full  lg:max-w-md">
+            <PlayerWithNoSSR
+              autoplay
+              keepLastFrame
+              loop
+              src={animation[randomNum].url}
+            />
           </div>
         </div>
       </section>
-
-      
     </>
   )
 }

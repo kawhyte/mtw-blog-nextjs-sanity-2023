@@ -16,6 +16,7 @@ import Gallery from './Gallery'
 import ProConList from './ProConList'
 import RoomTech from './RoomTech'
 import Youtube from './Youtube'
+import Footer from './Footer'
 
 export interface PostPageProps {
   preview?: boolean
@@ -42,15 +43,15 @@ export default function PostPage(props: PostPageProps) {
   //console.log('Post Page post.FoodRating Ken  ', post)
   //  console.log("POST PAGE linkedtype ", post.linkType)
   return (
-
+<div className=" "> 
    
-    <div className="container mx-auto  flex justify-center items-center ">
+
       <PostPageHead settings={settings} post={post} />
 
       <Layout preview={preview} loading={loading}>
+          <BlogHeader title={title} level={2} />
+        <div className="container mx-auto  flex flex-col justify-center items-center "> 
         <Container>
-          {/* <BlogHeader title={title} level={2} /> */}
-
           {preview && !post ? (
             <PostTitle>Loading…</PostTitle>
           ) : (
@@ -109,7 +110,10 @@ export default function PostPage(props: PostPageProps) {
             </>
           )}
         </Container>
+          </div> 
+        <Footer/>
       </Layout>
-    </div>
+      </div> 
   )
 }
+{/* <div className="container mx-auto  flex flex-col justify-center items-center "></div> */}
