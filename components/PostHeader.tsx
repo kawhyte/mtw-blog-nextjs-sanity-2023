@@ -53,8 +53,8 @@ export default function PostHeader(
     category,
     tip,
   } = props
- console.log("Location", location)
- console.log("Linktype", linkType)
+//  console.log("Location", location)
+//  console.log("Linktype", linkType)
   return (
     <>
       <div className=" ml-3 pt-12 sm:ml-0 ">

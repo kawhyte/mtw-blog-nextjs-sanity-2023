@@ -13,7 +13,7 @@ import PostDate from './PostDate'
 import StarRating from './StarRating'
 
 const TravelEssentialLayout = ({ posts }: { posts: Esssential[] }) => {
-  console.log('Essential', posts)
+  // console.log('Essential', posts)
   return (
     <>
       <div className="container mx-auto  mt-14 grid grid-cols-1 place-content-center place-items-center gap-x-16 gap-y-10 px-3 sm:grid-cols-1 md:grid-cols-2 md:gap-10 md:px-6 lg:grid-cols-3 2xl:grid-cols-4">

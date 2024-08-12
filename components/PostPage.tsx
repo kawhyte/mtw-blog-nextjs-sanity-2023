@@ -102,7 +102,7 @@ export default function PostPage(props: PostPageProps) {
                   )}
                   <PostBody content={post.content} />
                   <Youtube link={post.youtube} />
-               {  post.gallery.length > 0 && <Gallery posts={post} heading={''} />}
+               {  post?.gallery?.length > 0 && <Gallery posts={post} heading={''} />}
                 </article>
               </div>
 

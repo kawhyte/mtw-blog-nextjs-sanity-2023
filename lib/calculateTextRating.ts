@@ -4,7 +4,7 @@ export function calculateTextRating(value) {
     backgroundColor: '',
   }
 
-  console.log("Value ",value)
+  // console.log("Value ",value)
 
   if (value >= 0 && value < 2) {
     rating.textRating = 'Horrible'
@@ -35,7 +35,7 @@ rating.textRating = 'Extraordinary'
     // Fall through
   }
 
-  console.log("Test Rating ",rating)
+  // console.log("Test Rating ",rating)
 
   return rating
 }
