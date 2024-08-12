@@ -32,8 +32,8 @@ const ArenasIndexPage = ({ arenas }) => {
               </div>
             </div>
           </div>
-          <div className="max-w-2/5  right-12   hidden h-full lg:block">
-            <div className="ml-2 grid grid-cols-3 place-items-center gap-4">
+          <div className="max-w-2/5  right-12   hidden h-full lg:block ">
+            <div className="ml-1 grid grid-cols-4 place-items-center gap-1">
               {arenas?.map((item) => (
                 <div
                   key={item._id}
@@ -41,26 +41,26 @@ const ArenasIndexPage = ({ arenas }) => {
                 >
                   <div
                     key={item.gallery[0].name}
-                    className="my-4 flex flex-col   items-center align-middle "
+                    className="my-2 flex flex-col   items-center align-middle "
                   >
                     <img
                       src={
                         item.gallery[0]?.asset?._ref
                           ? urlForImage(item.gallery[0])
-                              .height(96)
-                              .width(96)
+                              .height(90)
+                              .width(90)
                               .fit('crop')
                               .url()
                           : ''
                       }
-                      className=" h-16  w-16  "
-                      height={96}
-                      width={96}
+                      className=" h-14  w-14  "
+                      height={90}
+                      width={90}
                       alt={`${item.gallery[0].name} logo`}
                     />
 
                     <p
-                      className="ml-2 mt-2 text-center  text-sm  font-extralight text-gray-500 "
+                      className="ml-2 mt-1 text-center  text-sm  font-extralight text-gray-500 "
                       role="link"
                     >
                       {item.gallery[0].name}

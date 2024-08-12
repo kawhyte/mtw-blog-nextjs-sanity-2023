@@ -62,7 +62,7 @@ export default function IndexPage(props: IndexPageProps) {
               'my-24 bg-gradient-to-r from-indigo-200 via-pink-200 to-yellow-50 md:mt-24'
             }
           >
-            <ArenasIndexPage arenas={arenaPosts?.slice(0, 9)} />
+            <ArenasIndexPage arenas={arenaPosts?.slice(0, 8)} />
           </BlogSection>
 
           <BlogSection className="bg-gray-100">
