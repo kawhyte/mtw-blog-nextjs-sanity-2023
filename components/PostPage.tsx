@@ -40,7 +40,7 @@ export default function PostPage(props: PostPageProps) {
 
   const ratingCat =
     post?.linkType === 'food' ? post?.foodRating : post?.hotelRating
-  //console.log('Post Page post.FoodRating Ken  ', post)
+  // console.log('Post Page gallery  ', post)
   //  console.log("POST PAGE linkedtype ", post.linkType)
   return (
 <div className=" "> 
@@ -102,7 +102,7 @@ export default function PostPage(props: PostPageProps) {
                   )}
                   <PostBody content={post.content} />
                   <Youtube link={post.youtube} />
-               {  post.gallery > 0 && <Gallery posts={post} heading={''} />}
+               {  post.gallery.length > 0 && <Gallery posts={post} heading={''} />}
                 </article>
               </div>
 
