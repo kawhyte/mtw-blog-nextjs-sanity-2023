@@ -53,7 +53,8 @@ export default function PostHeader(
     category,
     tip,
   } = props
-
+ console.log("Location", location)
+ console.log("Linktype", linkType)
   return (
     <>
       <div className=" ml-3 pt-12 sm:ml-0 ">
@@ -63,38 +64,41 @@ export default function PostHeader(
       </div> */}
 
         <div className={` max-w-4xl `}>
-          <div className=" mt-3.5 grid w-full max-w-6xl   grid-cols-2 gap-4   text-base md:mt-5 md:grid-cols-4 md:gap-4">
-          {linkType === 'hotel' || linkType === 'food' &&  <section className=" flex flex-row items-end text-gray-700 md:text-left ">
-              <IoLocation className="mr-2 h-5 w-5 text-pink-500 " />
+          {/* <div className=" mt-3.5 grid w-full max-w-6xl   grid-cols-2 gap-4   text-base md:mt-5 md:grid-cols-4 md:gap-4"> */}
+       
+          <div className='flex flex-wrap  gap-y-2 justify-start gap-x-11 mt-2 items-start align-baseline lg:flex-nowrap'>
+          {linkType === 'hotel' || linkType === 'food' ?  <section className="flex flex-row items-center justify-between text-gray-700 md:text-left ">
+              <IoLocation className="mr-2 h-5 w-5 text-pink-500  " />
+              
               {location && (
-                <span className=" capitalize   ">
+                <span className="capitalize    ">
                   {location ? location : ''}
                 </span>
               )}
-            </section> } 
+            </section>: "" } 
 
-            <section className="flex flex-row items-end text-gray-700 md:text-left">
+            <section className="flex flex-row items-center justify-between text-gray-700 md:text-left ">
               {linkType === 'hotel' || linkType === 'food' ? (
-                <FaRegCalendarAlt className="h-5 w-5 text-pink-500 " />
+                <FaRegCalendarAlt className=" mr-2 h-5 w-5 text-pink-500 " />
               ) : (
-                <FaRegCalendarAlt className="h-5 w-5 text-pink-500 " />
+                <FaRegCalendarAlt className=" mr-2 h-5 w-5 text-pink-500 " />
               )}
-              <span className="ml-2 text-gray-700 ">
+              <span className=" capitalize ">
                 {' '}
                 <Date dateString={date} />
               </span>
             </section>
 
             {category && (
-              <section className="  flex flex-row items-end text-gray-700 md:text-left  ">
+              <section className="flex flex-row items-center justify-between text-gray-700 md:text-left ">
                 <IoStorefront className="mr-2 h-5  w-5 text-pink-500" />
-                <span className=" text-center  capitalize text-gray-700   md:text-left ">
+                <span className="  capitalize ">
                   {category} Hotel
                 </span>
               </section>
             )}
             {room && (
-              <section className=" flex flex-row items-end text-gray-700 md:text-left  ">
+              <section className="flex flex-row items-center justify-between text-gray-700 md:text-left ">
                 <IoBed className="mr-2 h-5 w-5  text-pink-500" />
 
                 <span className=" text-nowrap line-clamp-1 w-full capitalize    text-gray-700  md:text-left ">

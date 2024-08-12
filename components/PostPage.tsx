@@ -12,11 +12,11 @@ import * as demo from 'lib/demo.data'
 import type { Post, Settings } from 'lib/sanity.queries'
 import { notFound } from 'next/navigation'
 
+import Footer from './Footer'
 import Gallery from './Gallery'
 import ProConList from './ProConList'
 import RoomTech from './RoomTech'
 import Youtube from './Youtube'
-import Footer from './Footer'
 
 export interface PostPageProps {
   preview?: boolean

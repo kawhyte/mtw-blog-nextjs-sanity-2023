@@ -11,13 +11,13 @@ import Button from 'ui/Button'
 
 import { CMS_NAME } from '../lib/constants'
 import ArenasIndexPage from './ArenasIndexPage'
+import BlogSection from './BlogSection'
 import Footer from './Footer'
 import Hero from './Hero'
 import IndexTopTen from './IndexTopTen'
+import SectionTitle from './SectionTitle'
 import Welcome from './Welcome'
 import YoutubeHighlights from './YoutubeHighlights'
-import SectionTitle from './SectionTitle'
-import BlogSection from './BlogSection'
 
 export interface IndexPageProps {
   preview?: boolean

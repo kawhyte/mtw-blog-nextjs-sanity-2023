@@ -1,12 +1,12 @@
 import 'tailwindcss/tailwind.css'
 
 import { MantineProvider } from '@mantine/core'
-import { inter, oswald } from 'app/fonts'
-import { AppProps } from 'next/app'
-import { Antonio } from 'next/font/google';
+import { inter } from 'app/fonts'
 import Container from 'components/BlogContainer'
 import BlogHeader from 'components/BlogHeader';
 import Footer from 'components/Footer';
+import { AppProps } from 'next/app'
+import { Antonio } from 'next/font/google';
 
 const antonio = Antonio({
   subsets: ['latin'],

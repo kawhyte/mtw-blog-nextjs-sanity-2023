@@ -14,8 +14,8 @@ import post from 'schemas/post'
 import { CMS_NAME } from '../lib/constants'
 import Footer from './Footer'
 import ReviewHeader from './ReviewHeader'
-import TopListItems from './TopListItems'
 import SectionSeparator from './SectionSeparator'
+import TopListItems from './TopListItems'
 
 export interface IndexPageProps {
   preview?: boolean
