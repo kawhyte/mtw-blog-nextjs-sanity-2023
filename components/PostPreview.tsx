@@ -30,8 +30,8 @@ export default function PostPreview({
     <>
       <div
         className={
-          `group z-10  w-full max-w-sm overflow-hidden rounded-3xl border-4 border-black    bg-white shadow-offsetIndigo duration-300 dark:bg-gray-50 ` +
-          ` ${colorVariants[categoryType.color]}`
+          `group z-10  w-full max-w-sm overflow-hidden shadow-md rounded-3xl border-4 border-black    bg-white  duration-300 dark:bg-gray-50 ` 
+          
         }
       >
         <div className="mb-5">
@@ -50,7 +50,7 @@ export default function PostPreview({
         >
           <div className="mx-4 my-4 mb-6 mt-1 flex flex-col ">
             <h1
-              className={`${oswald.variable}     line-clamp-2 font-heading text-lg font-medium text-gray-700 no-underline decoration-pink-500 decoration-dashed decoration-4 group-hover:underline  `}
+              className={`${oswald.variable}  h-14   line-clamp-2 font-heading text-lg font-medium text-gray-700 no-underline decoration-pink-500 decoration-dashed decoration-4 group-hover:underline  `}
             >
               {title}
             </h1>
