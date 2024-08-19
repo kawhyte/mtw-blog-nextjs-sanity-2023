@@ -43,7 +43,7 @@ const Arenas = ({ arenas }) => {
             animation={'/basketball.svg'}
           />
 
-          <div className="container mx-auto   mt-14 grid grid-cols-1 place-content-center place-items-center gap-x-16  gap-y-10 px-3 sm:grid-cols-1 md:grid-cols-2 md:gap-10 md:px-6  lg:grid-cols-3 2xl:grid-cols-4">
+          <div className="container mx-auto   mt-14 grid grid-cols-1  place-content-center place-items-center gap-x-6 md:gap-x-16  gap-y-10 px-3 sm:grid-cols-2 md:grid-cols-2 md:gap-10 md:px-6  lg:grid-cols-3 2xl:grid-cols-4">
             {arenas?.map((item) => (
               <div
                 key={item._id}
@@ -66,7 +66,7 @@ const Arenas = ({ arenas }) => {
                               .url()
                           : 'https://fakeimg.pl/1240x801'
                       }
-                      className=" h-42  w-full object-cover object-center brightness-[0.7]  "
+                      className=" h-42 hidden md:block  w-full object-cover object-center brightness-[0.7]  "
                       height={300}
                       width={224}
                       alt={`${item.name} arena`}
