@@ -71,7 +71,7 @@ const TravelEssentialLayout = ({ posts }: { posts: Esssential[] }) => {
                       .url()}
                   /> */}
 
-              <div className="bg-gray-100/50 pt-3">
+              <div className=" pt-3">
                 <div className="mx-6 flex flex-col align-middle   ">
                   <div
                     className={` ${oswald.variable} flex justify-between  font-heading  text-2xl text-gray-700`}
@@ -140,14 +140,14 @@ const TravelEssentialLayout = ({ posts }: { posts: Esssential[] }) => {
 
                 <div className="mx-6 my-2 border-t border-gray-500"></div>
 
-                <div className="my-6 ml-6 line-clamp-4">
+                <div className="my-6 ml-6 line-clamp-3 h-16">
                   <PostBody content={item.description} />
                 </div>
-                <div className="mx-20 my-6">
+              </div>
+                <div className="mx-20 my-4">
                   {' '}
                   <Button link={item.link}> Get Item</Button>
                 </div>
-              </div>
             </div>
           </div>
         ))}
