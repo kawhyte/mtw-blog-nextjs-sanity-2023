@@ -139,14 +139,14 @@ export default function PostHeader(
         )}
 
         {/* {hotelRating && ( */}
-       {linkType === 'hotel' || linkType === 'food' &&  <div className=" mx-6 my-6 block text-base md:mx-0 md:mb-12">
+       {linkType === 'hotel' || linkType === 'food' ?  <div className=" mx-6 my-6 block text-base md:mx-0 md:mb-12">
           <StarRating
             rating={hotelRating}
             // amenities={amenities}
             // categories={categories}
             linkType={linkType}
           />
-        </div>}
+        </div>:""}
 
         {tip && (
           <>
