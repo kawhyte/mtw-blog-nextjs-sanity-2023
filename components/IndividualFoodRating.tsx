@@ -18,32 +18,33 @@ const individualFoodRating = ({ food }) => {
 
   return (
     <>
-      <div className="mx-7 pt-9">
+      <div className="mx-7 pt-9 ">
       
 
         <SectionTitle header={ "Food/Drink we tried"} description={undefined}/>
 
       
-        <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}>
-          <Masonry>
+        {/* <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}>
+          <Masonry> */}
+
+          <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'> 
             {food?.map((item, i) => (
               <>
                 <div
-                  className={`my-4 w-full max-w-sm overflow-hidden rounded-3xl border-4 border-black bg-white shadow-offsetIndigo dark:bg-gray-50 `}
+                  className={`my-4 w-full max-w-md overflow-hidden rounded-3xl border-4 border-black bg-white shadow-offsetIndigo dark:bg-gray-50 `}
                 >
                   {/* <CoverImage title={''} image={item}/> */}
 
                   <div className="mb-5">
-                    <img
-                      width={502}
-                      height={203}
-                      // placeholder='blur'
-                      // blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAO0lEQVR4nGNgYGBg+P//P1t9fT0TiM0we3ZjxZxZjQ9XLpwwe9nCHkOGGZOyanraY9aumN2wbsn0hmQA/MEWfj4ocjcAAAAASUVORK5CYII='
 
-                      className=" w-full object-cover object-center brightness-[0.9]  "
+                    {/* <CoverImage title={''} image={item}/> */}
+                    <img
+                      width={400}
+                      height={200}
+               
+                      className=" w-full max-w-md  h-96 object-cover object-center brightness-[0.9]  "
                       src={urlForImage(item.asset._ref).format('webp').url()}
                       alt={item?.name}
-                      // style={{ display: 'bloc', padding: '1px', margin: '5px' }}
                     />
                   </div>
 
@@ -83,7 +84,7 @@ const individualFoodRating = ({ food }) => {
                         </Badge>
                       </div>
 
-                      <p className="text-sm text-gray-500">{item?.review}</p>
+                      <p className="text-sm text-gray-500 h-8">{item?.review}</p>
                     </div>
                   </div>
                 </div>
@@ -91,8 +92,9 @@ const individualFoodRating = ({ food }) => {
                 
               </>
             ))}
-          </Masonry>
-        </ResponsiveMasonry>
+            </div>
+          {/* </Masonry>
+        </ResponsiveMasonry> */}
       </div>
       {/* </div> */}
 
