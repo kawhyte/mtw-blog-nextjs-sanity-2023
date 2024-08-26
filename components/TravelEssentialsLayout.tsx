@@ -140,7 +140,7 @@ const TravelEssentialLayout = ({ posts }: { posts: Esssential[] }) => {
 
                 <div className="mx-6 my-2 border-t border-gray-500"></div>
 
-                <div className="my-6 ml-6 line-clamp-3 h-16">
+                <div className="my-6 ml-6 mr-2 line-clamp-3 h-16">
                   <PostBody content={item.description} />
                 </div>
               </div>

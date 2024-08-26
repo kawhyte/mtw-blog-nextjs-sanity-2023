@@ -84,7 +84,7 @@ const individualFoodRating = ({ food }) => {
                         </Badge>
                       </div>
 
-                      <p className="text-sm text-gray-500 h-8">{item?.review}</p>
+                      <p className="text-sm text-gray-500 h-8 ">{item?.review}</p>
                     </div>
                   </div>
                 </div>
