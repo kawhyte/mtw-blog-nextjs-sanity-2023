@@ -54,17 +54,10 @@ export default function IndexPage(props: IndexPageProps) {
           <BlogHeader title={title} description={description} level={1} />
         <Container>
 
-          <Hero />
+          <Hero  />
           <Welcome />
 
-          <BlogSection
-            className={
-              'my-24 bg-gradient-to-r from-indigo-200 via-pink-200 to-yellow-50 md:mt-24'
-            }
-          >
-            <ArenasIndexPage arenas={arenaPosts?.slice(0, 8)} />
-          </BlogSection>
-
+         
           <BlogSection className="bg-gray-100">
             <SectionTitle
               header={'Our Travel Essential Reviews'}
@@ -117,6 +110,15 @@ export default function IndexPage(props: IndexPageProps) {
             />
             <YoutubeHighlights />
           </BlogSection>
+
+          <BlogSection
+            className={
+              'my-24 bg-gradient-to-r from-indigo-200 via-pink-200 to-yellow-50 md:mt-24'
+            }
+          >
+            <ArenasIndexPage arenas={arenaPosts?.slice(0, 8)} />
+          </BlogSection>
+
 
           {/* <SneakersIndexPage arenas={undefined} /> */}
           {/* <InstagramHighlights instagram={instagram.data} /> */}

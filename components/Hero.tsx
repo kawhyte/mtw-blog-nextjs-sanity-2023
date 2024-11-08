@@ -4,35 +4,39 @@ import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import React from 'react'
 import { useEffect, useRef } from 'react'
+import Button from 'ui/Button'
 
 let animation = [
   {
     name: 'watermelon',
-    url: 'watermelon.json',
+    // url: 'watermelon.json',
+    url: 'basketball.json',
     // url: 'https://static3.lottiefiles.com/lotties/01_ramen_character.json',
     bg: ' bg-indigo-50',
   },
   {
     name: 'Bath',
     // url: 'https://lottie.host/f2f04f90-3319-4ccc-87c8-c7a609e54179/HfnKsEY8ST.json',
-    url: 'bath.json',
+    // url: 'bath.json',
+    url: 'basketball1.json',
     bg: ' bg-indigo-50',
   },
-  {
-    name: 'Ramen',
-    url: 'ramen.json',
-    // url: 'https://lottie.host/abe85d6d-bbcd-42ca-aa12-6cab9a41c9f5/kpy5UMuVu8.json',
-    bg: ' bg-indigo-50',
-  },
+  // {
+  //   name: 'Ramen',
+  //   url: 'ramen.json',
+  //   // url: 'https://lottie.host/abe85d6d-bbcd-42ca-aa12-6cab9a41c9f5/kpy5UMuVu8.json',
+  //   bg: ' bg-indigo-50',
+  // },
   {
     name: 'Sundae',
-    url: 'sundae.json',
+    // url: 'sundae.json',
+    url: 'basketball2.json',
     // url: 'https://lottie.host/2ed631e4-1bf8-46bc-8702-bf19c933f21f/XN2AoNzMMY.json',
     bg: ' bg-indigo-50',
   },
 ]
 
-let randomNum = Math.floor(Math.random() * 4)
+let randomNum = Math.floor(Math.random() * 3)
 
 function Hero() {
   // const videoRef = useRef(null);
@@ -59,24 +63,35 @@ function Hero() {
   // console.log("anim", animation[0].url)
   return (
     <>
-      <section className="body-font container mx-auto max-w-6xl text-gray-600">
-        <div className="container mx-auto flex flex-col  items-center px-5  pt-12 md:flex-row">
-          <div className="flex flex-col items-center  text-center sm:mb-0 md:mb-0 md:w-1/2 md:items-start md:pr-16 md:text-left lg:flex-grow lg:pr-5">
+      <section className="body-font  container mx-auto  text-gray-600">
+
+      
+        <div className="container mx-auto flex flex-col justify-evenly  pt-12 md:flex-row">
+          <div className="flex bg-red-200 flex-col   sm:mb-0  xl:mb-0 xl:w-1/2 xl:items-start xl:pr-16 xl:text-left 2xl:pr-5">
             <div
-              className={`  ${oswald.variable}  flex flex-col -space-y-8    lg:-space-y-12  z-30 font-heading text-7xl  font-bold  uppercase text-gray-700  md:text-7xl lg:w-10/12 lg:text-[9rem]  xl:-space-y-20`}
+              className={`  ${oswald.variable}  z-30 mb-6 flex  flex-col font-heading text-[4.6rem] font-bold  uppercase  leading-tight text-gray-700  md:text-[3.5rem] lg:w-10/12 lg:text-[4.2rem] xl:text-[4.9rem] 2xl:text-[5.9rem]  whitespace-nowrap  `}
             >
-              <p className="">Food.</p>
-              <p className="text-pink-500"> Travel.</p>
-              <p className="">Explore.</p>
+              <p className="">Visiting Every </p>
+              <p className="text-pink-500 md:text-blue-500 lg:text-green-500 xl:text-yellow-500 2xl:text-pink-500">
+                {' '}
+                NBA & WNBA
+              </p>
+              <p className="">Arenas</p>
             </div>
 
-            <p className={` ${inter.variable} font-sans  mb-8 text-lg xl:text-xl max-w-2xl  leading-relaxed z-30`}>
-              {' '}
-              Hi! We are the Whytes. Welcome to our space on the{' '}
-              <span className="text-pink-500">interwebs. </span> We&apos;re a
-              husband 👖 and wife 👗 duo. We love to travel, relax & try new
-              food.
+            <p
+              className={` ${inter.variable} z-30 max-w-2xl font-sans text-lg  leading-relaxed xl:text-xl`}
+            >
+              We are traveling near and far to every state/country to visit all
+              the NBA and WNBA arenas across the US and Canada. Follow us on
+              this journey.
             </p>
+
+            <div className="flex   pt-9 lg:mt-0 lg:flex-shrink-0">
+              <div className=" inline-flex  ">
+                <Button link={'/arenas'}>Check out our Journey</Button>
+              </div>
+            </div>
 
             {/* <div
               className={`  ${oswald.variable}  z-30 w-full  bg-red-200 leading-none  font-heading text-7xl font-bold  uppercase  text-gray-700 md:text-7xl  lg:text-[8rem]  `}
@@ -88,14 +103,15 @@ function Hero() {
                 
             </div> */}
           </div>
-          <div className="-mt-12 hidden   w-5/6 max-w-sm sm:block  md:mt-0 md:w-1/2 lg:-ml-10 lg:w-full  lg:max-w-md">
+          <div className="-mt-12 hidden bg-blue-200   w-5/6 max-w-sm md:block  md:mt-0 lg:w-full  lg:max-w-md xl:max-w-lg">
             <PlayerWithNoSSR
               autoplay
               keepLastFrame
               loop
-              src={animation[randomNum].url}
+              src={animation[randomNum]?.url}
             />
           </div>
+       
         </div>
       </section>
     </>

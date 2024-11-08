@@ -10,6 +10,7 @@ import { PiHamburger } from 'react-icons/pi'
 import { PiSuitcaseRolling } from 'react-icons/pi'
 import { SiNike } from 'react-icons/si'
 import { SlNotebook } from 'react-icons/sl'
+import SectionTitle from './SectionTitle'
 
 let duo = [
   {
@@ -54,14 +55,22 @@ function Welcome() {
     <>
       <div className=" lg:container   lg:mx-auto mt-20  md:mt-40  lg:flex ">
         <div className="lg:container lg:mx-auto rounded-xl  px-4 pb-6 xl:max-w-6xl">
-          <header className="  m mx-auto mt-12 mb-16 text-center">
-            <h2 className="mb-2 text-2xl font-bold leading-normal text-gray-800 dark:text-gray-900">
-              <span
-                className={`${oswald.variable}  title-font mb-6 font-heading text-3xl font-medium text-gray-900 sm:text-4xl`}
-              >
-                Meet the Dynamic Duo
-              </span>
-            </h2>
+          <header className=" mx-auto mt-12 mb-16">
+        
+
+            <SectionTitle
+              header={'Meet the Dynamic Duo'}
+              description={`
+                
+                Hi! We are the Whytes. Welcome to our space on the
+              interwebs. We&apos;re a
+              husband 👖 and wife 👗 duo. We love to travel, relax & try new
+              food.
+                        
+                        `}
+            />
+
+        
           </header>
 
           <div className="h-1 lg:h-16"></div>
