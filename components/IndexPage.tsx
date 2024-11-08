@@ -55,7 +55,9 @@ export default function IndexPage(props: IndexPageProps) {
         <Container>
 
           <Hero  />
-          <Welcome />
+
+          <BlogSection className="bg-gray-100">
+          <Welcome /></BlogSection>
 
          
           <BlogSection className="bg-gray-100">
