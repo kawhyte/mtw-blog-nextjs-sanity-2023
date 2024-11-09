@@ -10,20 +10,75 @@ import { PiHamburger } from 'react-icons/pi'
 import { PiSuitcaseRolling } from 'react-icons/pi'
 import { SiNike } from 'react-icons/si'
 import { SlNotebook } from 'react-icons/sl'
+
+import AvatarCard from './AvatarCard'
 import SectionTitle from './SectionTitle'
 
-let duo = [
+const places = [
+  {
+    title: 'Jamaica',
+    icon: '🇯🇲',
+  },
+
+  {
+    title: 'Denmark',
+    icon: '🇩🇰',
+  },
+  {
+    title: 'USA (Hawaii)',
+    icon: '🇺🇸',
+  },
+  {
+    title: 'Mexico',
+    icon: '🇲🇽',
+  },
+  {
+    title: 'Sweden',
+    icon: '🇸🇪',
+  },
+  {
+    title: 'The Bahamas',
+    icon: '🇧🇸',
+  },
+  {
+    title: 'Indonesia',
+    icon: '🇮🇩',
+  },
+  {
+    title: 'France',
+    icon: '🇫🇷',
+  },
+  {
+    title: 'England',
+    icon: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
+  },
+
+  {
+    title: 'Japan',
+    icon: '🇯🇵',
+  },
+  {
+    title: 'Canada',
+    icon: '🇨🇦',
+  },
+  {
+    title: 'Puerto Rico',
+    icon: '🇵🇷',
+  },
+]
+
+const duo = [
   {
     id: 1,
     color: 'indigo',
     name: 'Mr.',
 
-    image: '/avatar_mr.png',
+    image: '/avatar_mr3.png',
     favorite: [
       { id: 3, name: 'Coding', img: <FaCode className="h-7 w-7 " /> },
       {
         id: 4,
-        name: 'Retro Games',
+        name: 'Games',
         img: <IoGameControllerOutline className="h-7 w-7 " />,
       },
       { id: 5, name: 'Coffee', img: <FiCoffee className="h-7 w-7 " /> },
@@ -36,7 +91,7 @@ let duo = [
     id: 2,
     color: 'pink',
     name: 'Mrs.',
-    image: '/avatar_mrs.png',
+    image: '/avatar_mrs3.png',
     favorite: [
       { id: 7, name: 'Burgers', img: <PiHamburger className="h-7 w-7" /> },
       { id: 8, name: 'Reading', img: <SlNotebook className="h-7 w-6" /> },
@@ -48,34 +103,155 @@ let duo = [
   },
 ]
 
+const size = 'h-10 w-10'
 
+const favorite = [
+  { id: 7, name: 'Burgers', img: <PiHamburger className="h-8 w-8" /> },
+  { id: 8, name: 'Reading', img: <SlNotebook className="h-8 w-7" /> },
+  { id: 3, name: 'Traveling', img: <PiSuitcaseRolling className="h-8 w-8" /> },
+  { id: 6, name: 'Weightlifting', img: <PiBarbell className="h-7 w-7 " /> },
+  { id: 3, name: 'Coding', img: <FaCode className="h-7 w-6 " /> },
+  {
+    id: 4,
+    name: 'Retro Games',
+    img: <IoGameControllerOutline className="h-7 w-7 " />,
+  },
+  { id: 5, name: 'Coffee', img: <FiCoffee className="h-7 w-7 " /> },
+  { id: 6, name: 'Sneakers', img: <SiNike className="h-7 w-7" /> },
+]
 
 function Welcome() {
   return (
     <>
-      <div className=" lg:container   lg:mx-auto mt-20  md:mt-40  lg:flex ">
-        <div className="lg:container lg:mx-auto rounded-xl  px-4 pb-6 xl:max-w-6xl">
-          <header className=" mx-auto mt-12 mb-16">
-        
-
+      <div className="     ">
+        <div className="rounded-xl px-4 pb-6   xl:max-w-9xl">
+          <header className=" mx-auto mb-12 ">
             <SectionTitle
               header={'Meet the Dynamic Duo'}
               description={`
                 
                 Hi! We are the Whytes. Welcome to our space on the
-              interwebs. We&apos;re a
+              interwebs. We are a
               husband 👖 and wife 👗 duo. We love to travel, relax & try new
               food.
                         
                         `}
             />
-
-        
           </header>
 
-          <div className="h-1 lg:h-16"></div>
+          <div className=" grid lg:grid-cols-5 gap-6 ">
+            <AvatarCard data={duo[0]} />
+            {/* <div className="col-span-2  rounded-3xl bg-gray-200 outline  ">
+              <div className="flex flex-col items-center pb-12 pl-8 pt-4  ">
+                <img
+                  src={duo[0].image}
+                  className=" w-64 h-64 max-w-full "
+                  alt="title image"
+                />
+                <div className="flex flex-col -mt-6">
+                  <p
+                    className={`${oswald.variable}  title-font my-2  font-heading text-3xl font-medium text-${duo[0].color}-500 text-gray-900 sm:text-4xl`}
+                  >
+                    {duo[0].name}
+                  </p>
 
-          <div className=" mb-3 grid md:ml-20 lg:ml-0  lg:h-96 grid-cols-1  gap-3  justify-items-center md:gap-y-52 md:w-5/6 md:grid-cols-2  md:gap-x-20">
+                 
+                </div>
+              </div>
+
+              <div className="-mt-10 mb-8 px-3 text-center">
+                <span className=" mt-2 text-center  text-lg  font-extralight text-gray-500">
+                  &quot;{duo[0].quote}&quot; {duo[0].quote_by}
+                </span>
+              </div>
+            </div> */}
+
+            <div className="col-span-3 rounded-xl bg-blue-200 pl-6 pt-3 ">
+              <p
+                className={`${oswald.variable}  title-font my-2  font-heading text-3xl font-medium  text-gray-900 sm:text-4xl`}
+              >
+                Countries we&apos;ve visited
+              </p>
+
+              <div className={'my-6 mr-5  grid grid-cols-3 lg:grid-cols-4  gap-3 max-w-3xl min-w-sm'}>
+                {places.map((item) => (
+                  <div
+                    key={item.title}
+                    className="flex flex-row items-center gap-2   rounded-lg  px-1 align-middle outline outline-2 outline-gray-500"
+                  >
+                    {/*<span>
+							 <div>
+								<svg className='size-0 absolute'>
+									<defs>
+										<linearGradient id='icon-gradient'>
+											<stop offset='0%' stopColor='rgb(134 239 172)  ' />
+											<stop offset='100%' stopColor='rgb(187 247 208)' />
+										</linearGradient>
+									</defs>
+									
+								</svg>
+							</div> 
+
+						</span>*/}
+                    <span className="text-3xl"> {item.icon}</span>
+                    <span className="text-xs font-semibold">{item.title}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="col-span-3 rounded-xl bg-orange-200 pl-6 pt-3">
+              <p
+                className={`${oswald.variable}  title-font my-4  font-heading text-3xl font-medium  text-gray-900 sm:text-4xl`}
+              >
+                Things we like
+              </p>
+
+              <div className="mr-2 mt-5 grid  grid-cols-4 gap-y-4 mb-6 ">
+                {favorite?.map((item) => (
+
+                  <div className=''> 
+                  <div
+                    key={item.id}
+                    className=" flex flex-col items-center gap-2   rounded-lg  px-1 align-middle "
+                  >
+                    <span>{item.img} </span>
+                    <span
+                      className={`text-nowrap rounded-full   px-2  text-xs    font-extralight  text-gray-500 `}
+                    >
+                      {item.name}
+                    </span>
+                  </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <AvatarCard data={duo[1]} />
+
+            <div className="col-span-2 rounded-xl  ">
+              {/* <div className="flex flex-col items-center  overflow-hidden pb-12 lg:relative  ">
+                <img
+                  src={duo[1].image}
+                  className="mx-auto mt-3 h-auto w-32 max-w-full rounded-full bg-gray-200 p-3 grayscale"
+                  alt="title image"
+                />
+
+                <p
+                  className={`${oswald.variable}  title-font my-2  font-heading text-3xl font-medium text-${duo[1].color}-500 text-gray-900 sm:text-4xl`}
+                >
+                  {duo[1].name}
+                </p>
+              </div>
+
+              <div className="-mt-10 px-3">
+                <span className=" ml-2 mt-2 text-center  text-sm  font-extralight text-gray-500">
+                  &quot;{duo[1].quote}&quot; {duo[1].quote_by}
+                </span>
+              </div> */}
+            </div>
+          </div>
+
+          {/* <div className=" mb-3 grid md:ml-20 lg:ml-0  lg:h-96 grid-cols-1  gap-3  justify-items-center md:gap-y-52 md:w-5/6 md:grid-cols-2  md:gap-x-20">
             {duo.map((person) => (
               <div key={person.id}>
                 <div className="bg-white">
@@ -135,7 +311,7 @@ function Welcome() {
                 </div>
               </div>
             ))}
-          </div>
+          </div> */}
         </div>
       </div>
 

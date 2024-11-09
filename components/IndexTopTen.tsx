@@ -1,6 +1,7 @@
 import { inter, oswald } from 'app/fonts'
 import Link from 'next/link'
 import Button from 'ui/Button'
+
 import SectionTitle from './SectionTitle'
 
 export default function IndexTopTen() {

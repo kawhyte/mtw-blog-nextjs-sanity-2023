@@ -72,12 +72,12 @@ function Hero() {
               className={`  ${oswald.variable}  z-30 mb-6 flex  flex-col font-heading text-[4.6rem] font-bold  uppercase leading-none text-gray-700  md:text-[3.5rem] lg:w-10/12 lg:text-[4.2rem] xl:text-[4.9rem] 2xl:text-[5.9rem]  whitespace-nowrap  `}
             >
               <p className="">Our Quest   </p>
-              <p className=""> to Visit All  </p>
+              <p className=""> to Visit Every  </p>
               <p className="text-pink-500 md:text-blue-500 lg:text-green-500 xl:text-yellow-500 2xl:text-pink-500">
                 {' '}
-                37 NBA & WNBA
+                NBA & WNBA
               </p>
-              <p className="">  Arenas</p>
+              <p className="">  Arena</p>
             </div>
 
             <p
