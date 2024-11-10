@@ -23,7 +23,7 @@ function ReviewHeader({ title, arenas, summary, animation }) {
   const percentage = ((arenas[0]?.visitedCount / arenas.length) * 100).toFixed(
     0
   )
-
+ console.log(percentage)
   return (
     <div className="mb-10 flex flex-col items-center justify-center bg-indigo-50 pt-10  lg:flex-row">
       <div className="container mx-auto">
@@ -137,7 +137,7 @@ function ReviewHeader({ title, arenas, summary, animation }) {
                               color="rgba(255, 79, 208, 0.95)"
                               radius="lg"
                               size="lg"
-                              value={40}
+                              value={parseInt(percentage)}
                               animate
                             />
                           </div>
