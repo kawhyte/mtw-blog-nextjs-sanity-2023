@@ -1,7 +1,6 @@
 import { oswald } from 'app/fonts'
 
 export default function AuthorAvatar({ data }) {
-  console.log('MY props dat 0', data)
 
   return (
     <div className=" col-span-3 lg:col-span-2   h-60 rounded-3xl bg-gray-200 outline  ">

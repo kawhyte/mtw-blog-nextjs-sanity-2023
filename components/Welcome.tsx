@@ -209,19 +209,19 @@ function Welcome() {
               <div className="mr-2 mt-5 grid  grid-cols-4 gap-y-4 mb-6 ">
                 {favorite?.map((item) => (
 
-                  <div className=''> 
+                
                   <div
                     key={item.id}
                     className=" flex flex-col items-center gap-2   rounded-lg  px-1 align-middle "
                   >
                     <span>{item.img} </span>
                     <span
-                      className={`text-nowrap rounded-full   px-2  text-xs    font-extralight  text-gray-500 `}
+                      className={`text-nowrap rounded-full whitespace-nowrap   px-2  text-xs    font-extralight  text-gray-500 `}
                     >
                       {item.name}
                     </span>
                   </div>
-                  </div>
+                 
                 ))}
               </div>
             </div>

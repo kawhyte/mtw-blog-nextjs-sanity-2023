@@ -10,7 +10,7 @@ let animation = [
   {
     name: 'watermelon',
     // url: 'watermelon.json',
-    url: 'basketball.json',
+    url: 'basketball2.json',
     // url: 'https://static3.lottiefiles.com/lotties/01_ramen_character.json',
     bg: ' bg-indigo-50',
   },
@@ -18,7 +18,7 @@ let animation = [
     name: 'Bath',
     // url: 'https://lottie.host/f2f04f90-3319-4ccc-87c8-c7a609e54179/HfnKsEY8ST.json',
     // url: 'bath.json',
-    url: 'basketball1.json',
+    url: 'basketball2.json',
     bg: ' bg-indigo-50',
   },
   // {
@@ -67,9 +67,9 @@ function Hero() {
 
       
         <div className="container mx-auto flex flex-col justify-between  pt-12 md:flex-row">
-          <div className="flex  flex-col mx-6 md:mx-0   sm:mb-0  xl:mb-0 xl:w-full xl:items-start xl:pr-16 xl:text-left 2xl:pr-5">
+          <div className="flex  flex-col mx-6 md:mx-0   sm:mb-0 md:pl-8  xl:mb-0 xl:w-full xl:items-start xl:pr-16 xl:text-left 2xl:pr-5">
             <div
-              className={`  ${oswald.variable}  z-30 mb-6 flex  flex-col font-heading text-[4.6rem] font-bold  uppercase leading-none text-gray-700  md:text-[3.5rem] lg:w-10/12 lg:text-[4.2rem] xl:text-[4.9rem] 2xl:text-[5.9rem]  whitespace-nowrap  `}
+              className={`  ${oswald.variable}  z-30 mb-6 flex  flex-col font-heading text-[3.5rem] font-bold  uppercase leading-none text-gray-700  md:text-[3.9rem] lg:w-10/12 lg:text-[5.2rem] xl:text-[5.3rem] 2xl:text-[5.9rem]  whitespace-nowrap  `}
             >
               <p className="">Our Quest   </p>
               <p className=""> to Visit Every  </p>
@@ -81,7 +81,7 @@ function Hero() {
             </div>
 
             <p
-              className={` ${inter.variable} z-30 max-w-2xl font-sans text-lg  leading-relaxed xl:text-xl`}
+              className={` ${inter.variable} z-30 max-w-2xl font-sans text-lg  leading-relaxed md:text-lg xl:text-xl`}
             >
               We are traveling near and far to every state/country to visit all
               the NBA and WNBA arenas across the US and Canada. Follow us on
@@ -90,7 +90,7 @@ function Hero() {
 
             <div className="flex   pt-9 lg:mt-0 lg:flex-shrink-0">
               <div className=" inline-flex  ">
-                <Button link={'/arenas'}>Check out our Journey</Button>
+                <Button link={'/arenas'}>follow our Journey</Button>
               </div>
             </div>
 
