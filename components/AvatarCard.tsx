@@ -3,7 +3,7 @@ import { oswald } from 'app/fonts'
 export default function AuthorAvatar({ data }) {
 
   return (
-    <div className=" col-span-3 lg:col-span-2   h-60 rounded-3xl bg-gray-200 outline  ">
+    <div className=" col-span-3 lg:col-span-2   h-60 rounded-3xl bg-gray-100 outline  ">
       <div className="flex flex-col  md:flex-row items-center pl-4  ">
         <img
           src={data.image}
