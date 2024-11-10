@@ -18,9 +18,17 @@ const bg =
   '  underline decoration-pink-200 underline-offset-8 hover:decoration-pink-500 focus:decoration-pink-500/50 '
 const navigation = [
   {
+    name: 'NBA & WNBA Arenas',
+    href: '/arenas',
+    icon:<LiaBasketballBallSolid className="h-6 w-10  text-pink-500" />,
+    text: 'Man walking',
+    bg: 'hover:bg-gradient-to-r from-pink-100 to-orange-100  text-white w-full  focus:decoration-orange-500/50',
+    current: false,
+  },
+  {
     name: 'Our Top Picks',
     href: '/top_picks',
-    icon: <LiaCrownSolid className="h-6 w-10    text-pink-500" />,
+    icon: <LiaCrownSolid className="h-6 w-10 text-gray-700   " />,
     text: 'Book icon',
     bg: '  hover:bg-gradient-to-r from-pink-100 to-yellow-100  focus:decoration-yellow-500/50',
     current: false,
@@ -48,14 +56,6 @@ const navigation = [
     icon: <TfiMapAlt className="h-6 w-10   text-gray-700 " />,
     text: 'Book icon',
     bg: '  hover:bg-gradient-to-r from-pink-100 to-indigo-100  text-white w-full  focus:decoration-indigo-500/50',
-    current: false,
-  },
-  {
-    name: 'NBA & WNBA Arenas',
-    href: '/arenas',
-    icon:<LiaBasketballBallSolid className="h-6 w-10  text-gray-700" />,
-    text: 'Man walking',
-    bg: 'hover:bg-gradient-to-r from-pink-100 to-orange-100  text-white w-full  focus:decoration-orange-500/50',
     current: false,
   },
 ]

@@ -84,7 +84,7 @@ function ReviewHeader({ title, arenas, summary, animation }) {
                       <h1 className="mb-4  border-gray-200 text-5xl leading-none text-gray-900">
                         {arenaLastVisited[0]?.name}
                       </h1>
-                      <div className="mb-4 flex items-center   justify-around border-b border-gray-200 pb-4 align-middle text-base leading-none text-gray-500">
+                      <div className="mb-4 flex flex-col md:flex-row items-center gap-y-3   justify-around border-b border-gray-200 pb-4 align-middle text-base leading-none text-gray-500">
                         <div className="flex items-center align-middle">
                           <FaRegCalendarAlt className="ml-1 mr-2 h-4 w-5   " />
                           <p className=" pr-2 text-sm ">
