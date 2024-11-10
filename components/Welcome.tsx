@@ -71,7 +71,7 @@ const duo = [
   {
     id: 1,
     color: 'indigo',
-    name: 'Mr.',
+    name: 'Mr. Whyte',
 
     image: '/avatar_mr3.png',
     favorite: [
@@ -90,7 +90,7 @@ const duo = [
   {
     id: 2,
     color: 'pink',
-    name: 'Mrs.',
+    name: 'Mrs. Whyte',
     image: '/avatar_mrs3.png',
     favorite: [
       { id: 7, name: 'Burgers', img: <PiHamburger className="h-7 w-7" /> },
@@ -124,7 +124,7 @@ function Welcome() {
   return (
     <>
       <div className="     ">
-        <div className="rounded-xl px-4 pb-6   xl:max-w-9xl">
+        <div className="xl:max-w-9xl rounded-xl px-4   pb-6">
           <header className=" mx-auto mb-12 ">
             <SectionTitle
               header={'Meet the Dynamic Duo'}
@@ -139,7 +139,7 @@ function Welcome() {
             />
           </header>
 
-          <div className=" grid lg:grid-cols-5 gap-6 ">
+          <div className=" grid gap-6 lg:grid-cols-5 ">
             <AvatarCard data={duo[0]} />
             {/* <div className="col-span-2  rounded-3xl bg-gray-200 outline  ">
               <div className="flex flex-col items-center pb-12 pl-8 pt-4  ">
@@ -166,14 +166,18 @@ function Welcome() {
               </div>
             </div> */}
 
-            <div className="col-span-3 rounded-xl bg-blue-200 pl-6 pt-3 ">
+            <div className="col-span-3 rounded-xl bg-blue-100 pl-6 pt-3 ">
               <p
                 className={`${oswald.variable}  title-font my-2  font-heading text-3xl font-medium  text-gray-900 sm:text-4xl`}
               >
                 Countries we&apos;ve visited
               </p>
 
-              <div className={'my-6 mr-5  grid grid-cols-3 lg:grid-cols-4  gap-3 max-w-3xl min-w-sm'}>
+              <div
+                className={
+                  'min-w-sm my-6  mr-5 grid max-w-3xl grid-cols-2  gap-4 md:grid-cols-3 lg:grid-cols-4'
+                }
+              >
                 {places.map((item) => (
                   <div
                     key={item.title}
@@ -199,29 +203,26 @@ function Welcome() {
                 ))}
               </div>
             </div>
-            <div className="col-span-3 rounded-xl bg-orange-200 pl-6 pt-3">
+            <div className="col-span-3 rounded-xl bg-orange-100 pl-6 pt-3">
               <p
                 className={`${oswald.variable}  title-font my-4  font-heading text-3xl font-medium  text-gray-900 sm:text-4xl`}
               >
                 Things we like
               </p>
 
-              <div className="mr-2 mt-5 grid  grid-cols-4 gap-y-4 mb-6 ">
+              <div className="mb-6 mr-2 mt-5 grid  grid-cols-3 gap-y-4 md:grid-cols-4 ">
                 {favorite?.map((item) => (
-
-                
                   <div
                     key={item.id}
                     className=" flex flex-col items-center gap-2   rounded-lg  px-1 align-middle "
                   >
                     <span>{item.img} </span>
                     <span
-                      className={`text-nowrap rounded-full whitespace-nowrap   px-2  text-xs    font-extralight  text-gray-500 `}
+                      className={`text-nowrap whitespace-nowrap rounded-full   px-2  text-xs    font-extralight  text-gray-500 `}
                     >
                       {item.name}
                     </span>
                   </div>
-                 
                 ))}
               </div>
             </div>
