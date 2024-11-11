@@ -19,14 +19,22 @@ const places = [
     title: 'Jamaica',
     icon: '🇯🇲',
   },
+  {
+    title: 'Netherlands',
+    icon: '🇳🇱',
+  },
+  {
+    title: 'United States',
+    icon: '🇺🇸',
+  },
 
   {
     title: 'Denmark',
     icon: '🇩🇰',
   },
   {
-    title: 'USA (Hawaii)',
-    icon: '🇺🇸',
+    title: 'Finland',
+    icon: '🇫🇮',
   },
   {
     title: 'Mexico',
@@ -49,7 +57,7 @@ const places = [
     icon: '🇫🇷',
   },
   {
-    title: 'England',
+    title: 'United Kingdom',
     icon: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
   },
 
@@ -178,7 +186,7 @@ function Welcome() {
                   'min-w-sm my-6  mr-5 grid max-w-3xl grid-cols-2  gap-4 md:grid-cols-3 lg:grid-cols-4'
                 }
               >
-                {places.map((item) => (
+                {places.sort((a,b) => a.title.localeCompare(b.title)).map((item) => (
                   <div
                     key={item.title}
                     className="flex flex-row items-center gap-2   rounded-lg  px-1 align-middle outline outline-2 outline-gray-500"
