@@ -29,7 +29,7 @@ const individualFoodRating = ({ food }) => {
 
           <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'> 
             {food?.map((item, i) => (
-              <>
+              <div key={i}>
                 <div
                   className={`my-4 w-full max-w-md overflow-hidden rounded-3xl border-4 border-black bg-white shadow-offsetIndigo dark:bg-gray-50 `}
                 >
@@ -90,7 +90,7 @@ const individualFoodRating = ({ food }) => {
                 </div>
 
                 
-              </>
+              </div>
             ))}
             </div>
           {/* </Masonry>
