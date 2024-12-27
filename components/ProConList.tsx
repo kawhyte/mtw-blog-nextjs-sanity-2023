@@ -23,7 +23,9 @@ function ProConList({ positives, negatives, verdict2 }) {
 
         <div className="container flex flex-wrap py-6 md:mx-auto lg:py-8">
           <div className=" grid grid-cols-1  gap-6 2xl:grid-cols-3">
-            <div className="md:w-full">
+            
+            
+         {positives?.length > 0 ?    <div className="md:w-full">
               <div className="flex flex-col rounded-lg  border-2 border-green-500 border-opacity-50  p-2 shadow-sm  shadow-green-200/40  md:p-5  ">
                 <div className="mb-3 flex justify-start border-b border-gray-200 pb-4 align-middle ">
                   <FaThumbsUp className="mr-3 h-7 w-7 rounded-2xl bg-green-100 p-1 text-green-500 " />
@@ -73,9 +75,9 @@ function ProConList({ positives, negatives, verdict2 }) {
                 </div>
                 {/* </div> */}
               </div>
-            </div>
+            </div> : ""}
 
-            <div className="md:w-full">
+            {negatives?.length > 0 ?  <div className="md:w-full">
               <div className="flex flex-col rounded-lg  border-2 border-red-500 border-opacity-50    p-2 shadow-sm shadow-red-200/60 md:p-5  ">
                 <div className="mb-3 flex justify-start border-b border-gray-200 pb-4 align-middle">
                   {/* <FaThumbsUp className='h-7 w-7 mr-3 bg-green-100 text-green-500 p-1 rounded-lg ' /> */}
@@ -125,7 +127,7 @@ function ProConList({ positives, negatives, verdict2 }) {
                 </div>
                 {/* </div> */}
               </div>
-            </div>
+            </div> :""}
 
             {/* <div className=" md:w-full">
               <div className="mr-0 flex  flex-col  rounded-lg border-opacity-50 bg-gradient-to-b from-gray-100 via-gray-200 to-red-100 md:p-5  ">
@@ -179,7 +181,9 @@ function ProConList({ positives, negatives, verdict2 }) {
                 </div>
               </div>
             </div> */}
-            <div className=" md:w-full">
+            
+            
+            { verdict2 !== null ? <div className=" md:w-full">
               <div className="flex flex-col  rounded-lg  border-2 border-indigo-500 border-opacity-50 p-2 shadow-md shadow-indigo-100/50 md:p-5  ">
                 <div className="mb-3 flex justify-start border-b border-gray-200 pb-4 align-middle ">
                   <RiLightbulbFlashLine className="mr-3 h-7 w-7 rounded-2xl bg-indigo-100 p-1 text-indigo-500 " />
@@ -219,7 +223,7 @@ function ProConList({ positives, negatives, verdict2 }) {
                   </Spoiler>
                 </div>
               </div>
-            </div>
+            </div>:" " }
           </div>
         </div>
       </section>

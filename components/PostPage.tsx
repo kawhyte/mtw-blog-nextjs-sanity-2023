@@ -80,7 +80,7 @@ export default function PostPage(props: PostPageProps) {
                   ) : (
                     ''
                   )}{' '}
-                  {post.linkType == 'hotel' || post.linkType == 'food' ? (
+                  {post.linkType == 'hotel' || post.linkType == 'food' ?  (
                     <ProConList
                       positives={post.positives}
                       negatives={post.negatives}

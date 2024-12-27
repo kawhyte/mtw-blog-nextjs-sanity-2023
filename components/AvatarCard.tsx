@@ -1,16 +1,23 @@
 import { oswald } from 'app/fonts'
 
 export default function AuthorAvatar({ data }) {
-
   return (
-    <div className=" col-span-3 lg:col-span-2   h-60 rounded-3xl bg-gray-100 outline   ">
-      <div className="flex flex-col  md:flex-row items-center pl-4  ">
+    <div className=" col-span-3 h-60   rounded-3xl bg-gray-100 outline lg:col-span-3   ">
+      <div className=" flex flex-col items-center justify-between   border-b border-gray-200 md:flex-row  ">
         <img
-          src={data.image}
-          className=" -ml-10  h-48 w-48 md:h-56 md:w-56 lg:h-52 lg:w-52 max-w-full "
+          src={data?.image}
+          className=" ml-3 mt-2   h-48 w-48 max-w-full md:h-56 md:w-56 lg:h-28 lg:w-28 "
           alt="title image"
         />
-        <div className="md:mt-2 flex md:flex-col md:justify-start">
+
+        <p
+          className={`${oswald.variable}  title-font    font-heading text-2xl font-medium text-${data.color}-500 text-gray-900 sm:text-4xl`}
+        >
+          {data?.name}
+        </p>
+        <div className="flex flex-row justify-between"></div>
+
+        {/* <div className="md:mt-2 flex md:flex-col md:justify-start">
           <p
             className={`${oswald.variable}  title-font md:my-2   font-heading text-3xl font-medium text-${data.color}-500 text-gray-900 sm:text-4xl`}
           >
@@ -18,40 +25,48 @@ export default function AuthorAvatar({ data }) {
           </p>
           <div className="hidden md:block my-2 mr-6 border-t-2 border-indigo-500"></div>
 
-          {/**/} <div className=" mr-4">
+          <div className=" mr-4">
             <span className="hidden md:block  mt-2  text-base  font-extralight text-gray-500">
               &quot;{data.quote}&quot; {data.quote_by}
             </span>
           </div> 
 
-          {/* <div className=" ">
-            <p className=" mt- ml-2 text-start  text-sm  font-extralight text-gray-500">
-              Things I Like:
-            </p>
-
-            <div className="text-nowrap mt-2 grid grid-cols-4  gap-x-4 gap-y-1 pr-3">
-              {data.favorite?.map((item) => (
-                <div
-                  key={item.id}
-                  className=" text-nowrap flex flex-col items-center gap-x-2 text-center font-light leading-relaxed text-gray-500"
-                >
-                  <span>{item.img} </span>
-                  <span
-                    className={`text-nowrap rounded-full lg:hidden 2xl:block   px-2 py-1 text-xs    font-extralight  text-gray-500 `}
-                  >
-                    {item.name}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div> */}
+          
 
 
-        </div>
-        
+        </div> */}
       </div>
 
-      
+      <blockquote className="relative mx-5 my-5">
+        <svg
+          className="size-16 absolute -start-3 -top-3  text-neutral-700"
+          width="16"
+          height="16"
+          viewBox="0 0 16 16"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <path
+            d="M7.39762 10.3C7.39762 11.0733 7.14888 11.7 6.6514 12.18C6.15392 12.6333 5.52552 12.86 4.76621 12.86C3.84979 12.86 3.09047 12.5533 2.48825 11.94C1.91222 11.3266 1.62421 10.4467 1.62421 9.29999C1.62421 8.07332 1.96459 6.87332 2.64535 5.69999C3.35231 4.49999 4.33418 3.55332 5.59098 2.85999L6.4943 4.25999C5.81354 4.73999 5.26369 5.27332 4.84476 5.85999C4.45201 6.44666 4.19017 7.12666 4.05926 7.89999C4.29491 7.79332 4.56983 7.73999 4.88403 7.73999C5.61716 7.73999 6.21938 7.97999 6.69067 8.45999C7.16197 8.93999 7.39762 9.55333 7.39762 10.3ZM14.6242 10.3C14.6242 11.0733 14.3755 11.7 13.878 12.18C13.3805 12.6333 12.7521 12.86 11.9928 12.86C11.0764 12.86 10.3171 12.5533 9.71484 11.94C9.13881 11.3266 8.85079 10.4467 8.85079 9.29999C8.85079 8.07332 9.19117 6.87332 9.87194 5.69999C10.5789 4.49999 11.5608 3.55332 12.8176 2.85999L13.7209 4.25999C13.0401 4.73999 12.4903 5.27332 12.0713 5.85999C11.6786 6.44666 11.4168 7.12666 11.2858 7.89999C11.5215 7.79332 11.7964 7.73999 12.1106 7.73999C12.8437 7.73999 13.446 7.97999 13.9173 8.45999C14.3886 8.93999 14.6242 9.55333 14.6242 10.3Z"
+            fill="currentColor"
+          ></path>
+        </svg>
+
+        <div className="relative z-10">
+          <p className="text-gray-800 sm:text-lg ">
+            <em>
+              {data.quote} {data.quote_by}
+            </em>
+          </p>
+        </div>
+      </blockquote>
+
+      {/* <div className=" ml-4">
+        <span className="mt-2 hidden  text-base  font-extralight  text-gray-500 md:block">
+          &quot;{data.quote}&quot; {data.quote_by}
+        </span>
+      </div> */}
     </div>
   )
 }

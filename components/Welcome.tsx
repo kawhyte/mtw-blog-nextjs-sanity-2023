@@ -81,7 +81,7 @@ const duo = [
     color: 'indigo',
     name: 'Mr. Whyte',
 
-    image: '/avatar_mr3.png',
+    image: '/avatar_mr.png',
     favorite: [
       { id: 3, name: 'Coding', img: <FaCode className="h-7 w-7 " /> },
       {
@@ -99,7 +99,7 @@ const duo = [
     id: 2,
     color: 'pink',
     name: 'Mrs. Whyte',
-    image: '/avatar_mrs3.png',
+    image: '/avatar_mrs.png',
     favorite: [
       { id: 7, name: 'Burgers', img: <PiHamburger className="h-7 w-7" /> },
       { id: 8, name: 'Reading', img: <SlNotebook className="h-7 w-6" /> },
@@ -147,8 +147,34 @@ function Welcome() {
             />
           </header>
 
-          <div className=" grid gap-6 lg:grid-cols-5 ">
+          <div className="grid gap-6 lg:grid-cols-10 ">
             <AvatarCard data={duo[0]} />
+
+            <div className="col-span-4 rounded-xl bg-orange-100 pl-6 pt-3">
+              <p
+                className={`${oswald.variable}  title-font my-4  font-heading text-xl font-medium  text-gray-900 sm:text-2xl`}
+              >
+                Things we like
+              </p>
+
+              <div className="mb-6 mr-2 mt-5 grid  grid-cols-3 gap-y-4 md:grid-cols-4 ">
+                {favorite?.map((item) => (
+                  <div
+                    key={item.id}
+                    className=" flex flex-col items-center gap-2   rounded-lg  px-1 align-middle "
+                  >
+                    <span>{item.img} </span>
+                    <span
+                      className={`text-nowrap whitespace-nowrap rounded-full   px-2  text-xs    font-extralight  text-gray-500 `}
+                    >
+                      {item.name}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <AvatarCard data={duo[1]} />
             {/* <div className="col-span-2  rounded-3xl bg-gray-200 outline  ">
               <div className="flex flex-col items-center pb-12 pl-8 pt-4  ">
                 <img
@@ -174,44 +200,34 @@ function Welcome() {
               </div>
             </div> */}
 
-            <div className="col-span-3 rounded-xl bg-blue-100 pl-6 pt-3 ">
+            <div className="col-span-10 rounded-xl bg-blue-100 pl-6 pt-3 ">
               <p
-                className={`${oswald.variable}  title-font my-2  font-heading text-3xl font-medium  text-gray-900 sm:text-4xl`}
+                className={`${oswald.variable}  title-font my-2  font-heading text-xl font-medium  text-gray-900 sm:text-2xl`}
               >
                 Countries we&apos;ve visited
               </p>
 
               <div
                 className={
-                  'min-w-sm my-6  mr-5 grid max-w-3xl grid-cols-2  gap-4 md:grid-cols-3 lg:grid-cols-4'
+                  'min-w-sm max-w-8xl  my-6 mr-5 grid grid-cols-2  gap-4 md:grid-cols-3 lg:grid-cols-7'
                 }
               >
-                {places.sort((a,b) => a.title.localeCompare(b.title)).map((item) => (
-                  <div
-                    key={item.title}
-                    className="flex flex-row items-center gap-2   rounded-lg  px-1 align-middle outline outline-2 outline-gray-500"
-                  >
-                    {/*<span>
-							 <div>
-								<svg className='size-0 absolute'>
-									<defs>
-										<linearGradient id='icon-gradient'>
-											<stop offset='0%' stopColor='rgb(134 239 172)  ' />
-											<stop offset='100%' stopColor='rgb(187 247 208)' />
-										</linearGradient>
-									</defs>
-									
-								</svg>
-							</div> 
-
-						</span>*/}
-                    <span className="text-3xl"> {item.icon}</span>
-                    <span className="text-xs font-semibold">{item.title}</span>
-                  </div>
-                ))}
+                {places
+                  .sort((a, b) => a.title.localeCompare(b.title))
+                  .map((item) => (
+                    <div
+                      key={item.title}
+                      className="flex flex-row items-center gap-2   rounded-lg  px-1 align-middle outline outline-2 outline-gray-500"
+                    >
+                      <span className="text-3xl"> {item.icon}</span>
+                      <span className="text-xs font-semibold">
+                        {item.title}
+                      </span>
+                    </div>
+                  ))}
               </div>
             </div>
-            <div className="col-span-3 rounded-xl bg-orange-100 pl-6 pt-3">
+            {/* <div className="col-span-6 rounded-xl bg-orange-100 pl-6 pt-3">
               <p
                 className={`${oswald.variable}  title-font my-4  font-heading text-3xl font-medium  text-gray-900 sm:text-4xl`}
               >
@@ -233,9 +249,9 @@ function Welcome() {
                   </div>
                 ))}
               </div>
-            </div>
+            </div> */}
 
-            <AvatarCard data={duo[1]} />
+            {/* <AvatarCard data={duo[1]} /> */}
 
             <div className="col-span-2 rounded-xl  ">
               {/* <div className="flex flex-col items-center  overflow-hidden pb-12 lg:relative  ">
