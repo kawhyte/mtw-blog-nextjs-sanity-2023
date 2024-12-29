@@ -1,19 +1,17 @@
 import { Progress } from '@mantine/core'
 import React from 'react'
 
-function AreanaRating({rating, text}) {
+function AreanaRating({ rating, text }) {
   return (
-    <div className=" grid grid-cols-2 w-full flex-row items-end align-bottom  ">
-                  <p className="mr-6  text-start">{text}  </p>
-                  <Progress
-                    color="green"
-                    radius="lg"
-                    size="lg"
-                    w={135}
-                    h={8}
-                    value={rating}
-                  />
-                </div>
+    <div className="  mb-3 w-full flex-row items-end pr-6 align-bottom  ">
+      <div className="mb-1 flex  justify-between">
+        <p className="mr-6  text-base md:text-lg">{text} </p>
+
+        <p className="  text-base md:text-lg">{4.5} </p>
+      </div>
+
+      <Progress color="green" radius="lg" size="lg" h={8} value={rating} />
+    </div>
   )
 }
 
