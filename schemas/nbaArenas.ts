@@ -105,7 +105,7 @@ export default defineType({
       // validation: (rule) => rule.required(),
     }),
     defineField({
-      title: 'Did  we visit this Arena?',
+      title: 'Did we visit this Arena?',
       name: 'visited',
       type: 'boolean',
     }),

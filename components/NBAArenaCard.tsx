@@ -186,13 +186,13 @@ const Arenas = ({
               <div className="flex flex-row items-baseline justify-center rounded-2xl bg-indigo-500 px-1">
                 <div className="flex items-center">
                   {/* <Star className="w-5 h-5 text-yellow-400 mr-1" /> */}
-                  <span className=" py-2 pr-1 text-4xl font-bold md:text-3xl">
+                  <span className=" py-2 px-1 pr-1 text-4xl font-bold md:text-3xl">
                     {4.5}
                   </span>
                 </div>
 
                 <div className="flex items-center">
-                  <span className=" text-base md:text-xs uppercase text-white">/5</span>
+                  <span className=" text-base md:text-xs uppercase text-white pr-2">/5</span>
                   {/* <span>
               <svg
                 className="mb-1 ml-1 h-3 w-3  fill-current text-white"

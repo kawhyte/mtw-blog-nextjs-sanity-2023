@@ -7,7 +7,7 @@ function AreanaRating({ rating, text }) {
       <div className="mb-1 flex  justify-between">
         <p className="mr-6  ">{text} </p>
 
-        <p className="   ">{4.5} </p>
+        <p className="   ">{4.3} </p>
       </div>
 
       <Progress color="green" radius="lg" size="lg" h={8} value={rating} />
