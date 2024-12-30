@@ -60,22 +60,24 @@ const Arenas = ({
             {/* <div className="absolute left-1/2 top-1/2 z-10 w-full -translate-x-1/2 -translate-y-1/2 transform  "> */}
             <div className="absolute  inset-x-0 bottom-7 z-10 ml-5  ">
               <h1
-                className={`${oswald.variable}  mb-2 font-heading text-3xl font-medium text-gray-50 md:text-6xl lg:text-3xl xl:text-4xl  `}
+                className={`${oswald.variable}  mb-2 font-heading text-5xl font-medium text-gray-50 md:text-6xl lg:text-3xl xl:text-4xl  `}
               >
                 {arenaName}
               </h1>
 
-              <div className="grid grid-cols-2 text-base text-gray-200 md:text-lg">
+              <div className="grid grid-cols-2 text-lg text-gray-200 md:text-lg xl:grid-cols-1">
                 {/* <div className=" flex   text-xs font-bold text-gray-700 dark:</div> md:text-xs w-full flex-row items-center bg-red-200  "> */}
-                <div className="my-4 flex items-center  ">
-                  <IoHammer className=" h-5 w-5 text-red-50 md:h-5 md:w-5" />
+                <div className="my-4 xl:my-0 flex items-center  ">
+                  {/* <IoHammer className=" h-5 w-5 text-red-50 md:h-5 md:w-5" /> */}
+                  <p>Constructed:</p>
                   <p className="pl-2">
                     <PostYear dateString={constructionDate} />
                   </p>
                 </div>
 
                 <div className="flex items-center gap-1">
-                  <FaPersonWalking className=" h-5 w-5 text-red-50 md:h-5 md:w-5" />
+                  {/* <FaPersonWalking className=" h-5 w-5 text-red-50 md:h-5 md:w-5" /> */}
+                  <p>Capacity:</p>
                   <p className="px-1">
                     {new Intl.NumberFormat().format(capacity)}
                   </p>
@@ -83,16 +85,18 @@ const Arenas = ({
                 {/* </div> */}
 
                 <div className="mr-9 flex items-baseline ">
-                  <IoLocation className=" h-5 w-5 text-red-50 md:h-5 md:w-5" />
-
+                  {/* <IoLocation className=" h-5 w-5 text-red-50 md:h-5 md:w-5" /> */}
+                  <p>Location:</p>
                   <h1 className="line-clamp-1 px-1  text-white ">{location}</h1>
                 </div>
 
                 {visited === true ? (
                   <>
-                    <div className="  my-1 flex flex-row items-center justify-start rounded-full   px-1 py-1 align-middle ">
-                      <FaRegCalendarAlt className=" mr-2 h-5 w-5 text-white md:h-5    md:w-5" />
-                      <p className=" line-clamp-1 pr-2  text-white">
+                    <div className="  flex flex-row items-center justify-start rounded-full align-middle ">
+                      {/* <FaRegCalendarAlt className=" mr-2 h-5 w-5 text-white md:h-5    md:w-5" /> */}
+
+                      <p>Visited: </p>
+                      <p className=" line-clamp-1 pl-2 pr-2  text-white">
                         <PostDate dateString={dateVisited} />
                       </p>
                     </div>
@@ -179,19 +183,17 @@ const Arenas = ({
                 Overall Score
               </h3>
 
-              <div className='flex flex-row items-baseline justify-center rounded-2xl bg-indigo-500 px-1'> 
-              <div className="flex items-center">
-                {/* <Star className="w-5 h-5 text-yellow-400 mr-1" /> */}
-                <span className=" py-2 pr-1 text-xl font-bold md:text-3xl">
-                {4.5}
-                </span>
-              </div>
+              <div className="flex flex-row items-baseline justify-center rounded-2xl bg-indigo-500 px-1">
+                <div className="flex items-center">
+                  {/* <Star className="w-5 h-5 text-yellow-400 mr-1" /> */}
+                  <span className=" py-2 pr-1 text-4xl font-bold md:text-3xl">
+                    {4.5}
+                  </span>
+                </div>
 
-
-
-              <div className="flex items-center">
-            <span className=" text-xs uppercase text-white">/5</span>
-            {/* <span>
+                <div className="flex items-center">
+                  <span className=" text-base md:text-xs uppercase text-white">/5</span>
+                  {/* <span>
               <svg
                 className="mb-1 ml-1 h-3 w-3  fill-current text-white"
                 xmlns="http://www.w3.org/2000/svg"
@@ -202,10 +204,8 @@ const Arenas = ({
                 <path d="M20.83,9.15l-6-.52L12.46,3.08h-.92L9.18,8.63l-6,.52L2.89,10l4.55,4L6.08,19.85l.75.55L12,17.3l5.17,3.1.75-.55L16.56,14l4.55-4Z"></path>
               </svg>
             </span> */}
-          </div>
-          </div>
-
-
+                </div>
+              </div>
             </div>
 
             <AreanaRating rating={60} text={'Transportation to Arena'} />
@@ -259,10 +259,10 @@ const Arenas = ({
 
         <div>
           <div className="mr-4 mt-2  border-t border-gray-500"></div>
-          <h3 className="mb-2 ml-5 mt-4 text-base  font-semibold text-gray-200 md:text-lg ">
+          <h3 className="mb-2 ml-5 mt-4 text-xl  font-semibold text-gray-200 md:text-lg ">
             Team(s) Viewed
           </h3>
-          <div className=" mx-3  flex flex-row flex-wrap justify-start gap-x-2 md:gap-x-6   align-top ">
+          <div className=" mx-3  flex flex-row flex-wrap justify-start gap-x-2 align-top   md:gap-x-6 ">
             {gallery?.map((photo) => (
               <div
                 key={photo.name}
@@ -279,7 +279,7 @@ const Arenas = ({
                             .url()
                         : 'https://source.unsplash.com/96x96/?face'
                     }
-                    className=" h-8 w-8 rounded-full border-2 p-1 md:h-10 md:w-10   "
+                    className=" h-11 w-11 rounded-full border-2 p-1 md:h-10 md:w-10   "
                     height={96}
                     width={96}
                     // @TODO add alternative text to avatar image schema
@@ -287,20 +287,20 @@ const Arenas = ({
                   />
 
                   <div className="flex flex-col ">
-                    <p className="mx-1  cursor-pointer text-sm font-bold text-gray-700 dark:text-gray-200   ">
+                    <p className="mx-1  cursor-pointer md:text-sm font-bold text-gray-700 dark:text-gray-200   ">
                       {photo.name}
                     </p>
 
                     {photo.played === true ? (
                       <div className="flex items-center">
-                        <IoMdEye className="mx-1 h-4 w-4 md:h-4 md:w-4  text-green-300" />
-                        <p className="my-1 cursor-pointer text-sm font-bold text-gray-400 dark:text-gray-400  ">
+                        <IoMdEye className="mx-1 h-6 w-6 text-green-300 md:h-4  md:w-4" />
+                        <p className="my-1 cursor-pointer md:text-sm font-bold text-gray-400 dark:text-gray-400  ">
                           {' '}
                           Watched
                         </p>
                       </div>
                     ) : (
-                      <IoMdEyeOff className="mx-1 my-1 h-4 w-4 md:h-4 md:w-4   text-gray-300" />
+                      <IoMdEyeOff className="mx-1 my-1 h-6 w-6 text-gray-300 md:h-4   md:w-4" />
                     )}
                   </div>
                 </div>
