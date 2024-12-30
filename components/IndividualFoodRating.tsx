@@ -21,7 +21,7 @@ const individualFoodRating = ({ food }) => {
       <div className="mx-7 pt-9 ">
       
 
-        <SectionTitle header={ "Food/Drink we tried"} description={undefined}/>
+        <SectionTitle header={ "Food/Drink We Tried"} description={undefined}/>
 
       
         {/* <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}>
