@@ -192,7 +192,7 @@ const Arenas = ({
                 <p className="text-6xl"> 8.5 </p>
               </div> */}
 
-          <div className=" mb-2 ml-6 mt-6  grid  grid-cols-1 items-center gap-y-1 align-middle  text-xs font-bold text-gray-700 dark:text-gray-200 md:text-xs ">
+          <div className=" mb-2 ml-6 mt-6  grid  grid-cols-2 items-center gap-y-1 align-middle  text-xs font-bold text-gray-700 dark:text-gray-200 md:text-xs ">
             {/* <div className="mb-4  mr-6 flex items-end  justify-between">
               <h3 className="text-xl font-semibold md:text-2xl">
                 Overall Score
