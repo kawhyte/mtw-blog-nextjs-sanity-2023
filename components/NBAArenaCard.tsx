@@ -1,6 +1,7 @@
 import { Badge, Progress } from '@mantine/core'
 import { inter, oswald } from 'app/fonts'
 import MoreStories from 'components/MoreStories'
+import calculateAverageRating from 'lib/calculateArenaRating'
 import * as demo from 'lib/demo.data'
 import { urlForImage } from 'lib/sanity.image'
 import type { Post, Settings } from 'lib/sanity.queries'
@@ -16,7 +17,6 @@ import BlogHeader from './BlogHeader'
 import Layout from './BlogLayout'
 import Footer from './Footer'
 import PostDate, { PostYear } from './PostDate'
-import calculateAverageRating from 'lib/calculateArenaRating'
 
 interface NBAArenaCardProps {
   arenaImageSrc: any
@@ -30,7 +30,7 @@ interface NBAArenaCardProps {
   // galleryCount:string
   gallery: any
   key: string
-  arenaReview?:any
+  arenaReview?: any
   // ratings: ArenaRating
 }
 
@@ -44,10 +44,10 @@ const Arenas = ({
   dateVisited,
   arenaImageSrc,
   gallery,
-  arenaReview
+  arenaReview,
 }: NBAArenaCardProps) => {
   //console.log('Arena gallery ', gallery)
-  const { average, textRating } = calculateAverageRating(arenaReview);
+  const { average, textRating } = calculateAverageRating(arenaReview)
   return (
     <>
       {/* <div className="container mx-auto   mt-14 grid grid-cols-1  place-content-center place-items-center gap-x-6 gap-y-10  px-3 sm:grid-cols-1 md:grid-cols-1 md:gap-10 md:gap-x-5 md:px-6  lg:grid-cols-2 2xl:grid-cols-4"> */}
@@ -60,38 +60,19 @@ const Arenas = ({
       >
         <div className=" ">
           <div className="relative  md:h-full ">
-            {/* <div className="absolute left-1/2 top-1/2 z-10 w-full -translate-x-1/2 -translate-y-1/2 transform  "> */}
-            
-            
-            
-            
-            
-            <div className=" absolute z-10 mb-4  mr-6 flex items-end  justify-between top-6 right-0 ">
-              {/* <h3 className="text-xl font-semibold md:text-2xl">
-                Overall Score
-              </h3> */}
-
-              <div className="flex flex-row items-baseline justify-center rounded-2xl bg-indigo-500 px-1">
-                <div className="flex items-center flex-col">
-                  {/* <Star className="w-5 h-5 text-yellow-400 mr-1" /> */}
-                  <span className=" pt-2 px-2 mx-2 pr-1 text-4xl font-bold md:text-3xl text-white">
-                    {average }
+            <div className=" absolute right-0 top-4  z-10 mb-4 mr-6  flex items-end justify-between ">
+         
+             {average !== "0" ?  <div className="flex flex-row justify-center items-center rounded-2xl bg-indigo-500">
+               
+                  <span className=" mx-4   text-4xl font-bold text-white md:text-3xl">
+                    {average}
                   </span>
-                  <span className='text-sm mb-2 mt-1 border px-2 rounded-full bg-gray-100 text-black' >{textRating}</span>
-                </div>
-
-           
-              </div>
+                  <span className=" rounded-full border bg-gray-100 px-2 py-0.5 my-2 mx-2 text-sm text-black">
+                    {textRating}
+                  </span>
+                </div> : ""}
+              
             </div>
-            
-            
-            
-            
-            
-            
-            
-            
-            
             <div className="absolute  inset-x-0 top-1/3 z-10 ml-5  ">
               <h1
                 className={`${oswald.variable}  mb-2 font-heading text-5xl font-medium text-gray-50 md:text-6xl lg:text-3xl xl:text-4xl  `}
@@ -101,7 +82,7 @@ const Arenas = ({
 
               <div className="grid grid-cols-2 text-lg text-gray-200 md:text-lg xl:grid-cols-1">
                 {/* <div className=" flex   text-xs font-bold text-gray-700 dark:</div> md:text-xs w-full flex-row items-center bg-red-200  "> */}
-                <div className="my-4 xl:my-0 flex items-center  ">
+                <div className="my-4 flex items-center xl:my-0  ">
                   {/* <IoHammer className=" h-5 w-5 text-red-50 md:h-5 md:w-5" /> */}
                   <p>Constructed:</p>
                   <p className="pl-2">
@@ -229,16 +210,24 @@ const Arenas = ({
               </div>
             </div> */}
 
-
-
-
-        
-            <AreanaRating rating={arenaReview?.transportation} text={'Transportation to Arena'} />
-            <AreanaRating rating={arenaReview?.walkability} text={'Arena Walkability'} />
+            <AreanaRating
+              rating={arenaReview?.transportation}
+              text={'Transportation to Arena'}
+            />
+            <AreanaRating
+              rating={arenaReview?.walkability}
+              text={'Arena Walkability'}
+            />
             <AreanaRating rating={arenaReview?.food} text={'Food options'} />
-            <AreanaRating rating={arenaReview?.view} text={'View from our seat'} />
+            <AreanaRating
+              rating={arenaReview?.view}
+              text={'View from our seat'}
+            />
             <AreanaRating rating={arenaReview?.vibes} text={'Arena Vibes'} />
-            <AreanaRating rating={arenaReview?.seatComfort} text={'Seat Comfort'} />
+            <AreanaRating
+              rating={arenaReview?.seatComfort}
+              text={'Seat Comfort'}
+            />
 
             {/* <div className=" flex w-full flex-row items-end justify-between align-bottom  ">
                   <p className="mr-1 px-1 text-center">Transportation to Arena  </p>
@@ -281,17 +270,14 @@ const Arenas = ({
                 </div>*/}
           </div>
         </div>
-<div className='ml-6 mt-2'>
+        <div className="ml-6 mt-2">
+          <blockquote className="relative my-2 w-[500px] px-8 py-3 font-serif text-lg italic leading-relaxed text-gray-700">
+            <span className="absolute left-[-20px] top-[-20px] text-6xl text-gray-500 before:block before:pl-4 before:content-['\201C']"></span>
+            <p className="text-gray-400">{arenaReview?.comments}</p>
+          </blockquote>
+        </div>
 
-        <blockquote className="font-serif text-lg italic w-[500px] my-2 px-8 py-3 relative text-gray-700 leading-relaxed">
-  <span className="text-6xl text-gray-500 absolute top-[-20px] left-[-20px] before:content-['\201C'] before:block before:pl-4"></span> 
-  <p className='text-gray-400'>{arenaReview?.comments}Nicearer3
-</p>
-</blockquote>
- </div>
-
-
-{/* <p className='border-t border-gray-500 text-white'>{arenaReview?.comments}</p> */}
+        {/* <p className='border-t border-gray-500 text-white'>{arenaReview?.comments}</p> */}
 
         <div>
           <div className="mr-4 mt-2  border-t border-gray-500"></div>
@@ -323,14 +309,14 @@ const Arenas = ({
                   />
 
                   <div className="flex flex-col ">
-                    <p className="mx-1  cursor-pointer md:text-sm font-bold text-gray-700 dark:text-gray-200   ">
+                    <p className="mx-1  cursor-pointer font-bold text-gray-700 dark:text-gray-200 md:text-sm   ">
                       {photo.name}
                     </p>
 
                     {photo.played === true ? (
                       <div className="flex items-center">
                         <IoMdEye className="mx-1 h-6 w-6 text-green-300 md:h-4  md:w-4" />
-                        <p className="my-1 cursor-pointer md:text-sm font-bold text-gray-400 dark:text-gray-400  ">
+                        <p className="my-1 cursor-pointer font-bold text-gray-400 dark:text-gray-400 md:text-sm  ">
                           {' '}
                           Watched
                         </p>
