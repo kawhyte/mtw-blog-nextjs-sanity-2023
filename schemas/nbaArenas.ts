@@ -117,5 +117,23 @@ export default defineType({
       description: 'This is the date we visited the Arena',
       initialValue: () => new Date().toISOString(),
     }),
+
+
+
+
+
+    defineField({
+      name: 'arenaReview',
+      title: 'Arena Review Breakdown',
+      type: 'arenaReview',
+      validation: (Rule) => Rule.custom((value, context) => {
+        if (context.document.visited && !value) {  // Access visited field from the document
+          return 'Arena review is required if you have visited the arena.';
+        }
+        return true;
+      }),
+    }),
+
+    
   ],
 })

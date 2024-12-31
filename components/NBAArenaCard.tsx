@@ -16,6 +16,7 @@ import BlogHeader from './BlogHeader'
 import Layout from './BlogLayout'
 import Footer from './Footer'
 import PostDate, { PostYear } from './PostDate'
+import calculateAverageRating from 'lib/calculateArenaRating'
 
 interface NBAArenaCardProps {
   arenaImageSrc: any
@@ -29,6 +30,7 @@ interface NBAArenaCardProps {
   // galleryCount:string
   gallery: any
   key: string
+  arenaReview?:any
   // ratings: ArenaRating
 }
 
@@ -42,9 +44,10 @@ const Arenas = ({
   dateVisited,
   arenaImageSrc,
   gallery,
+  arenaReview
 }: NBAArenaCardProps) => {
-  console.log('Arena gallery ', gallery)
-
+  //console.log('Arena gallery ', gallery)
+  const { average, textRating } = calculateAverageRating(arenaReview);
   return (
     <>
       {/* <div className="container mx-auto   mt-14 grid grid-cols-1  place-content-center place-items-center gap-x-6 gap-y-10  px-3 sm:grid-cols-1 md:grid-cols-1 md:gap-10 md:gap-x-5 md:px-6  lg:grid-cols-2 2xl:grid-cols-4"> */}
@@ -187,12 +190,12 @@ const Arenas = ({
                 <div className="flex items-center">
                   {/* <Star className="w-5 h-5 text-yellow-400 mr-1" /> */}
                   <span className=" py-2 px-1 pr-1 text-4xl font-bold md:text-3xl">
-                    {4.5}
+                    {average }-{textRating}
                   </span>
                 </div>
 
                 <div className="flex items-center">
-                  <span className=" text-base md:text-xs uppercase text-white pr-2">/5</span>
+                  <span className=" text-base md:text-xs uppercase text-white pr-2">/10</span>
                   {/* <span>
               <svg
                 className="mb-1 ml-1 h-3 w-3  fill-current text-white"
@@ -208,12 +211,16 @@ const Arenas = ({
               </div>
             </div>
 
-            <AreanaRating rating={60} text={'Transportation to Arena'} />
-            <AreanaRating rating={20} text={'Arena Walkability'} />
-            <AreanaRating rating={82.57} text={'Food options'} />
-            <AreanaRating rating={52.57} text={'View from our seat'} />
-            <AreanaRating rating={42.57} text={'Arena Vibes'} />
-            <AreanaRating rating={22.57} text={'Seat Comfort'} />
+
+
+
+        
+            <AreanaRating rating={arenaReview?.transportation} text={'Transportation to Arena'} />
+            <AreanaRating rating={arenaReview?.walkability} text={'Arena Walkability'} />
+            <AreanaRating rating={arenaReview?.food} text={'Food options'} />
+            <AreanaRating rating={arenaReview?.view} text={'View from our seat'} />
+            <AreanaRating rating={arenaReview?.vibes} text={'Arena Vibes'} />
+            <AreanaRating rating={arenaReview?.seatComfort} text={'Seat Comfort'} />
 
             {/* <div className=" flex w-full flex-row items-end justify-between align-bottom  ">
                   <p className="mr-1 px-1 text-center">Transportation to Arena  </p>

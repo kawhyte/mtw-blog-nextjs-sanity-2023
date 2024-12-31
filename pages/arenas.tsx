@@ -58,7 +58,7 @@ export default function Page(props: PageProps) {
     )
   }
 
-  // console.log("ArenaPosts", arenaPosts)
+ console.log("ArenaPosts for Ratings", arenaPosts)
 
   return (
     <>
@@ -88,6 +88,7 @@ export default function Page(props: PageProps) {
     capacity={item.capacity}
     // visitedCount={item.visitedCount}
     // galleryCount={item.}
+    arenaReview ={item?.arenaReview}
     arenaName={item.name}
     gallery={item.gallery}
     visited={item.visited}

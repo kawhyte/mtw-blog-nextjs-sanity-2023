@@ -57,7 +57,7 @@ const travelEssentialFields = groq`
 _id, name,link, background, date, description,recommend,price, productImage,categoryName 
 `
 const arenaFields = groq`
-_id, name,arenaImage, gallery, location, buildDate,capacity, visited,date,"visitedCount": count(*[_type == 'arenas' && visited == true]), "galleryCount": count(gallery) 
+_id, name,arenaImage, gallery, location, buildDate,capacity,arenaReview, visited,date,"visitedCount": count(*[_type == 'arenas' && visited == true]), "galleryCount": count(gallery) 
 `
 
 export const recommendationQuery = groq`
@@ -148,6 +148,7 @@ export interface Arena {
   teamType?:string
   capacity?:number
   buildDate?:string
+  arenaReview?:any
   
 }
 
