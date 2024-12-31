@@ -58,7 +58,7 @@ export default function Page(props: PageProps) {
     )
   }
 
- console.log("ArenaPosts for Ratings", arenaPosts)
+  console.log('ArenaPosts for Ratings', arenaPosts)
 
   return (
     <>
@@ -76,32 +76,26 @@ export default function Page(props: PageProps) {
           animation={'/basketball.svg'}
         />
 
-<div className="container mx-auto   mt-14 grid grid-cols-1  place-content-center place-items-center gap-x-6 gap-y-10  px-3 sm:grid-cols-1 md:grid-cols-2 md:gap-10 md:gap-x-5 md:px-6  lg:grid-cols-2 xl:grid-cols-3">
-
-{ arenaPosts.map( item => 
-        <NBAArenaCard 
-        
-    // arenaImageSrc= {arenaPosts.arenaImage}
-    arenaImageSrc={item.arenaImage}        
-    location={item.location}
-    constructionDate={item.buildDate}
-    capacity={item.capacity}
-    // visitedCount={item.visitedCount}
-    // galleryCount={item.}
-    arenaReview ={item?.arenaReview}
-    arenaName={item.name}
-    gallery={item.gallery}
-    visited={item.visited}
-    dateVisited={item.date}
-    key={item._id}
-   
-        
-        
-        />
-)}
-        {/* <NBAArenaCard arenas={arenaPosts} /> */}
-
-</div>
+        <div className="container mx-auto   mt-14 grid grid-cols-1  place-content-center place-items-center gap-x-6 gap-y-10  px-3 sm:grid-cols-1 md:grid-cols-1 md:gap-10 md:gap-x-5 md:px-6  lg:grid-cols-2 xl:grid-cols-3">
+          {arenaPosts.map((item) => (
+            <NBAArenaCard
+              // arenaImageSrc= {arenaPosts.arenaImage}
+              arenaImageSrc={item.arenaImage}
+              location={item.location}
+              constructionDate={item.buildDate}
+              capacity={item.capacity}
+              // visitedCount={item.visitedCount}
+              // galleryCount={item.}
+              arenaReview={item?.arenaReview}
+              arenaName={item.name}
+              gallery={item.gallery}
+              visited={item.visited}
+              dateVisited={item.date}
+              key={item._id}
+            />
+          ))}
+          {/* <NBAArenaCard arenas={arenaPosts} /> */}
+        </div>
         <Footer />
       </Layout>
     </>

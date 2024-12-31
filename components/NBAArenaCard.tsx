@@ -61,7 +61,38 @@ const Arenas = ({
         <div className=" ">
           <div className="relative  md:h-full ">
             {/* <div className="absolute left-1/2 top-1/2 z-10 w-full -translate-x-1/2 -translate-y-1/2 transform  "> */}
-            <div className="absolute  inset-x-0 bottom-7 z-10 ml-5  ">
+            
+            
+            
+            
+            
+            <div className=" absolute z-10 mb-4  mr-6 flex items-end  justify-between top-6 right-0 ">
+              {/* <h3 className="text-xl font-semibold md:text-2xl">
+                Overall Score
+              </h3> */}
+
+              <div className="flex flex-row items-baseline justify-center rounded-2xl bg-indigo-500 px-1">
+                <div className="flex items-center flex-col">
+                  {/* <Star className="w-5 h-5 text-yellow-400 mr-1" /> */}
+                  <span className=" pt-2 px-2 mx-2 pr-1 text-4xl font-bold md:text-3xl text-white">
+                    {average }
+                  </span>
+                  <span className='text-sm mb-2 mt-1 border px-2 rounded-full bg-gray-100 text-black' >{textRating}</span>
+                </div>
+
+           
+              </div>
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <div className="absolute  inset-x-0 top-1/3 z-10 ml-5  ">
               <h1
                 className={`${oswald.variable}  mb-2 font-heading text-5xl font-medium text-gray-50 md:text-6xl lg:text-3xl xl:text-4xl  `}
               >
@@ -166,8 +197,8 @@ const Arenas = ({
                         .url()
                     : 'https://fakeimg.pl/1240x801'
                 }
-                className=" h-42 w-full  object-cover   brightness-[0.51] md:block md:h-full   "
-                height={300}
+                className="  w-full  object-cover   brightness-[0.35] md:block md:h-full   "
+                height={200}
                 width={224}
                 alt={`${arenaName} arena`}
               />
@@ -181,35 +212,22 @@ const Arenas = ({
               </div> */}
 
           <div className=" mb-2 ml-6 mt-6  grid  grid-cols-1 items-center gap-y-1 align-middle  text-xs font-bold text-gray-700 dark:text-gray-200 md:text-xs ">
-            <div className="mb-4  mr-6 flex items-baseline justify-between">
+            {/* <div className="mb-4  mr-6 flex items-end  justify-between">
               <h3 className="text-xl font-semibold md:text-2xl">
                 Overall Score
               </h3>
 
               <div className="flex flex-row items-baseline justify-center rounded-2xl bg-indigo-500 px-1">
-                <div className="flex items-center">
-                  {/* <Star className="w-5 h-5 text-yellow-400 mr-1" /> */}
-                  <span className=" py-2 px-1 pr-1 text-4xl font-bold md:text-3xl">
-                    {average }-{textRating}
+                <div className="flex items-center flex-col">
+                  <span className=" pt-2 px-2 mx-2 pr-1 text-4xl font-bold md:text-3xl">
+                    {average }
                   </span>
+                  <span className='text-sm mb-2 mt-1 border px-2 rounded-full bg-gray-100 text-black' >{textRating}</span>
                 </div>
 
-                <div className="flex items-center">
-                  <span className=" text-base md:text-xs uppercase text-white pr-2">/10</span>
-                  {/* <span>
-              <svg
-                className="mb-1 ml-1 h-3 w-3  fill-current text-white"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="3 3 18 18"
-                aria-hidden="true"
-                focusable="false"
-              >
-                <path d="M20.83,9.15l-6-.52L12.46,3.08h-.92L9.18,8.63l-6,.52L2.89,10l4.55,4L6.08,19.85l.75.55L12,17.3l5.17,3.1.75-.55L16.56,14l4.55-4Z"></path>
-              </svg>
-            </span> */}
-                </div>
+           
               </div>
-            </div>
+            </div> */}
 
 
 
@@ -263,6 +281,17 @@ const Arenas = ({
                 </div>*/}
           </div>
         </div>
+<div className='ml-6 mt-2'>
+
+        <blockquote className="font-serif text-lg italic w-[500px] my-2 px-8 py-3 relative text-gray-700 leading-relaxed">
+  <span className="text-6xl text-gray-500 absolute top-[-20px] left-[-20px] before:content-['\201C'] before:block before:pl-4"></span> 
+  <p className='text-gray-400'>{arenaReview?.comments}Nicearer3
+</p>
+</blockquote>
+ </div>
+
+
+{/* <p className='border-t border-gray-500 text-white'>{arenaReview?.comments}</p> */}
 
         <div>
           <div className="mr-4 mt-2  border-t border-gray-500"></div>
