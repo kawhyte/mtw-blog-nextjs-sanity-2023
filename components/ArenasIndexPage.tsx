@@ -19,7 +19,7 @@ const ArenasIndexPage = ({ arenas }) => {
           <div className="z-20 w-full  text-start  lg:w-3/5 ">
             <SectionTitle
               header={'Our Quest to Visit Every NBA & WNBA Arenas'}
-              description={`We are traveling near and far to every state/country to visit all
+              description={`We are traveling near and far to every state/country to visit and rank all
               the NBA and WNBA arenas across the US and Canada. Follow us on
               this journey.`}
             />

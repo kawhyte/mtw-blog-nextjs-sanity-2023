@@ -17,16 +17,14 @@ interface NBAArenaCardProps {
   capacity: number
   location: string
   dateVisited: string
-  visited: any
+  visited: boolean
   // visitedCount:string
   // galleryCount:string
   gallery: any
   key: string
-  arenaReview?: any
+  arenaReview?: any | null
   // ratings: ArenaRating
 }
-
-
 
 const Arenas = ({
   location,
@@ -57,9 +55,19 @@ const Arenas = ({
                   {average}
                 </span>
 
-
-
-                <Badge  size="lg" variant="gradient" gradient={average > '8' ? { from: 'teal', to: 'lime', deg: 105 }: average > '5' ? { from: '#FFD400', to: '#FED44B', deg: 60 } : { from: '#ed6ea0', to: '#ec8c69', deg: 35 } }>{textRating}</Badge>
+                <Badge
+                  size="lg"
+                  variant="gradient"
+                  gradient={
+                    average > '8'
+                      ? { from: 'teal', to: 'lime', deg: 105 }
+                      : average > '6'
+                      ? { from: '#FFD400', to: '#FED44B', deg: 60 }
+                      : average > '4' ? { from: '#ed6ea0', to: '#ec8c69', deg: 35 }:{ from: 'orange', to: 'red' }
+                  }
+                >
+                  {textRating}
+                </Badge>
                 {/* <Badge
                   className=" z-30  flex flex-col"
                   size="md"
@@ -104,7 +112,7 @@ const Arenas = ({
                   </p>
                 </div>
 
-                {visited  ? (
+                {visited ? (
                   <>
                     <div className="  flex flex-row items-end justify-start rounded-full align-middle ">
                       <FaRegCalendarAlt className="  h-5 w-5 text-pink-500    " />
@@ -135,7 +143,7 @@ const Arenas = ({
                 height={502}
                 width={203}
                 alt={`${arenaName} arena`}
-                loading='lazy'
+                loading="lazy"
               />
             </div>{' '}
             {/**/}
@@ -193,7 +201,7 @@ const Arenas = ({
                     className=" h-10 w-10 rounded-full border-2 p-1 md:h-7 md:w-7   "
                     height={96}
                     width={96}
-                    loading='lazy'
+                    loading="lazy"
                     alt={`${photo.name} logo`}
                   />
 

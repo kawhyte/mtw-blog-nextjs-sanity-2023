@@ -143,7 +143,7 @@ export interface Arena {
   location?:string
   description?: any
   arenaImage?:any
-  visited?:string
+  visited?:boolean
   date?:string
   teamType?:string
   capacity?:number

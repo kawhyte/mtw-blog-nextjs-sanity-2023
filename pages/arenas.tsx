@@ -40,7 +40,6 @@ interface PreviewData {
 export default function Page(props: PageProps) {
   const { arenaPosts, settings, preview, token } = props
 
-  //console.log("KENNY3 ", props )
   if (preview) {
     return (
       <PreviewSuspense
@@ -58,8 +57,8 @@ export default function Page(props: PageProps) {
     )
   }
 
-  console.log('ArenaPosts for Ratings', arenaPosts)
-
+ 
+ console.log("Gemini", arenaPosts)
   return (
     <>
       <Layout preview={false} loading={false}>
@@ -70,9 +69,9 @@ export default function Page(props: PageProps) {
 
         <BlogHeader title={'title'} description={[]} level={1} />
         <ReviewHeader
-          title={'Visiting Every NBA & WNBA Arena'}
+          title={'Visiting and Ranking Every NBA/WNBA Arena'}
           arenas={arenaPosts}
-          summary={`We are traveling near and far to every state/country to visit all the NBA and WNBA arenas (${arenaPosts.length}) across the US and Canada. Follow us on this journey.`}
+          summary={`We are traveling near and far to every state/country to visit and rank all the NBA and WNBA arenas (${arenaPosts.length}) across the US and Canada. Follow us on this journey.`}
           animation={'/basketball.svg'}
         />
 
