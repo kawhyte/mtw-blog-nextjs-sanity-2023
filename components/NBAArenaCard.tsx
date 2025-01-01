@@ -1,17 +1,13 @@
 import { Badge } from '@mantine/core'
 import { oswald } from 'app/fonts'
-
 import calculateAverageRating from 'lib/calculateArenaRating'
-
 import { urlForImage } from 'lib/sanity.image'
-
 import { FaRegCalendarAlt } from 'react-icons/fa'
 import { FaUserGroup } from 'react-icons/fa6'
 import { IoMdEye, IoMdEyeOff } from 'react-icons/io'
 import { IoHammer, IoLocation } from 'react-icons/io5'
 
 import AreanaRating from './AreanaRating'
-
 import PostDate, { PostYear } from './PostDate'
 
 interface NBAArenaCardProps {
@@ -151,7 +147,7 @@ const Arenas = ({
               text={'Walkability'}
             />
             <AreanaRating rating={arenaReview?.food} text={'Food options'} />
-            <AreanaRating rating={arenaReview?.view} text={'View from Seat'} />
+            <AreanaRating rating={arenaReview?.view} text={'Seat View'} />
             <AreanaRating rating={arenaReview?.vibes} text={'Arena Vibes'} />
             <AreanaRating
               rating={arenaReview?.seatComfort}
