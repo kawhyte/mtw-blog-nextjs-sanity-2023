@@ -4,8 +4,8 @@ import React from 'react'
 function AreanaRating({ rating, text }) {
   const formattedValue = rating?.toFixed(2)
   return (
-    <div className="  mb-3 w-full flex items-end pr-6 align-bottom text-sm md:text-xs   ">
-      <div className="mb-1 flex  items-center justify-between md:flex-col md:items-start xl:flex-row  ">
+    <div className="  mb-3 w-full  flex items-end justify-between pr-6 align-bottom text-sm md:text-xs   ">
+      <div className="mb-1 flex w-full  items-center justify-between md:flex-col md:items-start xl:flex-row  ">
         <p className="mb-1 mr-6  ">{text} </p>
         {formattedValue !== undefined ? (
           <Badge

@@ -57,16 +57,20 @@ const Arenas = ({
                   {average}
                 </span>
 
-                <Badge
+
+
+                <Badge  size="lg" variant="gradient" gradient={average > '8' ? { from: 'teal', to: 'lime', deg: 105 }: average > '5' ? { from: '#FFD400', to: '#FED44B', deg: 60 } : { from: '#ed6ea0', to: '#ec8c69', deg: 35 } }>{textRating}</Badge>
+                {/* <Badge
                   className=" z-30  flex flex-col"
                   size="md"
+                  
                   color={
                     average > '8' ? 'green' : average > '5' ? 'yellow' : 'red'
                   }
                 >
                   {' '}
                   {textRating}
-                </Badge>
+                </Badge> */}
               </div>
             ) : null}
             <div className="absolute  inset-x-0 top-20  z-10 ml-5 md:top-16 lg:top-20  ">
