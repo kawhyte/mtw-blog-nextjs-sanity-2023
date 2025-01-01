@@ -7,7 +7,7 @@ import { urlForImage } from 'lib/sanity.image'
 import type { Post, Settings } from 'lib/sanity.queries'
 import { useState } from 'react'
 import { FaRegCalendarAlt } from 'react-icons/fa'
-import { FaPersonWalking } from 'react-icons/fa6'
+import { FaPersonWalking, FaUserGroup } from 'react-icons/fa6'
 import { IoMdEye, IoMdEyeOff } from 'react-icons/io'
 import { IoHammer, IoLocation, IoLocationOutline } from 'react-icons/io5'
 
@@ -54,15 +54,31 @@ const Arenas = ({
 
       <div
         key={key}
-        className={`max-w- w-full overflow-hidden rounded-3xl border-4 border-black bg-white shadow-offsetIndigo dark:bg-gray-800  ${
+        className={` max-w-md  w-full overflow-hidden rounded-3xl border-4 border-black bg-white shadow-offsetIndigo dark:bg-gray-800  ${
           visited === false ? 'opacity-40 grayscale ' : 'grayscale-0 '
         } `}
       >
         <div className=" ">
           <div className="relative  md:h-full ">
-            <div className=" absolute right-0 top-4  z-10 mb-4 mr-6  flex items-end justify-between ">
-         
-             {average !== "0" ?  <div className="flex flex-row justify-center items-center rounded-2xl bg-indigo-500">
+
+            
+            {average !=="0" ? <div className=" absolute right-0 top-0  z-10 mb-4 mr-3  flex flex-col items-center justify-between ">
+              <span className="  mt-1   text-xl font-bold text-white ">
+                {average}
+              </span>
+              {/* <Badge   className=" z-30  flex flex-col" size='xl'>    </Badge> */}
+              <Badge
+                className=" z-30  flex flex-col"
+                size="md"
+                color={
+                  average > '8' ? 'green' : average > '5' ? 'yellow' : 'red'
+                }
+              >
+                {' '}
+                {textRating}
+              </Badge>
+
+              {/* {average !== "0" ?  <div className="flex flex-row justify-center items-center rounded-2xl bg-indigo-500">
                
                   <span className=" mx-4   text-4xl font-bold text-white md:text-3xl">
                     {average}
@@ -71,46 +87,55 @@ const Arenas = ({
                     {textRating}
                   </span>
                 </div> : ""}
-              
-            </div>
-            <div className="absolute  inset-x-0 top-1/3 z-10 ml-5  ">
+               */}
+            </div>:""}
+            <div className="absolute  inset-x-0 top-20  md:top-16 lg:top-20 z-10 ml-5  ">
               <h1
-                className={`${oswald.variable}  mb-2 font-heading text-5xl font-medium text-gray-50 md:text-6xl lg:text-3xl xl:text-4xl  `}
+                className={`${oswald.variable}  line-clamp-2 font-heading  font-medium text-xl text-gray-100 no-underline decoration-pink-500 decoration-dashed decoration-4 group-hover:underline xl:mb-3  `}
               >
                 {arenaName}
               </h1>
 
-              <div className="grid grid-cols-2 text-lg text-gray-200 md:text-lg xl:grid-cols-1">
+              <div className="grid grid-cols-2  text-sm md:text-xs text-gray-200 lg:text-xs  lg:gap-y-2">
                 {/* <div className=" flex   text-xs font-bold text-gray-700 dark:</div> md:text-xs w-full flex-row items-center bg-red-200  "> */}
                 <div className="my-4 flex items-center xl:my-0  ">
-                  {/* <IoHammer className=" h-5 w-5 text-red-50 md:h-5 md:w-5" /> */}
-                  <p>Constructed:</p>
-                  <p className="pl-2">
+                  <IoHammer className="mr-2 h-5 w-5 text-pink-500  " />
+                  <p className=' md:hidden xl:block '>Constructed in</p>
+                  <p className="pl-1">
                     <PostYear dateString={constructionDate} />
                   </p>
                 </div>
 
                 <div className="flex items-center gap-1">
-                  {/* <FaPersonWalking className=" h-5 w-5 text-red-50 md:h-5 md:w-5" /> */}
-                  <p>Capacity:</p>
-                  <p className="px-1">
+                  <FaUserGroup className="mr-1 h-5 w-5 text-pink-500 " />
+                  <p className=' md:hidden xl:block '>Capacity:</p>
+                  <p className="">
                     {new Intl.NumberFormat().format(capacity)}
                   </p>
                 </div>
                 {/* </div> */}
 
-                <div className="mr-9 flex items-baseline ">
-                  {/* <IoLocation className=" h-5 w-5 text-red-50 md:h-5 md:w-5" /> */}
-                  <p>Location:</p>
-                  <h1 className="line-clamp-1 px-1  text-white ">{location}</h1>
+                <div className="flex items-end gap-x-2  text-gray-500">
+                  <IoLocation className=" h-5 w-5 text-pink-500 " />
+                  <p className="line-clamp-1 text-white ">
+                    {' '}
+                    {location ? location : ''}
+                  </p>
                 </div>
+
+                {/* <div className="mr-9 flex items-baseline ">
+                  <IoLocation className=" h-5 w-5 text-red-50 md:h-5 md:w-5" />
+                  
+                  <h1 className="line-clamp-1 px-1  text-white ">{location}</h1>
+                </div> */}
 
                 {visited === true ? (
                   <>
-                    <div className="  flex flex-row items-center justify-start rounded-full align-middle ">
+                    <div className="  flex flex-row items-end justify-start rounded-full align-middle ">
                       {/* <FaRegCalendarAlt className=" mr-2 h-5 w-5 text-white md:h-5    md:w-5" /> */}
+                      <FaRegCalendarAlt className="  h-5 w-5 text-pink-500    " />
 
-                      <p>Visited: </p>
+                      <p className=' md:hidden xl:block ml-2'>Visited on </p>
                       <p className=" line-clamp-1 pl-2 pr-2  text-white">
                         <PostDate dateString={dateVisited} />
                       </p>
@@ -172,15 +197,15 @@ const Arenas = ({
                 src={
                   arenaImageSrc.asset?._ref
                     ? urlForImage(arenaImageSrc.asset?._ref)
-                        .height(801)
-                        .width(1240)
+                        .height(203)
+                        .width(402)
                         .fit('crop')
                         .url()
                     : 'https://fakeimg.pl/1240x801'
                 }
-                className="  w-full  object-cover   brightness-[0.35] md:block md:h-full   "
-                height={200}
-                width={224}
+                className="  w-full  object-cover   brightness-[0.35]  "
+                height={502}
+                width={203}
                 alt={`${arenaName} arena`}
               />
             </div>{' '}
@@ -192,7 +217,7 @@ const Arenas = ({
                 <p className="text-6xl"> 8.5 </p>
               </div> */}
 
-          <div className=" mb-2 ml-6 mt-6  grid  grid-cols-2 items-center gap-y-1 align-middle  text-xs font-bold text-gray-700 dark:text-gray-200 md:text-xs ">
+          <div className=" mb-2 ml-6 mt-6 lg:mt-20 xl:mt-3  grid  grid-cols-2 items-center gap-y-1 align-middle  text-xs font-bold text-gray-700 dark:text-gray-200 md:text-xs ">
             {/* <div className="mb-4  mr-6 flex items-end  justify-between">
               <h3 className="text-xl font-semibold md:text-2xl">
                 Overall Score
@@ -212,16 +237,16 @@ const Arenas = ({
 
             <AreanaRating
               rating={arenaReview?.transportation}
-              text={'Transportation to Arena'}
+              text={'Arena Transport'}
             />
             <AreanaRating
               rating={arenaReview?.walkability}
-              text={'Arena Walkability'}
+              text={'Walkability'}
             />
             <AreanaRating rating={arenaReview?.food} text={'Food options'} />
             <AreanaRating
               rating={arenaReview?.view}
-              text={'View from our seat'}
+              text={'View from Seat'}
             />
             <AreanaRating rating={arenaReview?.vibes} text={'Arena Vibes'} />
             <AreanaRating
@@ -270,18 +295,18 @@ const Arenas = ({
                 </div>*/}
           </div>
         </div>
-        <div className="ml-6 mt-2">
+        {arenaReview?.comments && <div className="ml-6 mt-2 text-sm">
           <blockquote className="relative my-2 w-[500px] px-8 py-3 font-serif text-lg italic leading-relaxed text-gray-700">
             <span className="absolute left-[-20px] top-[-20px] text-6xl text-gray-500 before:block before:pl-4 before:content-['\201C']"></span>
             <p className="text-gray-400">{arenaReview?.comments}</p>
           </blockquote>
-        </div>
+        </div>}
 
         {/* <p className='border-t border-gray-500 text-white'>{arenaReview?.comments}</p> */}
 
-        <div>
+        <div className='text-sm md:text-xs'>
           <div className="mr-4 mt-2  border-t border-gray-500"></div>
-          <h3 className="mb-2 ml-5 mt-4 text-xl  font-semibold text-gray-200 md:text-lg ">
+          <h3 className=" ml-5 mt-4 text-sm  font-semibold text-gray-200  ">
             Team(s) Viewed
           </h3>
           <div className=" mx-3  flex flex-row flex-wrap justify-start gap-x-2 align-top   md:gap-x-6 ">
@@ -301,7 +326,7 @@ const Arenas = ({
                             .url()
                         : 'https://source.unsplash.com/96x96/?face'
                     }
-                    className=" h-11 w-11 rounded-full border-2 p-1 md:h-10 md:w-10   "
+                    className=" h-10 w-10 rounded-full border-2 p-1 md:h-7 md:w-7   "
                     height={96}
                     width={96}
                     // @TODO add alternative text to avatar image schema
@@ -309,15 +334,15 @@ const Arenas = ({
                   />
 
                   <div className="flex flex-col ">
-                    <p className="mx-1  cursor-pointer font-bold text-gray-700 dark:text-gray-200 md:text-sm   ">
+                    <p className="mx-1  cursor-pointer font-bold text-gray-700 dark:text-gray-200   ">
                       {photo.name}
                     </p>
 
                     {photo.played === true ? (
                       <div className="flex items-center">
                         <IoMdEye className="mx-1 h-6 w-6 text-green-300 md:h-4  md:w-4" />
-                        <p className="my-1 cursor-pointer font-bold text-gray-400 dark:text-gray-400 md:text-sm  ">
-                          {' '}
+                        <p className="my-1 cursor-pointer font-bold text-gray-400 dark:text-gray-400  ">
+                     
                           Watched
                         </p>
                       </div>
