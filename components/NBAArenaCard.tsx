@@ -81,14 +81,14 @@ const Arenas = ({
                 </Badge> */}
               </div>
             ) : null}
-            <div className="absolute inset-x-0 top-20   z-10 ml-5 md:top-24  ">
+            <div className="absolute inset-x-0 top-20   z-10 ml-3 md:top-24  ">
               <h1
-                className={`${oswald.variable}  line-clamp-2 font-heading  text-3xl font-medium text-gray-100 no-underline decoration-pink-500 decoration-dashed decoration-4 group-hover:underline xl:mb-3  `}
+                className={`${oswald.variable}  line-clamp-2 font-heading  text-xl md:text-2xl  lg:text-3xl font-medium text-gray-100 no-underline decoration-pink-500 decoration-dashed decoration-4 group-hover:underline xl:mb-3  `}
               >
                 {arenaName}
               </h1>
 
-              <div className="grid grid-cols-2   gap-x-2 text-sm   jus text-gray-200 md:text-xs  lg:gap-y-2  lg:text-xs ">
+              <div className="grid grid-cols-2   gap-x-2 text-sm   jus text-gray-200 md:text-xs  lg:gap-y-4  lg:text-xs ">
 
                 <div className="flex items-center gap-x-1 w-36 lg:w-full ">
                   {/* <IoLocation className=" h-5 w-5 text-pink-500 " /> */}
