@@ -1,7 +1,5 @@
-import { oswald } from 'app/fonts'
 import { urlForImage } from 'lib/sanity.image'
 import Image from 'next/image'
-import React from 'react'
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry'
 
 import SectionTitle from './SectionTitle'
@@ -11,13 +9,7 @@ function Gallery({ posts, heading }) {
     <section className="body-font w-full">
       <div className=" mx-6 md:container md:mx-auto">
         <div className="mb-8 flex w-full flex-col  font-medium lg:mb-9">
-          {/* <div className="flex ">
-            <p
-              className={`${oswald.variable} text-left font-heading text-5xl font-semibold leading-tight tracking-tighter md:text-5xl md:leading-none lg:text-5xl`}
-            >
-              Photo Collage
-            </p>
-          </div> */}
+
 
           <SectionTitle header={"Photo Collage"} description={undefined}></SectionTitle>
         </div>

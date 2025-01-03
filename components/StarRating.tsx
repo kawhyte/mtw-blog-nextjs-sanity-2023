@@ -9,17 +9,9 @@ import PostBody from './PostBody'
 import ProgressRating from './ProgressRating'
 
 const StarRating = ({ rating, linkType, diningType }) => {
-  console.log('STAR RATING LinkType1', linkType)
-  console.log('STAR RATING diningType1', diningType)
-  console.log('STAR RATING rating1', rating)
-
-  //const propertyNames = Object?.entries(rating|| {})
-  // console.log("propertyNames",propertyNames)
-  // const { average, textRating } = calculateRating(propertyNames)
-  // const { average, textRating } = calculateRating(rating)
-
-  // const average = 10
-  // const textRating = 'sure'
+  // console.log('STAR RATING LinkType2', linkType)
+  // console.log('STAR RATING diningType2', diningType)
+  // console.log('STAR RATING rating2', rating)
 
   let weights: { [category: string]: number } = {
     cleanliness: 0.2,
@@ -31,52 +23,60 @@ const StarRating = ({ rating, linkType, diningType }) => {
 
   switch (linkType) {
     case 'hotel':
-      weights.food = 0 // No food rating for hotels
-      weights.amenities = 0.2 // Add weight for amenities
+      weights.Location = 0.2
+      weights.Bed_Comfort = 0.2
+      weights.Room_Cleanliness = 0.1
+      weights.Gym = 0.05
+      weights.Pool = 0.05
+      weights.Service = 0.15
+      weights.Internet_Speed = 0.05
+      weights.Room_Amenities = 0.1
+      weights.Value = 0.1
       break
     case 'food':
       switch (diningType) {
         case 'takeout':
-          weights.tasteAndFlavor = 0.1 // Add weight for speed
-          weights.presentation = 0.3 // Increase weight for food further
-          weights.accuracy = 0.1 // Add weight for packaging quality
-          weights.packaging = 0.1 // Add weight for packaging quality // Add weight for packaging quality
-          weights.overallSatisfaction = 0.2 // Add weight for packaging quality
-          weights.foodValue = 0.2 // Add weight for packaging quality
+          weights.tasteAndFlavor = 0.1
+          weights.presentation = 0.3
+          weights.accuracy = 0.1
+          weights.packaging = 0.1
+          weights.overallSatisfaction = 0.2
+          weights.foodValue = 0.2
           break
         case 'dinein':
-          weights.Restaurant_Location = 0.2 // Add weight for atmosphere
-          weights.Restaurant_Service = 0.3
-          weights.Food_Value =0.1
-          weights.Presentation_on_Plate =0.1
-          weights.Memorability=0.1
-          weights.Restaurant_Cleanliness=0.1
-          weights.Flavor_and_Taste=0.1
+          weights.Restaurant_Location = 0.05
+          weights.Restaurant_Service = 0.2
+          weights.Food_Value = 0.15
+          weights.Presentation_on_Plate = 0.05
+          weights.Memorability = 0.15
+          weights.Restaurant_Cleanliness = 0.2
+          weights.Flavor_and_Taste = 0.2
           break
 
         default:
-          weights.Restaurant_Location = 0.15 // Add weight for atmosphere
-          weights.Service = 0.3 // Increase weight for food
+          weights.Restaurant_Location = 0.15
+          weights.Service = 0.3
           break
       }
 
       break
 
     default:
-      weights.Restaurant_Location = 0.2 // Add weight for speed
-      weights.food = 0.4 // Increase weight for food further
-      weights.packaging = 0.1 // Add weight for packaging quality
+      weights.Restaurant_Location = 0.2
+      weights.food = 0.4
+      weights.packaging = 0.1
       break
   }
 
   calculateRating
   const overallRating = calculateRating(rating, weights)
   console.log('Hello2', overallRating)
-  const propertyNames = Object.entries(rating).filter(([key]) => key !== '_type');
-
+  const propertyNames = Object.entries(rating).filter(
+    ([key]) => key !== '_type'
+  )
 
   // console.log("average",average)
-   console.log("propertyNames",propertyNames)
+  console.log('propertyNames', propertyNames)
   return (
     <>
       <div className="mb-6   flex items-end justify-start align-top   ">
@@ -116,53 +116,51 @@ const StarRating = ({ rating, linkType, diningType }) => {
       </p>
       <div className="max-w-8xl grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 ">
         <div className="mt-3 grid  grid-cols-1 gap-x-8 gap-y-5  md:grid-cols-1  md:gap-x-10 lg:grid-cols-3 lg:gap-x-10 lg:gap-y-4 ">
-          
-     
-      
-      {propertyNames.map((item) => {
-        const text = item[0];
+          {propertyNames.map((item) => {
+            const text = item[0]
 
-        return (
-          <div
-            key={text}
-            className={`flex flex-col justify-center rounded-2xl border p-3`}
-          >
-            <div className="flex flex-row items-center justify-start">
-              <span className="pr-3">
-                <img
-                  className=""
-                  src={ratingItem[text]?.icon}
-                  alt="icon"
-                  width={20}
-                  height={20}
-                />
-              </span>
+            return (
+              <div
+                key={text}
+                className={`flex flex-col justify-center rounded-2xl border p-3`}
+              >
+                <div className="flex flex-row items-center justify-start">
+                  <span className="pr-3">
+                    <img
+                      className=""
+                      src={ratingItem[text]?.icon}
+                      alt="icon"
+                      width={20}
+                      height={20}
+                    />
+                  </span>
 
-              {Number(item[1]) > 0 ? (
-                <p className={`${inter.variable} font-secondary text-sm font-extralight leading-loose md:text-base`}>
-                  {ratingItem[text]?.name}
-                </p>
-              ) : (
-                <p className={`${inter.variable} font-secondary text-sm font-extralight leading-loose md:text-base`}>
-                  No on-site {ratingItem[text]?.name} available
-                </p>
-              )}
-            </div>
-            {Number(item[1]) > 0 && (
-              <div className="flex flex-1 flex-row items-center align-middle text-sm">
-                <p className="my-1 mr-2 text-sm font-medium md:text-base"></p>
-                <ProgressRating progress={item[1]} />
+                  {Number(item[1]) > 0 ? (
+                    <p
+                      className={`${inter.variable} font-secondary text-sm font-extralight leading-loose md:text-base`}
+                    >
+                      {ratingItem[text]?.name}
+                    </p>
+                  ) : (
+                    <p
+                      className={`${inter.variable} font-secondary text-sm font-extralight leading-loose md:text-base`}
+                    >
+                      No on-site {ratingItem[text]?.name} available
+                    </p>
+                  )}
+                </div>
+                {Number(item[1]) > 0 && (
+                  <div className="flex flex-1 flex-row items-center align-middle text-sm">
+                    <p className="my-1 mr-2 text-sm font-medium md:text-base"></p>
+                    <ProgressRating progress={item[1]} />
+                  </div>
+                )}
               </div>
-            )}
-          </div>
-        );
-      })}
-    </div>
-     
-          
-    
-          
-          {/* {propertyNames.map((item) => {
+            )
+          })}
+        </div>
+
+        {/* {propertyNames.map((item) => {
             let text = item[0]
 
             return (
@@ -194,8 +192,7 @@ const StarRating = ({ rating, linkType, diningType }) => {
               </div>
             )
           })} */}
-        </div>
-      
+      </div>
     </>
   )
 }

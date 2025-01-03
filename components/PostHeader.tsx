@@ -72,8 +72,7 @@ export default function PostHeader(
 //  calculateRating
 //   const overallRating = calculateRating(hotelRating, weights);
 // console.log("Hello1",overallRating); 
- console.log("CATTT",category); 
- console.log("DAT66",diningType); 
+
   return (
     <>
       <div className=" ml-3 pt-12 sm:ml-0 ">
