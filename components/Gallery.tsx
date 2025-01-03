@@ -8,7 +8,7 @@ import SectionTitle from './SectionTitle'
 
 function Gallery({ posts, heading }) {
   return (
-    <section className="body-font">
+    <section className="body-font w-full">
       <div className=" mx-6 md:container md:mx-auto">
         <div className="mb-8 flex w-full flex-col  font-medium lg:mb-9">
           {/* <div className="flex ">
