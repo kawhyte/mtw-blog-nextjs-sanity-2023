@@ -90,7 +90,7 @@ export default function PostPage(props: PostPageProps) {
 
 
     // console.log("post.takeoutRating",post?.takeoutRating )
-    // console.log("ratingCat2",ratingCat )
+     console.log("ratingCat2",ratingCat )
   return (
     <div>
       <PostPageHead settings={settings} post={post} />

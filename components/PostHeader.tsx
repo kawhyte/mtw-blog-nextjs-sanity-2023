@@ -108,7 +108,7 @@ export default function PostHeader(
             </section>
 
             {linkType==="food" &&
-            <Badge color="pink" size="lg">{diningType?.slice(0, 4) + "-" + diningType?.slice(4) }</Badge>
+            <Badge color="pink" variant='filled' size="lg">{diningType?.slice(0, 4) + "-" + diningType?.slice(4) }</Badge>
             }
 
             { linkType ==='hotel' && category && (

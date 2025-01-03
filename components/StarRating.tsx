@@ -1,16 +1,13 @@
 import { inter, oswald } from 'app/fonts'
 import { calculateRating } from 'lib/calculateRating'
-// import { calculateRating } from "../lib/calculateRating";
-import Image from 'next/image'
 import React from 'react'
 
 import { ratingItem } from '../lib/getReviewType'
-import PostBody from './PostBody'
 import ProgressRating from './ProgressRating'
 
 const StarRating = ({ rating, linkType, diningType }) => {
-  // console.log('STAR RATING LinkType2', linkType)
-  // console.log('STAR RATING diningType2', diningType)
+   console.log('STAR RATING LinkType3', linkType)
+   console.log('STAR RATING diningType3', diningType)
   // console.log('STAR RATING rating2', rating)
 
   let weights: { [category: string]: number } = {
@@ -54,8 +51,13 @@ const StarRating = ({ rating, linkType, diningType }) => {
           break
 
         default:
-          weights.Restaurant_Location = 0.15
-          weights.Service = 0.3
+          weights.Restaurant_Location = 0.05
+          weights.Restaurant_Service = 0.2
+          weights.Food_Value = 0.15
+          weights.Presentation_on_Plate = 0.05
+          weights.Memorability = 0.15
+          weights.Restaurant_Cleanliness = 0.2
+          weights.Flavor_and_Taste = 0.2
           break
       }
 
@@ -68,7 +70,7 @@ const StarRating = ({ rating, linkType, diningType }) => {
       break
   }
 
-  calculateRating
+ 
   const overallRating = calculateRating(rating, weights)
   //console.log('Hello2', overallRating)
   const propertyNames = Object.entries(rating).filter(
@@ -116,43 +118,43 @@ const StarRating = ({ rating, linkType, diningType }) => {
       </p>
       <div className="max-w-8xl grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 ">
         <div className="mt-3 grid  grid-cols-1 gap-x-8 gap-y-5  md:grid-cols-1  md:gap-x-10 lg:grid-cols-3 lg:gap-x-10 lg:gap-y-4 ">
-          {propertyNames.map((item) => {
-            const text = item[0]
+          {propertyNames.map(([categoryName, value]) => {
+            //const text = item[0]
 
             return (
               <div
-                key={text}
+                key={categoryName}
                 className={`flex flex-col justify-center rounded-2xl border p-3`}
               >
                 <div className="flex flex-row items-center justify-start">
                   <span className="pr-3">
                     <img
                       className=""
-                      src={ratingItem[text]?.icon}
+                      src={ratingItem[categoryName]?.icon}
                       alt="icon"
                       width={20}
                       height={20}
                     />
                   </span>
 
-                  {Number(item[1]) > 0 ? (
+                  {Number(value) > 0 ? (
                     <p
                       className={`${inter.variable} font-secondary text-sm font-extralight leading-loose md:text-base`}
                     >
-                      {ratingItem[text]?.name}
+                      {ratingItem[categoryName]?.name}
                     </p>
                   ) : (
                     <p
                       className={`${inter.variable} font-secondary text-sm font-extralight leading-loose md:text-base`}
                     >
-                      No on-site {ratingItem[text]?.name} available
+                     {ratingItem[categoryName]?.name} not available
                     </p>
                   )}
                 </div>
-                {Number(item[1]) > 0 && (
+                {Number(value) > 0 && (
                   <div className="flex flex-1 flex-row items-center align-middle text-sm">
                     <p className="my-1 mr-2 text-sm font-medium md:text-base"></p>
-                    <ProgressRating progress={item[1]} />
+                    <ProgressRating progress={value} />
                   </div>
                 )}
               </div>
