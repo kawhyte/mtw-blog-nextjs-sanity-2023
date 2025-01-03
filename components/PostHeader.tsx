@@ -1,8 +1,9 @@
-import { Alert, Blockquote, Skeleton } from '@mantine/core'
+import { Alert, Badge, Blockquote, Skeleton } from '@mantine/core'
 import { inter, oswald } from 'app/fonts'
 import Avatar from 'components/AuthorAvatar'
 import Date from 'components/PostDate'
 import PostTitle from 'components/PostTitle'
+import { calculateRating } from 'lib/calculateRating'
 import type { Post } from 'lib/sanity.queries'
 import { FaRegCalendarAlt } from 'react-icons/fa'
 import { HiOutlineLightBulb } from 'react-icons/hi2'
@@ -30,6 +31,7 @@ export default function PostHeader(
     | 'slug'
     | 'location'
     | 'linkType'
+    |'diningType'
     | 'room'
     | 'excerpt2'
     | 'hotelRating'
@@ -46,6 +48,7 @@ export default function PostHeader(
     slug,
     location,
     linkType,
+    diningType,
     room,
     excerpt2,
     hotelRating,
@@ -55,6 +58,22 @@ export default function PostHeader(
   } = props
 //  console.log("Location", location)
 //  console.log("Linktype", linkType)
+  // console.log("POST HEADER2", hotelRating)
+
+//   const weights = {
+//     overallSatisfaction: 0.3,
+//     Food_Value: 0.25,
+//     accuracy: 0.15,
+//     packaging: 0.1,
+//     tasteAndFlavor: 0.1,
+//     presentation: 0.05,
+//     Price: 0.05,
+//   };
+//  calculateRating
+//   const overallRating = calculateRating(hotelRating, weights);
+// console.log("Hello1",overallRating); 
+ console.log("CATTT",category); 
+ console.log("DAT66",diningType); 
   return (
     <>
       <div className=" ml-3 pt-12 sm:ml-0 ">
@@ -89,7 +108,11 @@ export default function PostHeader(
               </span>
             </section>
 
-            {category && (
+            {linkType==="food" &&
+            <Badge color="pink" size="lg">{diningType?.slice(0, 4) + "-" + diningType?.slice(4) }</Badge>
+            }
+
+            { linkType ==='hotel' && category && (
               <section className="flex flex-row items-center justify-between text-gray-700 md:text-left ">
                 <IoStorefront className="mr-2 h-5  w-5 text-pink-500" />
                 <span className="  capitalize ">
@@ -142,6 +165,7 @@ export default function PostHeader(
        {linkType === 'hotel' || linkType === 'food' ?  <div className=" mx-6 my-6 block text-base md:mx-0 md:mb-12">
           <StarRating
             rating={hotelRating}
+            diningType={diningType}
             // amenities={amenities}
             // categories={categories}
             linkType={linkType}

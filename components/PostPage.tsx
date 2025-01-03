@@ -28,92 +28,102 @@ export interface PostPageProps {
 
 const NO_POSTS: Post[] = []
 
+const renderLinkTypeComponent = (post: Post) => {
+  switch (post.linkType) {
+    case 'food':
+      return (
+        <>
+          {post.individualFoodRating?.length > 0 && (
+            <FoodRatings food={post.individualFoodRating} />
+          )}
+          <ProConList
+            positives={post.positives}
+            negatives={post.negatives}
+            verdict2={post.verdict}
+          />
+        </>
+      )
+    case 'hotel':
+      return (
+        <>
+          <ProConList
+            positives={post.positives}
+            negatives={post.negatives}
+            verdict2={post.verdict}
+          />
+          <RoomTech
+            techAvailable={post.techRating}
+            speed={post.internetSpeed}
+            roomAmenitiesAvailiable={post.roomAmenities}
+          />
+        </>
+      )
+    default:
+      return null
+  }
+}
+
 export default function PostPage(props: PostPageProps) {
   const { preview, loading, morePosts = NO_POSTS, post, settings } = props
   const { title = demo.title } = settings || {}
 
-  const slug = post?.slug
-
-  if (!slug && !preview) {
+  if (!post?.slug && !preview) {
     notFound()
   }
 
-  const ratingCat =
-    post?.linkType === 'food' ? post?.foodRating : post?.hotelRating
-  // console.log('Post Page gallery  ', post)
-  //  console.log("POST PAGE linkedtype ", post.linkType)
-  return (
-<div className=" "> 
-   
 
+  // Early return if post is not found
+  if (!post) {
+    return preview ? (
+      <Layout preview={preview} loading={loading}>
+        <PostTitle>Loading…</PostTitle>
+      </Layout>
+    ) : (
+      notFound()
+    )
+  }
+
+  const ratingCat = 
+  post.linkType === 'food' 
+    ? (post.diningType === 'takeout' ? post.takeoutRating : post.foodRating) 
+    : post.hotelRating;
+
+
+    // console.log("post.takeoutRating",post?.takeoutRating )
+    // console.log("ratingCat2",ratingCat )
+  return (
+    <div>
       <PostPageHead settings={settings} post={post} />
 
       <Layout preview={preview} loading={loading}>
-          <BlogHeader title={title} level={2} />
-        <div className="container mx-auto  flex flex-col justify-center items-center "> 
+        <BlogHeader title={title} level={2} />
         <Container>
-          {preview && !post ? (
-            <PostTitle>Loading…</PostTitle>
-          ) : (
-            <>
-              <div className="flex justify-center items-center ">
-                <article>
-                  <PostHeader
-                    title={post.title}
-                    coverImage={post.coverImage}
-                    date={post.date}
-                    author={post.author}
-                    location={post.location}
-                    room={post.room}
-                    linkType={post.linkType}
-                    excerpt2={post.excerpt2}
-                    hotelRating={ratingCat}
-                    gallery={post.gallery}
-                    category={post.category}
-                    tip={post.tip}
-                  />
-                  {post.linkType == 'food' &&
-                  post?.individualFoodRating?.length > 0 ? (
-                    <>
-                      <FoodRatings food={post?.individualFoodRating} />
-                    </>
-                  ) : (
-                    ''
-                  )}{' '}
-                  {post.linkType == 'hotel' || post.linkType == 'food' ?  (
-                    <ProConList
-                      positives={post.positives}
-                      negatives={post.negatives}
-                      verdict2={post.verdict}
-                    />
-                  ) : (
-                    ''
-                  )}
-                  {post.linkType == 'hotel' ? (
-                    <>
-                      <RoomTech
-                        techAvailable={post.techRating}
-                        speed={post.internetSpeed}
-                        roomAmenitiesAvailiable={post.roomAmenities}
-                      />
-                    </>
-                  ) : (
-                    ''
-                  )}
-                  <PostBody content={post.content} />
-                  <Youtube link={post.youtube} />
-               {  post?.gallery?.length > 0 && <Gallery posts={post} heading={''} />}
-                </article>
-              </div>
+          <article className="container mx-auto flex flex-col justify-center items-center">
+            <PostHeader
+              title={post.title}
+              coverImage={post.coverImage}
+              date={post.date}
+              author={post.author}
+              location={post.location}
+              room={post.room}
+              linkType={post.linkType}
+              diningType = {post.diningType}
+              excerpt2={post.excerpt2}
+              hotelRating={ratingCat}
+              gallery={post.gallery}
+              category={post.category}
+              tip={post.tip}
+            />
 
-              {/* {morePosts?.length > 0 && <MoreStories posts={morePosts} />} */}
-            </>
-          )}
+            {renderLinkTypeComponent(post)}
+
+            <PostBody content={post.content} />
+            <Youtube link={post.youtube} />
+            {post.gallery?.length > 0 && <Gallery posts={post} heading={''} />}
+          </article>
         </Container>
-          </div> 
-        <Footer/>
+        <Footer />
       </Layout>
-      </div> 
+    </div>
   )
 }
-{/* <div className="container mx-auto  flex flex-col justify-center items-center "></div> */}

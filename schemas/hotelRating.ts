@@ -12,17 +12,17 @@ export default defineType({
 		collapsed: false, // Defines if the fieldset should be collapsed by default or not
 		columns: 3, // Defines a grid for the fields and how many columns it should have
 	},
-	// initialValue: {
-	// 	Bed_Comfort: 1,
-	// 	Gym: 1,
-	// 	Internet_Speed: 1,
-	// 	Location: 1,
-	// 	Pool: 1,
-	// 	Room_Amenities: 1,
-	// 	Room_Cleanliness: 1,
-	// 	Service: 1,
-	// 	Value: 1,
-	// },
+	initialValue: {
+		Bed_Comfort: 3,
+		Gym: 3,
+		Internet_Speed: 3,
+		Location: 3,
+		Pool: 3,
+		Room_Amenities: 3,
+		Room_Cleanliness: 3,
+		Service: 3,
+		Value: 3,
+	  },
 
 	fields: [
 		{
@@ -45,6 +45,8 @@ export default defineType({
 				],
 				layout: "radio",
 			},
+			initialValue: '3' // Set '3' as the default value
+
 		},
 		{
 			title: "Room Cleanliness",
@@ -66,6 +68,7 @@ export default defineType({
 				],
 				layout: "radio",
 			},
+			initialValue: '3' // Set '3' as the default value
 		},
 		{
 			title: "Hotel Service",
@@ -87,6 +90,7 @@ export default defineType({
 				],
 				layout: "radio",
 			},
+			initialValue: '3' // Set '3' as the default value
 		},
 
 		{
@@ -109,6 +113,7 @@ export default defineType({
 				],
 				layout: "radio",
 			},
+			initialValue: '3' // Set '3' as the default value
 		},
 		{
 			title: "Internet Speed",
@@ -132,6 +137,7 @@ export default defineType({
 				],
 				layout: "radio", 
 			},
+			initialValue: '3' // Set '3' as the default value
 		},
 		{
 			title: "Room Amenities (TV, Coffee machine etc.)",
@@ -153,6 +159,7 @@ export default defineType({
 				],
 				layout: "radio",
 			},
+			initialValue: '3' // Set '3' as the default value
 		},
 		{
 			title: "Hotel Gym",
@@ -175,6 +182,7 @@ export default defineType({
 				],
 				layout: "radio",
 			},
+			initialValue: '3' // Set '3' as the default value
 		},
 		{
 			title: " Hotel Pool",
@@ -197,6 +205,7 @@ export default defineType({
 				],
 				layout: "radio",
 			},
+			initialValue: '3' // Set '3' as the default value
 		},
 
 		{
@@ -219,6 +228,7 @@ export default defineType({
 				],
 				layout: "radio",
 			},
+			initialValue: '3' // Set '3' as the default value
 		},
 	],
  

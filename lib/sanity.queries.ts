@@ -18,6 +18,8 @@ const postFields = groq`
   roomAmenities,
   hotelRating{Value,Gym,Internet_Speed,Service,Room_Cleanliness,Bed_Comfort,Room_Amenities,Pool,Location},
   foodRating{Flavor_and_Taste,Food_Value,Restaurant_Location,Presentation_on_Plate,Restaurant_Service,Memorability,Restaurant_Cleanliness},
+  takeoutRating,
+  diningType,
   positives,
   negatives,
   verdict,
@@ -172,6 +174,8 @@ export interface Post {
   linkType?: any
   hotelRating?: any
   foodRating?:any
+  takeoutRating?:any
+  diningType?:any
   positives?: any
   negatives?: any
   verdict?: any

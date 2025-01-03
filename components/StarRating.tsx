@@ -1,4 +1,3 @@
-
 import { inter, oswald } from 'app/fonts'
 import { calculateRating } from 'lib/calculateRating'
 // import { calculateRating } from "../lib/calculateRating";
@@ -9,26 +8,84 @@ import { ratingItem } from '../lib/getReviewType'
 import PostBody from './PostBody'
 import ProgressRating from './ProgressRating'
 
-const StarRating = ({ rating, linkType }) => {
+const StarRating = ({ rating, linkType, diningType }) => {
+  console.log('STAR RATING LinkType1', linkType)
+  console.log('STAR RATING diningType1', diningType)
+  console.log('STAR RATING rating1', rating)
 
-
-  // console.log("STAR RATING LinkType",linkType);
-
-  const propertyNames = Object.entries(rating)
+  //const propertyNames = Object?.entries(rating|| {})
   // console.log("propertyNames",propertyNames)
-  const { average, textRating } = calculateRating(propertyNames)
+  // const { average, textRating } = calculateRating(propertyNames)
+  // const { average, textRating } = calculateRating(rating)
+
+  // const average = 10
+  // const textRating = 'sure'
+
+  let weights: { [category: string]: number } = {
+    cleanliness: 0.2,
+    service: 0.25,
+    value: 0.2,
+    location: 0.15,
+    food: 0.2, // Default weight for food
+  }
+
+  switch (linkType) {
+    case 'hotel':
+      weights.food = 0 // No food rating for hotels
+      weights.amenities = 0.2 // Add weight for amenities
+      break
+    case 'food':
+      switch (diningType) {
+        case 'takeout':
+          weights.tasteAndFlavor = 0.1 // Add weight for speed
+          weights.presentation = 0.3 // Increase weight for food further
+          weights.accuracy = 0.1 // Add weight for packaging quality
+          weights.packaging = 0.1 // Add weight for packaging quality // Add weight for packaging quality
+          weights.overallSatisfaction = 0.2 // Add weight for packaging quality
+          weights.foodValue = 0.2 // Add weight for packaging quality
+          break
+        case 'dinein':
+          weights.Restaurant_Location = 0.2 // Add weight for atmosphere
+          weights.Restaurant_Service = 0.3
+          weights.Food_Value =0.1
+          weights.Presentation_on_Plate =0.1
+          weights.Memorability=0.1
+          weights.Restaurant_Cleanliness=0.1
+          weights.Flavor_and_Taste=0.1
+          break
+
+        default:
+          weights.Restaurant_Location = 0.15 // Add weight for atmosphere
+          weights.Service = 0.3 // Increase weight for food
+          break
+      }
+
+      break
+
+    default:
+      weights.Restaurant_Location = 0.2 // Add weight for speed
+      weights.food = 0.4 // Increase weight for food further
+      weights.packaging = 0.1 // Add weight for packaging quality
+      break
+  }
+
+  calculateRating
+  const overallRating = calculateRating(rating, weights)
+  console.log('Hello2', overallRating)
+  const propertyNames = Object.entries(rating).filter(([key]) => key !== '_type');
+
+
   // console.log("average",average)
-  // console.log("propertyNames",propertyNames)
+   console.log("propertyNames",propertyNames)
   return (
     <>
-     
       <div className="mb-6   flex items-end justify-start align-top   ">
         <div className="flex flex-col items-center justify-center rounded-2xl bg-pink-500 p-3">
           <h1
             className={` mx-2 text-4xl font-semibold leading-tight tracking-tighter text-white md:text-left md:text-6xl md:leading-none lg:text-6xl`}
           >
             {/*isFraction ? Math.floor(average) + ".5" : Math.floor(average)*/}
-            {average.toFixed(2)}
+            {overallRating.numericalRating.toFixed(2)}
           </h1>
           <div className="flex items-center">
             <span className=" text-base uppercase text-white">out of 5</span>
@@ -48,16 +105,64 @@ const StarRating = ({ rating, linkType }) => {
         <p
           className={`${oswald.variable} ml-4 font-heading text-3xl font-black`}
         >
-          {textRating}
+          {overallRating.textRating}
         </p>
       </div>
-    
-      <p className={`   my-3 mt-2  title-font  mb-1  text-base font-medium uppercase tracking-widest text-gray-700 `}>
+
+      <p
+        className={`   title-font my-3  mb-1  mt-2  text-base font-medium uppercase tracking-widest text-gray-700 `}
+      >
         {linkType === 'hotel' ? 'Hotel' : 'Restaurant/Food'} rating breakdown{' '}
       </p>
       <div className="max-w-8xl grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 ">
         <div className="mt-3 grid  grid-cols-1 gap-x-8 gap-y-5  md:grid-cols-1  md:gap-x-10 lg:grid-cols-3 lg:gap-x-10 lg:gap-y-4 ">
-          {propertyNames.map((item) => {
+          
+     
+      
+      {propertyNames.map((item) => {
+        const text = item[0];
+
+        return (
+          <div
+            key={text}
+            className={`flex flex-col justify-center rounded-2xl border p-3`}
+          >
+            <div className="flex flex-row items-center justify-start">
+              <span className="pr-3">
+                <img
+                  className=""
+                  src={ratingItem[text]?.icon}
+                  alt="icon"
+                  width={20}
+                  height={20}
+                />
+              </span>
+
+              {Number(item[1]) > 0 ? (
+                <p className={`${inter.variable} font-secondary text-sm font-extralight leading-loose md:text-base`}>
+                  {ratingItem[text]?.name}
+                </p>
+              ) : (
+                <p className={`${inter.variable} font-secondary text-sm font-extralight leading-loose md:text-base`}>
+                  No on-site {ratingItem[text]?.name} available
+                </p>
+              )}
+            </div>
+            {Number(item[1]) > 0 && (
+              <div className="flex flex-1 flex-row items-center align-middle text-sm">
+                <p className="my-1 mr-2 text-sm font-medium md:text-base"></p>
+                <ProgressRating progress={item[1]} />
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </div>
+     
+          
+    
+          
+          {/* {propertyNames.map((item) => {
             let text = item[0]
 
             return (
@@ -88,9 +193,9 @@ const StarRating = ({ rating, linkType }) => {
                 )}
               </div>
             )
-          })}
+          })} */}
         </div>
-      </div>
+      
     </>
   )
 }

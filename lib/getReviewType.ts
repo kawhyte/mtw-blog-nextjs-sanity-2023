@@ -1,5 +1,8 @@
 import { AIRPORT, DAY_TRIP,FOOD, HOTEL } from "../lib/constants";
 
+import { FaRegGrinTongueWink } from "react-icons/fa";
+
+
 const ratingItem = {
 	//Hotel
 	Location: {
@@ -48,7 +51,7 @@ const ratingItem = {
 		rate:.10
 	},
 
-	/// Food
+	/// Food dine-in
 	Restaurant_Location: {
 		name: "Location",
 		icon: "/icon/location.svg",
@@ -87,6 +90,40 @@ const ratingItem = {
 		icon: "/icon/value.svg",
 		rate:.15
 	},
+
+	/// Food dine-out
+	tasteAndFlavor: {
+		name: "Taste & Flavor",
+		icon: "/icon/taste.svg",
+		rate:.20
+	},
+	presentation: {
+		name: "Presentation",
+		icon: "/icon/presentation.svg",
+		rate:.10
+	},
+	foodValue: {
+		name: "Food Value",
+		icon: "/icon/value2.svg",
+		rate:.20
+	},
+	accuracy: {
+		name: "Order Accuracy",
+		icon: "/icon/coffee.svg",
+		rate:.1
+	},
+	packaging: {
+		name: "Food Packaging",
+		icon: "/icon/memo.svg",
+		rate:.1
+	},
+	overallSatisfaction: {
+		name: "Overall Satisfaction",
+		icon: "/icon/clean.svg",
+		rate:.3
+	},
+
+
 };
 
 export { ratingItem };

@@ -1,45 +1,53 @@
-import { ratingItem } from "../lib/getReviewType";
-
-export function calculateRating(rating) {
-
-	// console.log("Calcu;ate Rating BEFORE", rating)
-
-	//delete rating._type
-
-	// console.log("Calcu;ate Rating AFTER", rating)
-
-
-	let textRating = "NR";
-
-	let isFraction = false;
-
-	// Getting sum of numbers
-	let sum = rating.reduce(function (a, b) {
-		//console.log("ratingItem[b[0]].rate",ratingItem[b[0]])
-		return a + (b[1] * ratingItem[b[0]]?.rate);
-	}, 0);
-
-// console.log("SUM ", sum)
-
-	let average = sum ;
+interface RatingObject {
+    [key: string]: number | string;
+  }
+  
+  interface RatingWeights {
+    [key: string]: number;
+  }
+  
+  interface RatingResult {
+    numericalRating: number;
+    textRating: string;
+  }
+  
 
 
-	if (average >= 0 && average < 2) {
-		textRating = "Horrible";
-	} else if (average >= 2 && average < 3) {
-		textRating = "Poor";
-	} else if (average >= 3 && average < 3.75) {
-		textRating = "Fair";
-	} else if (average >= 3.75 && average < 4) {
-		textRating = "Good";
-	} else if (average >= 4 && average < 4.5) {
-		textRating = "Great";
-	} else if (average >= 4.5) {
-		textRating = "Excellent";
-	} else {
-		textRating = "HMMMM";
-		// Fall through
-	}
-
-	return { average, textRating };
-}
+ export function calculateRating(
+    ratingObject: RatingObject,
+    weights: RatingWeights,
+    ratingThresholds: { [key: number]: string } = {
+      4.5: 'Excellent',
+      3.5: 'Very Good',
+      2.5: 'Good',
+      1.5: 'Fair',
+      0: 'Poor', // Default for any rating below 1.5
+    }
+  ): RatingResult {
+    // Calculate the weighted average rating
+    let weightedSum = 0;
+    for (const key in ratingObject) {
+      if (key in weights && typeof ratingObject[key] === 'number') {
+        weightedSum += ratingObject[key] * weights[key];
+      }
+    }
+  
+    // Convert the numerical rating to a text rating
+    const thresholds = Object.keys(ratingThresholds)
+      .map(Number)
+      .sort((a, b) => b - a); // Sort thresholds in descending order
+  
+    let textRating = ratingThresholds[thresholds[thresholds.length - 1]]; // Default to the lowest rating
+    for (const threshold of thresholds) {
+      if (weightedSum >= threshold) {
+        textRating = ratingThresholds[threshold];
+        break;
+      }
+    }
+  
+    // Return an object containing both the numerical and text ratings
+    return {
+      numericalRating: weightedSum,
+      textRating: textRating,
+    };
+  }

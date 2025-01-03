@@ -38,6 +38,43 @@ export default defineType({
         ],
         layout: 'radio',
       },
+      initialValue: 'hotel' // Set 'hotel' as the default value
+
+    }),
+
+    defineField({
+      title: 'Dining Type',
+      name: 'diningType',
+      type: 'string',
+      description: '',
+      hidden: ({ parent }) => parent?.linkType !== 'food', 
+      options: {
+        list: [
+          { title: 'Dine-in', value: 'dinein' },
+          { title: 'Takeout', value: 'takeout' },
+        ],
+        layout: 'radio',
+      },
+      initialValue: 'dinein' // Set 'dine in' as the default value
+
+    }),
+
+    defineField({
+      title: 'Hotel Category',
+      name: 'category',
+      type: 'string',
+      description: '',
+      hidden: ({ parent }) => parent?.linkType !== 'hotel', // &lt;-- defaults to 'dropdown'
+      options: {
+        list: [
+          { title: 'Luxury', value: 'luxury' },
+          { title: 'Mid-Scale', value: 'mid-scale' },
+          { title: 'Economy', value: 'economy' },
+        ], // &lt;-- predefined values
+        layout: 'radio',
+      },
+      initialValue: 'mid-scale' // Set 'mid-scale' as the default value
+
     }),
 
   
@@ -104,21 +141,7 @@ export default defineType({
     }),
 
 
-    defineField({
-      title: 'Hotel Category',
-      name: 'category',
-      type: 'string',
-      description: '(optional)',
-      hidden: ({ parent }) => parent?.linkType !== 'hotel', // &lt;-- defaults to 'dropdown'
-      options: {
-        list: [
-          { title: 'Luxury', value: 'luxury' },
-          { title: 'Mid-Scale', value: 'mid-scale' },
-          { title: 'Economy', value: 'economy' },
-        ], // &lt;-- predefined values
-        layout: 'radio',
-      },
-    }),
+  
 
 
 
@@ -137,6 +160,8 @@ export default defineType({
       ],
       layout:'radio'
       },
+      initialValue: 'No' // Set 'No' as the default value
+
     }),
 
 
@@ -286,6 +311,28 @@ export default defineType({
       //validation: (rule) => rule.required(),
     }),
 
+
+    // **New fields for Dine-in ratings:**
+
+    {
+      name: 'foodRating',
+      title: 'Rating for Dine-in',
+      description: 'Add a rating for each Dine-in section.',
+      type: 'foodRating', // You'll need to create this new schema type
+      hidden: ({ parent }) => parent?.linkType !== 'food' || parent?.diningType !== 'dinein',
+    },
+
+
+    // **New fields for Takeout ratings:**
+
+    {
+      name: 'takeoutRating',
+      title: 'Rating for Takeout',
+      description: 'Add a rating for each Takeout section.',
+      type: 'takeOutFoodRating', // You'll need to create this new schema type
+      hidden: ({ parent }) => parent?.linkType !== 'food' || parent?.diningType !== 'takeout',
+    },
+
     {
       name: 'hotelRating',
       title: 'Rating for Hotels',
@@ -293,14 +340,15 @@ export default defineType({
       type: 'hotelRating',
       hidden: ({ parent }) => parent?.linkType !== 'hotel',
     },
-    {
-      name: 'foodRating',
-      title: 'Rating for Food',
-      description: 'Add a rating for each Food section.',
-      type: 'foodRating',
-      hidden: ({ parent }) => parent?.linkType !== 'food',
-    },
+    // {
+    //   name: 'foodRating',
+    //   title: 'Rating for Food',
+    //   description: 'Add a rating for each Food section.',
+    //   type: 'foodRating',
+    //   hidden: ({ parent }) => parent?.linkType !== 'food',
+    // },
 
+  
     defineField({
       name: 'internetSpeed',
       title: 'Internet Speed',

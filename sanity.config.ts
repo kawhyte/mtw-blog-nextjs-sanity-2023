@@ -28,6 +28,7 @@ import {recommendationType} from 'schemas/recommendationType'
 import roomAmenitiesType from 'schemas/roomAmenities'
 import roomTechType from 'schemas/roomTechRatings'
 import settingsType from 'schemas/settings'
+import takeOutFoodRatingType from 'schemas/takeOutFoodRating'
 import travelEssentialType from 'schemas/travelEssentials'
 
 
@@ -43,7 +44,7 @@ export default defineConfig({
   title,
   schema: {
     // If you want more content types, you can add them to this array
-    types: [galleryType,roomTechType,roomAmenitiesType,hotelType,foodType,individualFoodType, postType, travelEssentialType,areanasType, authorType,arenaReviewType, galleryType2, settingsType, recommendationListType,recommendationType],
+    types: [galleryType,roomTechType,roomAmenitiesType,hotelType,foodType,takeOutFoodRatingType,individualFoodType, postType, travelEssentialType,areanasType, authorType,arenaReviewType, galleryType2, settingsType, recommendationListType,recommendationType],
   },
   plugins: [
     deskTool({
