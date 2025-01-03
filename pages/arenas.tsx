@@ -58,7 +58,7 @@ export default function Page(props: PageProps) {
   }
 
  
- console.log("Gemini", arenaPosts)
+ //console.log("Gemini", arenaPosts)
   return (
     <>
       <Layout preview={false} loading={false}>

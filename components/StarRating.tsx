@@ -70,13 +70,13 @@ const StarRating = ({ rating, linkType, diningType }) => {
 
   calculateRating
   const overallRating = calculateRating(rating, weights)
-  console.log('Hello2', overallRating)
+  //console.log('Hello2', overallRating)
   const propertyNames = Object.entries(rating).filter(
     ([key]) => key !== '_type'
   )
 
   // console.log("average",average)
-  console.log('propertyNames', propertyNames)
+  //console.log('propertyNames', propertyNames)
   return (
     <>
       <div className="mb-6   flex items-end justify-start align-top   ">
