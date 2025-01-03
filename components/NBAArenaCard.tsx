@@ -21,14 +21,14 @@ interface NBAArenaCardProps {
   // visitedCount:string
   // galleryCount:string
   gallery: any
-  key: string
+  id: string
   arenaReview?: any | null
   // ratings: ArenaRating
 }
 
 const Arenas = ({
   location,
-  key,
+  id,
   visited,
   arenaName,
   constructionDate,
@@ -42,7 +42,7 @@ const Arenas = ({
   return (
     <>
       <div
-        key={key}
+        key={id}
         className={` w-full h-[34.3rem] md:h-[36rem]   max-w-md overflow-hidden rounded-3xl border-4 border-black bg-white shadow-offsetIndigo dark:bg-gray-800  ${
           visited === false ? 'opacity-40 grayscale ' : 'grayscale-0 '
         } `}
@@ -200,14 +200,14 @@ const Arenas = ({
             />
           </div>
         </div>
-        {arenaReview?.comments && (
+        {/* {arenaReview?.comments && (
           <div className="ml-6 mt-2 text-sm">
             <blockquote className="relative my-2 w-[500px] px-8 py-3 font-serif text-lg italic leading-relaxed text-gray-700">
               <span className="absolute left-[-20px] top-[-20px] text-6xl text-gray-500 before:block before:pl-4 before:content-['\201C']"></span>
               <p className="text-gray-400">{arenaReview?.comments}</p>
             </blockquote>
           </div>
-        )}
+        )} */}
 
         <div className="text-sm md:text-xs">
           <div className="mr-4 mt-2  border-t border-gray-500"></div>

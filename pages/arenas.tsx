@@ -90,7 +90,7 @@ export default function Page(props: PageProps) {
               gallery={item.gallery}
               visited={item.visited}
               dateVisited={item.date}
-              key={item._id}
+              id={item._id}
             />
           ))}
           {/* <NBAArenaCard arenas={arenaPosts} /> */}
