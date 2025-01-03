@@ -43,15 +43,15 @@ const Arenas = ({
     <>
       <div
         key={key}
-        className={` w-full  max-w-md overflow-hidden rounded-3xl border-4 border-black bg-white shadow-offsetIndigo dark:bg-gray-800  ${
+        className={` w-full h-[34.3rem] md:h-[36rem]   max-w-md overflow-hidden rounded-3xl border-4 border-black bg-white shadow-offsetIndigo dark:bg-gray-800  ${
           visited === false ? 'opacity-40 grayscale ' : 'grayscale-0 '
         } `}
       >
         <div className=" ">
           <div className="relative  md:h-full ">
             {average !== '0' ? (
-              <div className=" absolute right-0 top-0  z-10 mb-4 mr-3  flex flex-col items-center justify-between ">
-                <span className="  mt-1   text-xl font-bold text-white ">
+              <div className=" absolute right-0 top-0  z-10 mb-4 mr-5 mt-3   flex flex-col items-center justify-between ">
+                <span className="    text-xl font-bold text-white mb-1 ">
                   {average}
                 </span>
 
@@ -81,44 +81,46 @@ const Arenas = ({
                 </Badge> */}
               </div>
             ) : null}
-            <div className="absolute  inset-x-0 top-20  z-10 ml-5 md:top-16 lg:top-20  ">
+            <div className="absolute inset-x-0 top-20   z-10 ml-5 md:top-24  ">
               <h1
-                className={`${oswald.variable}  line-clamp-2 font-heading  text-xl font-medium text-gray-100 no-underline decoration-pink-500 decoration-dashed decoration-4 group-hover:underline xl:mb-3  `}
+                className={`${oswald.variable}  line-clamp-2 font-heading  text-3xl font-medium text-gray-100 no-underline decoration-pink-500 decoration-dashed decoration-4 group-hover:underline xl:mb-3  `}
               >
                 {arenaName}
               </h1>
 
-              <div className="grid grid-cols-2  text-sm text-gray-200 md:text-xs lg:gap-y-2  lg:text-xs">
-                <div className="my-4 flex items-center xl:my-0  ">
-                  <IoHammer className="mr-2 h-5 w-5 text-pink-500  " />
-                  <p className=" md:hidden xl:block ">Constructed in</p>
+              <div className="grid grid-cols-2   gap-x-2 text-sm   jus text-gray-200 md:text-xs  lg:gap-y-2  lg:text-xs ">
+
+                <div className="flex items-center gap-x-1 w-36 lg:w-full ">
+                  {/* <IoLocation className=" h-5 w-5 text-pink-500 " /> */}
+                
+                  <p className=" ">Location:</p>
+                  <p className="line-clamp-1 text-white ">
+               
+                    {location ? location : ''}
+                  </p>
+                </div>
+                <div className="my-4 flex jus xl:my-0  ">
+                  {/* <IoHammer className="mr-2 h-5 w-5 text-pink-500  " /> */}
+                  <p className="  ">Constructed:</p>
                   <p className="pl-1">
                     <PostYear dateString={constructionDate} />
                   </p>
                 </div>
 
                 <div className="flex items-center gap-1">
-                  <FaUserGroup className="mr-1 h-5 w-5 text-pink-500 " />
-                  <p className=" md:hidden xl:block ">Capacity:</p>
+                  {/* <FaUserGroup className="mr-1 h-5 w-5 text-pink-500 " /> */}
+                  <p className="  ">Capacity:</p>
                   <p className="">{new Intl.NumberFormat().format(capacity)}</p>
                 </div>
-                {/* </div> */}
-
-                <div className="flex items-end gap-x-2  text-gray-500">
-                  <IoLocation className=" h-5 w-5 text-pink-500 " />
-                  <p className="line-clamp-1 text-white ">
-                    {' '}
-                    {location ? location : ''}
-                  </p>
-                </div>
+              
 
                 {visited ? (
                   <>
                     <div className="  flex flex-row items-end justify-start rounded-full align-middle ">
-                      <FaRegCalendarAlt className="  h-5 w-5 text-pink-500    " />
+                      {/* <FaRegCalendarAlt className="  h-5 w-5 text-pink-500    " /> */}
 
-                      <p className=" ml-2 md:hidden xl:block">Visited on </p>
-                      <p className=" line-clamp-1 pl-2 pr-2  text-white">
+                      <p className=" ">Visited: </p>
+                      <p className=" line-clamp-1 pl-1 pr-2  text-white">
                         <PostDate dateString={dateVisited} />
                       </p>
                     </div>
@@ -128,7 +130,7 @@ const Arenas = ({
                 )}
               </div>
             </div>
-            <div className="bg-muted">
+            <div className="">
               <img
                 src={
                   arenaImageSrc.asset?._ref
@@ -139,7 +141,7 @@ const Arenas = ({
                         .url()
                     : 'https://fakeimg.pl/1240x801'
                 }
-                className="w-full object-cover brightness-[0.35]  "
+                className="w-full object-cover brightness-[0.35] sm:h-56  "
                 height={502}
                 width={203}
                 alt={`${arenaName} arena`}
@@ -149,18 +151,49 @@ const Arenas = ({
             {/**/}
           </div>
 
-          <div className=" mb-2 ml-6 mt-6 grid grid-cols-2  items-center  gap-y-1 align-middle text-xs font-bold  text-gray-700 dark:text-gray-200 md:text-xs lg:mt-20 xl:mt-3 ">
+{/* {average !== '0' ? (<div className='flex justify-between items-center'>
+<p className='ml-6 text-white'>Overall Score</p>
+
+
+
+
+              <div className="  right-0 top-0  z-10 mb-4 mr-5 mt-3   flex flex-col items-center justify-between ">
+                <span className="    text-xl font-bold text-white mb-1 ">
+                  {average}
+                </span>
+
+                <Badge
+                  size="md"
+                  variant="gradient"
+                  gradient={
+                    average > '8'
+                      ? { from: 'teal', to: 'lime', deg: 105 }
+                      : average > '6'
+                      ? { from: '#FFD400', to: '#FED44B', deg: 60 }
+                      : average > '4' ? { from: '#ed6ea0', to: '#ec8c69', deg: 35 }:{ from: 'orange', to: 'red' }
+                  }
+                >
+                  {textRating}
+                </Badge>
+            
+              </div>
+           
+
+</div> ) : null} */}
+
+          <div className=" my-3 grid grid-cols-2  items-center  gap-y-1 align-middle text-xs font-bold  text-gray-700 dark:text-gray-200 md:text-xs  ">
             <AreanaRating
               rating={arenaReview?.transportation}
-              text={'Transportation'}
+              text={'Transit to'}
             />
             <AreanaRating
               rating={arenaReview?.walkability}
-              text={'Walkability'}
+              text={'Arena Walkability'}
+
             />
-            <AreanaRating rating={arenaReview?.food} text={'Food options'} />
-            <AreanaRating rating={arenaReview?.view} text={'Seat View'} />
-            <AreanaRating rating={arenaReview?.vibes} text={'Arena Vibes'} />
+              <AreanaRating rating={arenaReview?.vibes} text={'Vibes'} />
+            <AreanaRating rating={arenaReview?.food} text={'Food Options'} />
+            <AreanaRating rating={arenaReview?.view} text={'View from Seat'} />
             <AreanaRating
               rating={arenaReview?.seatComfort}
               text={'Seat Comfort'}
