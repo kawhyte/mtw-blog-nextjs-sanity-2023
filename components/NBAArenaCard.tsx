@@ -188,7 +188,7 @@ const Arenas = ({
             />
             <AreanaRating
               rating={arenaReview?.walkability}
-              text={'Arena Walkability'}
+              text={'Walkability'}
 
             />
               <AreanaRating rating={arenaReview?.vibes} text={'Vibes'} />
