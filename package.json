@@ -33,6 +33,7 @@
     "date-fns": "^2.30.0",
     "intl-segmenter-polyfill": "0.4.4",
     "lottie-web": "^5.8.1",
+    "lucide-react": "^0.469.0",
     "next": "13.4.4",
     "next-cloudinary": "^4.28.0",
     "next-sanity": "4.3.3",

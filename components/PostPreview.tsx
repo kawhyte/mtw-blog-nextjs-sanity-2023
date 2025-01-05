@@ -11,6 +11,10 @@ import CoverImage from './CoverImage'
 export default function PostPreview({
   title,
   coverImage,
+  hotelRating,
+  foodRating,
+  linkType,
+  diningType,
   date,
   excerpt2,
   category,
@@ -41,6 +45,10 @@ export default function PostPreview({
             image={coverImage}
             priority={false}
             category={category}
+            hotelRating={hotelRating}
+            foodRating={foodRating}
+            linkType={linkType}
+            diningType={diningType}
           />
         </div>
 

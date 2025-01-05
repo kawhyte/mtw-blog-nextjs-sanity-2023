@@ -8,7 +8,7 @@ import ProgressRating from './ProgressRating'
 const StarRating = ({ rating, linkType, diningType }) => {
    console.log('STAR RATING LinkType3', linkType)
    console.log('STAR RATING diningType3', diningType)
-  // console.log('STAR RATING rating2', rating)
+   console.log('STAR RATING rating2', rating)
 
   let weights: { [category: string]: number } = {
     cleanliness: 0.2,

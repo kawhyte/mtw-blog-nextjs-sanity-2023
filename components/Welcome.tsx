@@ -1,5 +1,15 @@
 import { Blockquote } from '@mantine/core'
 import { inter, oswald } from 'app/fonts'
+import {
+  Book,
+  Code,
+  Coffee,
+  Dumbbell,
+  Footprints,
+  Gamepad,
+  Luggage,
+  Pizza,
+} from 'lucide-react'
 import Image from 'next/image'
 import React from 'react'
 import { FaCode } from 'react-icons/fa6'
@@ -129,9 +139,135 @@ const favorite = [
 ]
 
 function Welcome() {
+  const interests = [
+    { icon: Pizza, label: 'Pizza' },
+    { icon: Book, label: 'Reading' },
+    { icon: Luggage, label: 'Traveling' },
+    { icon: Code, label: 'Coding' },
+    { icon: Gamepad, label: 'Retro Games' },
+    { icon: Coffee, label: 'Coffee' },
+    { icon: Footprints, label: 'Sneakers' },
+    { icon: Dumbbell, label: 'Weightlifting' },
+  ]
+
+  const countries = [
+    { code: 'CA', name: 'Canada' },
+    { code: 'DK', name: 'Denmark' },
+    { code: 'FI', name: 'Finland' },
+    { code: 'FR', name: 'France' },
+    { code: 'ID', name: 'Indonesia' },
+    { code: 'JM', name: 'Jamaica' },
+    { code: 'JP', name: 'Japan' },
+    { code: 'MX', name: 'Mexico' },
+    { code: 'NL', name: 'Netherlands' },
+    { code: 'PR', name: 'Puerto Rico' },
+    { code: 'SE', name: 'Sweden' },
+    { code: 'BS', name: 'The Bahamas' },
+    { code: 'GB', name: 'United Kingdom' },
+    { code: 'US', name: 'United States' },
+  ]
+
   return (
     <>
-      <div className="     ">
+      <div className="container mx-auto space-y-6">
+        <header className=" mx-auto mb-12 ">
+          <SectionTitle
+            header={'Meet the Dynamic Duo'}
+            description={`
+                
+                Hi! We are the Whytes. Welcome to our space on the
+              interwebs. We are a
+              husband 👖 and wife 👗 duo. We love to travel, relax & try new
+              food.`}
+          />
+        </header>
+
+        <div className="max-w-8xl grid w-full grid-cols-2 place-items-center gap-4 md:grid-cols-2">
+          {/* Mr. Whyte Card */}
+
+          <AvatarCard data={duo[0]} />
+          {/* <div className="p-6 space-y-4">
+          <div className="flex items-center gap-4">
+            <div className="w-16 h-16 rounded-full bg-gray-200" />
+            <h2 className="text-2xl font-bold text-indigo-600">Mr. Whyte</h2>
+          </div>
+          <blockquote className="text-gray-600 italic">
+            "Be yourself; everyone else is already taken. - Oscar Wilde"
+          </blockquote>
+        </div> */}
+
+          {/* <div className="p-6  rounded-3xl w-full  outline  bg-[#fff5e6]">
+          <h2 className={`${oswald.variable}  title-font my-4  font-heading   text-gray-900 sm:text-2xl lg:text-3xl font-bold mb-6`}>Things we like</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {interests.map((item, index) => (
+              <div key={index} className="flex flex-col items-center gap-2">
+                <item.icon className="w-6 h-6" />
+                <span className="text-sm text-nowrap">{item.label}</span>
+              </div>
+            ))}
+          </div>
+        </div> */}
+
+          {/* Mrs. Whyte Card */}
+          <AvatarCard data={duo[1]} />
+
+          {/* <div className="p-6 space-y-4">
+          <div className="flex items-center gap-4 justify-end">
+            <h2 className="text-2xl font-bold text-pink-600">Mrs. Whyte</h2>
+            <div className="w-16 h-16 rounded-full bg-gray-200" />
+          </div>
+          <blockquote className="text-gray-600 italic">
+            "So many books, so little time - Frank Zappa"
+          </blockquote>
+        </div> */}
+        </div>
+
+        {/* Interests Card */}
+        <div className="max-w-8xl w-full rounded-3xl bg-[#fff5e6] p-6">
+          <h2
+            className={`${oswald.variable}  title-font my-4  mb-6   font-heading font-bold text-gray-900 text-xl sm:text-2xl lg:text-3xl`}
+          >
+            Things we like
+          </h2>
+          <div className="flex flex-wrap gap-2">
+            {interests.map((item, index) => (
+              <div
+                key={index}
+                className="flex items-center gap-2 rounded-full border bg-white px-3 py-1.5 shadow-sm"
+              >
+                <item.icon className="h-6 w-6" />
+                <span className="text-nowrap text-sm">{item.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Countries Card */}
+        <div className="max-w-8xl w-full rounded-3xl bg-[#f0f7ff] p-6">
+          <h2
+            className={`${oswald.variable}  title-font my-4  mb-6   font-heading font-bold text-gray-900 text-xl sm:text-2xl lg:text-3xl`}
+          >
+            Countries we&apos;ve visited
+          </h2>
+          <div className="flex flex-wrap gap-2">
+            {countries.map((country) => (
+              <div
+                key={country.code}
+                className="flex items-center gap-2 rounded-full border bg-white px-3 py-1.5 shadow-sm"
+              >
+                <img
+                  src={`https://flagcdn.com/${country.code.toLowerCase()}.svg`}
+                  alt={`${country.name} flag`}
+                  className="h-3 w-4 object-cover"
+                />
+                <span className="text-sm">{country.name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* <div className="     ">
         <div className="xl:max-w-9xl rounded-xl px-4   pb-6">
           <header className=" mx-auto mb-12 ">
             <SectionTitle
@@ -147,7 +283,9 @@ function Welcome() {
             />
           </header>
 
-          <div className="grid gap-6 lg:grid-cols-10 ">
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-10 ">
+            
+           
             <AvatarCard data={duo[0]} />
 
             <div className="col-span-4 rounded-xl bg-orange-100 pl-6 pt-3">
@@ -175,30 +313,10 @@ function Welcome() {
             </div>
 
             <AvatarCard data={duo[1]} />
-            {/* <div className="col-span-2  rounded-3xl bg-gray-200 outline  ">
-              <div className="flex flex-col items-center pb-12 pl-8 pt-4  ">
-                <img
-                  src={duo[0].image}
-                  className=" w-64 h-64 max-w-full "
-                  alt="title image"
-                />
-                <div className="flex flex-col -mt-6">
-                  <p
-                    className={`${oswald.variable}  title-font my-2  font-heading text-3xl font-medium text-${duo[0].color}-500 text-gray-900 sm:text-4xl`}
-                  >
-                    {duo[0].name}
-                  </p>
+           
 
-                 
-                </div>
-              </div>
 
-              <div className="-mt-10 mb-8 px-3 text-center">
-                <span className=" mt-2 text-center  text-lg  font-extralight text-gray-500">
-                  &quot;{duo[0].quote}&quot; {duo[0].quote_by}
-                </span>
-              </div>
-            </div> */}
+            
 
             <div className="col-span-10 rounded-xl bg-blue-100 pl-6 pt-3 ">
               <p
@@ -227,141 +345,17 @@ function Welcome() {
                   ))}
               </div>
             </div>
-            {/* <div className="col-span-6 rounded-xl bg-orange-100 pl-6 pt-3">
-              <p
-                className={`${oswald.variable}  title-font my-4  font-heading text-3xl font-medium  text-gray-900 sm:text-4xl`}
-              >
-                Things we like
-              </p>
+            
 
-              <div className="mb-6 mr-2 mt-5 grid  grid-cols-3 gap-y-4 md:grid-cols-4 ">
-                {favorite?.map((item) => (
-                  <div
-                    key={item.id}
-                    className=" flex flex-col items-center gap-2   rounded-lg  px-1 align-middle "
-                  >
-                    <span>{item.img} </span>
-                    <span
-                      className={`text-nowrap whitespace-nowrap rounded-full   px-2  text-xs    font-extralight  text-gray-500 `}
-                    >
-                      {item.name}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div> */}
-
-            {/* <AvatarCard data={duo[1]} /> */}
 
             <div className="col-span-2 rounded-xl  ">
-              {/* <div className="flex flex-col items-center  overflow-hidden pb-12 lg:relative  ">
-                <img
-                  src={duo[1].image}
-                  className="mx-auto mt-3 h-auto w-32 max-w-full rounded-full bg-gray-200 p-3 grayscale"
-                  alt="title image"
-                />
-
-                <p
-                  className={`${oswald.variable}  title-font my-2  font-heading text-3xl font-medium text-${duo[1].color}-500 text-gray-900 sm:text-4xl`}
-                >
-                  {duo[1].name}
-                </p>
-              </div>
-
-              <div className="-mt-10 px-3">
-                <span className=" ml-2 mt-2 text-center  text-sm  font-extralight text-gray-500">
-                  &quot;{duo[1].quote}&quot; {duo[1].quote_by}
-                </span>
-              </div> */}
+              
             </div>
           </div>
 
-          {/* <div className=" mb-3 grid md:ml-20 lg:ml-0  lg:h-96 grid-cols-1  gap-3  justify-items-center md:gap-y-52 md:w-5/6 md:grid-cols-2  md:gap-x-20">
-            {duo.map((person) => (
-              <div key={person.id}>
-                <div className="bg-white">
-                  <div className="flex min-w-full items-center justify-center">
-                    <div className="flex lg:relative">
-                      
-                   
-                          <div className="lg:absolute hidden -left-4 -top-4 h-96 w-72  transform rounded-lg bg-yellow-100 transition-all"></div>
-                          <div className="-left-8 -top-8 hidden h-96 w-72 transform rounded-lg  bg-green-100 transition-all lg:absolute lg:block"></div>
-                          <div className="-left-12 -top-12 hidden h-96 w-72 transform rounded-lg  bg-purple-100 transition-all lg:absolute lg:block"></div>
-                          <div className="-left-16 -top-16 hidden h-96 w-72 transform rounded-lg  bg-gray-300 transition-all lg:absolute lg:block"></div>
-                          <div className="-left-20 -top-20   lg:flex  h-72 lg:h-96 w-72 transform  flex-col items-center justify-center rounded-lg border-4  border-black bg-white transition-all lg:absolute">
-                     
-                        
-                        <div className="flex flex-col items-center  overflow-hidden pb-12 lg:relative  ">
-                          <img
-                            src={person.image}
-                            className="mx-auto h-auto w-32 mt-3 max-w-full rounded-full bg-gray-200 p-3 grayscale"
-                            alt="title image"
-                          />
-
-                          <p
-                            className={`${oswald.variable}  title-font my-2  font-heading text-3xl font-medium text-${person.color}-500 text-gray-900 sm:text-4xl`}
-                          >
-                            {person.name}
-                          </p>
-                        </div>
-
-                        <div className="-mt-10 px-3">
-                          <span className=" ml-2 mt-2 text-center  text-sm  font-extralight text-gray-500">
-                            &quot;{person.quote}&quot; {person.quote_by}
-                          </span>
-                        </div>
-                        <div className=" mb-2 mt-4 hidden  p-2  lg:block border-t">
-                          <p className=" ml-2 mt- text-start  text-sm  font-extralight text-gray-500">
-                            Likes:
-                          </p>
-                          <div className="text-nowrap mt-2 grid grid-cols-4 gap-x-4 gap-y-1 px-3">
-                            {person.favorite?.map((item) => (
-                              <div
-                                key={item.id}
-                                className=" text-nowrap flex flex-col items-center gap-x-2 text-center font-light leading-relaxed text-gray-500"
-                              >
-                                <span>{item.img} </span>
-                                <span
-                                  className={`text-nowrap rounded-full   px-2 py-1 text-xs    font-extralight  text-gray-500 `}
-                                >
-                                  {item.name}
-                                </span>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div> */}
+          
         </div>
-      </div>
-
-      {/* <section className="body-font text-gray-600 pt-24 md:pt-32 ">
-        <div className=" container mx-auto px-5 ">
-          <div className="-m-4 flex justify-evenly text-center ">
-            {stats.map((item) => (
-              <div key={item.id} className="w-full p-4 sm:w-1/2 md:w-1/4">
-                <div key={item.id} className=" flex flex-col items-center  border-gray-200 px-4 py-6">
-                  <img src={item.url} alt={item.name} width={200} />
-
-                  <h2
-                    className={` ${oswald.variable}  py-3 font-heading text-2xl font-medium  text-gray-900 md:text-4xl`}
-                  >
-                    {item.value}
-                  </h2>
-                  <p className="text-xs leading-relaxed md:text-base font-light ">
-                    {item.name}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section> */}
+      </div> */}
     </>
   )
 }
