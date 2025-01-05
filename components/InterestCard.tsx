@@ -1,0 +1,36 @@
+import { oswald } from 'app/fonts'
+import React from 'react'
+
+interface Interest {
+  icon: any
+  label: string
+}
+
+interface InterestCardProps {
+  interests: Interest[]
+}
+
+function InterestCard({ interests }: InterestCardProps) {
+  return (
+    <div className="max-w-8xl w-full rounded-3xl bg-[#fff5e6] p-6">
+      <h2
+        className={`${oswald.variable}  title-font my-4  mb-6   font-heading text-xl font-bold text-gray-900 sm:text-2xl lg:text-3xl`}
+      >
+        Things we like
+      </h2>
+      <div className="flex flex-wrap gap-2">
+        {interests.map((item, index) => (
+          <div
+            key={index}
+            className="flex items-center gap-2 rounded-full border bg-white px-3 py-1.5 shadow-sm"
+          >
+            <item.icon className="h-6 w-6" />
+            <span className="text-nowrap text-sm">{item.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export default InterestCard

@@ -41,7 +41,7 @@ export default function AuthorAvatar({ data }) {
           <div className="relative z-10 italic text-gray-600">
             <p className="text-gray-800 text-sm sm:text-base ">
               <em>
-                {data.quote} {data.quote_by}
+                {data.quote} {data.quoteBy}
               </em>
             </p>
           </div>
