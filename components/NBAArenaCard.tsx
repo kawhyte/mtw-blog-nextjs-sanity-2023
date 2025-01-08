@@ -46,7 +46,7 @@ const Arenas = ({
     <>
       <div
         key={id}
-        className={`relative h-[26.3rem] w-full max-w-sm overflow-hidden rounded-3xl border-4 border-black bg-white shadow-offsetIndigo transition-transform duration-500 ease-in-out dark:bg-gray-800 md:h-[26.9rem]  ${
+        className={`relative h-[24.0rem] w-full max-w-xs overflow-hidden rounded-3xl border-4 border-black bg-white shadow-offsetIndigo transition-transform duration-500 ease-in-out dark:bg-gray-800 md:h-[27.9rem]  ${
           visited === false ? 'opacity-40 grayscale ' : 'grayscale-0 '
         } ${isFlipped ? 'rotate-y-180' : ''}`}
         onMouseEnter={() => setIsFlipped(true)}
@@ -59,10 +59,12 @@ const Arenas = ({
           }`}
         >
           <div className="relative">
-            <div className="absolute right-4 top-4 z-30 ">
+            {/* <div className="absolute right-4 top-4 z-30 ">
               {visited ? (
                 <>
                   <div className="  flex flex-row items-end justify-start rounded-full align-middle  ">
+                    
+                    
                     <Badge>
                       Visited Arena on <PostDate dateString={dateVisited} />
                     </Badge>
@@ -71,7 +73,7 @@ const Arenas = ({
               ) : (
                 ''
               )}
-            </div>
+            </div> */}
 
             {average > '0' ? (
               <div className="absolute bottom-3 right-3 z-30 flex flex-col items-center  justify-center rounded-2xl bg-pink-500 p-2 w-[4.8rem]">
@@ -235,17 +237,17 @@ const Arenas = ({
           </div>
 
           <div className="text-sm md:text-xs">
-            <div className="mr-4 mt-2  border-t border-gray-500"></div>
-            <h3 className=" ml-5 mt-4 text-sm  font-semibold text-gray-200  ">
+            <div className=" mt-4 md:mt-0  border-t border-gray-500"></div>
+            <h3 className=" ml-5 mt-5 text-sm  font-semibold text-gray-200  ">
               Team(s) Viewed
             </h3>
             <div className=" mx-3  flex flex-row flex-wrap justify-start gap-x-2 align-top   md:gap-x-6 ">
               {gallery?.map((photo) => (
                 <div
                   key={photo.name}
-                  className="  mb-3 mt-4 flex flex-col items-center justify-between pr-2 "
+                  className="  mb-1 mt-4 flex flex-col items-center justify-between "
                 >
-                  <div className="flex flex-row gap-x-3">
+                  <div className="flex flex-row gap-x-1">
                     <img
                       src={
                         photo?.asset?._ref
@@ -256,14 +258,14 @@ const Arenas = ({
                               .url()
                           : 'https://dummyimage.com/96x96/000/aeb0d9.jpg&text=Image'
                       }
-                      className=" h-10 w-10 rounded-full border-2 p-1 md:h-7 md:w-7   "
+                      className=" h-9 w-9 rounded-full border-2 p-1 md:h-7 md:w-7   "
                       height={96}
                       width={96}
                       loading="lazy"
                       alt={`${photo.name} logo`}
                     />
 
-                    <div className="flex flex-col ">
+                    <div className="flex flex-col text-xs ">
                       <p className="mx-1  cursor-pointer font-bold text-gray-700 dark:text-gray-200   ">
                         {photo.name}
                       </p>
@@ -318,7 +320,7 @@ const Arenas = ({
               />
             </div>
 
-            <p className="text-xl font-bold text-gray-200">Arena Stats </p>
+            <p className="text-xl font-bold text-gray-200 mb-3">Arena Stats </p>
 
             <div className="grid w-full grid-cols-2   place-items-center gap-x-2 px-2   text-sm text-gray-200 md:text-xs  lg:gap-y-4  lg:text-xs ">
               <div className="jus my-4 flex xl:my-0  ">
@@ -338,7 +340,7 @@ const Arenas = ({
                   {location ? location : ''}
                 </p>
               </div>
-              {/* {visited ? (
+              {visited ? (
                 <>
                   <div className="  flex flex-row items-end justify-start rounded-full align-middle ">
                     <p className=" ">Visited: </p>
@@ -349,7 +351,7 @@ const Arenas = ({
                 </>
               ) : (
                 ''
-              )} */}
+              )} 
             </div>
           </div>
         </div>
