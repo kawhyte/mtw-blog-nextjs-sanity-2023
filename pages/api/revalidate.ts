@@ -59,7 +59,7 @@ export default async function revalidate(
     return res.status(500).send(err.message)
   }
 }
- //console.log("TSST")
+
 type StaleRoute = '/' | `/posts/${string}`
 
 async function queryStaleRoutes(

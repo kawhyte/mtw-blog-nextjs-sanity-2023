@@ -25,7 +25,6 @@ export function calculateRating(
 ): RatingResult {
   // Calculate the weighted average rating
 
-  // console.log("---NewN3----",ratingObject)
   let weightedSum = 0
   //if (ratingObject) { 
   for (const key in ratingObject) {
@@ -35,8 +34,6 @@ export function calculateRating(
     }
   }
   //}
-
-  // console.log("Calucual", weightedSum)
 
   // Convert the numerical rating to a text rating
   const thresholds = Object.keys(ratingThresholds)

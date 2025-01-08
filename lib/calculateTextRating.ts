@@ -35,7 +35,7 @@ rating.textRating = 'Extraordinary'
     // Fall through
   }
 
-  // console.log("Test Rating ",rating)
+
 
   return rating
 }

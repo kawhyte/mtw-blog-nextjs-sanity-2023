@@ -54,8 +54,7 @@ export default function HeroPost(
               title={title}
               date={date}
               location={location}
-              excerpt2={excerpt2}
-              // url={coverImage}
+              excerpt2={excerpt2} rating={undefined} linkType={''} diningType={undefined}              // url={coverImage}
               // linkType={linkType}
             />
           </div>

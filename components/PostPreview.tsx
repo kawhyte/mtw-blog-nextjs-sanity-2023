@@ -30,12 +30,8 @@ export default function PostPreview({
     green: 'shadow-offsetGreen',
     red: 'shadow-offsetRed',
   }
-// let currentRating = linkType === 'hotel' ? hotelRating: linkType =='food'? foodRating : {}
 
-
-console.log("DDDDDT1", diningType)
-console.log("HOtel1", hotelRating)
-let currentRating = 
+  let currentRating = 
   linkType === 'food' 
     ? (diningType === 'takeout' ? takeoutRating : foodRating) 
     : hotelRating; 

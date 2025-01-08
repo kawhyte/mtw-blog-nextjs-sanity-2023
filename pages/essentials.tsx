@@ -30,7 +30,7 @@ interface PreviewData {
 export default function Page(props: PageProps) {
     const { TravelEssentialposts, settings, preview, token } = props
   
-    //console.log("KENNY3 ", props )
+ 
     if (preview) {
       return (
         <PreviewSuspense

@@ -76,15 +76,32 @@ const Arenas = ({
             </div> */}
 
             {average > '0' ? (
-              <div className="absolute bottom-3 right-3 z-30 flex flex-col items-center  justify-center rounded-2xl bg-pink-500 p-2 w-[4.8rem]">
+              <div className="absolute bottom-3 right-6 z-30 flex w-[4.8rem] flex-col  items-center justify-center  rounded-2xl p-2">
                 <h1
-                  className={` mx-2 text-2xl font-black leading-tight tracking-tighter text-white sm:text-xl md:text-left md:text-xl md:leading-none lg:text-lg`}
+                  className={` mx-2 text-2xl font-black leading-tight tracking-tighter text-gray-100 sm:text-xl md:text-left md:text-xl md:leading-none lg:text-2xl`}
                 >
                   {/*isFraction ? Math.floor(average) + ".5" : Math.floor(average)*/}
-                  {(Number(average) ).toFixed(1) }
+                  {Number(average).toFixed(1)}
                 </h1>
-                <div className="flex items-center text-sm font-black text-white">
+
+                <Badge
+                  size="lg"
+                  className="flex flex-col"
+                  variant="gradient"
+                  gradient={
+                    average > '8'
+                      ? { from: 'teal', to: 'lime', deg: 105 }
+                      : average > '6'
+                      ? { from: '#FFD400', to: '#FED44B', deg: 60 }
+                      : average > '4'
+                      ? { from: '#ed6ea0', to: '#ec8c69', deg: 35 }
+                      : { from: 'orange', to: 'red' }
+                  }
+                >
                   {textRating}
+                </Badge>
+
+                <div className="flex items-center text-sm font-black text-white">
                   {/* <span className=" text-sm uppercase text-white">out of 5</span>
             <span>
               <svg
@@ -111,7 +128,7 @@ const Arenas = ({
                       .url()
                   : 'https://fakeimg.pl/1240x801'
               }
-              className="w-full object-cover brightness-[0.85] sm:h-56  "
+              className="w-full object-cover brightness-[0.75] sm:h-56  "
               height={502}
               width={203}
               alt={`${arenaName} arena`}
@@ -237,7 +254,7 @@ const Arenas = ({
           </div>
 
           <div className="text-sm md:text-xs">
-            <div className=" mt-4 md:mt-0  border-t border-gray-500"></div>
+            <div className=" mt-4 border-t  border-gray-500 md:mt-0"></div>
             <h3 className=" ml-5 mt-5 text-sm  font-semibold text-gray-200  ">
               Team(s) Viewed
             </h3>
@@ -299,7 +316,7 @@ const Arenas = ({
             <p className="text-xl font-bold text-gray-200">Rating Breakdown </p>
             {/* ... more content */}
 
-            <div className=" my-3 grid w-full  grid-cols-2  items-center  gap-y-1 border-b pb-2 align-middle  text-xs font-bold text-gray-700 dark:text-gray-200 md:text-xs ">
+            <div className=" my-3 grid w-full  grid-cols-2  items-center border-b pb-2 align-middle  text-xs font-bold text-gray-700 dark:text-gray-200 md:text-xs ">
               <AreanaRating
                 rating={arenaReview?.transportation}
                 text={'Transit to'}
@@ -320,10 +337,10 @@ const Arenas = ({
               />
             </div>
 
-            <p className="text-xl font-bold text-gray-200 mb-3">Arena Stats </p>
+            <p className="text-xl font-bold text-gray-200 ">Arena Stats </p>
 
-            <div className="grid w-full grid-cols-2   place-items-center gap-x-2 px-2   text-sm text-gray-200 md:text-xs  lg:gap-y-4  lg:text-xs ">
-              <div className="jus my-4 flex xl:my-0  ">
+            <div className="my-3 ml-6 grid w-full grid-cols-2  items-center  gap-y-3  pb-2  align-middle text-xs  text-gray-700  dark:text-gray-200  md:text-xs">
+              <div className=" flex xl:my-0  ">
                 <p className="  ">Constructed:</p>
                 <p className="pl-1">
                   <PostYear dateString={constructionDate} />
@@ -351,7 +368,7 @@ const Arenas = ({
                 </>
               ) : (
                 ''
-              )} 
+              )}
             </div>
           </div>
         </div>
