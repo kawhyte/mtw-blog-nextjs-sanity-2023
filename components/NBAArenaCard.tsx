@@ -2,6 +2,7 @@ import { Badge } from '@mantine/core'
 import { oswald } from 'app/fonts'
 import calculateAverageRating from 'lib/calculateArenaRating'
 import { urlForImage } from 'lib/sanity.image'
+import { Binoculars, Car,Eye, EyeOff, Footprints, Music,Pizza,RotateCw, Sofa } from 'lucide-react'
 import { useState } from 'react'
 import { FaRegCalendarAlt } from 'react-icons/fa'
 import { FaUserGroup } from 'react-icons/fa6'
@@ -46,7 +47,7 @@ const Arenas = ({
     <>
       <div
         key={id}
-        className={`relative h-[24.0rem] w-full max-w-xs overflow-hidden rounded-3xl border-4 border-black bg-white shadow-offsetIndigo transition-transform duration-500 ease-in-out dark:bg-gray-800 md:h-[27.9rem]  ${
+        className={`relative h-[36.4rem] w-full max-w-sm overflow-hidden rounded-3xl border-4 border-black bg-white shadow-offsetIndigo transition-transform duration-500 ease-in-out dark:bg-gray-800 sm:h-[36.4rem] md:h-[36.9rem]  ${
           visited === false ? 'opacity-40 grayscale ' : 'grayscale-0 '
         } ${isFlipped ? 'rotate-y-180' : ''}`}
         onMouseEnter={() => setIsFlipped(true)}
@@ -59,6 +60,7 @@ const Arenas = ({
           }`}
         >
           <div className="relative">
+            <RotateCw className="absolute right-6 top-3 z-40 text-white" />
             {/* <div className="absolute right-4 top-4 z-30 ">
               {visited ? (
                 <>
@@ -78,7 +80,7 @@ const Arenas = ({
             {average > '0' ? (
               <div className="absolute bottom-3 right-6 z-30 flex w-[4.8rem] flex-col  items-center justify-center  rounded-2xl p-2">
                 <h1
-                  className={` mx-2 text-2xl font-black leading-tight tracking-tighter text-gray-100 sm:text-xl md:text-left md:text-xl md:leading-none lg:text-2xl`}
+                  className={` mx-2 text-3xl font-black leading-tight tracking-tighter text-gray-100 sm:text-3xl md:text-left md:text-3xl md:leading-none lg:text-3xl`}
                 >
                   {/*isFraction ? Math.floor(average) + ".5" : Math.floor(average)*/}
                   {Number(average).toFixed(1)}
@@ -86,7 +88,7 @@ const Arenas = ({
 
                 <Badge
                   size="lg"
-                  className="flex flex-col"
+                  className="flex flex-col mt-1"
                   variant="gradient"
                   gradient={
                     average > '8'
@@ -128,7 +130,7 @@ const Arenas = ({
                       .url()
                   : 'https://fakeimg.pl/1240x801'
               }
-              className="w-full object-cover brightness-[0.75] sm:h-56  "
+              className="w-full object-cover brightness-[0.55] sm:h-56  "
               height={502}
               width={203}
               alt={`${arenaName} arena`}
@@ -137,7 +139,7 @@ const Arenas = ({
           </div>
 
           <div className=" flex justify-between  ">
-            <div className="ml-4 mt-4 ">
+            <div className="mb-2 ml-4 mt-4 ">
               <h1
                 className={`${oswald.variable}  line-clamp-2 font-heading  text-3xl font-medium  text-gray-100 no-underline decoration-pink-500 decoration-dashed decoration-4 group-hover:underline md:text-2xl lg:text-3xl xl:mb-3  `}
               >
@@ -254,17 +256,61 @@ const Arenas = ({
           </div>
 
           <div className="text-sm md:text-xs">
+            <div className="flex flex-row justify-between text-white">
+              <div className="my-3 ml-6 grid w-full grid-cols-2  items-center  gap-y-5  pb-2  align-middle text-xs  text-gray-700  dark:text-gray-200  md:text-xs">
+                <div className=" flex w-32 flex-col items-center  gap-y-1.5 xl:my-0  ">
+                  <p className=" text-sm font-bold">
+                    <PostYear dateString={constructionDate} />
+                  </p>
+                  <Badge color="green" size="sm">
+                    Constructed
+                  </Badge>
+                </div>
+
+                <div className=" flex w-32 flex-col items-center   gap-y-1.5 xl:my-0  ">
+                  <p className=" text-sm font-bold">
+                    {new Intl.NumberFormat().format(capacity)}
+                  </p>
+                  <Badge color="green" size="sm">
+                    Capacity
+                  </Badge>
+                </div>
+
+                <div className=" flex w-32  flex-col items-center   gap-y-1.5 xl:my-0  ">
+                  <p className=" text-sm font-bold">
+                    {location ? location : ''}
+                  </p>
+                  <Badge color="green" size="sm">
+                    Location
+                  </Badge>
+                </div>
+
+                {visited ? (
+                  <div className=" flex w-32 flex-col items-center   gap-y-1.5 xl:my-0  ">
+                    <p className=" text-sm font-bold">
+                      <PostDate dateString={dateVisited} />
+                    </p>
+                    <Badge color="green" size="sm">
+                      Visited
+                    </Badge>
+                  </div>
+                ) : (
+                  ''
+                )}
+              </div>
+            </div>
+
             <div className=" mt-4 border-t  border-gray-500 md:mt-0"></div>
-            <h3 className=" ml-5 mt-5 text-sm  font-semibold text-gray-200  ">
+            <h3 className=" ml-5 mt-5 text-sm  font-bold text-gray-200  ">
               Team(s) Viewed
             </h3>
-            <div className=" mx-3  flex flex-row flex-wrap justify-start gap-x-2 align-top   md:gap-x-6 ">
+            <div className=" mx-3  flex flex-row flex-wrap justify-start gap-x-7 align-top   md:gap-x-6 ">
               {gallery?.map((photo) => (
                 <div
                   key={photo.name}
                   className="  mb-1 mt-4 flex flex-col items-center justify-between "
                 >
-                  <div className="flex flex-row gap-x-1">
+                  <div className="flex flex-row">
                     <img
                       src={
                         photo?.asset?._ref
@@ -283,19 +329,19 @@ const Arenas = ({
                     />
 
                     <div className="flex flex-col text-xs ">
-                      <p className="mx-1  cursor-pointer font-bold text-gray-700 dark:text-gray-200   ">
+                      <p className="mx-2  cursor-pointer font-bold text-gray-700 dark:text-gray-200   ">
                         {photo.name}
                       </p>
 
                       {photo.played === true ? (
                         <div className="flex items-center">
-                          <IoMdEye className="mx-1 h-6 w-6 text-green-300 md:h-4  md:w-4" />
+                          <Eye className="mx-2 h-5 w-5 text-green-300 md:h-4  md:w-4" />
                           <p className="my-1 cursor-pointer font-bold text-gray-400 dark:text-gray-400  ">
                             Watched
                           </p>
                         </div>
                       ) : (
-                        <IoMdEyeOff className="mx-1 my-1 h-6 w-6 text-gray-300 md:h-4   md:w-4" />
+                        <EyeOff className="mx-1 my-1 h-5 w-5 text-gray-300 md:h-4   md:w-4" />
                       )}
                     </div>
                   </div>
@@ -316,48 +362,79 @@ const Arenas = ({
             <p className="text-xl font-bold text-gray-200">Rating Breakdown </p>
             {/* ... more content */}
 
-            <div className=" my-3 grid w-full  grid-cols-2  items-center border-b pb-2 align-middle  text-xs font-bold text-gray-700 dark:text-gray-200 md:text-xs ">
+            <div className=" my-3 grid w-full grid-cols-2 place-items-center  items-center pb-2 align-middle  text-xs font-bold text-gray-700 dark:text-gray-200 md:text-xs ">
               <AreanaRating
                 rating={arenaReview?.transportation}
                 text={'Transit to'}
+                icon={ <Car />}
               />
               <AreanaRating
                 rating={arenaReview?.walkability}
                 text={'Walkability'}
+                icon={<Footprints />}
               />
-              <AreanaRating rating={arenaReview?.vibes} text={'Vibes'} />
-              <AreanaRating rating={arenaReview?.food} text={'Food Options'} />
+              <AreanaRating rating={arenaReview?.vibes} text={'Vibes'}  icon={<Music />} />
+              <AreanaRating rating={arenaReview?.food} text={'Food Options'}  icon={<Pizza />}/>
               <AreanaRating
                 rating={arenaReview?.view}
-                text={'View from Seat'}
+                text={'View from Seat'}  icon={<Binoculars />}
               />
               <AreanaRating
                 rating={arenaReview?.seatComfort}
-                text={'Seat Comfort'}
+                text={'Seat Comfort'}  icon={<Sofa/>}
               />
             </div>
 
-            <p className="text-xl font-bold text-gray-200 ">Arena Stats </p>
+            {/* <p className="text-xl font-bold text-gray-200 ">Arena Stats </p> */}
 
-            <div className="my-3 ml-6 grid w-full grid-cols-2  items-center  gap-y-3  pb-2  align-middle text-xs  text-gray-700  dark:text-gray-200  md:text-xs">
-              <div className=" flex xl:my-0  ">
-                <p className="  ">Constructed:</p>
-                <p className="pl-1">
+            {/* <div className="my-3 ml-6 grid w-full grid-cols-2  items-center  gap-y-3  pb-2  align-middle text-xs  text-gray-700  dark:text-gray-200  md:text-xs">
+              
+              
+              
+              <div className=" flex flex-col items-center  xl:my-0 w-28  ">
+                <p className=" mb-1 text-base font-bold">
                   <PostYear dateString={constructionDate} />
                 </p>
+                <Badge color='green' size='sm'>Constructed</Badge>
               </div>
 
-              <div className="flex items-center gap-1">
+              <div className=" flex flex-col items-center  xl:my-0 w-28  ">
+                <p className=" mb-1 text-base font-bold">
+                {new Intl.NumberFormat().format(capacity)}
+                </p>
+                <Badge color='green' size='sm'>Capacity</Badge>
+              </div>
+              
+              <div className=" flex flex-col items-center  xl:my-0 w-36  ">
+                <p className=" mb-1 text-base font-bold">
+                {location ? location : ''}
+                </p>
+                <Badge color='green' size='sm'>Location</Badge>
+              </div>
+
+
+              {visited ? (
+              <div className=" flex flex-col items-center  xl:my-0 w-28  ">
+                <p className=" mb-1 text-base font-bold">
+                <PostDate dateString={dateVisited} />
+                </p>
+                <Badge color='green' size='sm'>Visited</Badge>
+              </div>
+               ) : (
+                ''
+              )} */}
+
+            {/* <div className="flex items-center gap-1">
                 <p className="  ">Capacity:</p>
                 <p className="">{new Intl.NumberFormat().format(capacity)}</p>
-              </div>
-              <div className="flex items-center gap-x-1 lg:w-full ">
+              </div> */}
+            {/* <div className="flex items-center gap-x-1 lg:w-full ">
                 <p className=" ">Location:</p>
                 <p className="line-clamp-1 text-white ">
                   {location ? location : ''}
                 </p>
-              </div>
-              {visited ? (
+              </div> */}
+            {/* {visited ? (
                 <>
                   <div className="  flex flex-row items-end justify-start rounded-full align-middle ">
                     <p className=" ">Visited: </p>
@@ -368,11 +445,11 @@ const Arenas = ({
                 </>
               ) : (
                 ''
-              )}
-            </div>
+              )} */}
           </div>
         </div>
       </div>
+      {/* </div> */}
     </>
   )
 }
