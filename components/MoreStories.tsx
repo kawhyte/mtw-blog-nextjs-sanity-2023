@@ -24,7 +24,8 @@ export default function MoreStories({ posts, showPagination }: { posts: Post[], 
     const end = start + itemsPerPage
     setvisiblePosts(posts.slice(start, end))
   }
- console.log("DRY1", visiblePosts)
+  //console.log("DRY001", visiblePosts[1])
+//  console.log("DRY3 Title", visiblePosts[0].title)
   //  console.log('activePage', posts[0])
 
   return (
@@ -42,8 +43,9 @@ export default function MoreStories({ posts, showPagination }: { posts: Post[], 
             location={post.location}
             category={post.category}
             linkType={post.linkType}
-            foodRating={post.hotelRating}
+            foodRating={post.foodRating}
             hotelRating={post.hotelRating}
+            takeoutRating={post.takeoutRating}
             diningType={post.diningType}
           />
         ))}

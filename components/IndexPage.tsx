@@ -41,7 +41,7 @@ export default function IndexPage(props: IndexPageProps) {
   } = props
   const [heroPost, ...morePosts] = posts || []
   const { title = demo.title, description = demo.description } = settings || {}
-
+// console.log("POST1", posts[0])
   return (
     <>
       <IndexPageHead settings={settings} />

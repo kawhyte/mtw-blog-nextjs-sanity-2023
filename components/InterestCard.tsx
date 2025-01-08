@@ -1,8 +1,11 @@
 import { oswald } from 'app/fonts'
+import {
+    Book,
+  } from 'lucide-react';
 import React from 'react'
 
 interface Interest {
-  icon: any
+  icon: React.ComponentType<React.ComponentProps<typeof Book>>;
   label: string
 }
 

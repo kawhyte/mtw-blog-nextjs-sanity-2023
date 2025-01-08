@@ -13,6 +13,7 @@ export default function PostPreview({
   coverImage,
   hotelRating,
   foodRating,
+  takeoutRating,
   linkType,
   diningType,
   date,
@@ -29,6 +30,18 @@ export default function PostPreview({
     green: 'shadow-offsetGreen',
     red: 'shadow-offsetRed',
   }
+// let currentRating = linkType === 'hotel' ? hotelRating: linkType =='food'? foodRating : {}
+
+
+console.log("DDDDDT1", diningType)
+console.log("HOtel1", hotelRating)
+let currentRating = 
+  linkType === 'food' 
+    ? (diningType === 'takeout' ? takeoutRating : foodRating) 
+    : hotelRating; 
+
+
+
 
   return (
     <>
@@ -45,8 +58,9 @@ export default function PostPreview({
             image={coverImage}
             priority={false}
             category={category}
-            hotelRating={hotelRating}
-            foodRating={foodRating}
+            rating = {currentRating}
+            // hotelRating={hotelRating}
+            // foodRating={foodRating}
             linkType={linkType}
             diningType={diningType}
           />

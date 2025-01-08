@@ -1,10 +1,10 @@
 interface RatingObject {
   // [key: string]: number | string
-  [key: string]: number | string | any
+  [key: string]:any //number | string | any
 }
 
 interface RatingWeights {
-  [key: string]: number
+  [key: string]: any
 }
 
 interface RatingResult {
@@ -24,12 +24,19 @@ export function calculateRating(
   }
 ): RatingResult {
   // Calculate the weighted average rating
+
+  // console.log("---NewN3----",ratingObject)
   let weightedSum = 0
+  //if (ratingObject) { 
   for (const key in ratingObject) {
+    // console.log("key3", key)
     if (key in weights && typeof ratingObject[key] === 'number') {
       weightedSum += ratingObject[key] * weights[key]
     }
   }
+  //}
+
+  // console.log("Calucual", weightedSum)
 
   // Convert the numerical rating to a text rating
   const thresholds = Object.keys(ratingThresholds)

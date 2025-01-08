@@ -1,77 +1,80 @@
 import { inter, oswald } from 'app/fonts'
 import { calculateRating } from 'lib/calculateRating'
+import { ratingWeights } from 'lib/ratingWeights'
 import React from 'react'
 
 import { ratingItem } from '../lib/getReviewType'
 import ProgressRating from './ProgressRating'
 
 const StarRating = ({ rating, linkType, diningType }) => {
-   console.log('STAR RATING LinkType3', linkType)
-   console.log('STAR RATING diningType3', diningType)
-   console.log('STAR RATING rating2', rating)
+  //  console.log('STAR RATING LinkType3', linkType)
+  //  console.log('STAR RATING diningType3', diningType)
+  //  console.log('STAR RATING rating2', rating)
 
-  let weights: { [category: string]: number } = {
-    cleanliness: 0.2,
-    service: 0.25,
-    value: 0.2,
-    location: 0.15,
-    food: 0.2, // Default weight for food
-  }
+  // let weights: { [category: string]: number } = {
+  //   cleanliness: 0.2,
+  //   service: 0.25,
+  //   value: 0.2,
+  //   location: 0.15,
+  //   food: 0.2, // Default weight for food
+  // }
 
-  switch (linkType) {
-    case 'hotel':
-      weights.Location = 0.2
-      weights.Bed_Comfort = 0.2
-      weights.Room_Cleanliness = 0.1
-      weights.Gym = 0.05
-      weights.Pool = 0.05
-      weights.Service = 0.15
-      weights.Internet_Speed = 0.05
-      weights.Room_Amenities = 0.1
-      weights.Value = 0.1
-      break
-    case 'food':
-      switch (diningType) {
-        case 'takeout':
-          weights.tasteAndFlavor = 0.1
-          weights.presentation = 0.3
-          weights.accuracy = 0.1
-          weights.packaging = 0.1
-          weights.overallSatisfaction = 0.2
-          weights.foodValue = 0.2
-          break
-        case 'dinein':
-          weights.Restaurant_Location = 0.05
-          weights.Restaurant_Service = 0.2
-          weights.Food_Value = 0.15
-          weights.Presentation_on_Plate = 0.05
-          weights.Memorability = 0.15
-          weights.Restaurant_Cleanliness = 0.2
-          weights.Flavor_and_Taste = 0.2
-          break
+  // switch (linkType) {
+  //   case 'hotel':
+  //     weights.Location = 0.2
+  //     weights.Bed_Comfort = 0.2
+  //     weights.Room_Cleanliness = 0.1
+  //     weights.Gym = 0.05
+  //     weights.Pool = 0.05
+  //     weights.Service = 0.15
+  //     weights.Internet_Speed = 0.05
+  //     weights.Room_Amenities = 0.1
+  //     weights.Value = 0.1
+  //     break
+  //   case 'food':
+  //     switch (diningType) {
+  //       case 'takeout':
+  //         weights.tasteAndFlavor = 0.1
+  //         weights.presentation = 0.3
+  //         weights.accuracy = 0.1
+  //         weights.packaging = 0.1
+  //         weights.overallSatisfaction = 0.2
+  //         weights.foodValue = 0.2
+  //         break
+  //       case 'dinein':
+  //         weights.Restaurant_Location = 0.05
+  //         weights.Restaurant_Service = 0.2
+  //         weights.Food_Value = 0.15
+  //         weights.Presentation_on_Plate = 0.05
+  //         weights.Memorability = 0.15
+  //         weights.Restaurant_Cleanliness = 0.2
+  //         weights.Flavor_and_Taste = 0.2
+  //         break
 
-        default:
-          weights.Restaurant_Location = 0.05
-          weights.Restaurant_Service = 0.2
-          weights.Food_Value = 0.15
-          weights.Presentation_on_Plate = 0.05
-          weights.Memorability = 0.15
-          weights.Restaurant_Cleanliness = 0.2
-          weights.Flavor_and_Taste = 0.2
-          break
-      }
+  //       default:
+  //         weights.Restaurant_Location = 0.05
+  //         weights.Restaurant_Service = 0.2
+  //         weights.Food_Value = 0.15
+  //         weights.Presentation_on_Plate = 0.05
+  //         weights.Memorability = 0.15
+  //         weights.Restaurant_Cleanliness = 0.2
+  //         weights.Flavor_and_Taste = 0.2
+  //         break
+  //     }
 
-      break
+  //     break
 
-    default:
-      weights.Restaurant_Location = 0.2
-      weights.food = 0.4
-      weights.packaging = 0.1
-      break
-  }
+  //   default:
+  //     weights.Restaurant_Location = 0.2
+  //     weights.food = 0.4
+  //     weights.packaging = 0.1
+  //     break
+  // }
+
+  let rateWeights = ratingWeights(linkType, diningType)
 
  
-  const overallRating = calculateRating(rating, weights)
+  const overallRating = calculateRating(rating, rateWeights)
   //console.log('Hello2', overallRating)
   const propertyNames = Object.entries(rating).filter(
     ([key]) => key !== '_type'

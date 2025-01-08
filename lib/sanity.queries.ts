@@ -39,6 +39,7 @@ const hotelFields = groq`
   room,
   gallery,
   internetSpeed,
+  hotelRating{Value,Gym,Internet_Speed,Service,Room_Cleanliness,Bed_Comfort,Room_Amenities,Pool,Location},
   techRating,
   roomAmenities,
   positives,
