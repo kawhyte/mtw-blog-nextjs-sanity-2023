@@ -174,7 +174,26 @@ export default function CoverImage(props: CoverImageProps) {
               </Badge>
             )}
 
-            <Badge className="absolute  top-3 right-3 ml-3 z-50 py-2 ">{overallRating.numericalRating.toFixed(2)}</Badge>
+            {/* <Badge className="absolute  top-3 right-3 ml-3 z-50 py-2 ">{overallRating.numericalRating.toFixed(2)}</Badge> */}
+            
+            <Badge
+                  size="lg"
+                  className=" absolute  top-3 right-3 ml-3 z-50 py-2 "
+                  variant="gradient"
+                  gradient={
+                    overallRating.numericalRating.toFixed(2) > '4.14'
+                      ? { from: 'green', to: 'lime', deg: 105 }
+                      : overallRating.numericalRating.toFixed(2) > '3.4'
+                      ? { from: '#FFD400', to: '#FED44B', deg: 60 }
+                      : overallRating.numericalRating.toFixed(2) > '3.0'
+                      ? { from: '#ed6ea0', to: '#ec8c69', deg: 35 }
+                      : { from: 'orange', to: 'red' }
+                  }
+                >{overallRating.numericalRating.toFixed(2)}</Badge>
+            
+            
+            
+            
             {image}
           </div>
           
