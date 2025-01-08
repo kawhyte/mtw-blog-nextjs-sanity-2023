@@ -2,7 +2,7 @@ import { Badge } from '@mantine/core'
 import React from 'react'
 
 function AreanaRating({ rating, text, icon }) {
-  const formattedValue = rating?.toFixed(1)
+  const formattedValue = rating?.toFixed(2)
   return (
 
 

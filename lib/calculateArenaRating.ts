@@ -34,14 +34,18 @@ export default function calculateAverageRating(arenaReview: ArenaReview): { aver
 
   // Determine text rating based on average score
   let textRating = '';
-  if (parseFloat(average) >= 8) {
+  if (parseFloat(average) >= 9.3) {
     textRating = 'Excellent';
-  } else if (parseFloat(average) >= 6) {
+  }else if (parseFloat(average) >= 8.3) {
+    textRating = 'Great';
+  } else if (parseFloat(average) >= 7.0) {
     textRating = 'Good';
-  } else if (parseFloat(average) >= 4) {
+  } else if (parseFloat(average) >= 6.0) {
     textRating = 'Fair';
-  } else {
+  } else if (parseFloat(average) >= 4) {
     textRating = 'Poor';
+  } else {
+    textRating = 'Horrible';
   }
 
   return { average, textRating };

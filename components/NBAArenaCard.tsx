@@ -2,7 +2,7 @@ import { Badge } from '@mantine/core'
 import { oswald } from 'app/fonts'
 import calculateAverageRating from 'lib/calculateArenaRating'
 import { urlForImage } from 'lib/sanity.image'
-import { Binoculars, Car,Eye, EyeOff, Footprints, Music,Pizza,RotateCw, Sofa } from 'lucide-react'
+import { Binoculars, Car,Check, Eye, EyeOff, Footprints,MapPin,Music,Pizza,RotateCw, Sofa, User,Users, Wrench } from 'lucide-react'
 import { useState } from 'react'
 import { FaRegCalendarAlt } from 'react-icons/fa'
 import { FaUserGroup } from 'react-icons/fa6'
@@ -47,7 +47,7 @@ const Arenas = ({
     <>
       <div
         key={id}
-        className={`relative h-[36.4rem] w-full max-w-sm overflow-hidden rounded-3xl border-4 border-black bg-white shadow-offsetIndigo transition-transform duration-500 ease-in-out dark:bg-gray-800 sm:h-[36.4rem] md:h-[36.9rem]  ${
+        className={`relative h-[33.0rem]  w-full max-w-sm sm:max-w-md overflow-hidden rounded-3xl border-4 border-black bg-white shadow-offsetIndigo transition-transform duration-500 ease-in-out dark:bg-gray-800  sm:h-[31.4rem] md:h-[33.9rem]  ${
           visited === false ? 'opacity-40 grayscale ' : 'grayscale-0 '
         } ${isFlipped ? 'rotate-y-180' : ''}`}
         onMouseEnter={() => setIsFlipped(true)}
@@ -91,12 +91,16 @@ const Arenas = ({
                   className="flex flex-col mt-1"
                   variant="gradient"
                   gradient={
-                    average > '8'
-                      ? { from: 'teal', to: 'lime', deg: 105 }
-                      : average > '6'
-                      ? { from: '#FFD400', to: '#FED44B', deg: 60 }
-                      : average > '4'
-                      ? { from: '#ed6ea0', to: '#ec8c69', deg: 35 }
+                    average > '9.3'
+                      ? { from: '#228B22', to: '#228B22', deg: 105 }
+                      : average >= '8.3'
+                      ? { from: '#8b8422', to: '#8b8422', deg: 60 }
+                      : average >= '7.0'
+                      ? { from: 'yellow', to: '#FFA500', deg: 35 }
+                      : average >= '6.0'
+                      ? { from: 'pink', to: 'pink', deg: 35 }
+                      : average >= '4'
+                      ? { from: '#FF0000', to: '#FF0000', deg: 35 }
                       : { from: 'orange', to: 'red' }
                   }
                 >
@@ -130,7 +134,7 @@ const Arenas = ({
                       .url()
                   : 'https://fakeimg.pl/1240x801'
               }
-              className="w-full object-cover brightness-[0.55] sm:h-56  "
+              className="w-full object-cover brightness-[0.55] md:h-56  "
               height={502}
               width={203}
               alt={`${arenaName} arena`}
@@ -141,7 +145,7 @@ const Arenas = ({
           <div className=" flex justify-between  ">
             <div className="mb-2 ml-4 mt-4 ">
               <h1
-                className={`${oswald.variable}  line-clamp-2 font-heading  text-3xl font-medium  text-gray-100 no-underline decoration-pink-500 decoration-dashed decoration-4 group-hover:underline md:text-2xl lg:text-3xl xl:mb-3  `}
+                className={`${oswald.variable}  line-clamp-2 font-heading text-2xl font-medium  text-gray-100 no-underline decoration-pink-500 decoration-dashed decoration-4 group-hover:underline sm:text-lg md:text-xl lg:text-xl xl:text-lg xl:mb-3  `}
               >
                 {arenaName}
               </h1>
@@ -262,7 +266,7 @@ const Arenas = ({
                   <p className=" text-sm font-bold">
                     <PostYear dateString={constructionDate} />
                   </p>
-                  <Badge color="green" size="sm">
+                  <Badge color="green" size="sm" pr={9} leftSection={<Wrench className='h-4 -mr-1' />}>
                     Constructed
                   </Badge>
                 </div>
@@ -271,7 +275,7 @@ const Arenas = ({
                   <p className=" text-sm font-bold">
                     {new Intl.NumberFormat().format(capacity)}
                   </p>
-                  <Badge color="green" size="sm">
+                  <Badge color="green" size="sm" pr={9} leftSection={<Users className='h-4 -mr-1 ' />}>
                     Capacity
                   </Badge>
                 </div>
@@ -280,7 +284,7 @@ const Arenas = ({
                   <p className=" text-sm font-bold">
                     {location ? location : ''}
                   </p>
-                  <Badge color="green" size="sm">
+                  <Badge color="green" size="sm" pr={9} leftSection={<MapPin className='h-4 -mr-1 ' />}>
                     Location
                   </Badge>
                 </div>
@@ -290,7 +294,7 @@ const Arenas = ({
                     <p className=" text-sm font-bold">
                       <PostDate dateString={dateVisited} />
                     </p>
-                    <Badge color="green" size="sm">
+                    <Badge color="green" size="sm" pr={9} leftSection={<Check className='h-4 -mr-1 ' />}>
                       Visited
                     </Badge>
                   </div>
@@ -321,7 +325,7 @@ const Arenas = ({
                               .url()
                           : 'https://dummyimage.com/96x96/000/aeb0d9.jpg&text=Image'
                       }
-                      className=" h-9 w-9 rounded-full border-2 p-1 md:h-7 md:w-7   "
+                      className=" h-9 w-9 rounded-full border-2 p-0.5 md:h-8 md:w-8   "
                       height={96}
                       width={96}
                       loading="lazy"
@@ -335,8 +339,8 @@ const Arenas = ({
 
                       {photo.played === true ? (
                         <div className="flex items-center">
-                          <Eye className="mx-2 h-5 w-5 text-green-300 md:h-4  md:w-4" />
-                          <p className="my-1 cursor-pointer font-bold text-gray-400 dark:text-gray-400  ">
+                          <Eye className="mx-1 h-5 w-5 text-green-300 md:h-4  md:w-4" />
+                          <p className="my-1 text-[0.70rem] cursor-pointer font-bold text-gray-400 dark:text-gray-400  ">
                             Watched
                           </p>
                         </div>
