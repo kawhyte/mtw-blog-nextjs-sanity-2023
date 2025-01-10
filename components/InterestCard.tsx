@@ -27,7 +27,7 @@ function InterestCard({ interests }: InterestCardProps) {
             key={index}
             className="flex items-center gap-2 rounded-full border bg-white px-3 py-1.5 shadow-sm"
           >
-            <item.icon className="h-6 w-6" />
+            <item.icon className="h-6 w-6 text-violet-500" />
             <span className="text-nowrap text-sm">{item.label}</span>
           </div>
         ))}

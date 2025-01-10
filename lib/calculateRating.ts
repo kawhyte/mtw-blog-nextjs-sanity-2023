@@ -17,10 +17,11 @@ export function calculateRating(
   weights: RatingWeights,
   ratingThresholds: { [key: number]: string } = {
     4.5: 'Excellent',
-    3.5: 'Very Good',
-    2.5: 'Good',
-    1.5: 'Fair',
-    0: 'Poor', // Default for any rating below 1.5
+    4:'Great',
+    3.75: 'Good',
+    3: 'Fair',
+    2: 'Poor',
+    0: 'Horrible', // Default for any rating below 1.5
   }
 ): RatingResult {
   // Calculate the weighted average rating

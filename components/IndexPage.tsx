@@ -85,8 +85,7 @@ export default function IndexPage(props: IndexPageProps) {
             {posts.length > 0 && (
               <MoreStoriesIndex
                 posts={posts.slice(0, 6)}
-                showPagination={false}
-              />
+                showPagination={false} showRating={true}              />
             )}
 
             <div className="flex   pt-9 lg:mt-0 lg:flex-shrink-0">

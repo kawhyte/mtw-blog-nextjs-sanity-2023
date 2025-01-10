@@ -8,6 +8,7 @@ import {
   Check,
   Eye,
   EyeOff,
+  FlipHorizontal2,
   Footprints,
   MapPin,
   Music,
@@ -59,9 +60,26 @@ const Arenas = ({
         className={`relative h-[33.0rem]  w-full max-w-sm overflow-hidden rounded-3xl border-4 border-black bg-white shadow-offsetIndigo transition-transform duration-500 ease-in-out dark:bg-gray-800 sm:h-[31.4rem]  sm:max-w-md md:h-[33.9rem]  ${
           visited === false ? 'opacity-40 grayscale ' : 'grayscale-0 '
         } ${isFlipped ? 'rotate-y-180' : ''}`}
-        onMouseEnter={() => setIsFlipped(true)}
-        onMouseLeave={() => setIsFlipped(false)}
       >
+        <button
+          className="absolute bottom-4 right-4 z-40 flex flex-col items-center text-white" // Added flex-col and items-center
+          onClick={() => setIsFlipped(!isFlipped)}
+        >
+          {isFlipped ? (
+            <>
+              <FlipHorizontal2 size={20} />
+              <span className="mt-1 text-xs">View Card Front</span>{' '}
+              {/* Added text */}
+            </>
+          ) : (
+            <>
+              <FlipHorizontal2 size={20} />
+              <span className="mt-1 text-xs">View Details</span>{' '}
+              {/* Added text */}
+            </>
+          )}
+        </button>
+
         {/* Front of the card */}
         <div
           className={`backface-hidden absolute inset-0 h-full w-full ${
@@ -70,31 +88,14 @@ const Arenas = ({
         >
           <div className="relative">
             {average > '0' ? (
-              <div className="absolute right-4 top-2 z-30 flex w-[4.8rem] flex-col  items-center justify-center  rounded-2xl p-2">
-                <h1
-                  className={` mx-2 text-3xl font-black leading-tight tracking-tighter text-gray-100 sm:text-3xl md:text-left md:text-3xl md:leading-none lg:text-3xl`}
+              <div className="absolute right-4 top-2 z-30 flex  flex-col  items-center justify-center  rounded-2xl bg-black bg-opacity-50 p-2">
+                <h2
+                  className={` mx-2 text-2xl font-black leading-tight tracking-tighter text-gray-100 sm:text-2xl md:text-left md:text-2xl md:leading-none lg:text-2xl`}
                 >
-                  {Number(average).toFixed(1)}
-                </h1>
+                  {Number(average).toFixed(2)}
+                </h2>
 
-                <Badge
-                  size="lg"
-                  className="mt-1 flex flex-col"
-                  variant="gradient"
-                  gradient={
-                    average > '9.3'
-                      ? { from: '#228B22', to: '#228B22', deg: 105 }
-                      : average >= '8.3'
-                      ? { from: '#8b8422', to: '#8b8422', deg: 60 }
-                      : average >= '7.0'
-                      ? { from: 'yellow', to: '#FFA500', deg: 35 }
-                      : average >= '6.0'
-                      ? { from: 'pink', to: 'pink', deg: 35 }
-                      : average >= '4'
-                      ? { from: '#FF0000', to: '#FF0000', deg: 35 }
-                      : { from: 'orange', to: 'red' }
-                  }
-                >
+                <Badge size="md" className="mt-1 flex flex-col" color="violet">
                   {textRating}
                 </Badge>
               </div>
@@ -102,8 +103,8 @@ const Arenas = ({
 
             {arenaReview?.comments && (
               <Blockquote
-                color="pink"
-                className="absolute inset-x-3 bottom-2 z-30 text-white"
+                color="gray"
+                className="absolute inset-x-3 bottom-2 z-30 bg-black bg-opacity-50 text-white"
               >
                 {arenaReview?.comments}
               </Blockquote>
@@ -119,7 +120,7 @@ const Arenas = ({
                       .url()
                   : 'https://fakeimg.pl/1240x801'
               }
-              className="w-full object-cover brightness-[0.55] md:h-56  "
+              className="w-full object-cover brightness-[0.65] md:h-56  "
               height={502}
               width={203}
               alt={`${arenaName} arena`}
@@ -267,32 +268,32 @@ const Arenas = ({
               <AreanaRating
                 rating={arenaReview?.transportation}
                 text={'Transit to'}
-                icon={<Car />}
+                icon={<Car className="text-violet-500" />}
               />
               <AreanaRating
                 rating={arenaReview?.walkability}
                 text={'Walkability'}
-                icon={<Footprints />}
+                icon={<Footprints className="text-violet-500" />}
               />
               <AreanaRating
                 rating={arenaReview?.vibes}
                 text={'Vibes'}
-                icon={<Music />}
+                icon={<Music className="text-violet-500" />}
               />
               <AreanaRating
                 rating={arenaReview?.food}
                 text={'Food Options'}
-                icon={<Pizza />}
+                icon={<Pizza className="text-violet-500" />}
               />
               <AreanaRating
                 rating={arenaReview?.view}
                 text={'View from Seat'}
-                icon={<Binoculars />}
+                icon={<Binoculars className="text-violet-500" />}
               />
               <AreanaRating
                 rating={arenaReview?.seatComfort}
                 text={'Seat Comfort'}
-                icon={<Sofa />}
+                icon={<Sofa className="text-violet-500" />}
               />
             </div>
           </div>

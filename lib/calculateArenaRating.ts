@@ -4,6 +4,20 @@ interface ArenaReview {
   _type?: string;
 }
 
+interface RatingThreshold {
+  rating: string;
+  threshold: number;
+}
+
+const ratingThresholds: RatingThreshold[] = [
+  { rating: 'Excellent', threshold: 4.5 },
+  { rating: 'Great', threshold: 4 },
+  { rating: 'Good', threshold: 3.75 },
+  { rating: 'Fair', threshold: 3 },
+  { rating: 'Poor', threshold: 2.0 },
+  { rating: 'Horrible', threshold: 0 }, // Catch-all for anything below 5.0
+];
+
 export default function calculateAverageRating(arenaReview: ArenaReview): { average: string; textRating: string } {
   let sum = 0;
   let totalWeight = 0;
@@ -30,22 +44,16 @@ export default function calculateAverageRating(arenaReview: ArenaReview): { aver
     }
   }
 
-  const average = totalWeight > 0 ? (sum / totalWeight).toFixed(2) : '0';
+  const average = totalWeight > 0 ? ((sum / totalWeight)/2).toFixed(2) : '0';
+  const averageScore = parseFloat(average);
 
-  // Determine text rating based on average score
+  // Determine text rating using the ratingThresholds array
   let textRating = '';
-  if (parseFloat(average) >= 9.3) {
-    textRating = 'Excellent';
-  }else if (parseFloat(average) >= 8.3) {
-    textRating = 'Great';
-  } else if (parseFloat(average) >= 7.0) {
-    textRating = 'Good';
-  } else if (parseFloat(average) >= 6.0) {
-    textRating = 'Fair';
-  } else if (parseFloat(average) >= 4) {
-    textRating = 'Poor';
-  } else {
-    textRating = 'Horrible';
+  for (const threshold of ratingThresholds) {
+    if (averageScore >= threshold.threshold) {
+      textRating = threshold.rating;
+      break; // Exit the loop once a match is found
+    }
   }
 
   return { average, textRating };
