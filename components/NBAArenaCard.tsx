@@ -57,24 +57,24 @@ const Arenas = ({
     <>
       <div
         key={id}
-        className={`relative h-[33.0rem]  w-full max-w-sm overflow-hidden rounded-3xl border-4 border-black bg-white shadow-offsetIndigo transition-transform duration-500 ease-in-out dark:bg-gray-800 sm:h-[31.4rem]  sm:max-w-md md:h-[33.9rem]  ${
+        className={`relative h-[35.0rem]  w-full max-w-sm overflow-hidden rounded-3xl border-4 border-black bg-white shadow-offsetIndigo transition-transform duration-500 ease-in-out dark:bg-gray-800 sm:h-[33.4rem]  sm:max-w-md md:h-[37.7rem]  ${
           visited === false ? 'opacity-40 grayscale ' : 'grayscale-0 '
         } ${isFlipped ? 'rotate-y-180' : ''}`}
       >
         <button
-          className="absolute bottom-4 right-4 z-40 flex flex-col items-center text-white" // Added flex-col and items-center
+          className="absolute bottom-3 right-4 z-40 flex flex-row items-center text-white border border-white rounded-lg px-2 py-1 hover:bg-green-400 transition-colors duration-200" // Added flex-col and items-center
           onClick={() => setIsFlipped(!isFlipped)}
         >
           {isFlipped ? (
             <>
               <FlipHorizontal2 size={20} />
-              <span className="mt-1 text-xs">View Card Front</span>{' '}
+              <span className="mt-1 ml-2 text-xs">View Card Front</span>{' '}
               {/* Added text */}
             </>
           ) : (
             <>
               <FlipHorizontal2 size={20} />
-              <span className="mt-1 text-xs">View Details</span>{' '}
+              <span className="mt-1 ml-2 text-xs">View Rating Details</span>{' '}
               {/* Added text */}
             </>
           )}
@@ -104,7 +104,7 @@ const Arenas = ({
             {arenaReview?.comments && (
               <Blockquote
                 color="gray"
-                className="absolute inset-x-3 bottom-2 z-30 bg-black bg-opacity-50 text-white"
+                className="absolute text-sm sm:text-xs md:text-base inset-x-3 bottom-2 z-30 bg-black bg-opacity-50 text-white"
               >
                 {arenaReview?.comments}
               </Blockquote>
@@ -131,7 +131,7 @@ const Arenas = ({
           <div className=" flex justify-between  ">
             <div className="mb-2 ml-4 mt-4 ">
               <h1
-                className={`${oswald.variable}  line-clamp-2 font-heading text-2xl font-medium  text-gray-100 no-underline decoration-pink-500 decoration-dashed decoration-4 group-hover:underline sm:text-lg md:text-xl lg:text-xl xl:mb-3 xl:text-lg  `}
+                className={`${oswald.variable}  line-clamp-2 font-heading text-2xl font-medium  text-gray-100 no-underline decoration-pink-500 decoration-dashed decoration-4 group-hover:underline sm:text-xl md:text-2xl lg:text-xl xl:mb-3 xl:text-2xl  `}
               >
                 {arenaName}
               </h1>
@@ -224,14 +224,14 @@ const Arenas = ({
                               .url()
                           : 'https://dummyimage.com/96x96/000/aeb0d9.jpg&text=Image'
                       }
-                      className=" h-9 w-9 rounded-full  p-0.5 md:h-8 md:w-8   "
+                      className=" h-11 w-11 rounded-full  p-0.5 sm:h-10 sm:w-10   md:h-11 md:w-11   "
                       height={96}
                       width={96}
                       loading="lazy"
                       alt={`${photo.name} logo`}
                     />
 
-                    <div className="flex flex-col text-xs ">
+                    <div className="flex flex-col text-xs  md:text-sm ">
                       <p className="mx-2  cursor-pointer font-bold text-gray-700 dark:text-gray-200   ">
                         {photo.name}
                       </p>
