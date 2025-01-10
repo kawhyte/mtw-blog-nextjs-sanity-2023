@@ -44,7 +44,7 @@ export default function IndexPage(props: IndexPageProps) {
             animation={'/food_smiling.svg'}
           />
 
-          {posts.length > 0 && <MoreStories posts={posts} showPagination={true} />}
+          {posts.length > 0 && <MoreStories posts={posts} showPagination={true} showRating={true} />}
         {/* </Container> */}
       </Layout>
       <Footer />

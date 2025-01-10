@@ -34,7 +34,7 @@ export default function IndexPage(props: IndexPageProps) {
         {/* <title> { `${CMS_NAME} - Travel and Food Reviews`}</title> */}
         </Head>
         {/* <Container> */}
-          <BlogHeader title={title} description={description} level={1} />
+          <BlogHeader title={title} description={description} level={1}  />
 
           <ReviewHeader
 					title={"Stories & Guides"}
@@ -43,7 +43,7 @@ export default function IndexPage(props: IndexPageProps) {
 					animation={'/books.svg'}
 				/>
 
-          {posts.length > 0 && <MoreStories posts={posts} showPagination={true} />}
+          {posts.length > 0 && <MoreStories posts={posts} showPagination={true} showRating={false} />}
         {/* </Container> */}
       </Layout>
       <Footer />

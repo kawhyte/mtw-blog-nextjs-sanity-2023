@@ -184,6 +184,7 @@ export interface Post {
   color?:string
   category?:string
   tip?:string
+  showRating:boolean
 }
 
 export interface Settings {

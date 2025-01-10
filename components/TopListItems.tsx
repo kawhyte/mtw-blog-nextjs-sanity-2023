@@ -49,8 +49,8 @@ export default function TopListItems(
                   slug={item.post.slug.current}
                   excerpt2={item.post.excerpt2}
                   location={item.post.location}
-                  category={item.post.category}
-                />
+                  category={item.post.category} 
+                  showRating={false}                />
               </div>
             )
         )}

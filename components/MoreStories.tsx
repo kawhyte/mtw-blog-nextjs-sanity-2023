@@ -5,7 +5,7 @@ import type { Post } from 'lib/sanity.queries'
 import { useState } from 'react'
 
 const itemsPerPage = 12
-export default function MoreStories({ posts, showPagination }: { posts: Post[], showPagination: boolean }) {
+export default function MoreStories({ posts, showPagination, showRating }: { posts: Post[], showPagination: boolean, showRating:boolean }) {
   const [visiblePosts, setvisiblePosts] = useState(posts.slice(0, itemsPerPage))
 
   const pagination = usePagination({ total: 10, initialPage: 1 })
@@ -47,6 +47,7 @@ export default function MoreStories({ posts, showPagination }: { posts: Post[], 
             hotelRating={post.hotelRating}
             takeoutRating={post.takeoutRating}
             diningType={post.diningType}
+            showRating={showRating}
           />
         ))}
       </div>

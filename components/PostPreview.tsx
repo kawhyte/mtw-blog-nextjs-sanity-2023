@@ -17,6 +17,7 @@ export default function PostPreview({
   linkType,
   diningType,
   date,
+  showRating,
   excerpt2,
   category,
   author,
@@ -55,6 +56,7 @@ export default function PostPreview({
             priority={false}
             category={category}
             rating = {currentRating}
+            showRating={showRating}
             // hotelRating={hotelRating}
             // foodRating={foodRating}
             linkType={linkType}

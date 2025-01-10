@@ -1,13 +1,22 @@
-import { Badge } from '@mantine/core'
+import { Badge, Blockquote } from '@mantine/core'
 import { oswald } from 'app/fonts'
 import calculateAverageRating from 'lib/calculateArenaRating'
 import { urlForImage } from 'lib/sanity.image'
-import { Binoculars, Car,Check, Eye, EyeOff, Footprints,MapPin,Music,Pizza,RotateCw, Sofa, User,Users, Wrench } from 'lucide-react'
+import {
+  Binoculars,
+  Car,
+  Check,
+  Eye,
+  EyeOff,
+  Footprints,
+  MapPin,
+  Music,
+  Pizza,
+  Sofa,
+  Users,
+  Wrench,
+} from 'lucide-react'
 import { useState } from 'react'
-import { FaRegCalendarAlt } from 'react-icons/fa'
-import { FaUserGroup } from 'react-icons/fa6'
-import { IoMdEye, IoMdEyeOff } from 'react-icons/io'
-import { IoHammer, IoLocation } from 'react-icons/io5'
 
 import AreanaRating from './AreanaRating'
 import PostDate, { PostYear } from './PostDate'
@@ -47,7 +56,7 @@ const Arenas = ({
     <>
       <div
         key={id}
-        className={`relative h-[33.0rem]  w-full max-w-sm sm:max-w-md overflow-hidden rounded-3xl border-4 border-black bg-white shadow-offsetIndigo transition-transform duration-500 ease-in-out dark:bg-gray-800  sm:h-[31.4rem] md:h-[33.9rem]  ${
+        className={`relative h-[33.0rem]  w-full max-w-sm overflow-hidden rounded-3xl border-4 border-black bg-white shadow-offsetIndigo transition-transform duration-500 ease-in-out dark:bg-gray-800 sm:h-[31.4rem]  sm:max-w-md md:h-[33.9rem]  ${
           visited === false ? 'opacity-40 grayscale ' : 'grayscale-0 '
         } ${isFlipped ? 'rotate-y-180' : ''}`}
         onMouseEnter={() => setIsFlipped(true)}
@@ -60,35 +69,17 @@ const Arenas = ({
           }`}
         >
           <div className="relative">
-            <RotateCw className="absolute right-6 top-3 z-40 text-white" />
-            {/* <div className="absolute right-4 top-4 z-30 ">
-              {visited ? (
-                <>
-                  <div className="  flex flex-row items-end justify-start rounded-full align-middle  ">
-                    
-                    
-                    <Badge>
-                      Visited Arena on <PostDate dateString={dateVisited} />
-                    </Badge>
-                  </div>
-                </>
-              ) : (
-                ''
-              )}
-            </div> */}
-
             {average > '0' ? (
-              <div className="absolute bottom-3 right-6 z-30 flex w-[4.8rem] flex-col  items-center justify-center  rounded-2xl p-2">
+              <div className="absolute right-4 top-2 z-30 flex w-[4.8rem] flex-col  items-center justify-center  rounded-2xl p-2">
                 <h1
                   className={` mx-2 text-3xl font-black leading-tight tracking-tighter text-gray-100 sm:text-3xl md:text-left md:text-3xl md:leading-none lg:text-3xl`}
                 >
-                  {/*isFraction ? Math.floor(average) + ".5" : Math.floor(average)*/}
                   {Number(average).toFixed(1)}
                 </h1>
 
                 <Badge
                   size="lg"
-                  className="flex flex-col mt-1"
+                  className="mt-1 flex flex-col"
                   variant="gradient"
                   gradient={
                     average > '9.3'
@@ -106,23 +97,17 @@ const Arenas = ({
                 >
                   {textRating}
                 </Badge>
-
-                <div className="flex items-center text-sm font-black text-white">
-                  {/* <span className=" text-sm uppercase text-white">out of 5</span>
-            <span>
-              <svg
-                className="mb-1 ml-1 h-3 w-3  fill-current text-white"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="3 3 18 18"
-                aria-hidden="true"
-                focusable="false"
-              >
-                <path d="M20.83,9.15l-6-.52L12.46,3.08h-.92L9.18,8.63l-6,.52L2.89,10l4.55,4L6.08,19.85l.75.55L12,17.3l5.17,3.1.75-.55L16.56,14l4.55-4Z"></path>
-              </svg>
-            </span> */}
-                </div>
               </div>
             ) : null}
+
+            {arenaReview?.comments && (
+              <Blockquote
+                color="pink"
+                className="absolute inset-x-3 bottom-2 z-30 text-white"
+              >
+                {arenaReview?.comments}
+              </Blockquote>
+            )}
 
             <img
               src={
@@ -145,118 +130,11 @@ const Arenas = ({
           <div className=" flex justify-between  ">
             <div className="mb-2 ml-4 mt-4 ">
               <h1
-                className={`${oswald.variable}  line-clamp-2 font-heading text-2xl font-medium  text-gray-100 no-underline decoration-pink-500 decoration-dashed decoration-4 group-hover:underline sm:text-lg md:text-xl lg:text-xl xl:text-lg xl:mb-3  `}
+                className={`${oswald.variable}  line-clamp-2 font-heading text-2xl font-medium  text-gray-100 no-underline decoration-pink-500 decoration-dashed decoration-4 group-hover:underline sm:text-lg md:text-xl lg:text-xl xl:mb-3 xl:text-lg  `}
               >
                 {arenaName}
               </h1>
             </div>
-            <div className="  ">
-              {average !== '0' ? (
-                <div className="  right-0 top-0  z-10 mb-4 mr-5 mt-3   flex flex-row items-end justify-between ">
-                  {/* <span className="    mb-1 text-xl font-bold text-white ">
-                    {average}
-                  </span> */}
-
-                  {/* <div className="flex flex-col items-center justify-center rounded-2xl bg-pink-500 p-2">
-          <h1
-            className={` mx-2 text-2xl font-black leading-tight tracking-tighter text-white md:text-left md:text-6xl md:leading-none lg:text-6xl`}
-          >
-            
-            {(average*10).toFixed(1)}%
-          </h1>
-          <div className="flex items-center text-white text-xl font-black">
-          {textRating}
-           
-          </div>
-
-
-        </div> */}
-
-                  {/* <p className='ml-3 text-xl text-white'>{textRating}</p> */}
-
-                  {/* <Badge
-                    size="lg"
-                    className='flex flex-col'
-                    variant="gradient"
-                    gradient={
-                      average > '8'
-                        ? { from: 'teal', to: 'lime', deg: 105 }
-                        : average > '6'
-                        ? { from: '#FFD400', to: '#FED44B', deg: 60 }
-                        : average > '4'
-                        ? { from: '#ed6ea0', to: '#ec8c69', deg: 35 }
-                        : { from: 'orange', to: 'red' }
-                    }
-                  >
-                  100  {textRating}
-                  </Badge> */}
-                </div>
-              ) : null}
-            </div>
-
-            {/* <div>
-            {visited ? (
-              <>
-                <div className="  flex flex-row items-end justify-start rounded-full align-middle ">
-                  <p className=" ">Visited: </p>
-                  <p className=" line-clamp-1 pl-1 pr-2  text-white">
-                    <PostDate dateString={dateVisited} />
-                  </p>
-                </div>
-              </>
-            ) : (
-              ''
-            )}</div> */}
-
-            {/* <div className="absolute inset-x-0 top-20   z-10 ml-3 md:top-24  ">
-                <h1
-                  className={`${oswald.variable}  line-clamp-2 font-heading  text-xl md:text-2xl  lg:text-3xl font-medium text-gray-100 no-underline decoration-pink-500 decoration-dashed decoration-4 group-hover:underline xl:mb-3  `}
-                >
-                  {arenaName}
-                </h1>
-
-                <div className="grid grid-cols-2   gap-x-2 text-sm   jus text-gray-200 md:text-xs  lg:gap-y-4  lg:text-xs ">
-                  <div className="flex items-center gap-x-1 w-36 lg:w-full ">
-                    <p className=" ">Location:</p>
-                    <p className="line-clamp-1 text-white ">
-                      {location ? location : ''}
-                    </p>
-                  </div>
-                  <div className="my-4 flex jus xl:my-0  ">
-                    <p className="  ">Constructed:</p>
-                    <p className="pl-1">
-                      <PostYear dateString={constructionDate} />
-                    </p>
-                  </div>
-
-                  <div className="flex items-center gap-1">
-                    <p className="  ">Capacity:</p>
-                    <p className="">{new Intl.NumberFormat().format(capacity)}</p>
-                  </div>
-
-                  {visited ? (
-                    <>
-                      <div className="  flex flex-row items-end justify-start rounded-full align-middle ">
-                        <p className=" ">Visited: </p>
-                        <p className=" line-clamp-1 pl-1 pr-2  text-white">
-                          <PostDate dateString={dateVisited} />
-                        </p>
-                      </div>
-                    </>
-                  ) : (
-                    ''
-                  )}
-                </div>
-              </div> */}
-
-            {/* <div className=" my-3 grid grid-cols-2  items-center  gap-y-1 align-middle text-xs font-bold  text-gray-700 dark:text-gray-200 md:text-xs  ">
-              <AreanaRating rating={arenaReview?.transportation} text={'Transit to'} />
-              <AreanaRating rating={arenaReview?.walkability} text={'Walkability'} />
-              <AreanaRating rating={arenaReview?.vibes} text={'Vibes'} />
-              <AreanaRating rating={arenaReview?.food} text={'Food Options'} />
-              <AreanaRating rating={arenaReview?.view} text={'View from Seat'} />
-              <AreanaRating rating={arenaReview?.seatComfort} text={'Seat Comfort'} />
-            </div> */}
           </div>
 
           <div className="text-sm md:text-xs">
@@ -266,7 +144,12 @@ const Arenas = ({
                   <p className=" text-sm font-bold">
                     <PostYear dateString={constructionDate} />
                   </p>
-                  <Badge color="green" size="sm" pr={9} leftSection={<Wrench className='h-4 -mr-1' />}>
+                  <Badge
+                    color="green"
+                    size="sm"
+                    pr={9}
+                    leftSection={<Wrench className="-mr-1 h-4" />}
+                  >
                     Constructed
                   </Badge>
                 </div>
@@ -275,7 +158,12 @@ const Arenas = ({
                   <p className=" text-sm font-bold">
                     {new Intl.NumberFormat().format(capacity)}
                   </p>
-                  <Badge color="green" size="sm" pr={9} leftSection={<Users className='h-4 -mr-1 ' />}>
+                  <Badge
+                    color="green"
+                    size="sm"
+                    pr={9}
+                    leftSection={<Users className="-mr-1 h-4 " />}
+                  >
                     Capacity
                   </Badge>
                 </div>
@@ -284,7 +172,12 @@ const Arenas = ({
                   <p className=" text-sm font-bold">
                     {location ? location : ''}
                   </p>
-                  <Badge color="green" size="sm" pr={9} leftSection={<MapPin className='h-4 -mr-1 ' />}>
+                  <Badge
+                    color="green"
+                    size="sm"
+                    pr={9}
+                    leftSection={<MapPin className="-mr-1 h-4 " />}
+                  >
                     Location
                   </Badge>
                 </div>
@@ -294,7 +187,12 @@ const Arenas = ({
                     <p className=" text-sm font-bold">
                       <PostDate dateString={dateVisited} />
                     </p>
-                    <Badge color="green" size="sm" pr={9} leftSection={<Check className='h-4 -mr-1 ' />}>
+                    <Badge
+                      color="green"
+                      size="sm"
+                      pr={9}
+                      leftSection={<Check className="-mr-1 h-4 " />}
+                    >
                       Visited
                     </Badge>
                   </div>
@@ -325,7 +223,7 @@ const Arenas = ({
                               .url()
                           : 'https://dummyimage.com/96x96/000/aeb0d9.jpg&text=Image'
                       }
-                      className=" h-9 w-9 rounded-full border-2 p-0.5 md:h-8 md:w-8   "
+                      className=" h-9 w-9 rounded-full  p-0.5 md:h-8 md:w-8   "
                       height={96}
                       width={96}
                       loading="lazy"
@@ -340,7 +238,7 @@ const Arenas = ({
                       {photo.played === true ? (
                         <div className="flex items-center">
                           <Eye className="mx-1 h-5 w-5 text-green-300 md:h-4  md:w-4" />
-                          <p className="my-1 text-[0.70rem] cursor-pointer font-bold text-gray-400 dark:text-gray-400  ">
+                          <p className="my-1 cursor-pointer text-[0.70rem] font-bold text-gray-400 dark:text-gray-400  ">
                             Watched
                           </p>
                         </div>
@@ -364,96 +262,42 @@ const Arenas = ({
           {/* Add your additional data here */}
           <div className="flex h-full w-full flex-col items-center justify-center bg-gray-800">
             <p className="text-xl font-bold text-gray-200">Rating Breakdown </p>
-            {/* ... more content */}
 
             <div className=" my-3 grid w-full grid-cols-2 place-items-center  items-center pb-2 align-middle  text-xs font-bold text-gray-700 dark:text-gray-200 md:text-xs ">
               <AreanaRating
                 rating={arenaReview?.transportation}
                 text={'Transit to'}
-                icon={ <Car />}
+                icon={<Car />}
               />
               <AreanaRating
                 rating={arenaReview?.walkability}
                 text={'Walkability'}
                 icon={<Footprints />}
               />
-              <AreanaRating rating={arenaReview?.vibes} text={'Vibes'}  icon={<Music />} />
-              <AreanaRating rating={arenaReview?.food} text={'Food Options'}  icon={<Pizza />}/>
+              <AreanaRating
+                rating={arenaReview?.vibes}
+                text={'Vibes'}
+                icon={<Music />}
+              />
+              <AreanaRating
+                rating={arenaReview?.food}
+                text={'Food Options'}
+                icon={<Pizza />}
+              />
               <AreanaRating
                 rating={arenaReview?.view}
-                text={'View from Seat'}  icon={<Binoculars />}
+                text={'View from Seat'}
+                icon={<Binoculars />}
               />
               <AreanaRating
                 rating={arenaReview?.seatComfort}
-                text={'Seat Comfort'}  icon={<Sofa/>}
+                text={'Seat Comfort'}
+                icon={<Sofa />}
               />
             </div>
-
-            {/* <p className="text-xl font-bold text-gray-200 ">Arena Stats </p> */}
-
-            {/* <div className="my-3 ml-6 grid w-full grid-cols-2  items-center  gap-y-3  pb-2  align-middle text-xs  text-gray-700  dark:text-gray-200  md:text-xs">
-              
-              
-              
-              <div className=" flex flex-col items-center  xl:my-0 w-28  ">
-                <p className=" mb-1 text-base font-bold">
-                  <PostYear dateString={constructionDate} />
-                </p>
-                <Badge color='green' size='sm'>Constructed</Badge>
-              </div>
-
-              <div className=" flex flex-col items-center  xl:my-0 w-28  ">
-                <p className=" mb-1 text-base font-bold">
-                {new Intl.NumberFormat().format(capacity)}
-                </p>
-                <Badge color='green' size='sm'>Capacity</Badge>
-              </div>
-              
-              <div className=" flex flex-col items-center  xl:my-0 w-36  ">
-                <p className=" mb-1 text-base font-bold">
-                {location ? location : ''}
-                </p>
-                <Badge color='green' size='sm'>Location</Badge>
-              </div>
-
-
-              {visited ? (
-              <div className=" flex flex-col items-center  xl:my-0 w-28  ">
-                <p className=" mb-1 text-base font-bold">
-                <PostDate dateString={dateVisited} />
-                </p>
-                <Badge color='green' size='sm'>Visited</Badge>
-              </div>
-               ) : (
-                ''
-              )} */}
-
-            {/* <div className="flex items-center gap-1">
-                <p className="  ">Capacity:</p>
-                <p className="">{new Intl.NumberFormat().format(capacity)}</p>
-              </div> */}
-            {/* <div className="flex items-center gap-x-1 lg:w-full ">
-                <p className=" ">Location:</p>
-                <p className="line-clamp-1 text-white ">
-                  {location ? location : ''}
-                </p>
-              </div> */}
-            {/* {visited ? (
-                <>
-                  <div className="  flex flex-row items-end justify-start rounded-full align-middle ">
-                    <p className=" ">Visited: </p>
-                    <p className=" line-clamp-1 pl-1 pr-2  text-white">
-                      <PostDate dateString={dateVisited} />
-                    </p>
-                  </div>
-                </>
-              ) : (
-                ''
-              )} */}
           </div>
         </div>
       </div>
-      {/* </div> */}
     </>
   )
 }
