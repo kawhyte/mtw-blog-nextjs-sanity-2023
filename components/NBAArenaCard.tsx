@@ -149,7 +149,7 @@ const Arenas = ({
           <div className="text-sm md:text-xs text-gray-700">
             <div className="flex flex-row justify-between ">
               <div className="my-3 ml-6 grid w-full grid-cols-2  items-center  gap-y-5  pb-2  align-middle text-xs  text-gray-700 md:text-xs">
-                <div className=" flex w-32 flex-col items-center  gap-y-1.5 xl:my-0  ">
+                <div className=" flex w-32 flex-col items-center  gap-y-1 xl:my-0  ">
                   <p className=" text-sm font-bold">
                     <PostYear dateString={constructionDate} />
                   </p>
@@ -164,7 +164,7 @@ const Arenas = ({
                   </Badge>
                 </div>
 
-                <div className=" flex w-32 flex-col items-center   gap-y-1.5 xl:my-0  ">
+                <div className=" flex w-32 flex-col items-center   gap-y-1 xl:my-0  ">
                   <p className=" text-sm font-bold">
                     {new Intl.NumberFormat().format(capacity)}
                   </p>
@@ -179,7 +179,7 @@ const Arenas = ({
                   </Badge>
                 </div>
 
-                <div className=" flex w-32  flex-col items-center   gap-y-1.5 xl:my-0  ">
+                <div className=" flex w-32  flex-col items-center   gap-y-1 xl:my-0  ">
                   <p className=" text-sm font-bold">
                     {location ? location : ''}
                   </p>
@@ -195,7 +195,7 @@ const Arenas = ({
                 </div>
 
                 {visited ? (
-                  <div className=" flex w-32 flex-col items-center   gap-y-1.5 xl:my-0  ">
+                  <div className=" flex w-32 flex-col items-center   gap-y-1 xl:my-0  ">
                     <p className=" text-sm font-bold">
                       <PostDate dateString={dateVisited} />
                     </p>
