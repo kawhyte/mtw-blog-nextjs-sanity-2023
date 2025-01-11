@@ -1,9 +1,11 @@
 import { inter, oswald } from 'app/fonts'
+import { Volleyball } from 'lucide-react'
 import dynamic from 'next/dynamic'
 //import lottie from 'lottie-web'
 import Image from 'next/image'
 import React from 'react'
 import { useEffect, useRef } from 'react'
+import { LiaBasketballBallSolid } from 'react-icons/lia'
 import Button from 'ui/Button'
 
 let animation = [
@@ -90,7 +92,7 @@ function Hero() {
 
             <div className="flex   pt-9 lg:mt-0 lg:flex-shrink-0">
               <div className=" inline-flex  ">
-                <Button link={'/arenas'}>follow our Journey</Button>
+                <Button icon={<LiaBasketballBallSolid className="h-7 w-8  text-pink-500" />} link={'/arenas'}>follow our Journey</Button>
               </div>
             </div>
 

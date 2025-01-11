@@ -13,6 +13,8 @@ import {
   MapPin,
   Music,
   Pizza,
+  RotateCcw,
+  RotateCw,
   Sofa,
   Users,
   Wrench,
@@ -21,6 +23,7 @@ import { useState } from 'react'
 
 import AreanaRating from './AreanaRating'
 import PostDate, { PostYear } from './PostDate'
+import Button from 'ui/Button'
 
 interface NBAArenaCardProps {
   arenaImageSrc: any
@@ -57,25 +60,30 @@ const Arenas = ({
     <>
       <div
         key={id}
-        className={`relative h-[35.0rem]  w-full max-w-sm overflow-hidden rounded-3xl border-4 border-black bg-white shadow-offsetIndigo transition-transform duration-500 ease-in-out dark:bg-gray-800 sm:h-[33.4rem]  sm:max-w-md md:h-[37.7rem]  ${
+        className={`relative h-[35.0rem] text-gray-700  w-full max-w-sm overflow-hidden rounded-3xl border-4 border-black bg-white shadow-offsetIndigo transition-transform duration-500 ease-in-out  sm:h-[33.4rem]  sm:max-w-md md:h-[37.7rem]  ${
           visited === false ? 'opacity-40 grayscale ' : 'grayscale-0 '
         } ${isFlipped ? 'rotate-y-180' : ''}`}
       >
         <button
-          className="absolute bottom-3 right-4 z-40 flex flex-row items-center text-white border border-white rounded-lg px-2 py-1 hover:bg-green-400 transition-colors duration-200" // Added flex-col and items-center
+          className="absolute bottom-3 right-4 z-40 flex flex-row items-center rounded-lg px-2 py-1  " // Added flex-col and items-center
           onClick={() => setIsFlipped(!isFlipped)}
         >
           {isFlipped ? (
             <>
-              <FlipHorizontal2 size={20} />
-              <span className="mt-1 ml-2 text-xs">View Card Front</span>{' '}
-              {/* Added text */}
+              <Button size="xs" icon={<RotateCcw size={20} />}>
+                View Card Front
+              </Button>
+              {/* <FlipHorizontal2 size={20} />
+              <span className="mt-1 ml-2 text-xs">View Card Front</span>{' '} */}
             </>
           ) : (
             <>
-              <FlipHorizontal2 size={20} />
-              <span className="mt-1 ml-2 text-xs">View Rating Details</span>{' '}
-              {/* Added text */}
+              <Button size="xs" icon={<RotateCw size={20} />}>
+                View Rating Details
+              </Button>
+
+              {/* <FlipHorizontal2 size={20} />
+              <span className="mt-1 ml-2 text-xs">View Rating Details</span> */}
             </>
           )}
         </button>
@@ -104,7 +112,7 @@ const Arenas = ({
             {arenaReview?.comments && (
               <Blockquote
                 color="gray"
-                className="absolute text-sm sm:text-xs md:text-base inset-x-3 bottom-2 z-30 bg-black bg-opacity-50 text-white"
+                className="absolute inset-x-3 bottom-2 z-30 bg-black bg-opacity-50 text-sm text-white sm:text-xs md:text-base"
               >
                 {arenaReview?.comments}
               </Blockquote>
@@ -128,25 +136,26 @@ const Arenas = ({
             />
           </div>
 
-          <div className=" flex justify-between  ">
+          <div className=" flex justify-between text-gray-700  ">
             <div className="mb-2 ml-4 mt-4 ">
               <h1
-                className={`${oswald.variable}  line-clamp-2 font-heading text-2xl font-medium  text-gray-100 no-underline decoration-pink-500 decoration-dashed decoration-4 group-hover:underline sm:text-xl md:text-2xl lg:text-xl xl:mb-3 xl:text-2xl  `}
+                className={`${oswald.variable}  line-clamp-2 font-heading text-2xl font-medium   no-underline decoration-pink-500 decoration-dashed decoration-4 group-hover:underline sm:text-xl md:text-2xl lg:text-xl xl:mb-3 xl:text-2xl  `}
               >
                 {arenaName}
               </h1>
             </div>
           </div>
 
-          <div className="text-sm md:text-xs">
-            <div className="flex flex-row justify-between text-white">
-              <div className="my-3 ml-6 grid w-full grid-cols-2  items-center  gap-y-5  pb-2  align-middle text-xs  text-gray-700  dark:text-gray-200  md:text-xs">
+          <div className="text-sm md:text-xs text-gray-700">
+            <div className="flex flex-row justify-between ">
+              <div className="my-3 ml-6 grid w-full grid-cols-2  items-center  gap-y-5  pb-2  align-middle text-xs  text-gray-700 md:text-xs">
                 <div className=" flex w-32 flex-col items-center  gap-y-1.5 xl:my-0  ">
                   <p className=" text-sm font-bold">
                     <PostYear dateString={constructionDate} />
                   </p>
                   <Badge
-                    color="green"
+                    color="pink"
+                    variant='filled'
                     size="sm"
                     pr={9}
                     leftSection={<Wrench className="-mr-1 h-4" />}
@@ -160,7 +169,8 @@ const Arenas = ({
                     {new Intl.NumberFormat().format(capacity)}
                   </p>
                   <Badge
-                    color="green"
+                    color="pink"
+                    variant='filled'
                     size="sm"
                     pr={9}
                     leftSection={<Users className="-mr-1 h-4 " />}
@@ -174,8 +184,9 @@ const Arenas = ({
                     {location ? location : ''}
                   </p>
                   <Badge
-                    color="green"
+                    color="pink"
                     size="sm"
+                    variant='filled'
                     pr={9}
                     leftSection={<MapPin className="-mr-1 h-4 " />}
                   >
@@ -189,7 +200,8 @@ const Arenas = ({
                       <PostDate dateString={dateVisited} />
                     </p>
                     <Badge
-                      color="green"
+                      color="pink"
+                      variant='filled'
                       size="sm"
                       pr={9}
                       leftSection={<Check className="-mr-1 h-4 " />}
@@ -203,8 +215,8 @@ const Arenas = ({
               </div>
             </div>
 
-            <div className=" mt-4 border-t  border-gray-500 md:mt-0"></div>
-            <h3 className=" ml-5 mt-5 text-sm  font-bold text-gray-200  ">
+            <div className=" mt-4 border-t text-gray-700  border-gray-500 md:mt-0"></div>
+            <h3 className=" ml-5 mt-5 text-sm  font-bold   ">
               Team(s) Viewed
             </h3>
             <div className=" mx-3  flex flex-row flex-wrap justify-start gap-x-7 align-top   md:gap-x-6 ">
@@ -224,7 +236,7 @@ const Arenas = ({
                               .url()
                           : 'https://dummyimage.com/96x96/000/aeb0d9.jpg&text=Image'
                       }
-                      className=" h-11 w-11 rounded-full  p-0.5 sm:h-10 sm:w-10   md:h-11 md:w-11   "
+                      className=" h-11 w-11 rounded-full bg-gray-200  p-0.5 sm:h-10 sm:w-10   md:h-11 md:w-11   "
                       height={96}
                       width={96}
                       loading="lazy"
@@ -232,19 +244,19 @@ const Arenas = ({
                     />
 
                     <div className="flex flex-col text-xs  md:text-sm ">
-                      <p className="mx-2  cursor-pointer font-bold text-gray-700 dark:text-gray-200   ">
+                      <p className="mx-2  cursor-pointer font-bold text-gray-700   ">
                         {photo.name}
                       </p>
 
                       {photo.played === true ? (
                         <div className="flex items-center">
-                          <Eye className="mx-1 h-5 w-5 text-green-300 md:h-4  md:w-4" />
-                          <p className="my-1 cursor-pointer text-[0.70rem] font-bold text-gray-400 dark:text-gray-400  ">
+                          <Eye className="mx-1 h-5 w-5 text-green-500 md:h-4  md:w-4" />
+                          <p className="my-1 cursor-pointer text-[0.70rem] font-bold text-gray-700 ">
                             Watched
                           </p>
                         </div>
                       ) : (
-                        <EyeOff className="mx-1 my-1 h-5 w-5 text-gray-300 md:h-4   md:w-4" />
+                        <EyeOff className="mx-1 my-1 h-5 w-5 text-gray-500 md:h-4   md:w-4" />
                       )}
                     </div>
                   </div>
@@ -256,44 +268,44 @@ const Arenas = ({
 
         {/* Back of the card */}
         <div
-          className={`backface-hidden rotate-y-180 absolute inset-0 h-full w-full transform ${
+          className={`backface-hidden rotate-y-180 absolute inset-0 h-full w-full text-gray-700 transform ${
             isFlipped ? '' : 'hidden'
           }`}
         >
           {/* Add your additional data here */}
-          <div className="flex h-full w-full flex-col items-center justify-center bg-gray-800">
-            <p className="text-xl font-bold text-gray-200">Rating Breakdown </p>
+          <div className="flex h-full w-full flex-col items-center justify-center ">
+            <p className="text-xl font-bold">Arena Rating Breakdown </p>
 
-            <div className=" my-3 grid w-full grid-cols-2 place-items-center  items-center pb-2 align-middle  text-xs font-bold text-gray-700 dark:text-gray-200 md:text-xs ">
+            <div className=" my-3 grid w-full grid-cols-2 place-items-center  items-center pb-2 align-middle  text-xs font-bold text-gray-700  md:text-xs ">
               <AreanaRating
                 rating={arenaReview?.transportation}
                 text={'Transit to'}
-                icon={<Car className="text-violet-500" />}
+                icon={<Car className="text-pink-500" />}
               />
               <AreanaRating
                 rating={arenaReview?.walkability}
                 text={'Walkability'}
-                icon={<Footprints className="text-violet-500" />}
+                icon={<Footprints className="text-pink-500" />}
               />
               <AreanaRating
                 rating={arenaReview?.vibes}
                 text={'Vibes'}
-                icon={<Music className="text-violet-500" />}
+                icon={<Music className="text-pink-500" />}
               />
               <AreanaRating
                 rating={arenaReview?.food}
                 text={'Food Options'}
-                icon={<Pizza className="text-violet-500" />}
+                icon={<Pizza className="text-pink-500" />}
               />
               <AreanaRating
                 rating={arenaReview?.view}
                 text={'View from Seat'}
-                icon={<Binoculars className="text-violet-500" />}
+                icon={<Binoculars className="text-pink-500" />}
               />
               <AreanaRating
                 rating={arenaReview?.seatComfort}
                 text={'Seat Comfort'}
-                icon={<Sofa className="text-violet-500" />}
+                icon={<Sofa className="text-pink-500" />}
               />
             </div>
           </div>

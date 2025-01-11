@@ -47,9 +47,8 @@ export default function Page(props: PageProps) {
           <AllReviewsPage
             loading
             preview
-            posts={arenaPosts}
-            settings={settings}
-          />
+            // posts={arenaPosts}
+            settings={settings} posts={[]}          />
         }
       >
         <PreviewIndexPage token={token} />

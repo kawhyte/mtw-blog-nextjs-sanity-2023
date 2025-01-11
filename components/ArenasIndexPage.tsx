@@ -4,6 +4,8 @@ import dynamic from 'next/dynamic'
 import Button from 'ui/Button'
 
 import SectionTitle from './SectionTitle'
+import { Volleyball } from 'lucide-react'
+import { LiaBasketballBallSolid } from 'react-icons/lia'
 
 const ArenasIndexPage = ({ arenas }) => {
   //console.log('arenasH ', arenas[0])
@@ -28,7 +30,7 @@ const ArenasIndexPage = ({ arenas }) => {
             ></p>
             <div className="lg:mt-0 lg:flex-shrink-0">
               <div className="mt-6 inline-flex ">
-                <Button link={'/arenas'}>View Our Journey</Button>
+                <Button icon={<LiaBasketballBallSolid className="h-7 w-8  text-pink-500" />} link={'/arenas'}>View Our Journey</Button>
               </div>
             </div>
           </div>

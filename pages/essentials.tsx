@@ -12,7 +12,7 @@ import { lazy } from 'react'
 const PreviewIndexPage = lazy(() => import('components/PreviewIndexPage'))
 
 interface PageProps {
-  TravelEssentialposts: Esssential[]
+  TravelEssentialposts: any
   settings: Settings
   preview: boolean
   token: string | null

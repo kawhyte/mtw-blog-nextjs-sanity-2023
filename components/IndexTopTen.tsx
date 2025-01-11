@@ -3,6 +3,8 @@ import Link from 'next/link'
 import Button from 'ui/Button'
 
 import SectionTitle from './SectionTitle'
+import { Trophy } from 'lucide-react'
+import { LiaCrownSolid } from 'react-icons/lia'
 
 export default function IndexTopTen() {
   return (
@@ -17,7 +19,7 @@ export default function IndexTopTen() {
 
         <div className="flex   pt-9 lg:mt-0 lg:flex-shrink-0">
           <div className=" inline-flex ">
-            <Button link={'/top_picks'}>Our Top Picks</Button>
+            <Button icon={<LiaCrownSolid className="h-6 w-6 text-pink-500   " />} link={'/top_picks'}>Our Top Picks</Button>
           </div>
         </div>
 

@@ -45,7 +45,7 @@ export default function IndexPage(props: IndexPageProps) {
             animation={'/all.json'}
           />
 
-          {posts.length > 0 && <MoreStories posts={posts} showPagination={false} />}
+          {posts.length > 0 && <MoreStories posts={posts} showPagination={false} showRating={false} />}
         </Container>
 
       </Layout>

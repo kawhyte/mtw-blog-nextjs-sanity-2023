@@ -18,6 +18,7 @@ import IndexTopTen from './IndexTopTen'
 import SectionTitle from './SectionTitle'
 import Welcome from './Welcome'
 import YoutubeHighlights from './YoutubeHighlights'
+import { Plane, BriefcaseConveyorBelt,Trophy } from 'lucide-react'
 
 export interface IndexPageProps {
   preview?: boolean
@@ -71,7 +72,7 @@ export default function IndexPage(props: IndexPageProps) {
 
             <div className="flex   pt-9 lg:mt-0 lg:flex-shrink-0">
               <div className=" inline-flex  ">
-                <Button link={'/essentials'}>Travel Essentials Reviews</Button>
+                <Button icon={<Plane className='text-pink-500'/>} link={'/essentials'}>Travel Essentials Reviews</Button>
               </div>
             </div>
           </BlogSection>
@@ -90,7 +91,7 @@ export default function IndexPage(props: IndexPageProps) {
 
             <div className="flex   pt-9 lg:mt-0 lg:flex-shrink-0">
               <div className=" inline-flex ">
-                <Button link="/hotel">More Adventures</Button>
+                <Button icon={<BriefcaseConveyorBelt className='text-pink-500' />}  link="/hotel">More Adventures</Button>
               </div>
             </div>
           </BlogSection>
