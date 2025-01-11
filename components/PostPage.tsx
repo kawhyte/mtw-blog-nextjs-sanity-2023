@@ -97,7 +97,7 @@ export default function PostPage(props: PostPageProps) {
 
       <Layout preview={preview} loading={loading}>
         <BlogHeader title={title} level={2} />
-        <Container>
+        {/* <Container> */}
           <article className="container mx-auto flex flex-col justify-center items-center">
             <PostHeader
               title={post.title}
@@ -117,11 +117,11 @@ export default function PostPage(props: PostPageProps) {
 
             {renderLinkTypeComponent(post)}
 
+          </article>
             <PostBody content={post.content} />
             <Youtube link={post.youtube} />
             {post.gallery?.length > 0 && <Gallery posts={post} heading={''} />}
-          </article>
-        </Container>
+        {/* </Container> */}
         <Footer />
       </Layout>
     </div>

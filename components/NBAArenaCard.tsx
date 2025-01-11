@@ -60,7 +60,7 @@ const Arenas = ({
     <>
       <div
         key={id}
-        className={`relative h-[35.0rem] text-gray-700  w-full max-w-sm overflow-hidden rounded-3xl border-4 border-black bg-white shadow-offsetIndigo transition-transform duration-500 ease-in-out  sm:h-[33.4rem]  sm:max-w-md md:h-[37.7rem]  ${
+        className={`relative h-[35.5rem] text-gray-700  w-full max-w-sm overflow-hidden rounded-3xl border-4 border-black bg-white shadow-offsetIndigo transition-transform duration-500 ease-in-out  sm:h-[33.4rem]  sm:max-w-md md:h-[37.7rem]  ${
           visited === false ? 'opacity-40 grayscale ' : 'grayscale-0 '
         } ${isFlipped ? 'rotate-y-180' : ''}`}
       >
