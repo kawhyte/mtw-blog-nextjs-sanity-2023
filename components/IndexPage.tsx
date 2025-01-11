@@ -57,7 +57,7 @@ export default function IndexPage(props: IndexPageProps) {
 
           <Hero  />
 
-          <BlogSection className=" mt-56 ">
+          <BlogSection className=" mt-24 ">
           <Welcome /></BlogSection>
 
          
