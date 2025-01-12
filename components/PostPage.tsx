@@ -88,7 +88,7 @@ export default function PostPage(props: PostPageProps) {
     ? (post.diningType === 'takeout' ? post.takeoutRating : post.foodRating) 
     : post.hotelRating;
 
-
+// console.log("post.content1", post.content)
     // console.log("post.takeoutRating",post?.takeoutRating )
      //console.log("ratingCat2",ratingCat )
   return (
@@ -118,7 +118,7 @@ export default function PostPage(props: PostPageProps) {
             {renderLinkTypeComponent(post)}
 
           </article>
-            <PostBody content={post.content} />
+          <div className='container mx-auto'> <PostBody content={post.content} /></div>  
             <Youtube link={post.youtube} />
             {post.gallery?.length > 0 && <Gallery posts={post} heading={''} />}
         {/* </Container> */}

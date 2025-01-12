@@ -28,6 +28,7 @@ import Button from 'ui/Button'
 interface NBAArenaCardProps {
   arenaImageSrc: any
   arenaName: string
+  alt:string
   constructionDate: string
   capacity: number
   location: string
@@ -46,6 +47,7 @@ const Arenas = ({
   id,
   visited,
   arenaName,
+  alt,
   constructionDate,
   capacity,
   dateVisited,
@@ -131,7 +133,7 @@ const Arenas = ({
               className="w-full object-cover brightness-[0.65] md:h-56  "
               height={502}
               width={203}
-              alt={`${arenaName} arena`}
+              alt={alt}
               loading="lazy"
             />
           </div>

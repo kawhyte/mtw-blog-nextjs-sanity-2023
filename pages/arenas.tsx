@@ -48,7 +48,9 @@ export default function Page(props: PageProps) {
             loading
             preview
             // posts={arenaPosts}
-            settings={settings} posts={[]}          />
+            settings={settings}
+            posts={[]}
+          />
         }
       >
         <PreviewIndexPage token={token} />
@@ -56,17 +58,48 @@ export default function Page(props: PageProps) {
     )
   }
 
- 
-
   return (
     <>
       <Layout preview={false} loading={false}>
         <Head>
-          <title>{CMS_NAME}</title>
+          <title>{`NBA/WNBA Arena Reviews - ${CMS_NAME}`}</title>
           {/* <title> { `${CMS_NAME} - Travel and Food Reviews`}</title> */}
+          <meta
+            name="description"
+            content="We're on a journey to visit and rank every NBA and WNBA arena! Explore our reviews, photos, and experiences from arenas across the US and Canada."
+          />
+          <meta
+            property="og:title"
+            content={`NBA/WNBA Arena Reviews - ${CMS_NAME}`}
+          />
+          <meta
+            property="og:description"
+            content="We're on a journey to visit and rank every NBA and WNBA arena! Explore our reviews, photos, and experiences from arenas across the US and Canada."
+          />
+          <meta property="og:image" content="/path/to/your/social/image.jpg" />{' '}
+          {/* Replace with an actual image URL */}
+          <meta
+            property="og:url"
+            content="your-website.com/arena-reviews"
+          />{' '}
+          {/* Replace with the actual page URL */}
+          <script type="application/ld+json">
+            {`
+            {
+              "@context": "https://schema.org",
+              "@type": "Website",
+              "name": "${CMS_NAME}",
+              "url": "www.meetthewhytes.com" 
+            }
+            `}
+          </script>
         </Head>
 
-        <BlogHeader title={'title'} description={[]} level={1} />
+        <BlogHeader
+          title={'Visiting and Ranking Every NBA/WNBA Arena'}
+          description={[]}
+          level={1}
+        />
         <ReviewHeader
           title={'Visiting and Ranking Every NBA/WNBA Arena'}
           arenas={arenaPosts}
@@ -76,15 +109,14 @@ export default function Page(props: PageProps) {
 
         <div className="container mx-auto mt-14 grid grid-cols-1  place-content-center place-items-center gap-x-6 gap-y-10  px-3 sm:grid-cols-2  md:grid-cols-2 md:gap-10 md:gap-x-5 md:px-6  lg:grid-cols-3 xl:grid-cols-3">
           {arenaPosts.map((item, index) => (
-
-
             <NBAArenaCard
-            key={index}
+              key={index}
               // arenaImageSrc= {arenaPosts.arenaImage}
               arenaImageSrc={item.arenaImage}
               location={item.location}
               constructionDate={item.buildDate}
               capacity={item.capacity}
+              alt={`${item.name} arena`} 
               // visitedCount={item.visitedCount}
               // galleryCount={item.}
               arenaReview={item?.arenaReview}

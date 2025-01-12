@@ -46,6 +46,6 @@
 }
 .portableText p {
 
-@apply  text-base md:text-base mt-3 leading-loose;
+@apply  text-base md:text-base mt-3 leading-loose  mx-auto container;
 
 }

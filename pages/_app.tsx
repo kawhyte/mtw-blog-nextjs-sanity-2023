@@ -31,7 +31,7 @@ export default function App({ Component, pageProps }: AppProps) {
     {/* <BlogHeader title={'title'} description={undefined}  level={1} /> */}
 
     <MantineProvider> 
-    <main className={`${inter.variable} font-sans  `}>
+    <main className={`${inter.variable} font-sans `}>
       <Component {...pageProps} />
     </main>
     </MantineProvider>
