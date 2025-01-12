@@ -98,12 +98,12 @@ export default function PostPage(props: PostPageProps) {
       <Layout preview={preview} loading={loading}>
         <BlogHeader title={title} level={2} />
         {/* <Container> */}
-          <article className="container mx-auto flex flex-col justify-center items-center">
+          <article className="container mx-auto flex flex-col justify-center items-start sm:pl-4 md:mt-10">
             <PostHeader
               title={post.title}
               coverImage={post.coverImage}
               date={post.date}
-              author={post.author}
+              // author={post.author}
               location={post.location}
               room={post.room}
               linkType={post.linkType}
