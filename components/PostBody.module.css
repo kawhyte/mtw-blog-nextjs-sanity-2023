@@ -1,23 +1,23 @@
 .portableText {
-  @apply text-base md:text-lg font-normal md:leading-relaxed ;
+  @apply text-base md:text-lg font-normal md:leading-relaxed;
 }
-
 
 .portableText ul,
 .portableText ol,
 .portableText blockquote {
-  @apply my-6  ;
+  @apply my-6;
 }
 
 .portableText h2 {
-  @apply mb-4 mt-12   text-2xl  leading-snug;
+  @apply mb-4 mt-12 text-2xl leading-snug;
 }
+
 .portableText h5 {
-  @apply mb-4 mr-2 text-xs mt-3 md:mt-1 md:text-sm    leading-snug;
+  @apply mb-4 mr-2 text-xs mt-3 md:mt-1 md:text-sm leading-snug;
 }
 
 .portableText h3 {
-  @apply mb-4 mt-8 mx-6  text-2xl leading-snug;
+  @apply mb-4 mt-8 mx-6 text-2xl leading-snug;
 }
 
 .portableText a {
@@ -27,25 +27,18 @@
   @apply text-blue-800;
 }
 
-
 .portableText image {
-
-  @apply  py-2  lg:max-w-3xl  ;
-  
+  @apply py-2 lg:max-w-3xl;
 }
-.portableText img {
 
-  @apply  py-2  lg:max-w-3xl  ;
-  
+.portableText img {
+  @apply py-2 lg:max-w-3xl;
 }
 
 .portableText h6 {
-
-@apply  text-sm md:text-base mt-3 leading-loose;
-
+  @apply text-sm md:text-base mt-3 leading-loose;
 }
+
 .portableText p {
-
-@apply  text-base md:text-base mt-3 leading-loose px-6  mx-auto container;
-
+  @apply text-base md:text-base mt-3 leading-loose px-6 mx-auto container;
 }
