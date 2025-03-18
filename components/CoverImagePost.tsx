@@ -30,7 +30,7 @@ export default function CoverImage(props: CoverImageProps) {
   const image = source?.asset?._ref ? (
     <>
       <div className=" flex flex-row  gap-2 mt-10">
-        <div>
+        <div className="relative w-[660px] h-[428px]">
           <Image
             className={ `h-auto w-full max-w-full md:rounded-l-xl`}
             src={urlForImage(source)
@@ -44,6 +44,8 @@ export default function CoverImage(props: CoverImageProps) {
 
             width={660}
             height={428}
+           
+            priority={true}
           />
 
  {/* <div>
@@ -60,7 +62,7 @@ Extra small
      {gallery?.length > 3 ?    <div className="hidden md:grid grid-cols-2 gap-2  max-w-5x ">
 
           {gallery.slice(0, 4).map((item, i) => (
-            <div key={item._key} >
+            <div key={item._key} className="relative w-[272px] h-[209px]" >
 
 
               <Image
@@ -71,7 +73,8 @@ Extra small
                 height={209}
                 placeholder='blur'
                 blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAO0lEQVR4nGNgYGBg+P//P1t9fT0TiM0we3ZjxZxZjQ9XLpwwe9nCHkOGGZOyanraY9aumN2wbsn0hmQA/MEWfj4ocjcAAAAASUVORK5CYII='
-    
+  
+    priority={true}
               />
             </div>
           ))}

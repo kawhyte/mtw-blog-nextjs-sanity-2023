@@ -31,9 +31,9 @@ function Hero() {
     <>
       <section className="body-font container mx-auto text-gray-600 max-w-[81rem] relative">
         <div className="container mx-auto flex flex-col justify-between pt-12 md:flex-row">
-          <div className="flex flex-col mx-6 md:mx-0 sm:mb-0 md:pl-8 xl:mb-0 xl:w-full xl:items-start xl:pr-16 xl:text-left 2xl:pr-5">
+          <div className="flex flex-col mx-6 md:mx-0 sm:mb-0 md:pl-8 xl:mb-0 xl:w-full xl:items-start xl:pr-16 xl:text-left 2xl:pr-5 ">
             <div
-              className={`${oswald.variable} z-30 mb-6 flex flex-col font-heading text-[3.5rem] font-bold uppercase leading-none text-gray-700 md:text-[3.9rem] lg:w-10/12 lg:text-[5.2rem] xl:text-[5.3rem] 2xl:text-[5.9rem] whitespace-nowrap`}
+              className=" font-oswald tracking-tighter z-30 mb-6 flex flex-col font-heading text-[3.5rem] font-bold uppercase leading-none text-gray-700 md:text-[3.9rem] lg:w-10/12 lg:text-[5.2rem] xl:text-[5.8rem] 2xl:text-[6rem] whitespace-nowrap"
             >
               <p>Our Quest</p>
               <p>to Visit Every</p>

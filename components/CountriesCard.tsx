@@ -14,7 +14,7 @@ function CountriesCard({ countries }: CountriesCardProps) {
   return (
     <div className="max-w-8xl w-full rounded-3xl bg-[#f0f7ff] p-6">
       <h2
-        className={`${oswald.variable}  title-font my-4  mb-6   font-heading text-xl font-bold text-gray-900 sm:text-2xl lg:text-3xl`}
+       className=" font-montserrat my-4  mb-6    text-xl font-bold text-gray-900 sm:text-2xl lg:text-3xl"
       >
         Countries we&apos;ve visited
       </h2>

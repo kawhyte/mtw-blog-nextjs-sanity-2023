@@ -41,6 +41,22 @@ export default function PostPreview({
         : foodRating
       : hotelRating
 
+      let href: string;
+      switch (linkType) {
+        case 'hotel':
+          href = `/hotel/${slug}`;
+          break;
+        case 'story':
+          href = `/story/${slug}`;
+          break;
+        case 'food':
+          href = `/food/${slug}`;
+          break;
+        default:
+          href = `/posts/${slug}`; // Default fallback if linkType is not provided
+      }
+
+
   return (
     <>
     <div className="group z-10  w-full max-w-sm overflow-hidden rounded-3xl border-4 border-black bg-white    shadow-md  duration-300 dark:bg-gray-50 ">
@@ -63,11 +79,11 @@ export default function PostPreview({
   <div className="mx-4  mb-2 mt-1 flex flex-col ">
     <div>
       <Link
-        href={`/posts/${slug}`}
+        href={href}
         className={`${inter.variable} title-font  font-secondary mt-3 font-light text-gray-700 `}
       >
         <h1
-          className={`${oswald.variable}  line-clamp-2   h-14 font-heading text-lg font-medium text-gray-700 no-underline decoration-pink-500 decoration-dashed decoration-4 group-hover:underline  `}
+          className=" font-montserrat font-bold text-gray-900 sm:text-xl lg:text-xl line-clamp-2   h-14 font-heading text-lg  no-underline decoration-pink-500 decoration-dashed decoration-4 group-hover:underline"
         >
           {title}
         </h1>

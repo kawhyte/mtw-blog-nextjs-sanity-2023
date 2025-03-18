@@ -14,10 +14,10 @@ function AreanaRating({ rating, text, icon }) {
        <p className='sm:hidden md:block'>{icon}</p>   
           {/* <img alt='name' className='h-12 w-12' src={icon}/> */}
 
-          <h2 className="title-font text-xl font-medium text-gray-700">
+          <h2 className="title-font text-xl  text-gray-700">
             {formattedValue ? (formattedValue / 2).toFixed(2) : 'Pending'}
           </h2>
-          <p className="leading-relaxed">{text}</p>
+          <p className="leading-relaxed text-gray-500">{text}</p>
         </div>
       </div>
 

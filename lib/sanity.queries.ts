@@ -140,14 +140,78 @@ export const postBySlugQuery = groq`
 }
 `
 
+export const hotelSlugsQuery = groq`
+*[_type == "post"  && defined(slug.current)][].slug.current
+`
+export const storySlugsQuery = groq`
+*[_type == "post" && linkType =="story" && defined(slug.current)][].slug.current
+`
+export const foodSlugsQuery = groq`
+*[_type == "post" && linkType =="food" && defined(slug.current)][].slug.current
+`
+
+
+export const hotelBySlugQuery = groq`
+*[_type == "post" && slug.current == $slug][0] {
+  ${hotelFields}
+}
+`
+export const storyBySlugQuery = groq`
+*[_type == "post" && linkType =="story" && slug.current == $slug][0] {
+  ${hotelFields}
+}
+`
+export const foodBySlugQuery = groq`
+*[_type == "post" && linkType =="food" && slug.current == $slug][0] {
+  ${hotelFields}
+}
+`
+
+export const hotelAndMoreQuery = groq`
+{
+  "post": *[_type == "hotel" && slug.current == $slug] | order(_updatedAt desc) [0] {
+    content,
+    ${postFields}
+  },
+  "morePosts": *[_type == "hotel" && slug.current != $slug] | order(date desc, _updatedAt desc) [0...2] {
+    content,
+    ${postFields}
+  }
+}`
+
+export const storyAndMoreQuery = groq`
+{
+  "post": *[_type == "post" && linkType =="story" && slug.current == $slug] | order(_updatedAt desc) [0] {
+    content,
+    ${postFields}
+  },
+  "morePosts": *[_type == "post" && linkType =="story" && slug.current != $slug] | order(date desc, _updatedAt desc) [0...2] {
+    content,
+    ${postFields}
+  }
+}`
+export const foodAndMoreQuery = groq`
+{
+  "post": *[_type == "post" && linkType =="food" && slug.current == $slug] | order(_updatedAt desc) [0] {
+    content,
+    ${postFields}
+  },
+  "morePosts": *[_type == "post" && linkType =="food" && slug.current != $slug] | order(date desc, _updatedAt desc) [0...2] {
+    content,
+    ${postFields}
+  }
+}`
+
+
+
 export const hotelQuery = groq`
-*[_type == "post"&& linkType =="hotel"]  | order(date desc, _updatedAt desc) {${hotelFields}}`
+*[_type == "post" && linkType=="hotel" ]  | order(date desc, _updatedAt desc) {${hotelFields}}`
 
 export const foodQuery = groq`
-*[_type == "post"&& linkType =="food"] | order(date desc, _updatedAt desc) {${foodFields}}`
+*[_type == "post" && linkType =="food"] | order(date desc, _updatedAt desc) {${foodFields}}`
 
 export const storyQuery = groq`
-*[_type == "post"&& linkType =="story"] | order(date desc, _updatedAt desc) {${guideFields}}`
+*[_type == "post" && linkType =="story"] | order(date desc, _updatedAt desc) {${guideFields}}`
 
 
 
@@ -215,6 +279,87 @@ export interface Post {
   foodRating?:any
   takeoutRating?:any
   diningType?:any
+  positives?: any
+  negatives?: any
+  verdict?: any
+  gallery?: any
+  color?:string
+  category?:string
+  tip?:string
+  showRating:boolean
+}
+export interface Story {
+  _id: string
+  title?: string
+  coverImage?: any
+  date?: string
+  excerpt2?: any
+  author?: Author
+  slug?: string
+  content?: any
+  youtube?: any
+  location?: string
+  
+  linkType?: any
+  
+  positives?: any
+  negatives?: any
+  verdict?: any
+  gallery?: any
+  color?:string
+  category?:string
+  tip?:string
+  showRating:boolean
+}
+export interface Food {
+  _id: string
+  title?: string
+  coverImage?: any
+  date?: string
+  excerpt2?: any
+  author?: Author
+  slug?: string
+  content?: any
+  youtube?: any
+  location?: string
+  individualFoodRating?:any
+ 
+  
+ 
+  linkType?: any
+  
+  foodRating?:any
+  takeoutRating?:any
+  diningType?:any
+  positives?: any
+  negatives?: any
+  verdict?: any
+  gallery?: any
+  color?:string
+  category?:string
+  tip?:string
+  showRating:boolean
+}
+export interface Hotel {
+  _id: string
+  title?: string
+  coverImage?: any
+  date?: string
+  excerpt2?: any
+  author?: Author
+  slug?: string
+  content?: any
+  youtube?: any
+  location?: string
+  
+  room?: any
+  internetSpeed?: number
+  techRating?: any
+  roomAmenities?:any
+  linkType?: any
+  hotelRating?: any
+ 
+
   positives?: any
   negatives?: any
   verdict?: any

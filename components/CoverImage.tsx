@@ -63,17 +63,20 @@ showRating,
 
   const image = source?.asset?._ref ? (
     <div
-      className={cn('	', {
-        ' ': slug,
-      })}
+    className="relative w-[402px] h-[203px]" 
     >
+      <Skeleton
+      visible
+      className="absolute inset-0 w-full h-full rounded-md"
+    />
       <Image
         className={cn('w-full object-cover object-center brightness-[0.85]', {
           '	relative z-20   transition-all  ': slug,
         })}
         placeholder="blur"
+       
         blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAO0lEQVR4nGNgYGBg+P//P1t9fT0TiM0we3ZjxZxZjQ9XLpwwe9nCHkOGGZOyanraY9aumN2wbsn0hmQA/MEWfj4ocjcAAAAASUVORK5CYII="
-        width={502}
+        width={402}
         height={203}
         alt={`Cover Image for ${title}`}
         src={urlForImage(source)?.height(203)?.width(402)?.url()}

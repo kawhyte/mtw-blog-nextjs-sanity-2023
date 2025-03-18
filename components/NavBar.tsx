@@ -144,7 +144,7 @@ export default function Nav({ color = 'bg-black', bgColor }) {
                         height={45}
                       />
                       <p
-                        className={`hidden lg:block ${space.variable} font-logo text-base `}
+                        className="hidden lg:block  text-base font-space-grotesk font-bold text-gray-700"
                       >
                         {' '}
                         meet the whytes
