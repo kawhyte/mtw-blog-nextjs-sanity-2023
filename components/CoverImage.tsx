@@ -11,6 +11,7 @@ import {
   Title,
 } from '@mantine/core'
 import cn from 'classnames'
+import { ca } from 'date-fns/locale'
 import { calculateRating } from 'lib/calculateRating'
 import { ratingWeights } from 'lib/ratingWeights'
 import { urlForImage } from 'lib/sanity.image'
@@ -94,13 +95,16 @@ showRating,
   // const propertyNames = Object.entries(rating).filter(
   //   ([key]) => key !== '_type'
   // )
-
+//  console.log("Categoty Type",categoryType)
+//  console.log("linkType11",linkType)
   return (
     <div className="relative sm:mx-0">
       {slug ? (
         <Link href={`/posts/${slug}`} aria-label={title}>
           <div>
-            {category && (
+            {
+            linkType ==="hotel" ?(
+            category  && (
               <Badge
                 className="absolute z-30 m-3  py-2"
                 size="md"
@@ -109,7 +113,7 @@ showRating,
               >
                 {categoryType.name}
               </Badge>
-            )}
+            )):""}
 
             {/* <Badge className="absolute  top-3 right-3 ml-3 z-50 py-2 ">{overallRating.numericalRating.toFixed(2)}</Badge> */}
 

@@ -2,13 +2,13 @@ import { inter, oswald } from 'app/fonts'
 import Date from 'components/PostDate'
 import { categoryRating } from 'lib/getHotelCategory'
 import type { Post } from 'lib/sanity.queries'
+import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 import { FaRegCalendarAlt } from 'react-icons/fa'
 import { IoLocation } from 'react-icons/io5'
+import Button from 'ui/Button'
 
 import CoverImage from './CoverImage'
-import Button from 'ui/Button'
-import { ArrowRight } from 'lucide-react'
 
 export default function PostPreview({
   title,
