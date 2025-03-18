@@ -80,7 +80,7 @@ const Arenas = ({
             </>
           ) : (
             <>
-              <Button size="xs" icon={<RotateCw size={20} />}>
+              <Button size="xs"  icon={<RotateCw size={20} />}>
                 View Rating Details
               </Button>
 
@@ -126,7 +126,7 @@ const Arenas = ({
                         pr={9}
                         leftSection={<Check className="-mr-1 h-4 " />}
                       >
-                        We Visited on <PostDate dateString={dateVisited} />
+                        Visited on <PostDate dateString={dateVisited} />
                       </Badge>
                     </div>
                   ) : (
@@ -156,7 +156,7 @@ const Arenas = ({
                     pr={9}
                     leftSection={<Wrench className="-mr-1 h-4" />}
                   >
-                      Arena Capacity11{' '}
+                      Arena Capacity{' '}
                       {new Intl.NumberFormat().format(capacity)}
                   </Badge>
                 </div>
