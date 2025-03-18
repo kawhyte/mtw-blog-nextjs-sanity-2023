@@ -51,6 +51,44 @@ const hotelFields = groq`
   "slug": slug.current,
   "author": author->{name, picture},
 `
+const foodFields = groq`
+  _id,
+  title,
+  date,
+  excerpt2,
+  coverImage,
+  youtube,
+  location,
+  room,
+  gallery,
+  foodRating{Flavor_and_Taste,Food_Value,Restaurant_Location,Presentation_on_Plate,Restaurant_Service,Memorability,Restaurant_Cleanliness},
+  takeoutRating,
+  diningType,
+  positives,
+  negatives,
+  verdict,
+  tip,
+  linkType,
+  "slug": slug.current,
+  "author": author->{name, picture},
+`
+const guideFields = groq`
+  _id,
+  title,
+  date,
+  excerpt2,
+  coverImage,
+  youtube,
+  location,
+  gallery,
+  positives,
+  negatives,
+  verdict,
+  tip,
+  linkType,
+  "slug": slug.current,
+  "author": author->{name, picture},
+`
 const recommendationFields = groq`
 _id, title,listType, recommendations[] {post->{title, slug, coverImage, location,linkType}
 
@@ -106,10 +144,10 @@ export const hotelQuery = groq`
 *[_type == "post"&& linkType =="hotel"]  | order(date desc, _updatedAt desc) {${hotelFields}}`
 
 export const foodQuery = groq`
-*[_type == "post"&& linkType =="food"] | order(date desc, _updatedAt desc) {${postFields}}`
+*[_type == "post"&& linkType =="food"] | order(date desc, _updatedAt desc) {${foodFields}}`
 
 export const storyQuery = groq`
-*[_type == "post"&& linkType =="story"] | order(date desc, _updatedAt desc) {${postFields}}`
+*[_type == "post"&& linkType =="story"] | order(date desc, _updatedAt desc) {${guideFields}}`
 
 
 
