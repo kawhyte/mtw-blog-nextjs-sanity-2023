@@ -20,15 +20,15 @@ import {
   Wrench,
 } from 'lucide-react'
 import { useState } from 'react'
+import Button from 'ui/Button'
 
 import AreanaRating from './AreanaRating'
 import PostDate, { PostYear } from './PostDate'
-import Button from 'ui/Button'
 
 interface NBAArenaCardProps {
   arenaImageSrc: any
   arenaName: string
-  alt:string
+  alt: string
   constructionDate: string
   capacity: number
   location: string
@@ -62,7 +62,7 @@ const Arenas = ({
     <>
       <div
         key={id}
-        className={`relative h-[35.5rem] text-gray-700  w-full max-w-sm overflow-hidden rounded-3xl border-4 border-black bg-white shadow-offsetIndigo transition-transform duration-500 ease-in-out  sm:h-[33.4rem]  sm:max-w-md md:h-[37.7rem]  ${
+        className={`relative h-[28.9rem] w-full  max-w-sm overflow-hidden rounded-3xl border-4 border-black bg-white text-gray-700 shadow-offsetIndigo transition-transform duration-500 ease-in-out  sm:h-[25.9rem]  sm:max-w-md md:h-[28rem] lg:h-[30.7rem]  ${
           visited === false ? 'opacity-40 grayscale ' : 'grayscale-0 '
         } ${isFlipped ? 'rotate-y-180' : ''}`}
       >
@@ -111,14 +111,71 @@ const Arenas = ({
               </div>
             ) : null}
 
-            {arenaReview?.comments && (
+            <div className="absolute bottom-3 left-4 z-30 text-sm font-bold text-white">
+              <div className="flex  flex-col gap-y-1">
+                <div className=" flex  flex-row items-center  gap-y-1 xl:my-0  ">
+                  {visited ? (
+                    <div className=" flex  flex-col items-center   gap-y-1 xl:my-0  ">
+                      {/* <p className=" text-sm font-bold">
+                      <PostDate dateString={dateVisited} />
+                    </p> */}
+                      <Badge
+                        color="green"
+                        variant="filled"
+                        size="sm"
+                        pr={9}
+                        leftSection={<Check className="-mr-1 h-4 " />}
+                      >
+                        We Visited on <PostDate dateString={dateVisited} />
+                      </Badge>
+                    </div>
+                  ) : (
+                    ''
+                  )}
+                </div>
+
+                <div className=" flex  flex-row items-center  gap-y-1 xl:my-0  ">
+                  <p className=" text-sm font-bold"></p>
+                  <Badge
+                    color="violet"
+                    variant="filled"
+                    size="sm"
+                    pr={9}
+                    leftSection={<Wrench className="-mr-1 h-4" />}
+                  >
+                    Arena Constructed in{' '}
+                    <PostYear dateString={constructionDate} />
+                  </Badge>
+                </div>
+                <div className=" flex  flex-row items-center  gap-y-1 xl:my-0  ">
+                  <p className=" text-sm font-bold"></p>
+                  <Badge
+                    color="blue"
+                    variant="filled"
+                    size="sm"
+                    pr={9}
+                    leftSection={<Wrench className="-mr-1 h-4" />}
+                  >
+                      Arena Capacity11{' '}
+                      {new Intl.NumberFormat().format(capacity)}
+                  </Badge>
+                </div>
+
+
+
+
+          
+              </div>
+            </div>
+
+            {/* {arenaReview?.comments && (
               <Blockquote
                 color="gray"
                 className="absolute inset-x-3 bottom-2 z-30 bg-black bg-opacity-50 text-sm text-white sm:text-xs md:text-base"
               >
                 {arenaReview?.comments}
               </Blockquote>
-            )}
+            )} */}
 
             <img
               src={
@@ -143,13 +200,26 @@ const Arenas = ({
               <h1
                 className={`${oswald.variable}  line-clamp-2 font-heading text-2xl font-medium   no-underline decoration-pink-500 decoration-dashed decoration-4 group-hover:underline sm:text-xl md:text-2xl lg:text-xl xl:mb-3 xl:text-2xl  `}
               >
-                {arenaName}
+                {arenaName} | {location}
               </h1>
             </div>
           </div>
 
-          <div className="text-sm md:text-xs text-gray-700">
-            <div className="flex flex-row justify-between ">
+          <div className="text-sm text-gray-700 md:text-xs">
+
+
+          {/* {arenaReview?.comments && (
+              <Blockquote
+                color="gray"
+                className="absolute  z-30  text-black bg-opacity-50 text-sm  sm:text-xs md:text-base"
+              >
+                {arenaReview?.comments}
+              </Blockquote>
+            )} */}
+
+
+
+            {/* <div className="flex flex-row justify-between ">
               <div className="my-3 ml-6 grid w-full grid-cols-2  items-center  gap-y-5  pb-2  align-middle text-xs  text-gray-700 md:text-xs">
                 <div className=" flex w-32 flex-col items-center  gap-y-1 xl:my-0  ">
                   <p className=" text-sm font-bold">
@@ -157,7 +227,7 @@ const Arenas = ({
                   </p>
                   <Badge
                     color="pink"
-                    variant='filled'
+                    variant="filled"
                     size="sm"
                     pr={9}
                     leftSection={<Wrench className="-mr-1 h-4" />}
@@ -172,7 +242,7 @@ const Arenas = ({
                   </p>
                   <Badge
                     color="pink"
-                    variant='filled'
+                    variant="filled"
                     size="sm"
                     pr={9}
                     leftSection={<Users className="-mr-1 h-4 " />}
@@ -188,7 +258,7 @@ const Arenas = ({
                   <Badge
                     color="pink"
                     size="sm"
-                    variant='filled'
+                    variant="filled"
                     pr={9}
                     leftSection={<MapPin className="-mr-1 h-4 " />}
                   >
@@ -203,7 +273,7 @@ const Arenas = ({
                     </p>
                     <Badge
                       color="pink"
-                      variant='filled'
+                      variant="filled"
                       size="sm"
                       pr={9}
                       leftSection={<Check className="-mr-1 h-4 " />}
@@ -215,12 +285,10 @@ const Arenas = ({
                   ''
                 )}
               </div>
-            </div>
+            </div> */}
 
-            <div className=" mt-4 border-t text-gray-700  border-gray-500 md:mt-0"></div>
-            <h3 className=" ml-5 mt-5 text-sm  font-bold   ">
-              Team(s) Viewed
-            </h3>
+            <div className=" mt-4 border-t border-gray-500  text-gray-700 md:mt-0"></div>
+            <h3 className=" ml-5 mt-5 text-sm  font-bold   ">Team(s) Viewed</h3>
             <div className=" mx-3  flex flex-row flex-wrap justify-start gap-x-7 align-top   md:gap-x-6 ">
               {gallery?.map((photo) => (
                 <div
@@ -270,7 +338,7 @@ const Arenas = ({
 
         {/* Back of the card */}
         <div
-          className={`backface-hidden rotate-y-180 absolute inset-0 h-full w-full text-gray-700 transform ${
+          className={`backface-hidden rotate-y-180 absolute inset-0 h-full w-full transform text-gray-700 ${
             isFlipped ? '' : 'hidden'
           }`}
         >
@@ -278,10 +346,10 @@ const Arenas = ({
           <div className="flex h-full w-full flex-col items-center justify-center ">
             <p className="text-xl font-bold">Arena Rating Breakdown </p>
 
-            <div className=" my-3 grid w-full grid-cols-2 place-items-center  items-center pb-2 align-middle  text-xs font-bold text-gray-700  md:text-xs ">
+            <div className=" my-2 grid w-full grid-cols-2 place-items-center  items-center pb-2 align-middle  text-xs font-bold text-gray-700  md:text-xs ">
               <AreanaRating
                 rating={arenaReview?.transportation}
-                text={'Transit to'}
+                text={'Transit to Arena'}
                 icon={<Car className="text-pink-500" />}
               />
               <AreanaRating
@@ -291,7 +359,7 @@ const Arenas = ({
               />
               <AreanaRating
                 rating={arenaReview?.vibes}
-                text={'Vibes'}
+                text={'Arena Vibes'}
                 icon={<Music className="text-pink-500" />}
               />
               <AreanaRating
