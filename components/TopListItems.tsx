@@ -34,7 +34,7 @@ export default function TopListItems(
             count <= 10 && (
               <div
                 key={item._id}
-                className="h-90 group   m-auto flex  cursor-pointer     items-baseline rounded-lg   xl:w-96   "
+                className="h-90 font-montserrat group   m-auto flex  cursor-pointer     items-baseline rounded-lg   xl:w-96   "
               >
                 <span className=" font-san -mr-4  flex w-20 flex-col   text-[6.1rem] font-bold  leading-[0.88] tracking-[-1.0rem] text-pink-500 drop-shadow-lg sm:text-[7.8rem] sm:tracking-[-1.2rem] md:ml-6  md:-mr-1 md:text-[8.5rem]">
                   {i + 1}

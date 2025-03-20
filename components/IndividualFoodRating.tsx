@@ -1,105 +1,121 @@
 import { webp } from '@cloudinary/url-gen/qualifiers/format'
 import { Badge } from '@mantine/core'
-import { getImageDimensions } from '@sanity/asset-utils'
-import { oswald } from 'app/fonts'
 import { calculateTextRating } from 'lib/calculateTextRating'
 import { urlForImage } from 'lib/sanity.image'
+import { Oswald } from 'next/font/google'
 import Image from 'next/image'
 import React from 'react'
-import { FaStar } from "react-icons/fa";
-import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry'
+import { FaStar, FaStarHalfAlt } from 'react-icons/fa'
 
-import CoverImage from './CoverImage'
-import SectionSeparator from './SectionSeparator'
 import SectionTitle from './SectionTitle'
 
-const individualFoodRating = ({ food }) => {
-  //console.log('Mom', food)
+const oswald = Oswald({ subsets: ['latin'], variable: '--font-oswald' })
 
+const StarRating = ({ rating }: { rating: number }) => {
+  const fullStars = Math.floor(rating)
+  const halfStar = rating - fullStars >= 0.5
+  const emptyStars = 5 - fullStars - (halfStar ? 1 : 0)
+
+  const stars = []
+
+  // Full stars
+  for (let i = 0; i < fullStars; i++) {
+    stars.push(<FaStar key={`full-${i}`} className="h-5 w-5 text-yellow-400" />)
+  }
+
+  // Half star
+  if (halfStar) {
+    stars.push(<FaStarHalfAlt key="half" className="h-5 w-5 text-yellow-400" />)
+  }
+
+  // Empty stars
+  for (let i = 0; i < emptyStars; i++) {
+    stars.push(<FaStar key={`empty-${i}`} className="h-5 w-5 text-gray-300" />)
+  }
+
+  return <div className="flex items-center">{stars}</div>
+}
+
+const individualFoodRating = ({ food }: { food: any[] }) => {
   return (
     <>
-      <div className="mx-7 pt-9 ">
-      
+      <div className="mx-7 pt-9">
+        <SectionTitle header={'Food/Drink We Tried'} description={undefined} />
 
-        <SectionTitle header={ "Food/Drink We Tried"} description={undefined}/>
-
-      
-        {/* <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}>
-          <Masonry> */}
-
-          <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'> 
-            {food?.map((item, i) => (
-              <div key={i}>
-                <div
-                  className={`my-4 w-full max-w-md overflow-hidden rounded-3xl border-4 border-black bg-white shadow-offsetIndigo dark:bg-gray-50 `}
-                >
-                  {/* <CoverImage title={''} image={item}/> */}
-
-                  <div className="mb-5">
-
-                    {/* <CoverImage title={''} image={item}/> */}
-                    <img
-                      width={400}
-                      height={200}
-               
-                      className=" w-full max-w-md  h-96 object-cover object-center brightness-[0.9]  "
-                      src={urlForImage(item.asset._ref).format('webp').url()}
-                      alt={item?.name}
-                    />
-                  </div>
-
-                  <div className="mx-4 mb-6 mt-1 ">
-                    <div className="flex flex-col  gap-y-4">
-                      <div>
-                        <h1
-                          className={`${oswald.variable}  line-clamp-2  font-heading text-2xl font-medium text-gray-700  `}
-                        >
-                          {item.name}
-                        </h1>
-                      </div>
-
-                      <div className="  flex flex-row justify-evenly  align-bottom items-end gap-y-4 border-b border-t py-2 text-base text-gray-400">
-                        <div
-                          className={`${oswald.variable} flex items-baseline text-center font-heading text-2xl font-bold md:text-left md:text-2xl md:leading-none lg:text-2xl`}
-                        >
-                     
-                          <p className='mr-1 text-gray-600 '> {item.rating.Dish}</p> 
-                          
-                          
-                          <span className=" text-sm uppercase text-gray-400">out of 5</span>
-                        
-                          <FaStar className='h-3 w-3' />
-                        
-                        </div>
-                        <Badge
-                          variant="outline"
-                       
-                          color={
-                            calculateTextRating(item.rating.Dish)
-                              .backgroundColor
-                          }
-                          size="lg"
-                        >
-                          {calculateTextRating(item.rating.Dish).textRating}
-                        </Badge>
-                      </div>
-
-                      <p className="text-sm text-gray-500 h-8 ">{item?.review}</p>
-                    </div>
-                  </div>
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          {food?.map((item, i) => {
+            const dishRating = item.rating?.Dish || 0 // Ensure rating exists
+            return (
+              <div
+                key={i}
+                className="my-4 w-full max-w-md h-[35.4rem] overflow-hidden rounded-3xl border-4 border-black bg-white shadow-offsetIndigo dark:bg-gray-50"
+              >
+                <div className="mb-5">
+                  <img
+                    width={400}
+                    height={200}
+                    className="h-96 w-full max-w-md object-cover object-center brightness-[0.9]"
+                    src={urlForImage(item.asset._ref).format('webp').url()}
+                    alt={item?.name}
+                  />
                 </div>
 
-                
-              </div>
-            ))}
-            </div>
-          {/* </Masonry>
-        </ResponsiveMasonry> */}
-      </div>
-      {/* </div> */}
+                <div className="mx-4 mb-6 mt-1">
+                  <div className="flex flex-col gap-y-4">
+                    <div>
+                      <h1
+                        className="font-heading line-clamp-2 text-lg font-medium text-gray-700"
+                      >
+                        {item.name}
+                      </h1>
+                    </div>
 
+                    <div className="flex flex-row items-end justify-evenly gap-y-4 border-b border-t py-2 align-bottom text-base text-gray-400">
+                      <div className='flex flex-row items-end'>
+                        <div
+                          className={`${oswald.variable} font-heading flex  text-lg`}
+                        >
+                          <p className="mr-3 pt-1 text-gray-600">{dishRating}</p>
+                          {/* <span className="text-sm uppercase text-gray-400">out of 5</span> */}
+                          <StarRating rating={dishRating} />
+                        </div>
+                        
+                      </div>
+
+                      <Badge
+                        variant="outline"
+                        color={calculateTextRating(dishRating).backgroundColor}
+                        size="lg"
+                      >
+                        {calculateTextRating(dishRating).textRating}
+                      </Badge>
+                    </div>
+
+                    <p className="h-8 text-sm text-gray-500">{item?.review}</p>
+                  </div>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </div>
       <SectionSeparator />
     </>
+  )
+}
+
+// const SectionTitle = ({ header, description }: { header: string, description?: string }) => {
+//     return (
+//         <div className="text-center mb-8">
+//             <h2 className="text-3xl sm:text-4xl font-bold text-gray-800 dark:text-gray-200">{header}</h2>
+//             {description && <p className="text-gray-500 dark:text-gray-400">{description}</p>}
+//         </div>
+//     )
+// }
+
+const SectionSeparator = () => {
+  return (
+    <div className="my-8 border-t border-gray-200 dark:border-gray-700"></div>
   )
 }
 

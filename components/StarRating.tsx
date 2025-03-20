@@ -142,13 +142,13 @@ const StarRating = ({ rating, linkType, diningType }) => {
 
                   {Number(value) > 0 ? (
                     <p
-                      className={`${inter.variable} font-secondary text-sm font-extralight leading-loose md:text-base`}
+                      className=" font-inter text-sm leading-loose md:text-base"
                     >
                       {ratingItem[categoryName]?.name}
                     </p>
                   ) : (
                     <p
-                      className={`${inter.variable} font-secondary text-sm font-extralight leading-loose md:text-base`}
+                      className=" font-inter text-sm leading-loose md:text-base"
                     >
                      {ratingItem[categoryName]?.name} not available
                     </p>

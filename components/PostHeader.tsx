@@ -56,7 +56,7 @@ export default function PostHeader(
               <section className="flex flex-row items-center justify-start text-gray-700 md:text-left">
                 <IoLocation className="mr-2 h-4 w-4 md:h-5 md:w-5 text-pink-500" />
                 {location && (
-                  <span className="capitalize text-sm">{location}</span>
+                  <span className="capitalize text-sm mr-4">{location}</span>
                 )}
               </section>
             )}

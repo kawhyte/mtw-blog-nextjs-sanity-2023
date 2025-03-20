@@ -30,7 +30,7 @@ export default function CoverImage(props: CoverImageProps) {
   const image = source?.asset?._ref ? (
     <>
       <div className=" flex flex-row  gap-2 mt-10">
-        <div className="relative w-[660px] h-[428px]">
+        <div className="relative ">
           <Image
             className={ `h-auto w-full max-w-full md:rounded-l-xl`}
             src={urlForImage(source)
@@ -62,7 +62,7 @@ Extra small
      {gallery?.length > 3 ?    <div className="hidden md:grid grid-cols-2 gap-2  max-w-5x ">
 
           {gallery.slice(0, 4).map((item, i) => (
-            <div key={item._key} className="relative w-[272px] h-[209px]" >
+            <div key={item._key} className="relative" >
 
 
               <Image

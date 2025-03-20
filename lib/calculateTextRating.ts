@@ -21,10 +21,10 @@ export function calculateTextRating(value) {
   } else if (value >= 4 && value < 4.5) {
     rating.textRating = 'Great'
     rating.backgroundColor = 'indigo'
-  } else if (value >= 4.5) {
+  } else if (value >= 4.5 && value <4.9) {
     rating.textRating = 'Excellent'
     rating.backgroundColor = 'lime'
-  } else if(value >= 5){
+  } else if(value >= 4.6){
 
 rating.textRating = 'Extraordinary'
     rating.backgroundColor = 'green'

@@ -47,7 +47,7 @@ function ProConList({ positives, negatives, verdict2 }) {
                       {positives?.map((positive, index) => (
                         <li
                           key={index}
-                          className={`${inter.variable} font-secondary  my-3 text-sm font-extralight leading-loose md:text-base`}
+                          className=" my-3 text-sm leading-loose md:text-base"
                         >
                           <div className="flex items-baseline align-bottom ">
                             <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-green-400">
@@ -100,7 +100,7 @@ function ProConList({ positives, negatives, verdict2 }) {
                       {negatives?.map((positive, index) => (
                         <li
                           key={index}
-                          className={`${inter.variable} font-secondary  my-3 text-sm font-extralight leading-loose md:text-base`}
+                           className=" my-3 text-sm leading-loose md:text-base"
                         >
                           <div className="flex flex-row  items-baseline align-bottom">
                             <div className="mr-3 inline-flex  items-center justify-center rounded-full  text-red-500">
@@ -210,7 +210,7 @@ function ProConList({ positives, negatives, verdict2 }) {
                 </div>
 
                 <div
-                  className={`${inter.variable} font-secondary  flex flex-col px-7 text-base leading-relaxed sm:items-start lg:text-lg`}
+                   className=" mb-3 text-sm leading-loose md:text-base"
                 >
                   {/*<p className='font-sans text-base md:text-lg'>{verdict}</p>*/}
                   <Spoiler
