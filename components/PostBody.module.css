@@ -2,23 +2,40 @@
   @apply text-base md:text-lg font-normal md:leading-relaxed;
 }
 
-.portableText ul,
-.portableText ol,
-.portableText blockquote {
-  @apply my-6;
+.portableText ul {
+  @apply my-6 list-disc list-inside; /* Added styles for unordered lists */
+  padding-left: 3.5rem; /* Add left padding to the ul */
 }
 
+.portableText ol {
+  @apply my-6 list-decimal list-inside; /* Added styles for ordered lists */
+  padding-left: 3.5rem;  /* Add left padding to the ol */
+}
+
+
+.portableText li {
+  @apply my-2; /* Add spacing between list items */
+}
+
+/* .portableText blockquote {
+  @apply my-6 p-4 border-l-4 border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800; } */
+
+.portableText h1 {
+  @apply mb-4 mt-2 text-2xl leading-snug;
+  padding-left: 1.5rem;
+}
 .portableText h2 {
-  @apply mb-4 mt-12 text-2xl leading-snug;
+  @apply mb-4 mt-2 text-xl leading-snug;
+  padding-left: 1.5rem;
 }
 
+.portableText h3 {
+  @apply mb-4 mt-2 mx-6 text-lg leading-snug;
+}
 .portableText h5 {
   @apply mb-4 mr-2 text-xs mt-3 md:mt-1 md:text-sm leading-snug;
 }
 
-.portableText h3 {
-  @apply mb-4 mt-8 mx-6 text-2xl leading-snug;
-}
 
 .portableText a {
   @apply text-blue-500 underline;
@@ -28,12 +45,25 @@
 }
 
 .portableText image {
-  @apply py-2 lg:max-w-3xl;
+  @apply py-2 lg:max-w-3xl w-full h-auto object-cover; /* Added styles */
+  max-width: 70%; /* Make images smaller than the container */
+  height: auto;
+  object-fit: cover;
+  margin-left: auto;  /* Center the image horizontally */
+  margin-right: auto;
+  display: block;
 }
 
 .portableText img {
-  @apply py-2 lg:max-w-3xl;
+  @apply py-2 lg:max-w-3xl w-full h-auto object-cover;  /* Added styles */
+    max-width: 30%; /* Make images smaller than the container */
+  height: auto;
+  object-fit: cover;
+    margin-left: 0;  /* Center the image horizontally */
+  margin-right: auto;
+  display: block;
 }
+
 
 .portableText h6 {
   @apply text-sm md:text-base mt-3 leading-loose;
@@ -41,4 +71,32 @@
 
 .portableText p {
   @apply text-base md:text-base mt-3 leading-loose px-6 mx-auto container;
+}
+
+
+
+.portableText blockquote {
+  @apply my-6 p-4 border-l-4 border-blue-500 dark:border-gray-400 bg-blue-50 dark:bg-gray-100 text-gray-800 dark:text-gray-800;
+  font-style: italic;
+  quotes: "“" "”" "‘" "’";
+}
+
+.portableText blockquote::before {
+  content: open-quote;
+  font-size: 2em;
+  line-height: 0.1em;
+  margin-right: 0.25em;
+  vertical-align: -0.4em;
+}
+
+.portableText blockquote::after {
+  content: close-quote;
+  font-size: 2em;
+  line-height: 0.1em;
+  margin-left: 0.25em;
+  vertical-align: -0.4em;
+}
+
+.portableText blockquote p {
+  @apply px-0;
 }

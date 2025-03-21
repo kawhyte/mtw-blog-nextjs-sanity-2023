@@ -1,57 +1,63 @@
-/**
- * This component uses Portable Text to render a post body.
- *
- * You can learn more about Portable Text on:
- * https://www.sanity.io/docs/block-content
- * https://github.com/portabletext/react-portabletext
- * https://portabletext.org/
- *
- */
-import { PortableText } from '@portabletext/react'
-import {getImageDimensions} from '@sanity/asset-utils'
-import urlBuilder from '@sanity/image-url'
-import { urlForImage } from 'lib/sanity.image'
+import { PortableText } from '@portabletext/react';
+import { getImageDimensions } from '@sanity/asset-utils';
+import { urlForImage } from 'lib/sanity.image';
+import styles from './PostBody.module.css';
 
-import styles from './PostBody.module.css'
-
-// Barebones lazy-loaded image component
-const SampleImageComponent = ({value}) => {
-
-  // console.log("Value ", value)
-  const {width, height} = getImageDimensions(value)
+// Image Component
+const SampleImageComponent = ({ value }) => {
+  const { width, height } = getImageDimensions(value);
   return (
-    // eslint-disable-next-line @next/next/no-img-element
     <img
-      // src={urlBuilder().image(value).width(800).fit('max').auto('format').url()}
       src={urlForImage(value).height(height).width(width).url()}
       alt={value.alt || ' '}
       loading="lazy"
-      style={{
-        // Avoid jumping around with aspect-ratio CSS property
-        aspectRatio: width / height,
-      }}
+      className="single-image"
+      style={{ aspectRatio: width / height }}
     />
-  )
-}
-
-
+  );
+};
 
 export default function PostBody({ content }) {
+  const processBlocks = (blocks) => {
+    let result = [];
+    let imageGroup = [];
+
+    blocks.forEach((block) => {
+      if (block._type === "image") {
+        imageGroup.push(block);
+      } else {
+        if (imageGroup.length > 0) {
+          result.push({ _type: "imageGroup", images: imageGroup });
+          imageGroup = [];
+        }
+        result.push(block);
+      }
+    });
+
+    if (imageGroup.length > 0) {
+      result.push({ _type: "imageGroup", images: imageGroup });
+    }
+
+    return result;
+  };
+
   return (
-    <div className={` max-w-7xl leading-loose text-sm md:text-base font-thin ${styles.portableText}`}>
-      <PortableText value={content} 
-      components={{
-        // ...
-        types: {
-          image: SampleImageComponent,
-        },
-      }}
-      
-      
-      
+    <div className={`max-w-7xl leading-loose text-sm md:text-base font-thin ${styles.portableText}`}>
+      <PortableText
+        value={processBlocks(content)}
+        components={{
+          types: {
+            image: SampleImageComponent,
+            imageGroup: ({ value }) => (
+              <div className="image-grid">
+                {value.images.map((img, idx) => (
+                  <SampleImageComponent key={idx} value={img} />
+                ))}
+              </div>
+            ),
+          },
+        }}
       />
-
-
     </div>
-  )
+  );
 }

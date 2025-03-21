@@ -445,16 +445,44 @@ export default defineType({
     defineField({
       name: 'content',
       title: 'Content',
-      description: 'Optional content area',
+      description: 'Optional content area!!!',
       type: 'array',
       of: [
         { type: 'block' },
         {
           type: 'image',
+          options: { hotspot: true }, // Allow image cropping
+          fields: [
+            {
+              name: 'caption',
+              type: 'string',
+              title: 'Image Caption',
+              description: 'This Text will be displayed below the image',
+            },
+            {
+              name: 'alt',
+              type: 'string',
+              title: 'Alternative Text',
+              description: 'Important for SEO and accessibility',
+            },
+          ],
+        },
+        {
+          type: 'object',
+          name: 'imageGroup',
+          title: 'Image Grid',
+          fields: [
+            {
+              name: 'images',
+              type: 'array',
+              title: 'Images',
+              of: [{ type: 'image' }],
+              validation: (Rule) => Rule.min(2).max(6), // Enforce at least 2 images for a grid
+            },
+          ],
         },
       ],
-    }),
-    
+    })
     // {
     //   title: 'Tags',
     //   name: 'tags',
