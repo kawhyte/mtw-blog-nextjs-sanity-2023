@@ -63,11 +63,11 @@ const Arenas = ({
     <>
       <div
         key={id}
-        className={`relative h-[28.9rem] w-full  max-w-sm overflow-hidden rounded-3xl border-4 border-black  bg-indigo-50 text-gray-700 shadow-offsetIndigo transition-transform duration-500 ease-in-out  sm:h-[25.9rem]  sm:max-w-md md:h-[28rem] lg:h-[30.7rem]  ${
+        className={`relative h-[32.9rem] w-full  max-w-sm overflow-hidden rounded-3xl border-4 border-black  bg-indigo-50 text-gray-700 shadow-offsetIndigo transition-transform duration-500 ease-in-out  sm:h-[33.5rem]  sm:max-w-md md:h-[34rem] lg:h-[36.5rem] xl:h-[35rem]   ${
           visited === false ? 'opacity-40 grayscale ' : 'grayscale-0 '
         } ${isFlipped ? 'rotate-y-180' : ''}`}
       >
-        <button
+        {/* <button
           className="absolute bottom-3 right-4 z-40 flex flex-row items-center rounded-lg px-2 py-1  " // Added flex-col and items-center
           onClick={() => setIsFlipped(!isFlipped)}
         >
@@ -76,8 +76,7 @@ const Arenas = ({
               <Button size="xs" icon={<RotateCcw size={20} />}>
                 View Card Front
               </Button>
-              {/* <FlipHorizontal2 size={20} />
-              <span className="mt-1 ml-2 text-xs">View Card Front</span>{' '} */}
+            
             </>
           ) : (
             <>
@@ -85,11 +84,10 @@ const Arenas = ({
                 View Details
               </Button>
 
-              {/* <FlipHorizontal2 size={20} />
-              <span className="mt-1 ml-2 text-xs">View Rating Details</span> */}
+            
             </>
           )}
-        </button>
+        </button> */}
 
         {/* Front of the card */}
         <div
@@ -99,15 +97,15 @@ const Arenas = ({
         >
           <div className="relative">
             {average > '0' ? (
-              <div className="absolute right-4 top-2 z-30 flex  flex-col  items-center justify-center  rounded-2xl border-2 border-gray-400 bg-black bg-opacity-40 p-2">
-                <div className="text-white mt-2">
+              <div className="absolute right-4 top-2 z-30 flex  flex-col  items-center justify-center  rounded-2xl  bg-black bg-opacity-40 p-2">
+                <div className="mt-2 text-white">
                   <span className="ml-2 mr-1 font-montserrat text-xl font-black leading-tight tracking-tighter text-gray-100 sm:text-xl md:text-left md:text-2xl md:leading-none lg:text-xl">
                     {' '}
                     {Number(average).toFixed(2)}
                   </span>
                   {/* <span className='text-xs '>/5</span> */}
                 </div>
-                <hr className="z-50 mt-2 mb-2 h-0.5 w-full border-0 bg-gray-400 dark:bg-gray-400" />
+                <hr className="z-50 mb-2 mt-2 h-0.5 w-full border-0 bg-gray-400 dark:bg-gray-400" />
                 {/* <Badge
                   size="md"
                   className="text-md mt-1 flex flex-col font-montserrat"
@@ -115,16 +113,17 @@ const Arenas = ({
                 >
                   {textRating}
                 </Badge> */}
-                <p className="font-montserrat text-white text-sm font-bold "> {textRating}</p>
+                <p className="font-montserrat text-sm font-bold text-white ">
+                  {' '}
+                  {textRating}
+                </p>
               </div>
             ) : null}
 
-            <div className="absolute left-4 top-3 z-30 flex  flex-row items-center  gap-y-1 xl:my-0  ">
+            {/* <div className="absolute left-4 top-3 z-30 flex  flex-row items-center  gap-y-1 xl:my-0  ">
               {visited ? (
                 <div className=" flex  flex-col items-center   gap-y-1 xl:my-0  ">
-                  {/* <p className=" text-sm font-bold">
-                      <PostDate dateString={dateVisited} />
-                    </p> */}
+                
                   <Badge
                     color="green"
                     variant="filled"
@@ -138,7 +137,7 @@ const Arenas = ({
               ) : (
                 ''
               )}
-            </div>
+            </div> */}
 
             <div className="absolute bottom-3 left-4 z-30 font-montserrat text-sm font-bold text-white">
               <div className="flex  flex-col gap-y-1">
@@ -161,7 +160,7 @@ const Arenas = ({
                   )}
                 </div> */}
 
-                <div className=" flex  flex-row items-center  gap-y-1 xl:my-0  ">
+                {/* <div className=" flex  flex-row items-center  gap-y-1 xl:my-0  ">
                   <p className=" text-sm font-bold"></p>
                   <div className=" flex  flex-row items-center gap-x-1  gap-y-1 bg-black bg-opacity-30 px-2 py-1 text-xs font-bold text-gray-100 xl:my-0">
                     {<Wrench className="mr-1 h-4" />}Constructed in
@@ -175,7 +174,7 @@ const Arenas = ({
                     <span className="mr-0.5">Capacity</span>
                     {new Intl.NumberFormat().format(capacity)}
                   </div>
-                </div>
+                </div> */}
 
                 {/* 
                 <div className=" flex  flex-row items-center  gap-y-1 xl:my-0  ">
@@ -222,14 +221,52 @@ const Arenas = ({
           </div>
 
           <div className=" flex justify-between text-gray-700  ">
-            <div className="mb-2 ml-4 mt-4 ">
-              <h2 className=" font-heading line-clamp-2 font-montserrat text-lg font-medium leading-none text-gray-900    no-underline decoration-pink-500  decoration-dashed decoration-4 group-hover:underline sm:text-xl lg:text-2xl">
-                {arenaName} | {location}
+            <div className="mb-2 ml-4 mt-4 flex flex-col gap-y-2 ">
+              <h2 className=" font-heading line-clamp-1 font-montserrat text-xl  font-bold leading-none text-gray-900    no-underline decoration-pink-500  decoration-dashed decoration-4 group-hover:underline sm:text-xl lg:text-2xl">
+                {arenaName}
               </h2>
+
+              <div className="flex flex-row items-center gap-2 ">
+                <p className="text-sm">{location}</p>
+
+                <div className=" flex  flex-row items-center  gap-y-1 xl:my-0  ">
+                  {visited ? (
+                    <div className=" flex  flex-col items-center   gap-y-1 xl:my-0  ">
+                      {/* <p className=" text-sm font-bold">
+                      <PostDate dateString={dateVisited} />
+                    </p> */}
+                      <Badge
+                        color="pink"
+                        variant="filled"
+                        size="sm"
+                        pr={9}
+                        // leftSection={<Check className="-mr-1 h-4 font-montserrat " />}
+                      >
+                        Visited on <PostDate dateString={dateVisited} />
+                      </Badge>
+                    </div>
+                  ) : (
+                    ''
+                  )}
+                </div>
+              </div>
             </div>
           </div>
 
-          <div className="text-sm text-gray-700 md:text-xs">
+          <div className="space-y-4 p-3">
+            <div className="grid grid-cols-1 gap-4 text-sm text-gray-700 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+              <div className="flex items-center">
+                <Wrench className="mr-2 h-5 w-5 text-gray-500" />
+                Constructed: <PostYear dateString={constructionDate} />
+              </div>
+              <div className="flex items-center">
+                <Users className="mr-2 h-5 w-5 text-gray-500" />
+                Capacity: {new Intl.NumberFormat().format(capacity)}
+              </div>
+            </div>
+          </div>
+
+          <div className="text-sm text-gray-700 md:text-xs ">
             {/* {arenaReview?.comments && (
               <Blockquote
                 color="gray"
@@ -307,15 +344,15 @@ const Arenas = ({
               </div>
             </div> */}
 
-            <div className=" mt-4 border-t border-gray-500  text-gray-700 md:mt-0"></div>
-            <h3 className=" ml-5 mt-5 text-sm     ">Team(s) Viewed</h3>
+            {/* <div className=" mt-4 border-t border-gray-500  text-gray-700 md:mt-0"></div> */}
+            <h3 className=" ml-3 mt-5 text-base   font-bold  ">Team(s) Viewed</h3>
             <div className=" mx-3  flex flex-row flex-wrap justify-start gap-x-7 align-top   md:gap-x-6 ">
               {gallery?.map((photo) => (
                 <div
                   key={photo.name}
                   className="  mb-1 mt-4 flex flex-col items-center justify-between "
                 >
-                  <div className="flex flex-row">
+                  <div className="flex flex-row items-center align-bottom">
                     <img
                       src={
                         photo?.asset?._ref
@@ -326,32 +363,57 @@ const Arenas = ({
                               .url()
                           : 'https://dummyimage.com/96x96/000/aeb0d9.jpg&text=Image'
                       }
-                      className=" h-11 w-11 rounded-full bg-gray-200  p-0.5 sm:h-8 sm:w-8   md:h-11 md:w-11   "
+                      className=" h-11 w-11 rounded-full bg-gray-200  p-0.5 sm:h-10 sm:w-10   md:h-11 md:w-11 lg:h-9 lg:w-9 xl:h-11 xl:w-11" 
                       height={96}
                       width={96}
                       loading="lazy"
                       alt={`${photo.name} logo`}
                     />
 
-                    <div className="flex flex-col text-xs  md:text-sm ">
-                      <p className="mx-2 sm:text-xs   text-sm leading-none text-gray-500   ">
+                    <div className="flex align-bottom items-center text-xs  md:text-sm ">
+                    <p className="mx-1  text-sm   leading-none text-gray-500 sm:text-sm   ">
                         {photo.name}
                       </p>
-
                       {photo.played === true ? (
                         <div className="flex items-center">
                           <Eye className="mx-1 h-5 w-5 text-green-500 sm:h-3 sm:w-3 md:h-4  md:w-4" />
-                          <p className="my-2  text-[0.70rem] leading-none text-gray-500 ">
+                          {/* <p className="my-2  text-[0.70rem] leading-none text-gray-500 ">
                             Watched
-                          </p>
+                          </p> */}
                         </div>
                       ) : (
                         <EyeOff className="mx-1 my-1 h-5 w-5 text-gray-500 sm:h-3 sm:w-3 md:h-4   md:w-4" />
                       )}
+
+                     
                     </div>
                   </div>
                 </div>
               ))}
+            </div>
+
+            <div
+              className="  mt-4 mx-20 " // Added flex-col and items-center
+              onClick={() => setIsFlipped(!isFlipped)}
+            >
+              {isFlipped ? (
+                <>
+                  <Button size="xs" align="center" icon={<RotateCcw size={20} />}>
+                    View Card Front
+                  </Button>
+                  {/* <FlipHorizontal2 size={20} />
+              <span className="mt-1 ml-2 text-xs">View Card Front</span>{' '} */}
+                </>
+              ) : (
+                <>
+                  <Button size="xs" icon={<RotateCw size={20} />}>
+                    View Details
+                  </Button>
+
+                  {/* <FlipHorizontal2 size={20} />
+              <span className="mt-1 ml-2 text-xs">View Rating Details</span> */}
+                </>
+              )}
             </div>
           </div>
         </div>
