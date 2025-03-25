@@ -15,6 +15,7 @@ import {
   Pizza,
   RotateCcw,
   RotateCw,
+  SeparatorHorizontal,
   Sofa,
   Users,
   Wrench,
@@ -62,7 +63,7 @@ const Arenas = ({
     <>
       <div
         key={id}
-        className={`relative h-[28.9rem] w-full  max-w-sm overflow-hidden rounded-3xl border-4 border-black  text-gray-700 bg-indigo-50 shadow-offsetIndigo transition-transform duration-500 ease-in-out  sm:h-[25.9rem]  sm:max-w-md md:h-[28rem] lg:h-[30.7rem]  ${
+        className={`relative h-[28.9rem] w-full  max-w-sm overflow-hidden rounded-3xl border-4 border-black  bg-indigo-50 text-gray-700 shadow-offsetIndigo transition-transform duration-500 ease-in-out  sm:h-[25.9rem]  sm:max-w-md md:h-[28rem] lg:h-[30.7rem]  ${
           visited === false ? 'opacity-40 grayscale ' : 'grayscale-0 '
         } ${isFlipped ? 'rotate-y-180' : ''}`}
       >
@@ -81,7 +82,7 @@ const Arenas = ({
           ) : (
             <>
               <Button size="xs" icon={<RotateCw size={20} />}>
-                View Rating Details
+                View Details
               </Button>
 
               {/* <FlipHorizontal2 size={20} />
@@ -98,18 +99,23 @@ const Arenas = ({
         >
           <div className="relative">
             {average > '0' ? (
-              <div className="absolute right-4 top-2 z-30 flex  flex-col  items-center justify-center  rounded-2xl bg-black bg-opacity-50 p-2">
-                <h2 className="mx-2 font-montserrat text-2xl font-black leading-tight tracking-tighter text-gray-100 sm:text-2xl md:text-left md:text-3xl md:leading-none lg:text-2xl">
-                  {Number(average).toFixed(2)}
-                </h2>
-
-                <Badge
+              <div className="absolute right-4 top-2 z-30 flex  flex-col  items-center justify-center  rounded-2xl border-2 border-gray-400 bg-black bg-opacity-40 p-2">
+                <div className="text-white mt-2">
+                  <span className="ml-2 mr-1 font-montserrat text-xl font-black leading-tight tracking-tighter text-gray-100 sm:text-xl md:text-left md:text-2xl md:leading-none lg:text-xl">
+                    {' '}
+                    {Number(average).toFixed(2)}
+                  </span>
+                  {/* <span className='text-xs '>/5</span> */}
+                </div>
+                <hr className="z-50 mt-2 mb-2 h-0.5 w-full border-0 bg-gray-400 dark:bg-gray-400" />
+                {/* <Badge
                   size="md"
                   className="text-md mt-1 flex flex-col font-montserrat"
                   color="violet"
                 >
                   {textRating}
-                </Badge>
+                </Badge> */}
+                <p className="font-montserrat text-white text-sm font-bold "> {textRating}</p>
               </div>
             ) : null}
 
@@ -157,16 +163,16 @@ const Arenas = ({
 
                 <div className=" flex  flex-row items-center  gap-y-1 xl:my-0  ">
                   <p className=" text-sm font-bold"></p>
-                  <div className=" flex  flex-row items-center gap-x-1  gap-y-1 bg-black bg-opacity-50 px-2 py-1 text-xs font-bold text-gray-100 xl:my-0">
-                    {<Wrench className="mr-1 h-4" />}Arena Constructed in
+                  <div className=" flex  flex-row items-center gap-x-1  gap-y-1 bg-black bg-opacity-30 px-2 py-1 text-xs font-bold text-gray-100 xl:my-0">
+                    {<Wrench className="mr-1 h-4" />}Constructed in
                     <PostYear dateString={constructionDate} />
                   </div>
                 </div>
                 <div className=" flex  flex-row items-center  gap-y-1 xl:my-0  ">
                   <p className=" text-sm font-bold"></p>
-                  <div className=" flex  flex-row items-center gap-x-1  gap-y-1 bg-black bg-opacity-50 px-2 py-1 text-xs font-bold text-white xl:my-0">
+                  <div className=" flex  flex-row items-center gap-x-1  gap-y-1 bg-black bg-opacity-30 px-2 py-1 text-xs font-bold text-white xl:my-0">
                     {<Users className="mr-1 h-4" />}
-                    <span className="mr-0.5">Arena Capacity</span>
+                    <span className="mr-0.5">Capacity</span>
                     {new Intl.NumberFormat().format(capacity)}
                   </div>
                 </div>
@@ -320,7 +326,7 @@ const Arenas = ({
                               .url()
                           : 'https://dummyimage.com/96x96/000/aeb0d9.jpg&text=Image'
                       }
-                      className=" h-11 w-11 rounded-full bg-gray-200  p-0.5 sm:h-10 sm:w-10   md:h-11 md:w-11   "
+                      className=" h-11 w-11 rounded-full bg-gray-200  p-0.5 sm:h-8 sm:w-8   md:h-11 md:w-11   "
                       height={96}
                       width={96}
                       loading="lazy"
@@ -328,19 +334,19 @@ const Arenas = ({
                     />
 
                     <div className="flex flex-col text-xs  md:text-sm ">
-                      <p className="mx-2   text-base leading-none text-gray-500   ">
+                      <p className="mx-2 sm:text-xs   text-sm leading-none text-gray-500   ">
                         {photo.name}
                       </p>
 
                       {photo.played === true ? (
                         <div className="flex items-center">
-                          <Eye className="mx-1 h-5 w-5 text-green-500 md:h-4  md:w-4" />
+                          <Eye className="mx-1 h-5 w-5 text-green-500 sm:h-3 sm:w-3 md:h-4  md:w-4" />
                           <p className="my-2  text-[0.70rem] leading-none text-gray-500 ">
                             Watched
                           </p>
                         </div>
                       ) : (
-                        <EyeOff className="mx-1 my-1 h-5 w-5 text-gray-500 md:h-4   md:w-4" />
+                        <EyeOff className="mx-1 my-1 h-5 w-5 text-gray-500 sm:h-3 sm:w-3 md:h-4   md:w-4" />
                       )}
                     </div>
                   </div>
@@ -357,8 +363,10 @@ const Arenas = ({
           }`}
         >
           {/* Add your additional data here */}
-          <div className="flex h-full w-full flex-col items-center justify ">
-            <p className="text-xl font-bold pt-5 pb-3">Arena Rating Breakdown </p>
+          <div className="justify flex h-full w-full flex-col items-center ">
+            <p className="pb-3 pt-5 text-xl font-bold">
+              Arena Rating Breakdown{' '}
+            </p>
 
             <div className=" my-2 grid w-full grid-cols-2 place-items-center  items-center pb-2 align-middle  text-xs font-bold text-gray-700  md:text-xs ">
               <AreanaRating

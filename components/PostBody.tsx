@@ -1,19 +1,23 @@
 import { PortableText } from '@portabletext/react';
 import { getImageDimensions } from '@sanity/asset-utils';
 import { urlForImage } from 'lib/sanity.image';
+
 import styles from './PostBody.module.css';
 
 // Image Component
 const SampleImageComponent = ({ value }) => {
   const { width, height } = getImageDimensions(value);
   return (
-    <img
-      src={urlForImage(value).height(height).width(width).url()}
-      alt={value.alt || ' '}
-      loading="lazy"
-      className="single-image"
-      style={{ aspectRatio: width / height }}
-    />
+    <figure className="image-container">
+      <img
+        src={urlForImage(value).height(height).width(width).url()}
+        alt={value.alt || ' '}
+        loading="lazy"
+        className="single-image"
+        style={{ aspectRatio: width / height }}
+      />
+      {value.caption && <figcaption className="image-caption">{value.caption}</figcaption>}
+    </figure>
   );
 };
 
