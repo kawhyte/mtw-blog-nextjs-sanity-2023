@@ -1,390 +1,424 @@
-import { groq } from 'next-sanity'
+import { groq } from 'next-sanity';
+
+// ------------------------------
+// 1. Core Field Definitions
+// ------------------------------
+
+const coreFields = groq`
+    _id,
+    title,
+    date,
+    excerpt2,
+    coverImage,
+    youtube,
+    location,
+    gallery,
+    positives,
+    negatives,
+    verdict,
+    tip,
+    "slug": slug.current,
+    "author": author->{name, picture},
+    linkType,
+    category
+`;
+
+// ------------------------------
+// 2. Reusable Rating Field Definitions
+// ------------------------------
+
+const hotelRatingFields = groq`
+    hotelRating{
+        Value,
+        Gym,
+        Internet_Speed,
+        Service,
+        Room_Cleanliness,
+        Bed_Comfort,
+        Room_Amenities,
+        Pool,
+        Location
+    }
+`;
+
+const foodRatingFields = groq`
+    foodRating{
+        Flavor_and_Taste,
+        Food_Value,
+        Restaurant_Location,
+        Presentation_on_Plate,
+        Restaurant_Service,
+        Memorability,
+        Restaurant_Cleanliness
+    }
+`;
+
+// ------------------------------
+// 3. Reusable Content-Type Specific Field Sets
+// ------------------------------
+
+const postFieldsFragment = groq`
+    individualFoodRating,
+    room,
+    internetSpeed,
+    techRating,
+    roomAmenities,
+    ${hotelRatingFields},
+    ${foodRatingFields},
+    takeoutRating,
+    diningType
+`;
+
+const hotelFieldsFragment = groq`
+    room,
+    internetSpeed,
+    ${hotelRatingFields},
+    techRating,
+    roomAmenities
+`;
+
+const foodFieldsFragment = groq`
+    ${foodRatingFields},
+    takeoutRating,
+    diningType
+`;
+
+const guideFieldsFragment = groq``; // No specific fields for guides
+
+// ------------------------------
+// 4. Combine Core and Specific Fields
+// ------------------------------
 
 const postFields = groq`
-  _id,
-  title,
-  date,
-  excerpt2,
-  coverImage,
-  youtube,
-  location,
-  individualFoodRating,
-  room,
-  category,
-  tip,
-  gallery,
-  internetSpeed,
-  techRating,
-  roomAmenities,
-  hotelRating{Value,Gym,Internet_Speed,Service,Room_Cleanliness,Bed_Comfort,Room_Amenities,Pool,Location},
-  foodRating{Flavor_and_Taste,Food_Value,Restaurant_Location,Presentation_on_Plate,Restaurant_Service,Memorability,Restaurant_Cleanliness},
-  takeoutRating,
-  diningType,
-  positives,
-  negatives,
-  verdict,
-  linkType,
-  "slug": slug.current,
-  "author": author->{name, picture},
-`
+    ${coreFields},
+    ${postFieldsFragment}
+`;
 
 const hotelFields = groq`
-  _id,
-  title,
-  date,
-  excerpt2,
-  coverImage,
-  youtube,
-  location,
-  room,
-  gallery,
-  internetSpeed,
-  hotelRating{Value,Gym,Internet_Speed,Service,Room_Cleanliness,Bed_Comfort,Room_Amenities,Pool,Location},
-  techRating,
-  roomAmenities,
-  positives,
-  negatives,
-  verdict,
-  category,
-  tip,
-  linkType,
-  "slug": slug.current,
-  "author": author->{name, picture},
-`
+    ${coreFields},
+    ${hotelFieldsFragment}
+`;
+
 const foodFields = groq`
-  _id,
-  title,
-  date,
-  excerpt2,
-  coverImage,
-  youtube,
-  location,
-  room,
-  gallery,
-  foodRating{Flavor_and_Taste,Food_Value,Restaurant_Location,Presentation_on_Plate,Restaurant_Service,Memorability,Restaurant_Cleanliness},
-  takeoutRating,
-  diningType,
-  positives,
-  negatives,
-  verdict,
-  tip,
-  linkType,
-  "slug": slug.current,
-  "author": author->{name, picture},
-`
+    ${coreFields},
+    ${foodFieldsFragment}
+`;
+
 const guideFields = groq`
-  _id,
-  title,
-  date,
-  excerpt2,
-  coverImage,
-  youtube,
-  location,
-  gallery,
-  positives,
-  negatives,
-  verdict,
-  tip,
-  linkType,
-  "slug": slug.current,
-  "author": author->{name, picture},
-`
+    ${coreFields},
+    ${guideFieldsFragment}
+`;
+
+// ------------------------------
+// 5. Specialized Field Sets
+// ------------------------------
+
 const recommendationFields = groq`
-_id, title,listType, recommendations[] {post->{title, slug, coverImage, location,linkType}
+    _id,
+    title,
+    listType,
+    recommendations[] {
+        post->{
+            title,
+            "slug": slug.current,
+            coverImage,
+            location,
+            linkType
+        }
+    }
+`;
 
-}
-`
 const travelEssentialFields = groq`
-_id, name,link, background, date, description,recommend,price, productImage,categoryName 
-`
+    _id,
+    name,
+    link,
+    background,
+    date,
+    description,
+    recommend,
+    price,
+    productImage,
+    categoryName
+`;
+
 const arenaFields = groq`
-_id, name,arenaImage, gallery, location, buildDate,capacity,arenaReview, visited,date,"visitedCount": count(*[_type == 'arenas' && visited == true]), "galleryCount": count(gallery) 
-`
+    _id,
+    name,
+    arenaImage,
+    gallery,
+    location,
+    buildDate,
+    capacity,
+    arenaReview,
+    visited,
+    date,
+    "visitedCount": count(*[_type == 'arenas' && visited == true]),
+    "galleryCount": count(gallery)
+`;
 
-export const recommendationQuery = groq`
-*[_type == "recommendationList"] | order(date desc, _updatedAt desc) {${recommendationFields}}`
+// ------------------------------
+// 6. Generic Query Functions
+// ------------------------------
 
-export const travelEssentialQuery = groq`
+/**
+ * Constructs a Groq query to fetch documents of a specific type.
+ *
+ * @param type The document type to query (e.g., 'post', 'hotel').
+ * @param fields The Groq fragment specifying the fields to retrieve.
+ * @param options Additional query options (order, where).
+ * @returns A Groq query string.
+ */
+const fetchDocuments = (
+    type: string,
+    fields: string,
+    options: { order?: string; where?: string } = {}
+): string => {
+    let query = `*[_type == "${type}"`;
+    if (options.where) {
+        query += ` && ${options.where}`;
+    }
+    query += `]`;
+    if (options.order) {
+        query += ` | order(${options.order})`;
+    }
+    query += `{${fields}}`;
+    return query;
+};
 
-*[_type == "essential"] | order(date desc, _updatedAt desc)  {${travelEssentialFields}}`
+/**
+ * Constructs a Groq query to fetch a single document by slug and related documents.
+ *
+ * @param type The document type.
+ * @param fields The fields to fetch.
+ * @param slugField The name of the slug field ('slug.current' or 'slug').
+ * @param relatedOptions Options for fetching related documents (where clause).
+ * @returns A Groq query.
+ */
+const fetchDocumentAndRelated = (
+    type: string,
+    fields: string,
+    slugField: string,
+    relatedOptions: { where?: string } = {}
+): string => {
+    let relatedWhere = relatedOptions.where ? `&& ${relatedOptions.where}` : '';
+    return groq`
+        {
+            "post": *[_type == "${type}" && ${slugField} == $slug] | order(_updatedAt desc) [0] {
+                content,
+                ${fields}
+            },
+            "morePosts": *[_type == "${type}" && ${slugField} != $slug ${relatedWhere}] | order(date desc, _updatedAt desc) [0...2] {
+                content,
+                ${fields}
+            }
+        }
+    `;
+};
 
-export const arenaQuery = groq`
-*[_type == "arenas"] | order(name asc)  {${arenaFields}}`
+/**
+  * Constructs a Groq query to fetch slugs for a given document type.
+  *
+  * @param type The document type.
+  * @param filter An optional filter to apply to the query.
+  * @returns A Groq query string.
+  */
+const fetchSlugs = (type: string, filter?: string): string => {
+      let query = `*[_type == "${type}"`;
+      if (filter) {
+          query += ` && ${filter}`;
+      }
+      query += ` && defined(slug.current)][].slug.current`;
+      return query;
+};
 
-export const settingsQuery = groq`*[_type == "settings"][0]`
-
-export const indexQuery = groq`
-*[_type == "post"] | order(date desc, _updatedAt desc) {
-  ${postFields}
-}`
-
-export const postAndMoreStoriesQuery = groq`
-{
-  "post": *[_type == "post" && slug.current == $slug] | order(_updatedAt desc) [0] {
-    content,
-    ${postFields}
-  },
-  "morePosts": *[_type == "post" && slug.current != $slug] | order(date desc, _updatedAt desc) [0...2] {
-    content,
-    ${postFields}
+/**
+ * Constructs a Groq query to fetch a single document by slug.
+ *
+ * @param type The document type.
+ * @param fields The fields to fetch.
+ * @param slugField The field name for the slug.
+ * @param filter Additional filter
+ * @returns A Groq query string.
+ */
+const fetchDocumentBySlug = (type: string, fields: string, slugField: string, filter?:string): string => {
+  let query = `*[_type == "${type}" && ${slugField} == $slug`;
+  if(filter){
+    query += ` && ${filter}`;
   }
-}`
+  query += `][0] {${fields}}`;
+  return query;
+};
 
-export const postSlugsQuery = groq`
-*[_type == "post" && defined(slug.current)][].slug.current
-`
+// ------------------------------
+// 7. Exported Queries
+// ------------------------------
 
-export const postBySlugQuery = groq`
-*[_type == "post" && slug.current == $slug][0] {
-  ${postFields}
-}
-`
+export const recommendationQuery = fetchDocuments('recommendationList', recommendationFields, {
+    order: 'date desc, _updatedAt desc',
+});
 
-export const hotelSlugsQuery = groq`
-*[_type == "post"  && defined(slug.current)][].slug.current
-`
-export const storySlugsQuery = groq`
-*[_type == "post" && linkType =="story" && defined(slug.current)][].slug.current
-`
-export const foodSlugsQuery = groq`
-*[_type == "post" && linkType =="food" && defined(slug.current)][].slug.current
-`
+export const travelEssentialQuery = fetchDocuments('essential', travelEssentialFields, {
+    order: 'date desc, _updatedAt desc',
+});
 
+export const arenaQuery = fetchDocuments('arenas', arenaFields, { order: 'name asc' });
 
-export const hotelBySlugQuery = groq`
-*[_type == "post" && slug.current == $slug][0] {
-  ${hotelFields}
-}
-`
-export const storyBySlugQuery = groq`
-*[_type == "post" && linkType =="story" && slug.current == $slug][0] {
-  ${hotelFields}
-}
-`
-export const foodBySlugQuery = groq`
-*[_type == "post" && linkType =="food" && slug.current == $slug][0] {
-  ${hotelFields}
-}
-`
+export const settingsQuery = `*[_type == "settings"][0]`;
 
-export const hotelAndMoreQuery = groq`
-{
-  "post": *[_type == "hotel" && slug.current == $slug] | order(_updatedAt desc) [0] {
-    content,
-    ${postFields}
-  },
-  "morePosts": *[_type == "hotel" && slug.current != $slug] | order(date desc, _updatedAt desc) [0...2] {
-    content,
-    ${postFields}
-  }
-}`
+export const indexQuery = fetchDocuments('post', postFields, {
+    order: 'date desc, _updatedAt desc',
+});
 
-export const storyAndMoreQuery = groq`
-{
-  "post": *[_type == "post" && linkType =="story" && slug.current == $slug] | order(_updatedAt desc) [0] {
-    content,
-    ${postFields}
-  },
-  "morePosts": *[_type == "post" && linkType =="story" && slug.current != $slug] | order(date desc, _updatedAt desc) [0...2] {
-    content,
-    ${postFields}
-  }
-}`
-export const foodAndMoreQuery = groq`
-{
-  "post": *[_type == "post" && linkType =="food" && slug.current == $slug] | order(_updatedAt desc) [0] {
-    content,
-    ${postFields}
-  },
-  "morePosts": *[_type == "post" && linkType =="food" && slug.current != $slug] | order(date desc, _updatedAt desc) [0...2] {
-    content,
-    ${postFields}
-  }
-}`
+export const postAndMoreStoriesQuery = fetchDocumentAndRelated('post', postFields, 'slug.current');
 
+export const postSlugsQuery = fetchSlugs('post');
 
+export const postBySlugQuery = fetchDocumentBySlug('post', postFields, 'slug.current');
 
-export const hotelQuery = groq`
-*[_type == "post" && linkType=="hotel" ]  | order(date desc, _updatedAt desc) {${hotelFields}}`
+export const hotelSlugsQuery = fetchSlugs('post', 'linkType == "hotel"');
+export const storySlugsQuery = fetchSlugs('post', 'linkType == "story"');
+export const foodSlugsQuery = fetchSlugs('post', 'linkType == "food"');
 
-export const foodQuery = groq`
-*[_type == "post" && linkType =="food"] | order(date desc, _updatedAt desc) {${foodFields}}`
+export const hotelBySlugQuery = fetchDocumentBySlug('post', hotelFields, 'slug.current', 'linkType == "hotel"');
+export const storyBySlugQuery = fetchDocumentBySlug('post', guideFields, 'slug.current', 'linkType == "story"');
+export const foodBySlugQuery = fetchDocumentBySlug('post', foodFields, 'slug.current', 'linkType == "food"');
 
-export const storyQuery = groq`
-*[_type == "post" && linkType =="story"] | order(date desc, _updatedAt desc) {${guideFields}}`
+export const hotelAndMoreQuery = fetchDocumentAndRelated('post', postFields, 'slug.current', { where: 'linkType == "hotel"' });
+export const storyAndMoreQuery = fetchDocumentAndRelated('post', postFields, 'slug.current', { where: 'linkType == "story"' });
+export const foodAndMoreQuery = fetchDocumentAndRelated('post', postFields, 'slug.current', { where: 'linkType == "food"' });
 
+export const hotelQuery = fetchDocuments('post', hotelFields, {
+    order: 'date desc, _updatedAt desc',
+    where: 'linkType == "hotel"',
+});
 
+export const foodQuery = fetchDocuments('post', foodFields, {
+    order: 'date desc, _updatedAt desc',
+    where: 'linkType == "food"',
+});
+
+export const storyQuery = fetchDocuments('post', guideFields, {
+    order: 'date desc, _updatedAt desc',
+    where: 'linkType == "story"',
+});
+
+// ------------------------------
+// 8. Interfaces
+// ------------------------------
 
 export interface Author {
-  name?: string
-  picture?: any
+    name?: string;
+    picture?: any;
 }
+
 export interface Recommendation {
-  _id: string
-  title?: string
-  recommendations?: any
-  listType?:string
-  
+    _id: string;
+    title?: string;
+    recommendations?: {
+        post?: {
+            title?: string;
+            slug?: string;
+            coverImage?: any;
+            location?: string;
+            linkType?: string;
+        };
+    }[];
+    listType?: string;
 }
-export interface Esssential {
-  _id: string
-  name?: string
-  link?:string
-  background?:string
-  description?: any
-  // textRating?: any
-  productImage?:any
-  categoryName?:any
-  recommend?:boolean
-  price?:number
-  date?: string
 
-  
+export interface Essential {
+    _id: string;
+    name?: string;
+    link?: string;
+    background?: string;
+    description?: any;
+    productImage?: any;
+    categoryName?: string;
+    recommend?: boolean;
+    price?: number;
+    date?: string;
 }
+
 export interface Arena {
-  _id: string
-  name?: string
-  gallery?:any
-  location?:string
-  description?: any
-  arenaImage?:any
-  visited?:boolean
-  date?:string
-  teamType?:string
-  capacity?:number
-  buildDate?:string
-  arenaReview?:any
-  
+    _id: string;
+    name?: string;
+    gallery?: any;
+    location?: string;
+    description?: any;
+    arenaImage?: any;
+    visited?: boolean;
+    date?: string;
+    teamType?: string;
+    capacity?: number;
+    buildDate?: string;
+    arenaReview?: any;
+    visitedCount?: number;
+    galleryCount?: number;
 }
 
+interface BasePost {
+    _id: string;
+    title?: string;
+    coverImage?: any;
+    date?: string;
+    excerpt2?: any;
+    author?: Author;
+    slug?: string;
+    content?: any;
+    youtube?: any;
+    location?: string;
+    linkType?: any;
+    positives?: any;
+    negatives?: any;
+    verdict?: any;
+    gallery?: any;
+    color?: string;
+    category?: string;
+    tip?: string;
+    showRating?: boolean;
+}
 
-export interface Post {
-  _id: string
-  title?: string
-  coverImage?: any
-  date?: string
-  excerpt2?: any
-  author?: Author
-  slug?: string
-  content?: any
-  youtube?: any
-  location?: string
-  individualFoodRating?:any
-  room?: any
-  internetSpeed?: number
-  techRating?: any
-  roomAmenities?:any
-  linkType?: any
-  hotelRating?: any
-  foodRating?:any
-  takeoutRating?:any
-  diningType?:any
-  positives?: any
-  negatives?: any
-  verdict?: any
-  gallery?: any
-  color?:string
-  category?:string
-  tip?:string
-  showRating:boolean
+export interface Post extends BasePost {
+    individualFoodRating?: any;
+    room?: any;
+    internetSpeed?: number;
+    techRating?: any;
+    roomAmenities?: any;
+    hotelRating?: any;
+    foodRating?: any;
+    takeoutRating?: any;
+    diningType?: any;
 }
-export interface Story {
-  _id: string
-  title?: string
-  coverImage?: any
-  date?: string
-  excerpt2?: any
-  author?: Author
-  slug?: string
-  content?: any
-  youtube?: any
-  location?: string
-  
-  linkType?: any
-  
-  positives?: any
-  negatives?: any
-  verdict?: any
-  gallery?: any
-  color?:string
-  category?:string
-  tip?:string
-  showRating:boolean
-}
-export interface Food {
-  _id: string
-  title?: string
-  coverImage?: any
-  date?: string
-  excerpt2?: any
-  author?: Author
-  slug?: string
-  content?: any
-  youtube?: any
-  location?: string
-  individualFoodRating?:any
- 
-  
- 
-  linkType?: any
-  
-  foodRating?:any
-  takeoutRating?:any
-  diningType?:any
-  positives?: any
-  negatives?: any
-  verdict?: any
-  gallery?: any
-  color?:string
-  category?:string
-  tip?:string
-  showRating:boolean
-}
-export interface Hotel {
-  _id: string
-  title?: string
-  coverImage?: any
-  date?: string
-  excerpt2?: any
-  author?: Author
-  slug?: string
-  content?: any
-  youtube?: any
-  location?: string
-  
-  room?: any
-  internetSpeed?: number
-  techRating?: any
-  roomAmenities?:any
-  linkType?: any
-  hotelRating?: any
- 
 
-  positives?: any
-  negatives?: any
-  verdict?: any
-  gallery?: any
-  color?:string
-  category?:string
-  tip?:string
-  showRating:boolean
+export interface Story extends BasePost {}
+
+export interface Food extends BasePost {
+    foodRating?: any;
+    takeoutRating?: any;
+    diningType?: any;
+}
+
+export interface Hotel extends BasePost {
+    room?: any;
+    internetSpeed?: number;
+    techRating?: any;
+    roomAmenities?: any;
+    hotelRating?: any;
 }
 
 export interface Settings {
-  title?: string
-  description?: any[]
-  ogImage?: {
-    title?: string
-  }
+    title?: string;
+    description?: any[];
+    ogImage?: {
+        title?: string;
+    };
 }
 
-
 export interface Instagram {
-
-  id?:any
-  caption?:any
-  media_url?:any
-  timestamp?:any
-  media_type?:any
-  permalink?:any
+    id?: any;
+    caption?: any;
+    media_url?: any;
+    timestamp?: any;
+    media_type?: any;
+    permalink?: any;
 }

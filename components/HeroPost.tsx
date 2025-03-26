@@ -2,8 +2,6 @@ import AuthorAvatar from 'components/AuthorAvatar'
 import Date from 'components/PostDate'
 import type { Post } from 'lib/sanity.queries'
 import Link from 'next/link'
-
-import MtwAward from './Badge'
 import CoverImage from './CoverImage'
 
 export default function HeroPost(

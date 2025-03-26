@@ -13,7 +13,7 @@ import {
 import cn from 'classnames'
 import { ca } from 'date-fns/locale'
 import { calculateRating } from 'lib/calculateRating'
-import { ratingWeights } from 'lib/ratingWeights'
+import { getRatingWeights } from 'lib/ratingWeights'
 import { urlForImage } from 'lib/sanity.image'
 import Image from 'next/image'
 //import Image from 'next/image'
@@ -85,7 +85,7 @@ export default function CoverImage(props: CoverImageProps) {
   // let rating = hotelRating
   const categoryType = categoryRating(category)
 
-  let rateWeights = ratingWeights(linkType, diningType)
+  let rateWeights = getRatingWeights(linkType, diningType)
   //console.log(`RateWeights8 for`, rating, rateWeights )
 
   const overallRating = calculateRating(rating, rateWeights)
