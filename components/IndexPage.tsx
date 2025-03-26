@@ -5,7 +5,7 @@ import Layout from 'components/BlogLayout'
 import IndexPageHead from 'components/IndexPageHead'
 import MoreStoriesIndex from 'components/MoreStories'
 import * as demo from 'lib/demo.data'
-import type { Arena, Esssential, Post, Settings } from 'lib/sanity.queries'
+import type { Arena, Essential, Post, Settings } from 'lib/sanity.queries'
 import Head from 'next/head'
 import Button from 'ui/Button'
 
@@ -24,7 +24,7 @@ export interface IndexPageProps {
   preview?: boolean
   loading?: boolean
   posts: Post[]
-  Essentialposts: Esssential[]
+  Essentialposts: Essential[]
   arenaPosts: Arena[]
   settings: Settings
   instagram: any

@@ -2,7 +2,7 @@ import { apiVersion, dataset, projectId, useCdn } from 'lib/sanity.api'
 import {
   Arena,
   arenaQuery,
-  type Esssential,
+  type Essential,
   foodAndMoreQuery, // Import new query
   foodBySlugQuery, // Import new query
   foodQuery,
@@ -90,7 +90,7 @@ export async function getRecommendationPosts(): Promise<Post[]> {
   }
   return []
 }
-export async function getTravelEssentialPosts(): Promise<Esssential[]> {
+export async function getTravelEssentialPosts(): Promise<Essential[]> {
   if (client) {
     return (await client.fetch(travelEssentialQuery)) || []
   }

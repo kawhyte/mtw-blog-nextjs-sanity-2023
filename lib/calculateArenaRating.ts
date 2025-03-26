@@ -41,7 +41,7 @@ export default function calculateAverageRating(
       weights.hasOwnProperty(key)
     ) {
       const weight = weights[key]!; // '!' because hasOwnProperty ensures the key exists
-      weightedSum += arenaReview[key]! * weight; // '!' because typeof check ensures it's a number
+      weightedSum += (arenaReview[key] as number ) * weight; // '!' because typeof check ensures it's a number
       totalWeight += weight;
     }
   }

@@ -1,7 +1,7 @@
 import { Badge, Card, Group, Image, Text } from '@mantine/core'
 import { oswald } from 'app/fonts'
 import { urlForImage } from 'lib/sanity.image'
-import { Esssential } from 'lib/sanity.queries'
+import { Essential } from 'lib/sanity.queries'
 import Link from 'next/link'
 import { CldImage } from 'next-cloudinary'
 import { FaRegCalendarAlt } from 'react-icons/fa'
@@ -12,7 +12,7 @@ import PostBody from './PostBody'
 import PostDate from './PostDate'
 import StarRating from './StarRating'
 
-const TravelEssentialLayout = ({ posts }: { posts: Esssential[] }) => {
+const TravelEssentialLayout = ({ posts }: { posts: Essential[] }) => {
   // console.log('Essential', posts)
   return (
     <>

@@ -316,8 +316,14 @@ export interface Recommendation {
     title?: string;
     recommendations?: {
         post?: {
+            _id: string;
+            author?: any;
+            date?:any;
+            current?: string;
             title?: string;
-            slug?: string;
+            excerpt2?: any;
+            category?:string
+            slug?:{current:string};
             coverImage?: any;
             location?: string;
             linkType?: string;
