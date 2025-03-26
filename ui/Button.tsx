@@ -65,7 +65,7 @@ export default function Button({
     ${sizeClasses[size]} ${fontSizeClasses[fontSize]}  ${alignClasses[align]} hover:bg-${hoverColor}
     ${noBorder ? '' : 'border-4 border-[#1f1f1f] shadow-[4px_4px_#1f1f1f]'}
   `;
-  console.log("ALIGN ",align);
+
   if (link) {
     return (
       <Link href={link} passHref legacyBehavior>

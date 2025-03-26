@@ -24,7 +24,7 @@ export default function IndexPage(props: IndexPageProps) {
   const [heroPost, ...morePosts] = posts || []
   const { title = demo.title, description = demo.description } = settings || {}
 
-   console.log("Guide Review1 ",posts )
+  //  console.log("Guide Review1 ",posts )
 
   return (
     <>
