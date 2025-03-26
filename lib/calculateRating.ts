@@ -1,57 +1,86 @@
 interface RatingObject {
-  // [key: string]: number | string
-  [key: string]:any //number | string | any
+  [key: string]: number; // Enforce number type for rating values
 }
 
 interface RatingWeights {
-  [key: string]: any
+  [key: string]: number; // Enforce number type for weight values
+}
+
+interface RatingThresholds {
+  [threshold: number]: string;
 }
 
 interface RatingResult {
-  numericalRating: number
-  textRating: string
+  numericalRating: number;
+  textRating: string;
+  color?: string;
 }
+
+const defaultRatingThresholds: RatingThresholds = {
+  4.5: 'Excellent',
+  4: 'Great',
+  3.75: 'Good',
+  3: 'Fair',
+  2: 'Poor',
+  0: 'Horrible',
+};
+
+const ratingColorMap: { [threshold: number]: string } = {
+  4.5: '#34D319',   // Excellent
+  4: '#4ADE99',     // Great
+  3.75: '#FBBF24',  // Good
+  3: 'Orange',    // Fair
+  2: '#EF4444',       // Poor
+  0: 'DarkRed',     // Horrible
+};
 
 export function calculateRating(
   ratingObject: RatingObject,
   weights: RatingWeights,
-  ratingThresholds: { [key: number]: string } = {
-    4.5: 'Excellent',
-    4:'Great',
-    3.75: 'Good',
-    3: 'Fair',
-    2: 'Poor',
-    0: 'Horrible', // Default for any rating below 1.5
-  }
+  ratingThresholds: RatingThresholds = defaultRatingThresholds
 ): RatingResult {
-  // Calculate the weighted average rating
+  let weightedSum = 0;
+  let totalWeight = 0;
 
-  let weightedSum = 0
-  //if (ratingObject) { 
   for (const key in ratingObject) {
-    // console.log("key3", key)
-    if (key in weights && typeof ratingObject[key] === 'number') {
-      weightedSum += ratingObject[key] * weights[key]
+    if (Object.prototype.hasOwnProperty.call(ratingObject, key) && key in weights) {
+      const rating = ratingObject[key];
+      const weight = weights[key];
+      weightedSum += rating * weight;
+      totalWeight += weight;
     }
   }
-  //}
 
-  // Convert the numerical rating to a text rating
-  const thresholds = Object.keys(ratingThresholds)
+  const numericalRating = totalWeight > 0 ? weightedSum / totalWeight : 0;
+
+  // Convert the numerical rating to a text rating (more efficient lookup)
+  const sortedThresholds = Object.keys(ratingThresholds)
     .map(Number)
-    .sort((a, b) => b - a) // Sort thresholds in descending order
+    .sort((a, b) => b - a);
 
-  let textRating = ratingThresholds[thresholds[thresholds.length - 1]] // Default to the lowest rating
-  for (const threshold of thresholds) {
-    if (weightedSum >= threshold) {
-      textRating = ratingThresholds[threshold]
-      break
+  let textRating = ratingThresholds[sortedThresholds[sortedThresholds.length - 1]]; // Default to the lowest
+
+  for (const threshold of sortedThresholds) {
+    if (numericalRating >= threshold) {
+      textRating = ratingThresholds[threshold];
+      break;
     }
   }
 
-  // Return an object containing both the numerical and text ratings
-  return {
-    numericalRating: weightedSum,
-    textRating: textRating,
+  // Determine the color based on numericalRating (more efficient lookup)
+  let color: string | undefined;
+  for (const threshold of Object.keys(ratingColorMap)
+    .map(Number)
+    .sort((a, b) => b - a)) {
+    if (numericalRating >= threshold) {
+      color = ratingColorMap[threshold];
+      break;
+    }
   }
+
+  return {
+    numericalRating,
+    textRating,
+    color,
+  };
 }

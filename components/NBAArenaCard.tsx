@@ -1,5 +1,6 @@
 import { Badge, Blockquote } from '@mantine/core'
 import { oswald } from 'app/fonts'
+import RatingBadge from './RatingBadge'
 import calculateAverageRating from 'lib/calculateArenaRating'
 import { urlForImage } from 'lib/sanity.image'
 import {
@@ -25,6 +26,7 @@ import Button from 'ui/Button'
 
 import AreanaRating from './AreanaRating'
 import PostDate, { PostYear } from './PostDate'
+
 
 interface NBAArenaCardProps {
   arenaImageSrc: any
@@ -97,32 +99,10 @@ const Arenas = ({
         >
           <div className="relative">
             {average > '0' ? (
-              <div className="absolute right-4 top-2 z-30 flex  flex-col  items-center justify-center  rounded-2xl  bg-black p-2"
-              style={{ backgroundColor: color, opacity: 0.7 }} 
-              >
-                <div className=" text-white">
-                  <span className="ml-1 mr-1 font-montserrat text-xl font-black leading-tight tracking-tighter text-gray-900 sm:text-xl md:text-left md:text-2xl md:leading-none lg:text-xl">
-                    {' '}
-                    {Number(average).toFixed(2)}
-                  </span>
-                  {/* <span className='text-xs '>/5</span> */}
-                </div>
-                <hr className="z-50 my-0.5 h-0.5 w-full border-0 bg-gray-900 dark:bg-gray-900" />
-               
-               
-               
-                {/* <Badge
-                  size="md"
-                  className="text-md mt-1 flex flex-col font-montserrat"
-                  color="violet"
-                >
-                  {textRating}
-                </Badge> */}
-                <p className="font-montserrat text-sm font-bold text-gray-900 ">
-                  {' '}
-                  {textRating}
-                </p>
-              </div>
+
+
+<RatingBadge average={average} textRating={textRating} color={color} />
+              
             ) : null}
 
             {/* <div className="absolute left-4 top-3 z-30 flex  flex-row items-center  gap-y-1 xl:my-0  ">
@@ -329,13 +309,13 @@ const Arenas = ({
                   <Button size="xs" align="center" icon={<RotateCcw size={20} />}>
                     View Card Front
                   </Button>
-                  <p>Ccard</p>
+                 
                   {/* <FlipHorizontal2 size={20} />
               <span className="mt-1 ml-2 text-xs">View Card Front</span>{' '} */}
                 </>
               ) : (
                 <>
-                  <Button size="xs" align="center" icon={<RotateCw size={20} />}>
+                  <Button  size="xs" align="center" icon={<RotateCw size={20} />}>
                     View Details
                   </Button>
              

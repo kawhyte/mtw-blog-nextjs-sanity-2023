@@ -23,6 +23,7 @@ import { CldImage } from 'next-cloudinary'
 import { categoryRating } from '../lib/getHotelCategory'
 import PostBody from './PostBody'
 import PostDate from './PostDate'
+import RatingBadge from './RatingBadge'
 //import { useState } from 'react';
 interface CoverImageProps {
   title: string
@@ -38,7 +39,7 @@ interface CoverImageProps {
   rating: any
   linkType: string
   diningType: any
-  showRating:boolean
+  showRating: boolean
 }
 
 export default function CoverImage(props: CoverImageProps) {
@@ -47,7 +48,7 @@ export default function CoverImage(props: CoverImageProps) {
     date,
     slug,
     location,
-showRating,
+    showRating,
     // hotelRating,
     // foodRating,
     rating,
@@ -62,19 +63,13 @@ showRating,
   // console.log("PPP2 Cover Image",hotelRating,foodRating )
 
   const image = source?.asset?._ref ? (
-    <div
-    className="relative w-[402px] h-[203px]" 
-    >
-      <Skeleton
-      visible
-      className="absolute inset-0 w-full h-full rounded-md"
-    />
+    <div className="relative h-[203px] w-[402px]">
+      <Skeleton visible className="absolute inset-0 h-full w-full rounded-md" />
       <Image
         className={cn('w-full object-cover object-center brightness-[0.85]', {
           '	relative z-20   transition-all  ': slug,
         })}
         placeholder="blur"
-       
         blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAO0lEQVR4nGNgYGBg+P//P1t9fT0TiM0we3ZjxZxZjQ9XLpwwe9nCHkOGGZOyanraY9aumN2wbsn0hmQA/MEWfj4ocjcAAAAASUVORK5CYII="
         width={402}
         height={203}
@@ -98,49 +93,45 @@ showRating,
   // const propertyNames = Object.entries(rating).filter(
   //   ([key]) => key !== '_type'
   // )
-//  console.log("Categoty Type",categoryType)
-//  console.log("linkType11",linkType)
+  //  console.log("Categoty Type",categoryType)
+  //  console.log("linkType11",linkType)
   return (
     <div className="relative sm:mx-0">
       {slug ? (
         <Link href={`/posts/${slug}`} aria-label={title}>
           <div>
-            {
-            linkType ==="hotel" ?(
-            category  && (
-              <Badge
-                className="absolute z-30 m-3  py-2"
-                size="md"
-                color={categoryType.color}
-                variant={categoryType.variant}
-              >
-                {categoryType.name}
-              </Badge>
-            )):""}
+            {linkType === 'hotel'
+              ? category && (
+                  <Badge
+                    className="absolute z-30 m-3  py-2"
+                    size="md"
+                    color={categoryType.color}
+                    variant={categoryType.variant}
+                  >
+                    {categoryType.name}
+                  </Badge>
+                )
+              : ''}
 
             {/* <Badge className="absolute  top-3 right-3 ml-3 z-50 py-2 ">{overallRating.numericalRating.toFixed(2)}</Badge> */}
 
-          { showRating &&  
-          
-         <div className="absolute right-3 top-3 z-30 flex  flex-col  items-center justify-center  rounded-2xl p-1 bg-black bg-opacity-50"> 
-          
-
-          
-          <h2
+            {showRating && (
+              <>
+              
+              {/* <div className="absolute right-3 top-3 z-30 flex  flex-col  items-center justify-center  rounded-2xl bg-black bg-opacity-50 p-1">
+                <h2
                   className={` mx-2 my-1 text-lg font-black leading-tight tracking-tighter text-gray-100  md:text-left  md:leading-none `}
                 >
-                 {overallRating.numericalRating.toFixed(2)}
+                  {overallRating.numericalRating.toFixed(2)}
                 </h2>
-          
-          <Badge
-              size="md"
-              className="  "
-              color="violet"
-          
-            >
-             {overallRating.textRating} 
-            </Badge>
-            </div> }
+
+                <Badge size="md" className="  " color="violet">
+                  {overallRating.textRating}
+                </Badge>
+              </div> */}
+              
+              <RatingBadge average={overallRating.numericalRating.toFixed(2)} textRating={overallRating.textRating} color={overallRating.color} /></>
+            )}
 
             {image}
           </div>
