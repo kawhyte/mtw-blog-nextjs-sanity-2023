@@ -1,29 +1,48 @@
-import { Badge } from '@mantine/core'
+import { Badge, Progress } from '@mantine/core'
 import React from 'react'
 
-function AreanaRating({ rating, text, icon }) {
+import ProgressRating from './ProgressRating'
+
+function ArenaRating({ rating, text, icon }) {
   const formattedValue = rating?.toFixed(2)
+  const progressValue = formattedValue
+    ? parseFloat(((formattedValue / 10) * 100).toString())
+    : 0 // Assuming a max rating of 10
+  const displayRating = formattedValue
+    ? (formattedValue / 2).toFixed(2)
+    : 'Pending'
+
   return (
-    <>
-      <div className="flex items-center p-2 text-gray-700 ">
-        <div className="flex w-40 sm:w-32 md:w-36 flex-col items-center rounded-lg border-2 border-gray-700 px-2 py-1">
-          {/* <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="text-indigo-500 w-12 h-12 mb-3 inline-block" viewBox="0 0 24 24">
-        <path d="M8 17l4 4 4-4m-4-5v9"></path>
-        <path d="M20.88 18.09A5 5 0 0018 9h-1.26A8 8 0 103 16.29"></path>
-      </svg> */}
-       <p className='sm:hidden md:block'>{icon}</p>   
-          {/* <img alt='name' className='h-12 w-12' src={icon}/> */}
+    <div className=" py-1.5 px-6 text-gray-700 ">
+      {/* <div className="flex w-full sm:w-[8rem] flex-col items-center rounded-lg border-2 border-gray-700 px-2 py-2">
+        <div className="flex items-center justify-center mb-2">
+          {icon && <span className="mr-2">{icon}</span>}
+          <h2 className="title-font text-xl text-gray-700">{displayRating}</h2>
+        </div>ll
+        <Progress value={20} color="indigo" size="md" radius="sm" label={`${progressValue}%`} />
+        <p className="leading-relaxed mt-2 text-sm text-gray-500">{text}</p>
+      </div> */}
 
-          <h2 className="title-font text-xl  text-gray-700">
-            {formattedValue ? (formattedValue / 2).toFixed(2) : 'Pending'}
-          </h2>
-          <p className="leading-relaxed text-gray-500">{text}</p>
+      <div className={`flex flex-col justify-center rounded-2xl border p-1  w-full`}>
+        <div className="flex flex-row items-center justify-start">
+          <div className="flex items-center justify-center px-2 ">
+            {icon && <span className="mr-2">{icon}</span>}
+            <h2 className="text-sm font-montserrat font-normal text-gray-700">{text}</h2>
+          </div>
         </div>
-      </div>
+        {Number(rating) > 0 && (
+          <div className="flex flex-1 flex-row items-center align-middle text-sm w-full  px-2 ">
+            {/* <p className="text-xs font-medium md:text-xs"></p> */}
 
+            <ProgressRating progress={displayRating} />
+
+            
       
-    </>
+          </div>
+        )}
+      </div>
+    </div>
   )
 }
 
-export default AreanaRating
+export default ArenaRating

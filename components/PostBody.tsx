@@ -26,7 +26,7 @@ export default function PostBody({ content }) {
     let result = [];
     let imageGroup = [];
 
-    blocks.forEach((block) => {
+    blocks?.forEach((block) => {
       if (block._type === "image") {
         imageGroup.push(block);
       } else {

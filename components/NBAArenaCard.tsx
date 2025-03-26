@@ -56,7 +56,7 @@ const Arenas = ({
   gallery,
   arenaReview,
 }: NBAArenaCardProps) => {
-  const { average, textRating } = calculateAverageRating(arenaReview)
+  const { average, textRating, color } = calculateAverageRating(arenaReview)
   const [isFlipped, setIsFlipped] = useState(false)
 
   return (
@@ -97,15 +97,20 @@ const Arenas = ({
         >
           <div className="relative">
             {average > '0' ? (
-              <div className="absolute right-4 top-2 z-30 flex  flex-col  items-center justify-center  rounded-2xl  bg-black bg-opacity-40 p-2">
-                <div className="mt-2 text-white">
-                  <span className="ml-2 mr-1 font-montserrat text-xl font-black leading-tight tracking-tighter text-gray-100 sm:text-xl md:text-left md:text-2xl md:leading-none lg:text-xl">
+              <div className="absolute right-4 top-2 z-30 flex  flex-col  items-center justify-center  rounded-2xl  bg-black p-2"
+              style={{ backgroundColor: color, opacity: 0.7 }} 
+              >
+                <div className=" text-white">
+                  <span className="ml-1 mr-1 font-montserrat text-xl font-black leading-tight tracking-tighter text-gray-900 sm:text-xl md:text-left md:text-2xl md:leading-none lg:text-xl">
                     {' '}
                     {Number(average).toFixed(2)}
                   </span>
                   {/* <span className='text-xs '>/5</span> */}
                 </div>
-                <hr className="z-50 mb-2 mt-2 h-0.5 w-full border-0 bg-gray-400 dark:bg-gray-400" />
+                <hr className="z-50 my-0.5 h-0.5 w-full border-0 bg-gray-900 dark:bg-gray-900" />
+               
+               
+               
                 {/* <Badge
                   size="md"
                   className="text-md mt-1 flex flex-col font-montserrat"
@@ -113,7 +118,7 @@ const Arenas = ({
                 >
                   {textRating}
                 </Badge> */}
-                <p className="font-montserrat text-sm font-bold text-white ">
+                <p className="font-montserrat text-sm font-bold text-gray-900 ">
                   {' '}
                   {textRating}
                 </p>
@@ -139,8 +144,8 @@ const Arenas = ({
               )}
             </div> */}
 
-            <div className="absolute bottom-3 left-4 z-30 font-montserrat text-sm font-bold text-white">
-              <div className="flex  flex-col gap-y-1">
+            {/* <div className="absolute bottom-3 left-4 z-30 font-montserrat text-sm font-bold text-white">
+              <div className="flex  flex-col gap-y-1"> */}
                 {/* <div className=" flex  flex-row items-center  gap-y-1 xl:my-0  ">
                   {visited ? (
                     <div className=" flex  flex-col items-center   gap-y-1 xl:my-0  ">
@@ -190,8 +195,8 @@ const Arenas = ({
                       {new Intl.NumberFormat().format(capacity)}
                   </Badge>
                 </div> */}
-              </div>
-            </div>
+              {/* </div>
+            </div> */}
 
             {/* {arenaReview?.comments && (
               <Blockquote
@@ -257,7 +262,7 @@ const Arenas = ({
             <div className="grid grid-cols-1 gap-4 text-sm text-gray-700 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
               <div className="flex items-center">
                 <Wrench className="mr-2 h-5 w-5 text-gray-500" />
-                Constructed: <PostYear dateString={constructionDate} />
+                <span className='mr-1'> Constructed:</span> <PostYear dateString={constructionDate} />
               </div>
               <div className="flex items-center">
                 <Users className="mr-2 h-5 w-5 text-gray-500" />
@@ -401,14 +406,16 @@ const Arenas = ({
                   <Button size="xs" align="center" icon={<RotateCcw size={20} />}>
                     View Card Front
                   </Button>
+                  <p>Ccard</p>
                   {/* <FlipHorizontal2 size={20} />
               <span className="mt-1 ml-2 text-xs">View Card Front</span>{' '} */}
                 </>
               ) : (
                 <>
-                  <Button size="xs" icon={<RotateCw size={20} />}>
+                  <Button size="xs" align="center" icon={<RotateCw size={20} />}>
                     View Details
                   </Button>
+             
 
                   {/* <FlipHorizontal2 size={20} />
               <span className="mt-1 ml-2 text-xs">View Rating Details</span> */}
@@ -426,11 +433,12 @@ const Arenas = ({
         >
           {/* Add your additional data here */}
           <div className="justify flex h-full w-full flex-col items-center ">
-            <p className="pb-3 pt-5 text-xl font-bold">
+            <h2 className=" pt-6 text-xl font-bold">
               Arena Rating Breakdown{' '}
-            </p>
+            </h2>
+            {/* <p>Overall Rating: {Number(average).toFixed(2)}  </p> */}
 
-            <div className=" my-2 grid w-full grid-cols-2 place-items-center  items-center pb-2 align-middle  text-xs font-bold text-gray-700  md:text-xs ">
+            <div className=" mt-2 grid w-full grid-cols-1  items-center pb-2 align-middle  text-xs font-bold text-gray-700  md:text-xs ">
               <AreanaRating
                 rating={arenaReview?.transportation}
                 text={'Transit to Arena'}
@@ -438,7 +446,7 @@ const Arenas = ({
               />
               <AreanaRating
                 rating={arenaReview?.walkability}
-                text={'Walkability'}
+                text={'Walkability around the Arena'}
                 icon={<Footprints className="text-pink-500" />}
               />
               <AreanaRating
@@ -453,7 +461,7 @@ const Arenas = ({
               />
               <AreanaRating
                 rating={arenaReview?.view}
-                text={'View from Seat'}
+                text={'View from our Seat'}
                 icon={<Binoculars className="text-pink-500" />}
               />
               <AreanaRating
@@ -461,6 +469,33 @@ const Arenas = ({
                 text={'Seat Comfort'}
                 icon={<Sofa className="text-pink-500" />}
               />
+            </div>
+
+
+            <div
+              className="   mx-20 " // Added flex-col and items-center
+              onClick={() => setIsFlipped(!isFlipped)}
+            >
+              {isFlipped ? (
+                <>
+                  <Button size="xs" align="center" icon={<RotateCcw size={20} />}>
+                    View Card Front
+                  </Button>
+                  
+                  {/* <FlipHorizontal2 size={20} />
+              <span className="mt-1 ml-2 text-xs">View Card Front</span>{' '} */}
+                </>
+              ) : (
+                <>
+                  <Button size="xs" align="center" icon={<RotateCw size={20} />}>
+                    View Details
+                  </Button>
+              
+
+                  {/* <FlipHorizontal2 size={20} />
+              <span className="mt-1 ml-2 text-xs">View Rating Details</span> */}
+                </>
+              )}
             </div>
           </div>
         </div>
