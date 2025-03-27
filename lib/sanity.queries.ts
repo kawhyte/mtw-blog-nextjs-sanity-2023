@@ -303,7 +303,55 @@ export const storyQuery = fetchDocuments('post', guideFields, {
 });
 
 // ------------------------------
-// 8. Interfaces
+// 8. New Query for Top Hotels with Weighted Average and Ordering
+// ------------------------------
+
+export const topWeightedHotelsQuery = groq`
+  *[_type == "post" && defined(hotelRating) && linkType == "hotel"] {
+    ${coreFields},
+    hotelRating{
+      Value,
+      Gym,
+      Internet_Speed,
+      Service,
+      Room_Cleanliness,
+      Bed_Comfort,
+      Room_Amenities,
+      Pool,
+      Location
+    },
+    "weightedAverageRating": round(
+      (
+        (hotelRating.Location * 0.2) +
+        (hotelRating.Bed_Comfort * 0.2) +
+        (hotelRating.Room_Cleanliness * 0.1) +
+        (hotelRating.Gym * 0.05) +
+        (hotelRating.Pool * 0.05) +
+        (hotelRating.Service * 0.15) +
+        (hotelRating.Internet_Speed * 0.05) +
+        (hotelRating.Room_Amenities * 0.1) +
+        (hotelRating.Value * 0.1)
+      ) * 1000
+    ) / 1000,
+    "totalAverageRating": round(
+      (
+        hotelRating.Value +
+        hotelRating.Gym +
+        hotelRating.Internet_Speed +
+        hotelRating.Service +
+        hotelRating.Room_Cleanliness +
+        hotelRating.Bed_Comfort +
+        hotelRating.Room_Amenities +
+        hotelRating.Pool +
+        hotelRating.Location
+      ) / 9 * 1000
+    ) / 1000
+  }
+  | order(totalAverageRating desc, hotelRating.Service desc, hotelRating.Location desc) [0...10]
+`;
+
+// ------------------------------
+// 9. Interfaces
 // ------------------------------
 
 export interface Author {
@@ -390,10 +438,22 @@ export interface Post extends BasePost {
     internetSpeed?: number;
     techRating?: any;
     roomAmenities?: any;
-    hotelRating?: any;
+    hotelRating?: {
+        Value?: number;
+        Gym?: number;
+        Internet_Speed?: number;
+        Service?: number;
+        Room_Cleanliness?: number;
+        Bed_Comfort?: number;
+        Room_Amenities?: number;
+        Pool?: number;
+        Location?: number;
+    };
     foodRating?: any;
     takeoutRating?: any;
     diningType?: any;
+    weightedAverageRating?: number;
+    totalAverageRating?: number; // Added totalAverageRating to the Post interface
 }
 
 export interface Story extends BasePost {}
@@ -409,7 +469,19 @@ export interface Hotel extends BasePost {
     internetSpeed?: number;
     techRating?: any;
     roomAmenities?: any;
-    hotelRating?: any;
+    hotelRating?: {
+        Value?: number;
+        Gym?: number;
+        Internet_Speed?: number;
+        Service?: number;
+        Room_Cleanliness?: number;
+        Bed_Comfort?: number;
+        Room_Amenities?: number;
+        Pool?: number;
+        Location?: number;
+    };
+    weightedAverageRating?: number;
+    totalAverageRating?: number; // Added totalAverageRating to the Hotel interface
 }
 
 export interface Settings {

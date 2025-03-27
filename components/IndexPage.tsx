@@ -1,3 +1,4 @@
+import { Image } from '@mantine/core'
 import { inter, oswald } from 'app/fonts'
 import Container from 'components/BlogContainer'
 import BlogHeader from 'components/BlogHeader'
@@ -5,7 +6,9 @@ import Layout from 'components/BlogLayout'
 import IndexPageHead from 'components/IndexPageHead'
 import MoreStoriesIndex from 'components/MoreStories'
 import * as demo from 'lib/demo.data'
+import { urlForImage } from 'lib/sanity.image'
 import type { Arena, Essential, Post, Settings } from 'lib/sanity.queries'
+import { BriefcaseConveyorBelt, Plane, Trophy } from 'lucide-react'
 import Head from 'next/head'
 import Button from 'ui/Button'
 
@@ -18,7 +21,6 @@ import IndexTopTen from './IndexTopTen'
 import SectionTitle from './SectionTitle'
 import Welcome from './Welcome'
 import YoutubeHighlights from './YoutubeHighlights'
-import { Plane, BriefcaseConveyorBelt,Trophy } from 'lucide-react'
 
 export interface IndexPageProps {
   preview?: boolean
@@ -42,7 +44,7 @@ export default function IndexPage(props: IndexPageProps) {
   } = props
   const [heroPost, ...morePosts] = posts || []
   const { title = demo.title, description = demo.description } = settings || {}
-// console.log("POST1", posts[0])
+
   return (
     <>
       <IndexPageHead settings={settings} />
@@ -52,27 +54,30 @@ export default function IndexPage(props: IndexPageProps) {
           <title>{CMS_NAME}</title>
           {/* <title> { `${CMS_NAME} - Travel and Food Reviews`}</title> */}
         </Head>
-          <BlogHeader title={title} description={description} level={1} />
+        <BlogHeader title={title} description={description} level={1} />
         <Container>
-
-          <Hero  />
+          <Hero />
 
           <BlogSection className=" mt-24 ">
-          <Welcome /></BlogSection>
+            <Welcome />
+          </BlogSection>
 
-         
           <BlogSection className="bg-gray-100">
-            <SectionTitle
-              header={'Our Travel Essential Reviews'}
-              description={` Traveling is a great way to experience new cultures and see the world. However, packing for a trip can be
-                        daunting, especially if you are trying to pack light.
-                        Check out a few travel essentials that you should never
-                        leave home without.`}
-            />
+            <div>
+              <SectionTitle
+                header={'Travel Gear and Gadgets'}
+                description={`Speedy thumbs up/down ratings and bite-sized, Twitter-style reviews of travel gadgets. Discover what truly enhances your adventures with our concise assessments.`}
+              />
 
-            <div className="flex   pt-9 lg:mt-0 lg:flex-shrink-0">
-              <div className=" inline-flex  ">
-                <Button icon={<Plane className='text-pink-500'/>} link={'/essentials'}>Travel Essentials Reviews</Button>
+              <div className="flex   pt-9 lg:mt-0 lg:flex-shrink-0">
+                <div className=" inline-flex  ">
+                  <Button
+                    icon={<Plane className="text-pink-500" />}
+                    link={'/essentials'}
+                  >
+                    Gear and Gadgets Reviews
+                  </Button>
+                </div>
               </div>
             </div>
           </BlogSection>
@@ -86,12 +91,19 @@ export default function IndexPage(props: IndexPageProps) {
             {posts.length > 0 && (
               <MoreStoriesIndex
                 posts={posts.slice(0, 6)}
-                showPagination={false} showRating={true}              />
+                showPagination={false}
+                showRating={true}
+              />
             )}
 
             <div className="flex   pt-9 lg:mt-0 lg:flex-shrink-0">
               <div className=" inline-flex ">
-                <Button icon={<BriefcaseConveyorBelt className='text-pink-500' />}  link="/hotel">More Adventures</Button>
+                <Button
+                  icon={<BriefcaseConveyorBelt className="text-pink-500" />}
+                  link="/hotel"
+                >
+                  More Adventures
+                </Button>
               </div>
             </div>
           </BlogSection>
@@ -120,7 +132,6 @@ export default function IndexPage(props: IndexPageProps) {
           >
             <ArenasIndexPage arenas={arenaPosts?.slice(0, 8)} />
           </BlogSection>
-
 
           {/* <SneakersIndexPage arenas={undefined} /> */}
           {/* <InstagramHighlights instagram={instagram.data} /> */}

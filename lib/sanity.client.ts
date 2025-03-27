@@ -3,15 +3,15 @@ import {
   Arena,
   arenaQuery,
   type Essential,
-  foodAndMoreQuery, // Import new query
-  foodBySlugQuery, // Import new query
+  foodAndMoreQuery,
+  foodBySlugQuery,
   foodQuery,
-  foodSlugsQuery, // Import new query
+  foodSlugsQuery,
   type Hotel,
-  hotelAndMoreQuery, // Import the new query
-  hotelBySlugQuery, // Import the new query
+  hotelAndMoreQuery,
+  hotelBySlugQuery,
   hotelQuery,
-  hotelSlugsQuery, // Import the new query
+  hotelSlugsQuery,
   indexQuery,
   Instagram,
   type Post,
@@ -22,11 +22,12 @@ import {
   type Settings,
   settingsQuery,
   type Story,
-  storyAndMoreQuery, // Import new query
-  storyBySlugQuery, // Import new query
+  storyAndMoreQuery,
+  storyBySlugQuery,
   storyQuery,
-  storySlugsQuery, // Import new query
+  storySlugsQuery,
   travelEssentialQuery,
+  topWeightedHotelsQuery, // Import the new query
 } from 'lib/sanity.queries'
 import { createClient, groq } from 'next-sanity'
 
@@ -57,16 +58,25 @@ export async function getInstagramPosts(): Promise<Instagram> {
   const url =`https://graph.instagram.com/me/media?fields=id,username,thumbnail_url,caption,media_url,timestamp,media_type,permalink&access_token=${process.env.INSTAGRAM_KEY}`
   const data = await fetch(url)
   const feed = await data.json()
- 
+
  //console.log("Instagram feed ", feed)
 
  return feed
 
 }
 
+
 export async function getHotelPosts(): Promise<Hotel[]> {
   if (client) {
     return (await client.fetch(hotelQuery)) || []
+  }
+  return []
+}
+
+// New function to get top weighted hotel posts
+export async function getTopWeightedHotelPosts(): Promise<Hotel[]> {
+  if (client) {
+    return (await client.fetch(topWeightedHotelsQuery)) || []
   }
   return []
 }

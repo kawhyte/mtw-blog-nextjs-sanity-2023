@@ -38,9 +38,9 @@ export default function IndexPage(props: IndexPageProps) {
           <BlogHeader title={title} description={description} level={1} />
 
           <ReviewHeader
-					title={"Our Travel Essential Reviews"}
+					title={"Travel Gear and Gadgets"}
 					arenas={[]}
-					summary={"Traveling is a great way to experience new cultures and see the world. However, packing for a trip can be daunting, especially if you are trying to pack light. Here are a few travel essentials that you may want to cosider for your next trip."}
+					summary={"Ready to upgrade your travel game? We put the latest travel gear and gadgets to the test! Get quick thumbs up/down verdicts and bite-sized reviews (think Twitter-short) to see what's worth packing for your next adventure."}
 					animation={'/travel2.svg'}
 				/>
 

@@ -28,11 +28,41 @@ const getRating = (
   hotelRating?: PostPreviewProps['hotelRating'],
   foodRating?: PostPreviewProps['foodRating'],
   takeoutRating?: PostPreviewProps['takeoutRating'],
-): number | undefined => {
-  if (linkType === 'food') {
-    return diningType === 'takeout' ? takeoutRating : foodRating;
+):
+  | {
+      Value?: number;
+      Gym?: number;
+      Internet_Speed?: number;
+      Service?: number;
+      Room_Cleanliness?: number;
+      Bed_Comfort?: number;
+      Room_Amenities?: number;
+      Pool?: number;
+      Location?: number;
+    }
+  | {
+      Flavor_and_Taste?: number;
+      Food_Value?: number;
+      Restaurant_Location?: number;
+      Presentation_on_Plate?: number;
+      Restaurant_Service?: number;
+      Memorability?: number;
+      Restaurant_Cleanliness?: number;
+    }
+  | number
+  | undefined => {
+  if (linkType === 'hotel' && hotelRating) {
+    return hotelRating;
   }
-  return hotelRating;
+  if (linkType === 'food') {
+    if (diningType === 'takeout') {
+      return takeoutRating;
+    }
+    if (foodRating) {
+      return foodRating;
+    }
+  }
+  return undefined;
 };
 
 const PostPreview = ({
@@ -56,7 +86,7 @@ const PostPreview = ({
     foodRating,
     takeoutRating,
   );
- console.log("PostPreview", linkType)
+
   return (
     <div className="group z-10 w-full max-w-sm overflow-hidden rounded-3xl border-4 border-black bg-white shadow-md duration-300 dark:bg-gray-50">
       <div className="mb-5">
