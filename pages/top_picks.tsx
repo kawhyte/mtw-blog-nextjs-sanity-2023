@@ -2,7 +2,8 @@ import { PreviewSuspense } from '@sanity/preview-kit';
 import TopListPage from 'components/TopListPage';
 import {
   getSettings,
-  getTopWeightedHotelPosts, // Import the new function
+  getTopWeightedHotelPosts, // Import the top weighted hotels function
+  getTopWeightedFoodPosts, // Import the new function for top weighted food
 } from 'lib/sanity.client';
 import { Post, Settings } from 'lib/sanity.queries';
 import { GetStaticProps } from 'next';
@@ -51,11 +52,14 @@ export const getStaticProps: GetStaticProps<
 > = async (ctx) => {
   const { preview = false, previewData = {} } = ctx;
 
-  const [settings, posts = []] = await Promise.all([
+  const [settings, topWeightedHotels = [], topWeightedFoods = []] = await Promise.all([
     getSettings(),
     // getRecommendationPosts(),
-    getTopWeightedHotelPosts(), // Use the new function to fetch top weighted hotels
+    getTopWeightedHotelPosts(), // Use the function to fetch top weighted hotels
+    getTopWeightedFoodPosts(), // Use the new function to fetch top weighted food
   ]);
+
+  const posts = [...topWeightedHotels, ...topWeightedFoods]; // Combine the top weighted hotels and foods
 
   // console.log('POSTS22 ', posts);
   return {

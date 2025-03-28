@@ -34,8 +34,9 @@ export default function IndexPage(props: IndexPageProps) {
 
   // const hotels = posts.filter((word) => word.listType === 'hotel'); // No longer filtering here
   const topHotels = posts.filter((post) => post?.linkType === 'hotel'); // Filter for hotels based on linkType
+  const topRestaurants = posts.filter((post) => post?.linkType === 'food'); // Filter for hotels based on linkType
   // const restaurants = posts.filter((word) => word.listType === 'food');
-
+//  console.log("topRestaurants", topRestaurants)
   return (
     <>
       <IndexPageHead settings={settings} />
@@ -62,12 +63,12 @@ export default function IndexPage(props: IndexPageProps) {
             <TopListItems posts={topHotels} />
 
             <SectionSeparator />
-            {/* {restaurants.length > 0 && (
+            {topRestaurants.length > 0 && (
               <>
-                <TopListItems posts={restaurants} />
+                <TopListItems posts={topRestaurants} />
                 <section></section>
               </>
-            )} */}
+            )}
           </>
         )}
         {/* </Container> */}

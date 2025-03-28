@@ -28,6 +28,7 @@ import {
   storySlugsQuery,
   travelEssentialQuery,
   topWeightedHotelsQuery, // Import the new query
+  topWeightedFoodQuery, // Import the new food query
 } from 'lib/sanity.queries'
 import { createClient, groq } from 'next-sanity'
 
@@ -81,9 +82,18 @@ export async function getTopWeightedHotelPosts(): Promise<Hotel[]> {
   return []
 }
 
+
 export async function getFoodPosts(): Promise<Post[]> {
   if (client) {
     return (await client.fetch(foodQuery)) || []
+  }
+  return []
+}
+
+// New function to get top weighted food posts
+export async function getTopWeightedFoodPosts(): Promise<Post[]> {
+  if (client) {
+    return (await client.fetch(topWeightedFoodQuery)) || []
   }
   return []
 }

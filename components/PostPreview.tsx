@@ -77,6 +77,7 @@ const PostPreview = ({
   showRating,
   slug,
   location,
+  
 }: PostPreviewProps) => {
   const href = `${getLinkPrefix(linkType)}/${slug}`;
   const currentRating = getRating(

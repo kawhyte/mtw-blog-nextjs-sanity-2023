@@ -303,7 +303,7 @@ export const storyQuery = fetchDocuments('post', guideFields, {
 });
 
 // ------------------------------
-// 8. New Query for Top Hotels with Weighted Average and Ordering
+// 8. New Query for Top Hotels and Restaurants with Weighted Average and Ordering
 // ------------------------------
 
 export const topWeightedHotelsQuery = groq`
@@ -348,6 +348,33 @@ export const topWeightedHotelsQuery = groq`
     ) / 1000
   }
   | order(totalAverageRating desc, hotelRating.Service desc, hotelRating.Location desc) [0...10]
+`;
+
+export const topWeightedFoodQuery = groq`
+*[_type == "post" && defined(foodRating) && linkType == "food"] {
+  ${coreFields},
+  foodRating{
+    Restaurant_Location,
+    Restaurant_Service,
+    Food_Value,
+    Presentation_on_Plate,
+    Memorability,
+    Restaurant_Cleanliness,
+    Flavor_and_Taste
+  },
+  "weightedAverageRating": round(
+    (
+      (foodRating.Restaurant_Location * 0.05) +
+      (foodRating.Restaurant_Service * 0.2) +
+      (foodRating.Food_Value * 0.15) +
+      (foodRating.Presentation_on_Plate * 0.05) +
+      (foodRating.Memorability * 0.15) +
+      (foodRating.Restaurant_Cleanliness * 0.2) +
+      (foodRating.Flavor_and_Taste * 0.2)
+    ) * 1000
+  ) / 1000
+}
+| order(weightedAverageRating desc) [0...10]
 `;
 
 // ------------------------------
@@ -396,16 +423,16 @@ export interface Essential {
 export interface Arena {
     _id: string;
     name?: string;
+    arenaImage?: any;
     gallery?: any;
     location?: string;
-    description?: any;
-    arenaImage?: any;
+    buildDate?: string;
+    capacity?: number;
+    arenaReview?: any;
     visited?: boolean;
     date?: string;
     teamType?: string;
-    capacity?: number;
-    buildDate?: string;
-    arenaReview?: any;
+
     visitedCount?: number;
     galleryCount?: number;
 }
