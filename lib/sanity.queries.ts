@@ -380,7 +380,7 @@ export const topWeightedFoodQuery = groq`
     ) * 1000
   ) / 1000
 }
-| order(weightedAverageRating desc) [0...10]
+| order(weightedAverageRating desc, takeoutRating.tasteAndFlavor desc, foodRating.Flavor_and_Taste desc  ) [0...10]
 `;
 
 // ------------------------------

@@ -2,8 +2,8 @@ import { PreviewSuspense } from '@sanity/preview-kit';
 import TopListPage from 'components/TopListPage';
 import {
   getSettings,
-  getTopWeightedFoodPosts, // Import the new function for top weighted food
-  getTopWeightedHotelPosts, // Import the top weighted hotels function
+  getTopWeightedFoodPosts, 
+  getTopWeightedHotelPosts, 
 } from 'lib/sanity.client';
 import { Post, Settings } from 'lib/sanity.queries';
 import { GetStaticProps } from 'next';
@@ -60,8 +60,7 @@ export const getStaticProps: GetStaticProps<
   ]);
 
   const posts = [...topWeightedHotels, ...topWeightedFoods]; // Combine the top weighted hotels and foods
-
-  // console.log('POSTS22 ', posts);
+  
   return {
     props: {
       posts,

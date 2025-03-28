@@ -1,17 +1,11 @@
 import PostPreview from 'components/PostPreview'
-import { urlForImage } from 'lib/sanity.image'
 import type { Post } from 'lib/sanity.queries' // Changed import to Post
-import Image from 'next/image'
-import Link from 'next/link'
 
-import PostHeader from './PostHeader'
-import PostTitle, { CardTitle } from './PostTitle'
 import SectionTitle from './SectionTitle'
 
-let count = 2
 export default function TopListItems(
   { posts }: { posts: Post[] }, // Updated prop type to Post[]
-  { color = 'bg-red-200' }
+
 ) {
   return (
     <section className={`container    mx-auto my-16  rounded-2xl   `}>
@@ -28,7 +22,7 @@ export default function TopListItems(
         </div>
       </div>
 
-      <div className="container mx-auto  mt-14 grid grid-cols-1 place-content-center place-items-center gap-x-5 gap-y-20 md:gap-y-24  px-3 sm:grid-cols-1 md:grid-cols-2 md:gap-10 md:px-6 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4">
+      <div className="container mx-auto  mt-14 grid grid-cols-1 place-content-center place-items-center gap-x-5 gap-y-20 px-3  sm:grid-cols-1 md:grid-cols-2 md:gap-10 md:gap-y-24 md:px-6 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4">
         {posts.slice(0, 10).map(
           // Directly mapping over the top weighted posts
           (post, i) => (
@@ -41,7 +35,7 @@ export default function TopListItems(
               </span>
 
               {/* <div className="absolute z-40 top-5 right-9 bg-green-300 px-2 ox-3">{post.weightedAverageRating}</div> */}
-              
+
               <div className="relative">
                 <PostPreview
                   key={post._id}

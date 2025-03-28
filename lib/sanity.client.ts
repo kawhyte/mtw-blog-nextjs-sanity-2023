@@ -26,9 +26,9 @@ import {
   storyBySlugQuery,
   storyQuery,
   storySlugsQuery,
-  travelEssentialQuery,
-  topWeightedHotelsQuery, // Import the new query
   topWeightedFoodQuery, // Import the new food query
+  topWeightedHotelsQuery, // Import the new query
+  travelEssentialQuery,
 } from 'lib/sanity.queries'
 import { createClient, groq } from 'next-sanity'
 
