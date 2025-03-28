@@ -28,17 +28,17 @@ export default function TopListItems(
       </div>
 
 
-      <div className="container mx-auto  mt-14 grid grid-cols-1 place-content-center place-items-center gap-x-5 gap-y-10  px-3 sm:grid-cols-1 md:grid-cols-2 md:gap-10 md:px-6 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+      <div className="container mx-auto  mt-14 grid grid-cols-1 place-content-center place-items-center gap-x-5 gap-y-10  px-3 sm:grid-cols-1 md:grid-cols-2 md:gap-10 md:px-6 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3">
         {posts.slice(0, 10).map( // Directly mapping over the top weighted posts
           (post, i) => (
             <div
               key={post._id}
-              className="h-90 font-montserrat group   m-auto flex  cursor-pointer     items-baseline rounded-lg   xl:w-96   "
+              className="h-90 font-montserrat group relative   m-auto flex  cursor-pointer     items-baseline rounded-lg   xl:w-96   "
             >
-              <span className=" font-san -mr-4  flex w-20 flex-col   text-[6.1rem] font-bold  leading-[0.88] tracking-[-1.0rem] text-pink-500 drop-shadow-lg sm:text-[7.8rem] sm:tracking-[-1.2rem] md:ml-6  md:-mr-1 md:text-[12.5rem]">
+              <span className=" font-san  z-40 absolute -top-10 -left-6   flex w-20 flex-col   text-[6.1rem] font-bold  leading-[0.88] tracking-[-1.0rem] text-pink-500 drop-shadow-lg sm:text-[7.8rem] sm:tracking-[-1.2rem] md:text-[12.5rem]">
                 {i + 1}
               </span>
-
+<div className="relative"> 
               <PostPreview
                 key={post._id}
                 title={post.title}
@@ -52,6 +52,8 @@ export default function TopListItems(
                 showRating={false}
                 
               />
+
+              </div>
             </div>
           )
         )}
