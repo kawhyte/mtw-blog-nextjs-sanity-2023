@@ -28,7 +28,7 @@ export default function TopListItems(
         </div>
       </div>
 
-      <div className="container mx-auto  mt-14 grid grid-cols-1 place-content-center place-items-center gap-x-5 gap-y-10  px-3 sm:grid-cols-1 md:grid-cols-2 md:gap-10 md:px-6 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3">
+      <div className="container mx-auto  mt-14 grid grid-cols-1 place-content-center place-items-center gap-x-5 gap-y-20 md:gap-y-24  px-3 sm:grid-cols-1 md:grid-cols-2 md:gap-10 md:px-6 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4">
         {posts.slice(0, 10).map(
           // Directly mapping over the top weighted posts
           (post, i) => (
@@ -36,11 +36,11 @@ export default function TopListItems(
               key={post._id}
               className="h-90 group relative m-auto   flex cursor-pointer  items-baseline     rounded-lg font-montserrat   xl:w-96   "
             >
-              <span className=" font-san  absolute -left-6 -top-10 z-40   flex w-20 flex-col   text-[6.1rem] font-bold  leading-[0.88] tracking-[-1.0rem] text-pink-500 drop-shadow-lg sm:text-[7.8rem] sm:tracking-[-1.2rem] md:text-[12.5rem]">
+              <span className=" font-san  absolute -left-6 -top-10 z-40   flex w-20 flex-col   text-[6.9rem] font-bold  leading-[0.88] tracking-[-1.0rem] text-pink-500 drop-shadow-lg sm:text-[7.9rem] sm:tracking-[-1.2rem] md:text-[12.5rem]">
                 {i + 1}
               </span>
 
-              <div className="absolute z-40 top-5 right-9 bg-green-300 px-2 ox-3">{post.weightedAverageRating}</div>
+              {/* <div className="absolute z-40 top-5 right-9 bg-green-300 px-2 ox-3">{post.weightedAverageRating}</div> */}
               
               <div className="relative">
                 <PostPreview
@@ -53,7 +53,7 @@ export default function TopListItems(
                   excerpt2={post.excerpt2}
                   location={post.location}
                   category={post.category}
-                  showRating={true}
+                  showRating={false}
                 />
               </div>
             </div>

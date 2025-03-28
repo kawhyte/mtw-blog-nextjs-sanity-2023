@@ -4,20 +4,20 @@ import Layout from 'components/BlogLayout';
 import IndexPageHead from 'components/IndexPageHead';
 import MoreStories from 'components/MoreStories';
 import * as demo from 'lib/demo.data';
+import { getSettings, getTopWeightedHotelPosts } from 'lib/sanity.client'; // Import the new function
 import { urlForImage } from 'lib/sanity.image';
 import type { Post, Recommendation, Settings } from 'lib/sanity.queries';
+import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import post from 'schemas/post';
-import { getSettings, getTopWeightedHotelPosts } from 'lib/sanity.client'; // Import the new function
 
 import { CMS_NAME } from '../lib/constants';
 import Footer from './Footer';
 import ReviewHeader from './ReviewHeader';
 import SectionSeparator from './SectionSeparator';
 import TopListItems from './TopListItems';
-import { GetStaticProps } from 'next';
 
 export interface IndexPageProps {
   preview?: boolean;
@@ -33,7 +33,14 @@ export default function IndexPage(props: IndexPageProps) {
   const { title = demo.title, description = demo.description } = settings || {};
 
   // const hotels = posts.filter((word) => word.listType === 'hotel'); // No longer filtering here
-  const topHotels = posts.filter((post) => post?.linkType === 'hotel'); // Filter for hotels based on linkType
+  const topHotels = posts.filter((post) => post?.linkType === 'hotel')  .sort((a, b) => {
+    const ratingA = a?.weightedAverageRating ?? 0; // Use 0 if undefined/null
+    const ratingB = b?.weightedAverageRating ?? 0; // Use 0 if undefined/null
+    console.log("ratingA", ratingA)
+    console.log("ratingB", ratingB)
+    return ratingB - ratingA; // Sort descending
+  });
+; // Filter for hotels based on linkType
   // const topRestaurants = posts.filter((post) => post?.linkType === 'food'); // Filter for hotels based on linkType
   
   const topRestaurants = posts
@@ -47,7 +54,7 @@ export default function IndexPage(props: IndexPageProps) {
   });
 
   // const restaurants = posts.filter((word) => word.listType === 'food');
-   console.log("topRestaurants23u", topRestaurants)
+  //  console.log("topRestaurants23u", topRestaurants)
   return (
     <>
       <IndexPageHead settings={settings} />

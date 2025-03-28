@@ -2,8 +2,8 @@ import { PreviewSuspense } from '@sanity/preview-kit';
 import TopListPage from 'components/TopListPage';
 import {
   getSettings,
-  getTopWeightedHotelPosts, // Import the top weighted hotels function
   getTopWeightedFoodPosts, // Import the new function for top weighted food
+  getTopWeightedHotelPosts, // Import the top weighted hotels function
 } from 'lib/sanity.client';
 import { Post, Settings } from 'lib/sanity.queries';
 import { GetStaticProps } from 'next';

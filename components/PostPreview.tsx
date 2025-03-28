@@ -1,11 +1,12 @@
 import { inter } from 'app/fonts';
 import Date from 'components/PostDate';
 import type { Post } from 'lib/sanity.queries';
-import { IoLocation } from 'react-icons/io5';
-import { FaRegCalendarAlt } from 'react-icons/fa';
-import Button from 'ui/Button';
-import CoverImage from './CoverImage';
 import Link from 'next/link';
+import { FaRegCalendarAlt } from 'react-icons/fa';
+import { IoLocation } from 'react-icons/io5';
+import Button from 'ui/Button';
+
+import CoverImage from './CoverImage';
 
 interface PostPreviewProps extends Omit<Post, '_id'> {}
 
@@ -89,7 +90,7 @@ const PostPreview = ({
   );
 
   return (
-    <div className="group z-10 w-full max-w-sm overflow-hidden rounded-3xl border-4 border-black bg-white shadow-md duration-300 dark:bg-gray-50">
+    <div className="group z-10 w-[18rem] md:w-[19rem] lg:w-[22rem] 2xl:w-[20.5rem]  max-w-sm overflow-hidden rounded-3xl border-4 border-black bg-white shadow-md duration-300 dark:bg-gray-50">
       <div className="mb-5">
         <CoverImage
           slug={slug}
