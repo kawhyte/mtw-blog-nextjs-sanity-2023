@@ -34,9 +34,20 @@ export default function IndexPage(props: IndexPageProps) {
 
   // const hotels = posts.filter((word) => word.listType === 'hotel'); // No longer filtering here
   const topHotels = posts.filter((post) => post?.linkType === 'hotel'); // Filter for hotels based on linkType
-  const topRestaurants = posts.filter((post) => post?.linkType === 'food'); // Filter for hotels based on linkType
+  // const topRestaurants = posts.filter((post) => post?.linkType === 'food'); // Filter for hotels based on linkType
+  
+  const topRestaurants = posts
+  .filter((post) => post?.linkType === 'food')
+  .sort((a, b) => {
+    const ratingA = a?.weightedAverageRating ?? 0; // Use 0 if undefined/null
+    const ratingB = b?.weightedAverageRating ?? 0; // Use 0 if undefined/null
+    console.log("ratingA", ratingA)
+    console.log("ratingB", ratingB)
+    return ratingB - ratingA; // Sort descending
+  });
+
   // const restaurants = posts.filter((word) => word.listType === 'food');
-//  console.log("topRestaurants", topRestaurants)
+   console.log("topRestaurants23u", topRestaurants)
   return (
     <>
       <IndexPageHead settings={settings} />

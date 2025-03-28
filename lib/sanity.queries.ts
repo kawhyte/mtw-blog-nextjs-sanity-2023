@@ -351,26 +351,32 @@ export const topWeightedHotelsQuery = groq`
 `;
 
 export const topWeightedFoodQuery = groq`
-*[_type == "post" && defined(foodRating) && linkType == "food"] {
+*[_type == "post" && defined(takeoutRating) || defined(foodRating) && linkType == "food"] {
   ${coreFields},
-  foodRating{
-    Restaurant_Location,
-    Restaurant_Service,
-    Food_Value,
-    Presentation_on_Plate,
-    Memorability,
-    Restaurant_Cleanliness,
-    Flavor_and_Taste
-  },
+  diningType,
+  foodRating, // Keep for dine-in
+  takeoutRating, // New field for takeout ratings
   "weightedAverageRating": round(
-    (
-      (foodRating.Restaurant_Location * 0.05) +
-      (foodRating.Restaurant_Service * 0.2) +
-      (foodRating.Food_Value * 0.15) +
-      (foodRating.Presentation_on_Plate * 0.05) +
-      (foodRating.Memorability * 0.15) +
-      (foodRating.Restaurant_Cleanliness * 0.2) +
-      (foodRating.Flavor_and_Taste * 0.2)
+    select(
+      diningType == "dinein" && defined(foodRating) => (
+        (foodRating.Restaurant_Location * 0.05) +
+        (foodRating.Restaurant_Service * 0.2) +
+        (foodRating.Food_Value * 0.15) +
+        (foodRating.Presentation_on_Plate * 0.05) +
+        (foodRating.Memorability * 0.15) +
+        (foodRating.Restaurant_Cleanliness * 0.2) +
+        (foodRating.Flavor_and_Taste * 0.2)
+      ),
+      diningType == "takeout" && defined(takeoutRating) => (
+        (takeoutRating.tasteAndFlavor * 0.1) +
+        (takeoutRating.presentation * 0.3) +
+        (takeoutRating.accuracy * 0.1) +
+        (takeoutRating.packaging * 0.1) +
+        (takeoutRating.overallSatisfaction * 0.2) +
+        (takeoutRating.foodValue * 0.2)
+      ),
+      // Handle cases where diningType is not defined or rating is missing
+      0
     ) * 1000
   ) / 1000
 }
