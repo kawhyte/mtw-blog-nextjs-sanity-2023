@@ -90,7 +90,7 @@ const PostPreview = ({
   );
 
   return (
-    <div className="group z-10 w-[18rem] md:w-[19rem] lg:w-[22rem] 2xl:w-[20.5rem]  max-w-sm overflow-hidden rounded-3xl border-4 border-black bg-white shadow-md duration-300 dark:bg-gray-50">
+    <div className="group z-10 w-[18.5rem] sm:w-[17.5rem] md:w-[20rem] lg:w-[21rem] 2xl:w-[20.5rem]  max-w-sm overflow-hidden rounded-3xl border-4 border-black bg-white shadow-md duration-300 dark:bg-gray-50">
       <div className="mb-5">
         <CoverImage
           slug={slug}

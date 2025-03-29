@@ -2,7 +2,8 @@ import { PortableText } from '@portabletext/react'
 import Link from 'next/link'
 
 import styles from './BlogHeader.module.css'
-import NavBar from './NavBar'
+// import NavBar from './NavBar'
+import NavBar from './NavigationBar'
 
 export default function BlogHeader({
   title,

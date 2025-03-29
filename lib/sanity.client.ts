@@ -67,6 +67,8 @@ export async function getInstagramPosts(): Promise<Instagram> {
 }
 
 
+
+
 export async function getHotelPosts(): Promise<Hotel[]> {
   if (client) {
     return (await client.fetch(hotelQuery)) || []

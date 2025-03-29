@@ -30,7 +30,7 @@ export default function MoreStories({ posts, showPagination, showRating }: { pos
 
   return (
     <section className="container mx-auto mt-2">
-      <div className="container mx-auto  mt-10 grid grid-cols-1 place-content-center place-items-center gap-x-16 gap-y-10 px-3 sm:grid-cols-1 md:grid-cols-2 md:gap-10 md:px-6 lg:grid-cols-3 2xl:grid-cols-3">
+      <div className="container mx-auto  mt-10 grid grid-cols-1 place-content-center place-items-center gap-x-16 gap-y-10 px-3 sm:grid-cols-2 md:grid-cols-2 md:gap-10 md:px-6 lg:gap-x-[7.7rem] lg:grid-cols-3 2xl:grid-cols-4">
         {visiblePosts.map((post) => (
           <PostPreview
             key={post._id}

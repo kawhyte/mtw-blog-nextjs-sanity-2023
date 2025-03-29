@@ -302,6 +302,26 @@ export const storyQuery = fetchDocuments('post', guideFields, {
     where: 'linkType == "story"',
 });
 
+
+
+
+
+// In your schema.ts or a dedicated queries file
+export const globalSearchQuery = groq`
+  *[_type == "post" && (
+    title match $searchTerm || 
+    location match $searchTerm
+    
+  )] {
+    ${coreFields}
+  }
+`;
+
+
+
+
+
+
 // ------------------------------
 // 8. New Query for Top Hotels and Restaurants with Weighted Average and Ordering
 // ------------------------------
