@@ -18,17 +18,14 @@ export default function BlogHeader({
     case 1:
       return (
         <header className=" sticky top-0  z-50   flex flex-col items-center  md:flex-row md:justify-between">
-     
-          <NavBar bgColor={"#eef2ff"}/>
-      
+          <NavBar />
         </header>
       )
 
     case 2:
       return (
         <header className="sticky top-0  z-50 flex flex-col items-center  md:flex-row md:justify-between">
-          <NavBar bgColor={"#FFFFFF"}/>
-        
+          <NavBar />
         </header>
       )
 
