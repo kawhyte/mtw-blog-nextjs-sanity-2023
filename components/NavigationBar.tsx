@@ -63,7 +63,7 @@
            <div className="relative w-full">
              <input
                type="text"
-               placeholder="Search..."
+               placeholder="Search for Hotels, Restaurants, or Guides..."
                className="w-full rounded-full border border-gray-300 bg-white py-2 pl-4 pr-10 focus:outline-none focus:ring-2 focus:ring-purple-400"
                value={searchTerm} // Bind value to state
                onChange={handleSearchChange} // Update state on change
@@ -115,7 +115,7 @@
            <div className="relative">
              <input
                type="text"
-               placeholder="Search..."
+               placeholder="Search for Hotels, Restaurants, or Guides..."
                className="w-full rounded-full border border-gray-300 bg-white py-2 pl-4 pr-10 focus:outline-none focus:ring-2 focus:ring-purple-400"
                value={searchTerm}
                onChange={handleSearchChange}
