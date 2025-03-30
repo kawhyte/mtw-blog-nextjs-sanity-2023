@@ -48,6 +48,8 @@ const SearchResults = (props: PageProps) => {
       sanityClient
         .fetch(globalSearchQuery, { searchTerm: searchTermWithWildcards })
         .then((data) => {
+
+
           setResults(data || [])
           setLoading(false)
         })
@@ -89,7 +91,7 @@ const SearchResults = (props: PageProps) => {
        </Layout>
      )
   }
-
+console.log('Search Results:', results)
   // --- Results Display ---
   return (
     <Layout preview={false} loading={loading}>
@@ -103,12 +105,16 @@ const SearchResults = (props: PageProps) => {
           // --- RESULTS FOUND ---
           <>
             <h1 className='font-oswald text-3xl md:text-4xl mt-6 mb-6'>
-              Search Results for &quot;{searchQuery}&quot;
+              Search results for <span className="text-pink-500">&quot;{searchQuery}&quot;  </span>
             </h1>
+
+            <p className="text-md md:text-lg text-gray-500 max-w-lg mx-auto">
+            {results.length} items found. 😉
+                </p>
             <MoreStoriesIndex
               posts={results}
-              showPagination={false}
-              showRating={true}
+              showPagination={true}
+              showRating={false}
             />
           </>
         ) : (
@@ -160,9 +166,7 @@ const SearchResults = (props: PageProps) => {
                   <p className="text-lg text-gray-500">Pop a search term into the bar above to begin your adventure.</p>
               </div>
             )}
-             {/* Optional: You could still show *some* general posts below even if the specific search failed */}
-             {/* <h2 className="text-2xl font-bold mt-16 mb-4">Maybe check out some of our latest posts?</h2> */}
-             {/* <MoreStoriesIndex posts={someGeneralPosts} ... /> */}
+             
           </>
         )}
       </Container>

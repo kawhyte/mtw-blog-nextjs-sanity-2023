@@ -13,9 +13,9 @@ export default function TopListItems(
         <div className="mx-4 my-6 w-full lg:mb-0 lg:w-1/2 ">
           {posts[0]?.title && (
             <SectionTitle
-              header={`Best ${
-                posts[0].linkType === 'hotel' ? 'Hotels' : 'Restaurants'
-              }`}
+              header={`Our Top ${
+                posts[0].linkType === 'hotel' ? 'Hotel' : 'Restaurant'
+              } Picks 🔥 `}
               description={undefined}
             />
           )}

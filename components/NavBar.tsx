@@ -26,7 +26,7 @@ const navigation = [
   },
   {
     name: 'Our Top Picks',
-    href: '/top_picks',
+    href: '/picks',
     icon: <LiaCrownSolid className="h-6 w-10 text-gray-700   " />,
     text: 'Book icon',
     bg: '  hover:bg-gradient-to-r from-pink-100 to-yellow-100  focus:decoration-yellow-500/50',

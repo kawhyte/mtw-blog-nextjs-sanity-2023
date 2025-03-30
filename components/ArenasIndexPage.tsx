@@ -1,11 +1,11 @@
 import { inter } from 'app/fonts'
 import { urlForImage } from 'lib/sanity.image'
+import { Volleyball } from 'lucide-react'
 import dynamic from 'next/dynamic'
+import { LiaBasketballBallSolid } from 'react-icons/lia'
 import Button from 'ui/Button'
 
 import SectionTitle from './SectionTitle'
-import { Volleyball } from 'lucide-react'
-import { LiaBasketballBallSolid } from 'react-icons/lia'
 
 const ArenasIndexPage = ({ arenas }) => {
   //console.log('arenasH ', arenas[0])
@@ -21,9 +21,7 @@ const ArenasIndexPage = ({ arenas }) => {
           <div className="z-20 w-full  text-start  lg:w-3/5 ">
             <SectionTitle
               header={'Our Quest to Visit Every NBA & WNBA Arenas'}
-              description={`We are traveling near and far to every state/country to visit and rank all
-              the NBA and WNBA arenas across the US and Canada. Follow us on
-              this journey.`}
+              description={`We're hitting the road (like, seriously hitting all the roads!) to check out and rank every single NBA and WNBA arena across the US and Canada. Buckle up and follow our adventure!`}
             />
             <p
               className={` ${inter.variable} font-secondary mt-4 text-sm leading-relaxed md:text-base  lg:text-base `}

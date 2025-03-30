@@ -44,8 +44,7 @@ function Hero() {
             </div>
 
             <p className={`${inter.variable} z-30 max-w-2xl font-sans text-lg leading-relaxed md:text-lg xl:text-xl`}>
-              We are traveling near and far to every state/country to visit and rank all the NBA and WNBA arenas across
-              the US and Canada. Follow us on this journey.
+            We&apos;re hitting the road (like, seriously hitting all the roads!) to check out and rank every single NBA and WNBA arena across the US and Canada. Buckle up and follow our adventure!
             </p>
 
             <div className="flex pt-9 lg:mt-0 lg:flex-shrink-0">
