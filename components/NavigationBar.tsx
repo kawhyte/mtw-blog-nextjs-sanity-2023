@@ -35,7 +35,7 @@
      if (isMenuOpen) setIsMenuOpen(false);
      setIsSearchOpen(!isSearchOpen);
      // Optionally clear search term when closing search, or focus input when opening
-     // if (!isSearchOpen) setSearchTerm(''); // Example: Clear on close
+      //if (!isSearchOpen) setSearchTerm(''); // Example: Clear on close
    };
 
    // Handler for submitting the search form
@@ -156,7 +156,7 @@
 
          {/* Desktop Navigation */}
          <div className="hidden items-center space-x-1 md:flex lg:space-x-4">
-           <NavItem href="/arenas" icon={<LiaBasketballBallSolid size={22} />} text="NBA & WNBA Arenas" />
+           <NavItem href="/arenas" icon={<LiaBasketballBallSolid size={22} />} text="NBA/WNBA Arenas" />
            <NavItem href="/picks" icon={<LiaCrownSolid size={22} />} text="Our Top Picks" />
            <NavItem href="/hotels" icon={<Building size={22} />} text="Hotel Reviews" />
            <NavItem href="/food" icon={<Utensils size={22} />} text="Food Reviews" />

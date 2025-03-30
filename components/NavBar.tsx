@@ -50,7 +50,7 @@ const navigation = [
   },
   {
     name: 'Guides',
-    href: '/story',
+    href: '/guide',
     icon: <TfiMapAlt className="h-6 w-10   text-gray-700 " />,
     text: 'Book icon',
     bg: '  hover:bg-gradient-to-r from-pink-100 to-indigo-100  text-white w-full  focus:decoration-indigo-500/50',

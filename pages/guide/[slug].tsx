@@ -91,7 +91,7 @@ export const getStaticPaths = async () => {
   const slugs = await getAllPostsSlugs()
 
   return {
-    paths: slugs?.map(({ slug }) => `/story/${slug}`) || [],
+    paths: slugs?.map(({ slug }) => `/guide/${slug}`) || [],
     fallback: 'blocking',
   }
 }
