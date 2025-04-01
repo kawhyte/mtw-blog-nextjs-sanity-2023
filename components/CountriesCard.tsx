@@ -27,7 +27,7 @@ function CountriesCard({ countries }: CountriesCardProps) {
             <img
               src={`https://flagcdn.com/${country.code.toLowerCase()}.svg`}
               alt={`${country.name} flag`}
-              className="h-3 w-4 object-cover"
+              className="h-5 w-6 object-cover"
             />
             <span className="text-sm">{country.name}</span>
           </div>

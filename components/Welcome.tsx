@@ -7,6 +7,11 @@ import {
   Gamepad,
   Luggage,
   Pizza,
+  Bed,
+  Music,
+  ToyBrick,
+  Clapperboard,
+  Ship
 } from 'lucide-react';
 import React from 'react';
 
@@ -64,9 +69,19 @@ function Welcome(): JSX.Element {
     { icon: Coffee, label: 'Coffee' },
     { icon: Footprints, label: 'Sneakers' },
     { icon: Dumbbell, label: 'Weightlifting' },
+    { icon: Bed, label: 'Sleep' },
+    { icon: Music, label: 'Music' },
+    { icon: ToyBrick, label: 'Legos' },
+    { icon: ToyBrick, label: 'Movies' },
+    { icon: Clapperboard, label: 'Movies' },
+    { icon: Ship, label: 'Curise' },
   ];
 
   const countries: Country[] = [
+    { code: 'HK', name: 'Hong Kong' },
+    { code: 'TW', name: 'Taiwan' },
+    { code: 'VN', name: 'Vietnam' },
+    { code: 'SG', name: 'Singapore' },
     { code: 'CA', name: 'Canada' },
     { code: 'DK', name: 'Denmark' },
     { code: 'FI', name: 'Finland' },
