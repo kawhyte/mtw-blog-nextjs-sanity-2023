@@ -55,7 +55,7 @@ export default function Page(props: PageProps) {
      // getAllPosts(),
       getStoryPosts()
     ])
-  
+  console.log("posts",posts)
     return {
       props: {
         posts,
