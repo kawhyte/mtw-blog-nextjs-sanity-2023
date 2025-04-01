@@ -411,7 +411,7 @@ export const globalSearchQuery = groq`
 
 export const topWeightedHotelsQuery = groq`
   *[_type == "post" && defined(hotelRating) && linkType == "hotel"] {
-    ${coreFields},
+    ${coreFieldsLimited},
     hotelRating{
       Value,
       Gym,
@@ -455,7 +455,7 @@ export const topWeightedHotelsQuery = groq`
 
 export const topWeightedFoodQuery = groq`
 *[_type == "post" && defined(takeoutRating) || defined(foodRating) && linkType == "food"] {
-  ${coreFields},
+  ${coreFieldsLimited},
   diningType,
   foodRating, // Keep for dine-in
   takeoutRating, // New field for takeout ratings
