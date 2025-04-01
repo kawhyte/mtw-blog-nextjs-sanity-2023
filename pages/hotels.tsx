@@ -57,6 +57,7 @@ export default function Page(props: PageProps) {
       getHotelPosts()
     ])
   
+    console.log("Hotel Reviews666",posts )
     return {
       props: {
         posts,

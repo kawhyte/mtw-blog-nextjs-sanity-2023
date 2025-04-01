@@ -22,6 +22,22 @@ const coreFields = groq`
     linkType,
     category
 `;
+const coreFieldsLimited = groq`
+    _id,
+    title,
+    date,
+   
+    coverImage,
+   
+    location,
+   
+   
+   
+    "slug": slug.current,
+   
+    linkType,
+    category
+`;
 
 // ------------------------------
 // 2. Reusable Rating Field Definitions
@@ -76,6 +92,12 @@ const hotelFieldsFragment = groq`
     techRating,
     roomAmenities
 `;
+const hotelFieldsFragmentLimited = groq`
+
+   
+    ${hotelRatingFields},
+    
+`;
 
 const foodFieldsFragment = groq`
     ${foodRatingFields},
@@ -97,6 +119,10 @@ const postFields = groq`
 const hotelFields = groq`
     ${coreFields},
     ${hotelFieldsFragment}
+`;
+const hotelFieldsLimited = groq`
+    ${coreFieldsLimited},
+    ${hotelFieldsFragmentLimited}
 `;
 
 const foodFields = groq`
@@ -287,7 +313,7 @@ export const hotelAndMoreQuery = fetchDocumentAndRelated('post', postFields, 'sl
 export const storyAndMoreQuery = fetchDocumentAndRelated('post', postFields, 'slug.current', { where: 'linkType == "story"' });
 export const foodAndMoreQuery = fetchDocumentAndRelated('post', postFields, 'slug.current', { where: 'linkType == "food"' });
 
-export const hotelQuery = fetchDocuments('post', hotelFields, {
+export const hotelQuery = fetchDocuments('post', hotelFieldsLimited, {
     order: 'date desc, _updatedAt desc',
     where: 'linkType == "hotel"',
 });
