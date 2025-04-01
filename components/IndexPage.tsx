@@ -26,10 +26,10 @@ export interface IndexPageProps {
   preview?: boolean
   loading?: boolean
   posts: Post[]
-  Essentialposts: Essential[]
-  arenaPosts: Arena[]
+  // Essentialposts: Essential[]
+  // arenaPosts: Arena[]
   settings: Settings
-  instagram: any
+  // instagram: any
 }
 
 export default function IndexPage(props: IndexPageProps) {
@@ -37,10 +37,10 @@ export default function IndexPage(props: IndexPageProps) {
     preview,
     loading,
     posts,
-    Essentialposts,
-    arenaPosts,
+    // Essentialposts,
+    // arenaPosts,
     settings,
-    instagram,
+    // instagram,
   } = props
   const [heroPost, ...morePosts] = posts || []
   const { title = demo.title, description = demo.description } = settings || {}
@@ -125,13 +125,13 @@ export default function IndexPage(props: IndexPageProps) {
             <YoutubeHighlights />
           </BlogSection>
 
-          <BlogSection
+          {/* <BlogSection
             className={
               'my-24 bg-gradient-to-r from-indigo-200 via-pink-200 to-yellow-50 md:mt-24'
             }
           >
             <ArenasIndexPage arenas={arenaPosts?.slice(0, 8)} />
-          </BlogSection>
+          </BlogSection> */}
 
           {/* <SneakersIndexPage arenas={undefined} /> */}
           {/* <InstagramHighlights instagram={instagram.data} /> */}
