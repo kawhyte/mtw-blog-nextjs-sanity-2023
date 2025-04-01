@@ -113,7 +113,7 @@ export default function IndexPage(props: IndexPageProps) {
               <div className=" inline-flex ">
                 <Button
                   icon={<BriefcaseConveyorBelt className="text-pink-500" />}
-                  link="/reviews" // Link to the page that shows ALL reviews/guides with pagination
+                  link="/hotels" // Link to the page that shows ALL reviews/guides with pagination
                 >
                   More Adventures & Reviews
                 </Button>

@@ -159,6 +159,14 @@ const guideFieldsLimited = groq`
     ${guideFieldsFragment}
 `
 
+const allFieldsLimited = groq`
+    ${coreFieldsLimited},
+    ${hotelFieldsFragmentLimited}
+    ${guideFieldsFragment}
+    ${foodFieldsFragmentLimited}
+`
+
+
 // ------------------------------
 // 5. Specialized Field Sets
 // ------------------------------
@@ -319,7 +327,7 @@ export const arenaQuery = fetchDocuments('arenas', arenaFields, {
 export const settingsQuery = groq`*[_type == "settings"][0]`
 
 // Index query (example: first 6 of any post type, using limited fields)
-export const indexQuery = fetchDocuments('post', coreFieldsLimited, {
+export const indexQuery = fetchDocuments('post', allFieldsLimited, {
     order: 'date desc, _updatedAt desc',
     slice: '[0...6]',
   })
