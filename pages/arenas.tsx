@@ -7,7 +7,7 @@ import NBAArenaCard from 'components/NBAArenaCard';
 import ReviewHeader from 'components/ReviewHeader';
 // ... other imports
 import {
-  getAllPosts,
+  // getAllPosts,
   getArenaPosts,
   getSettings,
   getTravelEssentialPosts,

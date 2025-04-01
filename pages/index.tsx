@@ -1,6 +1,6 @@
 import { PreviewSuspense } from '@sanity/preview-kit'
 import IndexPage from 'components/IndexPage'
-import { getAllPosts, getArenaPosts, getInstagramPosts, getSettings, getTravelEssentialPosts } from 'lib/sanity.client'
+import { getIndexPosts, getArenaPosts, getInstagramPosts, getSettings, getTravelEssentialPosts } from 'lib/sanity.client'
 import { Arena, Essential, Post, Settings } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
 import { lazy } from 'react'
@@ -57,7 +57,7 @@ export const getStaticProps: GetStaticProps<
   const [settings, posts = []] = await Promise.all([
   // const [settings, posts = [], instagram,Essentialposts = [], arenaPosts=[]] = await Promise.all([
     getSettings(),
-    getAllPosts(),
+    getIndexPosts(),
     // getInstagramPosts(),
     // getTravelEssentialPosts(),
     // getArenaPosts(),

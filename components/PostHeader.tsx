@@ -99,13 +99,15 @@ type PostHeaderProps = Pick<
   | 'title'
   | 'coverImage'
   | 'date'
-  | 'slug'
+  | 'slug' // Assuming slug is needed if not already there
   | 'location'
   | 'linkType'
   | 'diningType'
   | 'room'
   | 'excerpt2'
-  | 'hotelRating'
+  | 'hotelRating'   // Keep
+  | 'foodRating'    // Add
+  | 'takeoutRating' // Add
   | 'gallery'
   | 'category'
   | 'tip'
@@ -121,7 +123,9 @@ export default function PostHeader({
   diningType,
   room,
   excerpt2,
-  hotelRating,
+  hotelRating,  // Existing
+  foodRating,   // Add
+  takeoutRating, // Add
   gallery,
   category,
   tip,
@@ -167,15 +171,22 @@ export default function PostHeader({
           </>
         )}
 
-        {(linkType === 'hotel' || linkType === 'food') && (
-          <div className="mx-6 my-6 block text-base md:mx-0 md:mb-12">
-            <StarRating
-              rating={hotelRating}
-              diningType={diningType}
-              linkType={linkType}
-            />
-          </div>
-        )}
+{(linkType === 'hotel' || linkType === 'food') && (
+  <div className="mx-6 my-6 block text-base md:mx-0 md:mb-12">
+    <StarRating
+      // Determine the correct rating object to pass
+      rating={
+        linkType === 'hotel' ? hotelRating :
+        linkType === 'food' && diningType === 'dinein' ? foodRating :
+        linkType === 'food' && diningType === 'takeout' ? takeoutRating :
+        undefined // Fallback if needed
+      }
+      // Pass discriminators if StarRating needs them
+      diningType={diningType}
+      linkType={linkType}
+    />
+  </div>
+)}
 
         <QuickTip tip={tip} />
       </div>

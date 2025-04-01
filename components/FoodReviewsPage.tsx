@@ -1,53 +1,85 @@
-import Container from 'components/BlogContainer'
-import BlogHeader from 'components/BlogHeader'
-import Layout from 'components/BlogLayout'
-import IndexPageHead from 'components/IndexPageHead'
-import MoreStories from 'components/MoreStories'
-import * as demo from 'lib/demo.data'
-import type { Post, Settings } from 'lib/sanity.queries'
-import Head from 'next/head'
+// components/FoodReviewsPage.tsx (assuming you rename the file)
 
-import { CMS_NAME } from '../lib/constants'
-import Footer from './Footer'
-import ReviewHeader from './ReviewHeader'
+import Container from 'components/BlogContainer';
+import BlogHeader from 'components/BlogHeader'; // Maybe remove if ReviewHeader is enough
+import Layout from 'components/BlogLayout';
+import IndexPageHead from 'components/IndexPageHead';
+import MoreStories from 'components/MoreStories'; // Import the updated MoreStories
+import * as demo from 'lib/demo.data';
+// Import Post and Settings, and the specific food pagination query
+import type { Post, Settings } from 'lib/sanity.queries';
+import { paginatedFoodPostsQuery } from 'lib/sanity.queries'; // <-- IMPORT specific query
+import Head from 'next/head';
 
-export interface IndexPageProps {
-  preview?: boolean
-  loading?: boolean
-  posts: Post[]
-  settings: Settings
+import { CMS_NAME } from '../lib/constants';
+import Footer from './Footer';
+import ReviewHeader from './ReviewHeader';
+
+// --- Renamed and Updated Props Interface ---
+export interface FoodReviewsPageProps {
+  preview?: boolean;
+  loading?: boolean;
+  initialPosts: Post[]; // Use Post type if returned by client func
+  totalPostsCount: number;
+  itemsPerPage: number;
+  settings: Settings;
 }
 
-export default function IndexPage(props: IndexPageProps) {
-  const { preview, loading, posts, settings } = props
-  const [heroPost, ...morePosts] = posts || []
-  const { title = demo.title, description = demo.description } = settings || {}
-  // console.log("Food Review1 ",posts )
+// --- Renamed Component ---
+export default function FoodReviewsPage(props: FoodReviewsPageProps) {
+  // --- Updated Props Destructuring ---
+  const {
+    preview,
+    loading,
+    initialPosts,
+    totalPostsCount,
+    itemsPerPage,
+    settings,
+   } = props;
+
+  // Remove hero post logic
+  // const [heroPost, ...morePosts] = initialPosts || [] // <-- REMOVE
+
+  const { title = demo.title, description = demo.description } = settings || {};
+  // console.log("Food Review Page Initial Posts:", initialPosts)
+
   return (
     <>
       <IndexPageHead settings={settings} />
 
       <Layout preview={preview} loading={loading}>
         <Head>
-          <title>{CMS_NAME}</title>
-          {/* <title> { `${CMS_NAME} - Travel and Food Reviews`}</title> */}
+           {/* Update title */}
+          <title>{`Food Reviews - ${CMS_NAME}`}</title>
         </Head>
-        {/* <Container> */}
-          <BlogHeader title={title} description={description} level={1} />
 
-          <ReviewHeader
-            title={'Food Reviews'}
-            arenas={[]}
-            summary={
-              "Join us on a culinary adventure as we explore the best (and sometimes, the worst) eateries in town. From hidden gems to fancy hotspots, We’ll dish out honest reviews, mouthwatering photos, and insider tips. Let's eat!"
-            }
-            animation={'/food_smiling.svg'}
+      
+        <BlogHeader title={title} description={description} level={1} />
+
+        <ReviewHeader
+          title={'Food Reviews'}
+          arenas={[]} // Remove if not needed
+          summary={
+            "Join us on a culinary adventure as we explore the best (and sometimes, the worst) eateries in town. From hidden gems to fancy hotspots, We’ll dish out honest reviews, mouthwatering photos, and insider tips. Let's eat!"
+          }
+          animation={'/food_smiling.svg'} // Ensure path is correct
+        />
+
+        {/* --- Update MoreStories Props --- */}
+        {totalPostsCount > 0 ? (
+          <MoreStories
+            initialPosts={initialPosts}
+            totalPostsCount={totalPostsCount}
+            itemsPerPage={itemsPerPage}
+            showPagination={true}
+            showRating={true} // Adjust if food reviews don't show ratings same way
+            paginatedQuery={paginatedFoodPostsQuery} // <-- PASS the food query
           />
-
-          {posts.length > 0 && <MoreStories posts={posts} showPagination={true} showRating={true} />}
-        {/* </Container> */}
+        ) : (
+           !loading && <Container><p className="text-center my-10">No food reviews found.</p></Container>
+        )}
       </Layout>
       <Footer />
     </>
-  )
+  );
 }

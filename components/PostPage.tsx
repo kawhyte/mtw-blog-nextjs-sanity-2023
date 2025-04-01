@@ -99,21 +99,23 @@ export default function PostPage(props: PostPageProps) {
         <BlogHeader title={title} level={2} />
         {/* <Container> */}
           <article className="container mx-auto flex flex-col justify-center items-start sm:pl-4 md:mt-10">
-            <PostHeader
-              title={post.title}
-              coverImage={post.coverImage}
-              date={post.date}
-              // author={post.author}
-              location={post.location}
-              room={post.room}
-              linkType={post.linkType}
-              diningType = {post.diningType}
-              excerpt2={post.excerpt2}
-              hotelRating={ratingCat}
-              gallery={post.gallery}
-              category={post.category}
-              tip={post.tip}
-            />
+          <PostHeader
+  title={post.title}
+  coverImage={post.coverImage}
+  date={post.date}
+  location={post.location}
+  room={post.room}
+  linkType={post.linkType}         // Pass linkType
+  diningType={post.diningType}     // Pass diningType
+  excerpt2={post.excerpt2}
+  // Pass each rating object directly under its own prop
+  hotelRating={post.hotelRating}
+  foodRating={post.foodRating}
+  takeoutRating={post.takeoutRating}
+  gallery={post.gallery}
+  category={post.category}
+  tip={post.tip}
+/>
 
             {renderLinkTypeComponent(post)}
 

@@ -2,7 +2,7 @@ import { PreviewSuspense } from '@sanity/preview-kit'
 import AllReviewsPage from 'components/AllReviewsPage'
 import TopListPage from 'components/TopListPage'
 import TravelEssentialPage from 'components/TravelEssentialPage'
-import { getAllPosts,getSettings,getTravelEssentialPosts } from 'lib/sanity.client'
+import { getSettings,getTravelEssentialPosts } from 'lib/sanity.client'
 import { Essential, Post, Settings } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
 import Head from "next/head";

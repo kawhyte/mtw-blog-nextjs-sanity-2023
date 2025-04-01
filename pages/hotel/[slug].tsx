@@ -67,7 +67,7 @@ export const getStaticProps: GetStaticProps<
 
   const [settings, { post, morePosts }] = await Promise.all([
     getSettings(),
-    getPostAndMoreStories(params.slug, token),
+    getPostAndMoreStories(params.slug),
   ])
 
   if (!post) {

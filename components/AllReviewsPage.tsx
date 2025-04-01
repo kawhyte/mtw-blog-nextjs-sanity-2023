@@ -38,14 +38,14 @@ export default function IndexPage(props: IndexPageProps) {
 
           <ReviewHeader
             title={'Stuff We Like'}
-            arenas={[]}
+            arenas={[]} 
             summary={
               'From sneakers to to the latest Game consoles... here you will find random items that we love ❤️'
             }
             animation={'/all.json'}
           />
 
-          {posts.length > 0 && <MoreStories posts={posts} showPagination={false} showRating={false} />}
+          {/* {posts.length > 0 && <MoreStories posts={posts} showPagination={false} showRating={false} />} */}
         </Container>
 
       </Layout>

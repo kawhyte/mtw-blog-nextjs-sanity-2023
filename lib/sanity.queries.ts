@@ -26,15 +26,14 @@ const coreFieldsLimited = groq`
     _id,
     title,
     date,
-   
+
     coverImage,
-   
+
     location,
-   
-   
-   
+
+
     "slug": slug.current,
-   
+
     linkType,
     category
 `
@@ -68,20 +67,33 @@ const foodRatingFields = groq`
         Restaurant_Cleanliness
     }
 `
+// NOTE: Assuming a similar structure might exist or be needed for takeoutRating if it's an object
+const takeoutRatingFields = groq`
+    takeoutRating{
+      tasteAndFlavor,
+      presentation,
+      accuracy,
+      packaging,
+      overallSatisfaction,
+      foodValue
+    }
+`
+
 
 // ------------------------------
 // 3. Reusable Content-Type Specific Field Sets
 // ------------------------------
 
 const postFieldsFragment = groq`
-    individualFoodRating,
+    individualFoodRating, // Assuming this exists
     room,
     internetSpeed,
     techRating,
     roomAmenities,
     ${hotelRatingFields},
     ${foodRatingFields},
-    takeoutRating,
+    ${takeoutRatingFields}, // Include if takeoutRating is an object
+    // takeoutRating, // Use this if takeoutRating is a simple type (e.g., number)
     diningType
 `
 
@@ -93,24 +105,23 @@ const hotelFieldsFragment = groq`
     roomAmenities
 `
 const hotelFieldsFragmentLimited = groq`
-
-   
     ${hotelRatingFields},
-    
 `
 
 const foodFieldsFragment = groq`
     ${foodRatingFields},
-    takeoutRating,
+    ${takeoutRatingFields}, // Include if takeoutRating is an object
+    // takeoutRating, // Use this if takeoutRating is a simple type
     diningType
 `
 const foodFieldsFragmentLimited = groq`
     ${foodRatingFields},
-    takeoutRating,
+    ${takeoutRatingFields}, // Include if takeoutRating is an object
+    // takeoutRating, // Use this if takeoutRating is a simple type
     diningType
 `
 
-const guideFieldsFragment = groq`` // No specific fields for guides
+const guideFieldsFragment = groq`` // No specific fields for guides yet
 
 // ------------------------------
 // 4. Combine Core and Specific Fields
@@ -131,20 +142,20 @@ const hotelFieldsLimited = groq`
 `
 
 const foodFields = groq`
-    ${coreFieldsLimited},
+    ${coreFields}, // Use full core fields for single food view
     ${foodFieldsFragment}
 `
 const foodFieldsLimited = groq`
-    ${coreFieldsLimited},
-    ${foodFieldsFragment}
+    ${coreFieldsLimited}, // Use limited core fields for food list view
+    ${foodFieldsFragmentLimited}
 `
 
 const guideFields = groq`
-    ${coreFields},
+    ${coreFields}, // Use full core fields for single guide view
     ${guideFieldsFragment}
 `
 const guideFieldsLimited = groq`
-    ${coreFieldsLimited},
+    ${coreFieldsLimited}, // Use limited core fields for guide list view
     ${guideFieldsFragment}
 `
 
@@ -158,6 +169,7 @@ const recommendationFields = groq`
     listType,
     recommendations[] {
         post->{
+            _id, // Added _id for key prop usage
             title,
             "slug": slug.current,
             coverImage,
@@ -201,11 +213,7 @@ const arenaFields = groq`
 
 /**
  * Constructs a Groq query to fetch documents of a specific type.
- *
- * @param type The document type to query (e.g., 'post', 'hotel').
- * @param fields The Groq fragment specifying the fields to retrieve.
- * @param options Additional query options (order, where).
- * @returns A Groq query string.
+ * Includes handling for slice parameters which are passed at fetch time.
  */
 const fetchDocuments = (
     type: string,
@@ -214,27 +222,24 @@ const fetchDocuments = (
   ): string => {
     let query = `*[_type == "${type}"`
     if (options.where) {
-      query += ` && ${options.where}`
+      query += ` && (${options.where})` // Ensure 'where' is enclosed if complex
     }
     query += `]`
     if (options.order) {
       query += ` | order(${options.order})`
     }
+    // Apply slice if provided (e.g., '[$start...$end]' or '[0...10]')
     if (options.slice) {
+      // The actual values for $start/$end are added by the client fetch call
       query += ` ${options.slice}`
     }
-    query += `{${fields}}`
+    query += ` {${fields}}`
     return query
   }
 
+
 /**
  * Constructs a Groq query to fetch a single document by slug and related documents.
- *
- * @param type The document type.
- * @param fields The fields to fetch.
- * @param slugField The name of the slug field ('slug.current' or 'slug').
- * @param relatedOptions Options for fetching related documents (where clause).
- * @returns A Groq query.
  */
 const fetchDocumentAndRelated = (
   type: string,
@@ -242,7 +247,7 @@ const fetchDocumentAndRelated = (
   slugField: string,
   relatedOptions: { where?: string } = {}
 ): string => {
-  let relatedWhere = relatedOptions.where ? `&& ${relatedOptions.where}` : ''
+  let relatedWhere = relatedOptions.where ? `&& (${relatedOptions.where})` : '' // Enclose where
   return groq`
         {
             "post": *[_type == "${type}" && ${slugField} == $slug] | order(_updatedAt desc) [0] {
@@ -251,7 +256,8 @@ const fetchDocumentAndRelated = (
             },
             "morePosts": *[_type == "${type}" && ${slugField} != $slug ${relatedWhere}] | order(date desc, _updatedAt desc) [0...2] {
                 content,
-                ${fields}
+                // Use limited fields for related posts if desired for performance
+                ${coreFieldsLimited} // Example: Using limited fields
             }
         }
     `
@@ -259,15 +265,11 @@ const fetchDocumentAndRelated = (
 
 /**
  * Constructs a Groq query to fetch slugs for a given document type.
- *
- * @param type The document type.
- * @param filter An optional filter to apply to the query.
- * @returns A Groq query string.
  */
 const fetchSlugs = (type: string, filter?: string): string => {
   let query = `*[_type == "${type}"`
   if (filter) {
-    query += ` && ${filter}`
+    query += ` && (${filter})` // Enclose filter
   }
   query += ` && defined(slug.current)][].slug.current`
   return query
@@ -275,12 +277,6 @@ const fetchSlugs = (type: string, filter?: string): string => {
 
 /**
  * Constructs a Groq query to fetch a single document by slug.
- *
- * @param type The document type.
- * @param fields The fields to fetch.
- * @param slugField The field name for the slug.
- * @param filter Additional filter
- * @returns A Groq query string.
  */
 const fetchDocumentBySlug = (
   type: string,
@@ -290,14 +286,14 @@ const fetchDocumentBySlug = (
 ): string => {
   let query = `*[_type == "${type}" && ${slugField} == $slug`
   if (filter) {
-    query += ` && ${filter}`
+    query += ` && (${filter})` // Enclose filter
   }
   query += `][0] {${fields}}`
   return query
 }
 
 // ------------------------------
-// 7. Exported Queries
+// 7. Exported Queries (General, Slugs, By Slug, Fetch All Type)
 // ------------------------------
 
 export const recommendationQuery = fetchDocuments(
@@ -320,100 +316,105 @@ export const arenaQuery = fetchDocuments('arenas', arenaFields, {
   order: 'name asc',
 })
 
-export const settingsQuery = `*[_type == "settings"][0]`
+export const settingsQuery = groq`*[_type == "settings"][0]`
 
-export const indexQuery = fetchDocuments('post', postFields, {
+// Index query (example: first 6 of any post type, using limited fields)
+export const indexQuery = fetchDocuments('post', coreFieldsLimited, {
     order: 'date desc, _updatedAt desc',
-    where: '',
-    slice: '[0...6]', // Fetch the first 6 posts
+    slice: '[0...6]',
   })
 
-export const postAndMoreStoriesQuery = fetchDocumentAndRelated(
-  'post',
-  postFields,
-  'slug.current'
-)
-
+// Post Slugs and Single Post Fetching (Generic)
 export const postSlugsQuery = fetchSlugs('post')
 
 export const postBySlugQuery = fetchDocumentBySlug(
   'post',
-  postFields,
+  postFields, // Use full fields for single generic post
   'slug.current'
 )
 
+export const postAndMoreStoriesQuery = fetchDocumentAndRelated(
+  'post',
+  postFields, // Fields for main post
+  'slug.current'
+  // Related posts will use coreFieldsLimited as defined in helper
+)
+
+// Type-Specific Slugs
 export const hotelSlugsQuery = fetchSlugs('post', 'linkType == "hotel"')
 export const storySlugsQuery = fetchSlugs('post', 'linkType == "story"')
 export const foodSlugsQuery = fetchSlugs('post', 'linkType == "food"')
 
+// Type-Specific Single Item Fetching
 export const hotelBySlugQuery = fetchDocumentBySlug(
   'post',
-  hotelFields,
+  hotelFields, // Use full hotel fields
   'slug.current',
   'linkType == "hotel"'
 )
 export const storyBySlugQuery = fetchDocumentBySlug(
   'post',
-  guideFields,
+  guideFields, // Use guide fields
   'slug.current',
   'linkType == "story"'
 )
 export const foodBySlugQuery = fetchDocumentBySlug(
   'post',
-  foodFields,
+  foodFields, // Use full food fields
   'slug.current',
   'linkType == "food"'
 )
 
+// Type-Specific Single Item + Related Fetching
 export const hotelAndMoreQuery = fetchDocumentAndRelated(
   'post',
-  postFields,
+  hotelFields, // Fields for main hotel post
   'slug.current',
   { where: 'linkType == "hotel"' }
 )
 export const storyAndMoreQuery = fetchDocumentAndRelated(
   'post',
-  postFields,
+  guideFields, // Fields for main guide post
   'slug.current',
   { where: 'linkType == "story"' }
 )
 export const foodAndMoreQuery = fetchDocumentAndRelated(
   'post',
-  postFields,
+  foodFields, // Fields for main food post
   'slug.current',
   { where: 'linkType == "food"' }
 )
 
+// Fetch ALL items of a specific type (NO pagination)
 export const allHotelsQuery = fetchDocuments('post', hotelFieldsLimited, {
   order: 'date desc, _updatedAt desc',
   where: 'linkType == "hotel"',
 })
 
-export const foodQuery = fetchDocuments('post', foodFieldsLimited, {
-  order: 'date desc, _updatedAt desc',
+export const allFoodQuery = fetchDocuments('post', foodFieldsLimited, {
+  order: 'date desc, _createdAt desc',
   where: 'linkType == "food"',
 })
 
-export const storyQuery = fetchDocuments('post', guideFieldsLimited, {
+export const allStoriesQuery = fetchDocuments('post', guideFieldsLimited, {
   order: 'date desc, _updatedAt desc',
   where: 'linkType == "story"',
 })
 
-// In your schema.ts or a dedicated queries file
+// Global Search Query
 export const globalSearchQuery = groq`
   *[_type == "post" && (
-    title match $searchTerm || 
+    title match $searchTerm ||
     location match $searchTerm
-    
+    // Add other fields to search here if needed
   )] {
-    ${coreFields}
+    ${coreFieldsLimited} // Use limited fields for search results
   }
 `
 
 // ------------------------------
-// 8. New Query for Top Hotels and Restaurants with Weighted Average and Ordering
+// 8. Top Weighted Queries
 // ------------------------------
-
 export const topWeightedHotelsQuery = groq`
   *[_type == "post" && defined(hotelRating) && linkType == "hotel"] {
     ${coreFieldsLimited},
@@ -459,11 +460,11 @@ export const topWeightedHotelsQuery = groq`
 `
 
 export const topWeightedFoodQuery = groq`
-*[_type == "post" && defined(takeoutRating) || defined(foodRating) && linkType == "food"] {
+*[_type == "post" && (defined(takeoutRating) || defined(foodRating)) && linkType == "food"] {
   ${coreFieldsLimited},
   diningType,
   foodRating, // Keep for dine-in
-  takeoutRating, // New field for takeout ratings
+  takeoutRating, // Keep field for takeout ratings (assuming simple type or object structure)
   "weightedAverageRating": round(
     select(
       diningType == "dinein" && defined(foodRating) => (
@@ -476,8 +477,9 @@ export const topWeightedFoodQuery = groq`
         (foodRating.Flavor_and_Taste * 0.2)
       ),
       diningType == "takeout" && defined(takeoutRating) => (
-        (takeoutRating.tasteAndFlavor * 0.1) +
-        (takeoutRating.presentation * 0.3) +
+        // Adjust weights based on your takeoutRating structure/importance
+        (takeoutRating.tasteAndFlavor * 0.3) +
+        (takeoutRating.presentation * 0.1) +
         (takeoutRating.accuracy * 0.1) +
         (takeoutRating.packaging * 0.1) +
         (takeoutRating.overallSatisfaction * 0.2) +
@@ -488,38 +490,66 @@ export const topWeightedFoodQuery = groq`
     ) * 1000
   ) / 1000
 }
-| order(weightedAverageRating desc, takeoutRating.tasteAndFlavor desc, foodRating.Flavor_and_Taste desc  ) [0...10]
+| order(weightedAverageRating desc, takeoutRating.tasteAndFlavor desc, foodRating.Flavor_and_Taste desc) [0...10]
 `
 
 
+// --- PAGINATION QUERIES ---
 
-// --- Queries Specifically for Hotel Pagination ---
-
-/**
- * Query to fetch a specific slice of HOTEL posts.
- * Uses the fetchDocuments helper.
- * Expects $start and $end parameters during fetch.
- */
-export const paginatedHotelPostsQuery = fetchDocuments(
-    'post',                 // Document type
-    hotelFieldsLimited,     // Use limited fields for list view (adjust if needed)
+// -- Generic Post Pagination (Example - if needed) --
+export const paginatedAllPostsQuery = fetchDocuments(
+    'post',
+    coreFieldsLimited, // Use limited fields for generic list
     {
-        order: 'date desc, _createdAt desc', // Your desired order
-        where: 'linkType == "hotel"',       // Filter for hotel posts
-        slice: '[$start...$end]'            // Placeholder for slice params
+        order: 'date desc, _createdAt desc',
+        slice: '[$start...$end]'
     }
 );
+export const allPostsTotalCountQuery = groq`count(*[_type == "post"])`
 
-/**
- * Query to get the total count of HOTEL posts.
- */
+
+// -- Hotel Pagination --
+export const paginatedHotelPostsQuery = fetchDocuments(
+    'post',
+    hotelFieldsLimited,
+    {
+        order: 'date desc, _createdAt desc',
+        where: 'linkType == "hotel"',
+        slice: '[$start...$end]'
+    }
+);
 export const hotelPostsTotalCountQuery = groq`
   count(*[_type == "post" && linkType == "hotel"])
 `
 
+// -- Food Pagination --
+export const paginatedFoodPostsQuery = fetchDocuments(
+    'post',
+    foodFieldsLimited,
+    {
+        order: 'date desc, _createdAt desc',
+        where: 'linkType == "food"',
+        slice: '[$start...$end]'
+    }
+);
+export const foodPostsTotalCountQuery = groq`
+  count(*[_type == "post" && linkType == "food"])
+`;
 
+// -- Guide/Story Pagination --
+export const paginatedGuidePostsQuery = fetchDocuments(
+    'post',
+    guideFieldsLimited, // Assuming limited fields for guides
+    {
+        order: 'date desc, _createdAt desc',
+        where: 'linkType == "story"', // Assuming 'story' is the linkType for guides
+        slice: '[$start...$end]'
+    }
+);
 
-
+export const guidePostsTotalCountQuery = groq`
+  count(*[_type == "post" && linkType == "story"]) // Assuming 'story' is the linkType
+`;
 
 
 // ------------------------------
@@ -528,7 +558,7 @@ export const hotelPostsTotalCountQuery = groq`
 
 export interface Author {
   name?: string
-  picture?: any
+  picture?: any // Consider more specific type e.g., SanityImageObject
 }
 
 export interface Recommendation {
@@ -536,15 +566,15 @@ export interface Recommendation {
   title?: string
   recommendations?: {
     post?: {
-      _id: string
-      author?: any
-      date?: any
-      current?: string
+      _id: string // Add _id
+      // author?: Author // Maybe not needed for recommendation link
+      // date?: string // Maybe not needed
+      // current?: string // Not applicable here
       title?: string
-      excerpt2?: any
-      category?: string
+      // excerpt2?: any // Maybe not needed
+      // category?: string // Maybe not needed
       slug?: { current: string }
-      coverImage?: any
+      coverImage?: any // SanityImageObject
       location?: string
       linkType?: string
     }
@@ -557,8 +587,8 @@ export interface Essential {
   name?: string
   link?: string
   background?: string
-  description?: any
-  productImage?: any
+  description?: any // Consider PortableTextBlock
+  productImage?: any // SanityImageObject
   categoryName?: string
   recommend?: boolean
   price?: number
@@ -568,44 +598,46 @@ export interface Essential {
 export interface Arena {
   _id: string
   name?: string
-  arenaImage?: any
-  gallery?: any
+  arenaImage?: any // SanityImageObject
+  gallery?: any[] // SanityImageObject[]
   location?: string
   buildDate?: string
   capacity?: number
-  arenaReview?: any
+  arenaReview?: any // PortableTextBlock
   visited?: boolean
   date?: string
   teamType?: string
-
   visitedCount?: number
   galleryCount?: number
 }
 
+// Base interface for common Post fields
 interface BasePost {
   _id: string
   title?: string
-  coverImage?: any
+  coverImage?: any // SanityImageObject
   date?: string
-  excerpt2?: any
+  excerpt2?: string
   author?: Author
-  slug?: string
-  content?: any
-  youtube?: any
+  slug?: string // Note: slug is projected as string, not object here
+  content?: any // PortableTextBlock
+  youtube?: any // Specific type if available
   location?: string
-  linkType?: any
-  positives?: any
-  negatives?: any
-  verdict?: any
-  gallery?: any
-  color?: string
+  linkType?: 'hotel' | 'food' | 'story' | string // Use specific types + string fallback
+  positives?: any // PortableTextBlock
+  negatives?: any // PortableTextBlock
+  verdict?: any // PortableTextBlock
+  gallery?: any[] // SanityImageObject[]
+  // color?: string // Removed if not used
   category?: string
   tip?: string
-  showRating?: boolean
+  showRating?: boolean // This seems like a presentation concern, maybe remove from data?
 }
 
+// Interface combining BasePost with all possible specific fields
+// Used for generic fetching where type might be mixed or unknown upfront
 export interface Post extends BasePost {
-  individualFoodRating?: any
+  // Hotel specific (optional)
   room?: any
   internetSpeed?: number
   techRating?: any
@@ -621,54 +653,73 @@ export interface Post extends BasePost {
     Pool?: number
     Location?: number
   }
-  foodRating?: any
-  takeoutRating?: any
-  diningType?: any
+  // Food specific (optional)
+  foodRating?: {
+    Flavor_and_Taste?: number,
+    Food_Value?: number,
+    Restaurant_Location?: number,
+    Presentation_on_Plate?: number,
+    Restaurant_Service?: number,
+    Memorability?: number,
+    Restaurant_Cleanliness?: number
+  }
+  takeoutRating?: { // Optional if defined
+    tasteAndFlavor?: number
+    presentation?: number
+    accuracy?: number
+    packaging?: number
+    overallSatisfaction?: number
+    foodValue?: number
+  }
+  // takeoutRating?: number; // Alternative if simple type
+  diningType?: 'dinein' | 'takeout' 
+  individualFoodRating?: any // Needs definition if used
+
+  // Calculated fields (optional, added by specific queries)
   weightedAverageRating?: number
-  totalAverageRating?: number // Added totalAverageRating to the Post interface
+  totalAverageRating?: number
 }
 
-export interface Story extends BasePost {}
+// Specific type interfaces (can extend BasePost or Post)
+export interface Story extends BasePost {
+  // No story-specific fields defined yet
+}
 
 export interface Food extends BasePost {
-  foodRating?: any
-  takeoutRating?: any
-  diningType?: any
+  foodRating?: Post['foodRating'] // Reuse from Post
+  takeoutRating?: Post['takeoutRating'] // Reuse from Post
+  diningType?: Post['diningType'] // Reuse from Post
 }
 
 export interface Hotel extends BasePost {
-  room?: any
-  internetSpeed?: number
-  techRating?: any
-  roomAmenities?: any
-  hotelRating?: {
-    Value?: number
-    Gym?: number
-    Internet_Speed?: number
-    Service?: number
-    Room_Cleanliness?: number
-    Bed_Comfort?: number
-    Room_Amenities?: number
-    Pool?: number
-    Location?: number
-  }
-  weightedAverageRating?: number
-  totalAverageRating?: number // Added totalAverageRating to the Hotel interface
+  room?: Post['room']
+  internetSpeed?: Post['internetSpeed']
+  techRating?: Post['techRating']
+  roomAmenities?: Post['roomAmenities']
+  hotelRating?: Post['hotelRating']
 }
 
+// Settings Interface
 export interface Settings {
   title?: string
-  description?: any[]
+  description?: any[] // PortableTextBlock[]
   ogImage?: {
     title?: string
+    // Add image asset reference if needed: image?: any
   }
 }
 
+// Instagram Interface
 export interface Instagram {
-  id?: any
-  caption?: any
-  media_url?: any
-  timestamp?: any
-  media_type?: any
-  permalink?: any
+  // Define based on actual API response structure
+  id?: string
+  caption?: string
+  media_url?: string
+  timestamp?: string
+  media_type?: 'IMAGE' | 'VIDEO' | 'CAROUSEL_ALBUM' | string
+  permalink?: string
+  thumbnail_url?: string // For videos
+  username?: string
+  // Add children field if handling CAROUSEL_ALBUM
+  // children?: { data: { id: string; media_url: string; media_type: string }[] }
 }
