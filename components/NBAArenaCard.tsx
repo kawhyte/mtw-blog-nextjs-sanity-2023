@@ -27,7 +27,6 @@ import Button from 'ui/Button'
 import AreanaRating from './AreanaRating'
 import PostDate, { PostYear } from './PostDate'
 
-
 interface NBAArenaCardProps {
   arenaImageSrc: any
   arenaName: string
@@ -41,6 +40,9 @@ interface NBAArenaCardProps {
   // galleryCount:string;
   gallery: any
   id: string
+  averageRating: string
+  textRating: string
+  ratingColor: string
   arenaReview?: any | null
   // ratings: ArenaRating;
 }
@@ -57,8 +59,11 @@ const Arenas = ({
   arenaImageSrc,
   gallery,
   arenaReview,
+  averageRating,
+  textRating,
+  ratingColor,
 }: NBAArenaCardProps) => {
-  const { average, textRating, color } = calculateAverageRating(arenaReview)
+  // const { average, textRating, color } = calculateAverageRating(arenaReview)
   const [isFlipped, setIsFlipped] = useState(false)
 
   return (
@@ -98,11 +103,12 @@ const Arenas = ({
           }`}
         >
           <div className="relative">
-            {average > '0' ? (
-
-
-<RatingBadge average={average} textRating={textRating} color={color} />
-              
+            {averageRating > '0' ? (
+              <RatingBadge
+                average={averageRating}
+                textRating={textRating}
+                color={ratingColor}
+              />
             ) : null}
 
             {/* <div className="absolute left-4 top-3 z-30 flex  flex-row items-center  gap-y-1 xl:my-0  ">
@@ -126,7 +132,7 @@ const Arenas = ({
 
             {/* <div className="absolute bottom-3 left-4 z-30 font-montserrat text-sm font-bold text-white">
               <div className="flex  flex-col gap-y-1"> */}
-                {/* <div className=" flex  flex-row items-center  gap-y-1 xl:my-0  ">
+            {/* <div className=" flex  flex-row items-center  gap-y-1 xl:my-0  ">
                   {visited ? (
                     <div className=" flex  flex-col items-center   gap-y-1 xl:my-0  ">
                    
@@ -145,7 +151,7 @@ const Arenas = ({
                   )}
                 </div> */}
 
-                {/* <div className=" flex  flex-row items-center  gap-y-1 xl:my-0  ">
+            {/* <div className=" flex  flex-row items-center  gap-y-1 xl:my-0  ">
                   <p className=" text-sm font-bold"></p>
                   <div className=" flex  flex-row items-center gap-x-1  gap-y-1 bg-black bg-opacity-30 px-2 py-1 text-xs font-bold text-gray-100 xl:my-0">
                     {<Wrench className="mr-1 h-4" />}Constructed in
@@ -161,7 +167,7 @@ const Arenas = ({
                   </div>
                 </div> */}
 
-                {/* 
+            {/* 
                 <div className=" flex  flex-row items-center  gap-y-1 xl:my-0  ">
                   <p className=" text-sm font-bold"></p>
                   <Badge
@@ -175,7 +181,7 @@ const Arenas = ({
                       {new Intl.NumberFormat().format(capacity)}
                   </Badge>
                 </div> */}
-              {/* </div>
+            {/* </div>
             </div> */}
 
             {/* {arenaReview?.comments && (
@@ -242,7 +248,8 @@ const Arenas = ({
             <div className="grid grid-cols-1 gap-4 text-sm text-gray-700 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
               <div className="flex items-center">
                 <Wrench className="mr-2 h-5 w-5 text-gray-500" />
-                <span className='mr-1'> Constructed:</span> <PostYear dateString={constructionDate} />
+                <span className="mr-1"> Constructed:</span>{' '}
+                <PostYear dateString={constructionDate} />
               </div>
               <div className="flex items-center">
                 <Users className="mr-2 h-5 w-5 text-gray-500" />
@@ -252,8 +259,9 @@ const Arenas = ({
           </div>
 
           <div className="text-sm text-gray-700 md:text-xs ">
-
-            <h3 className=" ml-3 mt-5 text-base   font-bold  ">Team(s) Viewed</h3>
+            <h3 className=" ml-3 mt-5 text-base   font-bold  ">
+              Team(s) Viewed
+            </h3>
             <div className=" mx-3  flex flex-row flex-wrap justify-start gap-x-7 align-top   md:gap-x-6 ">
               {gallery?.map((photo) => (
                 <div
@@ -271,15 +279,15 @@ const Arenas = ({
                               .url()
                           : 'https://dummyimage.com/96x96/000/aeb0d9.jpg&text=Image'
                       }
-                      className=" h-11 w-11 rounded-full bg-gray-200  p-0.5 sm:h-10 sm:w-10   md:h-11 md:w-11 lg:h-9 lg:w-9 xl:h-11 xl:w-11" 
+                      className=" h-11 w-11 rounded-full bg-gray-200  p-0.5 sm:h-10 sm:w-10   md:h-11 md:w-11 lg:h-9 lg:w-9 xl:h-11 xl:w-11"
                       height={96}
                       width={96}
                       loading="lazy"
                       alt={`${photo.name} logo`}
                     />
 
-                    <div className="flex align-bottom items-center text-xs  md:text-sm ">
-                    <p className="mx-1  text-sm   leading-none text-gray-500 sm:text-sm   ">
+                    <div className="flex items-center align-bottom text-xs  md:text-sm ">
+                      <p className="mx-1  text-sm   leading-none text-gray-500 sm:text-sm   ">
                         {photo.name}
                       </p>
                       {photo.played === true ? (
@@ -292,8 +300,6 @@ const Arenas = ({
                       ) : (
                         <EyeOff className="mx-1 my-1 h-5 w-5 text-gray-500 sm:h-3 sm:w-3 md:h-4   md:w-4" />
                       )}
-
-                     
                     </div>
                   </div>
                 </div>
@@ -301,24 +307,31 @@ const Arenas = ({
             </div>
 
             <div
-              className="  mt-4 mx-20 " // Added flex-col and items-center
+              className="  mx-20 mt-4 " // Added flex-col and items-center
               onClick={() => setIsFlipped(!isFlipped)}
             >
               {isFlipped ? (
                 <>
-                  <Button size="xs" align="center" icon={<RotateCcw size={20} />}>
+                  <Button
+                    size="xs"
+                    align="center"
+                    icon={<RotateCcw size={20} />}
+                  >
                     View Card Front
                   </Button>
-                 
+
                   {/* <FlipHorizontal2 size={20} />
               <span className="mt-1 ml-2 text-xs">View Card Front</span>{' '} */}
                 </>
               ) : (
                 <>
-                  <Button  size="xs" align="center" icon={<RotateCw size={20} />}>
+                  <Button
+                    size="xs"
+                    align="center"
+                    icon={<RotateCw size={20} />}
+                  >
                     View Details
                   </Button>
-             
 
                   {/* <FlipHorizontal2 size={20} />
               <span className="mt-1 ml-2 text-xs">View Rating Details</span> */}
@@ -336,9 +349,7 @@ const Arenas = ({
         >
           {/* Add your additional data here */}
           <div className="justify flex h-full w-full flex-col items-center ">
-            <h2 className=" pt-6 text-xl font-bold">
-              Arena Rating Breakdown{' '}
-            </h2>
+            <h2 className=" pt-6 text-xl font-bold">Arena Rating Breakdown </h2>
             {/* <p>Overall Rating: {Number(average).toFixed(2)}  </p> */}
 
             <div className=" mt-2 grid w-full grid-cols-1  items-center pb-2 align-middle  text-xs font-bold text-gray-700  md:text-xs ">
@@ -374,26 +385,32 @@ const Arenas = ({
               />
             </div>
 
-
             <div
               className="   mx-20 " // Added flex-col and items-center
               onClick={() => setIsFlipped(!isFlipped)}
             >
               {isFlipped ? (
                 <>
-                  <Button size="xs" align="center" icon={<RotateCcw size={20} />}>
+                  <Button
+                    size="xs"
+                    align="center"
+                    icon={<RotateCcw size={20} />}
+                  >
                     View Card Front
                   </Button>
-                  
+
                   {/* <FlipHorizontal2 size={20} />
               <span className="mt-1 ml-2 text-xs">View Card Front</span>{' '} */}
                 </>
               ) : (
                 <>
-                  <Button size="xs" align="center" icon={<RotateCw size={20} />}>
+                  <Button
+                    size="xs"
+                    align="center"
+                    icon={<RotateCw size={20} />}
+                  >
                     View Details
                   </Button>
-              
 
                   {/* <FlipHorizontal2 size={20} />
               <span className="mt-1 ml-2 text-xs">View Rating Details</span> */}
