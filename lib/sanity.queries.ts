@@ -384,7 +384,7 @@ export const foodAndMoreQuery = fetchDocumentAndRelated(
   { where: 'linkType == "food"' }
 )
 
-export const hotelQuery = fetchDocuments('post', hotelFieldsLimited, {
+export const allHotelsQuery = fetchDocuments('post', hotelFieldsLimited, {
   order: 'date desc, _updatedAt desc',
   where: 'linkType == "hotel"',
 })
@@ -490,6 +490,37 @@ export const topWeightedFoodQuery = groq`
 }
 | order(weightedAverageRating desc, takeoutRating.tasteAndFlavor desc, foodRating.Flavor_and_Taste desc  ) [0...10]
 `
+
+
+
+// --- Queries Specifically for Hotel Pagination ---
+
+/**
+ * Query to fetch a specific slice of HOTEL posts.
+ * Uses the fetchDocuments helper.
+ * Expects $start and $end parameters during fetch.
+ */
+export const paginatedHotelPostsQuery = fetchDocuments(
+    'post',                 // Document type
+    hotelFieldsLimited,     // Use limited fields for list view (adjust if needed)
+    {
+        order: 'date desc, _createdAt desc', // Your desired order
+        where: 'linkType == "hotel"',       // Filter for hotel posts
+        slice: '[$start...$end]'            // Placeholder for slice params
+    }
+);
+
+/**
+ * Query to get the total count of HOTEL posts.
+ */
+export const hotelPostsTotalCountQuery = groq`
+  count(*[_type == "post" && linkType == "hotel"])
+`
+
+
+
+
+
 
 // ------------------------------
 // 9. Interfaces
