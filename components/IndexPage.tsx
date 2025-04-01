@@ -90,13 +90,13 @@ export default function IndexPage(props: IndexPageProps) {
 
             {posts.length > 0 && (
               <MoreStoriesIndex
-                posts={posts.slice(0, 6)}
+                posts={posts}
                 showPagination={false}
                 showRating={true}
               />
             )}
 
-            <div className="flex   pt-9 lg:mt-0 lg:flex-shrink-0">
+            {/* <div className="flex   pt-9 lg:mt-0 lg:flex-shrink-0">
               <div className=" inline-flex ">
                 <Button
                   icon={<BriefcaseConveyorBelt className="text-pink-500" />}
@@ -105,7 +105,7 @@ export default function IndexPage(props: IndexPageProps) {
                   More Adventures
                 </Button>
               </div>
-            </div>
+            </div> */}
           </BlogSection>
 
           <BlogSection

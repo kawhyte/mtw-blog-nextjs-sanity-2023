@@ -62,7 +62,7 @@ export const getStaticProps: GetStaticProps<
     // getTravelEssentialPosts(),
     // getArenaPosts(),
   ])
-
+  // console.log('Fetched Posts:', posts)
   return {
     props: {
       posts,
@@ -74,7 +74,7 @@ export const getStaticProps: GetStaticProps<
       
       token: previewData.token ?? null,
     },
-     //revalidate:10
+     revalidate:10
   }
 }
 

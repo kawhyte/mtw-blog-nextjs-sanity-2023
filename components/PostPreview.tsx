@@ -104,7 +104,7 @@ const PostPreview = ({
         />
       </div>
 
-      <div className="mx-4 mb-2 mt-1 flex flex-col">
+      <div className="mx-4 mb-2 mt-1 flex flex-col pb-3">
         <div>
           <Link
             href={href}
@@ -132,11 +132,11 @@ const PostPreview = ({
           </div>
         </div>
 
-        <div className="self-end mt-4 text-sm z-40 flex flex-row items-center rounded-lg px-2 py-1">
+        {/* <div className="self-end mt-4 text-sm z-40 flex flex-row items-center rounded-lg px-2 py-1">
           <Button iconSize={10} noBorder={false} size="xs" link={`/posts/${slug}`}>
             View Details
           </Button>
-        </div>
+        </div> */}
       </div>
     </div>
   );

@@ -208,21 +208,24 @@ const arenaFields = groq`
  * @returns A Groq query string.
  */
 const fetchDocuments = (
-  type: string,
-  fields: string,
-  options: { order?: string; where?: string } = {}
-): string => {
-  let query = `*[_type == "${type}"`
-  if (options.where) {
-    query += ` && ${options.where}`
+    type: string,
+    fields: string,
+    options: { order?: string; where?: string; slice?: string } = {}
+  ): string => {
+    let query = `*[_type == "${type}"`
+    if (options.where) {
+      query += ` && ${options.where}`
+    }
+    query += `]`
+    if (options.order) {
+      query += ` | order(${options.order})`
+    }
+    if (options.slice) {
+      query += ` ${options.slice}`
+    }
+    query += `{${fields}}`
+    return query
   }
-  query += `]`
-  if (options.order) {
-    query += ` | order(${options.order})`
-  }
-  query += `{${fields}}`
-  return query
-}
 
 /**
  * Constructs a Groq query to fetch a single document by slug and related documents.
@@ -320,8 +323,10 @@ export const arenaQuery = fetchDocuments('arenas', arenaFields, {
 export const settingsQuery = `*[_type == "settings"][0]`
 
 export const indexQuery = fetchDocuments('post', postFields, {
-  order: 'date desc, _updatedAt desc',
-})
+    order: 'date desc, _updatedAt desc',
+    where: '',
+    slice: '[0...6]', // Fetch the first 6 posts
+  })
 
 export const postAndMoreStoriesQuery = fetchDocumentAndRelated(
   'post',
