@@ -95,12 +95,11 @@ export const getStaticProps: GetStaticProps<
 
   if (preview) {
     // For preview mode, fetch all food posts for the fallback/initial render.
-    console.log("Preview mode: Fetching all food posts for initial preview render");
+   
     postsPromise = getAllFoodPosts(); // Use the renamed function to fetch all
     totalCountPromise = getFoodPostsTotalCount(); // Get count for consistency
   } else {
     // For non-preview mode, fetch only the first page and the total count
-    console.log(`Production mode: Fetching first ${ITEMS_PER_PAGE} food posts and total count`);
     totalCountPromise = getFoodPostsTotalCount(); // Use the count function
     postsPromise = getPaginatedFoodPosts(0, ITEMS_PER_PAGE); // Use the pagination function
   }

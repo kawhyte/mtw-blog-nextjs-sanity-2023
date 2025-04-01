@@ -59,10 +59,7 @@ export default function Page(props: PageProps) {
 
   // --- Calculate the arenas to display based on current criteria ---
   const arenasToDisplay = useMemo(() => {
-    console.log(
-      `Recalculating display list. Filter: ${filterCriteria}, Sort: ${sortCriteria}`
-    );
-
+   
     // 1. Filter first
     const filtered = arenaPosts.filter((arena) => {
       if (filterCriteria === 'visited') return arena.visited;
@@ -140,7 +137,7 @@ export default function Page(props: PageProps) {
       return 0; // Default case
     });
 
-    console.log('Arenas to display:', sorted);
+   
     return sorted;
   }, [arenaPosts, filterCriteria, sortCriteria]); // Dependencies for useMemo
 
@@ -150,9 +147,7 @@ export default function Page(props: PageProps) {
     if (filterCriteria === 'notVisited') {
       // Check if the current sort criteria is *not* one of the allowed name sorts
       if (sortCriteria !== 'name_asc' && sortCriteria !== 'name_desc') {
-        console.log(
-          `Filter is 'notVisited', but sort is '${sortCriteria}'. Resetting sort to 'name_asc'.`
-        );
+       
         // Reset to a default valid sort for 'notVisited'
         setSortCriteria('name_asc');
       }
@@ -164,12 +159,12 @@ export default function Page(props: PageProps) {
 
   // Handlers now ONLY update the criteria state
   const handleSort = (criteria: SortCriteriaType) => {
-    console.log('Setting Sort Criteria:', criteria);
+  
     setSortCriteria(criteria);
   };
 
   const handleFilter = (criteria: FilterCriteriaType) => {
-    console.log('Setting Filter Criteria:', criteria);
+ 
     setFilterCriteria(criteria);
     // Note: The useEffect above will handle resetting the sort if needed *after* this state updates
   };

@@ -95,12 +95,10 @@ export const getStaticProps: GetStaticProps<
 
   if (preview) {
     // Preview mode: fetch all hotel posts
-    console.log("Preview mode: Fetching all hotel posts for initial preview render");
     postsPromise = getAllHotelPosts(); // Use the actual function
     totalCountPromise = getHotelPostsTotalCount(); // Use the actual function
   } else {
     // Production mode: fetch first page and total count
-    console.log(`Production mode: Fetching first ${ITEMS_PER_PAGE} hotel posts and total count`);
     totalCountPromise = getHotelPostsTotalCount(); // Use the actual function
     postsPromise = getPaginatedHotelPosts(0, ITEMS_PER_PAGE); // Use the actual function
   }

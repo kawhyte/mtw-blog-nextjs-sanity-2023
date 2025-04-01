@@ -95,12 +95,10 @@ export const getStaticProps: GetStaticProps<
 
   if (preview) {
     // For preview mode, fetch all story posts for the fallback/initial render.
-    console.log("Preview mode: Fetching all story posts for initial preview render");
     postsPromise = getAllStoryPosts(); // Use the renamed function to fetch all
     totalCountPromise = getGuidePostsTotalCount(); // Get count for consistency
   } else {
     // For non-preview mode, fetch only the first page and the total count
-    console.log(`Production mode: Fetching first ${ITEMS_PER_PAGE} story posts and total count`);
     totalCountPromise = getGuidePostsTotalCount(); // Use the count function
     postsPromise = getPaginatedGuidePosts(0, ITEMS_PER_PAGE); // Use the pagination function
   }
@@ -112,7 +110,6 @@ export const getStaticProps: GetStaticProps<
     totalCountPromise,
   ]);
 
-  // console.log("initialPosts",initialPosts) // Keep for debugging if needed
 
   return {
     props: {
