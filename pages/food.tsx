@@ -55,7 +55,7 @@ export default function Page(props: PageProps) {
      // getAllPosts(),
       getFoodPosts()
     ])
-  
+
     return {
       props: {
         posts,

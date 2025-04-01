@@ -63,7 +63,7 @@ export default function CoverImage(props: CoverImageProps) {
   // console.log("PPP2 Cover Image",hotelRating,foodRating )
 
   const image = source?.asset?._ref ? (
-    <div className="relative h-[200px] w-[300px]">
+    <div className="relative h-[200px] w-[320px]">
       <Skeleton visible className="absolute inset-0 h-full w-full rounded-md" />
       <Image
         className={cn('w-full object-cover object-center brightness-[0.85]', {
@@ -71,10 +71,10 @@ export default function CoverImage(props: CoverImageProps) {
         })}
         placeholder="blur"
         blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAO0lEQVR4nGNgYGBg+P//P1t9fT0TiM0we3ZjxZxZjQ9XLpwwe9nCHkOGGZOyanraY9aumN2wbsn0hmQA/MEWfj4ocjcAAAAASUVORK5CYII="
-        width={300}
+        width={320}
         height={200}
         alt={`Cover Image for ${title}`}
-        src={urlForImage(source)?.height(200)?.width(300)?.fit('crop').url()}
+        src={urlForImage(source)?.height(200)?.width(320)?.fit('crop').url()}
         loading='lazy'
       />
     </div>

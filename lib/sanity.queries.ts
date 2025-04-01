@@ -104,6 +104,11 @@ const foodFieldsFragment = groq`
     takeoutRating,
     diningType
 `;
+const foodFieldsFragmentLimited = groq`
+    ${foodRatingFields},
+    takeoutRating,
+    diningType
+`;
 
 const guideFieldsFragment = groq``; // No specific fields for guides
 
@@ -126,7 +131,11 @@ const hotelFieldsLimited = groq`
 `;
 
 const foodFields = groq`
-    ${coreFields},
+    ${coreFieldsLimited},
+    ${foodFieldsFragment}
+`;
+const foodFieldsLimited = groq`
+    ${coreFieldsLimited},
     ${foodFieldsFragment}
 `;
 
@@ -318,7 +327,7 @@ export const hotelQuery = fetchDocuments('post', hotelFieldsLimited, {
     where: 'linkType == "hotel"',
 });
 
-export const foodQuery = fetchDocuments('post', foodFields, {
+export const foodQuery = fetchDocuments('post', foodFieldsLimited, {
     order: 'date desc, _updatedAt desc',
     where: 'linkType == "food"',
 });
