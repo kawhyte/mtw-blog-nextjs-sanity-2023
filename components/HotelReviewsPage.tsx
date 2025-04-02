@@ -37,7 +37,7 @@ export default function HotelReviewsPage(props: HotelReviewsPageProps) {
 
   const { title = demo.title, description = demo.description } = settings || {};
   // console.log("Hotel Review Page Initial Posts:", initialPosts)
-console.log("Hotel Review Page Initial Posts:11", initialPosts.length)
+// console.log("Hotel Review Page Initial Posts:11", initialPosts.length)
   return (
     <>
       <IndexPageHead settings={settings} />

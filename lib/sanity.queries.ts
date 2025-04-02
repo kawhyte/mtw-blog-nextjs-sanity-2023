@@ -106,6 +106,7 @@ const hotelFieldsFragment = groq`
 `
 const hotelFieldsFragmentLimited = groq`
     ${hotelRatingFields},
+    
 `
 
 const foodFieldsFragment = groq`

@@ -111,6 +111,8 @@ export const getStaticProps: GetStaticProps<
     totalCountPromise,
   ]);
 
+
+  // console.log("initial Hotel", initialPosts)
   return {
     props: {
       initialPosts,     // Pass the first page (or all in preview)

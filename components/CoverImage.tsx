@@ -60,7 +60,7 @@ export default function CoverImage(props: CoverImageProps) {
     diningType,
   } = props
 
-  // console.log("PPP2 Cover Image",hotelRating,foodRating )
+
 
   const image = source?.asset?._ref ? (
     <div className="relative h-[200px] w-[320px]">
@@ -81,21 +81,17 @@ export default function CoverImage(props: CoverImageProps) {
   ) : (
     <div style={{ paddingTop: '50%', backgroundColor: '#ddd' }} />
   )
-  // console.log("Backingup1", hotelRating)
+ 
 
   // let rating = hotelRating
   const categoryType = categoryRating(category)
 
   let rateWeights = getRatingWeights(linkType, diningType)
-  //console.log(`RateWeights8 for`, rating, rateWeights )
+ 
 
   const overallRating = calculateRating(rating, rateWeights)
-  //console.log('HHH33', overallRating)
-  // const propertyNames = Object.entries(rating).filter(
-  //   ([key]) => key !== '_type'
-  // )
-  //  console.log("Categoty Type",categoryType)
-  //  console.log("linkType11",linkType)
+ 
+
   return (
     <div className="relative sm:mx-0">
       {slug ? (

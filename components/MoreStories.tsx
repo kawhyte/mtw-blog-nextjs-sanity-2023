@@ -120,7 +120,6 @@ export default function MoreStories({
       )
   }
 
-
   return (
     <section className="container mx-auto mt-2">
       {/* Optional subtle loading indicator */}

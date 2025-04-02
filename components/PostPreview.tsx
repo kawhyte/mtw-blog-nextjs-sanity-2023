@@ -93,6 +93,7 @@ const PostPreview = ({
   showRating, // Pass this down to CoverImage
   slug,
   location,
+  category
 }: PostPreviewProps) => {
   // Default slug handling might be needed if it can be undefined/null
   const safeSlug = slug ?? '';
@@ -128,6 +129,7 @@ const PostPreview = ({
           showRating={showRating} // Pass down showRating prop
           linkType={linkType}     // Pass down linkType if CoverImage needs it
           diningType={diningType} // Pass down diningType if CoverImage needs it
+          category={category}
         />
       </div>
 

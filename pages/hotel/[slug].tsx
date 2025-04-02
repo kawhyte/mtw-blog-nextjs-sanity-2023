@@ -75,7 +75,6 @@ export const getStaticProps: GetStaticProps<
       notFound: true,
     }
   }
-
   return {
     props: {
       post,
