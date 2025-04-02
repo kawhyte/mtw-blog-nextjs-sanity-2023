@@ -1,156 +1,196 @@
-import { oswald } from 'app/fonts';
-import { calculateRating } from 'lib/calculateRating';
-import { getRatingWeights } from 'lib/ratingWeights';
+import { oswald } from 'app/fonts'; // Assuming font import is needed
+import { calculateRating } from 'lib/calculateRating'; // Assuming calculation function import
+import { getRatingWeights } from 'lib/ratingWeights'; // Assuming weights function import
 import React from 'react';
-import type { Post } from 'lib/sanity.queries'; // Or import specific rating types
+// --- Import Star Icons ---
+import { IoStar, IoStarHalf, IoStarOutline } from 'react-icons/io5';
+import type { Post } from 'lib/sanity.queries'; // Import Post type
 
-// Assuming ratingItem can handle keys from ALL rating types (hotel, food, takeout)
-// If not, this map might need to be adjusted or generated dynamically.
-import { ratingItem } from '../lib/getReviewType';
+// Assuming ratingItem map import
+import { ratingItem } from '../lib/getReviewType'; // Adjust path if needed
+// Import child components
 import ProgressRating from './ProgressRating';
 
+// Define props for the component
 interface StarRatingProps {
-  // rating prop now accepts any of the relevant rating structures
   rating?: Post['hotelRating'] | Post['foodRating'] | Post['takeoutRating'];
   linkType?: Post['linkType'];
   diningType?: Post['diningType'];
 }
 
-// Define a type for the expected result of calculateRating
+// Define a type for the structure returned by calculateRating
 type OverallRating = {
   numericalRating: number;
   textRating: string;
-  color?: string;
-}
+  color?: string; // Color can be optional
+};
 
-const StarRating: React.FC<StarRatingProps> = ({ rating, linkType, diningType }) => {
+// The StarRating functional component
+const StarRating: React.FC<StarRatingProps> = ({
+  rating,
+  linkType,
+  diningType,
+}) => {
   // --- Early exit if no rating data is provided ---
   if (!rating) {
-    // Optionally render a 'Rating not available' message instead of null
-    return null;
+    return null; // Don't render anything if there's no rating object
   }
 
-  // --- Determine Weights (already correctly uses discriminators) ---
+  // --- Determine Weights based on type ---
+  // getRatingWeights should return appropriate weights for hotel/food/takeout
   const rateWeights = getRatingWeights(linkType, diningType);
 
   // --- Process Rating based on type ---
   let overallRatingResult: OverallRating | null = null;
-  let ratingEntries: [string, number][] = [];
+  let ratingEntries: [string, number][] = []; // To store [key, value] pairs for breakdown
 
-  // Use linkType and diningType to determine the structure and process accordingly
+  // Conditionally calculate rating and get entries based on linkType and diningType
   if (linkType === 'hotel') {
-    // Within this block, TypeScript should infer 'rating' as Post['hotelRating']
-    // We use type assertion `as` for explicit clarity and safety if inference isn't perfect.
-    const hotelRating = rating as Post['hotelRating'];
+    // Type assertion for clarity / safety
+    const hotelRating = rating as NonNullable<Post['hotelRating']>; // Assert non-null if check passed
     overallRatingResult = calculateRating(hotelRating, rateWeights);
-    // Filter out non-numeric values and _type before mapping
-    ratingEntries = Object.entries(hotelRating)
-      .filter(([key, value]) => key !== '_type' && typeof value === 'number') as [string, number][];
-
+    // Filter out Sanity's internal _type and non-numeric values
+    ratingEntries = Object.entries(hotelRating).filter(
+      ([key, value]) => key !== '_type' && typeof value === 'number'
+    ) as [string, number][];
   } else if (linkType === 'food') {
     if (diningType === 'dinein') {
-      // Type Guard: Inferred as Post['foodRating']
-      const foodRating = rating as Post['foodRating'];
+      const foodRating = rating as NonNullable<Post['foodRating']>;
       overallRatingResult = calculateRating(foodRating, rateWeights);
-      ratingEntries = Object.entries(foodRating)
-        .filter(([key, value]) => key !== '_type' && typeof value === 'number') as [string, number][];
-
+      ratingEntries = Object.entries(foodRating).filter(
+        ([key, value]) => key !== '_type' && typeof value === 'number'
+      ) as [string, number][];
     } else if (diningType === 'takeout') {
-      // Type Guard: Inferred as Post['takeoutRating']
-      const takeoutRating = rating as Post['takeoutRating'];
+      const takeoutRating = rating as NonNullable<Post['takeoutRating']>;
       overallRatingResult = calculateRating(takeoutRating, rateWeights);
-      ratingEntries = Object.entries(takeoutRating)
-        .filter(([key, value]) => key !== '_type' && typeof value === 'number') as [string, number][];
+      ratingEntries = Object.entries(takeoutRating).filter(
+        ([key, value]) => key !== '_type' && typeof value === 'number'
+      ) as [string, number][];
     }
   }
-  // Add else/default case if other linkTypes might have ratings
+  // Consider adding an 'else' block or default handling if other linkTypes might have ratings
 
-  // --- Another check: If processing failed for some reason, exit ---
+  // --- Another check: If calculation failed for some reason, exit ---
   if (!overallRatingResult) {
-    console.warn("StarRating: Could not calculate overall rating for provided data.", { rating, linkType, diningType });
-    return null; // Or render error/message
+    console.warn(
+      'StarRating: Could not calculate overall rating for provided data.',
+      { rating, linkType, diningType }
+    );
+    return null; // Don't render if calculation fails
   }
 
-  // --- Destructure results for rendering ---
-  const { numericalRating, textRating, color } = overallRatingResult;
+  // --- Destructure results for rendering, providing default color ---
+  const { numericalRating, textRating, color = '#808080' } = overallRatingResult;
 
-  // --- Render the component ---
+  // --- Helper Function to Render Stars ---
+  const renderStars = (ratingValue: number) => {
+    const stars = [];
+    // Ensure ratingValue is within a reasonable range (e.g., 0-5)
+    const clampedRating = Math.max(0, Math.min(5, ratingValue));
+    const fullStars = Math.floor(clampedRating);
+    // Check if decimal part is >= 0.5 for half star
+    const hasHalfStar = clampedRating - fullStars >= 0.5;
+    const filledStarsCount = fullStars + (hasHalfStar ? 1 : 0);
+    const emptyStars = Math.max(0, 5 - filledStarsCount);
+
+    // Add full stars
+    for (let i = 0; i < fullStars; i++) {
+      stars.push(
+        <IoStar key={`full-${i}`} className="h-5 w-5 text-yellow-400" />
+      );
+    }
+
+    // Add half star if needed
+    if (hasHalfStar) {
+      stars.push(
+        <IoStarHalf key="half" className="h-5 w-5 text-yellow-400" />
+      );
+    }
+
+    // Add empty stars
+    for (let i = 0; i < emptyStars; i++) {
+      // Consider using a different color for empty stars for contrast
+      stars.push(
+        <IoStarOutline key={`empty-${i}`} className="h-5 w-5 text-gray-300" />
+      );
+    }
+    // Return exactly 5 stars
+    return stars.slice(0, 5);
+  };
+
+  // --- Render the component JSX ---
   return (
     <>
-      {/* Overall Rating Display */}
-      <div className="mb-6 flex items-end justify-start align-top">
+      {/* Overall Rating Display Section */}
+      <div className="mb-8 flex items-end">
+        {/* Main Rating Box */}
         <div
-          className="flex flex-col items-center justify-center rounded-2xl p-3 text-white"
-          style={{ backgroundColor: color }} // Use calculated color
+          className="z-30 flex h-[8rem] w-[9rem] flex-col items-center justify-center rounded-2xl border-4 bg-gray-50 p-2 shadow-md" // Added shadow
+          style={{ borderColor: color, opacity: 0.95 }} // Slightly adjusted opacity
         >
-          <h1
-            className={`mx-2 text-4xl font-semibold leading-tight tracking-tighter md:text-left md:text-6xl md:leading-none lg:text-6xl`}
-          >
-            {/* Use calculated numerical rating */}
-            {numericalRating.toFixed(2)}
-          </h1>
-          <div className="flex items-center">
-            <span className="text-base uppercase">out of 5</span>
-            <span>
-              <svg /* SVG icon code */ >...</svg>
+          {/* Numerical Rating */}
+          <div className="text-gray-900">
+            <span className="ml-1 mr-1 font-montserrat text-xl font-black leading-tight tracking-tighter sm:text-xl md:text-left md:text-2xl md:leading-none lg:text-5xl">
+              {numericalRating.toFixed(2)}
             </span>
           </div>
+          {/* Separator */}
+          <hr className="z-50 my-2 h-0.5 w-[85%] border-0 bg-gray-300 dark:bg-gray-700" /> {/* Adjusted width and color */}
+
+          {/* Star Rendering Area */}
+          <div className="mt-1 flex items-center">
+            {renderStars(numericalRating)}
+          </div>
+
         </div>
-        <p
-          className={`${oswald.variable} ml-4 font-heading text-3xl font-black`}
-        >
-          {/* Use calculated text rating */}
+        {/* Text Rating Beside Box */}
+        <p className={`font-montserrat text-6xl font-bold text-gray-900 ml-6 mb-2 ${oswald.variable} font-heading`}> {/* Added font styles */}
           {textRating}
         </p>
       </div>
 
       {/* Rating Breakdown Section */}
-      <p
-        className={`title-font my-3 mb-1 mt-2 text-base font-medium uppercase tracking-widest text-gray-700`}
-      >
-        {/* Dynamic title based on linkType */}
+      <p className={`title-font my-3 mb-4 mt-2 text-base font-medium uppercase tracking-widest text-gray-700`}> {/* Adjusted margin */}
         {linkType === 'hotel' ? 'Hotel' : 'Food/Restaurant'} rating breakdown
       </p>
       <div className="max-w-8xl grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1">
         <div className="mt-3 grid grid-cols-1 gap-x-8 gap-y-5 md:grid-cols-1 md:gap-x-10 lg:grid-cols-3 lg:gap-x-10 lg:gap-y-4">
-          {/* Map over the correctly determined ratingEntries */}
+          {/* Map over the individual rating entries */}
           {ratingEntries.map(([categoryName, value]) => {
-            // IMPORTANT: Ensure ratingItem contains entries for ALL possible keys
-            // from hotelRating, foodRating, and takeoutRating (e.g., 'Value', 'Flavor_and_Taste', 'tasteAndFlavor')
+            // Look up display info (name, icon) for the category
             const itemInfo = ratingItem[categoryName];
-
-            // Handle cases where a rating key might not be in ratingItem
+            // Gracefully handle if a rating key isn't found in the map
             if (!itemInfo) {
-              console.warn(`StarRating: No display info found in ratingItem for key: ${categoryName}`);
+              console.warn(
+                `StarRating: No display info found in ratingItem for key: ${categoryName}`
+              );
               return null; // Skip rendering this item
             }
-
+            // Render individual rating item
             return (
-              <div
-                key={categoryName}
-                className="flex flex-col justify-center rounded-2xl border p-3"
-              >
+              <div key={categoryName} className="flex flex-col justify-center rounded-2xl border p-3 shadow-sm"> {/* Added shadow-sm */}
                 <div className="flex flex-row items-center justify-start">
+                  {/* Icon */}
                   <span className="pr-3">
                     <img
                       className=""
                       src={itemInfo.icon}
-                      alt="icon"
+                      alt={`${itemInfo.name} icon`} // Improved alt text
                       width={20}
                       height={20}
                     />
                   </span>
-                  {/* Use name from itemInfo */}
+                  {/* Name and Availability Text */}
                   <p className="font-inter text-sm leading-loose md:text-base">
                     {itemInfo.name}{' '}
-                    {/* Value check remains the same */}
-                    {Number(value) <= 0 && '(not available)'}
+                    {Number(value) <= 0 && (
+                      <span className="text-xs text-gray-500 italic">(not rated)</span> // More descriptive text
+                    )}
                   </p>
                 </div>
-                {/* Value check remains the same */}
+                {/* Progress Bar (only if rated > 0) */}
                 {Number(value) > 0 && (
-                  <div className="flex flex-1 flex-row items-center align-middle text-sm">
-                    {/* ProgressRating expects a number 0-5 */}
+                  <div className="mt-1 flex flex-1 flex-row items-center align-middle text-sm"> {/* Added mt-1 */}
                     <ProgressRating progress={value} />
                   </div>
                 )}
@@ -163,4 +203,5 @@ const StarRating: React.FC<StarRatingProps> = ({ rating, linkType, diningType })
   );
 };
 
+// Export the component for use elsewhere
 export default StarRating;
