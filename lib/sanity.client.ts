@@ -1,44 +1,44 @@
 import { apiVersion, dataset, projectId, useCdn } from 'lib/sanity.api'
 // Import queries and types from the updated queries file
 import {
+  allFoodQuery, // Use the renamed query
+  // Import queries for fetching ALL posts of a type
+  allHotelsQuery,
+  allStoriesQuery, // Use the renamed query
   type Arena,
   arenaQuery,
   type Essential,
-  travelEssentialQuery,
-  type Settings,
-  settingsQuery,
-  type Instagram,
-  type Post, // Using the base Post type for broader compatibility
-  type Hotel, // Keep specific types if needed elsewhere
   type Food,  // Keep specific types if needed elsewhere
-  type Story, // Keep specific types if needed elsewhere
-  indexQuery, // For getAllPosts (fetches first 6)
-  postSlugsQuery,
-  hotelSlugsQuery,
-  storySlugsQuery,
-  foodSlugsQuery,
-  postBySlugQuery,
-  hotelBySlugQuery,
-  storyBySlugQuery,
-  foodBySlugQuery,
-  postAndMoreStoriesQuery,
-  hotelAndMoreQuery,
-  storyAndMoreQuery,
   foodAndMoreQuery,
-  recommendationQuery,
-  topWeightedHotelsQuery,
-  topWeightedFoodQuery,
-  // Import queries for fetching ALL posts of a type
-  allHotelsQuery,
-  allFoodQuery, // Use the renamed query
-  allStoriesQuery, // Use the renamed query
+  foodBySlugQuery,
+  foodPostsTotalCountQuery, // Newly added
+  foodSlugsQuery,
+  guidePostsTotalCountQuery, // Newly added (assuming linkType 'story' for guides)
+  type Hotel, // Keep specific types if needed elsewhere
+  hotelAndMoreQuery,
+  hotelBySlugQuery,
+  hotelPostsTotalCountQuery,
+  hotelSlugsQuery,
+  indexQuery, // For getAllPosts (fetches first 6)
+  type Instagram,
+  paginatedFoodPostsQuery, // Newly added
+  paginatedGuidePostsQuery, // Newly added (assuming linkType 'story' for guides)
   // Import specific pagination queries
   paginatedHotelPostsQuery,
-  hotelPostsTotalCountQuery,
-  paginatedFoodPostsQuery, // Newly added
-  foodPostsTotalCountQuery, // Newly added
-  paginatedGuidePostsQuery, // Newly added (assuming linkType 'story' for guides)
-  guidePostsTotalCountQuery, // Newly added (assuming linkType 'story' for guides)
+  type Post, // Using the base Post type for broader compatibility
+  postAndMoreStoriesQuery,
+  postBySlugQuery,
+  postSlugsQuery,
+  recommendationQuery,
+  type Settings,
+  settingsQuery,
+  type Story, // Keep specific types if needed elsewhere
+  storyAndMoreQuery,
+  storyBySlugQuery,
+  storySlugsQuery,
+  topWeightedFoodQuery,
+  topWeightedHotelsQuery,
+  travelEssentialQuery,
 } from 'lib/sanity.queries'
 import { createClient, type SanityClient } from 'next-sanity' // Import SanityClient type if needed
 

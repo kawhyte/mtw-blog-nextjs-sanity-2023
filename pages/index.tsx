@@ -1,6 +1,6 @@
 import { PreviewSuspense } from '@sanity/preview-kit'
 import IndexPage from 'components/IndexPage'
-import { getIndexPosts, getArenaPosts, getInstagramPosts, getSettings, getTravelEssentialPosts } from 'lib/sanity.client'
+import { getArenaPosts, getIndexPosts, getInstagramPosts, getSettings, getTravelEssentialPosts } from 'lib/sanity.client'
 import { Arena, Essential, Post, Settings } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
 import { lazy } from 'react'

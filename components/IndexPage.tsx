@@ -17,6 +17,7 @@ import Button from 'ui/Button'
 
 import { CMS_NAME } from '../lib/constants'
 import ArenasIndexPage from './ArenasIndexPage'
+import BlogHeader from './BlogHeader'
 import BlogSection from './BlogSection'
 import Footer from './Footer'
 import Hero from './Hero'
@@ -24,7 +25,6 @@ import IndexTopTen from './IndexTopTen'
 import SectionTitle from './SectionTitle'
 import Welcome from './Welcome'
 import YoutubeHighlights from './YoutubeHighlights'
-import BlogHeader from './BlogHeader'
 
 export interface IndexPageProps {
   preview?: boolean
