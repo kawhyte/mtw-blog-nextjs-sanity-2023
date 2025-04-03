@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 
-const { shadow } = require('@cloudinary/url-gen/actions/effect')
+// const { shadow } = require('@cloudinary/url-gen/actions/effect')
 
 module.exports = {
   content: [

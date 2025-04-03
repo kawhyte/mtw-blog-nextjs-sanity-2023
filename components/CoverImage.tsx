@@ -1,5 +1,5 @@
-import { AdvancedImage } from '@cloudinary/react'
-import { Cloudinary } from '@cloudinary/url-gen'
+// import { AdvancedImage } from '@cloudinary/react'
+// import { Cloudinary } from '@cloudinary/url-gen'
 import {
   ActionIcon,
   Badge,
@@ -18,7 +18,7 @@ import { urlForImage } from 'lib/sanity.image'
 import Image from 'next/image'
 //import Image from 'next/image'
 import Link from 'next/link'
-import { CldImage } from 'next-cloudinary'
+// import { CldImage } from 'next-cloudinary'
 
 import { categoryRating } from '../lib/getHotelCategory'
 import PostBody from './PostBody'

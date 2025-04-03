@@ -1,4 +1,4 @@
-import { webp } from '@cloudinary/url-gen/qualifiers/format'
+// import { webp } from '@cloudinary/url-gen/qualifiers/format'
 import { Badge } from '@mantine/core'
 import { calculateTextRating } from 'lib/calculateTextRating'
 import { urlForImage } from 'lib/sanity.image'

@@ -1,7 +1,7 @@
-import { video } from '@cloudinary/url-gen/qualifiers/source'
+// import { video } from '@cloudinary/url-gen/qualifiers/source'
 import { oswald } from 'app/fonts'
 import dynamic from 'next/dynamic'
-import { InstagramEmbed } from 'react-social-media-embed'
+// import { InstagramEmbed } from 'react-social-media-embed'
 
 //  const url = encodeURIComponent("https://scontent-sjc3-1.cdninstagram.com/v/t51.29350-15/363827451_786834503238969_6827302780644465821_n.webp?stp=dst-jpg&_nc_cat=109&ccb=1-7&_nc_sid=8ae9d6&_nc_ohc=POPCItyJEboAX9KBQbd&_nc_ht=scontent-sjc3-1.cdninstagram.com&edm=ANo9K5cEAAAA&oh=00_AfDkaxgQL6p2RE-2G66Zh1Qhtac8cVRr1XOFVlO-1j3iKQ&oe=65247349")
 
@@ -55,11 +55,11 @@ const InstagramHighlights = ({ instagram }) => {
       </div>
       <div className="grid grid-cols-1 justify-items-center gap-5 lg:gap-x-20   md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:gap-x-4  2xl:grid-cols-4">
       
-          {featuredInstagram?.map((item) => (
+          {/* {featuredInstagram?.map((item) => (
             <div key={item.url} >
               <InstagramEmbed  url={item.url} width={328} height={380} />
             </div>
-          ))}
+          ))} */}
    
 
         {/*  {instagram &&
