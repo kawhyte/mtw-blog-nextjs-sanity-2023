@@ -63,7 +63,7 @@ export default function CoverImage(props: CoverImageProps) {
 
 
   const image = source?.asset?._ref ? (
-    <div className="relative h-[200px] w-[320px]">
+    <div className="relative md:h-[219px] md:w-[350px]">
       <Skeleton visible className="absolute inset-0 h-full w-full rounded-md" />
       <Image
         className={cn('w-full object-cover object-center brightness-[0.85]', {
@@ -99,14 +99,18 @@ export default function CoverImage(props: CoverImageProps) {
           <div>
             {linkType === 'hotel'
               ? category && (
-                  <Badge
-                    className="absolute z-30 m-3  py-2"
-                    size="md"
-                    color={categoryType.color}
-                    variant={categoryType.variant}
-                  >
-                    {categoryType.name}
-                  </Badge>
+                <Badge
+                // Use object notation for the size prop for responsiveness:
+                // - 'sm' (small) size for the base breakpoint (mobile)
+                // - 'lg' (large) size starting from the 'lg' breakpoint (large screens)
+                size="sm"
+                // Removed py-2 class - let the Mantine size prop control padding
+                className="absolute z-30 m-3" // Kept positioning classes
+                color={categoryType.color}
+                variant={categoryType.variant}
+              >
+                {categoryType.name}
+              </Badge>
                 )
               : ''}
 

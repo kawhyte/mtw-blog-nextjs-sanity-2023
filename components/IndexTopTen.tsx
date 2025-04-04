@@ -1,9 +1,10 @@
-import { LiaCrownSolid } from 'react-icons/lia';
+
+import { Bed, CookingPot } from 'lucide-react';
 import Button from 'ui/Button';
 import dynamic from 'next/dynamic';
 import SectionTitle from './SectionTitle';
 
-// Dynamic import remains the same
+// Dynamic import 
 const PlayerWithNoSSR = dynamic(
   () =>
     import('@lottiefiles/react-lottie-player').then((module) => module.Player),
@@ -26,8 +27,11 @@ export default function IndexTopTen() {
         />
         <div className="flex pt-9 lg:mt-0 lg:flex-shrink-0">
           <div className="inline-flex">
-            <Button icon={<LiaCrownSolid className="h-6 w-6 text-pink-500" />} link={'/picks'}>
-              Our Top Picks
+            <Button icon={<Bed className="h-6 w-6 text-pink-500" />} link={'/top-hotel-picks'}>
+              Hotel Picks
+            </Button>
+            <Button icon={<CookingPot className="h-6 w-6 text-pink-500" />} link={'/top-restaurant-picks'}>
+              Restaurant Picks
             </Button>
           </div>
         </div>
@@ -47,7 +51,7 @@ export default function IndexTopTen() {
             autoplay
             keepLastFrame // Optional prop
             loop
-            src={'/bath.json'}
+            src={'/watermelon.json'}
             // Make the player fill its wrapper width, height adjusts automatically
             className="w-full h-auto"
           />

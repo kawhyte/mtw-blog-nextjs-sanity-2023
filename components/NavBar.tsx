@@ -135,7 +135,7 @@ export default function Nav({ color = 'bg-black', bgColor }) {
                 </Disclosure.Button>
               </div>
 
-              <div className="">
+              {/* <div className="">
                 <Link href="/" className="cursor-pointer" passHref legacyBehavior>
                   <div className="flex flex-shrink-0 items-center justify-center pl-3 transition-all  hover:text-pink-500 hover:duration-150 hover:ease-in-out  ">
                     <div className=" flex flex-row items-center space-x-4  ">
@@ -153,7 +153,7 @@ export default function Nav({ color = 'bg-black', bgColor }) {
                     </div>
                   </div>
                 </Link>
-              </div>
+              </div> */}
               <div className="flex flex-1 items-center justify-center sm:items-stretch md:justify-between ">
           
 

@@ -1,8 +1,7 @@
-import Container from 'components/BlogContainer'
+
 import BlogHeader from 'components/BlogHeader'
 import Layout from 'components/BlogLayout'
 import IndexPageHead from 'components/IndexPageHead'
-import MoreStories from 'components/MoreStories'
 import * as demo from 'lib/demo.data'
 import type { Post, Settings } from 'lib/sanity.queries'
 import Head from 'next/head'
@@ -39,9 +38,9 @@ export default function IndexPage(props: IndexPageProps) {
 
           <ReviewHeader
 					title={"Travel Gear and Gadgets"}
-					arenas={[]}
+
 					summary={"Ready to upgrade your travel game? We put the latest travel gear and gadgets to the test! Get quick thumbs up/down verdicts and bite-sized reviews (think Twitter-short) to see what's worth packing for your next adventure."}
-					animation={'/travel2.svg'}
+					img={'/travel2.svg'}
 				/>
 
           {posts.length > 0 && <TravelEssentialLayout posts={posts}  />}

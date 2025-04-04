@@ -39,12 +39,11 @@ export default function StoryGuidePage(props: StoryGuidePageProps) {
     settings,
    } = props;
 
-  // Remove hero post logic
-  // const [heroPost, ...morePosts] = initialPosts || [] // <-- REMOVE THIS
+  
 
   const { title = demo.title, description = demo.description } = settings || {};
 
-  //  console.log("Guide Page Initial Posts: ", initialPosts ) // For debugging
+
 
   return (
     <>
@@ -61,9 +60,9 @@ export default function StoryGuidePage(props: StoryGuidePageProps) {
 
         <ReviewHeader
           title={"Stories & Guides"}
-          arenas={[]} // Remove if not applicable
+     
           summary={"Uncover insider tips, hidden gems, and unforgettable adventures. From budget backpacking to luxury escapes, We’ve got you covered. Let's explore together!"}
-          animation={'/books.svg'} // Ensure path is correct
+          img={'/plane.json'} // Ensure path is correct
         />
 
         {/* --- Update MoreStories Props --- */}

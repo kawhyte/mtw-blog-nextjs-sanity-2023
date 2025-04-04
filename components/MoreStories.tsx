@@ -128,7 +128,7 @@ export default function MoreStories({
       )}
 
       {/* Display Posts Grid */}
-      <div className="container mx-auto mt-10 grid grid-cols-1 place-content-center place-items-center gap-x-16 gap-y-10 px-3 sm:grid-cols-2 md:grid-cols-2 md:gap-10 md:px-6 lg:gap-x-[2rem] lg:grid-cols-3 2xl:grid-cols-3">
+      <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4  gap-4 px-4 sm:px-6 lg:px-8 container mx-auto max-w-8xl">
         {/* Map over the generic Post array */}
         {currentPagePosts.map((post) => (
           <PostPreview

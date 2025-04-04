@@ -1,5 +1,4 @@
 import { PreviewSuspense } from '@sanity/preview-kit'
-import AllReviewsPage from 'components/AllReviewsPage'
 import TopListPage from 'components/TopListPage'
 import TravelEssentialPage from 'components/TravelEssentialPage'
 import { getSettings,getTravelEssentialPosts } from 'lib/sanity.client'
@@ -35,7 +34,7 @@ export default function Page(props: PageProps) {
       return (
         <PreviewSuspense
           fallback={
-            <TopListPage loading preview posts={TravelEssentialposts} settings={settings} />
+            <TopListPage loading preview posts={TravelEssentialposts} settings={settings} postHeader={''} img={''} summary={''} />
           }
         >
           <PreviewIndexPage token={token} />

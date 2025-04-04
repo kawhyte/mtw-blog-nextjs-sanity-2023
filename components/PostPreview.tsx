@@ -1,18 +1,15 @@
-import { inter } from 'app/fonts';
+// src/components/PostPreview.tsx
+
+import { inter } from 'app/fonts'; // Assuming fonts are correctly set up
 import Date from 'components/PostDate';
 import type { Post } from 'lib/sanity.queries'; // Make sure Post type is correctly imported
 import Link from 'next/link';
 import { FaRegCalendarAlt } from 'react-icons/fa';
 import { IoLocation } from 'react-icons/io5';
-// Removed Button import as it wasn't used in the final JSX provided
-// import Button from 'ui/Button';
 
 import CoverImage from './CoverImage'; // Assuming CoverImage component exists
 
-// Define props for PostPreview, omitting _id maybe not needed if Post already excludes it?
-// Using Pick might be clearer if you only need specific fields from Post
-// interface PostPreviewProps extends Omit<Post, '_id'> {}
-// Or define explicitly:
+// Define props for PostPreview
 interface PostPreviewProps {
   title?: Post['title'];
   coverImage?: Post['coverImage'];
@@ -22,15 +19,15 @@ interface PostPreviewProps {
   linkType?: Post['linkType'];
   diningType?: Post['diningType'];
   date?: Post['date'];
-  showRating?: boolean; // Assuming this comes from somewhere or is part of Post
-  slug?: Post['slug']; // Assuming slug is a string after projection
+  showRating?: boolean;
+  slug?: Post['slug'];
   location?: Post['location'];
-  author?: Post['author'];
-  excerpt2?: Post['excerpt2'];
+  author?: Post['author']; // Included from original interface, though not used in JSX
+  excerpt2?: Post['excerpt2']; // Included from original interface, though not used in JSX
   category?: Post['category'];
 }
 
-
+// Helper function to determine the link prefix based on post type
 const getLinkPrefix = (linkType?: Post['linkType']): string => {
   switch (linkType) {
     case 'hotel':
@@ -40,66 +37,54 @@ const getLinkPrefix = (linkType?: Post['linkType']): string => {
     case 'food':
       return '/food';
     default:
-      // Fallback link prefix if linkType is undefined or doesn't match
+      // Fallback link prefix
       return '/posts';
   }
 };
 
-// Updated getRating function with correct return type and existence checks
+// Updated getRating function to determine which rating object to use
 const getRating = (
   linkType?: Post['linkType'],
   diningType?: Post['diningType'],
   hotelRating?: Post['hotelRating'],
   foodRating?: Post['foodRating'],
   takeoutRating?: Post['takeoutRating'],
-): // Corrected Return Type Annotation:
-  | Post['hotelRating']   // Keep hotel rating type
-  | Post['foodRating']    // Keep food rating type
-  | Post['takeoutRating'] // *** ADD the takeout rating type ***
-  | undefined => {         // Keep undefined for the default return
-                           // 'number' type removed as it didn't match object structures
+): Post['hotelRating'] | Post['foodRating'] | Post['takeoutRating'] | undefined => {
   if (linkType === 'hotel' && hotelRating) {
-    // Only return if hotelRating object exists
     return hotelRating;
   }
   if (linkType === 'food') {
-    // Check for takeout first if that's the priority
     if (diningType === 'takeout' && takeoutRating) {
-       // Only return if takeoutRating object exists
-      return takeoutRating; // Now matches the updated return type
+      return takeoutRating;
     }
-    // Check for dine-in food rating
-    // (Optional: be more specific like diningType === 'dinein')
-    if (foodRating) { // Add check for dinein type if necessary: diningType === 'dinein' && foodRating
-       // Only return if foodRating object exists
+    if (foodRating) { // Assumes non-takeout is dine-in or fallback
       return foodRating;
     }
   }
-  // Default case if no relevant rating is found
-  return undefined;
+  return undefined; // Default case
 };
 
 
-// The PostPreview Component
+// The PostPreview Component - Modified for Grid Layout Compatibility
 const PostPreview = ({
   title,
   coverImage,
   hotelRating,
   foodRating,
   takeoutRating,
-  linkType, // Removed default 'test' as it might hide type issues
+  linkType,
   diningType,
   date,
-  showRating, // Pass this down to CoverImage
+  showRating,
   slug,
   location,
-  category
+  category,
 }: PostPreviewProps) => {
-  // Default slug handling might be needed if it can be undefined/null
+  // Ensure slug exists for link generation
   const safeSlug = slug ?? '';
   const href = `${getLinkPrefix(linkType)}/${safeSlug}`;
 
-  // Get the relevant rating object based on type
+  // Get the relevant rating object
   const currentRating = getRating(
     linkType,
     diningType,
@@ -110,64 +95,75 @@ const PostPreview = ({
 
   // Prevent rendering if essential data like slug or title is missing
   if (!safeSlug || !title) {
-    // Optionally log an error or return a placeholder
-    console.warn("PostPreview skipped rendering due to missing slug or title", { slug, title });
+    console.warn('PostPreview skipped rendering due to missing slug or title', {
+      slug,
+      title,
+    });
     return null;
   }
 
   return (
-    // Consider using <Link href={href}> wrapping the whole card for better UX
-    <div className="group z-10 w-[18.5rem] sm:w-[17.5rem] md:w-[20rem] lg:w-[18.9rem] 2xl:w-[20.5rem] max-w-sm overflow-hidden rounded-3xl border-4 border-black bg-white shadow-md duration-300 dark:bg-gray-50">
-      <div className="mb-5">
-        {/* Ensure CoverImage accepts the union type for 'rating' */}
+    // Main container: Removed fixed widths, added w-full, h-full, flex structure
+    <div className="group z-10 flex h-full w-full  flex-col overflow-hidden rounded-3xl border-4 border-black bg-white shadow-md duration-300 dark:bg-gray-50">
+      {/* Image container: Prevents shrinking */}
+      <div className="flex-shrink-0"> {/* Removed mb-5 */}
         <CoverImage
-          slug={safeSlug} // Pass the safe slug
-          title={title} // Pass title for alt text
+          // Ensure CoverImage itself is responsive (e.g., w-full, aspect ratio)
+          slug={safeSlug}
+          title={title}
           image={coverImage}
-          priority={false} // Previews are usually not priority
-          rating={currentRating} // Pass the determined rating object/undefined
-          showRating={showRating} // Pass down showRating prop
-          linkType={linkType}     // Pass down linkType if CoverImage needs it
-          diningType={diningType} // Pass down diningType if CoverImage needs it
+          priority={false} // Previews are usually not priority LCP elements
+          rating={currentRating}
+          showRating={showRating}
+          linkType={linkType}
+          diningType={diningType}
           category={category}
         />
       </div>
 
-      <div className="mx-4 mb-2 mt-1 flex flex-col pb-3">
-        <div>
+      {/* Text content container: Takes remaining vertical space */}
+      <div className="mx-2 mb-1 flex flex-grow flex-col pb-3">
+        {/* Title/Details section: Also grows if needed */}
+        <div className="flex-grow">
           <Link
             href={href}
             className={`${inter.variable} title-font font-secondary mt-3 font-light text-gray-700`}
+            aria-label={`Read more about ${title}`}
           >
-            {/* Added hover effect directly to the heading */}
-            <h1 className="font-montserrat font-bold text-gray-900 sm:text-xl lg:text-xl line-clamp-2 h-14 font-heading text-lg no-underline decoration-pink-500 decoration-dashed decoration-4 group-hover:underline">
+             {/* Title: Removed fixed width w-60, kept h-14 and line-clamp */}
+                   <h1 className="font-montserrat pt-1 xl:pt-1.5 font-heading text-sm font-bold text-gray-900 no-underline decoration-pink-500 decoration-dashed decoration-4 group-hover:underline sm:text-xl lg:text-xl line-clamp-2 h-10 sm:h-16">
+             {/* Ensure h-14 is appropriate for 2 lines of text at these font sizes */}
               {title}
             </h1>
           </Link>
 
-          <div className="mt-3 flex flex-col items-start justify-between gap-y-2">
+          {/* Meta Info (Location, Date) */}
+          <div className="mt-3 flex flex-col items-start justify-between gap-y-2 text-xs">
             {location && (
-              <div className="flex items-center gap-x-2 text-sm text-gray-500">
-                <IoLocation className="h-5 w-5 flex-shrink-0 text-pink-500" />
+              <div className="flex items-center gap-x-2 text-gray-500">
+                <IoLocation
+                  className="h-5 w-5 flex-shrink-0 text-pink-500"
+                  aria-hidden="true"
+                />
                 <p className="line-clamp-1">{location}</p>
               </div>
             )}
 
             {date && (
-              <div className="flex items-center gap-x-2 text-sm text-gray-500">
-                <FaRegCalendarAlt className="h-5 w-5 flex-shrink-0 text-pink-500" />
+              <div className="flex items-center gap-x-2 text-gray-500">
+                <FaRegCalendarAlt
+                  className="h-5 w-5 flex-shrink-0 text-pink-500"
+                  aria-hidden="true"
+                />
                 <Date dateString={date} />
               </div>
             )}
           </div>
         </div>
 
-        {/* Button section commented out as per original provided JSX */}
-        {/* <div className="self-end mt-4 text-sm z-40 flex flex-row items-center rounded-lg px-2 py-1">
-          <Button iconSize={10} noBorder={false} size="xs" link={href}>
-            View Details
-          </Button>
-        </div> */}
+        {/* Placeholder for potential Button section */}
+        {/* If a button was here, adding mt-auto to this div could push it down */}
+        {/* <div className="mt-auto self-end"> ... Button ... </div> */}
       </div>
     </div>
   );

@@ -1,10 +1,9 @@
 import { PreviewSuspense } from '@sanity/preview-kit';
-import AllReviewsPage from 'components/AllReviewsPage';
 import BlogHeader from 'components/BlogHeader';
 import Layout from 'components/BlogLayout';
 import Footer from 'components/Footer';
 import NBAArenaCard from 'components/NBAArenaCard';
-import ReviewHeader from 'components/ReviewHeader';
+import ArenaPageHeader from 'components/ArenaPageHeader';
 // ... other imports
 import {
   // getAllPosts,
@@ -198,7 +197,7 @@ export default function Page(props: PageProps) {
           description={[]}
           level={1}
         />
-        <ReviewHeader
+        <ArenaPageHeader
           title={'Visiting and Ranking Every NBA/WNBA Arena'}
           arenas={arenaPosts}
           summary={`We are traveling near and far to every state/country to visit and rank all the NBA and WNBA arenas (${arenaPosts.length}) across the US and Canada. Follow us on this journey.`}

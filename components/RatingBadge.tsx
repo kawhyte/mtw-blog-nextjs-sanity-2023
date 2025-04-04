@@ -13,7 +13,7 @@ const RatingBadge = ({average, textRating, color}:RatingBadgeProps) =>
               style={{ backgroundColor: color, opacity: 0.7 }} 
               >
                 <div className=" text-white">
-                  <span className="ml-1 mr-1 font-montserrat text-xl font-black leading-tight tracking-tighter text-gray-900 sm:text-xl md:text-left md:text-2xl md:leading-none lg:text-xl">
+                  <span className="ml-1 mr-1 font-montserrat text-sm font-black leading-tight tracking-tighter text-gray-900 sm:text-xl md:text-left md:text-2xl md:leading-none lg:text-xl">
                     {' '}
                     {Number(average).toFixed(2)}
                   </span>

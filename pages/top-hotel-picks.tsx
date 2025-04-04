@@ -34,7 +34,7 @@ export default function Page(props: PageProps) {
     return (
       <PreviewSuspense
         fallback={
-          <TopListPage loading preview posts={posts} settings={settings} />
+          <TopListPage loading preview posts={posts} settings={settings} postHeader={''} img={''} summary={''} />
         }
       >
         <PreviewIndexPage token={token} />
@@ -42,7 +42,7 @@ export default function Page(props: PageProps) {
     );
   }
 
-  return <TopListPage posts={posts} settings={settings} />;
+  return <TopListPage posts={posts} settings={settings} postHeader={"Our Top Hotel Picks"} img={'/bath.json'} summary={'Our top 10 hotels based on weighted average ratings, and our curated food guide. Discover the best experiences for your next adventure.'} />;
 }
 
 export const getStaticProps: GetStaticProps<
@@ -56,10 +56,10 @@ export const getStaticProps: GetStaticProps<
     getSettings(),
     // getRecommendationPosts(),
     getTopWeightedHotelPosts(), // Use the function to fetch top weighted hotels
-    getTopWeightedFoodPosts(), // Use the new function to fetch top weighted food
+    // getTopWeightedFoodPosts(), // Use the new function to fetch top weighted food
   ]);
 
-  const posts = [...topWeightedHotels, ...topWeightedFoods]; // Combine the top weighted hotels and foods
+  const posts = topWeightedHotels; 
   
   return {
     props: {

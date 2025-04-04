@@ -1,160 +1,77 @@
-import { Progress } from '@mantine/core'
-import { inter, oswald } from 'app/fonts'
-import { urlForImage } from 'lib/sanity.image'
-import Image from 'next/image'
-import React, { useEffect, useRef } from 'react'
-import { FaRegCalendarAlt } from 'react-icons/fa'
-import { IoLocationOutline } from 'react-icons/io5'
+import { Progress } from '@mantine/core'; // Note: Progress is imported but not used in the provided JSX
+import { inter, oswald } from 'app/fonts'; // Ensure fonts are correctly configured
+import { urlForImage } from 'lib/sanity.image'; // Note: urlForImage is imported but not used
+import Image from 'next/image'; // Note: Image is imported but not used
+import React, { useEffect, useRef } from 'react'; // Note: useEffect, useRef imported but not used
+import { FaRegCalendarAlt } from 'react-icons/fa'; // Note: FaRegCalendarAlt imported but not used
+import { IoLocationOutline } from 'react-icons/io5'; // Note: IoLocationOutline imported but not used
+import dynamic from 'next/dynamic';
 
-import PostDate from './PostDate'
+import PostDate from './PostDate'; // Note: PostDate imported but not used
 
-function ReviewHeader({ title, arenas, summary, animation }) {
-  // const totalDistance = arenas.reduce(
-  //   (total, item) => total + item.galleryCount,
-  //   0
-  // )
+// Dynamically import the Lottie Player component to avoid SSR issues
+const PlayerWithNoSSR = dynamic(
+  () =>
+    import('@lottiefiles/react-lottie-player').then((module) => module.Player),
+  { ssr: false }
+);
 
-  const filteredList = arenas.filter((item) => item.visited === true)
-
-  const arenaLastVisited = filteredList.sort(function (a, b) {
-    return new Date(b.date).valueOf() - new Date(a.date).valueOf()
-  })
-
-  const percentage = ((arenas[0]?.visitedCount / arenas.length) * 100).toFixed(
-    0
-  )
- //console.log(percentage)
-  return (
-    <div className="mb-10 flex flex-col items-center justify-center bg-indigo-50 pt-10  lg:flex-row">
-      <div className="container mx-auto">
-        <section className="body-font text-gray-600">
-          <div className=" flex flex-col items-center px-5 py-7 ">
-            <div className="grid max-w-4xl grid-cols-9 place-content-center  place-items-center gap-2   ">
-              {arenas.slice(0, 27).map((item) => (
-                <div key={item.name}>
-                  <Image
-                    width={189}
-                    height={189}
-                    placeholder="blur"
-                    blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAO0lEQVR4nGNgYGBg+P//P1t9fT0TiM0we3ZjxZxZjQ9XLpwwe9nCHkOGGZOyanraY9aumN2wbsn0hmQA/MEWfj4ocjcAAAAASUVORK5CYII="
-                    className="  object-cover object-center md:h-16 md:w-16"
-                    alt="hero"
-                    src={
-                      item?.gallery[0].asset?._ref
-                        ? urlForImage(item?.gallery[0].asset?._ref)
-                            .height(200)
-                            .width(200)
-                            .fit('crop')
-                            .url()
-                        : 'https://fakeimg.pl/1240x801'
-                    }
-                  />
-                </div>
-              ))}
-              {/* <div>
-              <Image
-              width={389}
-              height={288}
-              placeholder='blur'
-              blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAO0lEQVR4nGNgYGBg+P//P1t9fT0TiM0we3ZjxZxZjQ9XLpwwe9nCHkOGGZOyanraY9aumN2wbsn0hmQA/MEWfj4ocjcAAAAASUVORK5CYII='
-
-                className=" object-cover object-center h-full"
-                alt="hero"
-                 src={animation}
-              /></div> */}
-            </div>
-            <div className="flex max-w-4xl flex-col items-center justify-center pt-8 text-center align-middle   md:items-start lg:flex-grow  ">
-              <h1
-                className="font-oswald container mx-auto  mb-1  font-heading text-4xl font-bold leading-tight tracking-tighter text-pink-500 sm:px-0  md:text-[4.3rem]"
-              >
-                {title}
-              </h1>
-              <div className='container mx-auto flex flex-col items-center'>
-                <p className="mb-8  mt-4 max-w-2xl leading-relaxed">
-                  {' '}
-                  {summary}
-                </p>
-
-                {arenas.length > 1 && (
-                  <div className=" container mx-auto    mb-8 md:w-full md:pr-6 lg:mb-0 lg:max-w-xl ">
-                    <div className="relative flex h-full flex-col overflow-hidden rounded-lg border-4 border-black p-6">
-                      <h2 className="title-font mb-1 text-sm font-medium tracking-widest">
-                        ARENA LAST VISITED
-                      </h2>
-                      <h1 className="mb-4  border-gray-200 text-5xl leading-none text-gray-900">
-                        {arenaLastVisited[0]?.name}
-                      </h1>
-                      <div className="mb-4 flex flex-col md:flex-row items-center gap-y-3   justify-around border-b border-gray-200 pb-4 align-middle text-base leading-none text-gray-500">
-                        <div className="flex items-center align-middle">
-                          <FaRegCalendarAlt className="ml-1 mr-2 h-4 w-5   " />
-                          <p className=" pr-2 text-sm ">
-                            <PostDate dateString={arenaLastVisited[0]?.date} />
-                          </p>
-                        </div>
-                        <div className="flex items-center align-middle">
-                          <IoLocationOutline className="h-5 w-5" />
-                          <p className="ml-2 text-sm">
-                            {arenaLastVisited[0]?.location}
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="  ">
-                        {/* <div className="mt-2 flex flex-row  justify-between">
-                          <span className="title-font mb-1 text-sm  font-medium text-gray-500 ">
-                          {arenas[4]?.visitedCount} of 37 arenas visited
-                          </span>
-                          
-                        </div> */}
-                        <div className="mt-2 flex flex-row  justify-between">
-                          <span className=" mb-2 text-sm  font-medium text-gray-500 ">
-                            We&apos;ve visited{' '}
-                            <span className=" font-black text-pink-500">
-                              {' '}
-                              {arenas[4]?.visitedCount}
-                            </span>{' '}
-                            arenas so far
-                          </span>
-                        </div>
-                        {/* <div className=""> 
-                        <Progress value={parseInt(percentage)} animate  />
-                        <div className='text-xs'> {percentage}%</div> 
-
-</div> */}
-                        <div className="flex items-center justify-center gap-x-2">
-                          <div className=" h-3 w-full rounded-full ">
-                            {/* <div className="w-full rounded-full  dark:bg-gray-200">
-                              <div
-                                className="h-3  rounded-r-full bg-gradient-to-r  from-pink-200 to-pink-500 p-0 text-center text-sm font-black leading-none text-gray-600  "
-                                style={{ width: `${percentage}%` }}
-                              >
-                        
-
-
-                              </div>
-                            </div> */}
-                            <Progress
-                              color="rgba(255, 79, 208, 0.95)"
-                              radius="lg"
-                              size="lg"
-                              value={parseInt(percentage)}
-                              animate
-                            />
-                          </div>
-                          <div className="text-xs"> {percentage}%</div>
-                        </div>
-                      </div>
-                      
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
-    </div>
-  )
+// Define props for the component
+interface ReviewHeaderProps {
+  title: string;
+  summary: string;
+  img?: any; // Prop for animation data/URL (currently unused in JSX below)
 }
 
-export default ReviewHeader
+function ReviewHeader({ title, summary, img }: ReviewHeaderProps) {
+  // Removed unused totalDistance calculation
+
+  return (
+    // 1. Use container for consistent width and padding, matching other sections
+    // Removed mx-16, added container, mx-auto, and responsive padding px-*
+    <div className="container mx-auto px-4 py-7 sm:px-6 lg:px-8">
+      {/* 2. Make grid responsive: 1 column on mobile, 4 columns on large screens */}
+      <div className="grid grid-cols-1 gap-5 lg:grid-cols-4">
+        {/* Text Content Area */}
+        {/* Spans full width on mobile, 2 columns on large screens */}
+        <div className="flex flex-col items-center justify-center px-5 pt-8 align-middle md:items-start lg:col-span-2">
+          {/* Ensure h1 font sizes are responsive if needed */}
+          <h1
+            className={`font-heading mb-1  font-oswald text-5xl font-bold leading-tight tracking-tighter text-pink-500 md:text-[4.3rem] lg:text-[4.7rem] ${oswald.variable}`} // Assuming oswald font variable is needed
+          >
+            {title}
+          </h1>
+          {/* Removed extra container mx-auto from h1, parent handles centering/padding */}
+          {/* Removed extra flex container around paragraph */}
+          <p
+            className={`mb-8 mt-4 max-w-xl leading-relaxed ${inter.variable}`} // Assuming inter font variable is needed
+          >
+            {summary}
+          </p>
+        </div>
+
+        {/* Animation Area */}
+        {/* 3. Hide on small screens (hidden), show as flex container on large (lg:flex) */}
+        {/* Spans full width on mobile (when visible), 2 columns on large screens */}
+        <div className="hidden items-center justify-center  min-h-[15rem] lg:col-span-2 lg:flex">
+          {/* Lottie Animation Wrapper */}
+          {/* 4. Increased max-width for a slightly larger animation */}
+          <div className="w-full max-w-md">
+            {' '}
+            {/* Changed from max-w-sm */}
+            <PlayerWithNoSSR
+              autoplay
+              keepLastFrame // Optional prop
+              loop
+              // Consider using the 'animation' prop for the src if it contains the URL/data
+              src={img} // Make sure this path is correct
+              className="h-auto w-full"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default ReviewHeader;

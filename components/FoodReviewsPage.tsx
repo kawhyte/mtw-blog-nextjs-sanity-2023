@@ -58,11 +58,11 @@ export default function FoodReviewsPage(props: FoodReviewsPageProps) {
 
         <ReviewHeader
           title={'Food Reviews'}
-          arenas={[]} // Remove if not needed
+       
           summary={
             "Join us on a culinary adventure as we explore the best (and sometimes, the worst) eateries in town. From hidden gems to fancy hotspots, We’ll dish out honest reviews, mouthwatering photos, and insider tips. Let's eat!"
           }
-          animation={'/food_smiling.svg'} // Ensure path is correct
+          img={'/watermelon.json'} // Ensure path is correct
         />
 
         {/* --- Update MoreStories Props --- */}
