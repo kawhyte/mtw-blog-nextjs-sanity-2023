@@ -9,20 +9,8 @@ export default function TopListItems(
 ) {
   return (
     <>
-      {/* <div className="  mb-10 flex w-full flex-wrap ">
-        <div className="mx-4 my-6 w-full lg:mb-0 lg:w-1/2 ">
-          {posts[0]?.title && (
-            <SectionTitle
-              header={`Top ${
-                posts[0].linkType === 'hotel' ? 'Hotel' : 'Restaurant'
-              } Picks 🔥 `}
-              description={undefined}
-            />
-          )}
-        </div>
-      </div> */}
+   
 
-      {/* <div className="container mx-auto  mt-14 grid grid-cols-2 place-content-center place-items-center gap-x-5  gap-y-10 sm:gap-y-20 px-3  sm:grid-cols-2 md:grid-cols-3  md:gap-10 md:px-6 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4"> */}
       <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4  gap-4 px-4 sm:px-6 lg:px-8 container mx-auto max-w-8xl">
         {posts.map(
           // Directly mapping over the top weighted posts

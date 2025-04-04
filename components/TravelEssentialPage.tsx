@@ -40,7 +40,7 @@ export default function IndexPage(props: IndexPageProps) {
 					title={"Travel Gear and Gadgets"}
 
 					summary={"Ready to upgrade your travel game? We put the latest travel gear and gadgets to the test! Get quick thumbs up/down verdicts and bite-sized reviews (think Twitter-short) to see what's worth packing for your next adventure."}
-					img={'/travel2.svg'}
+					img={'/top.json'}
 				/>
 
           {posts.length > 0 && <TravelEssentialLayout posts={posts}  />}

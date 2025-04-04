@@ -5,6 +5,8 @@ import calculateAverageRating from 'lib/calculateArenaRating'
 import { urlForImage } from 'lib/sanity.image'
 import {
   Binoculars,
+  Calendar,
+  CalendarCheck,
   Car,
   Check,
   Eye,
@@ -111,88 +113,6 @@ const Arenas = ({
               />
             ) : null}
 
-            {/* <div className="absolute left-4 top-3 z-30 flex  flex-row items-center  gap-y-1 xl:my-0  ">
-              {visited ? (
-                <div className=" flex  flex-col items-center   gap-y-1 xl:my-0  ">
-                
-                  <Badge
-                    color="green"
-                    variant="filled"
-                    size="sm"
-                    pr={9}
-                    // leftSection={<Check className="-mr-1 h-4 font-montserrat " />}
-                  >
-                    Visited on <PostDate dateString={dateVisited} />
-                  </Badge>
-                </div>
-              ) : (
-                ''
-              )}
-            </div> */}
-
-            {/* <div className="absolute bottom-3 left-4 z-30 font-montserrat text-sm font-bold text-white">
-              <div className="flex  flex-col gap-y-1"> */}
-            {/* <div className=" flex  flex-row items-center  gap-y-1 xl:my-0  ">
-                  {visited ? (
-                    <div className=" flex  flex-col items-center   gap-y-1 xl:my-0  ">
-                   
-                      <Badge
-                        color="green"
-                        variant="filled"
-                        size="sm"
-                        pr={9}
-                        leftSection={<Check className="-mr-1 h-4 font-montserrat " />}
-                      >
-                        Visited on <PostDate dateString={dateVisited} />
-                      </Badge>
-                    </div>
-                  ) : (
-                    ''
-                  )}
-                </div> */}
-
-            {/* <div className=" flex  flex-row items-center  gap-y-1 xl:my-0  ">
-                  <p className=" text-sm font-bold"></p>
-                  <div className=" flex  flex-row items-center gap-x-1  gap-y-1 bg-black bg-opacity-30 px-2 py-1 text-xs font-bold text-gray-100 xl:my-0">
-                    {<Wrench className="mr-1 h-4" />}Constructed in
-                    <PostYear dateString={constructionDate} />
-                  </div>
-                </div>
-                <div className=" flex  flex-row items-center  gap-y-1 xl:my-0  ">
-                  <p className=" text-sm font-bold"></p>
-                  <div className=" flex  flex-row items-center gap-x-1  gap-y-1 bg-black bg-opacity-30 px-2 py-1 text-xs font-bold text-white xl:my-0">
-                    {<Users className="mr-1 h-4" />}
-                    <span className="mr-0.5">Capacity</span>
-                    {new Intl.NumberFormat().format(capacity)}
-                  </div>
-                </div> */}
-
-            {/* 
-                <div className=" flex  flex-row items-center  gap-y-1 xl:my-0  ">
-                  <p className=" text-sm font-bold"></p>
-                  <Badge
-                    color="blue"
-                    variant="filled"
-                    size="sm"
-                    pr={9}
-                    leftSection={<Users className="-mr-1 h-4" />}
-                  >
-                      Arena Capacity{' '}
-                      {new Intl.NumberFormat().format(capacity)}
-                  </Badge>
-                </div> */}
-            {/* </div>
-            </div> */}
-
-            {/* {arenaReview?.comments && (
-              <Blockquote
-                color="gray"
-                className="absolute inset-x-3 bottom-2 z-30 bg-black bg-opacity-50 text-sm text-white sm:text-xs md:text-base"
-              >
-                {arenaReview?.comments}
-              </Blockquote>
-            )} */}
-
             <img
               src={
                 arenaImageSrc.asset?._ref
@@ -217,28 +137,32 @@ const Arenas = ({
                 {arenaName}
               </h2>
 
-              <div className="flex flex-row items-center gap-2 ">
+              {/* Use items-center for vertical alignment */}
+              <div className="flex flex-row items-center gap-2">
+                {/* Child 1: Location */}
                 <p className="text-sm">{location}</p>
 
-                <div className=" flex  flex-row items-center  gap-y-1 xl:my-0  ">
-                  {visited ? (
-                    <div className=" flex  flex-col items-center   gap-y-1 xl:my-0  ">
-                      {/* <p className=" text-sm font-bold">
-                      <PostDate dateString={dateVisited} />
-                    </p> */}
-                      <Badge
-                        color="pink"
-                        variant="filled"
-                        size="sm"
-                        pr={9}
-                        // leftSection={<Check className="-mr-1 h-4 font-montserrat " />}
-                      >
-                        Visited on <PostDate dateString={dateVisited} />
-                      </Badge>
-                    </div>
-                  ) : (
-                    ''
-                  )}
+                {/* Child 2: Badge container - Add ml-auto here */}
+                {/* This div will now be pushed to the right */}
+                <div className="ml-auto">
+                  {' '}
+                  {/* Add ml-auto */}
+                  {
+                    visited ? (
+                      <span className="flex text-sm">
+                        {' '}
+                        <CalendarCheck className="ml-5 mr-2 h-5 w-5 text-green-500" />{' '}
+                        <span className="mr-1"> Visited on</span>{' '}
+                        <PostDate dateString={dateVisited} />
+                      </span> // No need for nested flex here unless specifically required for badge alignment
+                    ) : // <div>
+                    //   <Badge color="indigo" variant="filled" size="sm" pr={9}>
+                    //     Visited on <PostDate dateString={dateVisited} />
+                    //   </Badge>
+                    // </div>
+                    // Render nothing, but the parent div with ml-auto still ensures spacing
+                    null // Or simply omit the else block
+                  }
                 </div>
               </div>
             </div>

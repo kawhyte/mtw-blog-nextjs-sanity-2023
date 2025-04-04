@@ -1,4 +1,4 @@
-// components/FoodReviewsPage.tsx (assuming you rename the file)
+
 
 import Container from 'components/BlogContainer';
 import BlogHeader from 'components/BlogHeader'; // Maybe remove if ReviewHeader is enough
@@ -15,7 +15,7 @@ import { CMS_NAME } from '../lib/constants';
 import Footer from './Footer';
 import ReviewHeader from './ReviewHeader';
 
-// --- Renamed and Updated Props Interface ---
+
 export interface FoodReviewsPageProps {
   preview?: boolean;
   loading?: boolean;
@@ -37,11 +37,9 @@ export default function FoodReviewsPage(props: FoodReviewsPageProps) {
     settings,
    } = props;
 
-  // Remove hero post logic
-  // const [heroPost, ...morePosts] = initialPosts || [] // <-- REMOVE
+
 
   const { title = demo.title, description = demo.description } = settings || {};
-  // console.log("Food Review Page Initial Posts:", initialPosts)
 
   return (
     <>
@@ -62,7 +60,7 @@ export default function FoodReviewsPage(props: FoodReviewsPageProps) {
           summary={
             "Join us on a culinary adventure as we explore the best (and sometimes, the worst) eateries in town. From hidden gems to fancy hotspots, We’ll dish out honest reviews, mouthwatering photos, and insider tips. Let's eat!"
           }
-          img={'/watermelon.json'} // Ensure path is correct
+          img={'/watermelon.json'} 
         />
 
         {/* --- Update MoreStories Props --- */}
@@ -72,8 +70,8 @@ export default function FoodReviewsPage(props: FoodReviewsPageProps) {
             totalPostsCount={totalPostsCount}
             itemsPerPage={itemsPerPage}
             showPagination={true}
-            showRating={true} // Adjust if food reviews don't show ratings same way
-            paginatedQuery={paginatedFoodPostsQuery} // <-- PASS the food query
+            showRating={true} 
+            paginatedQuery={paginatedFoodPostsQuery} 
           />
         ) : (
            !loading && <Container><p className="text-center my-10">No food reviews found.</p></Container>

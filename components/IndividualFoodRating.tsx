@@ -3,9 +3,12 @@ import { Badge } from '@mantine/core'
 import { calculateTextRating } from 'lib/calculateTextRating'
 import { urlForImage } from 'lib/sanity.image'
 import { Oswald } from 'next/font/google'
-import Image from 'next/image'
+
 import React from 'react'
-import { FaStar, FaStarHalfAlt } from 'react-icons/fa'
+
+import { IoStar, IoStarHalf, IoStarOutline } from 'react-icons/io5'
+
+
 
 import SectionTitle from './SectionTitle'
 
@@ -20,17 +23,17 @@ const StarRating = ({ rating }: { rating: number }) => {
 
   // Full stars
   for (let i = 0; i < fullStars; i++) {
-    stars.push(<FaStar key={`full-${i}`} className="h-5 w-5 text-yellow-400" />)
+    stars.push(<IoStar key={`full-${i}`} className="h-5 w-5 text-yellow-400" />)
   }
 
   // Half star
   if (halfStar) {
-    stars.push(<FaStarHalfAlt key="half" className="h-5 w-5 text-yellow-400" />)
+    stars.push(<IoStarHalf key="half" className="h-5 w-5 text-yellow-400" />)
   }
 
   // Empty stars
   for (let i = 0; i < emptyStars; i++) {
-    stars.push(<FaStar key={`empty-${i}`} className="h-5 w-5 text-gray-300" />)
+    stars.push(<IoStar key={`empty-${i}`} className="h-5 w-5 text-gray-300" />)
   }
 
   return <div className="flex items-center">{stars}</div>

@@ -1,193 +1,130 @@
-import { Badge, Card, Group, Image, Text } from '@mantine/core'
-import { oswald } from 'app/fonts'
+import { Badge } from '@mantine/core' // Keep Mantine Badge as you're using it
+// Removed Mantine Card, Group, Text, Image as we'll use divs and next/image primarily
+// import { oswald } from 'app/fonts' // Keep if used elsewhere, otherwise optional for this component
 import { urlForImage } from 'lib/sanity.image'
 import { Essential } from 'lib/sanity.queries'
-import Link from 'next/link'
-// import { CldImage } from 'next-cloudinary'
-import { FaRegCalendarAlt } from 'react-icons/fa'
-import { FaRegThumbsDown, FaRegThumbsUp } from 'react-icons/fa6'
-import Button from 'ui/Button'
+import Link from 'next/link' // Keep if Button component doesn't handle Link internally
+import Image from 'next/image'; // Use Next.js Image for optimization
+// import { CldImage } from 'next-cloudinary' // Removed as Sanity image is used
+// Removed Fa icons as lucide-react is used
+import { CircleDollarSign, Calendar, ThumbsDown, ThumbsUp } from 'lucide-react'; // Keep lucide icons
 
-import { CircleDollarSign, Calendar, ThumbsDown,ThumbsUp } from 'lucide-react';
-
-
-import PostBody from './PostBody'
-import PostDate from './PostDate'
-import StarRating from './StarRating'
+import Button from 'ui/Button' // Keep your Button component
+import PostBody from './PostBody' // Keep your PostBody component
+import PostDate from './PostDate' // Keep your PostDate component
+// import StarRating from './StarRating' // Removed, wasn't in the provided code snippet
 
 const TravelEssentialLayout = ({ posts }: { posts: Essential[] }) => {
-  // console.log('Essential', posts)
   return (
     <>
-      <div className="container mx-auto  mt-14 grid grid-cols-1 place-content-center place-items-center gap-x-16 gap-y-10 px-3 sm:grid-cols-1 md:grid-cols-2 md:gap-10 md:px-6 lg:grid-cols-3 2xl:grid-cols-4">
-        {/* <div className=" mx-3 grid grid-cols-1  place-content-center gap-10   sm:grid-cols-1 md:grid-cols-2 md:gap-6 lg:grid-cols-2 lg:gap-12 xl:grid-cols-3  "> */}
+      {/* Responsive Grid Container - Your existing setup is good */}
+      <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 px-4 sm:px-6 lg:px-8 container mx-auto max-w-7xl">
         {posts?.map((item) => (
-          <div key={item._id}>
-            <div
-              className={` w-[20rem] max-w-sm overflow-hidden rounded-3xl border-4 border-black bg-white shadow-offsetIndigo   `}
-            >
-              <div>
-                {/*           
-                  {item.recommend ? (
-                    <Badge color="green" className=" ml-3 mt-3">
-                      <p className={`${oswald.variable} text-xs uppercase`}>
-                        {'Recommended'}
-                      </p>
-                    </Badge>
-                  ) : (
-                    <Badge color="red" className=" ml-3 mt-3">
-                      <p className={`${oswald.variable} text-xs uppercase`}>
-                        {'Not Recommended'}
-                      </p>
-                    </Badge>
-                  )} */}
-                <div className="relative   mb-4 flex justify-center bg-gray-100">
-                  <Image
-                    width={200}
-                    height={200}
-                    placeholder="blur"
-                    //blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAO0lEQVR4nGNgYGBg+P//P1t9fT0TiM0we3ZjxZxZjQ9XLpwwe9nCHkOGGZOyanraY9aumN2wbsn0hmQA/MEWfj4ocjcAAAAASUVORK5CYII="
-
-                    alt="product"
-                    src={
-                      item?.productImage?.asset?._ref
-                        ? urlForImage(item?.productImage?.asset?._ref)
-                            .height(250)
-                            .width(250)
-                            .fit('crop')
-                            .url()
-                        : 'https://fakeimg.pl/1240x801'
-                    }
-                    className=" h-42 h- w-full object-cover object-center brightness-[0.95] my-5  "
-                  />
-
-                  <div className="absolute  right-3  top-3  flex items-center">
-                    {item.recommend ? (
-                      <Badge
-                        pl={0}
-                        size="md"
-                        color="green"
-                        variant="filled"
-                        radius="xl"
-                        leftSection={
-                          <ThumbsUp className="ml-1 h-10 w-6 p-1" />
-                        }
-                      >
-                        Recommended
-                      </Badge>
-                    ) : (
-                      <Badge
-                        pl={0}
-                        size="md"
-                        color="red"
-                        variant="filled"
-                        radius="xl"
-                        leftSection={
-                          <ThumbsDown className="ml-1 h-10 w-6 p-1" />
-                        }
-                      >
-                        Disapprove
-                      </Badge>
-                    )}
-                  </div>
-                </div>
+          // Card Container - Applying structure and styling
+          <div
+            key={item._id}
+            // Use Tailwind for background, border, shadow, rounded corners, flex layout, and full height
+            className="flex flex-col h-full bg-white border-4 border-black rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden"
+            // Removed bg-indigo-50 unless desired, using standard card bg-white
+          >
+            {/* Top Section: Image and Badge */}
+            <div className="relative"> {/* Relative container for absolute badge */}
+              {/* Image Wrapper */}
+              <div className="relative w-full h-48 flex items-center justify-center bg-white"> {/* Added bg for loading state */}
+                 <Image
+                  // placeholder="blur" // Next.js Image handles placeholders automatically with fill/sizes or priority
+                  // blurDataURL="..." // Optional low-quality image placeholder
+                  alt={item.name || 'Product image'} // Provide alt text
+                  src={
+                    item?.productImage?.asset?._ref
+                      ? urlForImage(item.productImage.asset._ref)
+                          .width(300) // Request appropriate size
+                          .height(300)
+                          .fit('max') // 'max' scales down if needed, preserves aspect ratio
+                          .auto('format') // Auto-select format (webp, avif)
+                          .url()
+                      : '/placeholder-image.png' // Fallback placeholder in /public
+                  }
+                  fill // Fill the container
+                  style={{ objectFit: 'contain' }} // 'contain' shows the whole image, 'cover' fills space
+                  className="transition-transform duration-300 group-hover:scale-105 pt-4" // Optional zoom effect on hover
+                />
               </div>
-              {/* <img
-                    width={1500}
-                    height={1500}
-                    alt={`Cover Image for ${item.name}`}
-                    className=" transition-all hover:translate-x-3   hover:translate-y-2 hover:duration-700 md:px-4 md:py-4 lg:rounded-l-2xl md:mt-0"
-                    src={urlForImage(item.productImage.asset._ref)
-                      .width(400)
-                      .height(400)
-                      .format('webp').blur(20)
-                      .url()}
-                  /> */}
 
-              <div className=" ">
-                <div className="mx-6 flex flex-col align-middle   ">
-                  <div className="flex  justify-between  text-2xl text-gray-700">
-                    <h1 className="font-montserrat font-bold">{item.name}</h1>
-                    {/* <p>{item.price > 0 ? `$${item.price}` : 'FREE'}</p> */}
-                  </div>
+               {/* Recommendation Badge - Positioned absolutely */}
+               <div className="absolute top-3 left-3 z-10">
+                 {item.recommend ? (
+                   <Badge
+                     pl={0}
+                     size="sm"
+                     color="green"
+                     variant="filled" // Using filled variant
+                     radius="xl"
+                     className="shadow-md" // Added shadow for visibility
+                     leftSection={
+                       <ThumbsUp className="ml-1 h-4 w-4" /> // Adjusted icon size
+                     }
+                   >
+                     Loved it
+                   </Badge>
+                 ) : (
+                   <Badge
+                     pl={0}
+                     size="sm"
+                     color="red"
+                     variant="filled" // Using filled variant
+                     radius="xl"
+                     className="shadow-md" // Added shadow for visibility
+                     leftSection={
+                       <ThumbsDown className="ml-1 h-4 w-4" /> // Adjusted icon size
+                     }
+                   >
+                     Hated it {/* Or "Not Recommended" */}
+                   </Badge>
+                 )}
+               </div>
+            </div>
 
-                  <div className="  mt-3 flex flex-row items-center justify-start rounded-full    align-middle ">
-                      <Calendar className=" mr-2 h-5 w-5    text-pink-500" />
 
-                      
-                      <p className=" line-clamp-1 pr-2 text-sm text-gray-500">
-                      Purchased on  <PostDate dateString={item.date} />
-                      </p>
-                    </div>
-                  <div className="  my-1 flex flex-row items-center justify-start rounded-full   py-1 align-middle ">
-                   
+            {/* Content Section - Takes remaining space */}
+            <div className="flex flex-col flex-grow p-4 bg-gray-50"> {/* Added padding */}
+              {/* Product Name */}
+              <h1 className=" text-base md:text-lg font-semibold text-gray-800 mb-2 font-montserrat line-clamp-2">
+                {item.name}
+              </h1>
 
-                      <CircleDollarSign className='text-pink-500 mr-2' />
-                      <p className=" line-clamp-1 pr-2 text-sm text-gray-500">
-                        <p>{item.price > 0 ? `$${item.price}` : 'FREE'}</p>
-                      </p>
-                    </div>
-
-                
-                  {/* <div className=" my-5 border-t border-gray-500"></div> */}
-                  {/* <div className="flex justify-between ">
-                
-
-                    <div className="  my-1 flex flex-row items-center justify-start rounded-full   py-1 align-middle ">
-                      <FaRegCalendarAlt className="ml-1 mr-2 h-5 w-5    text-pink-500" />
-                      <p className=" line-clamp-1 pr-2 text-sm text-gray-500">
-                        <PostDate dateString={item.date} />
-                      </p>
-                    </div>
-                    <div className="flex items-center">
-                      {item.recommend ? (
-                        <Badge
-                          pl={0}
-                          size="md"
-                          color="green"
-                          variant="outline"
-                          radius="xl"
-                          leftSection={
-                            <FaRegThumbsUp className="ml-1 h-10 w-6 p-1" />
-                          }
-                        >
-                          Recommended
-                        </Badge>
-                      ) : (
-                        <Badge
-                          pl={0}
-                          size="md"
-                          color="red"
-                          variant="outline"
-                          radius="xl"
-                          leftSection={
-                            <FaRegThumbsDown className="ml-1 h-10 w-6 p-1" />
-                          }
-                        >
-                          Disapprove
-                        </Badge>
-                      )}
-                    </div>
-
-                
-                  </div> */}
-                </div>
-
-                {/* <div className="mx-6 my-2 border-t border-gray-500"></div> */}
-
-                <div className="my-2 ml-6 mr-2 line-clamp-4 h-16">
-                  <PostBody content={item.description} />
-                </div>
+              {/* Date and Price Info */}
+              <div className="flex items-center text-xs md:text-sm text-gray-500 mb-1">
+                <Calendar className="mr-1.5 h-4 w-4 text-pink-500 flex-shrink-0" />
+                <span> {/* Wrap text for better alignment if it wraps */}
+                   Reviewed on <PostDate dateString={item.date} />
+                </span>
               </div>
-              <div className="mx-20 mb-4">
-                {' '}
-                <Button size='xs' link={item.link}> Get Item</Button>
+              <div className="flex items-center  text-xs md:text-sm text-gray-500 mb-3">
+                 <CircleDollarSign className='text-pink-500 mr-1.5 h-4 w-4 flex-shrink-0' />
+                 <span className='font-semibold'> {/* Wrap text */}
+                   {item.price > 0 ? `${item.price.toFixed(2)}` : 'FREE'}
+                 </span>
               </div>
+
+               {/* Description - takes available space before button */}
+               <div className=" text-xs md:text-sm text-gray-600 mb-4 flex-grow min-h-[40px]"> {/* Added min-height */}
+                {/* Limit description lines */}
+                 <div className="line-clamp-3">
+                   <PostBody content={item.description} />
+                 </div>
+               </div>
+
+               {/* Action Button Area - Pushed to bottom */}
+               <div className="mt-auto pt-4 border-t border-gray-100 text-center sm:mx-7 lg:mx-10"> {/* mt-auto pushes down, border adds separation */}
+                 <Button size='xs' link={item.link}>
+                   Get Item
+                 </Button>
+               </div>
             </div>
           </div>
         ))}
       </div>
-      {/* </div> */}
     </>
   )
 }

@@ -140,7 +140,7 @@ export default function PostHeader({
         <PostTitle>{title}</PostTitle>
 
         <div className="mt-2 max-w-4xl">
-          <div className="grid grid-cols-2 gap-y-3 md:grid-cols-4">
+          <div className="grid grid-cols-2 gap-y-3 md:grid-cols-4 md:place-content-center md:place-items-center md:gap-x-4">
             <LocationInfo
               location={location}
               linkType={linkType}
