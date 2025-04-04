@@ -181,6 +181,7 @@ const Arenas = ({
               </div>
             </div>
           </div>
+          
 
           <div className="text-sm text-gray-700 md:text-xs ">
             <h3 className=" ml-3 mt-5 text-base   font-bold  ">
