@@ -253,7 +253,7 @@ export default function Page(props: PageProps) {
         {/* Arena Cards Grid - UPDATED with Link */}
         <div className="grid grid-cols-2 gap-x-4 gap-y-8 px-4
                      md:grid-cols-3 md:gap-x-6 md:gap-y-10 md:px-6
-                     lg:grid-cols-4 lg:gap-x-8">
+                     lg:grid-cols-4 lg:gap-x-8  mx-auto container">
           {arenasToDisplay.length > 0 ? (
              arenasToDisplay.map((item) => {
                 // Calculate rating (ensure item.arenaReview exists)
