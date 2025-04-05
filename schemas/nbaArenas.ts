@@ -21,6 +21,18 @@ export default defineType({
     }),
 
     defineField({
+      name: 'slug',
+      title: 'slug',
+      type: 'slug',
+      options: {
+        source: 'name', // Automatically generate from the 'name' field
+        maxLength: 96,
+      },
+      validation: (Rule) => Rule.required(),
+      description: 'Arena slug (ex. crypto)',
+    }),
+
+    defineField({
       name: 'arenaImage',
       title: 'Arena Image',
       type: 'image',

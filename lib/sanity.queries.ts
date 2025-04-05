@@ -106,7 +106,7 @@ const hotelFieldsFragment = groq`
 `
 const hotelFieldsFragmentLimited = groq`
     ${hotelRatingFields},
-    
+
 `
 
 const foodFieldsFragment = groq`
@@ -201,20 +201,33 @@ const travelEssentialFields = groq`
     categoryName
 `
 
+// UPDATED arenaFields - includes slug and clarifies arenaReview structure possibility
 const arenaFields = groq`
     _id,
     name,
+    "slug": slug.current, // Ensure slug is fetched
     arenaImage,
     gallery,
     location,
     buildDate,
     capacity,
-    arenaReview,
+    // Expand arenaReview if it's an object with specific fields you need
+    // Example:
+    arenaReview {
+      atmosphere,
+      food,
+      location,
+      seats,
+      staff
+      // Add other review fields as defined in your arenaReview schema type
+    },
+    // If arenaReview is just a simple type (like Portable Text), keep it as:
+    // arenaReview,
     visited,
-    date,
-    "visitedCount": count(*[_type == 'arenas' && visited == true]),
-    "galleryCount": count(gallery)
+    date
 `
+// Define Arena Type Name - PLEASE VERIFY THIS matches your Sanity Studio schema
+const ARENA_TYPE_NAME = 'arenas'; // Or 'arena' - CHECK YOUR SCHEMA
 
 // ------------------------------
 // 6. Generic Query Functions
@@ -321,9 +334,24 @@ export const travelEssentialQuery = fetchDocuments(
   }
 )
 
-export const arenaQuery = fetchDocuments('arenas', arenaFields, {
+// --- Arena Queries ---
+export const arenaQuery = fetchDocuments(ARENA_TYPE_NAME, arenaFields, {
   order: 'name asc',
 })
+
+// --- NEW: Arena Slugs Query ---
+// Fetches just the slugs for all arenas, needed for getStaticPaths
+export const arenaSlugsQuery = fetchSlugs(ARENA_TYPE_NAME, 'defined(slug.current)')
+
+// --- NEW: Single Arena By Slug Query ---
+// Fetches a single arena document based on its slug
+export const arenaBySlugQuery = fetchDocumentBySlug(
+  ARENA_TYPE_NAME,
+  arenaFields, // Use the updated arenaFields from Section 5
+  'slug.current'
+)
+// --- End Arena Queries ---
+
 
 export const settingsQuery = groq`*[_type == "settings"][0]`
 
@@ -604,21 +632,33 @@ export interface Essential {
   date?: string
 }
 
+// UPDATED Arena Interface - ensure it aligns with arenaFields
 export interface Arena {
   _id: string
   name?: string
+  slug?: string // Add slug field
   arenaImage?: any // SanityImageObject
   gallery?: any[] // SanityImageObject[]
   location?: string
   buildDate?: string
   capacity?: number
-  arenaReview?: any // PortableTextBlock
+  // Update arenaReview type based on your schema
+  arenaReview?: {
+      atmosphere?: number;
+      food?: number;
+      location?: number;
+      seats?: number;
+      staff?: number;
+      // Add other fields
+  } | any // Or use 'any' or PortableTextBlock if it's simple content
   visited?: boolean
   date?: string
-  teamType?: string
-  visitedCount?: number
-  galleryCount?: number
+  teamType?: string // Keep if you use this field
+  // Remove calculated fields if not fetched in arenaFields
+  // visitedCount?: number
+  // galleryCount?: number
 }
+
 
 // Base interface for common Post fields
 interface BasePost {
@@ -681,7 +721,7 @@ export interface Post extends BasePost {
     foodValue?: number
   }
   // takeoutRating?: number; // Alternative if simple type
-  diningType?: 'dinein' | 'takeout' 
+  diningType?: 'dinein' | 'takeout'
   individualFoodRating?: any // Needs definition if used
 
   // Calculated fields (optional, added by specific queries)
@@ -732,3 +772,13 @@ export interface Instagram {
   // Add children field if handling CAROUSEL_ALBUM
   // children?: { data: { id: string; media_url: string; media_type: string }[] }
 }
+
+
+// --- IMPORTANT ---
+// The code above defines the GROQ query *strings*.
+// You still need to create the actual asynchronous functions
+// (like getArenaBySlug and getAllArenaSlugs) in your
+// `lib/sanity.client.ts` file. Those functions will import
+// these query strings (arenaBySlugQuery, arenaSlugsQuery)
+// and use your configured Sanity client instance (`client.fetch(...)`)
+// to execute them.

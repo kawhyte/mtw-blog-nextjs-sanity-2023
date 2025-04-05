@@ -1,46 +1,46 @@
 import { apiVersion, dataset, projectId, useCdn } from 'lib/sanity.api'
 // Import queries and types from the updated queries file
 import {
-  allFoodQuery, // Use the renamed query
-  // Import queries for fetching ALL posts of a type
+  allFoodQuery,
   allHotelsQuery,
-  allStoriesQuery, // Use the renamed query
+  allStoriesQuery,
   type Arena,
   arenaQuery,
+  arenaSlugsQuery, // Import Arena specific queries
+  arenaBySlugQuery, // Import Arena specific queries
   type Essential,
-  type Food,  // Keep specific types if needed elsewhere
+  type Food,
   foodAndMoreQuery,
   foodBySlugQuery,
-  foodPostsTotalCountQuery, // Newly added
+  foodPostsTotalCountQuery,
   foodSlugsQuery,
-  guidePostsTotalCountQuery, // Newly added (assuming linkType 'story' for guides)
-  type Hotel, // Keep specific types if needed elsewhere
+  guidePostsTotalCountQuery,
+  type Hotel,
   hotelAndMoreQuery,
   hotelBySlugQuery,
   hotelPostsTotalCountQuery,
   hotelSlugsQuery,
-  indexQuery, // For getAllPosts (fetches first 6)
+  indexQuery,
   type Instagram,
-  paginatedFoodPostsQuery, // Newly added
-  paginatedGuidePostsQuery, // Newly added (assuming linkType 'story' for guides)
-  // Import specific pagination queries
+  paginatedFoodPostsQuery,
+  paginatedGuidePostsQuery,
   paginatedHotelPostsQuery,
-  type Post, // Using the base Post type for broader compatibility
+  type Post,
   postAndMoreStoriesQuery,
   postBySlugQuery,
   postSlugsQuery,
   recommendationQuery,
   type Settings,
   settingsQuery,
-  type Story, // Keep specific types if needed elsewhere
+  type Story,
   storyAndMoreQuery,
   storyBySlugQuery,
   storySlugsQuery,
   topWeightedFoodQuery,
   topWeightedHotelsQuery,
   travelEssentialQuery,
-} from 'lib/sanity.queries'
-import { createClient, type SanityClient } from 'next-sanity' // Import SanityClient type if needed
+} from 'lib/sanity.queries' // Adjust path if needed
+import { createClient, type SanityClient } from 'next-sanity'
 
 /**
  * Checks if it's safe to create a client instance, as `@sanity/client` will throw an error if `projectId` is false
@@ -49,45 +49,54 @@ export const client: SanityClient | null = projectId
   ? createClient({ projectId, dataset, apiVersion, useCdn })
   : null
 
-// --- Helper Function for Fetching (Optional but reduces repetition) ---
-async function performFetch<T>(query: string, params = {}): Promise<T | undefined> {
-  if (client) {
-    try {
-      const result = await client.fetch<T>(query, params);
-      // Return result directly, handling null/undefined might happen here or in calling function
-      return result;
-    } catch (error) {
-      console.error(`Error fetching data for query "${query}":`, error);
-      // Return undefined or throw error based on desired handling
-      return undefined;
-    }
-  }
-  return undefined;
-}
-
+// --- Helper Function for Fetching is REMOVED ---
 
 // --- Settings ---
 export async function getSettings(): Promise<Settings> {
-  return (await performFetch<Settings>(settingsQuery)) || {};
+  if (!client) {
+    console.warn('Sanity client is not initialized.');
+    return {};
+  }
+  try {
+    const settings = await client.fetch<Settings>(settingsQuery);
+    return settings ?? {}; // Return fetched settings or default empty object
+  } catch (error) {
+    console.error(`Error fetching settings:`, error);
+    return {}; // Return default on error
+  }
 }
 
 // --- Generic Posts (Index Page) ---
-export async function getIndexPosts(): Promise<Post[]> { // Renamed for clarity from getAllPosts
-  // Fetches first 6 posts based on indexQuery defined in sanity.queries
-  return (await performFetch<Post[]>(indexQuery)) || [];
+export async function getIndexPosts(): Promise<Post[]> {
+  if (!client) {
+    console.warn('Sanity client is not initialized.');
+    return [];
+  }
+  try {
+    const posts = await client.fetch<Post[]>(indexQuery);
+    return posts ?? [];
+  } catch (error) {
+    console.error(`Error fetching index posts:`, error);
+    return [];
+  }
 }
 
 // --- Instagram ---
-export async function getInstagramPosts(): Promise<Instagram | null> { // Return null on failure
+// (Instagram function does not use the Sanity client, no changes needed here)
+export async function getInstagramPosts(): Promise<Instagram | null> {
   try {
-      const url =`https://graph.instagram.com/me/media?fields=id,username,thumbnail_url,caption,media_url,timestamp,media_type,permalink&access_token=${process.env.INSTAGRAM_KEY}`
-      const data = await fetch(url);
-      if (!data.ok) {
-          throw new Error(`Instagram API error: ${data.statusText}`);
-      }
-      const feed = await data.json();
-      // TODO: Add validation for the feed structure if necessary
-      return feed as Instagram; // Add type assertion after validation
+    if (!process.env.INSTAGRAM_KEY) {
+        console.warn("Instagram Key (INSTAGRAM_KEY) is not defined in environment variables.");
+        return null;
+    }
+    const url =`https://graph.instagram.com/me/media?fields=id,username,thumbnail_url,caption,media_url,timestamp,media_type,permalink&access_token=${process.env.INSTAGRAM_KEY}`
+    const data = await fetch(url);
+    if (!data.ok) {
+        const errorBody = await data.text();
+        throw new Error(`Instagram API error: ${data.status} ${data.statusText} - ${errorBody}`);
+    }
+    const feed = await data.json();
+    return feed as Instagram;
   } catch (error) {
       console.error("Error fetching Instagram posts:", error);
       return null;
@@ -102,106 +111,275 @@ export async function getInstagramPosts(): Promise<Instagram | null> { // Return
 // --- Hotel Posts ---
 
 /** Fetches ALL hotel posts using limited fields */
-export async function getAllHotelPosts(): Promise<Post[]> { // Return Post[] for consistency if Hotel is compatible
-  // Using allHotelsQuery which uses hotelFieldsLimited
-  return (await performFetch<Post[]>(allHotelsQuery)) || [];
+export async function getAllHotelPosts(): Promise<Post[]> {
+  if (!client) return [];
+  try {
+    const results = await client.fetch<Post[]>(allHotelsQuery);
+    return results ?? [];
+  } catch (error) {
+    console.error(`Error fetching all hotel posts:`, error);
+    return [];
+  }
 }
 
 /** Fetches a specific page/slice of hotel posts */
 export async function getPaginatedHotelPosts(start: number, end: number): Promise<Post[]> {
-  return (await performFetch<Post[]>(paginatedHotelPostsQuery, { start, end })) || [];
+  if (!client) return [];
+  try {
+    const results = await client.fetch<Post[]>(paginatedHotelPostsQuery, { start, end });
+    return results ?? [];
+  } catch (error) {
+    console.error(`Error fetching paginated hotel posts (start: ${start}, end: ${end}):`, error);
+    return [];
+  }
 }
 
 /** Gets the total count of hotel posts */
 export async function getHotelPostsTotalCount(): Promise<number> {
-  return (await performFetch<number>(hotelPostsTotalCountQuery)) || 0;
+  if (!client) return 0;
+  try {
+    const count = await client.fetch<number>(hotelPostsTotalCountQuery);
+    return count ?? 0;
+  } catch (error) {
+    console.error(`Error fetching hotel posts total count:`, error);
+    return 0;
+  }
 }
 
 /** Fetches top weighted hotel posts */
-export async function getTopWeightedHotelPosts(): Promise<Post[]> { // Return Post[] for consistency
-  return (await performFetch<Post[]>(topWeightedHotelsQuery)) || [];
+export async function getTopWeightedHotelPosts(): Promise<Post[]> {
+  if (!client) return [];
+  try {
+    const results = await client.fetch<Post[]>(topWeightedHotelsQuery);
+    return results ?? [];
+  } catch (error) {
+    console.error(`Error fetching top weighted hotel posts:`, error);
+    return [];
+  }
 }
 
 
 // --- Food Posts ---
 
 /** Fetches ALL food posts using limited fields */
-export async function getAllFoodPosts(): Promise<Post[]> { // Renamed, uses allFoodQuery
-  return (await performFetch<Post[]>(allFoodQuery)) || [];
+export async function getAllFoodPosts(): Promise<Post[]> {
+  if (!client) return [];
+  try {
+    const results = await client.fetch<Post[]>(allFoodQuery);
+    return results ?? [];
+  } catch (error) {
+    console.error(`Error fetching all food posts:`, error);
+    return [];
+  }
 }
 
 /** Fetches a specific page/slice of food posts */
 export async function getPaginatedFoodPosts(start: number, end: number): Promise<Post[]> {
-  return (await performFetch<Post[]>(paginatedFoodPostsQuery, { start, end })) || [];
+  if (!client) return [];
+  try {
+    const results = await client.fetch<Post[]>(paginatedFoodPostsQuery, { start, end });
+    return results ?? [];
+  } catch (error) {
+    console.error(`Error fetching paginated food posts (start: ${start}, end: ${end}):`, error);
+    return [];
+  }
 }
 
 /** Gets the total count of food posts */
 export async function getFoodPostsTotalCount(): Promise<number> {
-  return (await performFetch<number>(foodPostsTotalCountQuery)) || 0;
+  if (!client) return 0;
+  try {
+    const count = await client.fetch<number>(foodPostsTotalCountQuery);
+    return count ?? 0;
+  } catch (error) {
+    console.error(`Error fetching food posts total count:`, error);
+    return 0;
+  }
 }
 
 /** Fetches top weighted food posts */
 export async function getTopWeightedFoodPosts(): Promise<Post[]> {
-  return (await performFetch<Post[]>(topWeightedFoodQuery)) || [];
+  if (!client) return [];
+  try {
+    const results = await client.fetch<Post[]>(topWeightedFoodQuery);
+    return results ?? [];
+  } catch (error) {
+    console.error(`Error fetching top weighted food posts:`, error);
+    return [];
+  }
 }
 
 
 // --- Story/Guide Posts (assuming linkType == 'story') ---
 
 /** Fetches ALL story posts using limited fields */
-export async function getAllStoryPosts(): Promise<Post[]> { // Renamed, uses allStoriesQuery
-  return (await performFetch<Post[]>(allStoriesQuery)) || [];
+export async function getAllStoryPosts(): Promise<Post[]> {
+  if (!client) return [];
+  try {
+    const results = await client.fetch<Post[]>(allStoriesQuery);
+    return results ?? [];
+  } catch (error) {
+    console.error(`Error fetching all story posts:`, error);
+    return [];
+  }
 }
 
 /** Fetches a specific page/slice of story/guide posts */
 export async function getPaginatedGuidePosts(start: number, end: number): Promise<Post[]> {
-  return (await performFetch<Post[]>(paginatedGuidePostsQuery, { start, end })) || [];
+  if (!client) return [];
+  try {
+    const results = await client.fetch<Post[]>(paginatedGuidePostsQuery, { start, end });
+    return results ?? [];
+  } catch (error) {
+    console.error(`Error fetching paginated guide posts (start: ${start}, end: ${end}):`, error);
+    return [];
+  }
 }
 
 /** Gets the total count of story/guide posts */
 export async function getGuidePostsTotalCount(): Promise<number> {
-  return (await performFetch<number>(guidePostsTotalCountQuery)) || 0;
+  if (!client) return 0;
+  try {
+    const count = await client.fetch<number>(guidePostsTotalCountQuery);
+    return count ?? 0;
+  } catch (error) {
+    console.error(`Error fetching guide posts total count:`, error);
+    return 0;
+  }
 }
 
 
 // --- Recommendations ---
-export async function getRecommendationPosts(): Promise<any[]> { // Adjust type if Recommendation List type is defined
-  return (await performFetch<any[]>(recommendationQuery)) || [];
+export async function getRecommendationPosts(): Promise<any[]> { // TODO: Define Recommendation List type
+  if (!client) return [];
+  try {
+    const results = await client.fetch<any[]>(recommendationQuery);
+    return results ?? [];
+  } catch (error) {
+    console.error(`Error fetching recommendation posts:`, error);
+    return [];
+  }
 }
 
 // --- Travel Essentials ---
 export async function getTravelEssentialPosts(): Promise<Essential[]> {
-  return (await performFetch<Essential[]>(travelEssentialQuery)) || [];
+  if (!client) return [];
+  try {
+    const results = await client.fetch<Essential[]>(travelEssentialQuery);
+    return results ?? [];
+  } catch (error) {
+    console.error(`Error fetching travel essential posts:`, error);
+    return [];
+  }
 }
 
 // --- Arenas ---
+/** Fetches ALL arena documents */
 export async function getArenaPosts(): Promise<Arena[]> {
-  return (await performFetch<Arena[]>(arenaQuery)) || [];
+  if (!client) {
+      console.warn('Sanity client is not initialized.');
+      return [];
+  }
+  try {
+    const results = await client.fetch<Arena[]>(arenaQuery);
+    return results ?? []; // Handle null/undefined from fetch
+  } catch (error) {
+    console.error(`Error fetching arena posts:`, error);
+    return []; // Return default on error
+  }
 }
+
+// --- Fetch Single Arena by Slug ---
+/**
+ * Fetches a single Arena document by its slug.
+ * Used by getStaticProps in pages/arena/[slug].tsx
+ * @param slug The slug of the arena to fetch.
+ * @returns The Arena object or null if not found or on error.
+ */
+export async function getArenaBySlug(slug: string): Promise<Arena | null> {
+  if (!client) {
+    console.warn('Sanity client is not initialized.');
+    return null;
+  }
+  try {
+    const arena = await client.fetch<Arena | undefined>(arenaBySlugQuery, { slug });
+    return arena ?? null; // Return the arena or null
+  } catch (error) {
+    console.error(`Error fetching arena by slug "${slug}":`, error);
+    return null; // Return null on error
+  }
+}
+// --- End Arenas Section ---
+
 
 // ============================================
 // --- Slug Fetching ---
 // ============================================
 
 export async function getAllPostsSlugs(): Promise<Pick<Post, 'slug'>[]> {
-  const slugs = await performFetch<string[]>(postSlugsQuery);
-  return slugs ? slugs.map((slug) => ({ slug })) : [];
+  if (!client) return [];
+  try {
+    const slugs = await client.fetch<string[]>(postSlugsQuery);
+    return slugs ? slugs.map((slug) => ({ slug })) : [];
+  } catch (error) {
+    console.error(`Error fetching all post slugs:`, error);
+    return [];
+  }
 }
 
 export async function getAllHotelSlugs(): Promise<Pick<Hotel, 'slug'>[]> {
-  const slugs = await performFetch<string[]>(hotelSlugsQuery);
-  return slugs ? slugs.map((slug) => ({ slug })) : [];
+  if (!client) return [];
+  try {
+    const slugs = await client.fetch<string[]>(hotelSlugsQuery);
+    return slugs ? slugs.map((slug) => ({ slug })) : [];
+  } catch (error) {
+    console.error(`Error fetching all hotel slugs:`, error);
+    return [];
+  }
 }
 
 export async function getAllStorySlugs(): Promise<Pick<Story, 'slug'>[]> {
-  const slugs = await performFetch<string[]>(storySlugsQuery);
-  return slugs ? slugs.map((slug) => ({ slug })) : [];
+  if (!client) return [];
+  try {
+    const slugs = await client.fetch<string[]>(storySlugsQuery);
+    return slugs ? slugs.map((slug) => ({ slug })) : [];
+  } catch (error) {
+    console.error(`Error fetching all story slugs:`, error);
+    return [];
+  }
 }
 
-export async function getAllFoodReviewSlugs(): Promise<Pick<Food, 'slug'>[]> { // Use Food type if defined
-  const slugs = await performFetch<string[]>(foodSlugsQuery);
-  return slugs ? slugs.map((slug) => ({ slug })) : [];
+export async function getAllFoodReviewSlugs(): Promise<Pick<Food, 'slug'>[]> {
+  if (!client) return [];
+  try {
+    const slugs = await client.fetch<string[]>(foodSlugsQuery);
+    return slugs ? slugs.map((slug) => ({ slug })) : [];
+  } catch (error) {
+    console.error(`Error fetching all food review slugs:`, error);
+    return [];
+  }
 }
+
+// --- Fetch All Arena Slugs ---
+/**
+ * Fetches the slugs for all arena documents.
+ * Used by getStaticPaths in pages/arena/[slug].tsx
+ * @returns An array of arena slugs, or an empty array on error/no slugs.
+ */
+export async function getAllArenaSlugs(): Promise<string[]> {
+  if (!client) {
+    console.warn('Sanity client is not initialized.');
+    return [];
+  }
+  try {
+    const slugs = await client.fetch<string[]>(arenaSlugsQuery);
+    return slugs ?? []; // Return the fetched slugs or an empty array
+  } catch (error) {
+    console.error(`Error fetching all arena slugs:`, error);
+    return []; // Return empty array on error
+  }
+}
+// --- End Slug Fetching Section ---
 
 
 // ============================================
@@ -210,64 +388,121 @@ export async function getAllFoodReviewSlugs(): Promise<Pick<Food, 'slug'>[]> { /
 
 // Generic post by slug
 export async function getPostBySlug(slug: string): Promise<Post | null> {
-  return (await performFetch<Post>(postBySlugQuery, { slug })) || null;
+  if (!client) return null;
+  try {
+    const post = await client.fetch<Post | undefined>(postBySlugQuery, { slug });
+    return post ?? null;
+  } catch (error) {
+    console.error(`Error fetching post by slug "${slug}":`, error);
+    return null;
+  }
 }
 
 // Specific types by slug
-export async function getHotelBySlug(slug: string): Promise<Hotel | null> { // Use specific type Hotel
-  return (await performFetch<Hotel>(hotelBySlugQuery, { slug })) || null;
+export async function getHotelBySlug(slug: string): Promise<Hotel | null> {
+  if (!client) return null;
+  try {
+    const hotel = await client.fetch<Hotel | undefined>(hotelBySlugQuery, { slug });
+    return hotel ?? null;
+  } catch (error) {
+    console.error(`Error fetching hotel by slug "${slug}":`, error);
+    return null;
+  }
 }
 
-export async function getStoryBySlug(slug: string): Promise<Story | null> { // Use specific type Story
-  return (await performFetch<Story>(storyBySlugQuery, { slug })) || null;
+export async function getStoryBySlug(slug: string): Promise<Story | null> {
+  if (!client) return null;
+  try {
+    const story = await client.fetch<Story | undefined>(storyBySlugQuery, { slug });
+    return story ?? null;
+  } catch (error) {
+    console.error(`Error fetching story by slug "${slug}":`, error);
+    return null;
+  }
 }
 
-export async function getFoodReviewBySlug(slug: string): Promise<Food | null> { // Use specific type Food
-  return (await performFetch<Food>(foodBySlugQuery, { slug })) || null;
+export async function getFoodReviewBySlug(slug: string): Promise<Food | null> {
+  if (!client) return null;
+  try {
+    const food = await client.fetch<Food | undefined>(foodBySlugQuery, { slug });
+    return food ?? null;
+  } catch (error) {
+    console.error(`Error fetching food review by slug "${slug}":`, error);
+    return null;
+  }
 }
+
+// NOTE: getArenaBySlug is already updated above in the 'Arenas' section.
 
 
 // ============================================
 // --- Get By Slug And More Stories ---
 // ============================================
-// Note: Preview token handling might need a separate client instance
-// The performFetch helper currently doesn't handle tokens.
-// If preview is needed for these, you might need dedicated functions or enhance performFetch.
+// These already used client.fetch directly in the original code,
+// but we'll ensure the pattern is consistent (check client, try/catch)
+
+const defaultAndMoreResult = { post: null, morePosts: [] };
 
 export async function getHotelAndMore(
   slug: string
 ): Promise<{ post: Hotel | null; morePosts: Post[] }> {
-  const result = await performFetch<{ post: Hotel; morePosts: Post[] }>(hotelAndMoreQuery, { slug });
-  return result || { post: null, morePosts: [] };
+  if (!client) return defaultAndMoreResult;
+  try {
+    const result = await client.fetch<{ post: Hotel; morePosts: Post[] }>(hotelAndMoreQuery, { slug });
+    return {
+        post: result?.post ?? null,
+        morePosts: result?.morePosts ?? []
+    };
+  } catch (error) {
+    console.error(`Error fetching hotel and more for slug "${slug}":`, error);
+    return defaultAndMoreResult;
+  }
 }
 
 export async function getStoryAndMore(
   slug: string
 ): Promise<{ post: Story | null; morePosts: Post[] }> {
-  const result = await performFetch<{ post: Story; morePosts: Post[] }>(storyAndMoreQuery, { slug });
-  return result || { post: null, morePosts: [] };
+  if (!client) return defaultAndMoreResult;
+  try {
+    const result = await client.fetch<{ post: Story; morePosts: Post[] }>(storyAndMoreQuery, { slug });
+     return {
+        post: result?.post ?? null,
+        morePosts: result?.morePosts ?? []
+    };
+  } catch (error) {
+    console.error(`Error fetching story and more for slug "${slug}":`, error);
+    return defaultAndMoreResult;
+  }
 }
 
 export async function getFoodReviewAndMore(
   slug: string
-): Promise<{ post: Food | null; morePosts: Post[] }> { // Use Food type for main post
-  const result = await performFetch<{ post: Food; morePosts: Post[] }>(foodAndMoreQuery, { slug });
-  return result || { post: null, morePosts: [] };
+): Promise<{ post: Food | null; morePosts: Post[] }> {
+  if (!client) return defaultAndMoreResult;
+  try {
+    const result = await client.fetch<{ post: Food; morePosts: Post[] }>(foodAndMoreQuery, { slug });
+     return {
+        post: result?.post ?? null,
+        morePosts: result?.morePosts ?? []
+    };
+  } catch (error) {
+    console.error(`Error fetching food review and more for slug "${slug}":`, error);
+    return defaultAndMoreResult;
+  }
 }
 
 export async function getPostAndMoreStories( // Generic version
   slug: string
 ): Promise<{ post: Post | null; morePosts: Post[] }> {
-  // This function used a separate client for preview - keep separate or adapt performFetch
-   if (projectId) {
-      try {
-         // Using the main client here, doesn't handle preview token separately
-         const result = await client?.fetch<{ post: Post; morePosts: Post[] }>(postAndMoreStoriesQuery, { slug });
-         return result || { post: null, morePosts: [] }
-      } catch (error) {
-          console.error(`Error fetching post and more stories for slug "${slug}":`, error);
-          return { post: null, morePosts: [] };
-      }
+   if (!client) return defaultAndMoreResult;
+   try {
+     const result = await client.fetch<{ post: Post; morePosts: Post[] }>(postAndMoreStoriesQuery, { slug });
+     return {
+         post: result?.post ?? null,
+         morePosts: result?.morePosts ?? []
+     };
+   } catch (error) {
+       console.error(`Error fetching post and more stories for slug "${slug}":`, error);
+       return defaultAndMoreResult;
    }
-   return { post: null, morePosts: [] }
 }

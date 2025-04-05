@@ -14,16 +14,22 @@ function ReviewHeader({ title, arenas, summary, animation }) {
   //   0
   // )
 
+  // console.log("Percent",arenas)
+
   const filteredList = arenas.filter((item) => item.visited === true)
+  console.log("filteredList1",filteredList.length)
 
   const arenaLastVisited = filteredList.sort(function (a, b) {
     return new Date(b.date).valueOf() - new Date(a.date).valueOf()
   })
 
-  const percentage = ((arenas[0]?.visitedCount / arenas.length) * 100).toFixed(
+  // const percentage = ((arenas[0]?.visitedCount / arenas.length) * 100).toFixed(
+  //   0
+  // )
+  const percentage = ((filteredList.length / arenas.length) * 100).toFixed(
     0
   )
- //console.log(percentage)
+ 
   return (
     <div className="mb-10 flex flex-col items-center  justify-center bg-indigo-50 pt-10  lg:flex-row">
       <div className="container mx-auto">
@@ -111,7 +117,7 @@ function ReviewHeader({ title, arenas, summary, animation }) {
                             We&apos;ve visited{' '}
                             <span className=" font-black text-pink-500">
                               {' '}
-                              {arenas[4]?.visitedCount}
+                              {filteredList.length} of {arenas.length}{' '}
                             </span>{' '}
                             arenas so far
                           </span>

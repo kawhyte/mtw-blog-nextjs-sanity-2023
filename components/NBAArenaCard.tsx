@@ -1,4 +1,4 @@
-import { Badge, Blockquote } from '@mantine/core'
+import { Badge, Blockquote, Skeleton } from '@mantine/core'
 import { oswald } from 'app/fonts'
 import RatingBadge from './RatingBadge'
 import calculateAverageRating from 'lib/calculateArenaRating'
@@ -25,6 +25,7 @@ import {
 } from 'lucide-react'
 import { useState } from 'react'
 import Button from 'ui/Button'
+import Image from 'next/image'
 
 import AreanaRating from './AreanaRating'
 import PostDate, { PostYear } from './PostDate'
@@ -72,7 +73,7 @@ const Arenas = ({
     <>
       <div
         key={id}
-        className={`relative h-[32.9rem] w-full  max-w-sm overflow-hidden rounded-3xl border-4 border-black  bg-indigo-50 text-gray-700 shadow-offsetIndigo transition-transform duration-500 ease-in-out  sm:h-[33.5rem]  sm:max-w-md md:h-[34rem] lg:h-[36.5rem] xl:h-[35rem]   ${
+        className={`relative h-[19.9rem] w-full  max-w-sm overflow-hidden rounded-3xl border-4 border-black  bg-indigo-50 text-gray-700 shadow-offsetIndigo transition-transform duration-500 ease-in-out  sm:h-[33.5rem]  sm:max-w-md md:h-[34rem] lg:h-[36.5rem] xl:h-[35rem]   ${
           visited === false ? 'opacity-40 grayscale ' : 'grayscale-0 '
         } ${isFlipped ? 'rotate-y-180' : ''}`}
       >
@@ -104,7 +105,7 @@ const Arenas = ({
             isFlipped ? 'hidden' : ''
           }`}
         >
-          <div className="relative">
+          <div className="relative md:h-[219px] md:w-[350px]">
             {averageRating > '0' ? (
               <RatingBadge
                 average={averageRating}
@@ -112,47 +113,52 @@ const Arenas = ({
                 color={ratingColor}
               />
             ) : null}
-
-            <img
+            <Skeleton
+              visible
+              className="absolute inset-0 h-full w-full rounded-md"
+            />
+            <Image
               src={
                 arenaImageSrc.asset?._ref
                   ? urlForImage(arenaImageSrc.asset?._ref)
-                      .height(203)
-                      .width(402)
+                      .height(200)
+                      .width(320)
                       .fit('crop')
                       .url()
                   : 'https://fakeimg.pl/1240x801'
               }
+              placeholder="blur"
+              blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAO0lEQVR4nGNgYGBg+P//P1t9fT0TiM0we3ZjxZxZjQ9XLpwwe9nCHkOGGZOyanraY9aumN2wbsn0hmQA/MEWfj4ocjcAAAAASUVORK5CYII="
+              width={320}
+              height={200}
               className="w-full object-cover brightness-[0.65] md:h-56  "
-              height={502}
-              width={203}
               alt={alt}
               loading="lazy"
             />
           </div>
 
           <div className=" flex justify-between text-gray-700  ">
-            <div className="mb-2 ml-4 mt-4 flex flex-col gap-y-2 ">
-              <h2 className=" font-heading line-clamp-1 font-montserrat text-xl  font-bold leading-none text-gray-900    no-underline decoration-pink-500  decoration-dashed decoration-4 group-hover:underline sm:text-xl lg:text-2xl">
+            <div className="sm:mb-2 ml-2 sm:ml-4 mt-4 flex flex-col sm:gap-y-2 ">
+              <h1 className=" font-montserrat pt-1 xl:pt-1.5 font-heading text-sm font-bold text-gray-900 no-underline decoration-pink-500 decoration-dashed decoration-4 group-hover:underline sm:text-xl lg:text-xl line-clamp-2 h-10 sm:h-16">
                 {arenaName}
-              </h2>
+              </h1>
 
               {/* Use items-center for vertical alignment */}
-              <div className="flex flex-row items-center gap-2">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2">
                 {/* Child 1: Location */}
                 <p className="text-sm">{location}</p>
 
                 {/* Child 2: Badge container - Add ml-auto here */}
                 {/* This div will now be pushed to the right */}
-                <div className="ml-auto">
+                <div className="sm:ml-auto">
                   {' '}
                   {/* Add ml-auto */}
                   {
                     visited ? (
-                      <span className="flex text-sm">
+                      <span className="flex  text-sm">
                         {' '}
-                        <CalendarCheck className="ml-5 mr-2 h-5 w-5 text-green-500" />{' '}
-                        <span className="mr-1"> Visited on</span>{' '}
+                        <CalendarCheck className="sm:ml-5 mr-2 h-5 w-5 text-green-500" />{' '}
+                        <span className="mr-1 hidden sm:block"> Visited on</span>{' '}
                         <PostDate dateString={dateVisited} />
                       </span> // No need for nested flex here unless specifically required for badge alignment
                     ) : // <div>
@@ -168,7 +174,7 @@ const Arenas = ({
             </div>
           </div>
 
-          <div className="space-y-4 p-3">
+          <div className="space-y-4 p-3 hidden sm:block">
             <div className="grid grid-cols-1 gap-4 text-sm text-gray-700 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
               <div className="flex items-center">
                 <Wrench className="mr-2 h-5 w-5 text-gray-500" />
@@ -181,13 +187,12 @@ const Arenas = ({
               </div>
             </div>
           </div>
-          
 
           <div className="text-sm text-gray-700 md:text-xs ">
-            <h3 className=" ml-3 mt-5 text-base   font-bold  ">
+            <h3 className="hidden sm:block ml-3 mt-5 text-base   font-bold  ">
               Team(s) Viewed
             </h3>
-            <div className=" mx-3  flex flex-row flex-wrap justify-start gap-x-7 align-top   md:gap-x-6 ">
+            <div className="hidden  mx-3  sm:flex flex-row flex-wrap justify-start gap-x-7 align-top   md:gap-x-6 ">
               {gallery?.map((photo) => (
                 <div
                   key={photo.name}
@@ -232,7 +237,7 @@ const Arenas = ({
             </div>
 
             <div
-              className="  mx-20 mt-4 " // Added flex-col and items-center
+              className=" mx-2 sm:mx-20 mt-4 " // Added flex-col and items-center
               onClick={() => setIsFlipped(!isFlipped)}
             >
               {isFlipped ? (
