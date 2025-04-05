@@ -73,7 +73,7 @@ const Arenas = ({
     <>
       <div
         key={id}
-        className={`relative h-[19.9rem] w-full  max-w-sm overflow-hidden rounded-3xl border-4 border-black  bg-indigo-50 text-gray-700 shadow-offsetIndigo transition-transform duration-500 ease-in-out  sm:h-[33.5rem]  sm:max-w-md md:h-[34rem] lg:h-[36.5rem] xl:h-[35rem]   ${
+        className={`relative h-[17.8rem] w-full  max-w-sm overflow-hidden rounded-3xl border-4 border-black  bg-indigo-50 text-gray-700 shadow-offsetIndigo transition-transform duration-500 ease-in-out  sm:h-[33.5rem]  sm:max-w-md md:h-[34rem] lg:h-[36.5rem] xl:h-[35rem]   ${
           visited === false ? 'opacity-40 grayscale ' : 'grayscale-0 '
         } ${isFlipped ? 'rotate-y-180' : ''}`}
       >
@@ -138,43 +138,41 @@ const Arenas = ({
           </div>
 
           <div className=" flex justify-between text-gray-700  ">
-            <div className="sm:mb-2 ml-2 sm:ml-4 mt-4 flex flex-col sm:gap-y-2 ">
-              <h1 className=" font-montserrat pt-1 xl:pt-1.5 font-heading text-sm font-bold text-gray-900 no-underline decoration-pink-500 decoration-dashed decoration-4 group-hover:underline sm:text-xl lg:text-xl line-clamp-2 h-10 sm:h-16">
+            <div className="ml-2 mt-1 flex flex-col sm:mb-2 sm:ml-4 sm:gap-y-2 ">
+              <h1 className=" font-heading line-clamp-1 pt-1 font-montserrat text-sm font-bold text-gray-900 no-underline decoration-pink-500 decoration-dashed decoration-4 group-hover:underline sm:line-clamp-2 sm:h-16 sm:text-xl lg:text-xl  xl:pt-1.5">
                 {arenaName}
               </h1>
 
               {/* Use items-center for vertical alignment */}
-              <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+              <div className="mt-2 flex flex-col gap-2 sm:flex-row sm:items-center">
                 {/* Child 1: Location */}
-                <p className="text-sm">{location}</p>
+                <div className="flex items-center gap-x-2 text-gray-500">
+                  <MapPin className="h-5 w-5 flex-shrink-0 text-gray-500" />
+                  <p className="text-xs">{location}</p>
+                </div>
 
                 {/* Child 2: Badge container - Add ml-auto here */}
                 {/* This div will now be pushed to the right */}
                 <div className="sm:ml-auto">
                   {' '}
                   {/* Add ml-auto */}
-                  {
-                    visited ? (
-                      <span className="flex  text-sm">
-                        {' '}
-                        <CalendarCheck className="sm:ml-5 mr-2 h-5 w-5 text-green-500" />{' '}
-                        <span className="mr-1 hidden sm:block"> Visited on</span>{' '}
+                  <span className="flex items-end  text-xs text-gray-500">
+                    <CalendarCheck className="mr-2 h-5 w-5 text-green-500 sm:ml-5" />
+                    {visited ? (
+                      <>
+                        <span className="mr-1 hidden text-xs sm:block">
+                          Visited on
+                        </span>
                         <PostDate dateString={dateVisited} />
-                      </span> // No need for nested flex here unless specifically required for badge alignment
-                    ) : // <div>
-                    //   <Badge color="indigo" variant="filled" size="sm" pr={9}>
-                    //     Visited on <PostDate dateString={dateVisited} />
-                    //   </Badge>
-                    // </div>
-                    // Render nothing, but the parent div with ml-auto still ensures spacing
-                    null // Or simply omit the else block
-                  }
+                      </>
+                    ) : null}
+                  </span>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="space-y-4 p-3 hidden sm:block">
+          <div className="hidden space-y-4 p-3 sm:block">
             <div className="grid grid-cols-1 gap-4 text-sm text-gray-700 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
               <div className="flex items-center">
                 <Wrench className="mr-2 h-5 w-5 text-gray-500" />
@@ -187,16 +185,14 @@ const Arenas = ({
               </div>
             </div>
           </div>
-
+          <hr className=" mx-2 my-3" />
           <div className="text-sm text-gray-700 md:text-xs ">
-            <h3 className="hidden sm:block ml-3 mt-5 text-base   font-bold  ">
-              Team(s) Viewed
-            </h3>
-            <div className="hidden  mx-3  sm:flex flex-row flex-wrap justify-start gap-x-7 align-top   md:gap-x-6 ">
+            <h3 className="ml-3 text-xs sm:block     ">Team(s) Viewed</h3>
+            <div className="  ml-2  flex flex-row flex-wrap justify-start gap-x-4 align-top   md:gap-x-6 ">
               {gallery?.map((photo) => (
                 <div
                   key={photo.name}
-                  className="  mb-1 mt-4 flex flex-col items-center justify-between "
+                  className="  mb-1 mt-2 flex flex-col items-start justify-between "
                 >
                   <div className="flex flex-row items-center align-bottom">
                     <img
@@ -209,7 +205,7 @@ const Arenas = ({
                               .url()
                           : 'https://dummyimage.com/96x96/000/aeb0d9.jpg&text=Image'
                       }
-                      className=" h-11 w-11 rounded-full bg-gray-200  p-0.5 sm:h-10 sm:w-10   md:h-11 md:w-11 lg:h-9 lg:w-9 xl:h-11 xl:w-11"
+                      className=" h-7 w-7 rounded-full bg-gray-200  p-0.5 sm:h-10 sm:w-10   md:h-11 md:w-11 lg:h-9 lg:w-9 xl:h-11 xl:w-11"
                       height={96}
                       width={96}
                       loading="lazy"
@@ -217,18 +213,18 @@ const Arenas = ({
                     />
 
                     <div className="flex items-center align-bottom text-xs  md:text-sm ">
-                      <p className="mx-1  text-sm   leading-none text-gray-500 sm:text-sm   ">
+                      <p className="mx-1 hidden text-sm  leading-none   text-gray-500 sm:block sm:text-sm   ">
                         {photo.name}
                       </p>
                       {photo.played === true ? (
                         <div className="flex items-center">
-                          <Eye className="mx-1 h-5 w-5 text-green-500 sm:h-3 sm:w-3 md:h-4  md:w-4" />
+                          <Eye className="mx-1 h-4 w-4 text-green-500 sm:h-3 sm:w-3 md:h-4  md:w-4" />
                           {/* <p className="my-2  text-[0.70rem] leading-none text-gray-500 ">
                             Watched
                           </p> */}
                         </div>
                       ) : (
-                        <EyeOff className="mx-1 my-1 h-5 w-5 text-gray-500 sm:h-3 sm:w-3 md:h-4   md:w-4" />
+                        <EyeOff className="mx-1 my-1 h-4 w-4 text-gray-500 sm:h-3 sm:w-3 md:h-4   md:w-4" />
                       )}
                     </div>
                   </div>
@@ -236,7 +232,7 @@ const Arenas = ({
               ))}
             </div>
 
-            <div
+            {/* <div
               className=" mx-2 sm:mx-20 mt-4 " // Added flex-col and items-center
               onClick={() => setIsFlipped(!isFlipped)}
             >
@@ -250,8 +246,7 @@ const Arenas = ({
                     View Card Front
                   </Button>
 
-                  {/* <FlipHorizontal2 size={20} />
-              <span className="mt-1 ml-2 text-xs">View Card Front</span>{' '} */}
+              
                 </>
               ) : (
                 <>
@@ -263,11 +258,9 @@ const Arenas = ({
                     View Details
                   </Button>
 
-                  {/* <FlipHorizontal2 size={20} />
-              <span className="mt-1 ml-2 text-xs">View Rating Details</span> */}
                 </>
               )}
-            </div>
+            </div> */}
           </div>
         </div>
 
@@ -315,8 +308,8 @@ const Arenas = ({
               />
             </div>
 
-            <div
-              className="   mx-20 " // Added flex-col and items-center
+            {/* <div
+              className="   mx-20 " 
               onClick={() => setIsFlipped(!isFlipped)}
             >
               {isFlipped ? (
@@ -329,8 +322,7 @@ const Arenas = ({
                     View Card Front
                   </Button>
 
-                  {/* <FlipHorizontal2 size={20} />
-              <span className="mt-1 ml-2 text-xs">View Card Front</span>{' '} */}
+             
                 </>
               ) : (
                 <>
@@ -342,11 +334,10 @@ const Arenas = ({
                     View Details
                   </Button>
 
-                  {/* <FlipHorizontal2 size={20} />
-              <span className="mt-1 ml-2 text-xs">View Rating Details</span> */}
+               
                 </>
               )}
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

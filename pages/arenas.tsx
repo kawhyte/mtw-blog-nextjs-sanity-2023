@@ -19,6 +19,7 @@ import { lazy, useState, useMemo, useEffect } from 'react';
 
 import { CMS_NAME } from '../lib/constants';
 import calculateAverageRating from 'lib/calculateArenaRating';
+import MoreStories from 'components/MoreStories';
 
 const PreviewIndexPage = lazy(() => import('components/PreviewIndexPage'));
 
@@ -244,6 +245,9 @@ export default function Page(props: PageProps) {
             ))}
           </div>
         </div>
+
+
+
 
 
         {/* Arena Cards Grid - UPDATED with Link */}
