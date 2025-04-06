@@ -17,7 +17,7 @@ function ReviewHeader({ title, arenas, summary, animation }) {
   // console.log("Percent",arenas)
 
   const filteredList = arenas.filter((item) => item.visited === true)
-  console.log("filteredList1",filteredList.length)
+
 
   const arenaLastVisited = filteredList.sort(function (a, b) {
     return new Date(b.date).valueOf() - new Date(a.date).valueOf()

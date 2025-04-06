@@ -275,7 +275,15 @@ export default function Page(props: PageProps) {
                       key={item._id} // Key MUST be on the outermost element of the map
                       href={`/arena/${item.slug}`} // Dynamic route using the slug
                       passHref // Pass href to the underlying <a> tag
-                   
+                      className={
+                        item.visited
+                          ? 'cursor-pointer' // Normal pointer for links
+                          : 'pointer-events-none cursor-default' // Disable clicks, change cursor
+                      }
+                      aria-disabled={!item.visited} // Accessibility: Indicate disabled state
+                      tabIndex={!item.visited ? -1 : undefined} // Remove from tab navigation if disabled
+                      // Prevent Next.js Link prefetching when disabled, if desired
+                      prefetch={item.visited ? undefined : false}
                        >
                       {/* Use an <a> tag for semantics and passHref compatibility */}
                       {/* <a className="block rounded-lg transition duration-150 ease-in-out hover:scale-[1.03] focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"> */}

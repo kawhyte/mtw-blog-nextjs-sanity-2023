@@ -74,8 +74,8 @@ const Arenas = ({
     <>
       <div
         key={id}
-        className={`relative  w-full  max-w-sm overflow-hidden rounded-3xl border-4 border-black  bg-indigo-50 text-gray-700 shadow-offsetIndigo transition-transform duration-500 ease-in-out   ${
-          visited === false ? 'opacity-40 grayscale ' : 'grayscale-0 '
+        className={`relative group  w-full  max-w-sm overflow-hidden rounded-3xl border-4 border-black  bg-indigo-50 text-gray-700 shadow-offsetIndigo transition-transform duration-500 ease-in-out   ${
+          visited === false ? 'opacity-40 grayscale  ' : 'grayscale-0 '
         } ${isFlipped ? 'rotate-y-180' : ''}`}
       >
         {/* <button
@@ -144,7 +144,7 @@ const Arenas = ({
 
           <div className=" flex justify-between text-gray-700  ">
             <div className="ml-2 mt-1 flex flex-col sm:mb-2 sm:ml-4 sm:gap-y-2 ">
-              <h1 className=" font-heading line-clamp-1 pt-1 font-montserrat text-sm font-bold text-gray-900 no-underline decoration-pink-500 decoration-dashed decoration-4 group-hover:underline sm:line-clamp-2 sm:h-8 sm:text-xl lg:text-xl  xl:pt-1.5">
+              <h1 className=" font-heading line-clamp-1 pt-1 font-montserrat text-sm font-bold text-gray-900  decoration-pink-500 decoration-dashed decoration-4 group-hover:underline sm:line-clamp-2 sm:h-8 sm:text-xl lg:text-xl  xl:pt-1.5">
                 {arenaName}
               </h1>
 
