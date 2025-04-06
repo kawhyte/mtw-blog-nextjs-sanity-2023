@@ -211,15 +211,19 @@ const arenaFields = groq`
     location,
     buildDate,
     capacity,
+    gallery,
     // Expand arenaReview if it's an object with specific fields you need
     // Example:
     arenaReview {
-      atmosphere,
+   
+      transportation,
+      walkability,
+      vibes,
+      view,
+      seatComfort,
       food,
-      location,
-      seats,
-      staff
-      // Add other review fields as defined in your arenaReview schema type
+      
+      
     },
     // If arenaReview is just a simple type (like Portable Text), keep it as:
     // arenaReview,

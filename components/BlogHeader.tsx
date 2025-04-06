@@ -10,7 +10,7 @@ export default function BlogHeader({
   description,
   level,
 }: {
-  title: string
+  title?: string
   description?: any[]
   level: 1 | 2
 }) {
