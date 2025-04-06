@@ -10,7 +10,7 @@ const RatingBadge = ({average, textRating, color}:RatingBadgeProps) =>
     {
   return (
     <div
-    className="absolute right-4 top-2 z-30 text-xs flex sm:flex-col items-center justify-center rounded-2xl bg-black px-1.5 py-0.5 sm:p-2 space-x-1.5 sm:space-x-0 sm:space-y-1" // Added space utilities for spacing between items
+    className="absolute left-3 sm:left-auto  sm:right-3 top-3 z-30 text-xs flex sm:flex-col items-center justify-center rounded-2xl bg-black px-1.5 py-0.5 sm:p-2 space-x-1.5 sm:space-x-0 sm:space-y-1" // Added space utilities for spacing between items
     style={{ backgroundColor: color, opacity: 0.7 }}
   >
     {/* Average Number */}

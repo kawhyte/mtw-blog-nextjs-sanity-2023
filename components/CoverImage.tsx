@@ -96,7 +96,7 @@ export default function CoverImage(props: CoverImageProps) {
     <div className="relative sm:mx-0">
       {slug ? (
         <Link href={`/posts/${slug}`} aria-label={title}>
-          <div>
+          <div className=''>
             {linkType === 'hotel'
               ? category && (
                 <Badge
@@ -105,7 +105,7 @@ export default function CoverImage(props: CoverImageProps) {
                 // - 'lg' (large) size starting from the 'lg' breakpoint (large screens)
                 size="sm"
                 // Removed py-2 class - let the Mantine size prop control padding
-                className="absolute z-30 m-3" // Kept positioning classes
+                className="absolute z-30 top-10 left-3 sm:top-3 " // Kept positioning classes
                 color={categoryType.color}
                 variant={categoryType.variant}
               >
