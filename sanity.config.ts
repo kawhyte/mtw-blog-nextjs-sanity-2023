@@ -30,6 +30,7 @@ import roomTechType from 'schemas/roomTechRatings'
 import settingsType from 'schemas/settings'
 import takeOutFoodRatingType from 'schemas/takeOutFoodRating'
 import travelEssentialType from 'schemas/travelEssentials'
+import photoGallery from 'schemas/photoGallery'
 
 
 const title =
@@ -44,7 +45,7 @@ export default defineConfig({
   title,
   schema: {
     // If you want more content types, you can add them to this array
-    types: [galleryType,roomTechType,roomAmenitiesType,hotelType,foodType,takeOutFoodRatingType,individualFoodType, postType, travelEssentialType,areanasType, authorType,arenaReviewType, galleryType2, settingsType, recommendationListType,recommendationType],
+    types: [galleryType,roomTechType,roomAmenitiesType,hotelType,foodType,takeOutFoodRatingType,individualFoodType, postType, travelEssentialType,areanasType,photoGallery, authorType,arenaReviewType, galleryType2, settingsType, recommendationListType,recommendationType],
   },
   plugins: [
     deskTool({

@@ -1,4 +1,3 @@
-
 import BlogHeader from 'components/BlogHeader'
 import Layout from 'components/BlogLayout'
 import FoodRatings from 'components/IndividualFoodRating'
@@ -17,6 +16,7 @@ import Gallery from './Gallery'
 import ProConList from './ProConList'
 import RoomTech from './RoomTech'
 import Youtube from './Youtube'
+import ImageGallery from './ImageGallery'
 
 export interface PostPageProps {
   preview?: boolean
@@ -71,7 +71,6 @@ export default function PostPage(props: PostPageProps) {
     notFound()
   }
 
-
   // Early return if post is not found
   if (!post) {
     return preview ? (
@@ -83,11 +82,12 @@ export default function PostPage(props: PostPageProps) {
     )
   }
 
-  const ratingCat = 
-  post.linkType === 'food' 
-    ? (post.diningType === 'takeout' ? post.takeoutRating : post.foodRating) 
-    : post.hotelRating;
-
+  const ratingCat =
+    post.linkType === 'food'
+      ? post.diningType === 'takeout'
+        ? post.takeoutRating
+        : post.foodRating
+      : post.hotelRating
 
   return (
     <div>
@@ -96,31 +96,37 @@ export default function PostPage(props: PostPageProps) {
       <Layout preview={preview} loading={loading}>
         <BlogHeader title={title} level={2} />
         {/* <Container> */}
-          <article className="container mx-auto flex flex-col justify-center items-start sm:pl-4 md:mt-10">
+        <article className="container mx-auto flex flex-col items-start justify-center sm:pl-4 md:mt-10">
           <PostHeader
-  title={post.title}
-  coverImage={post.coverImage}
-  date={post.date}
-  location={post.location}
-  room={post.room}
-  linkType={post.linkType}         // Pass linkType
-  diningType={post.diningType}     // Pass diningType
-  excerpt2={post.excerpt2}
-  // Pass each rating object directly under its own prop
-  hotelRating={post.hotelRating}
-  foodRating={post.foodRating}
-  takeoutRating={post.takeoutRating}
-  gallery={post.gallery}
-  category={post.category}
-  tip={post.tip}
-/>
+            title={post.title}
+            coverImage={post.coverImage}
+            date={post.date}
+            location={post.location}
+            room={post.room}
+            linkType={post.linkType} // Pass linkType
+            diningType={post.diningType} // Pass diningType
+            excerpt2={post.excerpt2}
+            // Pass each rating object directly under its own prop
+            hotelRating={post.hotelRating}
+            foodRating={post.foodRating}
+            takeoutRating={post.takeoutRating}
+            gallery={post.gallery}
+            category={post.category}
+            tip={post.tip}
+          />
 
-            {renderLinkTypeComponent(post)}
+          {renderLinkTypeComponent(post)}
+        </article>
+        <div className="container mx-auto">
+          {' '}
+          <PostBody content={post.content} />
+        </div>
+        <Youtube link={post.youtube} />
 
-          </article>
-          <div className='container mx-auto'> <PostBody content={post.content} /></div>  
-            <Youtube link={post.youtube} />
-            {post.gallery?.length > 0 && <Gallery posts={post} heading={''} />}
+        {post.gallery?.length > 0 && (
+          <ImageGallery title="Photo Gallery" images={post.gallery} />
+        )}
+        {/* {post.gallery?.length > 0 && <Gallery posts={post} heading={''} />} */}
         {/* </Container> */}
         <Footer />
       </Layout>

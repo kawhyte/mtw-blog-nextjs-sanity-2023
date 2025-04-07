@@ -1,122 +1,68 @@
 // pages/arena/[slug].tsx
 
-import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next'
-import Head from 'next/head'
-import Image from 'next/image' // Use Next.js Image for optimization
-import { useRouter } from 'next/router'
-import { PortableText } from '@portabletext/react' // Import if using Portable Text for reviews/descriptions
+import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
+import Head from 'next/head';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { PortableText } from '@portabletext/react';
 
 // --- Sanity Client & Data Fetching ---
 import {
   getAllArenaSlugs,
   getArenaBySlug,
   getSettings,
-} from 'lib/sanity.client'
-import { Arena, Settings } from 'lib/sanity.queries' // Import your types
-import { urlForImage } from 'lib/sanity.image' // Your image URL builder
+} from 'lib/sanity.client'; // Adjust path
+import { Arena, Settings } from 'lib/sanity.queries'; // Adjust path
+import { urlForImage } from 'lib/sanity.image'; // Adjust path
 
 // --- Layout & Components ---
-import Layout from 'components/BlogLayout' // Adjust path as needed
-import Footer from 'components/Footer' // Adjust path as needed
-// import ArenaDetailHeader from 'components/ArenaDetailHeader'; // Example detail component
-// import ArenaReviewSection from 'components/ArenaReviewSection'; // Example detail component
-// import ImageGallery from 'components/ImageGallery'; // Example detail component
+import Layout from 'components/BlogLayout'; // Adjust path
+import Footer from 'components/Footer'; // Adjust path
+import AreanaRating from 'components/AreanaRating'; // Adjust path
+import BlogHeader from 'components/BlogHeader'; // Adjust path
+import HeroPhotoGallery from 'components/HeroPhotoGallery'; // Adjust path
+import ImageGallery from 'components/ImageGallery'; // Adjust path
+import ProConList from 'components/ProConList'; // Adjust path
 
 // --- Utilities & Constants ---
-import { CMS_NAME } from 'lib/constants'
-import calculateAverageRating from 'lib/calculateArenaRating' // Your rating calculator
-import gallery from 'schemas/gallery'
-import PostDate from 'components/PostDate'
-import AreanaRating from 'components/AreanaRating'
+import { CMS_NAME } from 'lib/constants';
+import calculateAverageRating from 'lib/calculateArenaRating'; // Adjust path
 import {
-  Binoculars,
-  CalendarCheck,
-  Car,
-  Eye,
-  EyeOff,
-  Footprints,
-  Music,
-  Pizza,
-  Sofa,
-  Users,
-  Wrench,
-} from 'lucide-react'
-import BlogHeader from 'components/BlogHeader'
+  Binoculars, CalendarCheck, Car, Eye, EyeOff, Footprints, MapPin, Music, Pizza, Sofa, Users, Wrench,
+} from 'lucide-react';
 
-// --- Props Interface ---
-// InferGetStaticPropsType handles this automatically, but defining explicitly can sometimes help clarity
-// interface ArenaPageProps {
-//   arena: Arena;
-//   settings: Settings;
-//   preview?: boolean; // Include if handling preview mode
-// }
+// --- Props Interface & Query ---
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const slug = params?.slug as string;
+  const arena = await getArenaBySlug(slug);
+  const settings = await getSettings();
 
-// Define Params type for GetStaticProps context
-interface Query {
-  [key: string]: string
-}
-
-// ============================================
-// 4. getStaticPaths Implementation
-// ============================================
-export const getStaticPaths: GetStaticPaths = async () => {
-  // Fetch all defined arena slugs from Sanity
-  const slugs = await getAllArenaSlugs() // Uses the function from sanity.client.ts
-
-  return {
-    // Map the string slugs to the required Next.js params format
-    paths: slugs?.map((slug) => ({ params: { slug } })) || [],
-    // fallback: 'blocking' - Server-renders pages not generated at build time, then caches. Good for SEO.
-    // fallback: true - Shows fallback UI, fetches data client-side. Less initial SEO.
-    // fallback: false - Returns 404 for paths not generated at build time.
-    fallback: 'blocking',
-  }
-}
-
-// ============================================
-// 5. getStaticProps Implementation
-// ============================================
-export const getStaticProps: GetStaticProps<
-  { arena: Arena; settings: Settings; preview?: boolean },
-  Query
-> = async (ctx) => {
-  const { params = {}, preview = false } = ctx
-
-  // Ensure slug exists
-  const slug = params?.slug
-  if (!slug) {
-    console.error('No slug found in params for arena page')
-    return { notFound: true } // Or handle differently
-  }
-
-  // Fetch settings and the specific arena data concurrently
-  // getArenaBySlug returns Arena | null
-  const [settings, arena] = await Promise.all([
-    getSettings(),
-    getArenaBySlug(slug), // Use the function from sanity.client.ts
-  ])
-
-  // If no arena data is found for the slug, return 404
   if (!arena) {
-    console.log(`Arena with slug "${slug}" not found.`)
-    return {
-      notFound: true,
-    }
+    return { notFound: true };
   }
 
-  // Return the fetched data as props
   return {
     props: {
       arena,
-      settings: settings || {}, // Provide default empty object for settings
-      preview,
-      // token: previewData.token ?? null, // Add if implementing preview mode
+      settings,
+      preview: false,
     },
-    // Revalidate the page content periodically (e.g., every 5 minutes)
-    // Adjust the time (in seconds) as needed for your content update frequency
-    revalidate: 60 * 5, // 300 seconds = 5 minutes
-  }
-}
+    revalidate: 60, // Revalidate every 60 seconds
+  };
+};
+
+
+export const getStaticPaths: GetStaticPaths = async () => {
+    const slugs = await getAllArenaSlugs();
+    return {
+        paths: slugs?.map((slug) => ({ params: { slug } })) || [],
+        fallback: 'blocking',
+    };
+};
+
+
+
+
 
 // ============================================
 // Page Component Implementation
@@ -126,313 +72,209 @@ export default function ArenaPage({
   settings,
   preview,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const router = useRouter()
+  const router = useRouter();
 
-  // Optional: Loading state for fallback: true (not needed for fallback: 'blocking')
   if (router.isFallback) {
-    return <div>Loading arena details...</div>
+    return <div>Loading arena details...</div>;
   }
 
-  // Calculate rating details (ensure arenaReview exists)
+  // Calculate rating details safely
   const { average, textRating, color } = calculateAverageRating(
-    arena.arenaReview || {}
-  )
+    arena?.arenaReview || {} // Pass empty object if review is missing
+  );
 
+  // Check if there's data for the Pros/Cons/Verdict section
+  const hasProsConsData = arena?.prosConsVerdict &&
+                         ( (arena.prosConsVerdict.positives && arena.prosConsVerdict.positives.length > 0) ||
+                           (arena.prosConsVerdict.negatives && arena.prosConsVerdict.negatives.length > 0) ||
+                           (arena.prosConsVerdict.verdict && arena.prosConsVerdict.verdict.length > 0) );
 
+  // Check if there are gallery images for the ImageGallery component
+  const hasImageGallery = arena?.gallery && arena.gallery.length > 0; // Assuming 'gallery' holds images for ImageGallery
 
-  // --- Render the Page ---
+  if (!arena) {
+    return <div>Arena not found.</div>; // Or a proper 404 component
+  }
+
   return (
     <Layout preview={preview} loading={false}>
       {/* --- SEO Head --- */}
       <Head>
-        <title>{`${arena.name ?? 'Arena'} Review - ${
-          settings.title ?? CMS_NAME
-        }`}</title>
+        <title>{`${arena.name ?? 'Arena'} Review - ${settings?.title ?? CMS_NAME}`}</title>
         {arena.location && (
-          <meta
-            name="description"
-            content={`Details, review, and photos for ${arena.name} located in ${arena.location}.`}
-          />
+          <meta name="description" content={`Details, review, and photos for ${arena.name} located in ${arena.location}.`} />
         )}
-        {/* Add Open Graph meta tags here */}
-        {arena.arenaImage && (
-          <meta
-            property="og:image"
-            content={urlForImage(arena.arenaImage)
-              .width(1200)
-              .height(630)
-              .url()}
-          />
+        {arena.arenaImage?.asset && ( // Check if asset exists
+          <meta property="og:image" content={urlForImage(arena.arenaImage).width(1200).height(630).url()} />
         )}
       </Head>
 
-        <BlogHeader   level={1} />
-      {/* --- Arena Detail Display --- */}
-      <article className="container mx-auto px-4 py-8 md:px-6 lg:px-8 lg:py-12">
-        {/* Example Header Section */}
-        <header className="mb-8 ">
-          <h1 className="mb-2 text-3xl font-extrabold tracking-tight text-gray-900 md:text-4xl lg:text-5xl">
+      {/* Optional: A consistent header across blog posts/pages */}
+      {/* <BlogHeader level={1} /> */}
+
+      {/* --- Main Article Content --- */}
+      {/* Increased vertical padding (py) for more breathing room, especially on larger screens */}
+      <article className="container mx-auto px-4 py-12 md:px-6 lg:px-8 lg:py-16 xl:py-20">
+
+        {/* --- Arena Header Section --- */}
+        {/* Increased bottom margin (mb) for more separation */}
+        <header className="mb-12 lg:mb-16">
+          {/* Increased bottom margin for heading */}
+          <h1 className="mb-6 text-3xl font-extrabold tracking-tight text-gray-900 md:text-4xl lg:text-5xl">
             {arena.name ?? 'Unnamed Arena'}
           </h1>
 
-          <div className="flex flex-row items-start gap-x-3 ">
-            <p className="text-lg text-gray-600">
-              {arena.location ?? 'Location unknown'}
-            </p>
-
-            <p className="text-sm text-gray-500">
-              {arena.gallery?.map((photo) => (
-                <div
-                  key={photo.name}
-                  className="  flex flex-col items-start justify-between "
-                >
-                  <div className="flex flex-row items-center align-bottom">
-                    <img
-                      src={
-                        photo?.asset?._ref
-                          ? urlForImage(photo)
-                              .height(200)
-                              .width(200)
-                              .fit('crop')
-                              .url()
-                          : 'https://dummyimage.com/96x96/000/aeb0d9.jpg&text=Image'
-                      }
-                      className=" h-7 w-7 rounded-full bg-gray-200  p-0.5 sm:h-7 sm:w-7  lg:h-6 lg:w-6 xl:h-8 xl:w-8"
-                      height={96}
-                      width={96}
-                      loading="lazy"
-                      alt={`${photo.name} logo`}
-                    />
-
-                    <div className="flex items-center align-bottom text-xs  lg:text-xs ">
-                      <p className="mx-1 hidden text-sm  leading-none   text-gray-500 sm:block sm:text-sm   ">
-                        {photo.name}
-                      </p>
-                      {photo.played === true ? (
-                        <div className="flex items-center">
-                          <Eye className="mx-1 h-4 w-4 text-green-500 sm:h-3 sm:w-3 md:h-5  md:w-5" />
-                          {/* <p className="my-2  text-[0.70rem] leading-none text-gray-500 ">
-                            Watched
-                          </p> */}
-                        </div>
-                      ) : (
-                        <EyeOff className="mx-1 my-1 h-4 w-4 text-gray-500 sm:h-3 sm:w-3 md:h-5   md:w-5" />
-                      )}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </p>
-          </div>
-
-          {/* Maybe add team name if you store it */}
-          {/* <p className="text-sm text-gray-500">Home of the {arena.teamName}</p> */}
+          {/* Arena Quick Info List - Using flex for better control */}
+          {/* Added more vertical gap (gap-y) and horizontal gap (gap-x) */}
+          <ul className="flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-gray-600 md:text-base">
+            {/* Using list items for semantic structure */}
+            {arena.location && (
+              <li className="flex items-center">
+                <MapPin className="mr-2 h-4 w-4 flex-shrink-0 text-gray-500" />
+                {arena.location}
+              </li>
+            )}
+            {arena.buildDate && (
+              <li className="flex items-center">
+                <Wrench className="mr-2 h-4 w-4 flex-shrink-0 text-gray-500" />
+                <span className="hidden font-medium md:inline mr-1">Built:</span>
+                {new Date(arena.buildDate).getFullYear()}
+              </li>
+            )}
+            {arena.capacity && (
+              <li className="flex items-center">
+                <Users className="mr-2 h-4 w-4 flex-shrink-0 text-gray-500" />
+                 <span className="hidden font-medium md:inline mr-1">Capacity:</span>
+                {arena.capacity.toLocaleString()}
+              </li>
+            )}
+            {arena.visited && arena.date && (
+              <li className="flex items-center">
+                <CalendarCheck className="mr-2 h-4 w-4 flex-shrink-0 text-gray-500" />
+                <span className="hidden font-medium md:inline mr-1">Visited:</span>
+                {new Date(arena.date).toLocaleDateString(undefined, {
+                  year: 'numeric', month: 'long', day: 'numeric',
+                })}
+              </li>
+            )}
+          </ul>
         </header>
 
-        {/* Main Content Grid */}
-        <div className="gap-8  lg:gap-12">
-          {/* --- Left Column (Image, Basic Info, Rating Summary) --- */}
-          <div className="space-y-6 lg:col-span-1">
-            {/* Main Arena Image */}
-            {arena.arenaImage && (
-              <div className="relative aspect-video w-full overflow-hidden rounded-lg shadow-lg max-w-7xl">
-                <Image
-                  src={urlForImage(arena.arenaImage)
-                    .width(800)
-                    .height(450)
-                    .fit('crop')
-                    .url()}
-                  alt={`Exterior view of ${arena.name ?? 'the arena'}`}
-                  fill
-                  priority // Prioritize loading the main image
-                  sizes="(max-width: 1024px) 100vw, 33vw" // Example sizes attribute
-                />
-              </div>
-            )}
-            <div className="flex flex-col gap-4 sm:flex-row ">
-              {/* Info Box */}
-              <div className="rounded-md border border-gray-200  p-4 shadow-sm mt-4">
-                <h2 className="mb-3 text-xl font-semibold text-gray-800">
-                  Arena Info
-                </h2>
-                <ul className="space-y-3 text-sm text-gray-700">
-                  {arena.buildDate && (
-                    <li className="flex items-center">
-                      <Wrench className="mr-2 h-5 w-5 text-gray-500" />
-                      <strong className="mr-1">Constructed:</strong>
-                      {new Date(arena.buildDate).getFullYear()}
-                    </li>
-                  )}
-                  {arena.capacity && (
-                    <li className="flex items-center">
-                      <Users className="mr-2 h-5 w-5 text-gray-500" />
-                      <strong className="mr-1">Capacity:</strong>{' '}
-                      {arena.capacity.toLocaleString()}
-                    </li>
-                  )}
-
-                  {arena.visited && arena.date && (
-                    <li className="flex items-center">
-                      <CalendarCheck className="mr-2 h-5 w-5 text-green-500" />
-                      <strong className="mr-1">Date Visited:</strong>{' '}
-                      {new Date(arena.date).toLocaleDateString(undefined, {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
-                      })}
-                    </li>
-                  )}
-                </ul>
-              </div>
-
-              {/* Rating Summary Box (Only if visited and reviewed) */}
-              {arena.visited && arena.arenaReview && (
-                <div
-                  className={`rounded-md border border-${color}-300 mt-4 bg-${color}-50 p-4 shadow-sm`}
-                >
-                  <h2 className="mb-2 text-xl font-semibold text-gray-800">
-                    Overall Rating
-                  </h2>
-                  <div className="flex items-baseline space-x-2">
-                    <span className={` text-4xl font-bold text-${color}-700`}>
-                      {average}
-                    </span>
-                    <span className={`text-lg font-medium text-${color}-600`}>
-                      ({textRating})
-                    </span>
-                  </div>
-                  <p className="mt-1 text-sm text-gray-600">
-                    Based on detailed review scores.
-                  </p>
-                </div>
-              )}
+        {/* --- Hero Photo Gallery --- */}
+        {/* Add vertical margin if needed, depending on HeroPhotoGallery's internal spacing */}
+        {arena.photoGallerySection && (
+            <div className="mb-12 lg:mb-16"> {/* Added margin below gallery */}
+                <HeroPhotoGallery photos={arena.photoGallerySection} />
             </div>
-          </div>
+        )}
 
-          <h2 className="text-2xl font-bold mt-8 mb-4 border-t border-gray-200 pt-8">Arena Rating Breakdown</h2>
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-12">
-            <AreanaRating
-              rating={arena.arenaReview?.transportation}
-              text={'Transit to Arena'}
-              icon={<Car className="text-pink-500" />}
-            />
-            <AreanaRating
-              rating={arena.arenaReview?.walkability}
-              text={'Arena Accessibility'}
-              icon={<Footprints className="text-pink-500" />}
-            />
-            <AreanaRating
-              rating={arena.arenaReview?.vibes}
-              text={'Arena Vibes'}
-              icon={<Music className="text-pink-500" />}
-            />
-            <AreanaRating
-              rating={arena.arenaReview?.food}
-              text={'Food Options'}
-              icon={<Pizza className="text-pink-500" />}
-            />
-            <AreanaRating
-              rating={arena.arenaReview?.view}
-              text={'View from our Seat'}
-              icon={<Binoculars className="text-pink-500" />}
-            />
-            <AreanaRating
-              rating={arena.arenaReview?.seatComfort}
-              text={'Seat Comfort'}
-              icon={<Sofa className="text-pink-500" />}
-            />
-          </div>
-          {/* --- Right Column (Detailed Review, Gallery, etc.) --- */}
-          <div className="space-y-10 lg:col-span-2">
-            {/* Detailed Review Section (if visited and reviewed) */}
-            <div className="pt-4">
-              <h3 className="font-semibold">Pros</h3>
-              <ul className="list-inside list-disc text-gray-700">
-                <li>Excellent food variety</li>
-                <li>Great scoreboard and lighting</li>
-              </ul>
-              <h3 className="mt-2 font-semibold">Cons</h3>
-              <ul className="list-inside list-disc text-gray-700">
-                <li>Pricey tickets</li>
-                <li>Long lines at security</li>
-              </ul>
-            </div>
+        {/* --- Main Content Sections Wrapper --- */}
+        {/* Using space-y-* for consistent vertical spacing between direct children sections */}
+        <div className="space-y-12 lg:space-y-16">
 
-            {/* If you have a Portable Text description field for the arena itself */}
-            {/* {arena.description && (
-              <section>
-                <h2 className="mb-4 text-2xl font-semibold text-gray-800">About {arena.name}</h2>
-                 <div className="prose lg:prose-lg max-w-none">
-                  <PortableText value={arena.description} />
-                 </div>
-              </section>
-            )} */}
-
-            {/* Photo Gallery (if visited and gallery exists) */}
-            {arena.visited && arena.gallery && arena.gallery.length > 0 && (
-              <section>
-                <h2 className="mb-4 text-2xl font-semibold text-gray-800">
-                  Photo Gallery
-                </h2>
-                {/* Use a dedicated gallery component or map images here */}
-                {/* <ImageGallery images={arena.gallery} /> */}
-                <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
-                  {arena.gallery.map((image, index) => (
-                    <div
-                      key={image._key || index}
-                      className="relative aspect-square w-full overflow-hidden rounded-md shadow-md transition-transform hover:scale-105"
-                    >
-                      {/* Consider adding a Lightbox component link here */}
-                      <a>
-                        <Image
-                          src={urlForImage(image)
-                            .width(400)
-                            .height(400)
-                            .fit('crop')
-                            .url()}
-                          alt={`${arena.name ?? 'Arena'} gallery image ${
-                            index + 1
-                          }`}
-                          layout="fill"
-                          objectFit="cover"
-                          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                          // Lazy loading is default in Next.js >= 10
-                        />
-                      </a>
+            {/* --- Info Boxes Section (Ratings & Teams) --- */}
+            {/* This section renders only if visited or if teams exist */}
+            {(arena.visited || (arena.gallery && arena.gallery.length > 0)) && (
+              <section className="flex flex-col gap-6 sm:flex-row sm:gap-8">
+                {/* Rating Summary Box */}
+                {arena.visited && arena.arenaReview && (
+                  <div className={`flex-1 rounded-lg border border-${color}-300 bg-${color}-50 p-5 shadow-sm`}> {/* Slightly more padding */}
+                    <h2 className="mb-2 text-lg font-semibold text-gray-800 md:text-xl">
+                      Overall Rating
+                    </h2>
+                    <div className="flex items-baseline space-x-2">
+                      <span className={`text-3xl font-bold text-${color}-700 md:text-4xl`}>
+                        {average}
+                      </span>
+                      <span className={`text-base font-medium text-${color}-600 md:text-lg`}>
+                        ({textRating})
+                      </span>
                     </div>
-                  ))}
+                    <p className="mt-1.5 text-xs text-gray-600 md:text-sm">
+                      Based on detailed review scores.
+                    </p>
+                  </div>
+                )}
+
+                {/* Teams Viewed Box */}
+                {arena.gallery && arena.gallery.length > 0 && ( // Use 'teams' if renamed
+                  <div className="flex-1 rounded-lg border border-gray-200 p-5 shadow-sm"> {/* Consistent padding */}
+                    <h2 className="mb-3 text-lg font-semibold text-gray-800 md:text-xl">
+                      Teams Viewed
+                    </h2>
+                    {/* Use flex for logos */}
+                    <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+                      {arena.gallery?.map((team) => ( // Use 'teams' if renamed
+                        <div key={team._key || team.name} className="flex items-center gap-2">
+                          {team?.asset && (
+                             <img
+                               src={urlForImage(team).height(32).width(32).fit('crop').url()}
+                               className="h-6 w-6 rounded-full bg-gray-200 p-px" // Consistent size
+                               height={32} width={32} loading="lazy" alt={`${team.name} logo`}
+                             />
+                          )}
+                          <span className="text-sm text-gray-700">{team.name}</span>
+                          {team.played === true ? (
+                             <Eye aria-label="Watched" className="h-4 w-4 text-green-500" />
+                          ) : (
+                             <EyeOff aria-label="Not Watched" className="h-4 w-4 text-gray-400" />
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </section>
+            )}
+
+
+            {/* --- Arena Rating Breakdown Section --- */}
+            {arena.visited && arena.arenaReview && (
+              <section>
+                {/* Added consistent heading margin */}
+                <h2 className="mb-6 text-2xl font-bold lg:text-3xl">
+                  Arena Rating Breakdown
+                </h2>
+                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+                  {/* Render AreanaRating components - ensure they have internal padding */}
+                  <AreanaRating rating={arena.arenaReview?.transportation} text={'Transit to Arena'} icon={<Car className="text-pink-500" />} />
+                  <AreanaRating rating={arena.arenaReview?.walkability} text={'Arena Accessibility'} icon={<Footprints className="text-pink-500" />} />
+                  <AreanaRating rating={arena.arenaReview?.vibes} text={'Arena Vibes'} icon={<Music className="text-pink-500" />} />
+                  <AreanaRating rating={arena.arenaReview?.food} text={'Food Options'} icon={<Pizza className="text-pink-500" />} />
+                  <AreanaRating rating={arena.arenaReview?.view} text={'View from our Seat'} icon={<Binoculars className="text-pink-500" />} />
+                  <AreanaRating rating={arena.arenaReview?.seatComfort} text={'Seat Comfort'} icon={<Sofa className="text-pink-500" />} />
                 </div>
               </section>
             )}
 
-            {/* Add other sections as needed: History, Notable Events, Location Map etc. */}
-          </div>
-        </div>
-      </article>
-      <Footer /> {/* Reuse your footer */}
+            {/* --- Pros/Cons/Verdict Section --- */}
+            {/* ProConList component likely has its own title ("Bottom Line"), so no extra heading needed here */}
+            {hasProsConsData && (
+                <ProConList
+                  positives={arena.prosConsVerdict.positives}
+                  negatives={arena.prosConsVerdict.negatives}
+                  verdict2={arena.prosConsVerdict.verdict}
+                />
+            )}
+
+
+            {/* --- Image Gallery Section --- */}
+            {hasImageGallery && (
+              <section>
+                  <ImageGallery
+                    // Use 'gallery' field if that holds the images for this component
+                    images={arena.gallery}
+                    title="Image Gallery" // Pass title prop
+                  />
+              </section>
+            )}
+
+            {/* Add other sections as needed within the main space-y container */}
+
+        </div> {/* End Main Content Sections Wrapper */}
+      </article> {/* End Article */}
+
+      <Footer />
     </Layout>
-  )
-}
-
-function InfoCard({ title, content }) {
-  return (
-    <div className="rounded-2xl bg-white p-4 shadow">
-      <h3 className="text-lg font-semibold text-gray-700">{title}</h3>
-      <p className="text-xl font-bold text-black">{content}</p>
-    </div>
-  )
-}
-
-function RatingBar({ label, value }) {
-  return (
-    <div>
-      <label className="mb-1 block font-medium text-gray-600">{label}</label>
-      <div className="h-4 w-full rounded-full bg-gray-200">
-        <div
-          className="h-4 rounded-full bg-blue-500"
-          style={{ width: `${(value / 10) * 100}%` }}
-        ></div>
-      </div>
-    </div>
-  )
+  );
 }

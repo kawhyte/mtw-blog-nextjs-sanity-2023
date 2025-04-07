@@ -205,15 +205,22 @@ const travelEssentialFields = groq`
 const arenaFields = groq`
     _id,
     name,
-    "slug": slug.current, // Ensure slug is fetched
+    "slug": slug.current, 
     arenaImage,
     gallery,
     location,
     buildDate,
     capacity,
     gallery,
-    // Expand arenaReview if it's an object with specific fields you need
-    // Example:
+    photoGallerySection,
+    visited,
+ 
+  prosConsVerdict { 
+    positives,     
+    negatives,     
+    verdict       
+  },
+  
     arenaReview {
    
       transportation,
@@ -597,6 +604,12 @@ export const guidePostsTotalCountQuery = groq`
 // 9. Interfaces
 // ------------------------------
 
+export interface ProsConsVerdict {
+  positives?: string; // Adjust type based on your schema
+  negatives?: string; // Adjust type based on your schema
+  verdict?: string;   // Adjust type based on your schema
+}
+
 export interface Author {
   name?: string
   picture?: any // Consider more specific type e.g., SanityImageObject
@@ -643,6 +656,7 @@ export interface Arena {
   slug?: string // Add slug field
   arenaImage?: any // SanityImageObject
   gallery?: any[] // SanityImageObject[]
+  photoGallerySection?: any[] // SanityImageObject[]
   location?: string
   buildDate?: string
   capacity?: number
@@ -655,12 +669,13 @@ export interface Arena {
       staff?: number;
       // Add other fields
   } | any // Or use 'any' or PortableTextBlock if it's simple content
-  visited?: boolean
+visited?: boolean
   date?: string
   teamType?: string // Keep if you use this field
   // Remove calculated fields if not fetched in arenaFields
   // visitedCount?: number
   // galleryCount?: number
+  prosConsVerdict?: ProsConsVerdict;
 }
 
 
