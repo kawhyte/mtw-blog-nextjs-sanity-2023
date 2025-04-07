@@ -130,27 +130,27 @@ export default function ArenaPage({
             {/* Using list items for semantic structure */}
             {arena.location && (
               <li className="flex items-center">
-                <MapPin className="mr-2 h-4 w-4 flex-shrink-0 text-gray-500" />
+                <MapPin className="mr-2 h-4 w-4 flex-shrink-0 text-pink-500" />
                 {arena.location}
               </li>
             )}
             {arena.buildDate && (
               <li className="flex items-center">
-                <Wrench className="mr-2 h-4 w-4 flex-shrink-0 text-gray-500" />
+                <Wrench className="mr-2 h-4 w-4 flex-shrink-0 text-pink-500" />
                 <span className="hidden font-medium md:inline mr-1">Built:</span>
                 {new Date(arena.buildDate).getFullYear()}
               </li>
             )}
             {arena.capacity && (
               <li className="flex items-center">
-                <Users className="mr-2 h-4 w-4 flex-shrink-0 text-gray-500" />
+                <Users className="mr-2 h-4 w-4 flex-shrink-0 text-pink-500" />
                  <span className="hidden font-medium md:inline mr-1">Capacity:</span>
                 {arena.capacity.toLocaleString()}
               </li>
             )}
             {arena.visited && arena.date && (
               <li className="flex items-center">
-                <CalendarCheck className="mr-2 h-4 w-4 flex-shrink-0 text-gray-500" />
+                <CalendarCheck className="mr-2 h-4 w-4 flex-shrink-0 text-pink-500" />
                 <span className="hidden font-medium md:inline mr-1">Visited:</span>
                 {new Date(arena.date).toLocaleDateString(undefined, {
                   year: 'numeric', month: 'long', day: 'numeric',
@@ -237,12 +237,12 @@ export default function ArenaPage({
                 </h2>
                 <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
                   {/* Render AreanaRating components - ensure they have internal padding */}
-                  <AreanaRating rating={arena.arenaReview?.transportation} text={'Transit to Arena'} icon={<Car className="text-pink-500" />} />
-                  <AreanaRating rating={arena.arenaReview?.walkability} text={'Arena Accessibility'} icon={<Footprints className="text-pink-500" />} />
-                  <AreanaRating rating={arena.arenaReview?.vibes} text={'Arena Vibes'} icon={<Music className="text-pink-500" />} />
-                  <AreanaRating rating={arena.arenaReview?.food} text={'Food Options'} icon={<Pizza className="text-pink-500" />} />
-                  <AreanaRating rating={arena.arenaReview?.view} text={'View from our Seat'} icon={<Binoculars className="text-pink-500" />} />
-                  <AreanaRating rating={arena.arenaReview?.seatComfort} text={'Seat Comfort'} icon={<Sofa className="text-pink-500" />} />
+                  <AreanaRating rating={arena.arenaReview?.transportation} text={'Transit to Arena'} icon={<Car className="text-gray-500" />} />
+                  <AreanaRating rating={arena.arenaReview?.walkability} text={'Arena Accessibility'} icon={<Footprints className="text-gray-500" />} />
+                  <AreanaRating rating={arena.arenaReview?.vibes} text={'Arena Vibes'} icon={<Music className="text-gray-500" />} />
+                  <AreanaRating rating={arena.arenaReview?.food} text={'Food Options'} icon={<Pizza className="text-gray-500" />} />
+                  <AreanaRating rating={arena.arenaReview?.view} text={'View from our Seat'} icon={<Binoculars className="text-gray-500" />} />
+                  <AreanaRating rating={arena.arenaReview?.seatComfort} text={'Seat Comfort'} icon={<Sofa className="text-gray-500" />} />
                 </div>
               </section>
             )}

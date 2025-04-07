@@ -15,7 +15,7 @@ function ArenaRating({ rating, text, icon }) {
   return (
     <div className="  text-gray-700 ">
       <div
-        className={`flex w-full flex-col justify-center rounded-2xl border  p-2`}
+        className={`flex w-full flex-col justify-center rounded-2xl border  py-4 px-2`}
       >
         <div className="flex flex-row items-center justify-start">
           <div className="flex items-center justify-center px-2 ">
