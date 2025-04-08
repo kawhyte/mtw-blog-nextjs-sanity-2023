@@ -92,10 +92,6 @@ export default function ArenaPage({
     arena?.arenaReview || {} // Pass empty object if review is missing
   )
 
-  console.log('Average Rating:', average)
-  console.log('Text Rating:', textRating)
-  console.log('Color:', color)
-
   // Check if there's data for the Pros/Cons/Verdict section
   const hasProsConsData =
     arena?.prosConsVerdict &&
@@ -215,8 +211,6 @@ export default function ArenaPage({
               <section className="flex w-full flex-col gap-6 sm:flex-row sm:gap-10 lg:gap-16">
                 {/* Rating Summary Box - Renders only if visited and review exists */}
                 {arena.visited && arena.arenaReview && (
-          
-
                   <div className="mb-8 flex items-end">
                     {/* Main Rating Box */}
                     <div
@@ -261,7 +255,7 @@ export default function ArenaPage({
                 {arena.gallery && arena.gallery.length > 0 && (
                   <div
                     // Consistent styling with the rating box (flex-1, rounding, border, padding, shadow, hover).
-                    className="flex flex-col h-[8rem] w-[16rem] rounded-lg border border-gray-200 bg-white pt-6  px-6 shadow-sm transition duration-300 ease-in-out hover:shadow-md"
+                    className="flex h-[8rem] w-[16rem] flex-col rounded-lg border border-gray-200 bg-white px-6  pt-6 shadow-sm transition duration-300 ease-in-out hover:shadow-md"
                   >
                     <h2 className="title-font mb-4 text-base font-medium uppercase tracking-widest text-gray-700">
                       {' '}
@@ -375,11 +369,7 @@ export default function ArenaPage({
           {/* https://www.instagram.com/p/DFfrwFpvGhs/ */}
           {/* <Youtube link={'https://youtube.com/shorts/IplAXhYF1_I?si=yqE3ZctGEGt3_9UE'}/> */}
 
-          <VideoPlayer
-            url={
-              'https://www.instagram.com/reel/DFfrwFpvGhs/?utm_source=ig_web_copy_link'
-            }
-          />
+          <VideoPlayer url={arena.videoUrl} />
           {/* --- Image Gallery Section --- */}
 
           {hasImageGallery && (

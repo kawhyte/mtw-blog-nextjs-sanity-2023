@@ -5,7 +5,7 @@
 export default {
     name: 'arenaReview',
     title: 'Arena Review',
-    type: 'document',
+    type: 'object',
     fields: [
     
       {

@@ -1,4 +1,4 @@
-// schemas/arenas.js
+// schemas/nbaArenas.ts
 import { StarIcon } from '@sanity/icons';
 import { defineField, defineType } from 'sanity';
 
@@ -17,6 +17,9 @@ const getPortableTextLength = (blocks) => {
     .join('\n') // Count newlines between blocks
     .length;
 };
+
+// Regex to validate common YouTube or Instagram video/reel/post URLs
+const videoUrlPattern = /^(http(s)?:\/\/)?((w){3}.)?(youtu(be|.be)?(\.com)?\/.+|instagram\.com\/(p|reel|tv)\/.+)/;
 // --- End Helper Function ---
 
 export default defineType({
@@ -84,7 +87,7 @@ export default defineType({
             type: 'string',
             description: 'REQUIRED: Describe the image.',
             validation: (Rule) => Rule.required().error('Alt text is required.'),
-            // options: { isHighlighted: true }
+            // options: { isHighlighted: true } // Removed in previous fix
          })
       ],
        // validation: (Rule) => Rule.required(), // Consider if required
@@ -97,7 +100,7 @@ export default defineType({
         // validation: Rule => Rule.required() // Uncomment if required
     }),
     defineField({
-      name: 'gallery', // Changed from 'gallery' for team logos
+      name: 'gallery', // Assuming this is for Teams / Logos
       title: 'Teams / Logos',
       description: 'Logos/info for teams associated with the arena. Logo size suggestion: 96x96.',
       type: 'array',
@@ -124,7 +127,7 @@ export default defineType({
               type: 'string',
               description: 'REQUIRED: e.g., "Los Angeles Lakers Logo"',
               validation: Rule => Rule.required().error('Alt text for the logo is required.'),
-              // options: { isHighlighted: true }
+              // options: { isHighlighted: true } // Removed in previous fix
             })
           ],
           preview: {
@@ -163,7 +166,6 @@ export default defineType({
       type: 'object',
       description: 'Summarize the positive, negative, and concluding points about visiting this arena.',
       options: { collapsible: true, collapsed: false },
-      // This group is hidden entirely if the arena wasn't visited
       hidden: ({ document }) => !document?.visited,
       fields: [
         // Positives
@@ -186,7 +188,7 @@ export default defineType({
         defineField({
           name: 'verdict',
           title: 'Overall Verdict',
-          description: 'Write a concluding summary (max 600 characters). Basic formatting is allowed.', // Description updated
+          description: 'Write a concluding summary (max 600 characters). Basic formatting is allowed.',
           type: 'array', // Portable Text
           of: [
             {
@@ -202,7 +204,6 @@ export default defineType({
               },
             },
           ],
-          // --- VALIDATION FOR CHARACTER LIMIT ---
           validation: Rule => Rule.custom((portableTextValue) => {
             const textLength = getPortableTextLength(portableTextValue);
             const limit = 600;
@@ -210,11 +211,43 @@ export default defineType({
               return `Verdict exceeds ${limit} characters (${textLength}/${limit})`;
             }
             return true; // Validation passes
-          }).error() // Makes it a hard error
-          // --- END VALIDATION ---
+          }).error()
         }) // --- End Verdict ---
       ] // --- End of fields INSIDE the group ---
     }), // --- End of the GROUPING Fieldset ---
+
+    // --- Video URL Field ---
+    defineField({
+      name: 'videoUrl',
+      title: 'Video URL (YouTube / Instagram)',
+      description: 'Optional: Add a link to a relevant YouTube video or Instagram post/reel.',
+      type: 'url',
+      validation: (Rule) => Rule.custom((value) => { // 'value' might be inferred as 'unknown'
+        // Allow empty field since it's optional
+        if (!value) {
+          return true;
+        }
+
+        // --- FIX: Add type check before using .test() ---
+        if (typeof value === 'string') {
+          if (videoUrlPattern.test(value)) {
+            return true; // It's a valid string pattern
+          } else {
+            // It's a string, but doesn't match the pattern
+            return 'Please enter a valid URL for a YouTube video or an Instagram post/reel/tv.';
+          }
+        }
+        // --- End Fix ---
+
+        // Handle cases where value exists but isn't a string
+        return 'Invalid input: Expected a URL string.';
+
+      }), // End custom validation
+      // Optional: Add conditional logic if needed
+      // hidden: ({ document }) => !document?.visited,
+    }),
+    // --- End Video URL Field ---
+
 
     // --- Detailed Ratings ---
     defineField({

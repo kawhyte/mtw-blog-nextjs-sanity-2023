@@ -214,7 +214,7 @@ const arenaFields = groq`
     gallery,
     photoGallerySection,
     visited,
- 
+  videoUrl,
   prosConsVerdict { 
     positives,     
     negatives,     
@@ -660,6 +660,7 @@ export interface Arena {
   location?: string
   buildDate?: string
   capacity?: number
+  videoUrl?:string
   // Update arenaReview type based on your schema
   arenaReview?: {
       atmosphere?: number;
