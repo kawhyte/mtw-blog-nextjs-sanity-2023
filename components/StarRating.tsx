@@ -10,6 +10,7 @@ import type { Post } from 'lib/sanity.queries' // Import Post type
 import { ratingItem } from '../lib/getReviewType' // Adjust path if needed
 // Import child components
 import ProgressRating from './ProgressRating'
+import StarDisplay from './StarDisplay'
 
 // Define props for the component
 interface StarRatingProps {
@@ -123,7 +124,7 @@ const StarRating: React.FC<StarRatingProps> = ({
       <div className="mb-8 flex items-end">
         {/* Main Rating Box */}
         <div
-          className="z-30 flex h-[8rem] w-[9rem] flex-col items-center justify-center rounded-2xl border-4 bg-gray-50 p-2 shadow-md" // Added shadow
+          className="z-30 flex h-[8rem] w-[9rem] flex-col items-center justify-center rounded-2xl border-2 bg-gray-50 p-2 shadow-md" // Added shadow
           style={{ borderColor: color, opacity: 0.95 }} // Slightly adjusted opacity
         >
           {/* Numerical Rating */}
@@ -133,21 +134,26 @@ const StarRating: React.FC<StarRatingProps> = ({
             </span>
           </div>
           {/* Separator */}
-          <hr className="z-50 my-2 h-0.5 w-[85%] border-0 bg-gray-300 dark:bg-gray-700" />{' '}
+          <hr className="z-50 my-2 h-0.5 w-[85%] border-0 bg-gray-200 " />{' '}
           {/* Adjusted width and color */}
           {/* Star Rendering Area */}
           <div className="mt-1 flex items-center">
-            {renderStars(numericalRating)}
+            <StarDisplay ratingValue={numericalRating} />
+
+            {/* {renderStars(numericalRating)} */}
           </div>
         </div>
-        {/* Text Rating Beside Box */}
-        <p
-          className={`mb-2 ml-6 font-montserrat text-6xl font-bold text-gray-900 ${oswald.variable} font-heading`}
-        >
-          {' '}
-          {/* Added font styles */}
-          {textRating}
-        </p>
+        <div className="ml-6 flex flex-col ">
+          <p
+            className={`mb-3 font-montserrat text-6xl font-bold text-gray-900 ${oswald.variable} font-heading`}
+          >
+            {' '}
+            {/* Added font styles */}
+            {textRating}
+          </p>
+
+          <p className="text-xs">Based on weighted review scores.</p>
+        </div>
       </div>
 
       {/* Rating Breakdown Section */}

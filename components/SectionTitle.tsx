@@ -7,8 +7,8 @@ interface SectionTitleProps {
 
 export default function SectionTitle({ header, description }: SectionTitleProps) {
   return (
-    <div className="container mx-auto flex w-full flex-col justify-between px-5 pt-8">
-      <h1 className="font-montserrat capitalize   mb-3 text-3xl   sm:text-5xl  font-bold text-gray-900">
+    <div className="container mx-auto flex w-full flex-col justify-between pr-5 pt-8">
+      <h1 className="font-montserrat capitalize   font-fancy z-10 py-2 text-left font-heading text-2xl font-semibold leading-tight  tracking-tighter md:py-2 md:text-2xl md:leading-none lg:text-4xl">
         {header}
       </h1>
       <div className="h-1 w-20 rounded bg-pink-500"></div>

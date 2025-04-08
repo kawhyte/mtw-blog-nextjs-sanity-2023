@@ -17,6 +17,7 @@ import ProConList from './ProConList'
 import RoomTech from './RoomTech'
 import Youtube from './Youtube'
 import ImageGallery from './ImageGallery'
+import VideoPlayer from './Youtube'
 
 export interface PostPageProps {
   preview?: boolean
@@ -121,7 +122,9 @@ export default function PostPage(props: PostPageProps) {
           {' '}
           <PostBody content={post.content} />
         </div>
-        <Youtube link={post.youtube} />
+
+        <VideoPlayer url={post.youtube}/>
+        {/* <Youtube link={post.youtube} /> */}
 
         {post.gallery?.length > 0 && (
           <ImageGallery title="Photo Gallery" images={post.gallery} />

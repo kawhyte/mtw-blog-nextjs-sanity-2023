@@ -1,10 +1,9 @@
 import { Spoiler } from '@mantine/core';
-// Make sure these font/component paths are correct for your project structure
-import { inter, oswald } from 'app/fonts';
+
 import React from 'react';
-import { FaThumbsDown, FaThumbsUp } from 'react-icons/fa6';
-import { IoMdCheckmarkCircle, IoMdCloseCircle } from 'react-icons/io';
-import { RiLightbulbFlashLine } from 'react-icons/ri';
+
+import { ThumbsUp,ThumbsDown, CircleCheckBig,CircleX, Scale } from 'lucide-react';
+
 
 import PostBody from '../components/PostBody'; // Renders Portable Text
 import SectionTitle from './SectionTitle'; // Your SectionTitle component
@@ -49,7 +48,7 @@ function ProConList({ positives, negatives, verdict2 }: ProConListProps) {
                 <div className="flex h-full flex-col rounded-lg border-2 border-green-500 border-opacity-50 p-2 shadow-sm shadow-green-200/40 md:p-5">
                   {/* Header */}
                   <div className="mb-3 flex justify-start border-b border-gray-200 pb-4 align-middle ">
-                    <FaThumbsUp className="mr-3 h-7 w-7 rounded-2xl bg-green-100 p-1 text-green-500 " />
+                    <ThumbsUp className="mr-3 h-7 w-7 rounded-2xl p-1 text-green-500 " />
                     <h2 className="title-font mb-1 text-base font-medium uppercase tracking-widest text-green-500">
                       What we loved
                     </h2>
@@ -57,14 +56,14 @@ function ProConList({ positives, negatives, verdict2 }: ProConListProps) {
                   {/* List Content */}
                   <div className="-mb-1 flex flex-col items-center space-y-2.5 sm:items-start sm:text-left">
                     <Spoiler maxHeight={boxHeight} showLabel="Show more" hideLabel="Show less">
-                      <ul className="pt-2"> {/* Added padding top */}
+                      <ul className="pt-2"> 
                         {Array.isArray(positives) && positives.map((positive, index) => (
                           <li key={`pro-${index}`} className=" my-3 text-sm leading-loose md:text-base">
-                            <div className="flex items-baseline align-bottom ">
-                              <div className="mr-3 inline-flex items-center justify-center rounded-full text-green-400">
-                                <IoMdCheckmarkCircle className="h-5 w-5 flex-shrink-0" /> {/* Added flex-shrink-0 */}
+                            <div className="flex items-baseline ">
+                              <div className="mr-2 inline-flex flex-shrink-0 items-center justify-center pt-0.5 text-green-500">
+                                <CircleCheckBig className="h-5 w-5 " /> 
                               </div>
-                              <p className="leading-loose">{positive}</p>
+                              <p className="">{positive}</p>
                             </div>
                           </li>
                         ))}
@@ -81,7 +80,7 @@ function ProConList({ positives, negatives, verdict2 }: ProConListProps) {
                 <div className="flex h-full flex-col rounded-lg border-2 border-red-500 border-opacity-50 p-2 shadow-sm shadow-red-200/60 md:p-5">
                   {/* Header */}
                   <div className="mb-3 flex justify-start border-b border-gray-200 pb-4 align-middle">
-                    <FaThumbsDown className="mr-3 h-7 w-7 rounded-2xl bg-red-100 p-1 text-red-500 " />
+                    <ThumbsDown className="mr-3 h-7 w-7  p-1 text-red-500 " />
                     <h2 className="title-font mb-1 text-base font-medium uppercase tracking-widest text-red-500">
                       What we did not like
                     </h2>
@@ -92,11 +91,11 @@ function ProConList({ positives, negatives, verdict2 }: ProConListProps) {
                       <ul className="pt-2"> {/* Added padding top */}
                         {Array.isArray(negatives) && negatives.map((negative, index) => (
                           <li key={`neg-${index}`} className=" my-3 text-sm leading-loose md:text-base">
-                            <div className="flex items-baseline align-bottom">
-                              <div className="mr-3 inline-flex items-center justify-center rounded-full text-red-500">
-                                <IoMdCloseCircle className="h-5 w-5 flex-shrink-0" /> {/* Added flex-shrink-0 */}
+                            <div className="flex items-baseline ">
+                              <div className="mr-2 inline-flex flex-shrink-0 items-center justify-center pt-0.5  text-red-500">
+                                <CircleX className="h-5 w-5 " /> {/* Added flex-shrink-0 */}
                               </div>
-                              <p className="leading-loose">{negative}</p>
+                              <p className="">{negative}</p>
                             </div>
                           </li>
                         ))}
@@ -113,7 +112,7 @@ function ProConList({ positives, negatives, verdict2 }: ProConListProps) {
                 <div className="flex h-full flex-col rounded-lg border-2 border-indigo-500 border-opacity-50 p-2 shadow-md shadow-indigo-100/50 md:p-5">
                   {/* Header */}
                   <div className="mb-3 flex justify-start border-b border-gray-200 pb-4 align-middle ">
-                    <RiLightbulbFlashLine className="mr-3 h-7 w-7 rounded-2xl bg-indigo-100 p-1 text-indigo-500 " />
+                    <Scale className="ml-1 mr-3 h-7 w-7  text-indigo-500 " />
                     <h2 className="title-font mb-1 text-base font-medium uppercase tracking-widest text-indigo-500">
                       Verdict
                     </h2>
