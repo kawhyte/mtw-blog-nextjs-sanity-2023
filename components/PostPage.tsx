@@ -97,7 +97,7 @@ export default function PostPage(props: PostPageProps) {
       <Layout preview={preview} loading={loading}>
         <BlogHeader title={title} level={2} />
         {/* <Container> */}
-        <article className="container mx-auto flex flex-col items-start justify-center sm:pl-4 md:mt-10">
+        <article className="container mx-auto px-4 py-12 md:px-6 lg:px-40 lg:py-16 xl:py-20">          
           <PostHeader
             title={post.title}
             coverImage={post.coverImage}

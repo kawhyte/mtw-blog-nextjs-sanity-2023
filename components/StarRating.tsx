@@ -121,7 +121,7 @@ const StarRating: React.FC<StarRatingProps> = ({
   return (
     <>
       {/* Overall Rating Display Section */}
-      <div className="mb-8 flex items-end">
+      <div className="mb-8 md:mb-20 flex items-end">
         {/* Main Rating Box */}
         <div
           className="z-30 flex h-[8rem] w-[9rem] flex-col items-center justify-center rounded-2xl border-2 bg-gray-50 p-2 shadow-md" // Added shadow
@@ -129,7 +129,7 @@ const StarRating: React.FC<StarRatingProps> = ({
         >
           {/* Numerical Rating */}
           <div className="text-gray-900">
-            <span className="ml-1 mr-1 font-montserrat text-xl font-black leading-tight tracking-tighter sm:text-xl md:text-left md:text-2xl md:leading-none lg:text-5xl">
+            <span className="ml-1 mr-1 font-montserrat text-5xl font-black leading-tight tracking-tighter sm:text-5xl md:text-left md:text-5xl md:leading-none lg:text-5xl">
               {numericalRating.toFixed(2)}
             </span>
           </div>

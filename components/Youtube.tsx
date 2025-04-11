@@ -88,7 +88,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ url, title }) => {
 
   // --- Render Component ---
   return (
-    <section className="py-8 md:py-12"> {/* Adjusted padding */}
+    <section className="py-8 md:py-1"> {/* Adjusted padding */}
       <div className="container mx-auto pr-4 md:pr-6 lg:pr-8">
         {/* Title Section */}
         {title && ( // Only render title section if title exists

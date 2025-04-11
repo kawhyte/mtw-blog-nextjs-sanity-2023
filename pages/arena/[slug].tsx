@@ -9,6 +9,7 @@ import Footer from 'components/Footer' // Adjust path
 import HeroPhotoGallery from 'components/HeroPhotoGallery' // Adjust path
 import ImageGallery from 'components/ImageGallery' // Adjust path
 import ProConList from 'components/ProConList' // Adjust path
+import PageHeader from 'components/SlugPageTitleWithIconHeager'
 import StarDisplay from 'components/StarDisplay'
 import Youtube from 'components/Youtube'
 import VideoPlayer from 'components/Youtube'
@@ -105,7 +106,47 @@ export default function ArenaPage({
   if (!arena) {
     return <div>Arena not found.</div> // Or a proper 404 component
   }
-  console.log('Image Gallery2', arena)
+
+
+
+  const headerItems = [];
+  const iconClasses = 'mr-2 h-4 w-4 flex-shrink-0 text-purple-500'; // Define common icon style
+
+  if (arena.location) {
+    headerItems.push({
+      icon: <MapPin className={iconClasses} />,
+      text: arena.location,
+    });
+  }
+  if (arena.buildDate) {
+    headerItems.push({
+      icon: <Wrench className={iconClasses} />,
+      label: 'Built',
+      text: new Date(arena.buildDate).getFullYear(),
+    });
+  }
+  if (arena.capacity) {
+    headerItems.push({
+      icon: <Users className={iconClasses} />,
+      label: 'Capacity',
+      text: arena.capacity.toLocaleString(),
+    });
+  }
+  if (arena.visited && arena.date) {
+    headerItems.push({
+      icon: <CalendarCheck className={iconClasses} />,
+      label: 'Visited',
+      text: new Date(arena.date).toLocaleDateString(undefined, {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      }),
+    });
+  }
+
+
+
+
   return (
     <Layout preview={preview} loading={false}>
       {/* --- SEO Head --- */}
@@ -129,64 +170,13 @@ export default function ArenaPage({
           />
         )}
       </Head>
-      {/* Optional: A consistent header across blog posts/pages */}
+ 
       <BlogHeader level={1} />
       {/* --- Main Article Content --- */}
-      {/* Increased vertical padding (py) for more breathing room, especially on larger screens */}
-      <article className="container mx-auto px-4 py-12 md:px-6 lg:px-8 lg:py-16 xl:py-20">
-        {/* --- Arena Header Section --- */}
-        {/* Increased bottom margin (mb) for more separation */}
-        <header className="mb-12 lg:mb-16">
-          {/* Increased bottom margin for heading */}
-          <h1 className="mb-6 text-3xl font-extrabold tracking-tight text-gray-900 md:text-4xl lg:text-5xl">
-            {arena.name ?? 'Unnamed Arena'}
-          </h1>
+  
+      <article className="container mx-auto px-4 py-12 md:px-6 lg:px-40 lg:py-16 xl:py-20">
 
-          {/* Arena Quick Info List - Using flex for better control */}
-          {/* Added more vertical gap (gap-y) and horizontal gap (gap-x) */}
-          <ul className="flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-gray-600 md:text-base">
-            {/* Using list items for semantic structure */}
-            {arena.location && (
-              <li className="flex items-center">
-                <MapPin className="mr-2 h-4 w-4 flex-shrink-0 text-purple-500" />
-                {arena.location}
-              </li>
-            )}
-            {arena.buildDate && (
-              <li className="flex items-center">
-                <Wrench className="mr-2 h-4 w-4 flex-shrink-0 text-purple-500" />
-                <span className="mr-1 hidden font-medium md:inline">
-                  Built:
-                </span>
-                {new Date(arena.buildDate).getFullYear()}
-              </li>
-            )}
-            {arena.capacity && (
-              <li className="flex items-center">
-                <Users className="mr-2 h-4 w-4 flex-shrink-0 text-purple-500" />
-                <span className="mr-1 hidden font-medium md:inline">
-                  Capacity:
-                </span>
-                {arena.capacity.toLocaleString()}
-              </li>
-            )}
-            {arena.visited && arena.date && (
-              <li className="flex items-center">
-                <CalendarCheck className="mr-2 h-4 w-4 flex-shrink-0 text-purple-500" />
-                <span className="mr-1 hidden font-medium md:inline">
-                  Visited:
-                </span>
-                {new Date(arena.date).toLocaleDateString(undefined, {
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric',
-                })}
-              </li>
-            )}
-          </ul>
-        </header>
-        {/* --- Hero Photo Gallery --- */}
-        {/* Add vertical margin if needed, depending on HeroPhotoGallery's internal spacing */}
+        <PageHeader title={arena.name ?? 'Unnamed Arena'} items={headerItems} />
         {arena.photoGallerySection && (
           <div className="mb-12 lg:mb-16">
             {' '}
@@ -194,8 +184,7 @@ export default function ArenaPage({
             <HeroPhotoGallery photos={arena.photoGallerySection} />
           </div>
         )}
-        {/* --- Main Content Sections Wrapper --- */}
-        {/* Using space-y-* for consistent vertical spacing between direct children sections */}
+  
         <div className="space-y-12 lg:space-y-16">
           {/* --- Info Boxes Section (Ratings & Teams) --- */}
           {/* This section renders only if visited or if teams exist */}

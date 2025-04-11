@@ -11,6 +11,8 @@ import BodySectionSeparator from './body-section-separator'
 import CoverImagePost from './CoverImagePost'
 import PostBody from './PostBody'
 import StarRating from './StarRating'
+import PageHeader from './SlugPageTitleWithIconHeager'
+import { MapPin, Calendar, Store, BedDouble, UtensilsCrossed } from 'lucide-react'
 
 // Type for common post meta information
 interface PostMetaItemProps {
@@ -134,12 +136,79 @@ export default function PostHeader({
   category,
   tip,
 }: PostHeaderProps) {
+
+
+
+
+
+
+
+  const headerItems = [];
+  const iconClasses = 'mr-2 h-4 w-4 flex-shrink-0 text-purple-500'; // Define common icon style
+
+  if (location) {
+    headerItems.push({
+      icon: <MapPin className={iconClasses} />,
+      text: location,
+    });
+  }
+  if (date) {
+    headerItems.push({
+      icon: <Calendar className={iconClasses} />,
+      // label: 'Built',
+      text:<Date dateString={date} />,
+    });
+  }
+  if (category) {
+    headerItems.push({
+      icon: <Store className={iconClasses} />,
+      // label: 'Visited',
+      text: category+ " Hotel"
+      // text: new Date(arena.date).toLocaleDateString(undefined, {
+        //   year: 'numeric',
+        //   month: 'long',
+        //   day: 'numeric',
+        // }),
+      });
+    }
+    if (linkType =="hotel") {
+      headerItems.push({
+        icon: <BedDouble className={iconClasses} />,
+        // label: 'Capacity',
+        text: room,
+      });
+    }
+    if (linkType =="food" ) {
+
+      if(diningType =="dinein"){
+
+        headerItems.push({
+          icon: <UtensilsCrossed className={iconClasses} />,
+          // label: 'Capacity',
+          text: 'Dine-in',
+        });
+
+      } else {
+        headerItems.push({
+          icon: <UtensilsCrossed className={iconClasses} />,
+          // label: 'Capacity',
+          text: "Takeout",
+        });
+
+      }
+    
+    }
+
+
   return (
     <>
       <div className="pl-4 pt-5 sm:ml-0 md:pt-12">
-        <PostTitle>{title}</PostTitle>
 
-        <div className="mt-2 max-w-4xl">
+      <PageHeader title={title ?? 'Unnamed Place'} items={headerItems} />
+
+        {/* <PostTitle>{title}</PostTitle> */}
+
+        {/* <div className="mt-2 max-w-4xl">
           <div className="grid grid-cols-2 gap-y-3 md:grid-cols-4 md:place-content-center md:place-items-center md:gap-x-4">
             <LocationInfo
               location={location}
@@ -156,10 +225,10 @@ export default function PostHeader({
 
             <RoomInfo linkType={linkType} room={room} />
           </div>
-        </div>
+        </div> */}
       </div>
 
-      <div className="mb-8 sm:mx-0 md:mb-16">
+      <div className="mb-8 sm:mx-0 md:mb-16 ">
         <CoverImagePost
           title={title}
           image={coverImage}
@@ -176,6 +245,8 @@ export default function PostHeader({
               <Blockquote color="pink">
                 <PostBody content={excerpt2} />
               </Blockquote>
+
+            
             </div>
             <BodySectionSeparator />
           </>
