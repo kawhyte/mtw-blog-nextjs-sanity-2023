@@ -1,26 +1,22 @@
 // schemas/nbaArenas.ts
-import { StarIcon } from '@sanity/icons';
+import { StarIcon, ImagesIcon } from '@sanity/icons'; // Added ImagesIcon
 import { defineField, defineType } from 'sanity';
 
 // --- Helper Function for Verdict Character Count ---
-// Calculates the plain text length of Portable Text content
 const getPortableTextLength = (blocks) => {
   if (!Array.isArray(blocks)) {
     return 0;
   }
   return blocks
-    // Filter out non-text blocks if any (e.g., images)
     .filter(block => block._type === 'block' && Array.isArray(block.children))
-    // Map each block to its text content by joining the text of its children (spans)
     .map(block => block.children.map(span => span.text || '').join(''))
-    // Join the text content of all blocks
-    .join('\n') // Count newlines between blocks
+    .join('\n')
     .length;
 };
 
 // Regex to validate common YouTube or Instagram video/reel/post URLs
 const videoUrlPattern = /^(http(s)?:\/\/)?((w){3}.)?(youtu(be|.be)?(\.com)?\/.+|instagram\.com\/(p|reel|tv)\/.+)/;
-// --- End Helper Function ---
+// --- End Helper Functions ---
 
 export default defineType({
   name: 'arenas',
@@ -44,10 +40,7 @@ export default defineType({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
-      options: {
-        source: 'name',
-        maxLength: 96,
-      },
+      options: { source: 'name', maxLength: 96 },
       validation: (Rule) => Rule.required(),
       description: 'Arena slug (ex. crypto)',
     }),
@@ -66,41 +59,85 @@ export default defineType({
       name: 'buildDate',
       title: 'Arena Build Date',
       type: 'date',
-      options: {
-        dateFormat: 'YYYY-MM-DD',
-      }
+      options: { dateFormat: 'YYYY-MM-DD' }
     }),
 
-    // --- Images & Gallery ---
+    // --- Images & Galleries ---
     defineField({
       name: 'arenaImage', // Main image for cards/lists
       title: 'Arena Image (Card/List View)',
       type: 'image',
       description: 'Image used for previews. Size suggestion: 350x205.',
-      options: {
-        hotspot: true,
-      },
-       fields: [
-         defineField({
-            name: 'alt',
-            title: 'Alternative Text',
-            type: 'string',
-            description: 'REQUIRED: Describe the image.',
-            validation: (Rule) => Rule.required().error('Alt text is required.'),
-            // options: { isHighlighted: true } // Removed in previous fix
-         })
+      options: { hotspot: true },
+      fields: [
+        defineField({
+          name: 'alt',
+          title: 'Alternative Text',
+          type: 'string',
+          description: 'REQUIRED: Describe the image.',
+          // validation: (Rule) => Rule.required().error('Alt text is required.'),
+          // options: { isHighlighted: true } // Removed previously
+        })
       ],
-       // validation: (Rule) => Rule.required(), // Consider if required
+      // validation: (Rule) => Rule.required(), // Consider if required
     }),
     defineField({
-        name: 'photoGallerySection', // Main Photo Gallery (1+4 layout)
-        title: 'Arena Photo Gallery (1 Main + 4 Others)',
-        type: 'photoGallery', // References 'photoGallery' object schema
-        description: 'Add the main photo and exactly four supporting photos for the detailed arena page gallery.',
-        // validation: Rule => Rule.required() // Uncomment if required
+      name: 'photoGallerySection', // Main Photo Gallery (1+4 layout)
+      title: 'Arena Photo Gallery (1 Main + 4 Others)',
+      type: 'photoGallery', // References 'photoGallery' object schema
+      description: 'Add the main photo and exactly four supporting photos for the detailed arena page gallery.',
+      // validation: Rule => Rule.required() // Uncomment if required
     }),
+
+    // --- NEW Image Gallery Field ---
     defineField({
-      name: 'gallery', // Assuming this is for Teams / Logos
+      name: 'imageGallery', // New field name
+      title: 'Image Gallery',
+      description: 'Upload multiple photos of the arena (interior, exterior, food, views, etc.). Add descriptive alt text for each.',
+      type: 'array',
+      icon: ImagesIcon, // Add a relevant icon
+      hidden: ({ document }) => !document?.visited, // Hide if not visited
+      of: [
+        {
+          type: 'image',
+          options: {
+            hotspot: true, // Enable hotspot for better cropping
+          },
+          fields: [
+            // Required Alt Text
+            defineField({
+              name: 'alt',
+              title: 'Alternative Text',
+              type: 'string',
+              description: 'REQUIRED: Describe the image for accessibility and SEO.',
+              // validation: Rule => Rule.required().error('Alt text is required for every gallery image.'),
+              
+            }),
+            // Optional Caption
+            defineField({
+              name: 'caption',
+              title: 'Caption',
+              type: 'string',
+              description: 'Optional: Add a brief caption for the image.',
+            }),
+          ],
+
+          
+          // Optional: Preview configuration for images within the array
+          preview: {
+            select: {
+              imageUrl: 'asset.url',
+              title: 'caption',
+              subtitle: 'alt'
+            }
+          }
+        }
+      ],
+    }),
+    // --- END NEW Image Gallery Field ---
+
+    defineField({
+      name: 'gallery', // Renamed field for Teams / Logos
       title: 'Teams / Logos',
       description: 'Logos/info for teams associated with the arena. Logo size suggestion: 96x96.',
       type: 'array',
@@ -115,10 +152,7 @@ export default defineType({
               title: 'Team type',
               name: 'teamType',
               type: 'string',
-              options: {
-                list: [ { title: 'NBA', value: 'nba' }, { title: 'WNBA', value: 'wnba' } ],
-                layout: 'radio',
-              },
+              options: { list: [ { title: 'NBA', value: 'nba' }, { title: 'WNBA', value: 'wnba' } ], layout: 'radio' },
             }),
             defineField({ name: 'link', type: 'url', title: 'Link to Team/Arena Page (Optional)' }),
             defineField({
@@ -126,19 +160,15 @@ export default defineType({
               title: 'Logo Alt Text',
               type: 'string',
               description: 'REQUIRED: e.g., "Los Angeles Lakers Logo"',
-              validation: Rule => Rule.required().error('Alt text for the logo is required.'),
-              // options: { isHighlighted: true } // Removed in previous fix
+              // validation: Rule => Rule.required().error('Alt text for the logo is required.'),
+              // options: { isHighlighted: true } // Removed previously
             })
           ],
           preview: {
             select: { title: 'name', subtitle: 'teamType', media: 'asset' },
             prepare(selection) {
               const {title, subtitle, media} = selection;
-              return {
-                title: title || 'No team name',
-                subtitle: subtitle ? subtitle.toUpperCase() : '',
-                media: media
-              }
+              return { title: title || 'No team name', subtitle: subtitle ? subtitle.toUpperCase() : '', media: media }
             }
           }
         },
@@ -156,7 +186,7 @@ export default defineType({
       title: 'Date Visited',
       type: 'datetime',
       description: 'This is the date we visited the Arena',
-      hidden: ({ document }) => !document?.visited, // Hide if not visited
+      hidden: ({ document }) => !document?.visited,
     }),
 
     // --- Pros / Cons / Verdict Group ---
@@ -196,10 +226,7 @@ export default defineType({
               styles: [{ title: 'Normal', value: 'normal' }],
               lists: [{ title: 'Bullet', value: 'bullet' }],
               marks: {
-                decorators: [
-                  { title: 'Strong (Bold)', value: 'strong' },
-                  { title: 'Emphasis (Italic)', value: 'em' },
-                ],
+                decorators: [ { title: 'Strong (Bold)', value: 'strong' }, { title: 'Emphasis (Italic)', value: 'em' } ],
                 // annotations: [ /* link config */ ]
               },
             },
@@ -207,10 +234,8 @@ export default defineType({
           validation: Rule => Rule.custom((portableTextValue) => {
             const textLength = getPortableTextLength(portableTextValue);
             const limit = 600;
-            if (textLength > limit) {
-              return `Verdict exceeds ${limit} characters (${textLength}/${limit})`;
-            }
-            return true; // Validation passes
+            if (textLength > limit) { return `Verdict exceeds ${limit} characters (${textLength}/${limit})`; }
+            return true;
           }).error()
         }) // --- End Verdict ---
       ] // --- End of fields INSIDE the group ---
@@ -222,43 +247,26 @@ export default defineType({
       title: 'Video URL (YouTube / Instagram)',
       description: 'Optional: Add a link to a relevant YouTube video or Instagram post/reel.',
       type: 'url',
-      validation: (Rule) => Rule.custom((value) => { // 'value' might be inferred as 'unknown'
-        // Allow empty field since it's optional
-        if (!value) {
-          return true;
-        }
-
-        // --- FIX: Add type check before using .test() ---
+      validation: (Rule) => Rule.custom((value) => {
+        if (!value) { return true; }
         if (typeof value === 'string') {
-          if (videoUrlPattern.test(value)) {
-            return true; // It's a valid string pattern
-          } else {
-            // It's a string, but doesn't match the pattern
-            return 'Please enter a valid URL for a YouTube video or an Instagram post/reel/tv.';
-          }
+          if (videoUrlPattern.test(value)) { return true; }
+          else { return 'Please enter a valid URL for a YouTube video or an Instagram post/reel/tv.'; }
         }
-        // --- End Fix ---
-
-        // Handle cases where value exists but isn't a string
         return 'Invalid input: Expected a URL string.';
-
-      }), // End custom validation
-      // Optional: Add conditional logic if needed
+      }),
       // hidden: ({ document }) => !document?.visited,
     }),
     // --- End Video URL Field ---
-
 
     // --- Detailed Ratings ---
     defineField({
       name: 'arenaReview', // References 'arenaReview' object/document type
       title: 'Arena Rating Breakdown',
       type: 'arenaReview',
-      hidden: ({ document }) => !document?.visited, // Hide if not visited
+      hidden: ({ document }) => !document?.visited,
       validation: (Rule) => Rule.custom((value, context) => {
-        if (context.document?.visited && !value) {
-          return 'Arena review is required if you have visited the arena.';
-        }
+        if (context.document?.visited && !value) { return 'Arena review is required if you have visited the arena.'; }
         return true;
       }),
     }), // --- End Detailed Ratings ---
@@ -268,20 +276,14 @@ export default defineType({
    // --- Document Preview Configuration ---
    preview: {
      select: {
-       title: 'name',
-       location: 'location',
-       visited: 'visited',
+       title: 'name', location: 'location', visited: 'visited',
        media: 'photoGallerySection.mainImage', // Use the specific gallery main image
        fallbackMedia: 'arenaImage' // Fallback to the card image
      },
      prepare(selection) {
        const { title, location, visited, media, fallbackMedia } = selection;
        const status = visited ? '✅ Visited' : '❌ Not Visited';
-       return {
-         title: title,
-         subtitle: `${location} (${status})`,
-         media: media || fallbackMedia
-       };
+       return { title: title, subtitle: `${location} (${status})`, media: media || fallbackMedia };
      },
    }, // --- End Preview ---
 

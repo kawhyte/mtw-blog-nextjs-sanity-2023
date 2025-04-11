@@ -1,32 +1,28 @@
 // pages/arena/[slug].tsx
 
-import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-import { useRouter } from 'next/router'
 import { PortableText } from '@portabletext/react'
-
+import AreanaRating from 'components/AreanaRating' // Adjust path
+import BlogHeader from 'components/BlogHeader' // Adjust path
+// --- Layout & Components ---
+import Layout from 'components/BlogLayout' // Adjust path
+import Footer from 'components/Footer' // Adjust path
+import HeroPhotoGallery from 'components/HeroPhotoGallery' // Adjust path
+import ImageGallery from 'components/ImageGallery' // Adjust path
+import ProConList from 'components/ProConList' // Adjust path
+import StarDisplay from 'components/StarDisplay'
+import Youtube from 'components/Youtube'
+import VideoPlayer from 'components/Youtube'
+import calculateAverageRating from 'lib/calculateArenaRating' // Adjust path
+// --- Utilities & Constants ---
+import { CMS_NAME } from 'lib/constants'
 // --- Sanity Client & Data Fetching ---
 import {
   getAllArenaSlugs,
   getArenaBySlug,
   getSettings,
 } from 'lib/sanity.client' // Adjust path
-import { Arena, Settings } from 'lib/sanity.queries' // Adjust path
 import { urlForImage } from 'lib/sanity.image' // Adjust path
-
-// --- Layout & Components ---
-import Layout from 'components/BlogLayout' // Adjust path
-import Footer from 'components/Footer' // Adjust path
-import AreanaRating from 'components/AreanaRating' // Adjust path
-import BlogHeader from 'components/BlogHeader' // Adjust path
-import HeroPhotoGallery from 'components/HeroPhotoGallery' // Adjust path
-import ImageGallery from 'components/ImageGallery' // Adjust path
-import ProConList from 'components/ProConList' // Adjust path
-
-// --- Utilities & Constants ---
-import { CMS_NAME } from 'lib/constants'
-import calculateAverageRating from 'lib/calculateArenaRating' // Adjust path
+import { Arena, Settings } from 'lib/sanity.queries' // Adjust path
 import {
   Binoculars,
   CalendarCheck,
@@ -41,9 +37,10 @@ import {
   Users,
   Wrench,
 } from 'lucide-react'
-import Youtube from 'components/Youtube'
-import VideoPlayer from 'components/Youtube'
-import StarDisplay from 'components/StarDisplay'
+import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next'
+import Head from 'next/head'
+import Image from 'next/image'
+import { useRouter } from 'next/router'
 
 // --- Props Interface & Query ---
 export const getStaticProps: GetStaticProps = async ({ params }) => {
@@ -108,7 +105,7 @@ export default function ArenaPage({
   if (!arena) {
     return <div>Arena not found.</div> // Or a proper 404 component
   }
-
+  console.log('Image Gallery2', arena)
   return (
     <Layout preview={preview} loading={false}>
       {/* --- SEO Head --- */}
@@ -151,13 +148,13 @@ export default function ArenaPage({
             {/* Using list items for semantic structure */}
             {arena.location && (
               <li className="flex items-center">
-                <MapPin className="mr-2 h-4 w-4 flex-shrink-0 text-pink-500" />
+                <MapPin className="mr-2 h-4 w-4 flex-shrink-0 text-purple-500" />
                 {arena.location}
               </li>
             )}
             {arena.buildDate && (
               <li className="flex items-center">
-                <Wrench className="mr-2 h-4 w-4 flex-shrink-0 text-pink-500" />
+                <Wrench className="mr-2 h-4 w-4 flex-shrink-0 text-purple-500" />
                 <span className="mr-1 hidden font-medium md:inline">
                   Built:
                 </span>
@@ -166,7 +163,7 @@ export default function ArenaPage({
             )}
             {arena.capacity && (
               <li className="flex items-center">
-                <Users className="mr-2 h-4 w-4 flex-shrink-0 text-pink-500" />
+                <Users className="mr-2 h-4 w-4 flex-shrink-0 text-purple-500" />
                 <span className="mr-1 hidden font-medium md:inline">
                   Capacity:
                 </span>
@@ -175,7 +172,7 @@ export default function ArenaPage({
             )}
             {arena.visited && arena.date && (
               <li className="flex items-center">
-                <CalendarCheck className="mr-2 h-4 w-4 flex-shrink-0 text-pink-500" />
+                <CalendarCheck className="mr-2 h-4 w-4 flex-shrink-0 text-purple-500" />
                 <span className="mr-1 hidden font-medium md:inline">
                   Visited:
                 </span>
@@ -250,24 +247,16 @@ export default function ArenaPage({
                   </div>
                 )}
 
-                {/* Teams Viewed Box - Renders only if gallery/teams data exists */}
-                {/* *** Remember to use 'teams' if you renamed the field in Sanity/GROQ *** */}
                 {arena.gallery && arena.gallery.length > 0 && (
                   <div
                     // Consistent styling with the rating box (flex-1, rounding, border, padding, shadow, hover).
-                    className="flex h-[8rem] w-[16rem] flex-col rounded-lg border border-gray-200 bg-white px-6  pt-6 shadow-sm transition duration-300 ease-in-out hover:shadow-md"
+                    className="flex h-[8rem] w-[18.2rem] flex-col rounded-lg border border-gray-200 bg-white px-6  pt-6 shadow-sm transition duration-300 ease-in-out hover:shadow-md"
                   >
                     <h2 className="title-font mb-4 text-base font-medium uppercase tracking-widest text-gray-700">
-                      {' '}
-                      {/* Increased mb */}
                       Arena Team(s)
                     </h2>
-                    {/* Flex container for logos, allows wrapping */}
+
                     <div className="flex flex-wrap items-center justify-start gap-x-4 gap-y-3">
-                      {' '}
-                      {/* Increased gap-y */}
-                      {/* Map over the teams/gallery array */}
-                      {/* *** Use 'teams' if renamed *** */}
                       {arena.gallery?.map((team) => (
                         <div
                           key={team._key || team.name}
@@ -280,13 +269,13 @@ export default function ArenaPage({
                                 .height(32) // Keep size small for logos
                                 .width(32)
                                 .fit('crop')
-                                .auto('format') // Add auto format
+                                .auto('format')
                                 .url()}
                               className="h-6 w-6 flex-shrink-0 rounded-full bg-gray-200 object-cover p-px" // Added object-cover
-                              height={24} // Match visual size
-                              width={24} // Match visual size
+                              height={24}
+                              width={24}
                               loading="lazy"
-                              alt={`${team.name ?? 'Team'} logo`} // Added fallback for name
+                              alt={`${team.name ?? 'Team'} logo`}
                             />
                           )}
                           {/* Team Name */}
@@ -297,12 +286,12 @@ export default function ArenaPage({
                           {team.played === true ? (
                             <Eye
                               aria-label="Watched"
-                              className="h-4 w-4 flex-shrink-0 text-green-500" // Added flex-shrink-0
+                              className="h-4 w-4 flex-shrink-0 text-green-500"
                             />
                           ) : (
                             <EyeOff
                               aria-label="Not Watched"
-                              className="h-4 w-4 flex-shrink-0 text-gray-400" // Added flex-shrink-0
+                              className="h-4 w-4 flex-shrink-0 text-gray-400"
                             />
                           )}
                         </div>
@@ -317,12 +306,10 @@ export default function ArenaPage({
           {/* --- Arena Rating Breakdown Section --- */}
           {arena.visited && arena.arenaReview && (
             <section>
-              {/* Added consistent heading margin */}
               <h2 className="title-font my-3 mb-4 mt-2 text-base font-medium uppercase tracking-widest text-gray-700">
                 Arena Rating Breakdown
               </h2>
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
-                {/* Render AreanaRating components - ensure they have internal padding */}
                 <AreanaRating
                   rating={arena.arenaReview?.transportation}
                   text={'Transit to Arena'}
@@ -366,20 +353,15 @@ export default function ArenaPage({
               verdict2={arena.prosConsVerdict.verdict}
             />
           )}
-          {/* https://www.instagram.com/p/DFfrwFpvGhs/ */}
-          {/* <Youtube link={'https://youtube.com/shorts/IplAXhYF1_I?si=yqE3ZctGEGt3_9UE'}/> */}
-
-          <VideoPlayer url={arena.videoUrl} />
+          {arena.videoUrl && <VideoPlayer url={arena.videoUrl} />}
           {/* --- Image Gallery Section --- */}
 
           {hasImageGallery && (
-            <section>
-              <ImageGallery
-                // Use 'gallery' field if that holds the images for this component
-                images={arena.gallery}
-                title="Image Gallery" // Pass title prop
-              />
-            </section>
+            <ImageGallery
+              // Use 'gallery' field if that holds the images for this component
+              images={arena?.imageGallery}
+              title="Image Gallery" // Pass title prop
+            />
           )}
 
           {/* Add other sections as needed within the main space-y container */}

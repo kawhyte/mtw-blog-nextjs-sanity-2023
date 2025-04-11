@@ -89,7 +89,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ url, title }) => {
   // --- Render Component ---
   return (
     <section className="py-8 md:py-12"> {/* Adjusted padding */}
-      <div className="container mx-auto px-4 md:px-6 lg:px-8">
+      <div className="container mx-auto pr-4 md:pr-6 lg:pr-8">
         {/* Title Section */}
         {title && ( // Only render title section if title exists
             <div className="mb-6 flex w-full flex-col font-medium md:mb-8">
@@ -104,7 +104,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ url, title }) => {
         {isInstagram ? (
           // --- Instagram Embed ---
           // Use url as key to force re-render on url change if necessary
-          <div className="flex justify-center" key={url}>
+          <div className="flex justify-start" key={url}>
             <blockquote
               className="instagram-media"
               data-instgrm-permalink={url}

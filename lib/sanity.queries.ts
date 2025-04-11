@@ -213,6 +213,7 @@ const arenaFields = groq`
     capacity,
     gallery,
     photoGallerySection,
+    imageGallery,
     visited,
   videoUrl,
   prosConsVerdict { 
@@ -655,6 +656,7 @@ export interface Arena {
   name?: string
   slug?: string // Add slug field
   arenaImage?: any // SanityImageObject
+  imageGallery?:any
   gallery?: any[] // SanityImageObject[]
   photoGallerySection?: any[] // SanityImageObject[]
   location?: string

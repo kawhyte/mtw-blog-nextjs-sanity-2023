@@ -48,6 +48,7 @@ interface NBAArenaCardProps {
   textRating: string
   ratingColor: string
   arenaReview?: any | null
+  rank:number
   // ratings: ArenaRating;
 }
 
@@ -66,17 +67,18 @@ const Arenas = ({
   averageRating,
   textRating,
   ratingColor,
+  rank
 }: NBAArenaCardProps) => {
   // const { average, textRating, color } = calculateAverageRating(arenaReview)
-  const [isFlipped, setIsFlipped] = useState(false)
-
+  // const [isFlipped, setIsFlipped] = useState(false)
+ console.log("Rank", rank)
   return (
     <>
       <div
         key={id}
         className={`relative group  w-full  max-w-sm overflow-hidden rounded-3xl border-4 border-black  bg-indigo-50 text-gray-700 shadow-offsetIndigo transition-transform duration-500 ease-in-out   ${
           visited === false ? 'opacity-40 grayscale  ' : 'grayscale-0 '
-        } ${isFlipped ? 'rotate-y-180' : ''}`}
+        }  `}
       >
         {/* <button
           className="absolute bottom-3 right-4 z-40 flex flex-row items-center rounded-lg px-2 py-1  " // Added flex-col and items-center
@@ -106,6 +108,26 @@ const Arenas = ({
             isFlipped ? 'hidden' : ''
           }`}
         > */}
+
+        {/* <div className='absolute z-10 text-pink-500 top-3 left-3'>
+
+          Rank{rank}
+        </div> */}
+{ rank &&
+<div className="absolute top-12 left-2 md:top-2 md:left-2 bg-black bg-opacity-70 text-white text-xs font-bold px-2 py-1 rounded-full z-10">
+            {rank === 1 ? '🏆 Best Arena' : `#${rank}`}
+            </div> }
+
+
+{/* <div className="absolute z-50 text-white text-[80px] font-extrabold opacity-20 top-0 left-10 ">
+              {rank}
+            </div> */}
+
+              {/* Floating Tag Style */}
+              {/* <div className="absolute bottom-2 left-1/2 -translate-x-1/2 bg-white bg-opacity-80 text-black text-xs font-semibold px-3 py-1 rounded-full shadow-md">
+              # {rank} - Ranked Arena
+            </div> */}
+
           <div className="relative ">
             {averageRating > '0' ? (
               <RatingBadge
@@ -144,7 +166,7 @@ const Arenas = ({
 
           <div className=" flex justify-between text-gray-700  ">
             <div className="ml-2 mt-1 flex flex-col sm:mb-2 sm:ml-4 sm:gap-y-2 ">
-              <h1 className=" font-heading line-clamp-1 pt-1 font-montserrat text-sm font-bold text-gray-900  decoration-pink-500 decoration-dashed decoration-4 group-hover:underline sm:line-clamp-2 sm:h-8 sm:text-xl lg:text-xl  xl:pt-1.5">
+              <h1 className=" font-heading line-clamp-1 pt-1 font-montserrat text-sm font-bold text-gray-900  decoration-purple-500 decoration-dashed decoration-4 group-hover:underline sm:line-clamp-2 sm:h-8 sm:text-xl lg:text-xl  xl:pt-1.5">
                 {arenaName}
               </h1>
 
@@ -177,7 +199,7 @@ const Arenas = ({
             </div>
           </div>
 
-          <div className="hidden space-y-4 p-3 3xl:block">
+          {/* <div className="hidden space-y-4 p-3 3xl:block">
             <div className="grid grid-cols-1 gap-4 text-sm text-gray-700 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
               <div className="flex items-center">
                 <Wrench className="mr-2 h-5 w-5 text-gray-500" />
@@ -189,11 +211,11 @@ const Arenas = ({
                 Capacity: {new Intl.NumberFormat().format(capacity)}
               </div>
             </div>
-          </div>
+          </div> */}
           <hr className=" mx-2 my-3" />
-          <div className="text-sm text-gray-700 md:text-xs ">
-            <h3 className="ml-3 text-xs sm:block     ">Team(s) Viewed</h3>
-            <div className="  ml-2 mb-2 flex flex-row flex-wrap justify-start gap-x-4 align-top   md:gap-x-6 ">
+          {/* <div className="text-sm text-gray-700 md:text-xs mx-auto container "> */}
+            {/* <h3 className="ml-3 text-xs sm:block     ">Team(s) Viewed</h3> */}
+            {/* <div className="  ml-2 mb-2 flex flex-row flex-wrap justify-start gap-x-4 align-top   md:gap-x-6 ">
               {gallery?.map((photo) => (
                 <div
                   key={photo.name}
@@ -224,9 +246,7 @@ const Arenas = ({
                       {photo.played === true ? (
                         <div className="flex items-center">
                           <Eye className="mx-1 h-4 w-4 text-green-500 sm:h-3 sm:w-3 md:h-3  md:w-3" />
-                          {/* <p className="my-2  text-[0.70rem] leading-none text-gray-500 ">
-                            Watched
-                          </p> */}
+                       
                         </div>
                       ) : (
                         <EyeOff className="mx-1 my-1 h-4 w-4 text-gray-500 sm:h-3 sm:w-3 md:h-3   md:w-3" />
@@ -235,7 +255,7 @@ const Arenas = ({
                   </div>
                 </div>
               ))}
-            </div>
+            </div> */}
 
             {/* <div
               className=" mx-2 sm:mx-20 mt-4 " // Added flex-col and items-center
@@ -266,21 +286,38 @@ const Arenas = ({
                 </>
               )}
             </div> */}
-          </div>
+             {/* <Button
+                    size="xs"
+                    align="center"
+                    icon={<RotateCw size={20} />}
+                  >
+                    View Details
+                  </Button> */}
+       {visited && (
+             <div className="mt-auto flex items-center mx-auto container pt-1"> {/* Use mt-auto to push to bottom */}
+                <span
+                   className="inline-block mx-auto mb-2 rounded-md bg-indigo-100 px-3 py-1 text-xs font-semibold text-purple-700 transition-colors duration-150 ease-in-out group-hover:bg-purple-600 group-hover:text-white"
+                   aria-hidden="true" // Indicate it's decorative as the parent Link handles action
+                >
+                   View Details
+                </span>
+             </div>
+          )}
+          {/* </div> */}
+          
+
         </div>
 
         {/* Back of the card */}
         <div
-          className={`backface-hidden rotate-y-180 absolute inset-0 h-full w-full transform text-gray-700 ${
-            isFlipped ? '' : 'hidden'
-          }`}
+          className={`backface-hidden rotate-y-180 absolute inset-0 h-full w-full transform text-gray-700`}
         >
           {/* Add your additional data here */}
           <div className="justify flex h-full w-full flex-col items-center ">
             <h2 className=" pt-6 text-xl font-bold">Arena Rating Breakdown </h2>
             {/* <p>Overall Rating: {Number(average).toFixed(2)}  </p> */}
 
-            <div className=" mt-2 grid w-full grid-cols-1  items-center pb-2 align-middle  text-xs font-bold text-gray-700  md:text-xs ">
+            {/* <div className=" mt-2 grid w-full grid-cols-1  items-center pb-2 align-middle  text-xs font-bold text-gray-700  md:text-xs ">
               <AreanaRating
                 rating={arenaReview?.transportation}
                 text={'Transit to Arena'}
@@ -311,7 +348,7 @@ const Arenas = ({
                 text={'Seat Comfort'}
                 icon={<Sofa className="text-pink-500" />}
               />
-            </div>
+            </div> */}
 
             {/* <div
               className="   mx-20 " 

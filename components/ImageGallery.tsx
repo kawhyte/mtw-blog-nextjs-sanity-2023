@@ -48,8 +48,8 @@ function ImageGallery({ images, title, className }: ImageGalleryProps) {
   const hasImages = images && images.length > 0;
 
   return (
-    <section className={`body-font w-full ${className || ''}`}>
-      <div className="mx-6 md:container md:mx-auto py-8 sm:py-12">
+    <section className={` w-full ${className || ''}`}>
+      <div className="mx-6 md:container md:mx-auto">
         {/* --- Title --- */}
         {title && (
 <div className='pb-10'>

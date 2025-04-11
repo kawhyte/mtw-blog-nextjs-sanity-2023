@@ -18,35 +18,6 @@ interface Photo {
 export default function PhotoGallery({photos}) {
   const [showAllPhotos, setShowAllPhotos] = useState(false)
   const isMobile = useMediaQuery("(max-width: 768px)")
- 
-//   const photos: Photo[] = [
-//     {
-//       id: 1,
-//       src: "https://images.unsplash.com/photo-1626003573503-2e088d82c647?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-//       alt: "Living room with ocean view and comfortable seating area",
-//     },
-//     {
-//       id: 2,
-//       src: "https://images.unsplash.com/photo-1600621894267-8b39c5144709?q=80&w=1167&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-//       alt: "Dining area with glass table and ocean view",
-//     },
-//     {
-//       id: 3,
-//       src: "https://images.unsplash.com/photo-1566180785112-b442d47c870b?q=80&w=1034&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-//       alt: "Aerial view of the coastline and property",
-//     },
-//     {
-//       id: 4,
-//       src: "https://images.unsplash.com/photo-1687838453977-df478e1e4514?q=80&w=1018&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-//       alt: "Cliff and beach view",
-//     },
-//     {
-//       id: 5,
-//       src: "https://plus.unsplash.com/premium_photo-1677010202726-8cf11ac08fd1?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-//       alt: "Bedroom with coastal decor",
-//     },
-//   ]
-
   return (
     <>
       <div className="relative w-full">
@@ -83,8 +54,8 @@ export default function PhotoGallery({photos}) {
           <div className="relative col-span-2 row-span-2">
             <Image
               src={urlForImage(photos.mainImage)
-                                  .width(800)
-                                  .height(450)
+                                  .width(640)
+                                  .height(480)
                                   .fit('crop')
                                   .url()}
               alt={photos.mainImage.alt}
@@ -99,8 +70,8 @@ export default function PhotoGallery({photos}) {
           <div className="relative">
             <Image
               src={urlForImage(photos.otherImages[0])
-                .width(362) // Recommended width
-                .height(236) // Recommended height
+                .width(400) // Recommended width
+                .height(400) // Recommended height
                 .fit('crop')
                 .auto('format')
                 .url()}
@@ -113,8 +84,8 @@ export default function PhotoGallery({photos}) {
           <div className="relative">
             <Image
               src={urlForImage(photos.otherImages[1])
-                .width(362)
-                .height(236)
+                .width(400) // Recommended width
+                .height(400) // Recommended height
                 .fit('crop')
                 .auto('format')
                 .url()}
@@ -129,8 +100,8 @@ export default function PhotoGallery({photos}) {
           <div className="relative">
             <Image
               src={urlForImage(photos.otherImages[2])
-                .width(362)
-                .height(236)
+                .width(400) // Recommended width
+                .height(400) // Recommended height
                 .fit('crop')
                 .auto('format')
                 .url()}
@@ -143,8 +114,8 @@ export default function PhotoGallery({photos}) {
           <div className="relative">
             <Image
               src={urlForImage(photos.otherImages[3])
-                .width(362)
-                .height(236)
+                .width(400) // Recommended width
+                .height(400) // Recommended height
                 .fit('crop')
                 .auto('format')
                 .url()}

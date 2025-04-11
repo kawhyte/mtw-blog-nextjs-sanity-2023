@@ -22,7 +22,8 @@ export default defineType({
           title: 'Alternative Text',
           type: 'string',
           description: 'REQUIRED: Describe the image for accessibility and SEO.',
-          validation: (Rule) => Rule.required().error('Alt text is required.'),
+          // validation: (Rule) => Rule.required().error('Alt text is required.'),
+          
           // options: {
           //   isHighlighted: true,
           // },
@@ -49,7 +50,7 @@ export default defineType({
               title: 'Alternative Text',
               type: 'string',
               description: 'REQUIRED: Describe the image for accessibility and SEO.',
-              validation: (Rule) => Rule.required().error('Alt text is required for each image.'),
+              // validation: (Rule) => Rule.required().error('Alt text is required for each image.'),
               // options: {
               //   isHighlighted: true,
               // },
