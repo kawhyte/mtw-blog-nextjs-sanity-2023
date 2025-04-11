@@ -174,7 +174,7 @@ export default function ArenaPage({
       <BlogHeader level={1} />
       {/* --- Main Article Content --- */}
   
-      <article className="container mx-auto px-4 py-12 md:px-6 lg:px-40 lg:py-16 xl:py-20">
+      <article className="container mx-auto px-4 py-12 md:px-6 lg:px-36 lg:py-10 xl:py-36">
 
         <PageHeader title={arena.name ?? 'Unnamed Arena'} items={headerItems} />
         {arena.photoGallerySection && (

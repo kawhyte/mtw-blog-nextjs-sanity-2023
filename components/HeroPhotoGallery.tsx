@@ -49,13 +49,13 @@ export default function PhotoGallery({photos}) {
         </div>
 
         {/* Desktop view - photo grid */}
-        <div className="hidden md:grid md:grid-cols-4 md:grid-rows-2 md:gap-2 md:h-[480px]">
+        <div className="hidden md:grid md:grid-cols-4 md:grid-rows-2 md:gap-2 md:h-[438px]">
           {/* Main large photo */}
           <div className="relative col-span-2 row-span-2">
             <Image
               src={urlForImage(photos.mainImage)
-                                  .width(640)
-                                  .height(480)
+                                  .width(560)
+                                  .height(438)
                                   .fit('crop')
                                   .url()}
               alt={photos.mainImage.alt}
@@ -70,8 +70,8 @@ export default function PhotoGallery({photos}) {
           <div className="relative">
             <Image
               src={urlForImage(photos.otherImages[0])
-                .width(400) // Recommended width
-                .height(400) // Recommended height
+                .width(300) // Recommended width
+                .height(300) // Recommended height
                 .fit('crop')
                 .auto('format')
                 .url()}
@@ -84,8 +84,8 @@ export default function PhotoGallery({photos}) {
           <div className="relative">
             <Image
               src={urlForImage(photos.otherImages[1])
-                .width(400) // Recommended width
-                .height(400) // Recommended height
+                .width(300) // Recommended width
+                .height(300) // Recommended height
                 .fit('crop')
                 .auto('format')
                 .url()}
@@ -100,8 +100,8 @@ export default function PhotoGallery({photos}) {
           <div className="relative">
             <Image
               src={urlForImage(photos.otherImages[2])
-                .width(400) // Recommended width
-                .height(400) // Recommended height
+                .width(300) // Recommended width
+                .height(300) // Recommended height
                 .fit('crop')
                 .auto('format')
                 .url()}
@@ -114,8 +114,8 @@ export default function PhotoGallery({photos}) {
           <div className="relative">
             <Image
               src={urlForImage(photos.otherImages[3])
-                .width(400) // Recommended width
-                .height(400) // Recommended height
+                .width(300) // Recommended width
+                .height(300) // Recommended height
                 .fit('crop')
                 .auto('format')
                 .url()}

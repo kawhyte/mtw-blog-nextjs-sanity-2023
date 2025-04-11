@@ -99,7 +99,7 @@ function Welcome(): JSX.Element {
   ];
 
   return (
-    <div className="container mx-auto space-y-6"> 
+    <div className="container mx-auto space-y-16"> 
       <header className="mx-auto mb-12">
         <SectionTitle
           header="Meet the Dynamic Duo"
@@ -107,7 +107,7 @@ function Welcome(): JSX.Element {
         />
       </header>
 
-      <div className="max-w-8xl grid w-full grid-cols-2 place-items-center gap-4 md:grid-cols-2">
+      <div className=" grid w-full grid-cols-1 place-items-center gap-4 md:grid-cols-2">
         <AvatarCard data={duo[0]} />
         <AvatarCard data={duo[1]} />
       </div>
