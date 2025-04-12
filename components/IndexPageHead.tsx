@@ -1,9 +1,9 @@
 import { toPlainText } from '@portabletext/react'
 import BlogMeta from 'components/BlogMeta'
 import * as demo from 'lib/demo.data'
+import { urlForImage } from 'lib/sanity.image'; 
 import { Settings } from 'lib/sanity.queries'
 import Head from 'next/head'
-import { urlForImage } from 'lib/sanity.image'; 
 
 export interface IndexPageHeadProps {
   settings: Settings

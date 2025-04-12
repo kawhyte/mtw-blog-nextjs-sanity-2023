@@ -1,9 +1,11 @@
 import { PreviewSuspense } from '@sanity/preview-kit';
+import ArenaPageHeader from 'components/ArenaPageHeader';
 import BlogHeader from 'components/BlogHeader';
 import Layout from 'components/BlogLayout';
 import Footer from 'components/Footer';
+import MoreStories from 'components/MoreStories'; // Assuming this is used elsewhere or can be removed if not
 import NBAArenaCard from 'components/NBAArenaCard'; // Assume this component handles the 'rank' prop visually
-import ArenaPageHeader from 'components/ArenaPageHeader';
+import calculateAverageRating from 'lib/calculateArenaRating';
 // --- Other imports ---
 import {
   getArenaPosts,
@@ -14,11 +16,9 @@ import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
 // --- React hooks ---
-import { lazy, useState, useMemo, useEffect } from 'react';
+import { lazy, useEffect,useMemo, useState } from 'react';
 
 import { CMS_NAME } from '../lib/constants';
-import calculateAverageRating from 'lib/calculateArenaRating';
-import MoreStories from 'components/MoreStories'; // Assuming this is used elsewhere or can be removed if not
 
 const PreviewIndexPage = lazy(() => import('components/PreviewIndexPage'));
 

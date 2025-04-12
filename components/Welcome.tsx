@@ -1,18 +1,17 @@
 import {
+  Bed,
   Book,
+  Clapperboard,
   Code,
   Coffee,
   Dumbbell,
   Footprints,
   Gamepad,
   Luggage,
-  Pizza,
-  Bed,
   Music,
-  ToyBrick,
-  Clapperboard,
-  Ship
-} from 'lucide-react';
+  Pizza,
+  Ship,
+  ToyBrick} from 'lucide-react';
 import React from 'react';
 
 import AvatarCard from './AvatarCard';

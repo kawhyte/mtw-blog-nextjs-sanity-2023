@@ -1,7 +1,8 @@
 
 import { Bed, CookingPot } from 'lucide-react';
-import Button from 'ui/Button';
 import dynamic from 'next/dynamic';
+import Button from 'ui/Button';
+
 import SectionTitle from './SectionTitle';
 
 // Dynamic import 

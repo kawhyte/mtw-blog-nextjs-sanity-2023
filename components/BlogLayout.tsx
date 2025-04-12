@@ -1,8 +1,7 @@
 import AlertBanner from 'components/AlertBanner'
-
+import { CMS_DESCRIPTION,CMS_NAME } from 'lib/constants'; // Or fetch from settings
 // components/BlogLayout.tsx (or your main layout file)
 import Head from 'next/head';
-import { CMS_NAME, CMS_DESCRIPTION } from 'lib/constants'; // Or fetch from settings
 
 // Assuming you have access to global settings if needed
 // import { Settings } from 'lib/sanity.queries';
