@@ -73,7 +73,7 @@ export default function IndexPage(props: IndexPageProps) {
                 description={`Speedy thumbs up/down ratings and bite-sized, Twitter-style reviews of travel gadgets. Discover what truly enhances your adventures with our concise assessments.`}
               />
               <div className="flex   pt-9 lg:mt-0 lg:flex-shrink-0">
-                <div className=" inline-flex  ">
+                <div className=" inline-flex px-5  ">
                   <Button
                     icon={<Plane className="text-pink-500" />}
                     link={'/essentials'}

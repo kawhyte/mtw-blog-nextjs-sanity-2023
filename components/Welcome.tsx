@@ -106,7 +106,7 @@ function Welcome(): JSX.Element {
         />
       </header>
 
-      <div className=" grid w-full grid-cols-1 place-items-center gap-4 md:grid-cols-2">
+      <div className=" grid w-full grid-cols-1 place-items-center gap-4 md:grid-cols-2 px-5">
         <AvatarCard data={duo[0]} />
         <AvatarCard data={duo[1]} />
       </div>
