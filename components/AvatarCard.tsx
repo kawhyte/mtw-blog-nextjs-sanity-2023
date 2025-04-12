@@ -1,4 +1,4 @@
-import { oswald } from 'app/fonts'
+
 
 export default function AuthorAvatar({ data }) {
   return (

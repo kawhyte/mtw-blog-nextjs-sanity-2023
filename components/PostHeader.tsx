@@ -1,10 +1,10 @@
 import { Badge, Blockquote, Flex, Text } from '@mantine/core'
 import { inter, oswald } from 'app/fonts'
 import Date from 'components/PostDate'
-import PostTitle from 'components/PostTitle'
+
 import type { Post } from 'lib/sanity.queries'
 import { IconType } from 'react-icons'
-import { FaRegCalendarAlt } from 'react-icons/fa'
+
 import { IoBed, IoLocation, IoStorefront } from 'react-icons/io5'
 
 import BodySectionSeparator from './body-section-separator'

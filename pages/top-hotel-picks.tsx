@@ -42,7 +42,7 @@ export default function Page(props: PageProps) {
     );
   }
 
-  return <TopListPage posts={posts} settings={settings} postHeader={"Our Top Hotel Picks"} img={'/bath.json'} summary={'Our top 10 hotels based on weighted average ratings, and our curated food guide. Discover the best experiences for your next adventure.'} />;
+  return <TopListPage posts={posts} settings={settings} postHeader={"Our Top Hotel Picks"} img={'/top2.json'} summary={'Our top 10 hotels based on weighted average ratings, and our curated food guide. Discover the best experiences for your next adventure.'} />;
 }
 
 export const getStaticProps: GetStaticProps<

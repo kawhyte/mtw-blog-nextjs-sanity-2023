@@ -25,7 +25,7 @@ interface ReviewHeaderProps {
 
 function ReviewHeader({ title, summary, img }: ReviewHeaderProps) {
   // Removed unused totalDistance calculation
-
+ console.log('img ', img)
   return (
     // 1. Use container for consistent width and padding, matching other sections
     // Removed mx-16, added container, mx-auto, and responsive padding px-*

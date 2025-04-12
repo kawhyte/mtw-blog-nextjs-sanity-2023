@@ -102,7 +102,7 @@ export const getStaticProps: GetStaticProps<IndexPageProps> = async (
       posts: topWeightedHotelPosts, // Pass the top weighted hotels as 'posts'
       settings,
       postHeader: 'Top Hotels and Restaurants', // Add the missing postHeader property
-      img: 'hotels',
+      img: '/top2.json',
       summary: 'Our top 10 hotels based on weighted average ratings, and our curated food guide. Discover the best experiences for your next adventure.',
     },
     revalidate: 10,

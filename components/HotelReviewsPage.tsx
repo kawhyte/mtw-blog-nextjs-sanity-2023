@@ -56,7 +56,7 @@ export default function HotelReviewsPage(props: HotelReviewsPageProps) {
           summary={
             'Discover honest reviews from real travelers. We’ve stayed in the hotels, experienced the good, the bad, and the ugly. No fluff, just real talk on everything from beds to breakfast. Let’s explore the world together, one hotel at a time!'
           }
-          img={'/bath.json'} // Ensure path is correct
+          img={'/bath2.json'} // Ensure path is correct
         />
 
         {/* --- Update MoreStories Props --- */}

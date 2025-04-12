@@ -1,6 +1,6 @@
 // pages/arena/[slug].tsx
 
-import { PortableText } from '@portabletext/react'
+
 import AreanaRating from 'components/AreanaRating' // Adjust path
 import BlogHeader from 'components/BlogHeader' // Adjust path
 // --- Layout & Components ---
@@ -11,7 +11,6 @@ import ImageGallery from 'components/ImageGallery' // Adjust path
 import ProConList from 'components/ProConList' // Adjust path
 import PageHeader from 'components/SlugPageTitleWithIconHeager'
 import StarDisplay from 'components/StarDisplay'
-import Youtube from 'components/Youtube'
 import VideoPlayer from 'components/Youtube'
 import calculateAverageRating from 'lib/calculateArenaRating' // Adjust path
 // --- Utilities & Constants ---
@@ -40,7 +39,6 @@ import {
 } from 'lucide-react'
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 // --- Props Interface & Query ---

@@ -1,5 +1,4 @@
-import { Image } from '@mantine/core'
-import { inter, oswald } from 'app/fonts'
+
 import Container from 'components/BlogContainer'
 // BlogHeader might be redundant if Hero covers the top section well
 // import BlogHeader from 'components/BlogHeader'
@@ -7,7 +6,6 @@ import Layout from 'components/BlogLayout'
 import IndexPageHead from 'components/IndexPageHead'
 import MoreStoriesIndex from 'components/MoreStories' // Your generic, paginated component
 import * as demo from 'lib/demo.data'
-import { urlForImage } from 'lib/sanity.image'
 // Import Post type and potentially the query used for the paginated components
 import type { Post, Settings } from 'lib/sanity.queries'
 import { paginatedAllPostsQuery } from 'lib/sanity.queries' // Import a valid query as a placeholder
@@ -16,7 +14,6 @@ import Head from 'next/head'
 import Button from 'ui/Button'
 
 import { CMS_NAME } from '../lib/constants'
-import ArenasIndexPage from './ArenasIndexPage'
 import BlogHeader from './BlogHeader'
 import BlogSection from './BlogSection'
 import Footer from './Footer'

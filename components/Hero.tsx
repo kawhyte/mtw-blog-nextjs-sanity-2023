@@ -1,20 +1,18 @@
-import { inter, oswald } from 'app/fonts'
-import { ChevronDown } from 'lucide-react'
+import { inter } from 'app/fonts'
 import dynamic from 'next/dynamic'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect,  useState } from 'react'
 import { LiaBasketballBallSolid } from 'react-icons/lia'
 import Button from 'ui/Button'
 
 // Optimized animation array - only load necessary data
 const animation = [
-  { url: 'basketball2.json' }, 
   { url: 'basketball2.json' },
-  { url: 'basketball2.json' },
+  { url: 'basketball.json' },
 ];
 
 function Hero() {
   const [isMounted, setIsMounted] = useState(false);
-  const container = useRef(null);
+
   const randomNum = Math.floor(Math.random() * animation.length);
 
   useEffect(() => {
@@ -67,9 +65,6 @@ function Hero() {
           </div>
         </div>
 
-        {/* <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <ChevronDown className="h-8 w-8 text-gray-600" />
-        </div> */}
       </section>
     </>
   );

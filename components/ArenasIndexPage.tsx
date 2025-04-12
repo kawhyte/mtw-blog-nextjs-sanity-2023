@@ -1,6 +1,5 @@
 import { inter } from 'app/fonts'
 import { urlForImage } from 'lib/sanity.image'
-import { Volleyball } from 'lucide-react'
 import dynamic from 'next/dynamic'
 import { LiaBasketballBallSolid } from 'react-icons/lia'
 import Button from 'ui/Button'

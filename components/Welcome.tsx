@@ -72,9 +72,8 @@ function Welcome(): JSX.Element {
     { icon: Bed, label: 'Sleep' },
     { icon: Music, label: 'Music' },
     { icon: ToyBrick, label: 'Legos' },
-    { icon: ToyBrick, label: 'Movies' },
     { icon: Clapperboard, label: 'Movies' },
-    { icon: Ship, label: 'Curise' },
+    { icon: Ship, label: 'Cruise' },
   ];
 
   const countries: Country[] = [

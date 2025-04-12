@@ -60,7 +60,7 @@ export default function FoodReviewsPage(props: FoodReviewsPageProps) {
           summary={
             "Join us on a culinary adventure as we explore the best (and sometimes, the worst) eateries in town. From hidden gems to fancy hotspots, We’ll dish out honest reviews, mouthwatering photos, and insider tips. Let's eat!"
           }
-          img={'/watermelon.json'} 
+          img={'/food.json'} 
         />
 
         {/* --- Update MoreStories Props --- */}
