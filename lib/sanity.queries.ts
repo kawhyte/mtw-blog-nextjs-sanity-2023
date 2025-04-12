@@ -775,6 +775,7 @@ export interface Settings {
   title?: string
   description?: any[] // PortableTextBlock[]
   ogImage?: {
+    asset: any
     title?: string
     // Add image asset reference if needed: image?: any
   }

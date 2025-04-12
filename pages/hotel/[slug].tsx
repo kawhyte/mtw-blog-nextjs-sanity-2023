@@ -1,5 +1,7 @@
 import { PreviewSuspense } from '@sanity/preview-kit'
+import Layout from 'components/BlogLayout';
 import PostPage from 'components/PostPage'
+import PostPageHead from 'components/PostPageHead'; // Import the new Head component
 import {
   getAllPostsSlugs,
   getPostAndMoreStories,
@@ -53,7 +55,17 @@ export default function ProjectSlugRoute(props: PageProps) {
     )
   }
 
-  return <PostPage post={post} morePosts={morePosts} settings={settings} />
+  return(  
+
+    <> 
+    <PostPageHead settings={settings} post={post} />
+    <Layout preview={preview} loading={false} /* pass settings if needed */>
+  <PostPage post={post} morePosts={morePosts} settings={settings} /></Layout>
+</>
+
+
+
+  )
 }
 
 export const getStaticProps: GetStaticProps<
