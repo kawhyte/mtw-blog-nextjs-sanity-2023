@@ -30,15 +30,15 @@ export default function CoverImage(props: CoverImageProps) {
           <Image
             className={`h-auto w-full max-w-full md:rounded-l-xl`}
             src={urlForImage(source)
-              .width(660)
-              .height(428)
-              .format('webp')
+              .width(560)
+              .height(610)
+              .format('webp').fit('crop').auto('format')
               .url()}
-            alt=""
+            alt={source.alt}
             placeholder="blur"
             blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAO0lEQVR4nGNgYGBg+P//P1t9fT0TiM0we3ZjxZxZjQ9XLpwwe9nCHkOGGZOyanraY9aumN2wbsn0hmQA/MEWfj4ocjcAAAAASUVORK5CYII="
-            width={660}
-            height={428}
+            width={560}
+            height={438}
             priority={true}
           />
 
@@ -51,10 +51,10 @@ export default function CoverImage(props: CoverImageProps) {
               <div key={item._key} className="relative">
                 <Image
                   className={twMerge(`h-auto max-w-full  `, ImageBorder[i])}
-                  src={urlForImage(item)?.height(209)?.width(272)?.url()}
+                  src={urlForImage(item)?.height(300)?.width(300)?.format('webp').fit('crop').auto('format')?.url()}
                   alt=""
-                  width={272}
-                  height={209}
+                  width={300}
+                  height={300}
                   placeholder="blur"
                   blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAO0lEQVR4nGNgYGBg+P//P1t9fT0TiM0we3ZjxZxZjQ9XLpwwe9nCHkOGGZOyanraY9aumN2wbsn0hmQA/MEWfj4ocjcAAAAASUVORK5CYII="
                   priority={true}
