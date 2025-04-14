@@ -120,18 +120,20 @@ const SearchResults = (props: PageProps) => {
         {searchQuery && results.length > 0 ? ( // Check searchQuery to ensure search was performed
           // --- RESULTS FOUND ---
           <>
+
+          <div className='bg-gray-50 flex flex-col items-center justify-center rounded-xl shadow-md px-4 mx-2 my-8'> 
             <h1 className="font-oswald text-3xl md:text-4xl mt-6 mb-6">
               Search results for{' '}
               <span className="text-pink-500">&quot;{searchQuery}&quot;</span>
             </h1>
 
             <p className="text-md md:text-lg text-gray-500 max-w-lg mx-auto mb-10">
-              {results.length} {results.length === 1 ? 'item' : 'items'} found. 😉
-            </p>
+              {results.length} {results.length === 1 ? 'item' : 'items'} found 😉
+            </p></div>
 
             {/* --- Grid Display using PostPreview --- */}
-            <div className="container mx-auto mt-10 grid grid-cols-1 place-content-center place-items-center gap-x-16 gap-y-10 px-3 sm:grid-cols-2 md:grid-cols-2 md:gap-10 md:px-6 lg:gap-x-[2rem] lg:grid-cols-3 2xl:grid-cols-3">
-              {displayedResults.map((post) => (
+            <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4  gap-4 px-4 sm:px-6 lg:px-8 container mx-auto max-w-8xl">
+            {displayedResults.map((post) => (
                 <PostPreview
                   key={post._id}
                   // Pass necessary props from the post object
@@ -213,7 +215,7 @@ const SearchResults = (props: PageProps) => {
                 {/* Suggestion / Call to action */}
                 <p className="mt-8 text-md text-gray-500">
                   Try searching for something else? <br />
-                  (We hear &#39;Day trip&#39; yields great results 😉)
+                  (We hear &#39;Hyatt&#39; yields great results 😉)
                 </p>
               </div>
             ) : (

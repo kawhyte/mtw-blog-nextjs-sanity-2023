@@ -271,8 +271,8 @@ export default function Page(props: PageProps) {
               {/* Show all sort options, but the dropdown itself is disabled if needed */}
               <option value="highest">Ranked: High to Low</option>
               <option value="lowest">Ranked: Low to High</option>
-              <option value="oldest">First Visited</option>
-              <option value="latest">Last Visited</option>
+              <option value="oldest">Date Visited: Most Recent</option>
+              {/* <option value="latest">Last Visited</option> */}
               <option value="name_asc">Arena Name (A-Z)</option>
               <option value="name_desc">Arena Name (Z-A)</option>
             </select>
