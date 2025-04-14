@@ -7,6 +7,7 @@ import { FaRegCalendarAlt } from 'react-icons/fa'
 import { IoLocationOutline } from 'react-icons/io5'
 
 import PostDate from './PostDate'
+import Link from 'next/link'
 
 function ReviewHeader({ title, arenas, summary, animation }) {
   // const totalDistance = arenas.reduce(
@@ -14,7 +15,7 @@ function ReviewHeader({ title, arenas, summary, animation }) {
   //   0
   // )
 
-  // console.log("Percent",arenas)
+//  console.log("Percent",arenas)
 
   const filteredList = arenas.filter((item) => item.visited === true)
 
@@ -23,6 +24,7 @@ function ReviewHeader({ title, arenas, summary, animation }) {
     return new Date(b.date).valueOf() - new Date(a.date).valueOf()
   })
 
+  console.log("ArenaLastVisited",arenaLastVisited)
   // const percentage = ((arenas[0]?.visitedCount / arenas.length) * 100).toFixed(
   //   0
   // )
@@ -70,6 +72,10 @@ function ReviewHeader({ title, arenas, summary, animation }) {
               /></div> */}
             </div>
             <div className="flex max-w-4xl flex-col items-center justify-center pt-8 text-center align-middle   md:items-start lg:flex-grow  ">
+             
+             
+             <Link href={''}> </Link>
+             
               <h1
                 className="font-oswald container mx-auto  mb-1  font-heading text-4xl font-bold leading-tight tracking-tighter text-pink-500 sm:px-0  md:text-[4.3rem]"
               >
@@ -82,14 +88,16 @@ function ReviewHeader({ title, arenas, summary, animation }) {
                 </p>
 
                 {arenas.length > 1 && (
-                  <div className=" container mx-auto    mb-8 md:w-full md:pr-6 lg:mb-0 lg:max-w-xl ">
+                  <div className=" container mx-auto    mb-8 md:w-full md:pr-6 lg:mb-0 lg:max-w-xl group ">
                     <div className="relative flex h-full flex-col overflow-hidden rounded-lg border-4 border-black p-6">
                       <h2 className="title-font mb-1 text-sm font-medium tracking-widest">
                         ARENA LAST VISITED
                       </h2>
-                      <h1 className="mb-4  border-gray-200 text-5xl leading-none text-gray-900">
+
+                      <Link href={`/arena/${arenaLastVisited[0].slug}`}> 
+                      <h1 className="mb-4  border-gray-200 text-5xl leading-none text-gray-900 group-hover:text-gray-600 group-hover:underline decoration-pink-500 decoration-dashed decoration-4">
                         {arenaLastVisited[0]?.name}
-                      </h1>
+                      </h1></Link>
                       <div className="mb-4 flex flex-col md:flex-row items-center gap-y-3   justify-around border-b border-gray-200 pb-4 align-middle text-base leading-none text-gray-500">
                         <div className="flex items-center align-middle">
                           <FaRegCalendarAlt className="ml-1 mr-2 h-4 w-5   " />
