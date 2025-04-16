@@ -15,6 +15,7 @@ export default defineType({
       description: 'The primary, large image for the gallery display. Recommended size: 732x480 pixels.', // <-- Updated Description
       options: {
         hotspot: true,
+        
       },
       fields: [
         defineField({
@@ -43,6 +44,7 @@ export default defineType({
            description: 'Recommended size: 362x236 pixels.', // <-- Added Description here too
           options: {
             hotspot: true,
+           
           },
           fields: [
             defineField({

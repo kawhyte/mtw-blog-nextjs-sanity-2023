@@ -22,6 +22,7 @@ import galleryType2 from 'schemas/gallery2'
 import hotelType from 'schemas/hotelRating'
 import individualFoodType from 'schemas/individualFoodRating'
 import areanasType from 'schemas/nbaArenas'
+import photoGallery from 'schemas/photoGallery'
 import postType from 'schemas/post'
 import {recommendationListType} from 'schemas/recommendationListType'
 import {recommendationType} from 'schemas/recommendationType'
@@ -30,7 +31,6 @@ import roomTechType from 'schemas/roomTechRatings'
 import settingsType from 'schemas/settings'
 import takeOutFoodRatingType from 'schemas/takeOutFoodRating'
 import travelEssentialType from 'schemas/travelEssentials'
-import photoGallery from 'schemas/photoGallery'
 
 
 const title =
