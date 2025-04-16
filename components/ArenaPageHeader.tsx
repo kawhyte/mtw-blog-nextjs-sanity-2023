@@ -1,13 +1,12 @@
 import { Progress } from '@mantine/core'
-import { inter, oswald } from 'app/fonts'
 import { urlForImage } from 'lib/sanity.image'
 import Image from 'next/image'
+import Link from 'next/link'
 import React, { useEffect, useRef } from 'react'
 import { FaRegCalendarAlt } from 'react-icons/fa'
 import { IoLocationOutline } from 'react-icons/io5'
 
 import PostDate from './PostDate'
-import Link from 'next/link'
 
 function ReviewHeader({ title, arenas, summary, animation }) {
   // const totalDistance = arenas.reduce(
@@ -24,7 +23,7 @@ function ReviewHeader({ title, arenas, summary, animation }) {
     return new Date(b.date).valueOf() - new Date(a.date).valueOf()
   })
 
-  console.log("ArenaLastVisited",arenaLastVisited)
+  // console.log("ArenaLastVisited",arenaLastVisited)
   // const percentage = ((arenas[0]?.visitedCount / arenas.length) * 100).toFixed(
   //   0
   // )

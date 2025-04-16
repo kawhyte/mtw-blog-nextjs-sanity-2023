@@ -1,10 +1,10 @@
 import { Pagination } from '@mantine/core';
 import { Loader } from '@mantine/core';
 import PostPreview from 'components/PostPreview';
+import { client } from 'lib/sanity.client';
 // Import the base Post type which should cover common fields for Hotel, Food, Guide
 import { type Post } from 'lib/sanity.queries'; // Use the generic Post type
-import { client } from 'lib/sanity.client';
-import { useState, useEffect, useCallback } from 'react';
+import { useCallback,useEffect, useState } from 'react';
 
 // Define the props for the generic MoreStories component
 interface MoreStoriesProps {
