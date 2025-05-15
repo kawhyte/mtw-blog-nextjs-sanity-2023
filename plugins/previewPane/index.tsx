@@ -6,8 +6,10 @@
 
 import { DefaultDocumentNodeResolver } from 'sanity/desk'
 import authorType from 'schemas/author'
+import areanasType from 'schemas/nbaArenas' 
 import postType from 'schemas/post'
 
+import ArenaPreviewPane from './ArenaPreviewPane'
 import AuthorAvatarPreviewPane from './AuthorAvatarPreviewPane'
 import PostPreviewPane from './PostPreviewPane'
 
@@ -39,6 +41,21 @@ export const previewDocumentNode = ({
           S.view
             .component(({ document }) => (
               <PostPreviewPane
+                slug={document.displayed.slug?.current}
+                apiVersion={apiVersion}
+                previewSecretId={previewSecretId}
+              />
+            ))
+            .title('Preview'),
+        ])
+
+
+        case areanasType.name: // Add case for NBA Arenas
+        return S.document().views([
+          S.view.form(),
+          S.view
+            .component(({ document }) => (
+              <ArenaPreviewPane // Reuse PostPreviewPane if applicable
                 slug={document.displayed.slug?.current}
                 apiVersion={apiVersion}
                 previewSecretId={previewSecretId}

@@ -5,7 +5,7 @@ import {
   projectId,
   useCdn,
 } from 'lib/sanity.api'
-import { postBySlugQuery } from 'lib/sanity.queries'
+import { arenaBySlugQuery,postBySlugQuery } from 'lib/sanity.queries'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import type { PageConfig } from 'next/types'
 import { createClient } from 'next-sanity'
@@ -18,7 +18,7 @@ export const config: PageConfig = { runtime: 'nodejs' }
 function redirectToPreview(
   res: NextApiResponse<string | void>,
   previewData: { token?: string },
-  Location: '/' | `/posts/${string}`
+  Location: '/' | `/posts/${string}` | `/arena/${string}`  
 ): void {
   // Enable Preview Mode by setting the cookies
   res.setPreviewData(previewData)
@@ -62,7 +62,11 @@ export default async function preview(
   }
 
   // If no slug is provided open preview mode on the frontpage
-  if (!req.query.slug) {
+  const slug = req.query.slug as string | undefined;
+  const type = req.query.type as string | undefined; // Read the 'type' parameter
+
+  // If no slug AND no type is provided, redirect to the frontpage
+  if (!slug && !type) {
     return redirectToPreview(res, previewData, '/')
   }
 
@@ -78,11 +82,38 @@ export default async function preview(
   })
 
   // If the slug doesn't exist prevent preview mode from being enabled
-  if (!post) {
-    return res.status(401).send('Invalid slug')
+  // if (!post) {
+  //   return res.status(401).send('Invalid slug')
+  // }
+
+  let document: { slug?: string } | null = null;
+  let documentPath: `/posts/${string}` | `/arena/${string}` | null = null;
+
+  // Determine which document type to fetch and where to redirect
+  if (type === 'post' && slug) {
+    document = await client.fetch(postBySlugQuery, { slug });
+    if (document) {
+      documentPath = `/posts/${document.slug}`;
+    }
+  } else if (type === 'arena' && slug) {
+    // Assuming you have arenaBySlugQuery defined
+    document = await client.fetch(arenaBySlugQuery, { slug });
+    if (document) {
+      documentPath = `/arena/${document.slug}`;
+    }
+  } else {
+    // Handle cases where type is missing, unknown, or slug is missing for a known type
+     return res.status(401).send('Invalid request: missing slug or type');
   }
 
-  // Redirect to the path from the fetched post
-  // We don't redirect to req.query.slug as that might lead to open redirect vulnerabilities
-  redirectToPreview(res, previewData, `/posts/${post.slug}`)
+   // If the document was not found for the given slug and type
+   if (!document || !documentPath) {
+    return res.status(401).send(`Invalid slug or type: Could not find document with slug "${slug}" of type "${type}"`);
+  }
+
+
+
+
+  // redirectToPreview(res, previewData, `/posts/${post.slug}`)
+  redirectToPreview(res, previewData, documentPath);
 }

@@ -59,7 +59,7 @@ export default defineConfig({
     productionUrl({
       apiVersion,
       previewSecretId,
-      types: [postType.name, settingsType.name],
+      types: [postType.name, settingsType.name, areanasType.name],
     }),
     // Add an image asset source for Unsplash
     unsplashImageAsset(),
