@@ -120,6 +120,10 @@ export default function Page(props: PageProps) {
             const dateA = a.date ? new Date(a.date).getTime() : 0; // Get timestamp or 0
             const dateB = b.date ? new Date(b.date).getTime() : 0; // Get timestamp or 0
 
+
+            if (!a.visited && b.visited) return 1;
+            if (a.visited && !b.visited) return -1;
+            if (!a.visited && !b.visited) return nameA.localeCompare(nameB); // Sort unvisited by name
             // --- This is the key part for your requirement ---
             // 1. If B is visited and A is not, B comes first (return -1)
             if (b.visited && !a.visited) return -1;
@@ -271,8 +275,8 @@ export default function Page(props: PageProps) {
               {/* Show all sort options, but the dropdown itself is disabled if needed */}
               <option value="highest">Ranked: High to Low</option>
               <option value="lowest">Ranked: Low to High</option>
-              <option value="oldest">Date Visited: Most Recent</option>
-              {/* <option value="latest">Last Visited</option> */}
+              {/* <option value="oldest">Date Visited: First</option> */}
+              <option value="latest">Date Visited: Most Recent</option>
               <option value="name_asc">Arena Name (A-Z)</option>
               <option value="name_desc">Arena Name (Z-A)</option>
             </select>
