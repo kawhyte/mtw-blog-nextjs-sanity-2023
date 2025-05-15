@@ -14,7 +14,7 @@ import { deskTool } from 'sanity/desk'
 import { unsplashImageAsset } from 'sanity-plugin-asset-source-unsplash'
  import arenaReviewType from 'schemas/arenaReview'
 // import amenitiesType from 'schemas/amenities'
- import authorType from 'schemas/author'
+//  import authorType from 'schemas/author'
 // import {bookType} from 'schemas/bookType'
 import foodType from 'schemas/foodRating'
 import galleryType from 'schemas/gallery'
@@ -24,8 +24,8 @@ import individualFoodType from 'schemas/individualFoodRating'
 import areanasType from 'schemas/nbaArenas'
 import photoGallery from 'schemas/photoGallery'
 import postType from 'schemas/post'
-import {recommendationListType} from 'schemas/recommendationListType'
-import {recommendationType} from 'schemas/recommendationType'
+// import {recommendationListType} from 'schemas/recommendationListType'
+// import {recommendationType} from 'schemas/recommendationType'
 import roomAmenitiesType from 'schemas/roomAmenities'
 import roomTechType from 'schemas/roomTechRatings'
 import settingsType from 'schemas/settings'
@@ -45,7 +45,7 @@ export default defineConfig({
   title,
   schema: {
     // If you want more content types, you can add them to this array
-    types: [galleryType,roomTechType,roomAmenitiesType,hotelType,foodType,takeOutFoodRatingType,individualFoodType, postType, travelEssentialType,areanasType,photoGallery, authorType,arenaReviewType, galleryType2, settingsType, recommendationListType,recommendationType],
+    types: [galleryType,roomTechType,roomAmenitiesType,hotelType,foodType,takeOutFoodRatingType,individualFoodType, postType, areanasType,photoGallery, arenaReviewType, travelEssentialType, galleryType2, settingsType],
   },
   plugins: [
     deskTool({
