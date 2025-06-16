@@ -96,6 +96,8 @@ const Iframe = memo(function Iframe(
 
   const url = new URL('/api/preview', location.origin)
   url.searchParams.set('slug', slug)
+
+  // url.searchParams.set('type', 'post');
   if (secret) {
     url.searchParams.set('secret', secret)
   }

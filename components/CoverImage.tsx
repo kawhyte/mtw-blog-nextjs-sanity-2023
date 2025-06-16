@@ -90,7 +90,8 @@ export default function CoverImage(props: CoverImageProps) {
  
 
   const overallRating = calculateRating(rating, rateWeights)
- 
+
+  
 
   return (
     <div className="relative sm:mx-0">
@@ -116,7 +117,7 @@ export default function CoverImage(props: CoverImageProps) {
 
             {/* <Badge className="absolute  top-3 right-3 ml-3 z-50 py-2 ">{overallRating.numericalRating.toFixed(2)}</Badge> */}
 
-            {showRating && (
+            {showRating && linkType !== 'story' && (
               <>
               
               {/* <div className="absolute right-3 top-3 z-30 flex  flex-col  items-center justify-center  rounded-2xl bg-black bg-opacity-50 p-1">

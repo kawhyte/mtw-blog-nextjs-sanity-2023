@@ -131,7 +131,7 @@ const PostPreview = ({
             aria-label={`Read more about ${title}`}
           >
              {/* Title: Removed fixed width w-60, kept h-14 and line-clamp */}
-                   <h1 className="font-montserrat pt-1 xl:pt-1.5 font-heading text-sm font-bold text-gray-900 no-underline decoration-pink-500 decoration-dashed decoration-4 group-hover:underline sm:text-xl lg:text-xl line-clamp-2 h-10 sm:h-16">
+                   <h1 className="font-montserrat pt-1 xl:pt-1.5  text-sm font-bold text-gray-900 no-underline decoration-pink-500 decoration-dashed decoration-4 group-hover:underline sm:text-lg lg:text-lg line-clamp-2 h-10 sm:h-16">
              {/* Ensure h-14 is appropriate for 2 lines of text at these font sizes */}
               {title}
             </h1>
