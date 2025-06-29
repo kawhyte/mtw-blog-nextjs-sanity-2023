@@ -138,7 +138,7 @@ export default defineType({
       description: 'eg. 1 King Bed Lagoon Access (optional)',
       hidden: ({ parent }) => parent?.linkType !== 'hotel',
       //validation: (rule) => rule.required(),
-      validation: (Rule) => Rule.max(27), // Limit to 37 characters
+      validation: (Rule) => Rule.max(45), // Limit to 45 characters
     }),
 
 
