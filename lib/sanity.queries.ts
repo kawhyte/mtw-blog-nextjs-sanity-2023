@@ -457,7 +457,8 @@ export const globalSearchQuery = groq`
     location match $searchTerm
     // Add other fields to search here if needed
   )] {
-    ${coreFieldsLimited} // Use limited fields for search results
+    //{coreFieldsLimited} // Use limited fields for search results
+    ${allFieldsLimited}
   }
 `
 

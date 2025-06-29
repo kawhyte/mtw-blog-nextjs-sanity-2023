@@ -106,7 +106,7 @@ const SearchResults = (props: PageProps) => {
       </Layout>
     );
   }
-
+ 
   // --- Results Display ---
   return (
     <Layout preview={false} loading={loading}>
@@ -150,7 +150,7 @@ const SearchResults = (props: PageProps) => {
                   takeoutRating={(post as any).takeoutRating}
                   diningType={(post as any).diningType}
                   // Don't show rating overlay on search results perhaps?
-                  showRating={false}
+                  showRating={true}
                   // You might pass the whole post: {...post} if PostPreview accepts it
                 />
               ))}
