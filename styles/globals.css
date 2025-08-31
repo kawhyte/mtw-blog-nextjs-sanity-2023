@@ -133,23 +133,97 @@
     font-feature-settings: "rlig" 1, "calt" 1;
   }
   
-  /* ===== Typography ===== */
+  /* ===== Adventure-Ready Typography System ===== */
+  
+  /* Headings - Montserrat Black for Impact */
   h1, h2, h3, h4, h5, h6 {
     color: hsl(var(--blog-heading));
-    font-family: var(--font-oswald), system-ui, sans-serif;
+    font-family: var(--font-montserrat), system-ui, sans-serif;
+    font-weight: 900; /* Black weight for maximum impact */
+    letter-spacing: -0.02em; /* Tighter spacing for bold fonts */
+    line-height: 1.2; /* Improved readability for heavy fonts */
   }
   
-  p {
+  /* Specific heading hierarchy */
+  h1 {
+    font-size: clamp(2rem, 5vw, 4rem); /* Responsive scaling */
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+  }
+  
+  h2 {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 800; /* Slightly lighter for h2 */
+    line-height: 1.15;
+  }
+  
+  h3 {
+    font-size: clamp(1.25rem, 3vw, 1.875rem);
+    font-weight: 700;
+    line-height: 1.25;
+  }
+  
+  h4, h5, h6 {
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  
+  /* Body Text - Raleway for Readability */
+  p, span, div {
     color: hsl(var(--blog-text));
+    font-family: var(--font-raleway), system-ui, sans-serif;
+    font-weight: 400; /* Regular weight */
+    line-height: 1.6; /* Generous line height for readability */
+    letter-spacing: 0.01em; /* Slight spacing for clarity */
   }
   
+  /* Navigation - Montserrat Bold */
+  nav, .nav-item {
+    font-family: var(--font-montserrat), system-ui, sans-serif;
+    font-weight: 700; /* Bold but not black for nav */
+    letter-spacing: -0.01em;
+  }
+  
+  /* Links - Maintain Raleway but with emphasis */
   a {
     color: hsl(var(--blog-link));
-    transition: color 0.2s ease;
+    font-family: var(--font-raleway), system-ui, sans-serif;
+    font-weight: 500; /* Medium weight for links */
+    transition: all 0.2s ease;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
   }
   
   a:hover {
     color: hsl(var(--blog-link-hover));
+    font-weight: 600; /* Slightly bolder on hover */
+  }
+  
+  /* Button Text - Montserrat for Action Items */
+  button, .btn {
+    font-family: var(--font-montserrat), system-ui, sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+  
+  /* Image Overlays & Captions - Montserrat for Impact */
+  .image-overlay, .caption, .badge {
+    font-family: var(--font-montserrat), system-ui, sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  
+  /* Mobile Optimizations */
+  @media (max-width: 768px) {
+    h1, h2, h3, h4, h5, h6 {
+      font-weight: 800; /* Slightly lighter on mobile */
+      letter-spacing: -0.01em; /* Less tight spacing */
+    }
+    
+    p {
+      font-size: 1rem; /* Ensure readability on small screens */
+      line-height: 1.65; /* Extra line height for mobile */
+    }
   }
   
   /* ===== Focus Styles ===== */
@@ -160,6 +234,69 @@
   /* ===== Selection ===== */
   ::selection {
     @apply bg-primary/20 text-primary-foreground;
+  }
+}
+
+/* ===== CUSTOM FONT UTILITIES ===== */
+@layer utilities {
+  /* Adventure Typography Utilities */
+  .font-adventure-heading {
+    font-family: var(--font-montserrat), system-ui, sans-serif;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+  
+  .font-adventure-subheading {
+    font-family: var(--font-montserrat), system-ui, sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+  }
+  
+  .font-adventure-nav {
+    font-family: var(--font-montserrat), system-ui, sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  
+  .font-adventure-body {
+    font-family: var(--font-raleway), system-ui, sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: 0.01em;
+  }
+  
+  .font-adventure-body-bold {
+    font-family: var(--font-raleway), system-ui, sans-serif;
+    font-weight: 600;
+    line-height: 1.5;
+    letter-spacing: 0.01em;
+  }
+  
+  .font-adventure-caption {
+    font-family: var(--font-montserrat), system-ui, sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    font-size: 0.875rem;
+  }
+  
+  /* Responsive font sizes */
+  .text-adventure-hero {
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+  }
+  
+  .text-adventure-title {
+    font-size: clamp(1.75rem, 4vw, 3rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+  
+  .text-adventure-subtitle {
+    font-size: clamp(1.25rem, 3vw, 2rem);
+    line-height: 1.2;
   }
 }
 

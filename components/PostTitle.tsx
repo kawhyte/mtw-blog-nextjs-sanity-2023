@@ -1,9 +1,9 @@
-import { oswald } from 'app/fonts'
+import { montserrat } from 'app/fonts'
 
 export default function PostTitle({ children }) {
   return (
     <h1
-      className={`${oswald.variable} font-fancy z-10 py-2 text-left font-heading text-3xl font-semibold leading-tight  tracking-tighter md:py-2 md:text-3xl md:leading-none lg:text-5xl`}
+      className={`${montserrat.variable} font-adventure-heading text-adventure-title z-10 py-2 text-left text-blog-heading`}
     >
       {children}
     </h1>
@@ -13,9 +13,8 @@ export default function PostTitle({ children }) {
 export function CardTitle({ children }) {
   return (
     <h1
-      className={`${oswald.variable} line-clamp-1 font-heading text-2xl font-medium text-gray-700  `}
+      className={`${montserrat.variable} font-adventure-subheading line-clamp-1 text-2xl text-blog-heading`}
     >
-      {' '}
       {children}
     </h1>
   )

@@ -15,14 +15,19 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
-        heading: ['var(--font-oswald)', 'system-ui', 'sans-serif'],
+        // Primary Font System - Adventure Ready
+        sans: ['var(--font-raleway)', 'system-ui', 'sans-serif'], // Body text - friendly, sleek
+        heading: ['var(--font-montserrat)', 'system-ui', 'sans-serif'], // Headings - bold, modern
+        
+        // Specific Font Variables
+        'montserrat': ['var(--font-montserrat)'], // Headings, Nav, Overlays
+        'raleway': ['var(--font-raleway)'], // Body text, descriptions
+        
+        // Legacy fonts (keeping for backward compatibility)
         'inter': ['var(--font-inter)'],
         'oswald': ['var(--font-oswald)'],
-        'montserrat': ['var(--font-montserrat)'],
         'roboto-mono': ['var(--font-roboto-mono)'],
         'space-grotesk': ['var(--font-space-grotesk)'],
-        'antonio': ['var(--antonio-font)'],
       },
 
       colors: {
