@@ -364,6 +364,241 @@ export const arenaBySlugQuery = fetchDocumentBySlug(
 )
 // --- End Arena Queries ---
 
+// --- NEW: Independent Guide Document Queries ---
+const independentGuideFields = groq`
+  _id,
+  title,
+  date,
+  excerpt2,
+  coverImage,
+  category,
+  content,
+  gallery,
+  tip,
+  tags,
+  "slug": slug.current
+`
+
+// Guide slugs query
+export const guideSlugsQuery = fetchSlugs('guide')
+
+// Single guide by slug
+export const guideBySlugQuery = fetchDocumentBySlug(
+  'guide',
+  independentGuideFields,
+  'slug.current'
+)
+
+// Minimal guide query for preview API
+export const guideBySlugPreviewQuery = groq`
+  *[_type == "guide" && slug.current == $slug][0] {
+    _id,
+    title,
+    "slug": slug.current,
+    category
+  }
+`
+
+// All guides query
+export const allGuidesQuery = groq`
+  *[_type == "guide"] | order(date desc) {
+    ${independentGuideFields}
+  }
+`
+
+// Guides by category
+export const guidesByCategoryQuery = groq`
+  *[_type == "guide" && category == $category] | order(date desc) {
+    ${independentGuideFields}
+  }
+`
+// --- End Independent Guide Document Queries ---
+
+// --- NEW: Independent Hotel Review Document Queries ---
+const independentHotelReviewFields = groq`
+  _id,
+  title,
+  date,
+  location,
+  category,
+  room,
+  lounge,
+  coverImage,
+  excerpt2,
+  tip,
+  gallery,
+  youtube,
+  hotelRating,
+  internetSpeed,
+  roomAmenities,
+  techRating,
+  positives,
+  negatives,
+  verdict,
+  content,
+  tags,
+  "slug": slug.current
+`
+
+// Hotel review slugs query
+export const hotelReviewSlugsQuery = fetchSlugs('hotelReview')
+
+// Single hotel review by slug
+export const hotelReviewBySlugQuery = fetchDocumentBySlug(
+  'hotelReview',
+  independentHotelReviewFields,
+  'slug.current'
+)
+
+// Minimal hotel review query for preview API
+export const hotelReviewBySlugPreviewQuery = groq`
+  *[_type == "hotelReview" && slug.current == $slug][0] {
+    _id,
+    title,
+    "slug": slug.current,
+    category,
+    location
+  }
+`
+
+// All hotel reviews query
+export const allHotelReviewsQuery = groq`
+  *[_type == "hotelReview"] | order(date desc) {
+    ${independentHotelReviewFields}
+  }
+`
+
+// Hotel reviews by category
+export const hotelReviewsByCategoryQuery = groq`
+  *[_type == "hotelReview" && category == $category] | order(date desc) {
+    ${independentHotelReviewFields}
+  }
+`
+// --- End Independent Hotel Review Document Queries ---
+
+// --- NEW: Independent Food Review Document Queries ---
+export const independentFoodReviewFields = groq`
+  _id,
+  title,
+  date,
+  location,
+  diningType,
+  coverImage,
+  excerpt2,
+  tip,
+  individualFoodRating,
+  gallery,
+  youtube,
+  foodRating,
+  takeoutRating,
+  positives,
+  negatives,
+  verdict,
+  content,
+  tags,
+  "slug": slug.current
+`
+
+// Food review slugs query
+export const foodReviewSlugsQuery = fetchSlugs('foodReview')
+
+// Single food review by slug
+export const foodReviewBySlugQuery = fetchDocumentBySlug(
+  'foodReview',
+  independentFoodReviewFields,
+  'slug.current'
+)
+
+// Minimal food review query for preview API
+export const foodReviewBySlugPreviewQuery = groq`
+  *[_type == "foodReview" && slug.current == $slug][0] {
+    _id,
+    title,
+    "slug": slug.current,
+    diningType,
+    location
+  }
+`
+
+// All food reviews query
+export const allFoodReviewsQuery = groq`
+  *[_type == "foodReview"] | order(date desc) {
+    ${independentFoodReviewFields}
+  }
+`
+
+// Food reviews by dining type
+export const foodReviewsByDiningTypeQuery = groq`
+  *[_type == "foodReview" && diningType == $diningType] | order(date desc) {
+    ${independentFoodReviewFields}
+  }
+`
+// --- End Independent Food Review Document Queries ---
+
+// Export Guide type
+export interface Guide {
+  _id: string
+  title?: string
+  slug?: string
+  excerpt2?: any[] // Changed to array for PortableText
+  coverImage?: any
+  date?: string
+  category?: string
+  content?: any[]
+  gallery?: any[] // Changed to array for standard gallery
+  tip?: any[]
+  tags?: string[]
+}
+
+// Export HotelReview type
+export interface HotelReview {
+  _id: string
+  title?: string
+  slug?: string
+  date?: string
+  location?: string
+  category?: string
+  room?: string
+  lounge?: string
+  coverImage?: any
+  excerpt2?: any[]
+  tip?: any[]
+  gallery?: any[]
+  youtube?: string
+  hotelRating?: any
+  internetSpeed?: number
+  roomAmenities?: any
+  techRating?: any
+  positives?: string[]
+  negatives?: string[]
+  verdict?: any[]
+  content?: any[]
+  tags?: string[]
+}
+
+// Export FoodReview type
+export interface FoodReview {
+  _id: string
+  title?: string
+  slug?: string
+  date?: string
+  location?: string
+  diningType?: 'dinein' | 'takeout'
+  coverImage?: any
+  excerpt2?: any[]
+  tip?: any[]
+  individualFoodRating?: any[]
+  gallery?: any[]
+  youtube?: string
+  foodRating?: any
+  takeoutRating?: any
+  positives?: string[]
+  negatives?: string[]
+  verdict?: any[]
+  content?: any[]
+  tags?: string[]
+}
+
 
 export const settingsQuery = groq`*[_type == "settings"][0]`
 

@@ -17,6 +17,22 @@ import PostBody from './PostBody'
 import PostDate from './PostDate'
 import RatingBadge from './RatingBadge'
 //import { useState } from 'react';
+
+// Helper function to determine the link prefix based on post type
+const getLinkPrefix = (linkType?: 'hotel' | 'food' | 'story' | 'favorite'): string => {
+  switch (linkType) {
+    case 'hotel':
+      return '/hotel';
+    case 'story':
+      return '/guide';
+    case 'food':
+      return '/food';
+    case 'favorite':
+    default:
+      // Fallback link prefix for legacy posts
+      return '/posts';
+  }
+};
 interface CoverImageProps {
   title: string
   slug?: string
@@ -29,7 +45,7 @@ interface CoverImageProps {
   // hotelRating:any
   // foodRating:any
   rating: any
-  linkType: string
+  linkType?: 'hotel' | 'food' | 'story' | 'favorite' // More specific typing
   diningType: any
   showRating: boolean
 }
@@ -85,10 +101,13 @@ export default function CoverImage(props: CoverImageProps) {
 
   
 
+  // Generate the correct URL based on content type
+  const href = slug ? `${getLinkPrefix(linkType)}/${slug}` : '#';
+
   return (
     <div className="relative sm:mx-0">
       {slug ? (
-        <Link href={`/posts/${slug}`} aria-label={title}>
+        <Link href={href} aria-label={title}>
           <div className=''>
             {linkType === 'hotel'
               ? category && (

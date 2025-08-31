@@ -8,7 +8,7 @@
  * 2. Click "Create webhook"
  * 3. Set the URL to https://YOUR_NEXTJS_SITE_URL/api/revalidate
  * 4. Trigger on: "Create", "Update", and "Delete"
- * 5. Filter: _type == "post" || _type == "author" || _type == "settings"
+ * 5. Filter: _type == "post" || _type == "author" || _type == "settings" || _type == "hotelReview" || _type == "foodReview" || _type == "guide"
  * 6. Projection: Leave empty
  * 7. HTTP method: POST
  * 8. API version: v2021-03-25
@@ -60,31 +60,58 @@ export default async function revalidate(
   }
 }
 
-type StaleRoute = '/' | `/posts/${string}`
+type StaleRoute = '/' | `/posts/${string}` | `/hotel/${string}` | `/food/${string}` | `/guide/${string}`
 
 async function queryStaleRoutes(
   body: Pick<ParseBody['body'], '_type' | '_id' | 'date' | 'slug'>
 ): Promise<StaleRoute[]> {
   const client = createClient({ projectId, dataset, apiVersion, useCdn: false })
  console.log("BODY")
-  // Handle possible deletions
-  if (body._type === 'post') {
+  // Handle possible deletions for all content types
+  if (['post', 'hotelReview', 'foodReview', 'guide'].includes(body._type)) {
     const exists = await client.fetch(groq`*[_id == $id][0]`, { id: body._id })
     if (!exists) {
       let staleRoutes: StaleRoute[] = ['/']
       if ((body.slug as any)?.current) {
-        staleRoutes.push(`/posts/${(body.slug as any).current}`)
+        // Route to appropriate path based on content type
+        switch (body._type) {
+          case 'post':
+            staleRoutes.push(`/posts/${(body.slug as any).current}`)
+            break
+          case 'hotelReview':
+            staleRoutes.push(`/hotel/${(body.slug as any).current}`)
+            break
+          case 'foodReview':
+            staleRoutes.push(`/food/${(body.slug as any).current}`)
+            break
+          case 'guide':
+            staleRoutes.push(`/guide/${(body.slug as any).current}`)
+            break
+        }
       }
-      // Assume that the post document was deleted. Query the datetime used to sort "More stories" to determine if the post was in the list.
-      const moreStories = await client.fetch(
-        groq`count(
-          *[_type == "post"] | order(date desc, _updatedAt desc) [0...3] [dateTime(date) > dateTime($date)]
-        )`,
-        { date: body.date }
-      )
-      // If there's less than 3 posts with a newer date, we need to revalidate everything
-      if (moreStories < 3) {
-        return [...new Set([...(await queryAllRoutes(client)), ...staleRoutes])]
+      // For deletions, also revalidate the listing pages
+      switch (body._type) {
+        case 'post':
+          // Check if we need to revalidate all legacy posts
+          const moreStories = await client.fetch(
+            groq`count(
+              *[_type == "post"] | order(date desc, _updatedAt desc) [0...3] [dateTime(date) > dateTime($date)]
+            )`,
+            { date: body.date }
+          )
+          if (moreStories < 3) {
+            return [...new Set([...(await queryAllRoutes(client)), ...staleRoutes])]
+          }
+          break
+        case 'hotelReview':
+          staleRoutes.push('/hotels')
+          break
+        case 'foodReview':
+          staleRoutes.push('/food')
+          break
+        case 'guide':
+          staleRoutes.push('/guides')
+          break
       }
       return staleRoutes
     }
@@ -95,6 +122,12 @@ async function queryStaleRoutes(
       return await queryStaleAuthorRoutes(client, body._id)
     case 'post':
       return await queryStalePostRoutes(client, body._id)
+    case 'hotelReview':
+      return await queryStaleHotelReviewRoutes(client, body._id)
+    case 'foodReview':
+      return await queryStaleFoodReviewRoutes(client, body._id)
+    case 'guide':
+      return await queryStaleGuideRoutes(client, body._id)
     case 'settings':
       return await queryAllRoutes(client)
     default:
@@ -106,10 +139,36 @@ async function _queryAllRoutes(client: SanityClient): Promise<string[]> {
   return await client.fetch(groq`*[_type == "post"].slug.current`)
 }
 
-async function queryAllRoutes(client: SanityClient): Promise<StaleRoute[]> {
-  const slugs = await _queryAllRoutes(client)
+async function _queryAllHotelReviewRoutes(client: SanityClient): Promise<string[]> {
+  return await client.fetch(groq`*[_type == "hotelReview"].slug.current`)
+}
 
-  return ['/', ...slugs.map((slug) => `/posts/${slug}` as StaleRoute)]
+async function _queryAllFoodReviewRoutes(client: SanityClient): Promise<string[]> {
+  return await client.fetch(groq`*[_type == "foodReview"].slug.current`)
+}
+
+async function _queryAllGuideRoutes(client: SanityClient): Promise<string[]> {
+  return await client.fetch(groq`*[_type == "guide"].slug.current`)
+}
+
+async function queryAllRoutes(client: SanityClient): Promise<StaleRoute[]> {
+  const [postSlugs, hotelSlugs, foodSlugs, guideSlugs] = await Promise.all([
+    _queryAllRoutes(client),
+    _queryAllHotelReviewRoutes(client),
+    _queryAllFoodReviewRoutes(client),
+    _queryAllGuideRoutes(client)
+  ])
+
+  return [
+    '/',
+    '/hotels',
+    '/food', 
+    '/guides',
+    ...postSlugs.map((slug) => `/posts/${slug}` as StaleRoute),
+    ...hotelSlugs.map((slug) => `/hotel/${slug}` as StaleRoute),
+    ...foodSlugs.map((slug) => `/food/${slug}` as StaleRoute),
+    ...guideSlugs.map((slug) => `/guide/${slug}` as StaleRoute),
+  ]
 }
 
 async function mergeWithMoreStories(
@@ -158,4 +217,52 @@ async function queryStalePostRoutes(
   slugs = await mergeWithMoreStories(client, slugs)
 
   return ['/', ...slugs.map((slug) => `/posts/${slug}`)]
+}
+
+async function queryStaleHotelReviewRoutes(
+  client: SanityClient,
+  id: string
+): Promise<StaleRoute[]> {
+  const slugs = await client.fetch(
+    groq`*[_type == "hotelReview" && _id == $id].slug.current`,
+    { id }
+  )
+
+  if (slugs.length > 0) {
+    return ['/', '/hotels', ...slugs.map((slug) => `/hotel/${slug}`)]
+  }
+
+  return []
+}
+
+async function queryStaleFoodReviewRoutes(
+  client: SanityClient,
+  id: string
+): Promise<StaleRoute[]> {
+  const slugs = await client.fetch(
+    groq`*[_type == "foodReview" && _id == $id].slug.current`,
+    { id }
+  )
+
+  if (slugs.length > 0) {
+    return ['/', '/food', ...slugs.map((slug) => `/food/${slug}`)]
+  }
+
+  return []
+}
+
+async function queryStaleGuideRoutes(
+  client: SanityClient,
+  id: string
+): Promise<StaleRoute[]> {
+  const slugs = await client.fetch(
+    groq`*[_type == "guide" && _id == $id].slug.current`,
+    { id }
+  )
+
+  if (slugs.length > 0) {
+    return ['/', '/guides', ...slugs.map((slug) => `/guide/${slug}`)]
+  }
+
+  return []
 }

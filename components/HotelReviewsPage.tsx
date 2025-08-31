@@ -2,42 +2,61 @@ import Container from 'components/BlogContainer';
 import BlogHeader from 'components/BlogHeader';
 import Layout from 'components/BlogLayout';
 import IndexPageHead from 'components/IndexPageHead';
-import MoreStories from 'components/MoreStories'; // Import the updated MoreStories
 import * as demo from 'lib/demo.data';
-// Import the generic Post type and the specific hotel pagination query
-import type { Post, Settings } from 'lib/sanity.queries'; // Use Post type
-import { paginatedHotelPostsQuery } from 'lib/sanity.queries'; // Import the specific query
+import type { HotelReview, Settings } from 'lib/sanity.queries';
 import Head from 'next/head';
+import { useState, useEffect } from 'react';
+import useSWR from 'swr';
+import { getPaginatedHotelPosts } from 'lib/sanity.client';
+import PaginationComponent from './PaginationComponent';
 
 import { CMS_NAME } from '../lib/constants';
 import Footer from './Footer';
+import PostPreview from './PostPreview';
 import ReviewHeader from './ReviewHeader';
 
-// --- Updated Props Interface ---
 export interface HotelReviewsPageProps {
   preview?: boolean;
   loading?: boolean;
-  initialPosts: Post[];     // Use generic Post type now expected by MoreStories
+  initialPosts: HotelReview[];
+  settings: Settings;
   totalPostsCount: number;
   itemsPerPage: number;
-  settings: Settings;
 }
 
-// --- Component Name (assuming file is HotelReviewsPage.tsx) ---
 export default function HotelReviewsPage(props: HotelReviewsPageProps) {
-  // --- Props Destructuring ---
   const {
     preview,
     loading,
-    initialPosts, // Received as Post[]
+    initialPosts,
+    settings,
     totalPostsCount,
     itemsPerPage,
-    settings,
-   } = props;
+  } = props;
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [posts, setPosts] = useState(initialPosts);
 
   const { title = demo.title, description = demo.description } = settings || {};
-  // console.log("Hotel Review Page Initial Posts:", initialPosts)
-// console.log("Hotel Review Page Initial Posts:11", initialPosts.length)
+
+  const { data, error } = useSWR(
+    [currentPage, itemsPerPage],
+    ([page, limit]) => getPaginatedHotelPosts((page - 1) * limit, page * limit),
+    {
+      fallbackData: currentPage === 1 ? initialPosts : undefined,
+    }
+  );
+
+  useEffect(() => {
+    if (data) {
+      setPosts(data);
+    }
+  }, [data]);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
   return (
     <>
       <IndexPageHead settings={settings} />
@@ -47,35 +66,46 @@ export default function HotelReviewsPage(props: HotelReviewsPageProps) {
           <title>{`Hotel Reviews - ${CMS_NAME}`}</title>
         </Head>
 
-        {/* Optional: Remove BlogHeader if ReviewHeader is sufficient */}
         <BlogHeader title={title} description={description} level={1} />
 
         <ReviewHeader
           title={'Hotel Reviews'}
-       
           summary={
             'Discover honest reviews from real travelers. We’ve stayed in the hotels, experienced the good, the bad, and the ugly. No fluff, just real talk on everything from beds to breakfast. Let’s explore the world together, one hotel at a time!'
           }
-          img={'/bath2.json'} // Ensure path is correct
+          img={'/bath2.json'}
         />
 
-        {/* --- Update MoreStories Props --- */}
-        {totalPostsCount > 0 ? (
-          <MoreStories
-            initialPosts={initialPosts} // Pass initial posts (now as Post[])
-            totalPostsCount={totalPostsCount}
+        <Container>
+          <div className="my-10">
+            {posts && posts.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {posts.map((hotelReview) => (
+                  <PostPreview
+                    key={hotelReview._id}
+                    title={hotelReview.title}
+                    coverImage={hotelReview.coverImage}
+                    hotelRating={hotelReview.hotelRating}
+                    linkType="hotel"
+                    date={hotelReview.date}
+                    showRating={true}
+                    slug={hotelReview.slug}
+                    location={hotelReview.location}
+                    category={hotelReview.category}
+                  />
+                ))}
+              </div>
+            ) : (
+              <p className="text-center my-10">No hotel reviews found. Loading: {loading ? 'Yes' : 'No'}</p>
+            )}
+          </div>
+          <PaginationComponent
+            totalItems={totalPostsCount}
             itemsPerPage={itemsPerPage}
-            showPagination={true}
-            showRating={true} // MoreStories passes this to PostPreview
-            // Pass the specific query for fetching hotel posts
-            paginatedQuery={paginatedHotelPostsQuery}
-            // Optional: Provide a custom message for this specific page type
-            emptyStateMessage="No hotel reviews found."
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
           />
-        ) : (
-          // Optional: Display a message if no posts are found at all
-          !loading && <Container><p className="text-center my-10">No hotel reviews found.</p></Container>
-        )}
+        </Container>
       </Layout>
       <Footer />
     </>

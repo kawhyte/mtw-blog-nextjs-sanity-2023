@@ -2,17 +2,19 @@ import { PaginationWrapper as Pagination } from '@/components/ui/pagination-wrap
 import { Loader } from '@/components/ui/loader';
 import PostPreview from 'components/PostPreview';
 import { client } from 'lib/sanity.client';
-// Import the base Post type which should cover common fields for Hotel, Food, Guide
-import { type Post } from 'lib/sanity.queries'; // Use the generic Post type
+import { type Post, type Guide, type HotelReview, type FoodReview } from 'lib/sanity.queries';
 import { useCallback,useEffect, useState } from 'react';
+
+// Union type for all possible content types
+type ContentItem = Post | Guide | HotelReview | FoodReview;
 
 // Define the props for the generic MoreStories component
 interface MoreStoriesProps {
-  initialPosts?: Post[]; // Use the generic Post type
+  initialPosts?: ContentItem[];
   totalPostsCount: number;
   itemsPerPage: number;
   showPagination: boolean;
-  showRating: boolean; // Keep this if PostPreview handles conditional rating display
+  showRating: boolean;
   paginatedQuery: string; // Query string for fetching specific paginated post types
   emptyStateMessage?: string; // Optional custom message for no posts
 }
@@ -27,7 +29,7 @@ export default function MoreStories({
   emptyStateMessage = "No items found.", // Default empty state message
 }: MoreStoriesProps) {
   // State for the posts currently displayed on the page
-  const [currentPagePosts, setCurrentPagePosts] = useState<Post[]>(initialPosts); // Use Post type
+  const [currentPagePosts, setCurrentPagePosts] = useState<ContentItem[]>(initialPosts);
   // State for the current active page number
   const [activePage, setPage] = useState(1);
   // State to track loading status during fetches
@@ -56,7 +58,7 @@ export default function MoreStories({
 
     try {
       // Fetch data using the Sanity client and the provided paginated query
-      const posts = await client.fetch<Post[]>( // Expecting an array of generic Post type
+      const posts = await client.fetch<ContentItem[]>(
         paginatedQuery, // Use the query passed via props
         { start, end }
       );
@@ -129,33 +131,51 @@ export default function MoreStories({
 
       {/* Display Posts Grid */}
       <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4  gap-4 px-4 sm:px-6 lg:px-8 container mx-auto max-w-8xl">
-        {/* Map over the generic Post array */}
-        {currentPagePosts.map((post) => (
-          <PostPreview
-            // Pass common props expected by PostPreview from the base Post type
-            // PostPreview should handle displaying specific details (like ratings)
-            // based on post.linkType or other fields within the post object.
-            key={post._id}
-            title={post.title}
-            coverImage={post.coverImage}
-            date={post.date}
-            author={post.author}
-            slug={post.slug}
-            excerpt2={post.excerpt2}
-            location={post.location}
-            category={post.category}
-            linkType={post.linkType} // Pass linkType so PostPreview can adapt
-            // Pass potentially optional fields - PostPreview must handle if they are undefined
-            hotelRating={(post as any).hotelRating} // Use type casting or check existence if needed
-            foodRating={(post as any).foodRating}
-            takeoutRating={(post as any).takeoutRating}
-            diningType={(post as any).diningType}
-            // Consider passing the whole post object if PostPreview is designed for it:
-            // {...post}
-            // showRating prop might signal PostPreview to attempt showing ratings
-            showRating={showRating}
-          />
-        ))}
+        {currentPagePosts.map((item) => {
+          // Helper function to determine linkType for new schema types
+          const getLinkType = (item: ContentItem): 'hotel' | 'food' | 'story' | 'favorite' => {
+            if ('_type' in item) {
+              switch (item._type) {
+                case 'hotelReview':
+                  return 'hotel';
+                case 'foodReview':
+                  return 'food';
+                case 'guide':
+                  return 'story';
+                default:
+                  const linkType = (item as Post).linkType;
+                  return (linkType === 'hotel' || linkType === 'food' || linkType === 'story' || linkType === 'favorite') 
+                    ? linkType 
+                    : 'favorite';
+              }
+            }
+            const linkType = (item as Post).linkType;
+            return (linkType === 'hotel' || linkType === 'food' || linkType === 'story' || linkType === 'favorite') 
+              ? linkType 
+              : 'favorite';
+          };
+
+          return (
+            <PostPreview
+              key={item._id}
+              title={item.title}
+              coverImage={item.coverImage}
+              date={item.date}
+              author={'author' in item ? item.author : undefined}
+              slug={item.slug}
+              excerpt2={'excerpt2' in item ? item.excerpt2 : undefined}
+              location={'location' in item ? item.location : undefined}
+              category={'category' in item ? item.category : undefined}
+              linkType={getLinkType(item)}
+              // Pass specific rating fields based on content type
+              hotelRating={'hotelRating' in item ? item.hotelRating : undefined}
+              foodRating={'foodRating' in item ? item.foodRating : undefined}
+              takeoutRating={'takeoutRating' in item ? item.takeoutRating : undefined}
+              diningType={'diningType' in item ? item.diningType : undefined}
+              showRating={showRating}
+            />
+          );
+        })}
       </div>
 
       {/* Display Pagination */}

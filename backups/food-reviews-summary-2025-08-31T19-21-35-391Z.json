@@ -1,0 +1,70 @@
+{
+  "timestamp": "2025-08-31T19:21:35.397Z",
+  "totalDocuments": 34,
+  "documentIds": [
+    "06e4ed7c-def0-48d1-b6a9-0ea9b3aaf658",
+    "070189af-2801-4469-a014-c3a6468a8ca6",
+    "138a2bbc-ca4e-4b6f-8b6d-0a311b5d8bc4",
+    "1d2a5a9c-0b30-4818-8d7a-b955fa60b1b6",
+    "27c3aa86-bf0d-496a-a295-7d5ca38bfdd0",
+    "2855c46c-3602-42ed-94b1-472f585aeb75",
+    "2dc16a00-bf2c-49c7-a7a1-44835dfe76cd",
+    "3df940b5-1588-4d5d-a3c0-3a3fa924bc4e",
+    "4612580e-6b8f-4442-9d7f-455f9c4f8d44",
+    "4ad1e1af-29e1-457c-a152-12635113af9f",
+    "682b440b-bd3a-452f-9f03-f6f7e622ea64",
+    "77c32a87-d26d-4c33-b968-a16bb33a8cbe",
+    "7f00a650-91fd-4c11-810d-73377d75c525",
+    "a01bc54a-dfed-480b-88d0-e2d73aa62446",
+    "aa30e91c-9349-4242-b40a-bc7c9238a96b",
+    "acec8f2a-973f-4ef6-8089-2e79eb6a1ed8",
+    "bcf463f4-2647-4c42-8a74-9616555cbc95",
+    "d5f74394-9991-4a38-8aca-7044c69281c7",
+    "daf66466-7417-4501-aea6-f4ec01318016",
+    "dd323975-0bc8-4389-a798-8b51939f9dae",
+    "drafts.152518ab-6940-4a1a-8aef-2ffffb9f0c10",
+    "drafts.20d2036d-ed61-42e5-ae82-53aa4fcf2af3",
+    "drafts.29402a65-5b12-44ca-ba9b-7f7431fcada3",
+    "drafts.39f59ab1-305f-404f-8082-ed2444c146d7",
+    "drafts.3e0ce935-c315-45dd-bce6-6fa4a4fe383e",
+    "drafts.472ee250-418a-4966-8d98-7e55a992548c",
+    "drafts.68194eb1-93df-4b64-b7cd-bbfae24bb9f2",
+    "drafts.77c32a87-d26d-4c33-b968-a16bb33a8cbe",
+    "drafts.b3deb0a0-6201-4051-8170-a2fa438ff612",
+    "drafts.baa11153-8bd9-42dd-ac83-6899f62ed16f",
+    "drafts.d06bf6eb-e8fe-4fc2-8ad3-d5e6655b92f8",
+    "drafts.f8e19287-4641-4e49-9b61-bba07166921f",
+    "f054480c-bf8c-4b5a-95c4-d39cfd012ddd",
+    "f72d098d-0965-495a-ac25-6550c6810219"
+  ],
+  "diningTypes": {
+    "dinein": 26,
+    "takeout": 5,
+    "undefined": 3
+  },
+  "fieldsAnalysis": {
+    "withLocation": 31,
+    "withDiningType": 31,
+    "withIndividualFoodRating": 23,
+    "withGallery": 28,
+    "withYoutube": 1,
+    "withFoodRating": 34,
+    "withTakeoutRating": 10,
+    "withPositives": 18,
+    "withNegatives": 18,
+    "withVerdict": 25,
+    "withContent": 6
+  },
+  "individualFoodRatingStats": {
+    "totalRestaurantsWithIndividualRatings": 23,
+    "totalIndividualDishRatings": 150,
+    "averageDishesPerRestaurant": 7
+  },
+  "sampleTitles": [
+    "Bistro 7 Restaurant Review",
+    "3rd & Fernwood Restaurant Review",
+    "Atlantis Sky Terrace Oyster Bar Review",
+    "Fourk Kitchen Restaurant Review",
+    "The Original Rinaldi's Deli and Cafe Restaurant Review"
+  ]
+}

@@ -20,6 +20,9 @@ import { media } from 'sanity-plugin-media'
 import foodType from 'schemas/foodRating'
 import galleryType from 'schemas/gallery'
 import galleryType2 from 'schemas/gallery2'
+import guideType from 'schemas/guide'
+import hotelReviewType from 'schemas/hotelReview'
+import foodReviewType from 'schemas/foodReview'
 import hotelType from 'schemas/hotelRating'
 import individualFoodType from 'schemas/individualFoodRating'
 import areanasType from 'schemas/nbaArenas'
@@ -46,7 +49,7 @@ export default defineConfig({
   title,
   schema: {
     // If you want more content types, you can add them to this array
-    types: [galleryType,roomTechType,roomAmenitiesType,hotelType,foodType,takeOutFoodRatingType,individualFoodType, postType, areanasType,photoGallery, arenaReviewType, travelEssentialType, galleryType2, settingsType],
+    types: [galleryType,roomTechType,roomAmenitiesType,hotelType,foodType,takeOutFoodRatingType,individualFoodType, postType, guideType, hotelReviewType, foodReviewType, areanasType,photoGallery, arenaReviewType, travelEssentialType, galleryType2, settingsType],
   },
   plugins: [
     deskTool({
@@ -60,7 +63,7 @@ export default defineConfig({
     productionUrl({
       apiVersion,
       previewSecretId,
-      types: [postType.name, settingsType.name, areanasType.name],
+      types: [postType.name, guideType.name, hotelReviewType.name, foodReviewType.name, settingsType.name, areanasType.name],
     }),
     // Add an image asset source for Unsplash
     unsplashImageAsset(),

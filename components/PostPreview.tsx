@@ -2,33 +2,33 @@
 
 import { inter } from 'app/fonts'; // Assuming fonts are correctly set up
 import Date from 'components/PostDate';
-import type { Post } from 'lib/sanity.queries'; // Make sure Post type is correctly imported
+import type { Post, Guide, HotelReview, FoodReview } from 'lib/sanity.queries';
 import Link from 'next/link';
 import { FaRegCalendarAlt } from 'react-icons/fa';
 import { IoLocation } from 'react-icons/io5';
 
 import CoverImage from './CoverImage'; // Assuming CoverImage component exists
 
-// Define props for PostPreview
+// Define props for PostPreview - now compatible with all content types
 interface PostPreviewProps {
-  title?: Post['title'];
-  coverImage?: Post['coverImage'];
-  hotelRating?: Post['hotelRating'];
-  foodRating?: Post['foodRating'];
-  takeoutRating?: Post['takeoutRating'];
-  linkType?: Post['linkType'];
-  diningType?: Post['diningType'];
-  date?: Post['date'];
+  title?: string;
+  coverImage?: any; // Cover image structure is similar across all types
+  hotelRating?: HotelReview['hotelRating'];
+  foodRating?: FoodReview['foodRating'];
+  takeoutRating?: FoodReview['takeoutRating'];
+  linkType?: 'hotel' | 'food' | 'story' | 'favorite'; // Explicit linkType values
+  diningType?: FoodReview['diningType'];
+  date?: string;
   showRating?: boolean;
-  slug?: Post['slug'];
-  location?: Post['location'];
-  author?: Post['author']; // Included from original interface, though not used in JSX
-  excerpt2?: Post['excerpt2']; // Included from original interface, though not used in JSX
-  category?: Post['category'];
+  slug?: string;
+  location?: string;
+  author?: any; // Included from original interface, though not used in JSX
+  excerpt2?: any; // Included from original interface, though not used in JSX
+  category?: string;
 }
 
 // Helper function to determine the link prefix based on post type
-const getLinkPrefix = (linkType?: Post['linkType']): string => {
+const getLinkPrefix = (linkType?: 'hotel' | 'food' | 'story' | 'favorite'): string => {
   switch (linkType) {
     case 'hotel':
       return '/hotel';
@@ -36,20 +36,21 @@ const getLinkPrefix = (linkType?: Post['linkType']): string => {
       return '/guide';
     case 'food':
       return '/food';
+    case 'favorite':
     default:
-      // Fallback link prefix
+      // Fallback link prefix for legacy posts
       return '/posts';
   }
 };
 
 // Updated getRating function to determine which rating object to use
 const getRating = (
-  linkType?: Post['linkType'],
-  diningType?: Post['diningType'],
-  hotelRating?: Post['hotelRating'],
-  foodRating?: Post['foodRating'],
-  takeoutRating?: Post['takeoutRating'],
-): Post['hotelRating'] | Post['foodRating'] | Post['takeoutRating'] | undefined => {
+  linkType?: 'hotel' | 'food' | 'story' | 'favorite',
+  diningType?: FoodReview['diningType'],
+  hotelRating?: HotelReview['hotelRating'],
+  foodRating?: FoodReview['foodRating'],
+  takeoutRating?: FoodReview['takeoutRating'],
+): HotelReview['hotelRating'] | FoodReview['foodRating'] | FoodReview['takeoutRating'] | undefined => {
   if (linkType === 'hotel' && hotelRating) {
     return hotelRating;
   }
@@ -61,7 +62,7 @@ const getRating = (
       return foodRating;
     }
   }
-  return undefined; // Default case
+  return undefined; // Default case for story/favorite types (no ratings)
 };
 
 

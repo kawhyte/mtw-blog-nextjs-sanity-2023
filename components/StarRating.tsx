@@ -4,7 +4,7 @@ import { getRatingWeights } from 'lib/ratingWeights' // Assuming weights functio
 import React from 'react'
 // --- Import Star Icons ---
 import { IoStar, IoStarHalf, IoStarOutline } from 'react-icons/io5'
-import type { Post } from 'lib/sanity.queries' // Import Post type
+import type { Post, HotelReview, FoodReview } from 'lib/sanity.queries'
 
 // Assuming ratingItem map import
 import { ratingItem } from '../lib/getReviewType' // Adjust path if needed
@@ -12,11 +12,11 @@ import { ratingItem } from '../lib/getReviewType' // Adjust path if needed
 import ProgressRating from './ProgressRating'
 import StarDisplay from './StarDisplay'
 
-// Define props for the component
+// Define props for the component - now supports all schema types
 interface StarRatingProps {
-  rating?: Post['hotelRating'] | Post['foodRating'] | Post['takeoutRating']
-  linkType?: Post['linkType']
-  diningType?: Post['diningType']
+  rating?: HotelReview['hotelRating'] | FoodReview['foodRating'] | FoodReview['takeoutRating'] | Post['hotelRating'] | Post['foodRating'] | Post['takeoutRating']
+  linkType?: 'hotel' | 'food' | 'story' | 'favorite'
+  diningType?: FoodReview['diningType'] | Post['diningType']
 }
 
 // Define a type for the structure returned by calculateRating

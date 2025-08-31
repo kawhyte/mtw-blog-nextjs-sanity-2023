@@ -1,19 +1,57 @@
+// pages/guide/[slug].tsx
+
 import { PreviewSuspense } from '@sanity/preview-kit'
-import PostPage from 'components/PostPage'
-import {
-  getAllPostsSlugs,
-  getPostAndMoreStories,
-  getSettings,
-} from 'lib/sanity.client'
-import { Post, Settings } from 'lib/sanity.queries'
-import { GetStaticProps } from 'next'
+import GuidePage from 'components/GuidePage'
+import { getAllGuideSlugs, getGuideBySlug, getSettings } from 'lib/sanity.client'
+import { Guide, Settings } from 'lib/sanity.queries'
+import { GetStaticPaths, GetStaticProps } from 'next'
 import { lazy } from 'react'
 
-const PreviewPostPage = lazy(() => import('components/PreviewPostPage'))
+// TODO: Create PreviewGuidePage component
+const PreviewGuidePage = lazy(() => import('components/PreviewPostPage'))
+
+// Props Interface & Query
+export const getStaticProps: GetStaticProps<
+  PageProps,
+  Query,
+  PreviewData
+> = async (ctx) => {
+  const { preview = false, previewData = {}, params = {} } = ctx
+
+  const token = previewData.token
+
+  const slug = params?.slug as string
+  const guide = await getGuideBySlug(slug)
+  const settings = await getSettings()
+
+  if (!guide) {
+    return {
+      notFound: true,
+    }
+  }
+
+  return {
+    props: {
+      guide,
+      settings,
+      preview,
+      token: previewData.token ?? null,
+    },
+    revalidate: 60, // Revalidate every minute
+  }
+}
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const slugs = await getAllGuideSlugs()
+
+  return {
+    paths: slugs?.map((slug) => `/guide/${slug}`) || [],
+    fallback: 'blocking',
+  }
+}
 
 interface PageProps {
-  post: Post
-  morePosts: Post[]
+  guide: Guide
   settings?: Settings
   preview: boolean
   token: string | null
@@ -27,71 +65,35 @@ interface PreviewData {
   token?: string
 }
 
-export default function ProjectSlugRoute(props: PageProps) {
-  const { settings, post, morePosts, preview, token } = props
+export default function GuideSlugRoute(props: PageProps) {
+  const { settings, guide, preview, token } = props
 
   if (preview) {
     return (
       <PreviewSuspense
         fallback={
-          <PostPage
+          <GuidePage
             loading
             preview
-            post={post}
-            morePosts={morePosts}
+            guide={guide}
             settings={settings}
           />
         }
       >
-        <PreviewPostPage
+        <PreviewGuidePage
           token={token}
-          post={post}
-          morePosts={morePosts}
+          post={guide}
           settings={settings}
+          contentType="guide"
         />
       </PreviewSuspense>
     )
   }
 
-  return <PostPage post={post} morePosts={morePosts} settings={settings} />
-}
-
-export const getStaticProps: GetStaticProps<
-  PageProps,
-  Query,
-  PreviewData
-> = async (ctx) => {
-  const { preview = false, previewData = {}, params = {} } = ctx
-
-  const token = previewData.token
-
-  const [settings, { post, morePosts }] = await Promise.all([
-    getSettings(),
-    getPostAndMoreStories(params.slug),
-  ])
-
-  if (!post) {
-    return {
-      notFound: true,
-    }
-  }
-
-  return {
-    props: {
-      post,
-      morePosts,
-      settings,
-      preview,
-      token: previewData.token ?? null,
-    },
-  }
-}
-
-export const getStaticPaths = async () => {
-  const slugs = await getAllPostsSlugs()
-
-  return {
-    paths: slugs?.map(({ slug }) => `/guide/${slug}`) || [],
-    fallback: 'blocking',
-  }
+  return (
+    <GuidePage 
+      guide={guide} 
+      settings={settings} 
+    />
+  )
 }

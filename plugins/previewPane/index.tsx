@@ -6,11 +6,17 @@
 
 import { DefaultDocumentNodeResolver } from 'sanity/desk'
 import authorType from 'schemas/author'
+import guideType from 'schemas/guide'
+import hotelReviewType from 'schemas/hotelReview'
+import foodReviewType from 'schemas/foodReview'
 import areanasType from 'schemas/nbaArenas' 
 import postType from 'schemas/post'
 
 import ArenaPreviewPane from './ArenaPreviewPane'
 import AuthorAvatarPreviewPane from './AuthorAvatarPreviewPane'
+import GuidePreviewPane from './GuidePreviewPane'
+import HotelReviewPreviewPane from './HotelReviewPreviewPane'
+import FoodReviewPreviewPane from './FoodReviewPreviewPane'
 import PostPreviewPane from './PostPreviewPane'
 
 export const previewDocumentNode = ({
@@ -49,6 +55,48 @@ export const previewDocumentNode = ({
             .title('Preview'),
         ])
 
+
+      case guideType.name:
+        return S.document().views([
+          S.view.form(),
+          S.view
+            .component(({ document }) => (
+              <GuidePreviewPane
+                slug={document.displayed.slug?.current}
+                apiVersion={apiVersion}
+                previewSecretId={previewSecretId}
+              />
+            ))
+            .title('Preview'),
+        ])
+
+      case hotelReviewType.name:
+        return S.document().views([
+          S.view.form(),
+          S.view
+            .component(({ document }) => (
+              <HotelReviewPreviewPane
+                slug={document.displayed.slug?.current}
+                apiVersion={apiVersion}
+                previewSecretId={previewSecretId}
+              />
+            ))
+            .title('Preview'),
+        ])
+
+      case foodReviewType.name:
+        return S.document().views([
+          S.view.form(),
+          S.view
+            .component(({ document }) => (
+              <FoodReviewPreviewPane
+                slug={document.displayed.slug?.current}
+                apiVersion={apiVersion}
+                previewSecretId={previewSecretId}
+              />
+            ))
+            .title('Preview'),
+        ])
 
         case areanasType.name: // Add case for NBA Arenas
         return S.document().views([

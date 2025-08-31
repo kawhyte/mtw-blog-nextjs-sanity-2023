@@ -1,5 +1,4 @@
 // pages/search.js
-import { PaginationWrapper as Pagination } from '@/components/ui/pagination-wrapper';
 import Container from 'components/BlogContainer';
 import BlogHeader from 'components/BlogHeader';
 import Layout from 'components/BlogLayout';
@@ -10,6 +9,8 @@ import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react'; // Keep useState and useEffect
+
+import { PaginationWrapper as Pagination } from '@/components/ui/pagination-wrapper';
 
 import { CMS_NAME } from '../lib/constants';
 import { globalSearchQuery, Post } from '../lib/sanity.queries';

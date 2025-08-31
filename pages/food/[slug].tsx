@@ -1,19 +1,19 @@
 import { PreviewSuspense } from '@sanity/preview-kit'
-import PostPage from 'components/PostPage'
+import FoodReviewPage from 'components/FoodReviewPage'
 import {
-  getAllPostsSlugs,
-  getPostAndMoreStories,
+  getAllFoodReviewSlugs,
+  getFoodReviewBySlug,
   getSettings,
 } from 'lib/sanity.client'
-import { Post, Settings } from 'lib/sanity.queries'
+import { FoodReview, Settings } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
 import { lazy } from 'react'
 
-const PreviewPostPage = lazy(() => import('components/PreviewPostPage'))
+// TODO: Create PreviewFoodReviewPage component
+const PreviewFoodReviewPage = lazy(() => import('components/PreviewPostPage'))
 
 interface PageProps {
-  post: Post
-  morePosts: Post[]
+  foodReview: FoodReview
   settings?: Settings
   preview: boolean
   token: string | null
@@ -27,33 +27,37 @@ interface PreviewData {
   token?: string
 }
 
-export default function ProjectSlugRoute(props: PageProps) {
-  const { settings, post, morePosts, preview, token } = props
+export default function FoodSlugRoute(props: PageProps) {
+  const { settings, foodReview, preview, token } = props
 
   if (preview) {
     return (
       <PreviewSuspense
         fallback={
-          <PostPage
+          <FoodReviewPage
             loading
             preview
-            post={post}
-            morePosts={morePosts}
+            foodReview={foodReview}
             settings={settings}
           />
         }
       >
-        <PreviewPostPage
+        <PreviewFoodReviewPage
           token={token}
-          post={post}
-          morePosts={morePosts}
+          post={foodReview}
           settings={settings}
+          contentType="foodReview"
         />
       </PreviewSuspense>
     )
   }
 
-  return <PostPage post={post} morePosts={morePosts} settings={settings} />
+  return (
+    <FoodReviewPage 
+      foodReview={foodReview} 
+      settings={settings} 
+    />
+  )
 }
 
 export const getStaticProps: GetStaticProps<
@@ -65,12 +69,12 @@ export const getStaticProps: GetStaticProps<
 
   const token = previewData.token
 
-  const [settings, { post, morePosts }] = await Promise.all([
+  const [settings, foodReview] = await Promise.all([
     getSettings(),
-    getPostAndMoreStories(params.slug),
+    getFoodReviewBySlug(params.slug as string),
   ])
 
-  if (!post) {
+  if (!foodReview) {
     return {
       notFound: true,
     }
@@ -78,8 +82,7 @@ export const getStaticProps: GetStaticProps<
 
   return {
     props: {
-      post,
-      morePosts,
+      foodReview,
       settings,
       preview,
       token: previewData.token ?? null,
@@ -88,10 +91,10 @@ export const getStaticProps: GetStaticProps<
 }
 
 export const getStaticPaths = async () => {
-  const slugs = await getAllPostsSlugs()
+  const slugs = await getAllFoodReviewSlugs()
 
   return {
-    paths: slugs?.map(({ slug }) => `/food/${slug}`) || [],
+    paths: slugs?.map((slug) => `/food/${slug}`) || [],
     fallback: 'blocking',
   }
 }

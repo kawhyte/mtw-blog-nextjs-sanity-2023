@@ -1,14 +1,11 @@
 import { PreviewSuspense } from '@sanity/preview-kit'
 import StoryReviewsPage from 'components/StoryReviewsPage' // Component to display stories
-// --- Updated Imports from sanity.client ---
 import {
   getSettings,
-  getAllStoryPosts,       // Renamed function to get all stories
-  getPaginatedGuidePosts, // Function to get paginated stories/guides
-  getGuidePostsTotalCount // Function to get total count of stories/guides
+  getPaginatedGuidePosts,
+  getGuidePostsTotalCount
 } from 'lib/sanity.client'
-// Use the generic Post type, Settings type
-import { Post, Settings } from 'lib/sanity.queries'
+import { Guide, Settings } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
 import Head from "next/head"; // Keep Head if needed within StoryReviewsPage or here
 import { lazy } from 'react'
@@ -16,12 +13,11 @@ import { lazy } from 'react'
 const PreviewIndexPage = lazy(() => import('components/PreviewIndexPage'))
 
 // Define how many items to show per page
-const ITEMS_PER_PAGE = 12; // Or your desired number for stories/guides
+const ITEMS_PER_PAGE = 12;
 
-// --- Updated PageProps ---
 interface PageProps {
-  initialPosts: Post[]      // Use generic Post type, holds only the first page
-  totalPostsCount: number   // Total count for pagination
+  initialPosts: Guide[]
+  totalPostsCount: number
   settings: Settings
   preview: boolean
   token: string | null
@@ -37,7 +33,6 @@ interface PreviewData {
 
 
 export default function Page(props: PageProps) {
-    // --- Updated Destructuring ---
     const {
       initialPosts,
       totalPostsCount,
@@ -50,25 +45,21 @@ export default function Page(props: PageProps) {
       return (
         <PreviewSuspense
           fallback={
-            // Ensure StoryReviewsPage is updated like Hotel/FoodReviewsPage
             <StoryReviewsPage
               loading
               preview
-              initialPosts={initialPosts} // Pass initial posts (all if preview)
-              totalPostsCount={totalPostsCount} // Pass total count
-              itemsPerPage={ITEMS_PER_PAGE} // Pass items per page
+              initialPosts={initialPosts}
+              totalPostsCount={totalPostsCount}
+              itemsPerPage={ITEMS_PER_PAGE}
               settings={settings}
             />
           }
         >
-          {/* PreviewIndexPage likely uses token to fetch live data */}
           <PreviewIndexPage token={token} />
         </PreviewSuspense>
       )
     }
 
-    // --- Render the standard page ---
-    // Pass pagination props down to StoryReviewsPage
     return (
       <StoryReviewsPage
           initialPosts={initialPosts}
@@ -79,7 +70,6 @@ export default function Page(props: PageProps) {
     )
   }
 
-// --- Updated getStaticProps ---
 export const getStaticProps: GetStaticProps<
   PageProps,
   Query,
@@ -87,38 +77,27 @@ export const getStaticProps: GetStaticProps<
 > = async (ctx) => {
   const { preview = false, previewData = {} } = ctx
 
-  // Fetch settings concurrently
-  const settingsPromise = getSettings();
-
-  let postsPromise: Promise<Post[]>;
-  let totalCountPromise: Promise<number>;
-
-  if (preview) {
-    // For preview mode, fetch all story posts for the fallback/initial render.
-    postsPromise = getAllStoryPosts(); // Use the renamed function to fetch all
-    totalCountPromise = getGuidePostsTotalCount(); // Get count for consistency
-  } else {
-    // For non-preview mode, fetch only the first page and the total count
-    totalCountPromise = getGuidePostsTotalCount(); // Use the count function
-    postsPromise = getPaginatedGuidePosts(0, ITEMS_PER_PAGE); // Use the pagination function
-  }
-
-  // Resolve all promises
-  const [settings, initialPosts = [], totalPostsCount = 0] = await Promise.all([
-    settingsPromise,
-    postsPromise,
-    totalCountPromise,
+  // Fetch settings and total count concurrently
+  const [settings, totalPostsCount] = await Promise.all([
+    getSettings(),
+    getGuidePostsTotalCount(),
   ]);
 
+  // Fetch first page of posts
+  const initialPosts = await getPaginatedGuidePosts(0, ITEMS_PER_PAGE);
+
+  console.log('Guides Found:', initialPosts?.length || 0);
+  console.log('Total Guides:', totalPostsCount);
+  console.log('Sample Guide:', initialPosts?.[0] || 'None');
 
   return {
     props: {
-      initialPosts,     // Pass the first page (or all in preview)
-      totalPostsCount,  // Pass the total count
+      initialPosts: initialPosts as Guide[], // Cast to Guide[] for compatibility
+      totalPostsCount,
       settings,
       preview,
       token: previewData.token ?? null,
     },
-    revalidate: 60, // Optional: Adjust revalidation time as needed
+    revalidate: 60,
   }
 }

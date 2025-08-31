@@ -2,16 +2,27 @@ import { toPlainText } from '@portabletext/react';
 import BlogMeta from 'components/BlogMeta';
 import * as demo from 'lib/demo.data';
 import { urlForImage } from 'lib/sanity.image';
-import { Post, Settings } from 'lib/sanity.queries';
+import { Post, Guide, HotelReview, FoodReview, Settings } from 'lib/sanity.queries';
 import Head from 'next/head';
+
+// Common fields that all content types should have for SEO
+interface SEOContent {
+  title?: string;
+  slug?: string;
+  excerpt2?: any;
+  coverImage?: any;
+  date?: string;
+  author?: any;
+}
 
 export interface PostPageHeadProps {
   settings: Settings
-  post: Post
+  post: Post | Guide | HotelReview | FoodReview | SEOContent
+  contentType?: 'post' | 'guide' | 'hotel' | 'food' // Explicit content type for URL generation
 }
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || '';
 
-export default function PostPageHead({ settings, post }: PostPageHeadProps) {
+export default function PostPageHead({ settings, post, contentType }: PostPageHeadProps) {
   const siteTitle = settings?.title || demo.title;
   const pageTitle = post?.title ? `${post.title} | ${siteTitle}` : siteTitle;
 
@@ -53,11 +64,32 @@ if (ogImageUrl && !ogImageUrl.startsWith('http')) {
    ogImageUrl = `${SITE_URL}${ogImageUrl.startsWith('/') ? '' : '/'}${ogImageUrl}`;
 }
 
-// --- Generate Page URL (Consider linkType for correct path) ---
+// --- Generate Page URL (Use contentType or infer from post data) ---
 let pathPrefix = '/posts'; // Default prefix
-if (post?.linkType === 'hotel') pathPrefix = '/hotel';
-else if (post?.linkType === 'food') pathPrefix = '/food';
-else if (post?.linkType === 'story') pathPrefix = '/guide'; // Assuming 'story' maps to '/guide' based on StoryReviewsPage.tsx
+
+if (contentType) {
+  // Use explicit contentType if provided
+  switch (contentType) {
+    case 'hotel':
+      pathPrefix = '/hotel';
+      break;
+    case 'food':
+      pathPrefix = '/food';
+      break;
+    case 'guide':
+      pathPrefix = '/guide';
+      break;
+    case 'post':
+    default:
+      pathPrefix = '/posts';
+      break;
+  }
+} else if ('linkType' in post && post.linkType) {
+  // Fallback to linkType for legacy posts
+  if (post.linkType === 'hotel') pathPrefix = '/hotel';
+  else if (post.linkType === 'food') pathPrefix = '/food';
+  else if (post.linkType === 'story') pathPrefix = '/guide';
+}
 
 const pageUrl = post?.slug ? `${SITE_URL}${pathPrefix}/${post.slug}` : SITE_URL;
 

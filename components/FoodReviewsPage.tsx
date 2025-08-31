@@ -6,10 +6,9 @@ import Layout from 'components/BlogLayout';
 import IndexPageHead from 'components/IndexPageHead';
 import MoreStories from 'components/MoreStories'; // Import the updated MoreStories
 import * as demo from 'lib/demo.data';
-// Import Post and Settings, and the specific food pagination query
-import type { Post, Settings } from 'lib/sanity.queries';
-import { paginatedFoodPostsQuery } from 'lib/sanity.queries'; // <-- IMPORT specific query
+import type { FoodReview, Settings } from 'lib/sanity.queries';
 import Head from 'next/head';
+import PostPreview from './PostPreview';
 
 import { CMS_NAME } from '../lib/constants';
 import Footer from './Footer';
@@ -19,7 +18,7 @@ import ReviewHeader from './ReviewHeader';
 export interface FoodReviewsPageProps {
   preview?: boolean;
   loading?: boolean;
-  initialPosts: Post[]; // Use Post type if returned by client func
+  initialPosts: FoodReview[];
   totalPostsCount: number;
   itemsPerPage: number;
   settings: Settings;
@@ -27,7 +26,6 @@ export interface FoodReviewsPageProps {
 
 // --- Renamed Component ---
 export default function FoodReviewsPage(props: FoodReviewsPageProps) {
-  // --- Updated Props Destructuring ---
   const {
     preview,
     loading,
@@ -63,19 +61,33 @@ export default function FoodReviewsPage(props: FoodReviewsPageProps) {
           img={'/food.json'} 
         />
 
-        {/* --- Update MoreStories Props --- */}
-        {totalPostsCount > 0 ? (
-          <MoreStories
-            initialPosts={initialPosts}
-            totalPostsCount={totalPostsCount}
-            itemsPerPage={itemsPerPage}
-            showPagination={true}
-            showRating={true} 
-            paginatedQuery={paginatedFoodPostsQuery} 
-          />
-        ) : (
-           !loading && <Container><p className="text-center my-10">No food reviews found.</p></Container>
-        )}
+        {/* Food Reviews Grid using PostPreview */}
+        <Container>
+          <div className="my-10">
+            {initialPosts && initialPosts.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {initialPosts.map((foodReview) => (
+                  <PostPreview
+                    key={foodReview._id}
+                    title={foodReview.title}
+                    coverImage={foodReview.coverImage}
+                    foodRating={foodReview.foodRating}
+                    takeoutRating={foodReview.takeoutRating}
+                    linkType="food"
+                    diningType={foodReview.diningType}
+                    date={foodReview.date}
+                    showRating={true}
+                    slug={foodReview.slug}
+                    location={foodReview.location}
+                    category={foodReview.category}
+                  />
+                ))}
+              </div>
+            ) : (
+              <p className="text-center my-10">No food reviews found. Loading: {loading ? 'Yes' : 'No'}</p>
+            )}
+          </div>
+        </Container>
       </Layout>
       <Footer />
     </>

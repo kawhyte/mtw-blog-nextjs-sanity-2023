@@ -1,45 +1,72 @@
 import { apiVersion, dataset, projectId, useCdn } from 'lib/sanity.api'
 // Import queries and types from the updated queries file
 import {
+  // Legacy post queries (for old data)
   allFoodQuery,
   allHotelsQuery,
   allStoriesQuery,
+  type Post,
+  postAndMoreStoriesQuery,
+  postBySlugQuery,
+  postSlugsQuery,
+  
+  // Independent schema types and queries
   type Arena,
   arenaQuery,
-  arenaSlugsQuery, // Import Arena specific queries
-  arenaBySlugQuery, // Import Arena specific queries
+  arenaSlugsQuery,
+  arenaBySlugQuery,
+  
+  type Guide,
+  guideBySlugQuery,
+  guideSlugsQuery,
+  allGuidesQuery,
+  guidesByCategoryQuery,
+  
+  type HotelReview,
+  hotelReviewBySlugQuery,
+  hotelReviewSlugsQuery,
+  allHotelReviewsQuery,
+  hotelReviewsByCategoryQuery,
+  
+  type FoodReview,
+  foodReviewBySlugQuery,
+  foodReviewSlugsQuery,
+  allFoodReviewsQuery,
+  foodReviewsByDiningTypeQuery,
+  
+  // Other types
   type Essential,
+  travelEssentialQuery,
+  type Instagram,
+  type Settings,
+  settingsQuery,
+  
+  // Index and recommendation queries
+  indexQuery,
+  recommendationQuery,
+  
+  // Legacy queries for backward compatibility
   type Food,
   foodAndMoreQuery,
   foodBySlugQuery,
   foodPostsTotalCountQuery,
   foodSlugsQuery,
-  guidePostsTotalCountQuery,
   type Hotel,
   hotelAndMoreQuery,
   hotelBySlugQuery,
   hotelPostsTotalCountQuery,
   hotelSlugsQuery,
-  indexQuery,
-  type Instagram,
-  paginatedFoodPostsQuery,
-  paginatedGuidePostsQuery,
-  paginatedHotelPostsQuery,
-  type Post,
-  postAndMoreStoriesQuery,
-  postBySlugQuery,
-  postSlugsQuery,
-  recommendationQuery,
-  type Settings,
-  settingsQuery,
   type Story,
   storyAndMoreQuery,
   storyBySlugQuery,
   storySlugsQuery,
+  guidePostsTotalCountQuery,
+  paginatedFoodPostsQuery,
+  paginatedGuidePostsQuery,
+  paginatedHotelPostsQuery,
   topWeightedFoodQuery,
   topWeightedHotelsQuery,
-  travelEssentialQuery,
-} from 'lib/sanity.queries' // Adjust path if needed
+} from 'lib/sanity.queries'
 import { createClient, type SanityClient } from 'next-sanity'
 
 /**
@@ -209,6 +236,32 @@ export async function getTopWeightedFoodPosts(): Promise<Post[]> {
   }
 }
 
+/** Fetches a specific page/slice of independent food reviews */
+export async function getPaginatedFoodReviews(start: number, end: number): Promise<FoodReview[]> {
+  if (!client) return [];
+  try {
+    const results = await client.fetch<FoodReview[]>(`*[_type == "foodReview"] | order(date desc) [${start}...${end}] {
+      ${independentFoodReviewFields}
+    }`);
+    return results ?? [];
+  } catch (error) {
+    console.error(`Error fetching paginated food reviews (start: ${start}, end: ${end}):`, error);
+    return [];
+  }
+}
+
+/** Gets the total count of independent food reviews */
+export async function getFoodReviewsTotalCount(): Promise<number> {
+  if (!client) return 0;
+  try {
+    const count = await client.fetch<number>(`count(*[_type == "foodReview"])`);
+    return count ?? 0;
+  } catch (error) {
+    console.error(`Error fetching food reviews total count:`, error);
+    return 0;
+  }
+}
+
 
 // --- Story/Guide Posts (assuming linkType == 'story') ---
 
@@ -349,16 +402,7 @@ export async function getAllStorySlugs(): Promise<Pick<Story, 'slug'>[]> {
   }
 }
 
-export async function getAllFoodReviewSlugs(): Promise<Pick<Food, 'slug'>[]> {
-  if (!client) return [];
-  try {
-    const slugs = await client.fetch<string[]>(foodSlugsQuery);
-    return slugs ? slugs.map((slug) => ({ slug })) : [];
-  } catch (error) {
-    console.error(`Error fetching all food review slugs:`, error);
-    return [];
-  }
-}
+// Legacy food function removed - now using independent foodReview schema
 
 // --- Fetch All Arena Slugs ---
 /**
@@ -421,19 +465,247 @@ export async function getStoryBySlug(slug: string): Promise<Story | null> {
   }
 }
 
-export async function getFoodReviewBySlug(slug: string): Promise<Food | null> {
-  if (!client) return null;
+// Legacy food function removed - now using independent foodReview schema
+
+// NOTE: getArenaBySlug is already updated above in the 'Arenas' section.
+
+// ============================================
+// --- Guides ---
+// ============================================
+
+/**
+ * Fetches a single guide by its slug.
+ * @param slug The slug of the guide to fetch.
+ * @returns The Guide object or null if not found or on error.
+ */
+export async function getGuideBySlug(slug: string): Promise<Guide | null> {
+  if (!client) {
+    console.warn('Sanity client is not initialized.');
+    return null;
+  }
   try {
-    const food = await client.fetch<Food | undefined>(foodBySlugQuery, { slug });
-    return food ?? null;
+    const guide = await client.fetch(guideBySlugQuery, { slug });
+    return guide || null;
   } catch (error) {
-    console.error(`Error fetching food review by slug "${slug}":`, error);
+    console.error(`Error fetching guide with slug "${slug}":`, error);
     return null;
   }
 }
 
-// NOTE: getArenaBySlug is already updated above in the 'Arenas' section.
+/**
+ * Fetches all guide slugs for static generation.
+ * @returns An array of guide slugs, or an empty array on error/no slugs.
+ */
+export async function getAllGuideSlugs(): Promise<string[]> {
+  if (!client) {
+    console.warn('Sanity client is not initialized.');
+    return [];
+  }
+  try {
+    const slugs = await client.fetch(guideSlugsQuery);
+    return slugs || [];
+  } catch (error) {
+    console.error('Error fetching guide slugs:', error);
+    return [];
+  }
+}
 
+// ============================================
+// --- Hotel Reviews ---
+// ============================================
+
+/**
+ * Fetches a single hotel review by its slug.
+ * @param slug The slug of the hotel review to fetch.
+ * @returns The HotelReview object or null if not found or on error.
+ */
+export async function getHotelReviewBySlug(slug: string): Promise<HotelReview | null> {
+  if (!client) {
+    console.warn('Sanity client is not initialized.');
+    return null;
+  }
+  try {
+    const hotelReview = await client.fetch(hotelReviewBySlugQuery, { slug });
+    return hotelReview || null;
+  } catch (error) {
+    console.error(`Error fetching hotel review with slug "${slug}":`, error);
+    return null;
+  }
+}
+
+/**
+ * Fetches all hotel review slugs for static generation.
+ * @returns An array of hotel review slugs, or an empty array on error/no slugs.
+ */
+export async function getAllHotelReviewSlugs(): Promise<string[]> {
+  if (!client) {
+    console.warn('Sanity client is not initialized.');
+    return [];
+  }
+  try {
+    const slugs = await client.fetch(hotelReviewSlugsQuery);
+    return slugs || [];
+  } catch (error) {
+    console.error('Error fetching hotel review slugs:', error);
+    return [];
+  }
+}
+
+// ============================================
+// --- Food Reviews ---
+// ============================================
+
+/**
+ * Fetches a single food review by its slug.
+ * @param slug The slug of the food review to fetch.
+ * @returns The FoodReview object or null if not found or on error.
+ */
+export async function getFoodReviewBySlug(slug: string): Promise<FoodReview | null> {
+  if (!client) {
+    console.warn('Sanity client is not initialized.');
+    return null;
+  }
+  try {
+    const foodReview = await client.fetch(foodReviewBySlugQuery, { slug });
+    return foodReview || null;
+  } catch (error) {
+    console.error(`Error fetching food review with slug "${slug}":`, error);
+    return null;
+  }
+}
+
+/**
+ * Fetches all food review slugs for static generation.
+ * @returns An array of food review slugs, or an empty array on error/no slugs.
+ */
+export async function getAllFoodReviewSlugs(): Promise<string[]> {
+  if (!client) {
+    console.warn('Sanity client is not initialized.');
+    return [];
+  }
+  try {
+    const slugs = await client.fetch(foodReviewSlugsQuery);
+    return slugs || [];
+  } catch (error) {
+    console.error('Error fetching food review slugs:', error);
+    return [];
+  }
+}
+
+// ============================================
+// --- Collection Functions for Independent Schemas ---
+// ============================================
+
+/**
+ * Fetches all guides for listing pages.
+ * @returns An array of Guide objects, or an empty array on error.
+ */
+export async function getAllGuides(): Promise<Guide[]> {
+  if (!client) {
+    console.warn('Sanity client is not initialized.');
+    return [];
+  }
+  try {
+    const guides = await client.fetch(allGuidesQuery);
+    return guides || [];
+  } catch (error) {
+    console.error('Error fetching all guides:', error);
+    return [];
+  }
+}
+
+/**
+ * Fetches guides filtered by category.
+ * @param category The category to filter by.
+ * @returns An array of Guide objects, or an empty array on error.
+ */
+export async function getGuidesByCategory(category: string): Promise<Guide[]> {
+  if (!client) {
+    console.warn('Sanity client is not initialized.');
+    return [];
+  }
+  try {
+    const guides = await client.fetch(guidesByCategoryQuery, { category });
+    return guides || [];
+  } catch (error) {
+    console.error(`Error fetching guides by category "${category}":`, error);
+    return [];
+  }
+}
+
+/**
+ * Fetches all hotel reviews for listing pages.
+ * @returns An array of HotelReview objects, or an empty array on error.
+ */
+export async function getAllHotelReviews(): Promise<HotelReview[]> {
+  if (!client) {
+    console.warn('Sanity client is not initialized.');
+    return [];
+  }
+  try {
+    const hotelReviews = await client.fetch(allHotelReviewsQuery);
+    return hotelReviews || [];
+  } catch (error) {
+    console.error('Error fetching all hotel reviews:', error);
+    return [];
+  }
+}
+
+/**
+ * Fetches hotel reviews filtered by category.
+ * @param category The category to filter by (luxury, mid-scale, economy).
+ * @returns An array of HotelReview objects, or an empty array on error.
+ */
+export async function getHotelReviewsByCategory(category: string): Promise<HotelReview[]> {
+  if (!client) {
+    console.warn('Sanity client is not initialized.');
+    return [];
+  }
+  try {
+    const hotelReviews = await client.fetch(hotelReviewsByCategoryQuery, { category });
+    return hotelReviews || [];
+  } catch (error) {
+    console.error(`Error fetching hotel reviews by category "${category}":`, error);
+    return [];
+  }
+}
+
+/**
+ * Fetches all food reviews for listing pages.
+ * @returns An array of FoodReview objects, or an empty array on error.
+ */
+export async function getAllFoodReviews(): Promise<FoodReview[]> {
+  if (!client) {
+    console.warn('Sanity client is not initialized.');
+    return [];
+  }
+  try {
+    const foodReviews = await client.fetch(allFoodReviewsQuery);
+    return foodReviews || [];
+  } catch (error) {
+    console.error('Error fetching all food reviews:', error);
+    return [];
+  }
+}
+
+/**
+ * Fetches food reviews filtered by dining type.
+ * @param diningType The dining type to filter by (dinein, takeout).
+ * @returns An array of FoodReview objects, or an empty array on error.
+ */
+export async function getFoodReviewsByDiningType(diningType: 'dinein' | 'takeout'): Promise<FoodReview[]> {
+  if (!client) {
+    console.warn('Sanity client is not initialized.');
+    return [];
+  }
+  try {
+    const foodReviews = await client.fetch(foodReviewsByDiningTypeQuery, { diningType });
+    return foodReviews || [];
+  } catch (error) {
+    console.error(`Error fetching food reviews by dining type "${diningType}":`, error);
+    return [];
+  }
+}
 
 // ============================================
 // --- Get By Slug And More Stories ---

@@ -5,7 +5,7 @@ import {
   projectId,
   useCdn,
 } from 'lib/sanity.api'
-import { arenaBySlugQuery,postBySlugQuery } from 'lib/sanity.queries'
+import { arenaBySlugQuery, guideBySlugQuery, hotelReviewBySlugQuery, foodReviewBySlugQuery, postBySlugQuery } from 'lib/sanity.queries'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import type { PageConfig } from 'next/types'
 import { createClient } from 'next-sanity'
@@ -18,7 +18,7 @@ export const config: PageConfig = { runtime: 'nodejs' }
 function redirectToPreview(
   res: NextApiResponse<string | void>,
   previewData: { token?: string },
-  Location: '/' | `/posts/${string}` | `/arena/${string}`  
+  Location: '/' | `/posts/${string}` | `/arena/${string}` | `/guide/${string}` | `/hotel/${string}` | `/food/${string}`  
 ): void {
   // Enable Preview Mode by setting the cookies
   res.setPreviewData(previewData)
@@ -87,7 +87,7 @@ export default async function preview(
   // }
 
   let document: { slug?: string } | null = null;
-  let documentPath: `/posts/${string}` | `/arena/${string}` | null = null;
+  let documentPath: `/posts/${string}` | `/arena/${string}` | `/guide/${string}` | `/hotel/${string}` | `/food/${string}` | null = null;
 
   // Determine which document type to fetch and where to redirect
   if (type === 'post' && slug) {
@@ -96,10 +96,28 @@ export default async function preview(
       documentPath = `/posts/${document.slug}`;
     }
   } else if (type === 'arena' && slug) {
-    // Assuming you have arenaBySlugQuery defined
+    // Handle arena documents
     document = await client.fetch(arenaBySlugQuery, { slug });
     if (document) {
       documentPath = `/arena/${document.slug}`;
+    }
+  } else if (type === 'guide' && slug) {
+    // Handle guide documents
+    document = await client.fetch(guideBySlugQuery, { slug });
+    if (document) {
+      documentPath = `/guide/${document.slug}`;
+    }
+  } else if (type === 'hotelReview' && slug) {
+    // Handle hotel review documents
+    document = await client.fetch(hotelReviewBySlugQuery, { slug });
+    if (document) {
+      documentPath = `/hotel/${document.slug}`;
+    }
+  } else if (type === 'foodReview' && slug) {
+    // Handle food review documents
+    document = await client.fetch(foodReviewBySlugQuery, { slug });
+    if (document) {
+      documentPath = `/food/${document.slug}`;
     }
   } else {
     // Handle cases where type is missing, unknown, or slug is missing for a known type

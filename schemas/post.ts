@@ -18,64 +18,30 @@ import { description } from './../lib/demo.data';
 
 export default defineType({
   name: 'post',
-  title: 'Post (Hotel/Restaurant/Guides)',
+  title: 'Post (Legacy)',
   icon: BookIcon,
   type: 'document',
 
   fields: [
     defineField({
-      title: 'Select the type of review (Hotel, Food, Story, Things we like)',
-      description: '',
+      title: 'Legacy Post Type',
+      description: 'This schema is deprecated. Use specific document types instead.',
       name: 'linkType',
       type: 'string',
       validation: (Rule) => Rule.required(),
       options: {
         list: [
-          { title: 'Hotel', value: 'hotel' },
-          { title: 'Food', value: 'food' },
-          { title: 'Story/Guide', value: 'story' },
-          // { title: 'Things we like', value: 'favorite' },
+          { title: 'Things we like', value: 'favorite' },
         ],
         layout: 'radio',
       },
-      initialValue: 'hotel' // Set 'hotel' as the default value
+      initialValue: 'favorite'
 
     }),
 
-    defineField({
-      title: 'Dining Type',
-      name: 'diningType',
-      type: 'string',
-      description: '',
-      hidden: ({ parent }) => parent?.linkType !== 'food', 
-      options: {
-        list: [
-          { title: 'Dine-in', value: 'dinein' },
-          { title: 'Takeout', value: 'takeout' },
-        ],
-        layout: 'radio',
-      },
-      initialValue: 'dinein' // Set 'dine in' as the default value
 
-    }),
 
-    defineField({
-      title: 'Hotel Category',
-      name: 'category',
-      type: 'string',
-      description: '',
-      hidden: ({ parent }) => parent?.linkType !== 'hotel', // &lt;-- defaults to 'dropdown'
-      options: {
-        list: [
-          { title: 'Luxury', value: 'luxury' },
-          { title: 'Mid-Scale', value: 'mid-scale' },
-          { title: 'Economy', value: 'economy' },
-        ], // &lt;-- predefined values
-        layout: 'radio',
-      },
-      initialValue: 'mid-scale' // Set 'mid-scale' as the default value
 
-    }),
 
   
     defineField({
@@ -97,7 +63,7 @@ export default defineType({
     }),
     defineField({
       name: 'date',
-      title: 'Visited/Story Date',
+      title: 'Visited Date',
       type: 'datetime',
 
       initialValue: () => new Date().toISOString(),
@@ -107,7 +73,7 @@ export default defineType({
       title: 'Location',
       type: 'string',
       hidden: ({ parent, value }) =>
-        parent?.linkType == 'story' || parent?.linkType == 'favorite',
+        parent?.linkType == 'favorite',
 
       //validation: (rule) => rule.required(),
     }),
@@ -131,39 +97,14 @@ export default defineType({
       description: 'Cost.',
     }),
 
-    defineField({
-      name: 'room',
-      title: 'Room Type',
-      type: 'string',
-      description: 'eg. 1 King Bed Lagoon Access (optional)',
-      hidden: ({ parent }) => parent?.linkType !== 'hotel',
-      //validation: (rule) => rule.required(),
-      validation: (Rule) => Rule.max(45), // Limit to 45 characters
-    }),
+
 
 
   
 
 
 
-    defineField({
-      title: 'Lounge Access availiable at this hotel?',
-      name: 'lounge',
-      type: 'string',
-      description: '(optional)',
-      hidden: ({ parent }) => parent?.linkType !== 'hotel',
-      options: {
-        list: [
-          { title: 'Yes, paid or member only access', value: 'yes, paid or member only access' },
-          { title: 'Yes, free access', value: 'Yes, free access' },
-          { title: 'No', value: 'No' },
-      
-      ],
-      layout:'radio'
-      },
-      initialValue: 'No' // Set 'No' as the default value
 
-    }),
 
 
     defineField({
@@ -191,18 +132,18 @@ export default defineType({
       type: 'array',
       of: [{ type: 'block' }],
       hidden: ({ parent, value }) =>
-        parent?.linkType == 'story' || parent?.linkType == 'favorite',
+        parent?.linkType == 'favorite',
     }),
 
     defineField({
       name: 'tip',
-      title: 'Hotel/Restaurant Quick Tip',
+      title: 'Quick Tip',
       
-      description: 'Add a Tip for this hotel or restaurant (optional)',
+      description: 'Add a helpful tip (optional)',
       type: 'array',
       of: [{ type: 'block' }],
       hidden: ({ parent, value }) =>
-        parent?.linkType == 'story' || parent?.linkType == 'favorite',
+        parent?.linkType == 'favorite',
     }),
 
     // defineField({
@@ -224,49 +165,7 @@ export default defineType({
 
 
 
-    defineField({
-      name: 'individualFoodRating',
-      title: 'Individual Food Rating',
-      // type: 'gallery',
-      description:
-        'For best results: Image size webp quality 40%, 40% image resize.',
-      type: 'array',
-      hidden: ({ parent }) => parent?.linkType !== 'food',
-      //validation: Rule => Rule.required(),
 
-      of: [
-        {
-          type: 'image',
-
-          options: {
-            hotspot: true,
-          },
-          fields: [
-            {
-              name: 'name',
-              type: 'string',
-              title: 'Dish/Drink name',
-             description:" The name should be 40 characters or less",
-              validation: Rule => Rule.max(40).warning(`The name shouldn't be more than 40 characters.`).required(),
-              // validation: Rule => Rule.max(120).warning(`A title shouldn't be more than 120 characters.`),
-
-            },
-            {
-              name: 'rating',
-              type: 'individualFoodType',
-              title: 'Rating',
-            },
-            {
-              name: 'review',
-              type: 'string',
-              title: 'Short "Twitter style" (120 characters or less) Review or additional info (optional)',
-              validation: Rule => Rule.max(120).warning(`shouldn't be more than 120 characters.`),
-
-            },
-          ],
-        },
-      ],
-    }),
 
     defineField({
       name: 'gallery',
@@ -308,39 +207,14 @@ export default defineType({
       type: 'string',
       description: 'Youtube link is Optional',
       hidden: ({ parent, value }) =>
-        parent?.linkType == 'story' || parent?.linkType == 'favorite',
+        parent?.linkType == 'favorite',
       //validation: (rule) => rule.required(),
     }),
 
 
-    // **New fields for Dine-in ratings:**
-
-    {
-      name: 'foodRating',
-      title: 'Rating for Dine-in',
-      description: 'Add a rating for each Dine-in section.',
-      type: 'foodRating', // You'll need to create this new schema type
-      hidden: ({ parent }) => parent?.linkType !== 'food' || parent?.diningType !== 'dinein',
-    },
 
 
-    // **New fields for Takeout ratings:**
 
-    {
-      name: 'takeoutRating',
-      title: 'Rating for Takeout',
-      description: 'Add a rating for each Takeout section.',
-      type: 'takeOutFoodRating', // You'll need to create this new schema type
-      hidden: ({ parent }) => parent?.linkType !== 'food' || parent?.diningType !== 'takeout',
-    },
-
-    {
-      name: 'hotelRating',
-      title: 'Rating for Hotels',
-      description: 'Add a rating for each Hotel section.',
-      type: 'hotelRating',
-      hidden: ({ parent }) => parent?.linkType !== 'hotel',
-    },
     // {
     //   name: 'foodRating',
     //   title: 'Rating for Food',
@@ -350,29 +224,10 @@ export default defineType({
     // },
 
   
-    defineField({
-      name: 'internetSpeed',
-      title: 'Internet Speed',
-      type: 'number',
-      description: 'Must be a number ',
-      hidden: ({ parent }) => parent?.linkType !== 'hotel',
-      //validation: (rule) => rule.required(),
-    }),
-    {
-      name: 'roomAmenities',
-      title: 'A breakdown of the Amenities in the room',
-      description: 'Say if the item was in the room',
-      type: 'roomAmenities',
-      hidden: ({ parent }) => parent?.linkType !== 'hotel',
-    },
 
-    {
-      name: 'techRating',
-      title: 'Was the item present in the Hotel room?',
-      description: 'Say if the item was in the room',
-      type: 'techRating',
-      hidden: ({ parent }) => parent?.linkType !== 'hotel',
-    },
+
+
+
 
     // {
     //   title: "Hotel Resort Fees",
@@ -411,10 +266,9 @@ export default defineType({
     defineField({
       title: 'Positives',
       name: 'positives',
-
-      description: 'Add multiple Positive points',
+      description: 'Add multiple positive points',
       hidden: ({ parent, value }) =>
-        parent?.linkType == 'story' || parent?.linkType == 'favorite',
+        parent?.linkType == 'favorite',
       //validation: (Rule) => Rule.required(),
       type: 'array',
       of: [{ type: 'text' }],
@@ -422,9 +276,9 @@ export default defineType({
     defineField({
       title: 'Negatives',
       name: 'negatives',
-      description: 'Add multiple Negative points',
+      description: 'Add multiple negative points',
       hidden: ({ parent, value }) =>
-        parent?.linkType == 'story' || parent?.linkType == 'favorite',
+        parent?.linkType == 'favorite',
       //validation: (Rule) => Rule.required(),
       type: 'array',
       of: [{ type: 'text' }],
@@ -433,9 +287,9 @@ export default defineType({
     defineField({
       name: 'verdict',
       title: 'Verdict',
-      description: 'Add your Verdict',
+      description: 'Add your overall verdict',
       hidden: ({ parent, value }) =>
-        parent?.linkType == 'story' || parent?.linkType == 'favorite',
+        parent?.linkType == 'favorite',
       //validation: (Rule) => Rule.required(),
       type: 'array',
       of: [{ type: 'block' }],
@@ -498,7 +352,7 @@ export default defineType({
     //   name: 'recommend',
     //   type: 'boolean',
     //   hidden: ({ parent, value }) =>
-    //   parent?.linkType == 'story' || parent?.linkType == 'favorite',
+    //   parent?.linkType == 'favorite',
     // }),
 
     // defineField({

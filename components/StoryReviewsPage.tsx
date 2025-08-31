@@ -7,35 +7,29 @@ import Layout from 'components/BlogLayout';
 import IndexPageHead from 'components/IndexPageHead';
 import MoreStories from 'components/MoreStories'; // Import the generic MoreStories
 import * as demo from 'lib/demo.data';
-// Import the generic Post type and the specific guide pagination query
-import type { Post, Settings } from 'lib/sanity.queries';
-import { paginatedGuidePostsQuery } from 'lib/sanity.queries'; // Import the specific query
+import type { Guide, Settings } from 'lib/sanity.queries';
 import Head from 'next/head';
+import PostPreview from './PostPreview';
 
 import { CMS_NAME } from '../lib/constants';
 import Footer from './Footer';
 import ReviewHeader from './ReviewHeader';
+import PaginationComponent from './PaginationComponent';
 
 
-// --- Renamed and Updated Props Interface ---
 export interface StoryGuidePageProps {
   preview?: boolean;
   loading?: boolean;
-  initialPosts: Post[];     // Use generic Post type
-  totalPostsCount: number;   // Added total count
-  itemsPerPage: number;      // Added items per page
+  initialPosts: Guide[];
   settings: Settings;
 }
 
 // --- Renamed Component ---
 export default function StoryGuidePage(props: StoryGuidePageProps) {
-  // --- Updated Props Destructuring ---
   const {
     preview,
     loading,
-    initialPosts, // Use initialPosts
-    totalPostsCount, // Use totalPostsCount
-    itemsPerPage, // Use itemsPerPage
+    initialPosts,
     settings,
    } = props;
 
@@ -65,23 +59,30 @@ export default function StoryGuidePage(props: StoryGuidePageProps) {
           img={'/plane.json'} // Ensure path is correct
         />
 
-        {/* --- Update MoreStories Props --- */}
-        {totalPostsCount > 0 ? (
-          <MoreStories
-            initialPosts={initialPosts} // Pass initial posts (as Post[])
-            totalPostsCount={totalPostsCount} // Pass total count
-            itemsPerPage={itemsPerPage} // Pass items per page setting
-            showPagination={true} // Enable pagination
-            showRating={false} // Disable rating display for guides/stories
-            // Pass the specific query for fetching guide posts
-            paginatedQuery={paginatedGuidePostsQuery}
-            // Optional: Provide a custom message
-            emptyStateMessage="No stories or guides found."
-          />
-        ) : (
-          // Optional: Display a message if no posts are found at all
-          !loading && <Container><p className="text-center my-10">No stories or guides found.</p></Container>
-        )}
+        {/* Travel Guides Grid using PostPreview */}
+        <Container>
+          <div className="my-10">
+            {initialPosts && initialPosts.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {initialPosts.map((guide) => (
+                  <PostPreview
+                    key={guide._id}
+                    title={guide.title}
+                    coverImage={guide.coverImage}
+                    linkType="story"
+                    date={guide.date}
+                    showRating={false}
+                    slug={guide.slug}
+                    location={guide.location}
+                    category={guide.category}
+                  />
+                ))}
+              </div>
+            ) : (
+              <p className="text-center my-10">No stories or guides found. Loading: {loading ? 'Yes' : 'No'}</p>
+            )}
+          </div>
+        </Container>
       </Layout>
       <Footer />
     </>

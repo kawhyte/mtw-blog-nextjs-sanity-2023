@@ -1,21 +1,19 @@
 import { PreviewSuspense } from '@sanity/preview-kit'
-import Layout from 'components/BlogLayout';
-import PostPage from 'components/PostPage'
-import PostPageHead from 'components/PostPageHead'; // Import the new Head component
+import HotelReviewPage from 'components/HotelReviewPage'
 import {
-  getAllPostsSlugs,
-  getPostAndMoreStories,
+  getAllHotelReviewSlugs,
+  getHotelReviewBySlug,
   getSettings,
 } from 'lib/sanity.client'
-import { Post, Settings } from 'lib/sanity.queries'
+import { HotelReview, Settings } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
 import { lazy } from 'react'
 
-const PreviewPostPage = lazy(() => import('components/PreviewPostPage'))
+// TODO: Create PreviewHotelReviewPage component
+const PreviewHotelReviewPage = lazy(() => import('components/PreviewPostPage'))
 
 interface PageProps {
-  post: Post
-  morePosts: Post[]
+  hotelReview: HotelReview
   settings?: Settings
   preview: boolean
   token: string | null
@@ -29,42 +27,36 @@ interface PreviewData {
   token?: string
 }
 
-export default function ProjectSlugRoute(props: PageProps) {
-  const { settings, post, morePosts, preview, token } = props
+export default function HotelSlugRoute(props: PageProps) {
+  const { settings, hotelReview, preview, token } = props
 
   if (preview) {
     return (
       <PreviewSuspense
         fallback={
-          <PostPage
+          <HotelReviewPage
             loading
             preview
-            post={post}
-            morePosts={morePosts}
+            hotelReview={hotelReview}
             settings={settings}
           />
         }
       >
-        <PreviewPostPage
+        <PreviewHotelReviewPage
           token={token}
-          post={post}
-          morePosts={morePosts}
+          post={hotelReview}
           settings={settings}
+          contentType="hotelReview"
         />
       </PreviewSuspense>
     )
   }
 
-  return(  
-
-    <> 
-    <PostPageHead settings={settings} post={post} />
-    <Layout preview={preview} loading={false} /* pass settings if needed */>
-  <PostPage post={post} morePosts={morePosts} settings={settings} /></Layout>
-</>
-
-
-
+  return (
+    <HotelReviewPage 
+      hotelReview={hotelReview} 
+      settings={settings} 
+    />
   )
 }
 
@@ -77,20 +69,20 @@ export const getStaticProps: GetStaticProps<
 
   const token = previewData.token
 
-  const [settings, { post, morePosts }] = await Promise.all([
+  const [settings, hotelReview] = await Promise.all([
     getSettings(),
-    getPostAndMoreStories(params.slug),
+    getHotelReviewBySlug(params.slug as string),
   ])
 
-  if (!post) {
+  if (!hotelReview) {
     return {
       notFound: true,
     }
   }
+  
   return {
     props: {
-      post,
-      morePosts,
+      hotelReview,
       settings,
       preview,
       token: previewData.token ?? null,
@@ -99,10 +91,10 @@ export const getStaticProps: GetStaticProps<
 }
 
 export const getStaticPaths = async () => {
-  const slugs = await getAllPostsSlugs()
+  const slugs = await getAllHotelReviewSlugs()
 
   return {
-    paths: slugs?.map(({ slug }) => `/hotel/${slug}`) || [],
+    paths: slugs?.map((slug) => `/hotel/${slug}`) || [],
     fallback: 'blocking',
   }
 }
