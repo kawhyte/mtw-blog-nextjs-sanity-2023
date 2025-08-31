@@ -15,10 +15,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        // sans: ['var(--font-inter)'],
-        // logo: ['var(--font-space-grotesk)'],
-        // mono: ['var(--font-roboto-mono)'],
-        // heading: ['var(--font-oswald)'],
+        sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
+        heading: ['var(--font-oswald)', 'system-ui', 'sans-serif'],
         'inter': ['var(--font-inter)'],
         'oswald': ['var(--font-oswald)'],
         'montserrat': ['var(--font-montserrat)'],
@@ -28,6 +26,83 @@ module.exports = {
       },
 
       colors: {
+        /* ===== shadcn/ui Theme Colors ===== */
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
+        },
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
+        },
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
+        },
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
+        },
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
+        },
+
+        /* ===== Brand Colors ===== */
+        brand: {
+          primary: "hsl(var(--brand-primary))",
+          "primary-dark": "hsl(var(--brand-primary-dark))",
+          "primary-light": "hsl(var(--brand-primary-light))",
+          secondary: "hsl(var(--brand-secondary))",
+          "secondary-dark": "hsl(var(--brand-secondary-dark))",
+          "secondary-light": "hsl(var(--brand-secondary-light))",
+        },
+
+        /* ===== Semantic Colors ===== */
+        success: "hsl(var(--success))",
+        warning: "hsl(var(--warning))",
+        error: "hsl(var(--error))",
+        info: "hsl(var(--info))",
+
+        /* ===== Blog Specific ===== */
+        blog: {
+          text: "hsl(var(--blog-text))",
+          "text-light": "hsl(var(--blog-text-light))",
+          heading: "hsl(var(--blog-heading))",
+          link: "hsl(var(--blog-link))",
+          "link-hover": "hsl(var(--blog-link-hover))",
+        },
+
+        /* ===== Category Colors ===== */
+        category: {
+          luxury: "hsl(var(--category-luxury))",
+          midscale: "hsl(var(--category-midscale))",
+          economy: "hsl(var(--category-economy))",
+          default: "hsl(var(--category-default))",
+        },
+
+        /* ===== Rating Colors ===== */
+        rating: {
+          excellent: "hsl(var(--rating-excellent))",
+          good: "hsl(var(--rating-good))",
+          average: "hsl(var(--rating-average))",
+          poor: "hsl(var(--rating-poor))",
+        },
+
+        /* ===== Legacy MTW Colors (for backward compatibility) ===== */
         mtw: {
           color: '#1F3447',
           'light-yellow-background': '#fefce8',
@@ -44,6 +119,13 @@ module.exports = {
           'blue-500': '#2276FC',
           'yellow-100': '#fef7da',
         },
+      },
+
+      /* ===== Border Radius ===== */
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
       },
       spacing: {
         28: '7rem',

@@ -2,6 +2,167 @@
 
 @plugin 'tailwindcss-animate';
 
+/* ===== THEME SYSTEM ===== */
+@layer base {
+  :root {
+    /* ===== Brand Colors ===== */
+    --brand-primary: 326 100% 65%;        /* Pink #FF4FD0 */
+    --brand-primary-dark: 326 100% 55%;   /* Darker pink */
+    --brand-primary-light: 326 100% 75%;  /* Lighter pink */
+    
+    --brand-secondary: 217 91% 60%;       /* Blue #3B82F6 */
+    --brand-secondary-dark: 217 91% 50%;  /* Darker blue */
+    --brand-secondary-light: 217 91% 70%; /* Lighter blue */
+
+    /* ===== Semantic Colors ===== */
+    --success: 142 76% 36%;               /* Green #22C55E */
+    --warning: 45 93% 47%;                /* Yellow #EAB308 */
+    --error: 0 84% 60%;                   /* Red #EF4444 */
+    --info: 199 89% 48%;                  /* Cyan #0EA5E9 */
+
+    /* ===== Neutral Palette ===== */
+    --background: 0 0% 100%;              /* White */
+    --foreground: 224 71% 4%;             /* Near black */
+    
+    --card: 0 0% 100%;                    /* White */
+    --card-foreground: 224 71% 4%;        /* Near black */
+    
+    --popover: 0 0% 100%;                 /* White */
+    --popover-foreground: 224 71% 4%;     /* Near black */
+    
+    --primary: 326 100% 65%;              /* Brand pink */
+    --primary-foreground: 0 0% 100%;      /* White */
+    
+    --secondary: 220 14% 96%;             /* Light gray */
+    --secondary-foreground: 220 9% 46%;   /* Dark gray */
+    
+    --muted: 220 14% 96%;                 /* Light gray */
+    --muted-foreground: 220 9% 46%;       /* Dark gray */
+    
+    --accent: 220 14% 96%;                /* Light gray */
+    --accent-foreground: 220 9% 46%;      /* Dark gray */
+    
+    --destructive: 0 84% 60%;             /* Red */
+    --destructive-foreground: 0 0% 100%;  /* White */
+    
+    --border: 220 13% 91%;                /* Border gray */
+    --input: 220 13% 91%;                 /* Input border */
+    --ring: 326 100% 65%;                 /* Focus ring - brand pink */
+    
+    /* ===== Blog Specific ===== */
+    --blog-text: 220 9% 46%;              /* Main text color */
+    --blog-text-light: 220 9% 60%;        /* Lighter text */
+    --blog-heading: 224 71% 4%;           /* Headings */
+    --blog-link: 217 91% 60%;             /* Links - brand blue */
+    --blog-link-hover: 217 91% 50%;       /* Link hover */
+    
+    /* ===== Category Colors ===== */
+    --category-luxury: 45 93% 47%;        /* Yellow for luxury */
+    --category-midscale: 142 76% 36%;     /* Green for mid-scale */
+    --category-economy: 217 91% 60%;      /* Blue for economy */
+    --category-default: 220 9% 46%;       /* Gray for default */
+    
+    /* ===== Rating Colors ===== */
+    --rating-excellent: 142 76% 36%;      /* Green */
+    --rating-good: 45 93% 47%;            /* Yellow */
+    --rating-average: 39 100% 50%;        /* Orange */
+    --rating-poor: 0 84% 60%;             /* Red */
+    
+    /* ===== Shadows ===== */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+    
+    /* ===== Border Radius ===== */
+    --radius: 0.5rem;                     /* 8px */
+    --radius-sm: 0.25rem;                 /* 4px */
+    --radius-md: 0.375rem;                /* 6px */
+    --radius-lg: 0.75rem;                 /* 12px */
+    --radius-xl: 1rem;                    /* 16px */
+  }
+
+  /* ===== DARK THEME ===== */
+  .dark {
+    --background: 224 71% 4%;             /* Dark background */
+    --foreground: 213 31% 91%;            /* Light text */
+    
+    --card: 224 71% 4%;                   /* Dark card */
+    --card-foreground: 213 31% 91%;       /* Light text */
+    
+    --popover: 224 71% 4%;                /* Dark popover */
+    --popover-foreground: 213 31% 91%;    /* Light text */
+    
+    --primary: 326 100% 65%;              /* Keep brand pink */
+    --primary-foreground: 224 71% 4%;     /* Dark text on pink */
+    
+    --secondary: 215 28% 17%;             /* Dark gray */
+    --secondary-foreground: 213 31% 91%;  /* Light text */
+    
+    --muted: 215 28% 17%;                 /* Dark gray */
+    --muted-foreground: 217 10% 65%;      /* Muted text */
+    
+    --accent: 215 28% 17%;                /* Dark gray */
+    --accent-foreground: 213 31% 91%;     /* Light text */
+    
+    --destructive: 0 63% 31%;             /* Dark red */
+    --destructive-foreground: 213 31% 91%; /* Light text */
+    
+    --border: 215 28% 17%;                /* Dark border */
+    --input: 215 28% 17%;                 /* Dark input border */
+    --ring: 326 100% 65%;                 /* Keep pink focus ring */
+    
+    /* ===== Blog Specific Dark ===== */
+    --blog-text: 213 31% 91%;             /* Light text */
+    --blog-text-light: 217 10% 65%;       /* Muted light text */
+    --blog-heading: 213 31% 91%;          /* Light headings */
+    --blog-link: 217 91% 70%;             /* Lighter blue for dark mode */
+    --blog-link-hover: 217 91% 80%;       /* Even lighter on hover */
+  }
+}
+
+/* ===== BASE STYLES ===== */
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  
+  /* ===== Typography ===== */
+  h1, h2, h3, h4, h5, h6 {
+    color: hsl(var(--blog-heading));
+    font-family: var(--font-oswald), system-ui, sans-serif;
+  }
+  
+  p {
+    color: hsl(var(--blog-text));
+  }
+  
+  a {
+    color: hsl(var(--blog-link));
+    transition: color 0.2s ease;
+  }
+  
+  a:hover {
+    color: hsl(var(--blog-link-hover));
+  }
+  
+  /* ===== Focus Styles ===== */
+  :focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+  
+  /* ===== Selection ===== */
+  ::selection {
+    @apply bg-primary/20 text-primary-foreground;
+  }
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {

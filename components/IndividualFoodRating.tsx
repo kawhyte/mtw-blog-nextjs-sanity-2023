@@ -88,14 +88,14 @@ const individualFoodRating = ({ food }: { food: any[] }) => {
                       <Badge
                         variant="outline"
                         className={`text-sm px-3 py-1 ${
-                          calculateTextRating(dishRating).backgroundColor === 'red' ? 'border-red-500 text-red-700' :
-                          calculateTextRating(dishRating).backgroundColor === 'gray' ? 'border-gray-500 text-gray-700' :
-                          calculateTextRating(dishRating).backgroundColor === 'blue' ? 'border-blue-500 text-blue-700' :
-                          calculateTextRating(dishRating).backgroundColor === 'yellow' ? 'border-yellow-500 text-yellow-700' :
-                          calculateTextRating(dishRating).backgroundColor === 'indigo' ? 'border-indigo-500 text-indigo-700' :
-                          calculateTextRating(dishRating).backgroundColor === 'lime' ? 'border-lime-500 text-lime-700' :
-                          calculateTextRating(dishRating).backgroundColor === 'green' ? 'border-green-500 text-green-700' :
-                          'border-gray-500 text-gray-700'
+                          calculateTextRating(dishRating).backgroundColor === 'red' ? 'border-rating-poor text-rating-poor bg-rating-poor/10' :
+                          calculateTextRating(dishRating).backgroundColor === 'gray' ? 'border-muted-foreground text-muted-foreground bg-muted' :
+                          calculateTextRating(dishRating).backgroundColor === 'blue' ? 'border-brand-secondary text-brand-secondary bg-brand-secondary/10' :
+                          calculateTextRating(dishRating).backgroundColor === 'yellow' ? 'border-rating-good text-rating-good bg-rating-good/10' :
+                          calculateTextRating(dishRating).backgroundColor === 'indigo' ? 'border-brand-secondary text-brand-secondary bg-brand-secondary/10' :
+                          calculateTextRating(dishRating).backgroundColor === 'lime' ? 'border-rating-excellent text-rating-excellent bg-rating-excellent/10' :
+                          calculateTextRating(dishRating).backgroundColor === 'green' ? 'border-rating-excellent text-rating-excellent bg-rating-excellent/10' :
+                          'border-muted-foreground text-muted-foreground bg-muted'
                         }`}
                       >
                         {calculateTextRating(dishRating).textRating}

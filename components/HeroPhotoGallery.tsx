@@ -5,8 +5,8 @@ import Image from "next/image"
 import { Grid, X } from "lucide-react"
 import { useMediaQuery } from "hooks/use-media-query"
 import { urlForImage } from 'lib/sanity.image'
-// import { Button } from "@/components/ui/button"
-// import { Dialog, DialogContent } from "@/components/ui/dialog"
+import { Button } from "@/components/ui/button"
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
 
 
 interface Photo {
@@ -18,24 +18,39 @@ interface Photo {
 export default function PhotoGallery({photos}) {
   const [showAllPhotos, setShowAllPhotos] = useState(false)
   const isMobile = useMediaQuery("(max-width: 768px)")
+  
+  // Handle the photoGallerySection structure
+  const photoGallery = photos || {}
+  const mainImage = photoGallery.mainImage
+  const otherImages = photoGallery.otherImages || []
+  
+  // Create a flat array for the dialog
+  const allPhotos = []
+  if (mainImage) allPhotos.push(mainImage)
+  if (otherImages.length > 0) allPhotos.push(...otherImages)
   return (
     <>
       <div className="relative w-full">
         {/* Mobile view - single photo */}
         <div className="block md:hidden">
           <div className="relative aspect-4/3 w-full">
-            <Image
-              src={urlForImage(photos.mainImage)
-                .width(800)
-                .height(450)
-                .fit('crop')
-                .url()}
-              alt={photos.mainImage.alt}
-              fill
-              className="object-cover"
-              sizes="100vw"
-              priority
-            />
+            {mainImage ? (
+              <Image
+                src={urlForImage(mainImage)
+                  .width(800)
+                  .height(450)
+                  .fit('crop')
+                  .url()}
+                alt={mainImage?.alt || 'Gallery photo'}
+                fill
+                className="object-cover"
+                sizes="100vw"
+              />
+            ) : (
+              <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                <span className="text-gray-500">No photos available</span>
+              </div>
+            )}
             {/* <Button
               variant="secondary"
               size="sm"
@@ -43,7 +58,7 @@ export default function PhotoGallery({photos}) {
               onClick={() => setShowAllPhotos(true)}
             >
               <Grid className="h-4 w-4" />
-              Show all photos
+              Show all photoArray
             </Button> */}
           </div>
         </div>
@@ -51,31 +66,33 @@ export default function PhotoGallery({photos}) {
         {/* Desktop view - photo grid */}
         <div className="hidden md:grid md:grid-cols-4 md:grid-rows-2 md:gap-2 md:h-[438px]">
           {/* Main large photo */}
-          <div className="relative col-span-2 row-span-2">
-            <Image
-              src={urlForImage(photos.mainImage)
-                                  .width(560)
-                                  .height(438)
-                                  .fit('crop')
-                                  .url()}
-              alt={photos.mainImage.alt}
-              fill
-              className="object-cover rounded-l-xl"
-              sizes="(min-width: 768px) 50vw, 100vw"
-              priority
-            />
-          </div>
+          {mainImage && (
+            <div className="relative col-span-2 row-span-2">
+              <Image
+                src={urlForImage(mainImage)
+                  .width(560)
+                  .height(438)
+                  .fit('crop')
+                  .url()}
+                alt={mainImage.alt || 'Main gallery image'}
+                fill
+                className="object-cover rounded-l-xl"
+                sizes="(min-width: 768px) 50vw, 100vw"
+                priority
+              />
+            </div>
+          )}
 
-          {/* Top right photos */}
+          {/* Top right photoArray */}
           <div className="relative">
             <Image
-              src={urlForImage(photos.otherImages[0])
+              src={urlForImage(otherImages[0])
                 .width(300) // Recommended width
                 .height(300) // Recommended height
                 .fit('crop')
                 .auto('format')
                 .url()}
-              alt={photos.otherImages[0].alt || 'Gallery image 1'}
+              alt={otherImages[0].alt || 'Gallery image 1'}
               fill
               className="object-cover"
               sizes="(min-width: 768px) 25vw, 100vw"
@@ -83,29 +100,29 @@ export default function PhotoGallery({photos}) {
           </div>
           <div className="relative">
             <Image
-              src={urlForImage(photos.otherImages[1])
+              src={urlForImage(otherImages[1])
                 .width(300) // Recommended width
                 .height(300) // Recommended height
                 .fit('crop')
                 .auto('format')
                 .url()}
-              alt={photos.otherImages[1].alt || 'Gallery image 2'}
+              alt={otherImages[1].alt || 'Gallery image 2'}
               fill
               className="object-cover rounded-tr-xl"
               sizes="(min-width: 768px) 25vw, 100vw"
             />
           </div>
 
-          {/* Bottom right photos */}
+          {/* Bottom right photoArray */}
           <div className="relative">
             <Image
-              src={urlForImage(photos.otherImages[2])
+              src={urlForImage(otherImages[2])
                 .width(300) // Recommended width
                 .height(300) // Recommended height
                 .fit('crop')
                 .auto('format')
                 .url()}
-              alt={photos.otherImages[2].alt || 'Gallery image 3'}
+              alt={otherImages[2].alt || 'Gallery image 3'}
               fill
               className="object-cover"
               sizes="(min-width: 768px) 25vw, 100vw"
@@ -113,13 +130,13 @@ export default function PhotoGallery({photos}) {
           </div>
           <div className="relative">
             <Image
-              src={urlForImage(photos.otherImages[3])
+              src={urlForImage(otherImages[3])
                 .width(300) // Recommended width
                 .height(300) // Recommended height
                 .fit('crop')
                 .auto('format')
                 .url()}
-              alt={photos.otherImages[3].alt || 'Gallery image 4'}
+              alt={otherImages[3].alt || 'Gallery image 4'}
               fill
               className="object-cover rounded-br-xl"
               sizes="(min-width: 768px) 25vw, 100vw"
@@ -131,37 +148,42 @@ export default function PhotoGallery({photos}) {
               onClick={() => setShowAllPhotos(true)}
             >
               <Grid className="h-4 w-4" />
-              Show all photos
+              Show all photoArray
             </Button> */}
           </div>
         </div>
       </div>
 
       {/* Full photo gallery modal */}
-      {/* <Dialog open={showAllPhotos} onOpenChange={setShowAllPhotos}>
+      <Dialog open={showAllPhotos} onOpenChange={setShowAllPhotos}>
         <DialogContent className="max-w-7xl w-full p-0 h-[90vh] overflow-y-auto">
-          <div className="sticky top-0 z-10 flex justify-between items-center p-4 bg-white/90 backdrop-blur-sm">
-            <h2 className="font-semibold">All photos</h2>
+          <div className="sticky top-0 z-10 flex justify-between items-center p-4 bg-background/90 backdrop-blur-sm border-b">
+            <h2 className="text-lg font-semibold text-foreground">All Photos</h2>
             <Button variant="ghost" size="icon" onClick={() => setShowAllPhotos(false)} className="rounded-full">
               <X className="h-5 w-5" />
               <span className="sr-only">Close</span>
             </Button>
           </div>
-          <div className="p-4 grid gap-4">
-            {photos.map((photo) => (
-              <div key={photo.id} className="relative aspect-video w-full">
+          <div className="p-4 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {allPhotos.map((photo, index) => (
+              <div key={index} className="relative aspect-video w-full group">
                 <Image
-                  src={photo.src || "/placeholder.svg"}
-                  alt={photo.alt}
+                  src={urlForImage(photo).width(600).height(400).fit('crop').url()}
+                  alt={photo.alt || `Gallery image ${index + 1}`}
                   fill
-                  className="object-cover rounded-lg"
-                  sizes="(min-width: 768px) 90vw, 100vw"
+                  className="object-cover rounded-lg transition-transform group-hover:scale-105"
+                  sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                 />
+                {photo.alt && (
+                  <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white p-2 rounded-b-lg">
+                    <p className="text-sm truncate">{photo.alt}</p>
+                  </div>
+                )}
               </div>
             ))}
           </div>
         </DialogContent>
-      </Dialog> */}
+      </Dialog>
     </>
   )
 }

@@ -94,11 +94,11 @@ export default function CoverImage(props: CoverImageProps) {
               ? category && (
                 <Badge
                 className={`absolute z-30 top-10 left-3 sm:top-3 text-xs px-2 py-1 ${
-                  categoryType.color === 'blue' ? 'bg-blue-100 text-blue-800 border-blue-200' :
-                  categoryType.color === 'yellow' ? 'bg-yellow-100 text-yellow-800 border-yellow-200' :
-                  categoryType.color === 'green' ? 'bg-green-100 text-green-800 border-green-200' :
-                  categoryType.color === 'red' ? 'bg-red-100 text-red-800 border-red-200' :
-                  'bg-gray-100 text-gray-800 border-gray-200'
+                  categoryType.color === 'blue' ? 'bg-category-economy/10 text-category-economy border-category-economy/20' :
+                  categoryType.color === 'yellow' ? 'bg-category-luxury/10 text-category-luxury border-category-luxury/20' :
+                  categoryType.color === 'green' ? 'bg-category-midscale/10 text-category-midscale border-category-midscale/20' :
+                  categoryType.color === 'red' ? 'bg-error/10 text-error border-error/20' :
+                  'bg-muted text-muted-foreground border-border'
                 }`}
                 variant="outline"
               >

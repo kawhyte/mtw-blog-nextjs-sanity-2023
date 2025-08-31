@@ -8,6 +8,8 @@ import { useRouter } from 'next/router' // Import useRouter
 import type React from "react"
 import { useState, useRef, useEffect } from "react" // Added useRef, useEffect
 import { LiaBasketballBallSolid, LiaBathSolid, LiaCrownSolid } from 'react-icons/lia';
+import { SimpleThemeToggle } from '@/components/ui/theme-toggle';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -96,7 +98,8 @@ export default function Navbar() {
 
 
   return (
-    <nav className="sticky top-0 z-50 w-full bg-slate-50 shadow-sm">
+    <TooltipProvider>
+      <nav className="sticky top-0 z-50 w-full bg-slate-50 shadow-sm">
       {/* Mobile Search Overlay */}
       {isSearchOpen && (
         <form
@@ -254,6 +257,20 @@ export default function Navbar() {
           <NavItem href="/hotels" icon={<Building size={22} />} text="Hotel Reviews" />
           <NavItem href="/food" icon={<Utensils size={22} />} text="Food Reviews" />
           <NavItem href="/guides" icon={<MapPin size={22} />} text="Guides" />
+          
+          {/* Theme Toggle */}
+          <div className="ml-4">
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <div>
+                  <SimpleThemeToggle />
+                </div>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Toggle theme</p>
+              </TooltipContent>
+            </Tooltip>
+          </div>
         </div>
       </div>
 
@@ -332,6 +349,7 @@ export default function Navbar() {
         </div>
       </div>
     </nav>
+    </TooltipProvider>
   )
 }
 

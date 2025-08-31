@@ -67,7 +67,7 @@ interface DiningBadgeProps {
 // Component for displaying the dining type badge
 const DiningBadge: React.FC<DiningBadgeProps> = ({ linkType, diningType }) =>
   linkType === 'food' && diningType ? (
-    <Badge variant="default" className="bg-pink-500 hover:bg-pink-600 text-white border-pink-500 text-sm px-3 py-1">
+    <Badge variant="default" className="bg-brand-primary hover:bg-brand-primary-dark text-primary-foreground border-brand-primary text-sm px-3 py-1">
       {diningType.slice(0, 4)}-{diningType.slice(4)}
     </Badge>
   ) : null

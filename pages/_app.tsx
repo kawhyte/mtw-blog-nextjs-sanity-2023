@@ -2,6 +2,7 @@ import '../styles/globals.css';
 
 import { AppProps } from 'next/app';
 import { Inter, Oswald,Montserrat, Roboto_Mono, Space_Grotesk, Antonio } from 'next/font/google';
+import { ThemeProvider } from '@/components/theme-provider';
 
 // Define your font objects
 const inter = Inter({
@@ -40,11 +41,18 @@ const antonio = Antonio({
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="system"
+        enableSystem
+        disableTransitionOnChange
+      >
         <main
           className={`${inter.variable} ${space.variable} ${roboto_mono.variable} ${oswald.variable} ${antonio.variable}`}
         >
           <Component {...pageProps} />
         </main>
+      </ThemeProvider>
     </>
   );
 }

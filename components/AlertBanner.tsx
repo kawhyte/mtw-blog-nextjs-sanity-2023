@@ -1,7 +1,9 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 import Container from 'components/BlogContainer'
+import { Alert, AlertDescription } from '@/components/ui/alert'
+import { Info } from 'lucide-react'
 
-export default function Alert({
+export default function AlertBanner({
   preview,
   loading,
 }: {
@@ -11,19 +13,20 @@ export default function Alert({
   if (!preview) return null
 
   return (
-    <div className="border-b border-accent-7 bg-accent-7 text-black">
-      <Container>
-        <div className="py-2 text-center text-sm">
+    <Container>
+      <Alert className="my-4">
+        <Info className="h-4 w-4" />
+        <AlertDescription>
           {loading ? 'Loading... ' : 'This page is a preview. '}
           <a
             href="/api/exit-preview"
-            className="underline transition-colors duration-200 hover:text-cyan"
+            className="underline transition-colors duration-200 hover:text-brand-primary font-medium"
           >
             Click here
           </a>{' '}
           to exit preview mode.
-        </div>
-      </Container>
-    </div>
+        </AlertDescription>
+      </Alert>
+    </Container>
   )
 }
