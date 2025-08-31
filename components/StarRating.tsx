@@ -124,7 +124,7 @@ const StarRating: React.FC<StarRatingProps> = ({
       <div className="mb-8 md:mb-20 flex items-end">
         {/* Main Rating Box */}
         <div
-          className="z-30 flex h-[8rem] w-[9rem] flex-col items-center justify-center rounded-2xl border-2 bg-gray-50 p-2 shadow-md" // Added shadow
+          className="z-30 flex h-32 w-36 flex-col items-center justify-center rounded-2xl border-2 bg-gray-50 p-2 shadow-md" // Added shadow
           style={{ borderColor: color, opacity: 0.95 }} // Slightly adjusted opacity
         >
           {/* Numerical Rating */}

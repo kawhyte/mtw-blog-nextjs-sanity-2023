@@ -267,7 +267,7 @@ export default function Page(props: PageProps) {
               id="sort"
               value={sortCriteria}
               onChange={(e) => handleSort(e.target.value as SortCriteriaType)}
-              className="flex-grow appearance-none rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-700 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 md:flex-grow-0"
+              className="grow appearance-none rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-700 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 md:grow-0"
               // Disable sort dropdown only when showing 'notVisited' AND the allowed sorts aren't selected
               // Simpler: just disable if filter is 'notVisited' as sorting is forced then.
               disabled={filterCriteria === 'notVisited'}

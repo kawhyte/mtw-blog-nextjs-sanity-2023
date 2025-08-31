@@ -21,7 +21,7 @@ const navigation = [
     href: '/arenas',
     icon: <LiaBasketballBallSolid className="h-6 w-10  text-pink-500" />,
     text: 'Man walking',
-    bg: 'hover:bg-gradient-to-r from-pink-100 to-orange-100  text-white w-full  focus:decoration-orange-500/50',
+    bg: 'hover:bg-linear-to-r from-pink-100 to-orange-100  text-white w-full  focus:decoration-orange-500/50',
     current: false,
   },
   {
@@ -29,7 +29,7 @@ const navigation = [
     href: '/picks',
     icon: <LiaCrownSolid className="h-6 w-10 text-gray-700   " />,
     text: 'Book icon',
-    bg: '  hover:bg-gradient-to-r from-pink-100 to-yellow-100  focus:decoration-yellow-500/50',
+    bg: '  hover:bg-linear-to-r from-pink-100 to-yellow-100  focus:decoration-yellow-500/50',
     current: false,
   },
   {
@@ -37,7 +37,7 @@ const navigation = [
     href: '/hotel',
     icon: <LiaBathSolid className="h-6 w-10  text-gray-700" />,
     text: 'Hotel icon',
-    bg: '  hover:bg-gradient-to-r from-blue-100 to-pink-100 focus:decoration-pink-500/50',
+    bg: '  hover:bg-linear-to-r from-blue-100 to-pink-100 focus:decoration-pink-500/50',
     current: false,
   },
   {
@@ -45,7 +45,7 @@ const navigation = [
     href: '/food',
     icon: <IoRestaurantOutline className="h-6 w-10  text-gray-700" />,
     text: 'Food icon',
-    bg: '  hover:bg-gradient-to-r from-pink-100 to-green-100 focus:decoration-green-500/50',
+    bg: '  hover:bg-linear-to-r from-pink-100 to-green-100 focus:decoration-green-500/50',
     current: false,
   },
   {
@@ -53,7 +53,7 @@ const navigation = [
     href: '/guide',
     icon: <TfiMapAlt className="h-6 w-10   text-gray-700 " />,
     text: 'Book icon',
-    bg: '  hover:bg-gradient-to-r from-pink-100 to-indigo-100  text-white w-full  focus:decoration-indigo-500/50',
+    bg: '  hover:bg-linear-to-r from-pink-100 to-indigo-100  text-white w-full  focus:decoration-indigo-500/50',
     current: false,
   },
 ];
@@ -137,7 +137,7 @@ export default function Nav({ color = 'bg-black', bgColor }) {
 
               {/* <div className="">
                 <Link href="/" className="cursor-pointer" passHref legacyBehavior>
-                  <div className="flex flex-shrink-0 items-center justify-center pl-3 transition-all  hover:text-pink-500 hover:duration-150 hover:ease-in-out  ">
+                  <div className="flex shrink-0 items-center justify-center pl-3 transition-all  hover:text-pink-500 hover:duration-150 hover:ease-in-out  ">
                     <div className=" flex flex-row items-center space-x-4  ">
                       <Image
                         className="rounded-xl"

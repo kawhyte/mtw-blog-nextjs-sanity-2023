@@ -24,7 +24,7 @@ const SneakersIndexPage = ({ arenas }) => {
                 />
         </div>  
       
-      <div className="  container mx-auto mb-20   mt-44  flex rounded-xl  bg-gradient-to-r from-indigo-200 via-pink-200 to-yellow-50 md:mt-52">
+      <div className="  container mx-auto mb-20   mt-44  flex rounded-xl  bg-linear-to-r from-indigo-200 via-pink-200 to-yellow-50 md:mt-52">
      
        
         <div className="z-20 w-full px-4  py-12 text-start sm:px-6 lg:w-3/5 lg:px-8 lg:py-16">
@@ -41,7 +41,7 @@ const SneakersIndexPage = ({ arenas }) => {
             the NBA and WNBA arenas across the US and Canada. Follow us on this
             journey.
           </p>
-          <div className="lg:mt-0 lg:flex-shrink-0">
+          <div className="lg:mt-0 lg:shrink-0">
             <div className="mt-12 inline-flex ">
 
 

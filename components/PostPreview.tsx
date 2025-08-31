@@ -106,7 +106,7 @@ const PostPreview = ({
     // Main container: Removed fixed widths, added w-full, h-full, flex structure
     <div className="group z-10 flex h-full w-full  flex-col overflow-hidden rounded-3xl border-4 border-black bg-white shadow-md duration-300 dark:bg-gray-50">
       {/* Image container: Prevents shrinking */}
-      <div className="flex-shrink-0"> {/* Removed mb-5 */}
+      <div className="shrink-0"> {/* Removed mb-5 */}
         <CoverImage
           // Ensure CoverImage itself is responsive (e.g., w-full, aspect ratio)
           slug={safeSlug}
@@ -122,9 +122,9 @@ const PostPreview = ({
       </div>
 
       {/* Text content container: Takes remaining vertical space */}
-      <div className="mx-2 mb-1 flex flex-grow flex-col pb-3">
+      <div className="mx-2 mb-1 flex grow flex-col pb-3">
         {/* Title/Details section: Also grows if needed */}
-        <div className="flex-grow">
+        <div className="grow">
           <Link
             href={href}
             className={`${inter.variable} title-font font-secondary mt-3 font-light text-gray-700`}
@@ -142,7 +142,7 @@ const PostPreview = ({
             {location && (
               <div className="flex items-center gap-x-2 text-gray-500">
                 <IoLocation
-                  className="h-5 w-5 flex-shrink-0 text-pink-500"
+                  className="h-5 w-5 shrink-0 text-pink-500"
                   aria-hidden="true"
                 />
                 <p className="line-clamp-1">{location}</p>
@@ -152,7 +152,7 @@ const PostPreview = ({
             {date && (
               <div className="flex items-center gap-x-2 text-gray-500">
                 <FaRegCalendarAlt
-                  className="h-5 w-5 flex-shrink-0 text-pink-500"
+                  className="h-5 w-5 shrink-0 text-pink-500"
                   aria-hidden="true"
                 />
                 <Date dateString={date} />

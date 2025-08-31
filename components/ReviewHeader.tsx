@@ -53,7 +53,7 @@ function ReviewHeader({ title, summary, img }: ReviewHeaderProps) {
         {/* Animation Area */}
         {/* 3. Hide on small screens (hidden), show as flex container on large (lg:flex) */}
         {/* Spans full width on mobile (when visible), 2 columns on large screens */}
-        <div className="hidden items-center justify-center  min-h-[15rem] lg:col-span-2 lg:flex">
+        <div className="hidden items-center justify-center  min-h-60 lg:col-span-2 lg:flex">
           {/* Lottie Animation Wrapper */}
           {/* 4. Increased max-width for a slightly larger animation */}
           <div className="w-full max-w-md">

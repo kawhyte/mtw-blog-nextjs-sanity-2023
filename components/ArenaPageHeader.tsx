@@ -70,7 +70,7 @@ function ReviewHeader({ title, arenas, summary, animation }) {
                  src={animation}
               /></div> */}
             </div>
-            <div className="flex max-w-4xl flex-col items-center justify-center pt-8 text-center align-middle   md:items-start lg:flex-grow  ">
+            <div className="flex max-w-4xl flex-col items-center justify-center pt-8 text-center align-middle   md:items-start lg:grow  ">
              
              
              <Link href={''}> </Link>
@@ -138,7 +138,7 @@ function ReviewHeader({ title, arenas, summary, animation }) {
                           <div className=" h-3 w-full rounded-full ">
                             {/* <div className="w-full rounded-full  dark:bg-gray-200">
                               <div
-                                className="h-3  rounded-r-full bg-gradient-to-r  from-pink-200 to-pink-500 p-0 text-center text-sm font-black leading-none text-gray-600  "
+                                className="h-3  rounded-r-full bg-linear-to-r  from-pink-200 to-pink-500 p-0 text-center text-sm font-black leading-none text-gray-600  "
                                 style={{ width: `${percentage}%` }}
                               >
                         

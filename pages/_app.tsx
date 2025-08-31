@@ -1,4 +1,4 @@
-import 'tailwindcss/tailwind.css';
+import '../styles/globals.css';
 import { MantineProvider } from '@mantine/core';
 import { AppProps } from 'next/app';
 import { Inter, Oswald,Montserrat, Roboto_Mono, Space_Grotesk, Antonio } from 'next/font/google';

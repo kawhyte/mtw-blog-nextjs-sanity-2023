@@ -108,7 +108,7 @@ export default function ArenaPage({
 
 
   const headerItems = [];
-  const iconClasses = 'mr-2 h-4 w-4 flex-shrink-0 text-purple-500'; // Define common icon style
+  const iconClasses = 'mr-2 h-4 w-4 shrink-0 text-purple-500'; // Define common icon style
 
   if (arena.location) {
     headerItems.push({
@@ -198,7 +198,7 @@ export default function ArenaPage({
                   <div className="mb-8 flex items-end">
                     {/* Main Rating Box */}
                     <div
-                      className="z-30 flex h-[8rem] w-[9rem] flex-col items-center justify-center rounded-2xl border-2 bg-gray-50 p-2 shadow-md" // Added shadow
+                      className="z-30 flex h-32 w-36 flex-col items-center justify-center rounded-2xl border-2 bg-gray-50 p-2 shadow-md" // Added shadow
                       style={{ borderColor: color, opacity: 0.95 }} // Slightly adjusted opacity
                     >
                       {/* Numerical Rating */}
@@ -237,7 +237,7 @@ export default function ArenaPage({
                 {arena.gallery && arena.gallery.length > 0 && (
                   <div
                     // Consistent styling with the rating box (flex-1, rounding, border, padding, shadow, hover).
-                    className="flex h-[8rem] w-[18.2rem] flex-col rounded-lg border border-gray-200 bg-white px-6  pt-6 shadow-sm transition duration-300 ease-in-out hover:shadow-md"
+                    className="flex h-32 w-[18.2rem] flex-col rounded-lg border border-gray-200 bg-white px-6  pt-6 shadow-sm transition duration-300 ease-in-out hover:shadow-md"
                   >
                     <h2 className="title-font mb-4 text-base font-medium uppercase tracking-widest text-gray-700">
                       Arena Team(s)
@@ -258,7 +258,7 @@ export default function ArenaPage({
                                 .fit('crop')
                                 .auto('format')
                                 .url()}
-                              className="h-6 w-6 flex-shrink-0 rounded-full bg-gray-200 object-cover p-px" // Added object-cover
+                              className="h-6 w-6 shrink-0 rounded-full bg-gray-200 object-cover p-px" // Added object-cover
                               height={24}
                               width={24}
                               loading="lazy"
@@ -273,12 +273,12 @@ export default function ArenaPage({
                           {team.played === true ? (
                             <Eye
                               aria-label="Watched"
-                              className="h-4 w-4 flex-shrink-0 text-green-500"
+                              className="h-4 w-4 shrink-0 text-green-500"
                             />
                           ) : (
                             <EyeOff
                               aria-label="Not Watched"
-                              className="h-4 w-4 flex-shrink-0 text-gray-400"
+                              className="h-4 w-4 shrink-0 text-gray-400"
                             />
                           )}
                         </div>

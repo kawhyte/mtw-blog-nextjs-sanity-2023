@@ -72,7 +72,7 @@ export default function IndexPage(props: IndexPageProps) {
                 header={'Travel Gear and Gadgets'}
                 description={`Speedy thumbs up/down ratings and bite-sized, Twitter-style reviews of travel gadgets. Discover what truly enhances your adventures with our concise assessments.`}
               />
-              <div className="flex   pt-9 lg:mt-0 lg:flex-shrink-0">
+              <div className="flex   pt-9 lg:mt-0 lg:shrink-0">
                 <div className=" inline-flex px-5  ">
                   <Button
                     icon={<Plane className="text-pink-500" />}
@@ -106,7 +106,7 @@ export default function IndexPage(props: IndexPageProps) {
             )}
 
             {/* You might want a button linking to the actual paginated page */}
-            <div className="flex justify-center  pt-9 lg:mt-0 lg:flex-shrink-0">
+            <div className="flex justify-center  pt-9 lg:mt-0 lg:shrink-0">
               <div className=" inline-flex ">
                 <Button
                   icon={<BriefcaseConveyorBelt className="text-pink-500" />}
@@ -120,7 +120,7 @@ export default function IndexPage(props: IndexPageProps) {
 
           <BlogSection
             className={
-              'bg-gradient-to-r from-indigo-200 via-pink-200 to-yellow-50'
+              'bg-linear-to-r from-indigo-200 via-pink-200 to-yellow-50'
             }
           >
             <IndexTopTen />
@@ -138,7 +138,7 @@ export default function IndexPage(props: IndexPageProps) {
           {/* {arenaPosts && arenaPosts.length > 0 && (
             <BlogSection
               className={
-                'my-24 bg-gradient-to-r from-indigo-200 via-pink-200 to-yellow-50 md:mt-24'
+                'my-24 bg-linear-to-r from-indigo-200 via-pink-200 to-yellow-50 md:mt-24'
               }
             >
               <ArenasIndexPage arenas={arenaPosts.slice(0, 8)} />

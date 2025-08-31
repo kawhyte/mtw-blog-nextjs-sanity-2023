@@ -60,7 +60,7 @@ function ProConList({ positives, negatives, verdict2 }: ProConListProps) {
                         {Array.isArray(positives) && positives.map((positive, index) => (
                           <li key={`pro-${index}`} className=" my-3 text-sm leading-loose md:text-base">
                             <div className="flex items-baseline ">
-                              <div className="mr-2 inline-flex flex-shrink-0 items-center justify-center pt-0.5 text-green-500">
+                              <div className="mr-2 inline-flex shrink-0 items-center justify-center pt-0.5 text-green-500">
                                 <CircleCheckBig className="h-5 w-5 " /> 
                               </div>
                               <p className="">{positive}</p>
@@ -92,8 +92,8 @@ function ProConList({ positives, negatives, verdict2 }: ProConListProps) {
                         {Array.isArray(negatives) && negatives.map((negative, index) => (
                           <li key={`neg-${index}`} className=" my-3 text-sm leading-loose md:text-base">
                             <div className="flex items-baseline ">
-                              <div className="mr-2 inline-flex flex-shrink-0 items-center justify-center pt-0.5  text-red-500">
-                                <CircleX className="h-5 w-5 " /> {/* Added flex-shrink-0 */}
+                              <div className="mr-2 inline-flex shrink-0 items-center justify-center pt-0.5  text-red-500">
+                                <CircleX className="h-5 w-5 " /> {/* Added shrink-0 */}
                               </div>
                               <p className="">{negative}</p>
                             </div>

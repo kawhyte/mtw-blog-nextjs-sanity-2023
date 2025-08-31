@@ -139,7 +139,7 @@ export default function PostHeader({
   tip,
 }: PostHeaderProps) {
   const headerItems = []
-  const iconClasses = 'mr-2 h-4 w-4 flex-shrink-0 text-purple-500' // Define common icon style
+  const iconClasses = 'mr-2 h-4 w-4 shrink-0 text-purple-500' // Define common icon style
 
   if (location) {
     headerItems.push({

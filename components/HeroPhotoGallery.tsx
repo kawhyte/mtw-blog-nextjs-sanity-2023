@@ -23,7 +23,7 @@ export default function PhotoGallery({photos}) {
       <div className="relative w-full">
         {/* Mobile view - single photo */}
         <div className="block md:hidden">
-          <div className="relative aspect-[4/3] w-full">
+          <div className="relative aspect-4/3 w-full">
             <Image
               src={urlForImage(photos.mainImage)
                 .width(800)
@@ -149,7 +149,7 @@ export default function PhotoGallery({photos}) {
           </div>
           <div className="p-4 grid gap-4">
             {photos.map((photo) => (
-              <div key={photo.id} className="relative aspect-[16/9] w-full">
+              <div key={photo.id} className="relative aspect-video w-full">
                 <Image
                   src={photo.src || "/placeholder.svg"}
                   alt={photo.alt}

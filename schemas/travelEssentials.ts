@@ -158,9 +158,9 @@ export default defineType({
     //   validation: (Rule) => Rule.required(),
     //   options: {
     //     list: [
-    //       { title: 'Blue Gradient Background 🔵', value: 'bg-gradient-to-r from-blue-200 via-pink-50 to-green-50' },
-    //       { title: 'Green Gradient Background 🟢', value: 'bg-gradient-to-r from-green-200 via-indigo-200 to-pink-50' },
-    //       { title: 'Indigo Gradient Background 🟣', value: 'bg-gradient-to-r from-indigo-200 via-pink-200 to-yellow-50' },
+    //       { title: 'Blue Gradient Background 🔵', value: 'bg-linear-to-r from-blue-200 via-pink-50 to-green-50' },
+    //       { title: 'Green Gradient Background 🟢', value: 'bg-linear-to-r from-green-200 via-indigo-200 to-pink-50' },
+    //       { title: 'Indigo Gradient Background 🟣', value: 'bg-linear-to-r from-indigo-200 via-pink-200 to-yellow-50' },
     //       //{ title: 'Pink 👛 (#fce7f3)', value: 'bg-pink-50' },
     //       //{ title: 'Gray 🩶  (#dbeafe)', value: 'bg-gray-100' },
     //       // { title: 'Orange 🟠 (#ffedd5)', value: 'bg-orange-50' },

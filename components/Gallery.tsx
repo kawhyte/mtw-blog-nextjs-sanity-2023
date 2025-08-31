@@ -113,7 +113,7 @@ function Gallery({ posts, heading }: GalleryProps) {
                      </span>
                    )}
                      {/* Example of overlay caption on hover
-                      <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/60 to-transparent p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                      <div className="absolute inset-0 flex items-end bg-linear-to-t from-black/60 to-transparent p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                          <span className="text-xs font-medium text-white sm:text-sm">
                            {item.alt}
                         </span>

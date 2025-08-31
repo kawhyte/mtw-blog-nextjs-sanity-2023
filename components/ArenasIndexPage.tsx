@@ -25,7 +25,7 @@ const ArenasIndexPage = ({ arenas }) => {
             <p
               className={` ${inter.variable} font-secondary mt-4 text-sm leading-relaxed md:text-base  lg:text-base `}
             ></p>
-            <div className="lg:mt-0 lg:flex-shrink-0">
+            <div className="lg:mt-0 lg:shrink-0">
               <div className="mt-6 inline-flex ">
                 <Button icon={<LiaBasketballBallSolid className="h-7 w-8  text-pink-500" />} link={'/arenas'}>View Our Journey</Button>
               </div>

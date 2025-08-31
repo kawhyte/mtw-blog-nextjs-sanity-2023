@@ -18,7 +18,7 @@ const FeatureItem: React.FC<FeatureItemProps> = ({ label, isAvailable, details }
   return (
     <div className="flex items-baseline"> {/* Use items-baseline for better alignment */}
       {/* Icon Wrapper */}
-      <div className={`mr-2 inline-flex flex-shrink-0 items-center justify-center pt-0.5 ${iconColor}`}>
+      <div className={`mr-2 inline-flex shrink-0 items-center justify-center pt-0.5 ${iconColor}`}>
         <IconComponent className="h-5 w-5" />
       </div>
       {/* Label and Details */}

@@ -87,7 +87,7 @@ const TravelEssentialLayout = ({ posts }: { posts: Essential[] }) => {
 
 
             {/* Content Section - Takes remaining space */}
-            <div className="flex flex-col flex-grow p-4 bg-gray-50"> {/* Added padding */}
+            <div className="flex flex-col grow p-4 bg-gray-50"> {/* Added padding */}
               {/* Product Name */}
               <h1 className=" text-base md:text-lg font-semibold text-gray-800 mb-2 font-montserrat line-clamp-2">
                 {item.name}
@@ -95,20 +95,20 @@ const TravelEssentialLayout = ({ posts }: { posts: Essential[] }) => {
 
               {/* Date and Price Info */}
               <div className="flex items-center text-xs md:text-sm text-gray-500 mb-1">
-                <Calendar className="mr-1.5 h-4 w-4 text-pink-500 flex-shrink-0" />
+                <Calendar className="mr-1.5 h-4 w-4 text-pink-500 shrink-0" />
                 <span> {/* Wrap text for better alignment if it wraps */}
                    Reviewed on <PostDate dateString={item.date} />
                 </span>
               </div>
               <div className="flex items-center  text-xs md:text-sm text-gray-500 mb-3">
-                 <CircleDollarSign className='text-pink-500 mr-1.5 h-4 w-4 flex-shrink-0' />
+                 <CircleDollarSign className='text-pink-500 mr-1.5 h-4 w-4 shrink-0' />
                  <span className='font-semibold'> {/* Wrap text */}
                    {item.price > 0 ? `${item.price.toFixed(2)}` : 'FREE'}
                  </span>
               </div>
 
                {/* Description - takes available space before button */}
-               <div className=" text-xs md:text-sm text-gray-600 mb-4 flex-grow min-h-[40px]"> {/* Added min-height */}
+               <div className=" text-xs md:text-sm text-gray-600 mb-4 grow min-h-[40px]"> {/* Added min-height */}
                 {/* Limit description lines */}
                  <div className="line-clamp-3">
                    <PostBody content={item.description} />

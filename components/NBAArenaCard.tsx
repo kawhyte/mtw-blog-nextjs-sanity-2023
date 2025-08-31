@@ -100,7 +100,7 @@ const Arenas = ({
             <div className="mt-2  flex flex-col gap-2 sm:flex-row sm:items-center md:flex-col md:items-start">
               {/* Child 1: Location */}
               <div className="flex items-center gap-x-2 text-gray-500">
-                <MapPin className="h-5 w-5 flex-shrink-0 text-gray-500" />
+                <MapPin className="h-5 w-5 shrink-0 text-gray-500" />
                 <p className="text-xs">{location}</p>
               </div>
 

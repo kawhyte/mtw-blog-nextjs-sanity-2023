@@ -27,7 +27,7 @@ function Hero() {
 
   return (
     <>
-      <section className="body-font container mx-auto text-gray-600 max-w-[81rem] relative">
+      <section className="body-font container mx-auto text-gray-600 max-w-324 relative">
         <div className="container mx-auto flex flex-col justify-between pt-12 md:flex-row">
           <div className="flex flex-col mx-6 md:mx-0 sm:mb-0 md:pl-8 xl:mb-0 xl:w-full xl:items-start xl:pr-16 xl:text-left 2xl:pr-5 ">
             <div
@@ -45,7 +45,7 @@ function Hero() {
             We&apos;re hitting the road (like, seriously hitting all the roads!) to check out and rank every single NBA and WNBA arena across the US and Canada. Buckle up and follow our adventure!
             </p>
 
-            <div className="flex pt-9 lg:mt-0 lg:flex-shrink-0">
+            <div className="flex pt-9 lg:mt-0 lg:shrink-0">
               <div className="inline-flex">
                 <Button
                   icon={<LiaBasketballBallSolid className="h-7 w-8 text-pink-500" />}

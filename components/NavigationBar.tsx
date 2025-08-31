@@ -125,7 +125,7 @@ export default function Navbar() {
         </form>
       )}
 
-      <div className="mx-auto flex max-w-[99rem] items-center justify-between px-4 py-3">
+      <div className="mx-auto flex max-w-396 items-center justify-between px-4 py-3">
         {/* Logo */}
         <div className="flex items-center">
           <Link href="/" className="flex items-center">
@@ -197,7 +197,7 @@ export default function Navbar() {
                   type="button"
                   onClick={togglePicksDropdown}
                   className={cn(
-                      "relative flex flex-col items-center rounded-md px-3 py-2 text-sm font-medium text-gray-700 transition-colors duration-200 ease-in-out hover:bg-gradient-to-r from-pink-100 to-orange-100",
+                      "relative flex flex-col items-center rounded-md px-3 py-2 text-sm font-medium text-gray-700 transition-colors duration-200 ease-in-out hover:bg-linear-to-r from-pink-100 to-orange-100",
                       // Add active state based on if a child route is active or dropdown is open
                       {
                         "text-purple-600": isPicksDropdownOpen || router.pathname.startsWith('/top-hotel-picks') || router.pathname.startsWith('/top-restaurant-picks'),
@@ -346,7 +346,7 @@ function NavItem({ href, icon, text }: { href: string; icon: React.ReactNode; te
    <Link
      href={href}
      className={cn(
-       "relative flex flex-col items-center rounded-md px-3 py-2 text-sm font-medium text-gray-700 transition-colors duration-200 ease-in-out hover:bg-gradient-to-r from-pink-100 to-orange-100",
+       "relative flex flex-col items-center rounded-md px-3 py-2 text-sm font-medium text-gray-700 transition-colors duration-200 ease-in-out hover:bg-linear-to-r from-pink-100 to-orange-100",
        {
          "text-purple-600": isActive, // Highlight if directly active
        }
