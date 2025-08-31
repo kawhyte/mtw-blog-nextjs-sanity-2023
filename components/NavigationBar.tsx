@@ -137,6 +137,7 @@ export default function Navbar() {
                           alt="MTW icon"
                           width={45}
                           height={45}
+                          priority
                         />
                         </span>
             </div>
