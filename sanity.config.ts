@@ -12,6 +12,7 @@ import { settingsPlugin, settingsStructure } from 'plugins/settings'
 import { defineConfig } from 'sanity'
 import { deskTool } from 'sanity/desk'
 import { unsplashImageAsset } from 'sanity-plugin-asset-source-unsplash'
+import { media } from 'sanity-plugin-media'
  import arenaReviewType from 'schemas/arenaReview'
 // import amenitiesType from 'schemas/amenities'
 //  import authorType from 'schemas/author'
@@ -50,7 +51,7 @@ export default defineConfig({
   plugins: [
     deskTool({
       structure: settingsStructure(settingsType),
-      // `defaultDocumentNode` is responsible for adding a “Preview” tab to the document pane
+      // `defaultDocumentNode` is responsible for adding a "Preview" tab to the document pane
       defaultDocumentNode: previewDocumentNode({ apiVersion, previewSecretId }),
     }),
     // Configures the global "new document" button, and document actions, to suit the Settings document singleton
@@ -63,6 +64,9 @@ export default defineConfig({
     }),
     // Add an image asset source for Unsplash
     unsplashImageAsset(),
+    // Enhanced Media Management - Browse, manage and refine your Sanity assets
+    // Provides both a standalone media browser and enhanced asset selection
+    media(),
     // Vision lets you query your content with GROQ in the studio
     // https://www.sanity.io/docs/the-vision-plugin
     visionTool({ defaultApiVersion: apiVersion }),
