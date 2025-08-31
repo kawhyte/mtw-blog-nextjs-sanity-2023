@@ -27,27 +27,27 @@ function Hero() {
 
   return (
     <>
-      <section className="body-font container mx-auto text-gray-600 max-w-324 relative">
+      <section className="body-font container mx-auto text-gray-900 max-w-324 relative">
         <div className="container mx-auto flex flex-col justify-between pt-12 md:flex-row">
         <div className="flex flex-col mx-6 md:mx-0 sm:mb-0 md:pl-8 xl:mb-0 xl:w-full xl:items-start xl:pr-16 xl:text-left 2xl:pr-5">
   {/* Hero Headline */}
   <div className="flex flex-col mx-6 md:mx-0 md:pl-8 xl:w-full xl:items-start xl:pr-16 2xl:pr-5">
   {/* Hero Headline */}
   <div
-    className={`${montserrat.variable} font-adventure-heading z-30 mb-12 flex flex-col font-extrabol uppercase leading-tight tracking-tight text-blog-heading space-y-0.5 lg:w-10/12 font-adventure-heading capitalize text-adventure-subtitle z-10 py-2 text-left text-blog-heading`}
+    className={`${montserrat.variable} font-adventure-heading z-30 mb-12 flex flex-col font-extrabol uppercase leading-tight tracking-tight text-blog-heading space-y-0.5 lg:w-10/12 font-adventure-heading text-adventure-subtitle py-2 text-left text-blog-heading`}
   >
-    <p className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[5rem]">
+    <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[5rem]">
       Our Quest
-    </p>
-    <p className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[5rem]">
+    </h1>
+    <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[5rem]">
       to Visit Every
-    </p>
-    <p className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[5rem] text-pink-500 drop-shadow-lg">
+    </h1>
+    <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[5rem] text-pink-500 drop-shadow-lg">
       NBA & WNBA
-    </p>
-    <p className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[5rem]">
+    </h1>
+    <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[5rem]">
       Arena
-    </p>
+    </h1>
   </div>
 
   {/* Hero Subtext */}
