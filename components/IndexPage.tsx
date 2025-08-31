@@ -57,7 +57,7 @@ export default function IndexPage(props: IndexPageProps) {
         <Head>
           <title>{CMS_NAME}</title>
         </Head>
-        {/* Removed BlogHeader, assuming Hero covers this */}
+    
         <BlogHeader title={title} description={description} level={1} />
         <Container>
           <Hero />
