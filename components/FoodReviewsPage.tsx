@@ -1,19 +1,21 @@
 
 
 import Container from 'components/BlogContainer';
-import BlogHeader from 'components/BlogHeader'; // Maybe remove if ReviewHeader is enough
+import BlogHeader from 'components/BlogHeader';
 import Layout from 'components/BlogLayout';
 import IndexPageHead from 'components/IndexPageHead';
-import MoreStories from 'components/MoreStories'; // Import the updated MoreStories
 import * as demo from 'lib/demo.data';
 import type { FoodReview, Settings } from 'lib/sanity.queries';
 import Head from 'next/head';
+import { useState, useEffect } from 'react';
+import useSWR from 'swr';
+import { getPaginatedFoodPosts } from 'lib/sanity.client';
+import PaginationComponent from './PaginationComponent';
 import PostPreview from './PostPreview';
 
 import { CMS_NAME } from '../lib/constants';
 import Footer from './Footer';
 import ReviewHeader from './ReviewHeader';
-
 
 export interface FoodReviewsPageProps {
   preview?: boolean;
@@ -24,7 +26,6 @@ export interface FoodReviewsPageProps {
   settings: Settings;
 }
 
-// --- Renamed Component ---
 export default function FoodReviewsPage(props: FoodReviewsPageProps) {
   const {
     preview,
@@ -33,11 +34,30 @@ export default function FoodReviewsPage(props: FoodReviewsPageProps) {
     totalPostsCount,
     itemsPerPage,
     settings,
-   } = props;
+  } = props;
 
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const [posts, setPosts] = useState(initialPosts);
 
   const { title = demo.title, description = demo.description } = settings || {};
+
+  const { data, error } = useSWR(
+    [currentPage, itemsPerPage],
+    ([page, limit]) => getPaginatedFoodPosts((page - 1) * limit, page * limit),
+    {
+      fallbackData: currentPage === 1 ? initialPosts : undefined,
+    }
+  );
+
+  useEffect(() => {
+    if (data) {
+      setPosts(data as FoodReview[]);
+    }
+  }, [data]);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
 
   return (
     <>
@@ -45,28 +65,24 @@ export default function FoodReviewsPage(props: FoodReviewsPageProps) {
 
       <Layout preview={preview} loading={loading}>
         <Head>
-           {/* Update title */}
           <title>{`Food Reviews - ${CMS_NAME}`}</title>
         </Head>
 
-      
         <BlogHeader title={title} description={description} level={1} />
 
         <ReviewHeader
           title={'Food Reviews'}
-       
           summary={
             "Join us on a culinary adventure as we explore the best (and sometimes, the worst) eateries in town. From hidden gems to fancy hotspots, We’ll dish out honest reviews, mouthwatering photos, and insider tips. Let's eat!"
           }
-          img={'/food.json'} 
+          img={'/food.json'}
         />
 
-        {/* Food Reviews Grid using PostPreview */}
         <Container>
           <div className="my-10">
-            {initialPosts && initialPosts.length > 0 ? (
+            {posts && posts.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {initialPosts.map((foodReview) => (
+                {posts.map((foodReview) => (
                   <PostPreview
                     key={foodReview._id}
                     title={foodReview.title}
@@ -87,6 +103,12 @@ export default function FoodReviewsPage(props: FoodReviewsPageProps) {
               <p className="text-center my-10">No food reviews found. Loading: {loading ? 'Yes' : 'No'}</p>
             )}
           </div>
+          <PaginationComponent
+            totalItems={totalPostsCount}
+            itemsPerPage={itemsPerPage}
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+          />
         </Container>
       </Layout>
       <Footer />
