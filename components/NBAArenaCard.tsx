@@ -1,4 +1,4 @@
-import { Skeleton } from '@mantine/core'
+import { Skeleton } from '@/components/ui/skeleton'
 import RatingBadge from './RatingBadge'
 import { urlForImage } from 'lib/sanity.image'
 import { CalendarCheck, MapPin } from 'lucide-react'
@@ -65,10 +65,7 @@ const Arenas = ({
               color={ratingColor}
             />
           ) : null}
-          <Skeleton
-            visible
-            className="absolute inset-0 h-full w-full rounded-md"
-          />
+          <Skeleton className="absolute inset-0 h-full w-full rounded-md" />
 
           <Image
             src={

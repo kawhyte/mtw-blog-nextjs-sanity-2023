@@ -1,4 +1,4 @@
-import { Badge, Blockquote, Flex, Text } from '@mantine/core'
+import { Badge } from '@/components/ui/badge'
 import { inter, oswald } from 'app/fonts'
 import Date from 'components/PostDate'
 import type { Post } from 'lib/sanity.queries'
@@ -26,14 +26,14 @@ interface PostMetaItemProps {
 
 // Reusable component for displaying post meta information
 const PostMetaItem: React.FC<PostMetaItemProps> = ({ icon: Icon, text }) => (
-  <Flex align="center" className="text-gray-700 md:text-left">
+  <div className="flex items-center text-gray-700 md:text-left">
     <Icon className="mr-2 h-4 w-4 text-pink-500 md:h-5 md:w-5" />
     {text && (
-      <Text size="sm" transform="capitalize" truncate>
+      <span className="text-sm capitalize truncate">
         {text}
-      </Text>
+      </span>
     )}
-  </Flex>
+  </div>
 )
 
 // Type for props related to location/category
@@ -67,7 +67,7 @@ interface DiningBadgeProps {
 // Component for displaying the dining type badge
 const DiningBadge: React.FC<DiningBadgeProps> = ({ linkType, diningType }) =>
   linkType === 'food' && diningType ? (
-    <Badge color="pink" variant="filled" size="lg">
+    <Badge variant="default" className="bg-pink-500 hover:bg-pink-600 text-white border-pink-500 text-sm px-3 py-1">
       {diningType.slice(0, 4)}-{diningType.slice(4)}
     </Badge>
   ) : null
@@ -91,12 +91,11 @@ interface QuickTipProps {
 const QuickTip: React.FC<QuickTipProps> = ({ tip }) =>
   tip && (
     <div className="max-w-4xl rounded-lg border-l-4 border-green-500 bg-green-100 p-4 text-gray-600">
-      <Text
-        component="p"
+      <p
         className={`${oswald.variable} font-heading mb-2 text-2xl font-bold md:text-left md:leading-none lg:text-2xl`}
       >
         Quick Tip
-      </Text>
+      </p>
       <PostBody content={tip} />
     </div>
   )

@@ -1,4 +1,4 @@
-import { Progress } from '@mantine/core'; // Note: Progress is imported but not used in the provided JSX
+import { Progress } from '@/components/ui/progress'; // Note: Progress is imported but not used in the provided JSX
 import { inter, oswald } from 'app/fonts'; // Ensure fonts are correctly configured
 import { urlForImage } from 'lib/sanity.image'; // Note: urlForImage is imported but not used
 import Image from 'next/image'; // Note: Image is imported but not used

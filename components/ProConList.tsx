@@ -1,4 +1,4 @@
-import { Spoiler } from '@mantine/core';
+import { Spoiler } from '@/components/ui/spoiler';
 
 import React from 'react';
 

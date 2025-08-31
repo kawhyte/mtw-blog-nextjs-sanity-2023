@@ -1,4 +1,4 @@
-import { Progress } from '@mantine/core'
+import { Progress } from '@/components/ui/progress'
 import { urlForImage } from 'lib/sanity.image'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -130,7 +130,7 @@ function ReviewHeader({ title, arenas, summary, animation }) {
                           </span>
                         </div>
                         {/* <div className=""> 
-                        <Progress value={parseInt(percentage)} animate  />
+                        <Progress value={parseInt(percentage)} className="h-2" />
                         <div className='text-xs'> {percentage}%</div> 
 
 </div> */}
@@ -147,11 +147,8 @@ function ReviewHeader({ title, arenas, summary, animation }) {
                               </div>
                             </div> */}
                             <Progress
-                              color="rgba(255, 79, 208, 0.95)"
-                              radius="lg"
-                              size="lg"
                               value={parseInt(percentage)}
-                              animate
+                              className="h-4 rounded-lg bg-gray-200"
                             />
                           </div>
                           <div className="text-xs"> {percentage}%</div>

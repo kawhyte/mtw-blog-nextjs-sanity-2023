@@ -1,5 +1,5 @@
 import '../styles/globals.css';
-import { MantineProvider } from '@mantine/core';
+
 import { AppProps } from 'next/app';
 import { Inter, Oswald,Montserrat, Roboto_Mono, Space_Grotesk, Antonio } from 'next/font/google';
 
@@ -43,9 +43,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <main
           className={`${inter.variable} ${space.variable} ${roboto_mono.variable} ${oswald.variable} ${antonio.variable}`}
         >
-      <MantineProvider>
           <Component {...pageProps} />
-      </MantineProvider>
         </main>
     </>
   );

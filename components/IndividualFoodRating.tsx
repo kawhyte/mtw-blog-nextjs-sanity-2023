@@ -1,5 +1,5 @@
 // import { webp } from '@cloudinary/url-gen/qualifiers/format'
-import { Badge } from '@mantine/core'
+import { Badge } from '@/components/ui/badge'
 import { calculateTextRating } from 'lib/calculateTextRating'
 import { urlForImage } from 'lib/sanity.image'
 import { Oswald } from 'next/font/google'
@@ -87,8 +87,16 @@ const individualFoodRating = ({ food }: { food: any[] }) => {
 
                       <Badge
                         variant="outline"
-                        color={calculateTextRating(dishRating).backgroundColor}
-                        size="lg"
+                        className={`text-sm px-3 py-1 ${
+                          calculateTextRating(dishRating).backgroundColor === 'red' ? 'border-red-500 text-red-700' :
+                          calculateTextRating(dishRating).backgroundColor === 'gray' ? 'border-gray-500 text-gray-700' :
+                          calculateTextRating(dishRating).backgroundColor === 'blue' ? 'border-blue-500 text-blue-700' :
+                          calculateTextRating(dishRating).backgroundColor === 'yellow' ? 'border-yellow-500 text-yellow-700' :
+                          calculateTextRating(dishRating).backgroundColor === 'indigo' ? 'border-indigo-500 text-indigo-700' :
+                          calculateTextRating(dishRating).backgroundColor === 'lime' ? 'border-lime-500 text-lime-700' :
+                          calculateTextRating(dishRating).backgroundColor === 'green' ? 'border-green-500 text-green-700' :
+                          'border-gray-500 text-gray-700'
+                        }`}
                       >
                         {calculateTextRating(dishRating).textRating}
                       </Badge>

@@ -1,5 +1,5 @@
 // pages/search.js
-import { Pagination } from '@mantine/core'; // Import Mantine Pagination
+import { PaginationWrapper as Pagination } from '@/components/ui/pagination-wrapper';
 import Container from 'components/BlogContainer';
 import BlogHeader from 'components/BlogHeader';
 import Layout from 'components/BlogLayout';
@@ -162,21 +162,10 @@ const SearchResults = (props: PageProps) => {
                 <Pagination
                   total={totalPages}
                   value={activePage}
-                  onChange={setPage} // Use the state setter directly
+                  onChange={setPage}
                   position="center"
                   size="lg"
-                  pt={10}
-                  styles={(theme) => ({
-                    control: {
-                      '&[data-active]': {
-                        backgroundImage: theme.fn.gradient({
-                          from: 'pink',
-                          to: 'pink',
-                        }),
-                        border: 0,
-                      },
-                    },
-                  })}
+                  className="pt-10"
                 />
               </div>
             )}

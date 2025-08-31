@@ -1,5 +1,5 @@
-import { Pagination } from '@mantine/core';
-import { Loader } from '@mantine/core';
+import { PaginationWrapper as Pagination } from '@/components/ui/pagination-wrapper';
+import { Loader } from '@/components/ui/loader';
 import PostPreview from 'components/PostPreview';
 import { client } from 'lib/sanity.client';
 // Import the base Post type which should cover common fields for Hotel, Food, Guide
@@ -97,7 +97,7 @@ export default function MoreStories({
       return (
           <section className="container mx-auto mt-2">
               <div className="flex justify-center items-center py-20">
-                  <Loader size="xl" />
+                  <Loader size="lg" />
               </div>
           </section>
       )
@@ -167,18 +167,7 @@ export default function MoreStories({
             onChange={handlePageChange}
             position="center"
             size="lg"
-            pt={10}
-            styles={(theme) => ({
-              control: {
-                '&[data-active]': {
-                  backgroundImage: theme.fn.gradient({
-                    from: 'pink', // Consider theme variables
-                    to: 'pink',
-                  }),
-                  border: 0,
-                },
-              },
-            })}
+            className="pt-10"
           />
         </div>
       )}

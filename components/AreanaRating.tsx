@@ -1,4 +1,5 @@
-import { Badge, Progress } from '@mantine/core'
+import { Badge } from '@/components/ui/badge'
+import { Progress } from '@/components/ui/progress'
 import React from 'react'
 
 import ProgressRating from './ProgressRating'

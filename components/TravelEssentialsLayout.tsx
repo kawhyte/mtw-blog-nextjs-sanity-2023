@@ -1,4 +1,4 @@
-import { Badge } from '@mantine/core' // Keep Mantine Badge as you're using it
+import { Badge } from '@/components/ui/badge'
 // Removed Mantine Card, Group, Text, Image as we'll use divs and next/image primarily
 // import { oswald } from 'app/fonts' // Keep if used elsewhere, otherwise optional for this component
 import { urlForImage } from 'lib/sanity.image'
@@ -55,31 +55,19 @@ const TravelEssentialLayout = ({ posts }: { posts: Essential[] }) => {
                <div className="absolute top-3 left-3 z-10">
                  {item.recommend ? (
                    <Badge
-                     pl={0}
-                     size="sm"
-                     color="green"
-                     variant="filled" // Using filled variant
-                     radius="xl"
-                     className="shadow-md" // Added shadow for visibility
-                     leftSection={
-                       <ThumbsUp className="ml-1 h-4 w-4" /> // Adjusted icon size
-                     }
+                     variant="default"
+                     className="shadow-md bg-green-500 hover:bg-green-600 text-white border-green-500"
                    >
+                     <ThumbsUp className="mr-1 h-3 w-3" />
                      Loved it
                    </Badge>
                  ) : (
                    <Badge
-                     pl={0}
-                     size="sm"
-                     color="red"
-                     variant="filled" // Using filled variant
-                     radius="xl"
-                     className="shadow-md" // Added shadow for visibility
-                     leftSection={
-                       <ThumbsDown className="ml-1 h-4 w-4" /> // Adjusted icon size
-                     }
+                     variant="default"
+                     className="shadow-md bg-red-500 hover:bg-red-600 text-white border-red-500"
                    >
-                     Hated it {/* Or "Not Recommended" */}
+                     <ThumbsDown className="mr-1 h-3 w-3" />
+                     Hated it
                    </Badge>
                  )}
                </div>

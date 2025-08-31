@@ -1,15 +1,7 @@
 // import { AdvancedImage } from '@cloudinary/react'
 // import { Cloudinary } from '@cloudinary/url-gen'
-import {
-  ActionIcon,
-  Badge,
-  Button,
-  Card,
-  Group,
-  Skeleton,
-  Text,
-  Title,
-} from '@mantine/core'
+import { Badge } from '@/components/ui/badge'
+import { Skeleton } from '@/components/ui/skeleton'
 import cn from 'classnames'
 import { ca } from 'date-fns/locale'
 import { calculateRating } from 'lib/calculateRating'
@@ -64,7 +56,7 @@ export default function CoverImage(props: CoverImageProps) {
 
   const image = source?.asset?._ref ? (
     <div className="relative md:h-[219px] md:w-[350px]">
-      <Skeleton visible className="absolute inset-0 h-full w-full rounded-md" />
+      <Skeleton className="absolute inset-0 h-full w-full rounded-md" />
       <Image
         className={cn('w-full object-cover object-center brightness-[0.85]', {
           '	relative z-20   transition-all  ': slug,
@@ -101,14 +93,14 @@ export default function CoverImage(props: CoverImageProps) {
             {linkType === 'hotel'
               ? category && (
                 <Badge
-                // Use object notation for the size prop for responsiveness:
-                // - 'sm' (small) size for the base breakpoint (mobile)
-                // - 'lg' (large) size starting from the 'lg' breakpoint (large screens)
-                size="sm"
-                // Removed py-2 class - let the Mantine size prop control padding
-                className="absolute z-30 top-10 left-3 sm:top-3 " // Kept positioning classes
-                color={categoryType.color}
-                variant={categoryType.variant}
+                className={`absolute z-30 top-10 left-3 sm:top-3 text-xs px-2 py-1 ${
+                  categoryType.color === 'blue' ? 'bg-blue-100 text-blue-800 border-blue-200' :
+                  categoryType.color === 'yellow' ? 'bg-yellow-100 text-yellow-800 border-yellow-200' :
+                  categoryType.color === 'green' ? 'bg-green-100 text-green-800 border-green-200' :
+                  categoryType.color === 'red' ? 'bg-red-100 text-red-800 border-red-200' :
+                  'bg-gray-100 text-gray-800 border-gray-200'
+                }`}
+                variant="outline"
               >
                 {categoryType.name}
               </Badge>
