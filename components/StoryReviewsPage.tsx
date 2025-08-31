@@ -1,43 +1,61 @@
-// Assuming this file is components/StoryGuidePage.tsx (or similar, based on usage)
-// Renamed from guides.tsx conceptually if desired
-
 import Container from 'components/BlogContainer';
-import BlogHeader from 'components/BlogHeader'; // Keep or remove as needed
+import BlogHeader from 'components/BlogHeader';
 import Layout from 'components/BlogLayout';
 import IndexPageHead from 'components/IndexPageHead';
-import MoreStories from 'components/MoreStories'; // Import the generic MoreStories
 import * as demo from 'lib/demo.data';
 import type { Guide, Settings } from 'lib/sanity.queries';
 import Head from 'next/head';
+import { useState, useEffect } from 'react';
+import useSWR from 'swr';
+import { getPaginatedGuidePosts } from 'lib/sanity.client';
+import PaginationComponent from './PaginationComponent';
 import PostPreview from './PostPreview';
 
 import { CMS_NAME } from '../lib/constants';
 import Footer from './Footer';
 import ReviewHeader from './ReviewHeader';
-import PaginationComponent from './PaginationComponent';
 
-
-export interface StoryGuidePageProps {
+export interface StoryReviewsPageProps {
   preview?: boolean;
   loading?: boolean;
   initialPosts: Guide[];
+  totalPostsCount: number;
+  itemsPerPage: number;
   settings: Settings;
 }
 
-// --- Renamed Component ---
-export default function StoryGuidePage(props: StoryGuidePageProps) {
+export default function StoryReviewsPage(props: StoryReviewsPageProps) {
   const {
     preview,
     loading,
     initialPosts,
+    totalPostsCount,
+    itemsPerPage,
     settings,
-   } = props;
+  } = props;
 
-  
+  const [currentPage, setCurrentPage] = useState(1);
+  const [posts, setPosts] = useState(initialPosts);
 
   const { title = demo.title, description = demo.description } = settings || {};
 
+  const { data, error } = useSWR(
+    [currentPage, itemsPerPage],
+    ([page, limit]) => getPaginatedGuidePosts((page - 1) * limit, page * limit),
+    {
+      fallbackData: currentPage === 1 ? initialPosts : undefined,
+    }
+  );
 
+  useEffect(() => {
+    if (data) {
+      setPosts(data as Guide[]);
+    }
+  }, [data]);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
 
   return (
     <>
@@ -45,26 +63,22 @@ export default function StoryGuidePage(props: StoryGuidePageProps) {
 
       <Layout preview={preview} loading={loading}>
         <Head>
-          {/* Update title */}
           <title>{`Stories & Guides - ${CMS_NAME}`}</title>
         </Head>
 
-        {/* Optional: Remove BlogHeader if ReviewHeader is sufficient */}
-        <BlogHeader title={title} description={description} level={1}  />
+        <BlogHeader title={title} description={description} level={1} />
 
         <ReviewHeader
           title={"Stories & Guides"}
-     
           summary={"Uncover insider tips, hidden gems, and unforgettable adventures. From budget backpacking to luxury escapes, We’ve got you covered. Let's explore together!"}
-          img={'/plane.json'} // Ensure path is correct
+          img={'/plane.json'}
         />
 
-        {/* Travel Guides Grid using PostPreview */}
         <Container>
           <div className="my-10">
-            {initialPosts && initialPosts.length > 0 ? (
+            {posts && posts.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {initialPosts.map((guide) => (
+                {posts.map((guide) => (
                   <PostPreview
                     key={guide._id}
                     title={guide.title}
@@ -82,6 +96,12 @@ export default function StoryGuidePage(props: StoryGuidePageProps) {
               <p className="text-center my-10">No stories or guides found. Loading: {loading ? 'Yes' : 'No'}</p>
             )}
           </div>
+          <PaginationComponent
+            totalItems={totalPostsCount}
+            itemsPerPage={itemsPerPage}
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+          />
         </Container>
       </Layout>
       <Footer />
