@@ -1,7 +1,8 @@
 import '../styles/globals.css';
 
 import { AppProps } from 'next/app';
-import { montserrat, raleway, inter, oswald, roboto_mono, space } from '../app/fonts';
+
+import { inter, montserrat, oswald, raleway, roboto_mono, space } from '../app/fonts';
 
 // Fonts are now imported from app/fonts.ts for better organization
 

@@ -1,34 +1,48 @@
 // src/components/PostPreview.tsx
 
-import { inter } from 'app/fonts'; // Assuming fonts are correctly set up
+// Import shadcn/ui components
+// Your existing imports
+import { inter } from 'app/fonts';
 import Date from 'components/PostDate';
-import type { Post, Guide, HotelReview, FoodReview } from 'lib/sanity.queries';
+import type { FoodReview,Guide, HotelReview, Post } from 'lib/sanity.queries';
+// Import Lucide icons
+import { Calendar, Hotel, MapPin, Utensils } from 'lucide-react';
 import Link from 'next/link';
-import { FaRegCalendarAlt } from 'react-icons/fa';
-import { IoLocation } from 'react-icons/io5';
+
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 
 import CoverImage from './CoverImage'; // Assuming CoverImage component exists
 
-// Define props for PostPreview - now compatible with all content types
+// Define props for PostPreview - no change here
 interface PostPreviewProps {
   title?: string;
-  coverImage?: any; // Cover image structure is similar across all types
+  coverImage?: any;
   hotelRating?: HotelReview['hotelRating'];
   foodRating?: FoodReview['foodRating'];
   takeoutRating?: FoodReview['takeoutRating'];
-  linkType?: 'hotel' | 'food' | 'story' | 'favorite'; // Explicit linkType values
+  linkType?: 'hotel' | 'food' | 'story' | 'favorite';
   diningType?: FoodReview['diningType'];
   date?: string;
   showRating?: boolean;
   slug?: string;
   location?: string;
-  author?: any; // Included from original interface, though not used in JSX
-  excerpt2?: any; // Included from original interface, though not used in JSX
+  author?: any;
+  excerpt2?: any;
   category?: string;
 }
 
-// Helper function to determine the link prefix based on post type
-const getLinkPrefix = (linkType?: 'hotel' | 'food' | 'story' | 'favorite'): string => {
+// Your existing helper functions - no change here
+const getLinkPrefix = (
+  linkType?: 'hotel' | 'food' | 'story' | 'favorite',
+): string => {
   switch (linkType) {
     case 'hotel':
       return '/hotel';
@@ -38,19 +52,21 @@ const getLinkPrefix = (linkType?: 'hotel' | 'food' | 'story' | 'favorite'): stri
       return '/food';
     case 'favorite':
     default:
-      // Fallback link prefix for legacy posts
       return '/posts';
   }
 };
 
-// Updated getRating function to determine which rating object to use
 const getRating = (
   linkType?: 'hotel' | 'food' | 'story' | 'favorite',
   diningType?: FoodReview['diningType'],
   hotelRating?: HotelReview['hotelRating'],
   foodRating?: FoodReview['foodRating'],
   takeoutRating?: FoodReview['takeoutRating'],
-): HotelReview['hotelRating'] | FoodReview['foodRating'] | FoodReview['takeoutRating'] | undefined => {
+):
+  | HotelReview['hotelRating']
+  | FoodReview['foodRating']
+  | FoodReview['takeoutRating']
+  | undefined => {
   if (linkType === 'hotel' && hotelRating) {
     return hotelRating;
   }
@@ -58,15 +74,14 @@ const getRating = (
     if (diningType === 'takeout' && takeoutRating) {
       return takeoutRating;
     }
-    if (foodRating) { // Assumes non-takeout is dine-in or fallback
+    if (foodRating) {
       return foodRating;
     }
   }
-  return undefined; // Default case for story/favorite types (no ratings)
+  return undefined;
 };
 
-
-// The PostPreview Component - Modified for Grid Layout Compatibility
+// The PostPreview Component with Shadcn/ui
 const PostPreview = ({
   title,
   coverImage,
@@ -81,11 +96,9 @@ const PostPreview = ({
   location,
   category,
 }: PostPreviewProps) => {
-  // Ensure slug exists for link generation
   const safeSlug = slug ?? '';
   const href = `${getLinkPrefix(linkType)}/${safeSlug}`;
 
-  // Get the relevant rating object
   const currentRating = getRating(
     linkType,
     diningType,
@@ -94,7 +107,6 @@ const PostPreview = ({
     takeoutRating,
   );
 
-  // Prevent rendering if essential data like slug or title is missing
   if (!safeSlug || !title) {
     console.warn('PostPreview skipped rendering due to missing slug or title', {
       slug,
@@ -103,69 +115,67 @@ const PostPreview = ({
     return null;
   }
 
+  // Determine which icon to show for the category badge
+  const categoryIcon = linkType === 'hotel' ? <Hotel className="h-4 w-4 mr-1" /> : <Utensils className="h-4 w-4 mr-1" />;
+
   return (
-    // Main container: Removed fixed widths, added w-full, h-full, flex structure
-    <div className="group z-10 flex h-full w-full  flex-col overflow-hidden rounded-3xl border-4 border-black bg-white shadow-md duration-300 dark:bg-gray-50">
-      {/* Image container: Prevents shrinking */}
-      <div className="shrink-0"> {/* Removed mb-5 */}
+    <div className="group flex h-full w-full flex-col overflow-hidden shadow-lg transition-transform duration-300 hover:-translate-y-1">
+      {/* Image container */}
+      <div className="relative shrink-0">
         <CoverImage
-          // Ensure CoverImage itself is responsive (e.g., w-full, aspect ratio)
           slug={safeSlug}
           title={title}
           image={coverImage}
-          priority={false} // Previews are usually not priority LCP elements
+          priority={false}
           rating={currentRating}
           showRating={showRating}
           linkType={linkType}
           diningType={diningType}
           category={category}
         />
+        {category && (
+          <Badge className="absolute top-4 left-4 text-xs">
+            {categoryIcon}
+            {category}
+          </Badge>
+        )}
       </div>
 
-      {/* Text content container: Takes remaining vertical space */}
-      <div className="mx-2 mb-1 flex grow flex-col pb-3">
-        {/* Title/Details section: Also grows if needed */}
-        <div className="grow">
-          <Link
-            href={href}
-            className={`${inter.variable} title-font font-secondary mt-3 font-light text-gray-700`}
-            aria-label={`Read more about ${title}`}
-          >
-             {/* Title: Removed fixed width w-60, kept h-14 and line-clamp */}
-                   <h1 className="font-montserrat pt-1 xl:pt-1.5  text-sm font-bold text-gray-900 no-underline decoration-pink-500 decoration-dashed decoration-4 group-hover:underline sm:text-lg lg:text-lg line-clamp-2 h-10 sm:h-16">
-             {/* Ensure h-14 is appropriate for 2 lines of text at these font sizes */}
-              {title}
-            </h1>
-          </Link>
+      <CardContent className="mt-4 flex grow flex-col p-4">
+        <Link
+          href={href}
+          className={`${inter.variable} font-secondary`}
+          aria-label={`Read more about ${title}`}
+        >
+          <CardTitle className="font-montserrat text-lg font-bold text-gray-900 line-clamp-2 h-16 transition-colors duration-300 group-hover:text-pink-500">
+            {title}
+          </CardTitle>
+        </Link>
 
-          {/* Meta Info (Location, Date) */}
-          <div className="mt-3 flex flex-col items-start justify-between gap-y-2 text-xs">
-            {location && (
-              <div className="flex items-center gap-x-2 text-gray-500">
-                <IoLocation
-                  className="h-5 w-5 shrink-0 text-pink-500"
-                  aria-hidden="true"
-                />
-                <p className="line-clamp-1">{location}</p>
-              </div>
-            )}
-
-            {date && (
-              <div className="flex items-center gap-x-2 text-gray-500">
-                <FaRegCalendarAlt
-                  className="h-5 w-5 shrink-0 text-pink-500"
-                  aria-hidden="true"
-                />
-                <Date dateString={date} />
-              </div>
-            )}
-          </div>
+        {/* Meta Info (Location, Date) */}
+        <div className="mt-3 flex flex-col items-start gap-y-2 text-sm text-gray-500">
+          {location && (
+            <div className="flex items-center gap-x-2">
+              <MapPin className="h-4 w-4 shrink-0 text-pink-500" />
+              <p className="line-clamp-1">{location}</p>
+            </div>
+          )}
+          {date && (
+            <div className="flex items-center gap-x-2">
+              <Calendar className="h-4 w-4 shrink-0 text-pink-500" />
+              <Date dateString={date} />
+            </div>
+          )}
         </div>
+      </CardContent>
 
-        {/* Placeholder for potential Button section */}
-        {/* If a button was here, adding mt-auto to this div could push it down */}
-        {/* <div className="mt-auto self-end"> ... Button ... </div> */}
-      </div>
+      <CardFooter className="mt-auto px-4 pb-4">
+        <Link href={href} className="w-full">
+          <Button variant="outline" className="w-full">
+            Read Review
+          </Button>
+        </Link>
+      </CardFooter>
     </div>
   );
 };
