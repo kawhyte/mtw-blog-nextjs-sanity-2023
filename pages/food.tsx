@@ -1,10 +1,9 @@
 import { PreviewSuspense } from '@sanity/preview-kit'
 import FoodReviewsPage from 'components/FoodReviewsPage' // Component to display food reviews
 import {
-  getSettings,
+  getFoodPostsTotalCount,
   getPaginatedFoodPosts,
-  getFoodPostsTotalCount
-} from 'lib/sanity.client'
+  getSettings} from 'lib/sanity.client'
 import { FoodReview, Settings } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
 import Head from "next/head"; // Keep if used
