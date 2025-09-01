@@ -1,19 +1,20 @@
 // src/components/CoverImage.tsx
 
 // Import shadcn/ui components
-import { Badge } from '@/components/ui/badge';
-import { Skeleton } from '@/components/ui/skeleton';
-
+import cn from 'classnames';
 // Your existing imports
 import { calculateRating } from 'lib/calculateRating';
 import { getRatingWeights } from 'lib/ratingWeights';
 import { urlForImage } from 'lib/sanity.image';
+import { Calendar, Hotel,MapPin } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import cn from 'classnames';
-import { MapPin, Calendar, Hotel } from 'lucide-react';
-import RatingBadge from './RatingBadge';
+
+import { Badge } from '@/components/ui/badge';
+import { Skeleton } from '@/components/ui/skeleton';
+
 import { categoryRating } from '../lib/getHotelCategory';
+import RatingBadge from './RatingBadge';
 
 // Helper function to determine the link prefix based on post type
 const getLinkPrefix = (linkType?: 'hotel' | 'food' | 'story' | 'favorite'): string => {

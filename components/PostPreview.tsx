@@ -6,7 +6,7 @@ import { inter } from 'app/fonts';
 import Date from 'components/PostDate';
 import type { FoodReview,Guide, HotelReview, Post } from 'lib/sanity.queries';
 // Import Lucide icons
-import { Calendar, Hotel, MapPin, Utensils } from 'lucide-react';
+import { Calendar, Hotel,MapPin } from 'lucide-react';
 import Link from 'next/link';
 
 import { Badge } from '@/components/ui/badge';
@@ -18,8 +18,9 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { Separator } from '@/components/ui/separator';
 
-import CoverImage from './CoverImage'; // Assuming CoverImage component exists
+import CoverImage from './CoverImage';
 
 // Define props for PostPreview - no change here
 interface PostPreviewProps {
@@ -37,12 +38,11 @@ interface PostPreviewProps {
   author?: any;
   excerpt2?: any;
   category?: string;
+  visited?: boolean;
 }
 
 // Your existing helper functions - no change here
-const getLinkPrefix = (
-  linkType?: 'hotel' | 'food' | 'story' | 'favorite',
-): string => {
+const getLinkPrefix = (linkType?: 'hotel' | 'food' | 'story' | 'favorite'): string => {
   switch (linkType) {
     case 'hotel':
       return '/hotel';
@@ -95,6 +95,7 @@ const PostPreview = ({
   slug,
   location,
   category,
+  visited,
 }: PostPreviewProps) => {
   const safeSlug = slug ?? '';
   const href = `${getLinkPrefix(linkType)}/${safeSlug}`;
@@ -115,67 +116,79 @@ const PostPreview = ({
     return null;
   }
 
-  // Determine which icon to show for the category badge
-  const categoryIcon = linkType === 'hotel' ? <Hotel className="h-4 w-4 mr-1" /> : <Utensils className="h-4 w-4 mr-1" />;
-
   return (
-    <div className="group flex h-full w-full flex-col overflow-hidden shadow-lg transition-transform duration-300 hover:-translate-y-1">
-      {/* Image container */}
-      <div className="relative shrink-0">
-        <CoverImage
-          slug={safeSlug}
-          title={title}
-          image={coverImage}
-          priority={false}
-          rating={currentRating}
-          showRating={showRating}
-          linkType={linkType}
-          diningType={diningType}
-          category={category}
-        />
-        {category && (
-          <Badge className="absolute top-4 left-4 text-xs">
-            {categoryIcon}
-            {category}
-          </Badge>
-        )}
-      </div>
+    <div
+      className={`group relative w-full overflow-hidden rounded-4xl border-4 border-black bg-indigo-50 text-gray-700 shadow-offsetIndigo transition-transform duration-500 ease-in-out group-hover:scale-105 group-hover:-translate-y-2 group-hover:shadow-lg ${ 
+        visited === false ? 'opacity-40 grayscale ' : 'grayscale-0'
+      }`}
+    >
+      <Link href={href} aria-label={title}>
+        <div className="relative">
+          <CoverImage
+            slug={safeSlug}
+            title={title}
+            image={coverImage}
+            priority={false}
+            rating={currentRating}
+            showRating={showRating}
+            linkType={linkType}
+            diningType={diningType}
+            category={category}
+          />
+        </div>
+      </Link>
 
-      <CardContent className="mt-4 flex grow flex-col p-4">
-        <Link
-          href={href}
-          className={`${inter.variable} font-secondary`}
-          aria-label={`Read more about ${title}`}
-        >
-          <CardTitle className="font-montserrat text-lg font-bold text-gray-900 line-clamp-2 h-16 transition-colors duration-300 group-hover:text-pink-500">
-            {title}
-          </CardTitle>
-        </Link>
+      <CardContent className="flex grow flex-col justify-between p-4">
+        <div className="flex flex-col sm:mb-2 sm:ml-2 sm:gap-y-2">
+          <Link
+            href={href}
+            className={`${inter.variable} font-secondary`}
+            aria-label={`Read more about ${title}`}
+          >
+            <CardTitle className="font-montserrat line-clamp-1 pt-1 text-sm font-bold text-gray-900 no-underline decoration-purple-500 decoration-dashed decoration-4 group-hover:underline sm:line-clamp-2 sm:h-8 sm:text-xl lg:text-xl xl:pt-1.5">
+              {title}
+            </CardTitle>
+          </Link>
 
-        {/* Meta Info (Location, Date) */}
-        <div className="mt-3 flex flex-col items-start gap-y-2 text-sm text-gray-500">
-          {location && (
-            <div className="flex items-center gap-x-2">
-              <MapPin className="h-4 w-4 shrink-0 text-pink-500" />
-              <p className="line-clamp-1">{location}</p>
+          {/* Meta Info (Location, Date) */}
+          <div className="mt-2 flex flex-col gap-2 sm:flex-row sm:items-center md:flex-col md:items-start">
+            {location && (
+              <div className="flex items-center gap-x-2 text-gray-500">
+                <MapPin className="h-5 w-5 shrink-0 text-gray-500" />
+                <p className="text-xs">{location}</p>
+              </div>
+            )}
+
+            <div className="sm:ml-auto md:-ml-5">
+              <span className="flex items-center text-xs text-gray-500">
+                <Calendar className="mr-2 h-5 w-5 text-gray-500 sm:ml-5" />
+               
+                  <>
+                    <span className="mr-1 hidden text-xs lg:block">Visited on</span>
+                    <Date dateString={date} />
+                  </>
+                
+              
+              </span>
             </div>
-          )}
-          {date && (
-            <div className="flex items-center gap-x-2">
-              <Calendar className="h-4 w-4 shrink-0 text-pink-500" />
-              <Date dateString={date} />
-            </div>
-          )}
+          </div>
         </div>
       </CardContent>
 
-      <CardFooter className="mt-auto px-4 pb-4">
-        <Link href={href} className="w-full">
-          <Button variant="outline" className="w-full">
-            Read Review
-          </Button>
-        </Link>
-      </CardFooter>
+      <Separator className="mx-2 my-3" />
+
+     
+        <CardFooter className="container mx-auto mt-auto flex items-center pt-1">
+          <Link href={href} className="w-full flex">
+            <Button
+              variant="secondary"
+              className="mx-auto mb-2 inline-block rounded-md bg-indigo-100 px-3 py-1 text-xs font-semibold text-purple-700 transition-colors duration-150 ease-in-out hover:bg-purple-600 hover:text-white"
+            >
+              View Details
+            </Button>
+          </Link>
+        </CardFooter>
+    
     </div>
   );
 };
