@@ -122,21 +122,19 @@ const PostPreview = ({
         visited === false ? 'opacity-40 grayscale ' : 'grayscale-0'
       }`}
     >
-      <Link href={href} aria-label={title}>
-        <div className="relative">
-          <CoverImage
-            slug={safeSlug}
-            title={title}
-            image={coverImage}
-            priority={false}
-            rating={currentRating}
-            showRating={showRating}
-            linkType={linkType}
-            diningType={diningType}
-            category={category}
-          />
-        </div>
-      </Link>
+      <div className="relative">
+        <CoverImage
+          slug={safeSlug}
+          title={title}
+          image={coverImage}
+          priority={false}
+          rating={currentRating}
+          showRating={showRating}
+          linkType={linkType}
+          diningType={diningType}
+          category={category}
+        />
+      </div>
 
       <CardContent className="flex grow flex-col justify-between p-4">
         <div className="flex flex-col sm:mb-2 sm:ml-2 sm:gap-y-2">
