@@ -1,3 +1,15 @@
+import {
+  Bath,
+  Bed,
+  Dumbbell,
+  Handshake,
+  MapPin,
+  Sparkles,
+  Star,
+  WavesLadder,
+  Wifi,
+} from 'lucide-react';
+
 import ProgressRating from './ProgressRating'; // Assuming this component exists
 
 // Helper function to format snake_case to Title Case
@@ -30,6 +42,31 @@ interface HotelRatingProps {
     Location?: number;
   };
 }
+
+const getRatingIcon = (ratingName: string) => {
+  switch (ratingName) {
+    case 'Value':
+      return <Star className="h-5 w-5 mr-2 text-secondary" />;
+    case 'Gym':
+      return <Dumbbell className="h-5 w-5 mr-2 text-secondary" />;
+    case 'Internet_Speed':
+      return <Wifi className="h-5 w-5 mr-2 text-secondary" />;
+    case 'Service':
+      return <Handshake className="h-5 w-5 mr-2 text-secondary" />;
+    case 'Room_Cleanliness':
+      return <Sparkles className="h-5 w-5 mr-2 text-secondary" />;
+    case 'Bed_Comfort':
+      return <Bed className="h-5 w-5 mr-2 text-secondary" />;
+    case 'Room_Amenities':
+      return <Bath className="h-5 w-5 mr-2 text-secondary" />;
+    case 'Pool':
+      return <WavesLadder className="h-5 w-5 mr-2 text-secondary" />;
+    case 'Location':
+      return <MapPin className="h-5 w-5 mr-2 text-secondary" />;
+    default:
+      return null; // No icon for unknown categories
+  }
+};
 
 export default function HotelRating({ hotelRating }: HotelRatingProps) {
   // Guard clauses for when there is no rating data
@@ -78,7 +115,8 @@ export default function HotelRating({ hotelRating }: HotelRatingProps) {
             {ratings.map(([name, value]) => (
               <div key={name}>
                 <div className="flex justify-between items-center mb-1">
-                  <span className="font-semibold text-foreground">
+                  <span className="font-semibold text-foreground flex items-center">
+                    {getRatingIcon(name)}
                     {formatRatingName(name)}
                   </span>
                
