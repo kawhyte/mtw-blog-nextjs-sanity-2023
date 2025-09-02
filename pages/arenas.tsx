@@ -305,9 +305,7 @@ export default function Page(props: PageProps) {
 
 
         {/* Arena Cards Grid */}
-        <div className="grid grid-cols-2 gap-x-4 gap-y-8 px-4
-                     md:grid-cols-3 md:gap-x-6 md:gap-y-10 md:px-6
-                     lg:grid-cols-4 lg:gap-x-8 mx-auto container">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-8 px-4 md:gap-x-6 md:gap-y-10 md:px-6 lg:gap-x-8 mx-auto container">
           {arenasToDisplay.length > 0 ? (
              // ***** MODIFICATION START *****
              arenasToDisplay.map((item) => { // Loop through the list sorted for display
