@@ -2,13 +2,15 @@
 
 import { PortableText } from '@portabletext/react';
 import { Quote } from 'lucide-react';
+import Link from 'next/link';
 
 interface HotelBlurbProps {
   content?: any[]; // Portable text content
   source?: string;
+  url?: string;
 }
 
-export default function HotelBlurb({ content, source }: HotelBlurbProps) {
+export default function HotelBlurb({ content, source, url }: HotelBlurbProps) {
   if (!content) {
     return null;
   }
@@ -22,7 +24,19 @@ export default function HotelBlurb({ content, source }: HotelBlurbProps) {
         </div>
         {source && (
           <footer className="mt-4 text-right text-sm font-semibold text-muted-foreground">
-            — {source}
+            —{' '}
+            {url ? (
+              <Link
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:underline"
+              >
+                {source}
+              </Link>
+            ) : (
+              source
+            )}
           </footer>
         )}
       </blockquote>

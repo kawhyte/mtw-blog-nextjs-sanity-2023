@@ -118,6 +118,13 @@ export default defineType({
     }),
 
     defineField({
+      name: 'blurbUrl',
+      title: 'Blurb Source URL',
+      type: 'url',
+      description: 'The URL to the source of the blurb.',
+    }),
+
+    defineField({
       name: 'tip',
       title: 'Hotel Quick Tip',
       type: 'array',

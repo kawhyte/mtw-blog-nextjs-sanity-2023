@@ -118,7 +118,11 @@ function HotelReviewPageContent(props: HotelReviewPageProps) {
           </header>
 
           {hotelReview.excerpt2 && (
-            <HotelBlurb content={hotelReview.excerpt2} source={hotelReview.blurbSource} />
+            <HotelBlurb
+              content={hotelReview.excerpt2}
+              source={hotelReview.blurbSource}
+              url={hotelReview.blurbUrl}
+            />
           )}
 
           <div className="space-y-12 md:space-y-16">
