@@ -305,7 +305,7 @@ export default function Page(props: PageProps) {
 
 
         {/* Arena Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-8 px-4 md:gap-x-6 md:gap-y-10 md:px-6 lg:gap-x-8 mx-auto container justify-items-center">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-8 px-4 md:gap-x-6 md:gap-y-10 md:px-6 lg:gap-x-8 mx-auto container">
           {arenasToDisplay.length > 0 ? (
              // ***** MODIFICATION START *****
              arenasToDisplay.map((item) => { // Loop through the list sorted for display
@@ -330,7 +330,7 @@ export default function Page(props: PageProps) {
                       key={item._id} // Key on the outermost element
                       href={`/arena/${item.slug}`}
                       passHref
-                      className={`group ${ // Add group for hover effects on children
+                      className={`group w-full flex justify-center ${ // Add group for hover effects on children
                         item.visited
                           ? 'cursor-pointer'
                           : 'pointer-events-none cursor-default opacity-70'
