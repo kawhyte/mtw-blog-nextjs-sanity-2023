@@ -1,13 +1,12 @@
+import { oswald } from 'app/fonts';
+import dynamic from 'next/dynamic';
+import React from 'react';
 
-
-import { oswald } from 'app/fonts'
-import dynamic from 'next/dynamic'
-
-import SectionTitle from './SectionTitle'
+import SectionTitle from './SectionTitle';
 
 const ReactPlayer = dynamic(() => import('react-player/youtube'), {
   ssr: false,
-})
+});
 
 let walking = [
   {
@@ -28,47 +27,42 @@ let walking = [
   {
     url: 'https://youtu.be/TietUAnVBoA',
   },
-]
+];
 
 const YoutubeHighlights = () => {
   return (
-    <div className="container mx-auto  rounded-xl   py-12 px-6 ">
-      {/* <div className=" container mx-auto mb-10 flex w-full flex-wrap">
-        <div className="mx-4 mb-6 w-full lg:mb-0 lg:w-1/2 ">
-          <h1
-            className={`${oswald.variable}  title-font  mb-2 font-heading text-2xl font-medium text-gray-900 sm:text-3xl`}
-          >
-            Featured Videos
-          </h1>
-          <div className="h-1 w-20 rounded bg-pink-500"></div>
-        </div>
-      </div> */}
-      {/* <SectionTitle>{'Featured Videos'}</SectionTitle>
-      <p className="pt-5 text-gray-700"> Walking Tour from our trips </p> */}
+    <div className="container mx-auto py-12 px-6">
+      <SectionTitle
+        header="Featured Videos"
+        description="A selection of walking tours and highlights from our trips. Click to watch our journey unfold!"
+      />
 
-      <div className="grid-col-2   grid grid-cols-1 justify-items-center gap-9 rounded-lg md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3">
-        {walking.map((item) => (
-
-          
+      {/* Unified Grid for all videos */}
+      <div className="grid grid-cols-1 gap-9 md:grid-cols-2 lg:grid-cols-3 max-w-7xl">
+        {walking.map((item, index) => (
           <div
             key={item.url}
-            className=" w-full max-w-sm overflow-hidden rounded-3xl border-4 border-black bg-white shadow-offsetIndigo dark:bg-gray-800"
+            className={`w-full overflow-hidden rounded-3xl border-4 border-black bg-white shadow-offsetIndigo dark:bg-gray-800 
+            ${index === 0 ? 'md:col-span-2 lg:col-span-3' : ''} `}
           >
             <ReactPlayer
-              className=""
               url={item.url}
-              width={370}
-              height={200}
-              controls={false}
-              light
-              loop
-              muted
+              width="100%"
+              height="100%"
+              className="aspect-video "
+              controls={index === 0} // Only show controls for the featured video
+              light={index !== 0} // Use light mode for all other videos
             />
+            {index === 0 && (
+              <h3 className={`${oswald.variable} mt-4 text-xl font-medium text-gray-900`}>
+                Featured Highlight
+              </h3>
+            )}
           </div>
         ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default YoutubeHighlights
+export default YoutubeHighlights;

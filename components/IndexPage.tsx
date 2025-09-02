@@ -66,7 +66,7 @@ export default function IndexPage(props: IndexPageProps) {
             <Welcome />
           </BlogSection>
 
-          <BlogSection className="bg-gray-100">
+          <BlogSection className="bg-pink-100">
             <div>
               <SectionTitle
                 header={'Travel Gear and Gadgets'}

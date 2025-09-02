@@ -6,7 +6,7 @@ import Image from 'next/image';
 import Link from "next/link"
 import { useRouter } from 'next/router' // Import useRouter
 import type React from "react"
-import { useState, useRef, useEffect } from "react" // Added useRef, useEffect
+import { useEffect,useRef, useState } from "react" // Added useRef, useEffect
 import { LiaBasketballBallSolid, LiaBathSolid, LiaCrownSolid } from 'react-icons/lia';
 
 
