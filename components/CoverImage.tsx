@@ -6,7 +6,7 @@ import cn from 'classnames';
 import { calculateRating } from 'lib/calculateRating';
 import { getRatingWeights } from 'lib/ratingWeights';
 import { urlForImage } from 'lib/sanity.image';
-import { Calendar, Hotel,MapPin } from 'lucide-react';
+import { Calendar, Hotel, MapPin } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -84,6 +84,15 @@ export default function CoverImage(props: CoverImageProps) {
 
   const categoryType = categoryRating(category);
 
+  const badgeColorClasses = {
+    blue: 'bg-accent text-accent-foreground',
+    yellow: 'bg-accent text-accent-foreground',
+    green: 'bg-success text-success-foreground',
+    red: 'bg-destructive text-destructive-foreground',
+  };
+
+  const badgeClasses = badgeColorClasses[categoryType.color] || 'bg-gray-500 text-white';
+
   return (
     <div className="relative overflow-hidden rounded-t-3xl">
       <div className="relative">
@@ -92,12 +101,7 @@ export default function CoverImage(props: CoverImageProps) {
             {image}
             {linkType === 'hotel' && category && (
               <Badge
-                className={`absolute top-4 left-4 z-30 ${
-                  categoryType.color === 'blue' ? 'bg-accent text-accent-foreground' :
-                  categoryType.color === 'yellow' ? 'bg-accent text-accent-foreground' :
-                  categoryType.color === 'green' ? 'bg-success text-success-foreground' :
-                  'bg-destructive text-destructive-foreground'
-                } border-transparent `}
+                className={`absolute top-4 left-4 z-30 ${badgeClasses} border-transparent`}
               >
                 <Hotel className="h-3 w-3 mr-1" /> {categoryType.name}
               </Badge>
