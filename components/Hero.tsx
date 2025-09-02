@@ -63,7 +63,6 @@ function Hero() {
           <Button
             icon={<LiaBasketballBallSolid className="h-7 w-8 text-pink-500" />}
             link={'/arenas'}
-            className="uppercase tracking-wide px-5 py-3 bg-pink-500 text-white hover:bg-pink-600 shadow-md"
           >
             Follow Our Journey
           </Button>

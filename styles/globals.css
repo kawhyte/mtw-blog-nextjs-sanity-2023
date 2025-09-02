@@ -15,6 +15,8 @@
 |    - `bg-background`: Main background for your pages.                        |
 |    - `bg-card`: Background for cards, modals, and elevated elements.         |
 |    - `bg-muted`: For subtle backgrounds, like highlighted list items.        |
+|    - `bg-primary-soft-background`: For large containers with a light pink tint.|
+|    - `bg-secondary-soft-background`: For large containers with a light purple tint.|
 |                                                                              |
 |  - TEXT: Use for all text content.                                           |
 |    - `text-foreground`: Primary text color.                                  |
@@ -33,6 +35,7 @@
 |    - `border-border`: For component borders and dividers.                    |
 |    - `border-input`: Specifically for form input borders.                    |
 |    - `bg-background`: Use for the input's background itself.                 |
+|    - `border-4 border-border-bold`: For a prominent card border.             |
 |                                                                              |
 |  - FOCUS RINGS: For accessibility on interactive elements.                   |
 |    - `ring-ring`: Applied automatically on focus for accessibility.          |
@@ -57,14 +60,17 @@
     --muted-foreground: 240 4% 46%;  /* Medium Gray -> USE FOR: Placeholder text or secondary info (`text-muted-foreground`) */
     --border: 30 8% 90%;           /* Light Gray -> USE FOR: Component borders (`border-border`) */
     --input: 30 8% 85%;            /* Slightly darker gray -> USE FOR: Input field borders (`border-input`) */
+    --border-bold: 209 34% 20%;    /* Dark Charcoal Blue -> USE FOR: Bold card/container borders (`border-border-bold`) */
 
     /* --- Brand Colors (Your Core Palette) --- */
     /* USAGE: Primary actions, links, and highlighted UI elements. */
     --primary: 330 81% 62%;        /* Tailwind Pink-500 -> USE FOR: Primary buttons, important links (`bg-primary`, `text-primary`) */
     --primary-foreground: 330 81% 98%; /* Very light pink -> USE FOR: Text on top of primary color elements (`text-primary-foreground`) */
+    --primary-soft-background: 330 100% 98%; /* Very light pink tint -> USE FOR: Large section backgrounds */
     --secondary: 262 92% 65%;      /* Tailwind Purple-500 -> USE FOR: Secondary buttons, alternative actions (`bg-secondary`) */
     --secondary-foreground: 262 92% 98%; /* Very light purple -> USE FOR: Text on top of secondary color elements (`text-secondary-foreground`) */
-    
+    --secondary-soft-background: 262 100% 98%; /* Very light purple tint -> USE FOR: Large section backgrounds */
+
     /* --- Accent & Semantic Colors --- */
     /* USAGE: For visual flair and communicating status (success, error). */
     --accent: 54 91% 95%;          /* Light Buttery Yellow -> USE FOR: Hover states on list items, badges (`bg-accent`) */
@@ -90,10 +96,13 @@
     --muted-foreground: 240 4% 65%;
     --border: 209 34% 25%;
     --input: 209 34% 25%;
+    --border-bold: 240 8% 98%; /* Uses foreground color for contrast in dark mode */
     --primary: 330 81% 62%;
     --primary-foreground: 330 81% 98%;
+    --primary-soft-background: 330 40% 14%; /* Dark, subtle pink tint */
     --secondary: 262 92% 65%;
     --secondary-foreground: 262 92% 98%;
+    --secondary-soft-background: 262 40% 14%; /* Dark, subtle purple tint */
     --accent: 209 34% 25%;
     --accent-foreground: 240 8% 98%;
     --destructive: 0 72% 51%;
@@ -110,8 +119,10 @@
   --color-foreground: hsl(var(--foreground));
   --color-primary: hsl(var(--primary));
   --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-primary-soft-background: hsl(var(--primary-soft-background));
   --color-secondary: hsl(var(--secondary));
   --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-secondary-soft-background: hsl(var(--secondary-soft-background));
   --color-muted: hsl(var(--muted));
   --color-muted-foreground: hsl(var(--muted-foreground));
   --color-accent: hsl(var(--accent));
@@ -119,6 +130,7 @@
   --color-destructive: hsl(var(--destructive));
   --color-destructive-foreground: hsl(var(--destructive-foreground));
   --color-border: hsl(var(--border));
+  --color-border-bold: hsl(var(--border-bold));
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
   --color-card: hsl(var(--card));
@@ -167,3 +179,4 @@
 @layer utilities {
   /* Your .font-adventure-heading, etc. can remain here */
 }
+

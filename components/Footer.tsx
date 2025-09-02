@@ -6,7 +6,7 @@ import { EXAMPLE_PATH } from "../lib/constants";
 export default function Footer() {
 	let year = new Date().getFullYear();
 	return (
-        <footer className=' mt-20 relative text-muted-foreground body-font  bg-muted'>
+        <footer className=' mt-20 relative text-muted-foreground body-font  bg-purple-100'>
 		
 				<div className='container px-5 py-8 mx-auto flex items-center sm:flex-row '>
 					<div className='flex title-font font-medium items-center md:justify-start justify-center text-foreground'>

@@ -118,7 +118,7 @@ const DynamicPostCard = ({
 
   return (
     <div
-      className={`group relative w-full overflow-hidden rounded-4xl border-4 border-border bg-card text-foreground shadow-offsetIndigo transition-transform duration-500 ease-in-out group-hover:scale-105 group-hover:-translate-y-2 group-hover:shadow-lg ${ 
+      className={`group relative w-full overflow-hidden rounded-4xl border-4 border-border-bold bg-card text-foreground shadow-offsetIndigo transition-transform duration-500 ease-in-out group-hover:scale-105 group-hover:-translate-y-2 group-hover:shadow-lg ${ 
         visited === false ? 'opacity-40 grayscale ' : 'grayscale-0'
       }`}
     >
@@ -173,7 +173,7 @@ const DynamicPostCard = ({
         </div>
       </CardContent>
 
-      <Separator className="mx-2 my-3" />
+      {/* <Separator className="mx-2 my-3" /> */}
 
      
         <CardFooter className="container mx-auto mt-auto flex items-center pt-1">

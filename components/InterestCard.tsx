@@ -15,7 +15,7 @@ interface InterestCardProps {
 
 function InterestCard({ interests }: InterestCardProps) {
   return (
-    <div className="max-w-8xl w-full rounded-3xl bg-pink-50 p-6">
+    <div className="max-w-8xl w-full rounded-3xl bg-secondary-soft-background p-6">
       <h2
         className=" font-montserrat my-4  mb-6    text-xl font-bold text-gray-900 sm:text-2xl lg:text-3xl"
       >
