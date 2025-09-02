@@ -8,82 +8,82 @@ import {
   Star,
   WavesLadder,
   Wifi,
-} from 'lucide-react';
+} from 'lucide-react'
 
-import ProgressRating from './ProgressRating'; // Assuming this component exists
+import ProgressRating from './ProgressRating' // Assuming this component exists
 
 // Helper function to format snake_case to Title Case
 const formatRatingName = (name: string): string => {
   return name
     .split('_')
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ');
-};
+    .join(' ')
+}
 
 const getTextScore = (rating: number): string => {
-  if (rating >= 4.5) return 'Excellent';
-  if (rating >= 4) return 'Great';
-  if (rating >= 3.75) return 'Good';
-  if (rating >= 3) return 'Fair';
-  if (rating >= 2) return 'Poor';
-  return 'Horrible';
-};
+  if (rating >= 4.5) return 'Excellent'
+  if (rating >= 4) return 'Great'
+  if (rating >= 3.75) return 'Good'
+  if (rating >= 3) return 'Fair'
+  if (rating >= 2) return 'Poor'
+  return 'Horrible'
+}
 
 interface HotelRatingProps {
   hotelRating: {
-    Value?: number;
-    Gym?: number;
-    Internet_Speed?: number;
-    Service?: number;
-    Room_Cleanliness?: number;
-    Bed_Comfort?: number;
-    Room_Amenities?: number;
-    Pool?: number;
-    Location?: number;
-  };
+    Value?: number
+    Gym?: number
+    Internet_Speed?: number
+    Service?: number
+    Room_Cleanliness?: number
+    Bed_Comfort?: number
+    Room_Amenities?: number
+    Pool?: number
+    Location?: number
+  }
 }
 
 const getRatingIcon = (ratingName: string) => {
   switch (ratingName) {
     case 'Value':
-      return <Star className="h-5 w-5 mr-2 text-secondary" />;
+      return <Star className="h-5 w-5 mr-2 " />
     case 'Gym':
-      return <Dumbbell className="h-5 w-5 mr-2 text-secondary" />;
+      return <Dumbbell className="h-5 w-5 mr-2 " />
     case 'Internet_Speed':
-      return <Wifi className="h-5 w-5 mr-2 text-secondary" />;
+      return <Wifi className="h-5 w-5 mr-2 " />
     case 'Service':
-      return <Handshake className="h-5 w-5 mr-2 text-secondary" />;
+      return <Handshake className="h-5 w-5 mr-2 " />
     case 'Room_Cleanliness':
-      return <Sparkles className="h-5 w-5 mr-2 text-secondary" />;
+      return <Sparkles className="h-5 w-5 mr-2 " />
     case 'Bed_Comfort':
-      return <Bed className="h-5 w-5 mr-2 text-secondary" />;
+      return <Bed className="h-5 w-5 mr-2 " />
     case 'Room_Amenities':
-      return <Bath className="h-5 w-5 mr-2 text-secondary" />;
+      return <Bath className="h-5 w-5 mr-2 " />
     case 'Pool':
-      return <WavesLadder className="h-5 w-5 mr-2 text-secondary" />;
+      return <WavesLadder className="h-5 w-5 mr-2 " />
     case 'Location':
-      return <MapPin className="h-5 w-5 mr-2 text-secondary" />;
+      return <MapPin className="h-5 w-5 mr-2 " />
     default:
-      return null; // No icon for unknown categories
+      return null // No icon for unknown categories
   }
-};
+}
 
 export default function HotelRating({ hotelRating }: HotelRatingProps) {
   // Guard clauses for when there is no rating data
   if (!hotelRating) {
-    return null;
+    return null
   }
   const ratings = Object.entries(hotelRating).filter(
-    ([key, value]) => key !== '_type' && value !== null && value !== undefined
-  );
+    ([key, value]) => key !== '_type' && value !== null && value !== undefined,
+  )
   if (ratings.length === 0) {
-    return null;
+    return null
   }
 
   // Simplified and more accurate overall rating calculation
-  const totalScore = ratings.reduce((acc, [_, value]) => acc + (value || 0), 0);
-  const overallRating = totalScore / ratings.length;
-  const textScore = getTextScore(overallRating);
+  const totalScore = ratings.reduce((acc, [_, value]) => acc + (value || 0), 0)
+  const overallRating = totalScore / ratings.length
+  const textScore = getTextScore(overallRating)
 
   return (
     // Main container with themed background, padding, and rounded corners
@@ -119,7 +119,6 @@ export default function HotelRating({ hotelRating }: HotelRatingProps) {
                     {getRatingIcon(name)}
                     {formatRatingName(name)}
                   </span>
-               
                 </div>
                 <div className="flex items-center">
                   {/* Pass the "secondary" color to match the component's theme */}
@@ -131,5 +130,5 @@ export default function HotelRating({ hotelRating }: HotelRatingProps) {
         </div>
       </div>
     </section>
-  );
+  )
 }
