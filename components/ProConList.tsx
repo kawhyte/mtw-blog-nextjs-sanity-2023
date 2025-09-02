@@ -34,16 +34,16 @@ const InfoBox = ({
       border: 'border-success',
       text: 'text-success',
       shadow: 'shadow-success/10',
-      iconBg: 'bg-success/10',
+      iconBg: 'bg-green-600/10',
     },
     destructive: {
-      border: 'border-destructive',
-      text: 'text-destructive',
-      shadow: 'shadow-destructive/10',
+      border: 'border-success',
+      text: 'text-success',
+      shadow: 'shadow-success/10',
       iconBg: 'bg-destructive/10',
     },
     primary: {
-      border: 'border-secondary',
+      border: 'border-success',
       text: 'text-secondary',
       shadow: 'shadow-secondary/10',
       iconBg: 'bg-secondary/10',
@@ -80,9 +80,9 @@ const InfoBox = ({
                 <li key={index} className="flex items-start">
                   <div className={`mr-2 shrink-0 pt-1 ${theme.text}`}>
                     {color === 'success' ? (
-                      <CheckCircle2 className="h-4 w-4" />
+                      <CheckCircle2 className="h-4 w-4 text-green-600" />
                     ) : (
-                      <XCircle className="h-4 w-4" />
+                      <XCircle className="h-4 w-4 text-red-600" />
                     )}
                   </div>
                   <span>{item}</span>
