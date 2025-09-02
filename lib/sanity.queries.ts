@@ -425,6 +425,8 @@ const independentHotelReviewFields = groq`
   lounge,
   coverImage,
   excerpt2,
+  blurbSource,
+  blurbUrl,
   tip,
   gallery,
   youtube,
@@ -562,6 +564,8 @@ export interface HotelReview {
   lounge?: string
   coverImage?: any
   excerpt2?: any[]
+  blurbSource?: string
+  blurbUrl?: string
   tip?: any[]
   gallery?: any[]
   youtube?: string
