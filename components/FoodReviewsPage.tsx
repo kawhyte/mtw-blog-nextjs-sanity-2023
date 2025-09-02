@@ -100,7 +100,7 @@ export default function FoodReviewsPage(props: FoodReviewsPageProps) {
                 ))}
               </div>
             ) : (
-              <p className="text-center my-10">No food reviews found. Loading: {loading ? 'Yes' : 'No'}</p>
+              <p className="text-center my-10 text-muted-foreground">No food reviews found. Loading: {loading ? 'Yes' : 'No'}</p>
             )}
           </div>
           <PaginationComponent

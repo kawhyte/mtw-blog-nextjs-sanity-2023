@@ -97,26 +97,26 @@ export default function Navbar() {
 
 
   return (
-      <nav className="sticky top-0 z-50 w-full bg-slate-50 shadow-sm">
+      <nav className="sticky top-0 z-50 w-full bg-background shadow-sm">
       {/* Mobile Search Overlay */}
       {isSearchOpen && (
         <form
           onSubmit={handleSearchSubmit}
-          className="absolute inset-0 z-30 flex items-center justify-center bg-slate-50 p-4 md:hidden"
+          className="absolute inset-0 z-30 flex items-center justify-center bg-background p-4 md:hidden"
           aria-label="Mobile search form"
         >
           <div className="relative w-full">
             <input
               type="text"
               placeholder="Search for Hotels, Restaurants, or Guides..."
-              className="w-full rounded-full border border-gray-300 bg-white py-2 pl-4 pr-10 focus:outline-none focus:ring-2 focus:ring-purple-400"
+              className="w-full rounded-full border border-input bg-card py-2 pl-4 pr-10 focus:outline-none focus:ring-2 focus:ring-ring"
               value={searchTerm}
               onChange={handleSearchChange}
               autoFocus // Automatically focus the input when it appears
             />
             <button
               type="button" // Important: type="button" to prevent form submission
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground"
               onClick={toggleSearch} // Use toggleSearch to close
               aria-label="Close search"
             >
@@ -152,13 +152,13 @@ export default function Navbar() {
             <input
               type="text"
               placeholder="Search for Hotels, Restaurants, or Guides..."
-              className="w-full rounded-full border border-gray-300 bg-white py-2 pl-4 pr-10 focus:outline-none focus:ring-2 focus:ring-purple-400"
+              className="w-full rounded-full border border-input bg-card py-2 pl-4 pr-10 focus:outline-none focus:ring-2 focus:ring-ring"
               value={searchTerm}
               onChange={handleSearchChange}
             />
             <button
                type="submit"
-               className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-purple-600" // Added hover state
+               className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-primary" // Added hover state
                aria-label="Submit search"
             >
               <Search size={18} />
@@ -171,7 +171,7 @@ export default function Navbar() {
             {/* Mobile Search Button */}
             <button
                type="button"
-               className="ml-auto mr-2 p-1 text-gray-600 hover:text-purple-600" // Added padding for easier tapping
+               className="ml-auto mr-2 p-1 text-muted-foreground hover:text-primary" // Added padding for easier tapping
                onClick={toggleSearch}
                aria-label="Open search"
             >
@@ -181,7 +181,7 @@ export default function Navbar() {
             {/* Mobile Menu Button */}
             <button
                type="button"
-               className="p-1 text-gray-600 hover:text-purple-600" // Added padding
+               className="p-1 text-muted-foreground hover:text-primary" // Added padding
                onClick={toggleMenu}
                aria-label="Toggle menu"
                aria-expanded={isMenuOpen} // Accessibility: Indicate if menu is open
@@ -199,17 +199,17 @@ export default function Navbar() {
                   type="button"
                   onClick={togglePicksDropdown}
                   className={cn(
-                      "relative flex flex-col items-center rounded-md px-3 py-2 text-sm font-medium text-gray-700 transition-colors duration-200 ease-in-out hover:bg-linear-to-r from-pink-100 to-orange-100",
+                      "relative flex flex-col items-center rounded-md px-3 py-2 text-sm font-medium text-foreground transition-colors duration-200 ease-in-out hover:bg-accent",
                       // Add active state based on if a child route is active or dropdown is open
                       {
-                        "text-purple-600": isPicksDropdownOpen || router.pathname.startsWith('/top-hotel-picks') || router.pathname.startsWith('/top-restaurant-picks'),
+                        "text-primary": isPicksDropdownOpen || router.pathname.startsWith('/top-hotel-picks') || router.pathname.startsWith('/top-restaurant-picks'),
                       }
                   )}
                   aria-haspopup="true" // Accessibility: Indicates it has a popup menu
                   aria-expanded={isPicksDropdownOpen} // Accessibility: Indicates if dropdown is open
                   id="desktop-picks-menu-button" // Added ID for aria-labelledby
               >
-                  <span className={cn("mb-1", (isPicksDropdownOpen || router.pathname.startsWith('/top-hotel-picks') || router.pathname.startsWith('/top-restaurant-picks')) ? "text-purple-600" : "text-purple-500")}>
+                  <span className={cn("mb-1", (isPicksDropdownOpen || router.pathname.startsWith('/top-hotel-picks') || router.pathname.startsWith('/top-restaurant-picks')) ? "text-primary" : "text-primary")}>
                       <LiaCrownSolid size={22} />
                   </span>
                   <span className='flex items-center'> {/* Wrap text and icon */}
@@ -219,13 +219,13 @@ export default function Navbar() {
                   </span>
                   {/* Active underline indicator */}
                   {(router.pathname.startsWith('/top-hotel-picks') || router.pathname.startsWith('/top-restaurant-picks')) && (
-                      <span className="absolute bottom-0 left-1/2 h-0.5 w-3/5 -translate-x-1/2 transform rounded-full bg-purple-500"></span>
+                      <span className="absolute bottom-0 left-1/2 h-0.5 w-3/5 -translate-x-1/2 transform rounded-full bg-primary"></span>
                   )}
               </button>
               {/* Dropdown Menu */}
               {isPicksDropdownOpen && (
                   <div
-                      className="absolute left-1/2 top-full z-10 mt-2 w-48 -translate-x-1/2 transform rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                      className="absolute left-1/2 top-full z-10 mt-2 w-48 -translate-x-1/2 transform rounded-md bg-card shadow-lg ring-1 ring-ring ring-opacity-5 focus:outline-none"
                       role="menu" // Accessibility: Defines the role
                       aria-orientation="vertical"
                       aria-labelledby="desktop-picks-menu-button" // Associates menu with its button
@@ -233,7 +233,7 @@ export default function Navbar() {
                       <div className="py-1" role="none">
                           <Link
                               href="/top-hotel-picks"
-                              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                              className="block px-4 py-2 text-sm text-foreground hover:bg-muted hover:text-foreground"
                               role="menuitem" // Accessibility
                               onClick={() => setIsPicksDropdownOpen(false)} // Close this dropdown on click
                           >
@@ -241,7 +241,7 @@ export default function Navbar() {
                           </Link>
                           <Link
                               href="/top-restaurant-picks"
-                              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                              className="block px-4 py-2 text-sm text-foreground hover:bg-muted hover:text-foreground"
                               role="menuitem" // Accessibility
                               onClick={() => setIsPicksDropdownOpen(false)} // Close this dropdown on click
                           >
@@ -261,7 +261,7 @@ export default function Navbar() {
       {/* Mobile Menu */}
       <div
         className={cn(
-          "absolute left-0 right-0 z-20 bg-white shadow-lg transition-transform duration-300 ease-in-out md:hidden",
+          "absolute left-0 right-0 z-20 bg-card shadow-lg transition-transform duration-300 ease-in-out md:hidden",
           {
             "translate-y-0 opacity-100": isMenuOpen,
             // Use pointer-events-none ONLY when fully closed to prevent interfering with closing animation/clicks
@@ -282,10 +282,10 @@ export default function Navbar() {
             type="button"
             onClick={togglePicksDropdown} // Toggles only the sub-menu visibility
             className={cn(
-                "flex w-full items-center justify-between border-b border-gray-100 py-3 text-left text-gray-700 transition-colors duration-200 ease-in-out hover:bg-gray-100", // Added text-left
+                "flex w-full items-center justify-between border-b border-border py-3 text-left text-foreground transition-colors duration-200 ease-in-out hover:bg-muted", // Added text-left
                  // Highlight if dropdown is open or a child is active
                 {
-                  "bg-purple-50 text-purple-700 font-medium": isPicksDropdownOpen || router.pathname.startsWith('/top-hotel-picks') || router.pathname.startsWith('/top-restaurant-picks'),
+                  "bg-accent text-primary font-medium": isPicksDropdownOpen || router.pathname.startsWith('/top-hotel-picks') || router.pathname.startsWith('/top-restaurant-picks'),
                 }
               )}
             aria-expanded={isPicksDropdownOpen} // Accessibility
@@ -293,7 +293,7 @@ export default function Navbar() {
           >
             <span className="flex items-center">
                 {/* Icon for the dropdown toggle */}
-                <span className={cn("mr-3", isPicksDropdownOpen || router.pathname.startsWith('/top-hotel-picks') || router.pathname.startsWith('/top-restaurant-picks') ? "text-purple-700" : "text-purple-500")}>
+                <span className={cn("mr-3", isPicksDropdownOpen || router.pathname.startsWith('/top-hotel-picks') || router.pathname.startsWith('/top-restaurant-picks') ? "text-primary" : "text-primary")}>
                     <LiaCrownSolid size={18} />
                 </span>
                 <span>Our Top Picks</span>
@@ -304,7 +304,7 @@ export default function Navbar() {
 
           {/* Conditionally rendered sub-menu items */}
           {isPicksDropdownOpen && (
-            <div id="mobile-picks-submenu" className="ml-4 flex flex-col border-l border-gray-200 pl-2"> {/* Indent sub-items */}
+            <div id="mobile-picks-submenu" className="ml-4 flex flex-col border-l border-border pl-2"> {/* Indent sub-items */}
               {/* ***** CORRECTION ***** */}
               {/* REMOVED onClick={toggleMenu} from these sub-items */}
               {/* The routeChangeStart effect will handle closing the main menu */}
@@ -348,19 +348,19 @@ function NavItem({ href, icon, text }: { href: string; icon: React.ReactNode; te
    <Link
      href={href}
      className={cn(
-       "relative flex flex-col items-center rounded-md px-3 py-2 text-sm font-medium text-gray-700 transition-colors duration-200 ease-in-out hover:bg-linear-to-r from-pink-100 to-orange-100",
+       "relative flex flex-col items-center rounded-md px-3 py-2 text-sm font-medium text-foreground transition-colors duration-200 ease-in-out hover:bg-accent",
        {
-         "text-purple-600": isActive, // Highlight if directly active
+         "text-primary": isActive, // Highlight if directly active
        }
      )}
      // Add aria-current for accessibility on active links
      aria-current={isActive ? 'page' : undefined}
    >
-     <span className={cn("mb-1", isActive ? "text-purple-600" : "text-purple-500")}>{icon}</span>
+     <span className={cn("mb-1", isActive ? "text-primary" : "text-primary")}>{icon}</span>
      <span>{text}</span>
      {/* Underline for active state */}
      {isActive && (
-       <span className="absolute bottom-0 left-1/2 h-0.5 w-3/5 -translate-x-1/2 transform rounded-full bg-purple-500"></span>
+       <span className="absolute bottom-0 left-1/2 h-0.5 w-3/5 -translate-x-1/2 transform rounded-full bg-primary"></span>
      )}
    </Link>
  )
@@ -386,9 +386,9 @@ function MobileNavItem({ href, icon, text, onClick, isSubItem = false }: {
      // For sub-menu items, it won't be provided, allowing the link to navigate
      onClick={onClick}
      className={cn(
-       "flex items-center border-b border-gray-100 py-3 text-gray-700 transition-colors duration-200 ease-in-out hover:bg-gray-100",
+       "flex items-center border-b border-border py-3 text-foreground transition-colors duration-200 ease-in-out hover:bg-muted",
        {
-         "bg-purple-50 text-purple-700 font-medium": isActive, // Style for active item
+         "bg-accent text-primary font-medium": isActive, // Style for active item
          "pl-2": isSubItem, // Indent sub-items slightly
          // Example: 'last:border-b-0': isSubItem // Potentially remove border for last sub-item if needed
        }
@@ -397,7 +397,7 @@ function MobileNavItem({ href, icon, text, onClick, isSubItem = false }: {
      aria-current={isActive ? 'page' : undefined}
    >
      {/* Icon container */}
-     <span className={cn("mr-3", isActive ? "text-purple-700" : "text-purple-500")}>
+     <span className={cn("mr-3", isActive ? "text-primary" : "text-primary")}>
        {icon}
      </span>
      {/* Text label */}

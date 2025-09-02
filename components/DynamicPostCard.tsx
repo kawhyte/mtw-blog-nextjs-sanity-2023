@@ -118,7 +118,7 @@ const DynamicPostCard = ({
 
   return (
     <div
-      className={`group relative w-full overflow-hidden rounded-4xl border-4 border-black bg-indigo-50 text-gray-700 shadow-offsetIndigo transition-transform duration-500 ease-in-out group-hover:scale-105 group-hover:-translate-y-2 group-hover:shadow-lg ${ 
+      className={`group relative w-full overflow-hidden rounded-4xl border-4 border-border bg-card text-foreground shadow-offsetIndigo transition-transform duration-500 ease-in-out group-hover:scale-105 group-hover:-translate-y-2 group-hover:shadow-lg ${ 
         visited === false ? 'opacity-40 grayscale ' : 'grayscale-0'
       }`}
     >
@@ -143,7 +143,7 @@ const DynamicPostCard = ({
             className={`${inter.variable} font-secondary`}
             aria-label={`Read more about ${title}`}
           >
-            <CardTitle className="font-montserrat line-clamp-1 pt-1 text-sm font-bold text-gray-900 no-underline decoration-purple-500 decoration-dashed decoration-4 group-hover:underline sm:line-clamp-2 sm:h-8 sm:text-xl lg:text-xl xl:pt-1.5">
+            <CardTitle className="font-montserrat line-clamp-1 pt-1 text-sm font-bold text-foreground no-underline decoration-primary decoration-dashed decoration-4 group-hover:underline sm:line-clamp-2 sm:h-8 sm:text-xl lg:text-xl xl:pt-1.5">
               {title}
             </CardTitle>
           </Link>
@@ -151,15 +151,15 @@ const DynamicPostCard = ({
           {/* Meta Info (Location, Date) */}
           <div className="mt-2 flex flex-col gap-2 sm:flex-row sm:items-center md:flex-col md:items-start">
             {location && (
-              <div className="flex items-center gap-x-2 text-gray-500">
-                <MapPin className="h-5 w-5 shrink-0 text-gray-500" />
+              <div className="flex items-center gap-x-2 text-muted-foreground">
+                <MapPin className="h-5 w-5 shrink-0 text-muted-foreground" />
                 <p className="text-xs">{location}</p>
               </div>
             )}
 
             <div className="sm:ml-auto md:-ml-5">
-              <span className="flex items-center text-xs text-gray-500">
-                <Calendar className="mr-2 h-5 w-5 text-gray-500 sm:ml-5" />
+              <span className="flex items-center text-xs text-muted-foreground">
+                <Calendar className="mr-2 h-5 w-5 text-muted-foreground sm:ml-5" />
                
                   <>
                     <span className="mr-1 hidden text-xs lg:block">Visited on</span>
@@ -180,7 +180,7 @@ const DynamicPostCard = ({
           <Link href={href} className="w-full flex">
             <Button
               variant="secondary"
-              className="mx-auto mb-2 inline-block rounded-md bg-indigo-100 px-3 py-1 text-xs font-semibold text-purple-700 transition-colors duration-150 ease-in-out hover:bg-purple-600 hover:text-white"
+              className="mx-auto mb-2 inline-block rounded-md bg-accent px-3 py-1 text-xs font-semibold text-primary transition-colors duration-150 ease-in-out hover:bg-primary hover:text-primary-foreground"
             >
               View Details
             </Button>

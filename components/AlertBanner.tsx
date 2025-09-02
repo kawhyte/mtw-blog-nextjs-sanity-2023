@@ -20,7 +20,7 @@ export default function AlertBanner({
           {loading ? 'Loading... ' : 'This page is a preview. '}
           <a
             href="/api/exit-preview"
-            className="underline transition-colors duration-200 hover:text-brand-primary font-medium"
+            className="underline transition-colors duration-200 hover:text-primary font-medium"
           >
             Click here
           </a>{' '}

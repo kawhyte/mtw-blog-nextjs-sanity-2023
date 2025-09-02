@@ -1,90 +1,136 @@
 @import 'tailwindcss';
 
-@plugin 'tailwindcss-animate';
+/*
+================================================================================
+|                              TAILWIND V4 COLOR SYSTEM                          |
+================================================================================
+|                                                                              |
+|  HOW TO USE THIS SYSTEM:                                                     |
+|                                                                              |
+|  This file defines your app's color palette using CSS variables, maps      |
+|  them to Tailwind's theme, and provides base styles. You'll use             |
+|  semantic class names in your HTML.                                          |
+|                                                                              |
+|  - BACKGROUNDS: Use for page, card, and subtle container backgrounds.        |
+|    - `bg-background`: Main background for your pages.                        |
+|    - `bg-card`: Background for cards, modals, and elevated elements.         |
+|    - `bg-muted`: For subtle backgrounds, like highlighted list items.        |
+|                                                                              |
+|  - TEXT: Use for all text content.                                           |
+|    - `text-foreground`: Primary text color.                                  |
+|    - `text-primary`: For text that needs brand color emphasis.               |
+|    - `text-secondary`: For accent text or secondary brand mentions.          |
+|    - `text-muted-foreground`: For secondary, less important text.            |
+|    - `text-destructive`: For error messages or warnings.                     |
+|                                                                              |
+|  - BUTTONS: Combine background and text colors for buttons.                  |
+|    - Primary Button:   `bg-primary text-primary-foreground`                  |
+|    - Secondary Button: `bg-secondary text-secondary-foreground`              |
+|    - Destructive:      `bg-destructive text-destructive-foreground`          |
+|    - Ghost/Subtle:     `hover:bg-accent hover:text-accent-foreground`        |
+|                                                                              |
+|  - BORDERS & INPUTS: For structure and forms.                                |
+|    - `border-border`: For component borders and dividers.                    |
+|    - `border-input`: Specifically for form input borders.                    |
+|    - `bg-background`: Use for the input's background itself.                 |
+|                                                                              |
+|  - FOCUS RINGS: For accessibility on interactive elements.                   |
+|    - `ring-ring`: Applied automatically on focus for accessibility.          |
+|                                                                              |
+================================================================================
+*/
 
-/* ===== LIGHT THEME SYSTEM ===== */
+
+/* ===== 1. DEFINE YOUR COLOR PALETTE (HSL VALUES) ===== */
 @layer base {
   :root {
-    /* ===== Brand Colors ===== */
-    --brand-primary: 326 100% 65%;        /* Pink #FF4FD0 */
-    --brand-primary-dark: 326 100% 55%;   /* Darker pink */
-    --brand-primary-light: 326 100% 75%;  /* Lighter pink */
+    /* --- Neutrals --- */
+    /* USAGE: Core backgrounds and text colors. */
+    --background: 240 8% 98%;      /* Light Stone White -> USE FOR: Main page background (`bg-background`) */
+    --foreground: 209 34% 20%;     /* Dark Charcoal Blue -> USE FOR: Main body text (`text-foreground`) */
+    --card: 0 0% 100%;             /* Pure White -> USE FOR: Card backgrounds (`bg-card`) */
+    --card-foreground: 209 34% 20%;/* Dark Charcoal Blue -> USE FOR: Text inside cards (`text-card-foreground`) */
+    
+    /* --- Muted & Borders --- */
+    /* USAGE: Subtle UI elements, dividers, and input fields. */
+    --muted: 30 8% 90%;            /* Light Gray -> USE FOR: Subtle backgrounds, e.g., disabled items (`bg-muted`) */
+    --muted-foreground: 240 4% 46%;  /* Medium Gray -> USE FOR: Placeholder text or secondary info (`text-muted-foreground`) */
+    --border: 30 8% 90%;           /* Light Gray -> USE FOR: Component borders (`border-border`) */
+    --input: 30 8% 85%;            /* Slightly darker gray -> USE FOR: Input field borders (`border-input`) */
 
-    --brand-secondary: 217 91% 60%;       /* Blue #3B82F6 */
-    --brand-secondary-dark: 217 91% 50%;  /* Darker blue */
-    --brand-secondary-light: 217 91% 70%; /* Lighter blue */
+    /* --- Brand Colors (Your Core Palette) --- */
+    /* USAGE: Primary actions, links, and highlighted UI elements. */
+    --primary: 330 81% 62%;        /* Tailwind Pink-500 -> USE FOR: Primary buttons, important links (`bg-primary`, `text-primary`) */
+    --primary-foreground: 330 81% 98%; /* Very light pink -> USE FOR: Text on top of primary color elements (`text-primary-foreground`) */
+    --secondary: 262 92% 65%;      /* Tailwind Purple-500 -> USE FOR: Secondary buttons, alternative actions (`bg-secondary`) */
+    --secondary-foreground: 262 92% 98%; /* Very light purple -> USE FOR: Text on top of secondary color elements (`text-secondary-foreground`) */
+    
+    /* --- Accent & Semantic Colors --- */
+    /* USAGE: For visual flair and communicating status (success, error). */
+    --accent: 54 91% 95%;          /* Light Buttery Yellow -> USE FOR: Hover states on list items, badges (`bg-accent`) */
+    --accent-foreground: 48 96% 26%; /* Dark yellow -> USE FOR: Text on top of accent color (`text-accent-foreground`) */
+    --destructive: 0 84% 60%;      /* Red -> USE FOR: Delete buttons, error messages (`bg-destructive`, `text-destructive`) */
+    --destructive-foreground: 0 84% 98%; /* Light red -> USE FOR: Text on top of destructive color (`text-destructive-foreground`) */
+    --success: 145 63% 49%;        /* Green -> USE FOR: Success messages, confirmation indicators (`bg-success`, `text-success`) */
+    --success-foreground: 145 63% 98%; /* Light green -> USE FOR: Text on top of success color (`text-success-foreground`) */
+    --ring: 330 81% 62%;           /* Pink -> USE FOR: Focus rings on interactive elements (`ring-ring`) */
 
-    /* ===== Semantic Colors ===== */
-    --success: 142 76% 36%;               /* Green #22C55E */
-    --warning: 45 93% 47%;                /* Yellow #EAB308 */
-    --error: 0 84% 60%;                   /* Red #EF4444 */
-    --info: 199 89% 48%;                  /* Cyan #0EA5E9 */
+    /* --- Radius --- */
+    /* USAGE: Controls the roundness of corners on elements. */
+    --radius: 0.75rem;
+  }
 
-    /* ===== Light Theme Colors ===== */
-    --background: 0 0% 100%;              /* White */
-    --foreground: 224 71% 4%;             /* Near black */
-
-    --card: 0 0% 100%;                    /* White */
-    --card-foreground: 224 71% 4%;        /* Near black */
-
-    --popover: 0 0% 100%;                 /* White */
-    --popover-foreground: 224 71% 4%;     /* Near black */
-
-    --primary: 326 100% 65%;              /* Brand pink */
-    --primary-foreground: 0 0% 100%;      /* White */
-
-    --secondary: 220 14% 96%;             /* Light gray */
-    --secondary-foreground: 220 9% 46%;   /* Dark gray */
-
-    --muted: 220 14% 96%;                 /* Light gray */
-    --muted-foreground: 220 9% 46%;       /* Dark gray */
-
-    --accent: 220 14% 96%;                /* Light gray */
-    --accent-foreground: 220 9% 46%;      /* Dark gray */
-
-    --destructive: 0 84% 60%;             /* Red */
-    --destructive-foreground: 0 0% 100%;  /* White */
-
-    --border: 220 13% 91%;                /* Border gray */
-    --input: 220 13% 91%;                 /* Input border */
-    --ring: 326 100% 65%;                 /* Focus ring - brand pink */
-
-    /* ===== Blog Specific ===== */
-    --blog-text: 220 9% 46%;              /* Main text color */
-    --blog-text-light: 220 9% 60%;        /* Lighter text */
-    --blog-heading: 224 71% 4%;           /* Headings */
-    --blog-link: 217 91% 60%;             /* Links - brand blue */
-    --blog-link-hover: 217 91% 50%;       /* Link hover */
-
-    /* ===== Category Colors ===== */
-    --category-luxury: 45 93% 47%;        /* Yellow for luxury */
-    --category-midscale: 142 76% 36%;     /* Green for mid-scale */
-    --category-economy: 217 91% 60%;      /* Blue for economy */
-    --category-default: 220 9% 46%;       /* Gray for default */
-
-    /* ===== Rating Colors ===== */
-    --rating-excellent: 142 76% 36%;      /* Green */
-    --rating-good: 45 93% 47%;            /* Yellow */
-    --rating-average: 39 100% 50%;        /* Orange */
-    --rating-poor: 0 84% 60%;             /* Red */
-
-    /* ===== Shadows ===== */
-    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-    --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-
-    /* ===== Border Radius ===== */
-    --radius: 0.5rem;                     /* 8px */
-    --radius-sm: 0.25rem;                 /* 4px */
-    --radius-md: 0.375rem;                /* 6px */
-    --radius-lg: 0.75rem;                 /* 12px */
-    --radius-xl: 1rem;                    /* 16px */
+  /* --- Dark Mode Palette --- */
+  .dark {
+    --background: 209 34% 12%;
+    --foreground: 240 8% 98%;
+    --card: 209 34% 15%;
+    --card-foreground: 240 8% 98%;
+    --muted: 209 34% 25%;
+    --muted-foreground: 240 4% 65%;
+    --border: 209 34% 25%;
+    --input: 209 34% 25%;
+    --primary: 330 81% 62%;
+    --primary-foreground: 330 81% 98%;
+    --secondary: 262 92% 65%;
+    --secondary-foreground: 262 92% 98%;
+    --accent: 209 34% 25%;
+    --accent-foreground: 240 8% 98%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 72% 98%;
+    --success: 145 63% 49%;
+    --success-foreground: 145 63% 98%;
+    --ring: 330 81% 62%;
   }
 }
 
-/* ===== BASE STYLES ===== */
+/* ===== 2. MAP PALETTE TO TAILWIND'S THEME ===== */
+@theme {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+/* ===== 3. APPLY BASE STYLES AND FONTS ===== */
 @layer base {
   * {
     @apply border-border;
@@ -94,288 +140,30 @@
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
-  
-  /* ===== Adventure-Ready Typography System ===== */
-  
-  /* Headings - Montserrat Black for Impact */
-  h1, h2, h3, h4, h5, h6 {
-    color: hsl(var(--blog-heading));
-    font-family: var(--font-montserrat), system-ui, sans-serif;
-    font-weight: 900; /* Black weight for maximum impact */
-    letter-spacing: -0.02em; /* Tighter spacing for bold fonts */
-    line-height: 1.2; /* Improved readability for heavy fonts */
-  }
-  
-  /* Specific heading hierarchy */
-  h1 {
-    font-size: clamp(2rem, 5vw, 4rem); /* Responsive scaling */
-    line-height: 1.1;
-    letter-spacing: -0.03em;
-  }
-  
-  h2 {
-    font-size: clamp(1.5rem, 4vw, 2.5rem);
-    font-weight: 800; /* Slightly lighter for h2 */
-    line-height: 1.15;
-  }
-  
-  h3 {
-    font-size: clamp(1.25rem, 3vw, 1.875rem);
-    font-weight: 700;
-    line-height: 1.25;
-  }
-  
-  h4, h5, h6 {
-    font-weight: 600;
-    line-height: 1.3;
-  }
-  
-  /* Body Text - Raleway for Readability */
-  p, span, div {
-    color: hsl(var(--blog-text));
-    font-family: var(--font-raleway), system-ui, sans-serif;
-    font-weight: 400; /* Regular weight */
-    line-height: 1.6; /* Generous line height for readability */
-    letter-spacing: 0.01em; /* Slight spacing for clarity */
-  }
-  
-  /* Navigation - Montserrat Bold */
-  nav, .nav-item {
-    font-family: var(--font-montserrat), system-ui, sans-serif;
-    font-weight: 700; /* Bold but not black for nav */
-    letter-spacing: -0.01em;
-  }
-  
-  /* Links - Maintain Raleway but with emphasis */
-  a {
-    color: hsl(var(--blog-link));
-    font-family: var(--font-raleway), system-ui, sans-serif;
-    font-weight: 500; /* Medium weight for links */
-    transition: all 0.2s ease;
-    text-decoration-thickness: 2px;
-    text-underline-offset: 3px;
-  }
-  
-  a:hover {
-    color: hsl(var(--blog-link-hover));
-    font-weight: 600; /* Slightly bolder on hover */
-  }
-  
-  /* Button Text - Montserrat for Action Items */
-  button, .btn {
-    font-family: var(--font-montserrat), system-ui, sans-serif;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-  }
-  
-  /* Image Overlays & Captions - Montserrat for Impact */
-  .image-overlay, .caption, .badge {
-    font-family: var(--font-montserrat), system-ui, sans-serif;
-    font-weight: 700;
-    letter-spacing: -0.01em;
-  }
-  
-  /* Mobile Optimizations */
-  @media (max-width: 768px) {
-    h1, h2, h3, h4, h5, h6 {
-      font-weight: 800; /* Slightly lighter on mobile */
-      letter-spacing: -0.01em; /* Less tight spacing */
-    }
-    
-    p {
-      font-size: 1rem; /* Ensure readability on small screens */
-      line-height: 1.65; /* Extra line height for mobile */
-    }
-  }
-  
-  /* ===== Focus Styles ===== */
+
+  /* Focus Styles */
   :focus-visible {
     @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
   }
   
-  /* ===== Selection ===== */
+  /* Selection */
   ::selection {
-    @apply bg-primary/20 text-primary-foreground;
+    @apply bg-primary/20 text-primary;
+  }
+
+  /* You can keep your existing font styles (h1, p, a, etc.) here if you like them! */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-montserrat), system-ui, sans-serif;
+    font-weight: 800;
+    @apply text-foreground;
+  }
+
+  p, span, div, li {
+    font-family: var(--font-raleway), system-ui, sans-serif;
   }
 }
 
-/* ===== CUSTOM FONT UTILITIES ===== */
+/* You can keep your custom @layer utilities here as well */
 @layer utilities {
-  /* Adventure Typography Utilities */
-  .font-adventure-heading {
-    font-family: var(--font-montserrat), system-ui, sans-serif;
-    font-weight: 900;
-    letter-spacing: -0.02em;
-    line-height: 1.2;
-  }
-  
-  .font-adventure-subheading {
-    font-family: var(--font-montserrat), system-ui, sans-serif;
-    font-weight: 700;
-    letter-spacing: -0.01em;
-    line-height: 1.25;
-  }
-  
-  .font-adventure-nav {
-    font-family: var(--font-montserrat), system-ui, sans-serif;
-    font-weight: 700;
-    letter-spacing: -0.01em;
-  }
-  
-  .font-adventure-body {
-    font-family: var(--font-raleway), system-ui, sans-serif;
-    font-weight: 400;
-    line-height: 1.6;
-    letter-spacing: 0.01em;
-  }
-  
-  .font-adventure-body-bold {
-    font-family: var(--font-raleway), system-ui, sans-serif;
-    font-weight: 600;
-    line-height: 1.5;
-    letter-spacing: 0.01em;
-  }
-  
-  .font-adventure-caption {
-    font-family: var(--font-montserrat), system-ui, sans-serif;
-    font-weight: 600;
-    letter-spacing: 0.01em;
-    font-size: 0.875rem;
-  }
-  
-  /* Responsive font sizes */
-  .text-adventure-hero {
-    font-size: clamp(2.5rem, 6vw, 5rem);
-    line-height: 1.05;
-    letter-spacing: -0.04em;
-  }
-  
-  .text-adventure-title {
-    font-size: clamp(1.75rem, 4vw, 3rem);
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-  }
-  
-  .text-adventure-subtitle {
-    font-size: clamp(1.25rem, 3vw, 2rem);
-    line-height: 1.2;
-  }
-}
-
-
-
-@theme inline {
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
-}
-
-:root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
-}
-
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
-}
-
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
+  /* Your .font-adventure-heading, etc. can remain here */
 }

@@ -96,7 +96,7 @@ export default function HotelReviewsPage(props: HotelReviewsPageProps) {
                 ))}
               </div>
             ) : (
-              <p className="text-center my-10">No hotel reviews found. Loading: {loading ? 'Yes' : 'No'}</p>
+              <p className="text-center my-10 text-muted-foreground">No hotel reviews found. Loading: {loading ? 'Yes' : 'No'}</p>
             )}
           </div>
           <PaginationComponent

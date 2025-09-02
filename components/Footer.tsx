@@ -6,10 +6,10 @@ import { EXAMPLE_PATH } from "../lib/constants";
 export default function Footer() {
 	let year = new Date().getFullYear();
 	return (
-        <footer className=' mt-20 relative text-gray-600 body-font  bg-linear-to-r from-indigo-200 via-red-200 to-yellow-100'>
+        <footer className=' mt-20 relative text-muted-foreground body-font  bg-muted'>
 		
 				<div className='container px-5 py-8 mx-auto flex items-center sm:flex-row '>
-					<div className='flex title-font font-medium items-center md:justify-start justify-center text-gray-900'>
+					<div className='flex title-font font-medium items-center md:justify-start justify-center text-foreground'>
 						<Link href='/' passHref legacyBehavior>
 							<div className='flex flex-row justify-center align-middle items-center'>
 								{/* <div className=' hidden mx-4 sm:inline-block'>
@@ -22,7 +22,7 @@ export default function Footer() {
 									/>
 								</div> */}
 
-								<p className={`  lg:block ${ space.variable} font-logo   hidden text-base  leading-relaxed md:inline-block mr-4 py-2 whitespace-nowrap  text-black`}>
+								<p className={`  lg:block ${ space.variable} font-logo   hidden text-base  leading-relaxed md:inline-block mr-4 py-2 whitespace-nowrap  text-foreground`}>
 									meet the whytes
 								</p>
 							</div>
@@ -32,13 +32,13 @@ export default function Footer() {
 					<div className='flex  flex-row'>
 						<a
 							href='https://www.kennywhyte.com'
-							className='text-blue-500 ml-1 '
+							className='text-primary ml-1 '
 							rel='noopener noreferrer'
 							target='_blank'>
 							{" "}
 							<p
 								id='copyright-year'
-								className={` ${inter.variable} font-sans  mt-4 text-sm leading-relaxed md:text-sm  lg:text-sm        text-gray-900 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0`}
+								className={` ${inter.variable} font-sans  mt-4 text-sm leading-relaxed md:text-sm  lg:text-sm        text-foreground sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-border sm:py-2 sm:mt-0`}
 
 								
 								>
@@ -50,7 +50,7 @@ export default function Footer() {
 
 					<span className='flex flex-row sm:ml-auto sm:mt-0 mt-4 justify-center  sm:justify-start cursor-pointer'>
 						<a
-							className='ml-3  text-pink-500'
+							className='ml-3  text-primary'
 							rel='noopener noreferrer nofollow'
 							target='_blank'
 							href='https://www.instagram.com/mtwtravel/'>
@@ -67,7 +67,7 @@ export default function Footer() {
 							</svg>
 						</a>
 						<a
-							className='ml-3 text-pink-500'
+							className='ml-3 text-primary'
 							rel='noopener noreferrer nofollow'
 							target='_blank'
 							href='https://www.youtube.com/channel/UC519Rsb02cRpbzDNLMWflVA'>

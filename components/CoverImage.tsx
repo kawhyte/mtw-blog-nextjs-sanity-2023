@@ -93,10 +93,10 @@ export default function CoverImage(props: CoverImageProps) {
             {linkType === 'hotel' && category && (
               <Badge
                 className={`absolute top-4 left-4 z-30 ${
-                  categoryType.color === 'blue' ? 'bg-blue-100 text-blue-700' :
-                  categoryType.color === 'yellow' ? 'bg-yellow-100 text-yellow-700' :
-                  categoryType.color === 'green' ? 'bg-green-100 text-green-700' :
-                  'bg-gray-100 text-gray-700'
+                  categoryType.color === 'blue' ? 'bg-accent text-accent-foreground' :
+                  categoryType.color === 'yellow' ? 'bg-accent text-accent-foreground' :
+                  categoryType.color === 'green' ? 'bg-success text-success-foreground' :
+                  'bg-destructive text-destructive-foreground'
                 } border-transparent hover:bg-opacity-80`}
               >
                 <Hotel className="h-3 w-3 mr-1" /> {categoryType.name}
@@ -104,7 +104,7 @@ export default function CoverImage(props: CoverImageProps) {
             )}
 
             {showRating && linkType !== 'story' && (
-              <div className="absolute right-4 top-4 z-30 flex items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-sm">
+              <div className="absolute right-4 top-4 z-30 flex items-center justify-center rounded-full bg-background/20 text-foreground backdrop-blur-sm">
                 <RatingBadge
                   average={overallRating.numericalRating.toFixed(2)}
                   textRating={overallRating.textRating}

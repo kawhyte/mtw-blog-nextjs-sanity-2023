@@ -93,7 +93,7 @@ export default function StoryReviewsPage(props: StoryReviewsPageProps) {
                 ))}
               </div>
             ) : (
-              <p className="text-center my-10">No stories or guides found. Loading: {loading ? 'Yes' : 'No'}</p>
+              <p className="text-center my-10 text-muted-foreground">No stories or guides found. Loading: {loading ? 'Yes' : 'No'}</p>
             )}
           </div>
           <PaginationComponent
