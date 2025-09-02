@@ -17,7 +17,6 @@ import { useCallback, useEffect, useState } from 'react'
 import HelpfulTip from './HelpfulTip'
 import HeroPhotoGallery from './HeroPhotoGallery'
 import HotelRating from './HotelRating'
-import SectionTitle from './SectionTitle'
 
 export interface HotelReviewPageProps {
   preview?: boolean
@@ -26,28 +25,13 @@ export interface HotelReviewPageProps {
   settings: Settings
 }
 
-export default function HotelReviewPage(props: HotelReviewPageProps) {
+function HotelReviewPageContent(props: HotelReviewPageProps) {
   const { preview, loading, hotelReview, settings } = props
   const { title = demo.title } = settings || {}
 
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(
     null,
   )
-
-  if (!hotelReview?.slug && !preview) {
-    notFound()
-  }
-
-  // Early return if hotel review is not found
-  if (!hotelReview) {
-    return preview ? (
-      <Layout preview={preview} loading={loading}>
-        <PostTitle>Loading…</PostTitle>
-      </Layout>
-    ) : (
-      notFound()
-    )
-  }
 
   const galleryImages = [
     hotelReview.coverImage,
@@ -100,11 +84,11 @@ export default function HotelReviewPage(props: HotelReviewPageProps) {
           />
         )}
 
-        <article className="container mx-auto px-4 py-6 md:px-6 lg:px- lg:py-4 xl:py-">
+        <article className="container mx-auto px-4 py-8 md:px-6 md:py-12">
           {/* Hotel Review Header - will create dedicated component later */}
-          <header className="mb-8">
-            <h1 className="text-4xl font-bold mb-4">{hotelReview.title}</h1>
-            <div className="flex flex-wrap items-center justify-start gap-x-6 gap-y-2 mb-4">
+          <header className="mb-12">
+            <h1 className="mb-4 text-4xl font-bold">{hotelReview.title}</h1>
+            <div className="mb-4 flex flex-wrap items-center justify-start gap-x-6 gap-y-2">
               {hotelReview.location && (
                 <div className="flex items-center text-lg text-muted-foreground">
                   <MapPin className="mr-2 h-5 w-5" />
@@ -132,46 +116,68 @@ export default function HotelReviewPage(props: HotelReviewPageProps) {
             </div>
           </header>
 
-          {hotelReview.hotelRating && (
-            <HotelRating hotelRating={hotelReview.hotelRating} />
-          )}
+          <div className="space-y-12 md:space-y-16">
+            {hotelReview.hotelRating && (
+              <HotelRating hotelRating={hotelReview.hotelRating} />
+            )}
 
-          {hotelReview.tip && <HelpfulTip tip={hotelReview.tip} />}
+            {hotelReview.tip && <HelpfulTip tip={hotelReview.tip} />}
 
-          {/* Hotel-specific content sections */}
-          <ProConList
-            positives={hotelReview.positives}
-            negatives={hotelReview.negatives}
-            verdict2={hotelReview.verdict}
-          />
+            {/* Hotel-specific content sections */}
+            <ProConList
+              positives={hotelReview.positives}
+              negatives={hotelReview.negatives}
+              verdict2={hotelReview.verdict}
+            />
 
-          <RoomTech
-            techAvailable={hotelReview.techRating}
-            speed={hotelReview.internetSpeed}
-            roomAmenitiesAvailiable={hotelReview.roomAmenities}
-          />
+            <RoomTech
+              techAvailable={hotelReview.techRating}
+              speed={hotelReview.internetSpeed}
+              roomAmenitiesAvailiable={hotelReview.roomAmenities}
+            />
+
+            {/* <div className="container mx-auto"> */}
+            <PostBody content={hotelReview.content} />
+            {/* </div> */}
+
+            {hotelReview.youtube && <VideoPlayer url={hotelReview.youtube} />}
+
+            {hotelReview.gallery?.length > 0 && (
+              <ImageGallery
+                title="Photo Gallery"
+                images={hotelReview.gallery}
+                selectedImageIndex={selectedImageIndex}
+                openModal={openModal}
+                closeModal={closeModal}
+                nextImage={nextImage}
+                prevImage={prevImage}
+              />
+            )}
+          </div>
         </article>
-
-        <div className="container mx-auto">
-          <PostBody content={hotelReview.content} />
-        </div>
-
-        <VideoPlayer url={hotelReview.youtube} />
-
-        {hotelReview.gallery?.length > 0 && (
-          <ImageGallery
-            title="Photo Gallery"
-            images={hotelReview.gallery}
-            selectedImageIndex={selectedImageIndex}
-            openModal={openModal}
-            closeModal={closeModal}
-            nextImage={nextImage}
-            prevImage={prevImage}
-          />
-        )}
-
         <Footer />
       </Layout>
     </div>
   )
+}
+
+export default function HotelReviewPage(props: HotelReviewPageProps) {
+  const { preview, loading, hotelReview } = props
+
+  if (!hotelReview?.slug && !preview) {
+    notFound()
+  }
+
+  // Early return if hotel review is not found
+  if (!hotelReview) {
+    return preview ? (
+      <Layout preview={preview} loading={loading}>
+        <PostTitle>Loading…</PostTitle>
+      </Layout>
+    ) : (
+      notFound()
+    )
+  }
+
+  return <HotelReviewPageContent {...props} />
 }
