@@ -1,6 +1,6 @@
 import { PaginationWrapper as Pagination } from '@/components/ui/pagination-wrapper';
 import { Loader } from '@/components/ui/loader';
-import PostPreview from 'components/PostPreview';
+import DynamicPostCard from 'components/DynamicPostCard';
 import { client } from 'lib/sanity.client';
 import { type Post, type Guide, type HotelReview, type FoodReview } from 'lib/sanity.queries';
 import { useCallback,useEffect, useState } from 'react';
@@ -156,7 +156,7 @@ export default function MoreStories({
           };
 
           return (
-            <PostPreview
+            <DynamicPostCard
               key={item._id}
               title={item.title}
               coverImage={item.coverImage}

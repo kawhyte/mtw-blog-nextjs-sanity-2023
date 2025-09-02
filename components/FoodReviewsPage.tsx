@@ -11,7 +11,7 @@ import { useState, useEffect } from 'react';
 import useSWR from 'swr';
 import { getPaginatedFoodPosts } from 'lib/sanity.client';
 import PaginationComponent from './PaginationComponent';
-import PostPreview from './PostPreview';
+import DynamicPostCard from './DynamicPostCard';
 
 import { CMS_NAME } from '../lib/constants';
 import Footer from './Footer';
@@ -83,7 +83,7 @@ export default function FoodReviewsPage(props: FoodReviewsPageProps) {
             {posts && posts.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {posts.map((foodReview) => (
-                  <PostPreview
+                  <DynamicPostCard
                     key={foodReview._id}
                     title={foodReview.title}
                     coverImage={foodReview.coverImage}

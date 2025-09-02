@@ -3,7 +3,7 @@ import Container from 'components/BlogContainer';
 import BlogHeader from 'components/BlogHeader';
 import Layout from 'components/BlogLayout';
 import Footer from 'components/Footer';
-import PostPreview from 'components/PostPreview'; // Import PostPreview
+import DynamicPostCard from 'components/DynamicPostCard';
 import * as demo from 'lib/demo.data';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
@@ -135,7 +135,7 @@ const SearchResults = (props: PageProps) => {
             {/* --- Grid Display using PostPreview --- */}
             <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4  gap-4 px-4 sm:px-6 lg:px-8 container mx-auto max-w-8xl">
             {displayedResults.map((post) => (
-                <PostPreview
+                <DynamicPostCard
                   key={post._id}
                   // Pass necessary props from the post object
                   title={post.title}

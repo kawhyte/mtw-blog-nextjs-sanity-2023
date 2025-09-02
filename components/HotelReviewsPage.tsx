@@ -12,7 +12,7 @@ import PaginationComponent from './PaginationComponent';
 
 import { CMS_NAME } from '../lib/constants';
 import Footer from './Footer';
-import PostPreview from './PostPreview';
+import DynamicPostCard from './DynamicPostCard';
 import ReviewHeader from './ReviewHeader';
 
 export interface HotelReviewsPageProps {
@@ -81,7 +81,7 @@ export default function HotelReviewsPage(props: HotelReviewsPageProps) {
             {posts && posts.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {posts.map((hotelReview) => (
-                  <PostPreview
+                  <DynamicPostCard
                     key={hotelReview._id}
                     title={hotelReview.title}
                     coverImage={hotelReview.coverImage}

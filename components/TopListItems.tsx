@@ -1,4 +1,4 @@
-import PostPreview from 'components/PostPreview'
+import DynamicPostCard from 'components/DynamicPostCard'
 import type { Post } from 'lib/sanity.queries' // Changed import to Post
 
 import SectionTitle from './SectionTitle'
@@ -26,7 +26,7 @@ export default function TopListItems(
               {/* <div className="absolute z-40 top-5 right-9 bg-green-300 px-2 ox-3">{post.weightedAverageRating}</div> */}
 
               <div className="relative">
-                <PostPreview
+                <DynamicPostCard
                   key={post._id}
                   title={post.title}
                   coverImage={post.coverImage}

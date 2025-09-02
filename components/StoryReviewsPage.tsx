@@ -9,7 +9,7 @@ import { useState, useEffect } from 'react';
 import useSWR from 'swr';
 import { getPaginatedGuidePosts } from 'lib/sanity.client';
 import PaginationComponent from './PaginationComponent';
-import PostPreview from './PostPreview';
+import DynamicPostCard from './DynamicPostCard';
 
 import { CMS_NAME } from '../lib/constants';
 import Footer from './Footer';
@@ -79,7 +79,7 @@ export default function StoryReviewsPage(props: StoryReviewsPageProps) {
             {posts && posts.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {posts.map((guide) => (
-                  <PostPreview
+                  <DynamicPostCard
                     key={guide._id}
                     title={guide.title}
                     coverImage={guide.coverImage}
