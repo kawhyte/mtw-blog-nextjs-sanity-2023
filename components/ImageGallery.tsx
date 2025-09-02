@@ -1,18 +1,16 @@
-// Suggested Filename: components/ImageGallery.tsx
+// components/ImageGallery.tsx
 
-import { urlForImage } from 'lib/sanity.image'; // Ensure this path is correct for your project
+import { urlForImage } from 'lib/sanity.image';
+import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 import Image from 'next/image';
+import React, { useCallback, useEffect, useState } from 'react';
+
 import SectionTitle from './SectionTitle';
 
-// --- Interfaces (Exported for potential reuse) ---
-
-/**
- * Defines the expected shape of an image item from Sanity.
- * Adjust based on your actual Sanity schema if needed.
- */
+// --- Interfaces ---
 export interface GalleryImage {
-  _key?: string; // Sanity's unique key for array items
-  alt?: string; // Alt text for the image
+  _key?: string;
+  alt?: string;
   asset?: {
     _ref: string;
     _type: 'reference';
@@ -20,117 +18,172 @@ export interface GalleryImage {
       dimensions?: {
         width: number;
         height: number;
-        aspectRatio: number;
       };
-      lqip?: string; // Low Quality Image Placeholder (blurDataURL)
+      lqip?: string;
     };
   };
-  // Add any other custom fields associated with the image if needed
-  // e.g., caption?: string;
 }
 
-/**
- * Defines the props accepted by the ImageGallery component.
- */
 export interface ImageGalleryProps {
-  /** The array of image objects to display. */
   images?: GalleryImage[];
-  /** Optional title to display above the gallery. */
   title?: string;
-  /** Optional class name for the main section container */
   className?: string;
 }
 
-// --- Reusable Component ---
+// --- Main Exported Component ---
+export default function ImageGallery({
+  images,
+  title,
+  className,
+}: ImageGalleryProps) {
+  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(
+    null
+  );
 
-function ImageGallery({ images, title, className }: ImageGalleryProps) {
-  // Check if there are valid images to display
   const hasImages = images && images.length > 0;
 
+  // --- Modal Control Functions ---
+  const openModal = (index: number) => setSelectedImageIndex(index);
+
+  const closeModal = useCallback(() => setSelectedImageIndex(null), []);
+
+  const nextImage = useCallback(() => {
+    if (!images || images.length === 0) return;
+    setSelectedImageIndex((prevIndex) =>
+      prevIndex === null ? null : (prevIndex + 1) % images.length
+    );
+  }, [images]);
+
+  const prevImage = useCallback(() => {
+    if (!images || images.length === 0) return;
+    setSelectedImageIndex((prevIndex) =>
+      prevIndex === null
+        ? null
+        : (prevIndex - 1 + images.length) % images.length
+    );
+  }, [images]);
+
+  // Keyboard navigation for the modal
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (selectedImageIndex === null) return;
+      if (e.key === 'ArrowRight') nextImage();
+      if (e.key === 'ArrowLeft') prevImage();
+      if (e.key === 'Escape') closeModal();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedImageIndex, nextImage, prevImage, closeModal]);
+
   return (
-    <section className={` w-full ${className || ''}`}>
-      <div className="mx-6 md:container md:mx-auto">
-        {/* --- Title --- */}
+    <section className={`w-full my-12 ${className || ''}`}>
+      <div className="container mx-auto px-4">
         {title && (
-<div className='pb-10'>
-
-<SectionTitle header={title || "Photo Collage"} description={undefined} />
-
-</div>
-           
-            
-        //   <div className="mb-8 flex w-full flex-col text-start font-medium lg:mb-12">
-        //     <h2 className="text-2xl sm:text-3xl font-semibold text-gray-800">
-        //       {title}
-        //     </h2>
-        //     {/* If you have a standard SectionTitle component, you could use it here instead: */}
-        //     {/* <SectionTitle header={title} description={undefined} /> */}
-        //   </div>
+          <div className="pb-10">
+            <SectionTitle header={title} />
+          </div>
         )}
 
-        {/* --- Masonry Grid Container --- */}
         {hasImages ? (
-          <div
-            className="
-              columns-1 gap-4 space-y-4
-              sm:columns-2
-              md:columns-3
-              lg:columns-4
-              xl:columns-5
-            "
-          >
+          <div className="columns-1 gap-4 space-y-4 sm:columns-2 md:columns-3 lg:columns-4">
             {images.map((item, i) => {
-              // Ensure item and asset exist before proceeding
-              if (!item?.asset) {
-                console.warn(`Gallery item at index ${i} is missing asset data.`);
-                return null; // Skip rendering this item if asset is missing
-              }
-
-              const key = item._key || `gallery-item-${i}`;
-
-              // Generate image URL
-              const imageUrl = urlForImage(item)
-                .width(800) // Adjust base width as needed for quality/performance trade-off
-                .auto('format')
-                .url();
-
-              const imageAlt = item.alt || `Gallery image ${i + 1}`; // Fallback alt text
-
-              // Get dimensions and blur data if available
-              const imageWidth = item.asset.metadata?.dimensions?.width;
-              const imageHeight = item.asset.metadata?.dimensions?.height;
+              if (!item?.asset) return null;
+              const imageUrl = urlForImage(item).width(800).auto('format').url();
+              const imageAlt = item.alt || `Gallery image ${i + 1}`;
               const blurData = item.asset.metadata?.lqip;
 
               return (
-                <div key={key} className="break-inside-avoid group relative mb-4"> {/* Added mb-4 to ensure space-y works correctly */}
+                <div
+                  key={item._key || `gallery-${i}`}
+                  className="break-inside-avoid group relative cursor-pointer"
+                  onClick={() => openModal(i)}
+                >
                   <Image
-                    className="h-auto w-full rounded-lg object-cover shadow-md transition-shadow duration-300 group-hover:shadow-xl"
+                    className="h-auto w-full rounded-lg object-cover shadow-md transition-all duration-300 group-hover:shadow-xl group-hover:scale-105"
                     src={imageUrl}
                     alt={imageAlt}
-                    width={imageWidth || 800} // Use fetched width or fallback
-                    height={imageHeight || 600} // Use fetched height or fallback (adjust aspect ratio if needed)
-                    sizes="(max-width: 640px) 90vw, (max-width: 768px) 45vw, (max-width: 1024px) 30vw, (max-width: 1280px) 22vw, 18vw" // Refine based on your actual column layout and gaps
+                    width={item.asset.metadata?.dimensions?.width || 800}
+                    height={item.asset.metadata?.dimensions?.height || 600}
+                    sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 30vw"
                     placeholder={blurData ? 'blur' : 'empty'}
                     blurDataURL={blurData}
                   />
-
-                  {/* Optional Caption - uncomment/adjust if needed */}
-                  {/* {item.alt && (
-                    <span className="mt-2 block px-1 text-center text-xs text-gray-600 sm:text-sm">
-                      {item.alt}
-                    </span>
-                  )} */}
+                  <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/20 transition-colors duration-300 rounded-lg" />
                 </div>
               );
             })}
           </div>
         ) : (
-          <p className="text-center text-gray-500">The gallery is currently empty.</p>
+          <p className="text-center text-muted-foreground">
+            The gallery is currently empty.
+          </p>
         )}
-        {/* --- End Masonry Grid Container --- */}
       </div>
+
+      {/* --- Lightbox Modal --- */}
+      {selectedImageIndex !== null && hasImages && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm"
+          onClick={closeModal}
+        >
+          {/* Main Modal Content */}
+          <div
+            className="relative flex h-full max-h-[90vh] w-full max-w-[90vw] items-center justify-center"
+            onClick={(e) => e.stopPropagation()} // Prevents modal from closing when clicking on the image/buttons
+          >
+            {/* Image Display */}
+            <Image
+              src={urlForImage(images[selectedImageIndex])
+                .width(1920)
+                .auto('format')
+                .url()}
+              alt={images[selectedImageIndex].alt || 'Full screen image'}
+              width={
+                images[selectedImageIndex].asset.metadata?.dimensions?.width ||
+                1920
+              }
+              height={
+                images[selectedImageIndex].asset.metadata?.dimensions?.height ||
+                1080
+              }
+              className="object-contain w-auto h-auto max-w-full max-h-full rounded-lg shadow-2xl"
+              placeholder={
+                images[selectedImageIndex].asset.metadata?.lqip
+                  ? 'blur'
+                  : 'empty'
+              }
+              blurDataURL={images[selectedImageIndex].asset.metadata?.lqip}
+            />
+
+            {/* Close Button */}
+            <button
+              onClick={closeModal}
+              className="absolute -top-4 -right-4 lg:top-0 lg:right-0 m-4 p-2 rounded-full bg-card border border-border text-foreground hover:bg-muted transition-colors"
+              aria-label="Close image view"
+            >
+              <X className="h-6 w-6" />
+            </button>
+
+            {/* Previous Button */}
+            <button
+              onClick={prevImage}
+              className="absolute left-0 m-4 p-2 rounded-full bg-card border border-border text-foreground hover:bg-muted transition-colors"
+              aria-label="Previous image"
+            >
+              <ChevronLeft className="h-8 w-8" />
+            </button>
+
+            {/* Next Button */}
+            <button
+              onClick={nextImage}
+              className="absolute right-0 m-4 p-2 rounded-full bg-card border border-border text-foreground hover:bg-muted transition-colors"
+              aria-label="Next image"
+            >
+              <ChevronRight className="h-8 w-8" />
+            </button>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
-
-export default ImageGallery;
