@@ -24,9 +24,9 @@ export default function HeroPhotoGallery({ images, onShowAllPhotos }: HeroPhotoG
         <Image
           src={urlForImage(mainImage)?.width(800).height(600).fit('crop').url() || ''}
           alt={mainImage.alt || 'Main hotel image'}
-          layout="fill"
-          objectFit="cover"
-          className="rounded-xl"
+          fill
+          sizes="100vw"
+          className="rounded-xl object-cover"
         />
       </div>
 
@@ -37,9 +37,9 @@ export default function HeroPhotoGallery({ images, onShowAllPhotos }: HeroPhotoG
           <Image
             src={urlForImage(mainImage)?.width(1200).height(800).fit('crop').url() || ''}
             alt={mainImage.alt || 'Main hotel image'}
-            layout="fill"
-            objectFit="cover"
-            className="rounded-l-xl"
+            fill
+            sizes="(min-width: 768px) 50vw, 100vw"
+            className="rounded-l-xl object-cover"
           />
         </div>
 
@@ -50,9 +50,9 @@ export default function HeroPhotoGallery({ images, onShowAllPhotos }: HeroPhotoG
               <Image
                 src={urlForImage(image)?.width(600).height(400).fit('crop').url() || ''}
                 alt={image.alt || `Hotel image ${index + 2}`}
-                layout="fill"
-                objectFit="cover"
-                className={`${index === 1 ? 'rounded-tr-xl' : ''} ${index === 3 ? 'rounded-br-xl' : ''}`}
+                fill
+                sizes="(min-width: 768px) 25vw, 100vw"
+                className={`${index === 1 ? 'rounded-tr-xl' : ''} ${index === 3 ? 'rounded-br-xl' : ''} object-cover`}
               />
             </div>
           ))}
