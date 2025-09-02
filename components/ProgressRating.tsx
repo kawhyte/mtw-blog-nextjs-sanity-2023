@@ -1,6 +1,6 @@
 import React from "react";
 
-function ProgressRating({ progress }) {
+function ProgressRating({ progress, color }) {
 	
 	
 	let progressPercentage = (Math.floor(progress) / 5) * 100;
@@ -14,7 +14,7 @@ function ProgressRating({ progress }) {
 						progressPercentage < 65 ? "bg-linear-to-r from-pink-500 via-red-500 to-yellow-500 rounded-lg " : "bg-linear-to-r from-green-500 to-green-700 rounded-lg "
 					}`}></div>
 			</div>
-			<span className='text-sm ml-3 md:text-base'>{progress} </span>
+			<span className='text-sm ml-3 md:text-base font-bold '>{progress.toFixed(1)} </span>
 		</>
 	);
 }

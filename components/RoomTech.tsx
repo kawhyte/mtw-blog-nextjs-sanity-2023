@@ -1,198 +1,148 @@
-// components/RoomTech.tsx (Refactored)
-import { inter, oswald } from 'app/fonts'; // Keep if used by SectionTitle or needed elsewhere
+import { CheckCircle2, Wifi, XCircle } from 'lucide-react';
 import React from 'react';
+
 import SectionTitle from './SectionTitle';
-import FeatureItem from './FeatureItem'; // Import the new component
 
-// --- Data Definitions ---
+// --- Themed Data Definitions ---
 
-// Structure for Internet Speed Tiers
+// Internet speed tiers now use semantic theme colors
 const speedTiers = [
-  // Order from highest threshold down
-  { threshold: 40, text: 'Excellent', color: 'bg-green-700', features: ['Web Browsing', 'Emails', 'Zoom Meetings', 'Streaming Music', 'Streaming Youtube', 'Streaming HD Movies', 'Streaming 4k Movies', 'Streaming Video Games'] },
-  { threshold: 30, text: 'Very Fast', color: 'bg-green-500', features: ['Web Browsing', 'Emails', 'Zoom Meetings', 'Streaming Music', 'Streaming Youtube', 'Streaming HD Movies', 'Streaming 4k Movies'] },
-  { threshold: 23, text: 'Fast', color: 'bg-indigo-400', features: ['Web Browsing', 'Emails', 'Zoom Meetings', 'Streaming Music', 'Streaming Youtube', 'Streaming HD Movies'] },
-  { threshold: 13, text: 'Average', color: 'bg-yellow-500', features: ['Web Browsing', 'Emails', 'Zoom Meetings', 'Streaming Music', 'Streaming Youtube'] },
-  { threshold: 8, text: 'Average', color: 'bg-purple-500', features: ['Web Browsing', 'Emails', 'Streaming Music', 'Streaming Youtube'] },
-  { threshold: 6, text: 'Slow', color: 'bg-blue-500', features: ['Web Browsing', 'Emails', 'Streaming Music', 'Streaming Youtube'] },
-  { threshold: 3, text: 'Slow', color: 'bg-orange-500', features: ['Web Browsing', 'Emails', 'Streaming Music'] },
-  { threshold: 0, text: 'Poor', color: 'bg-red-500', features: ['Web Browsing', 'Emails'] }, // Handles 0 to 2.99...
-  // Fallback for invalid speed (e.g., negative, although unlikely)
-  { threshold: -Infinity, text: 'No Internet', color: 'bg-gray-400', features: ['No Internet'] },
+  { threshold: 40, text: 'Excellent', theme: 'success' },
+  { threshold: 23, text: 'Fast', theme: 'success' },
+  { threshold: 13, text: 'Average', theme: 'accent' },
+  { threshold: 6, text: 'Slow', theme: 'destructive' },
+  { threshold: 0, text: 'Poor', theme: 'destructive' },
+  { threshold: -Infinity, text: 'N/A', theme: 'muted' },
 ];
 
-// Configuration for Tech Available Items
-// Maps keys from the 'techAvailable' prop to display labels
 const techConfig = [
   { key: 'USB', label: 'USB Ports' },
   { key: 'HDMI', label: 'HDMI Port' },
-  { key: 'TV', label: 'In-Room TV' }, // Assuming TV means a standard TV
+  { key: 'TV', label: 'In-Room TV' },
   { key: 'Chromecast', label: 'Chromecast / Smart TV' },
   { key: 'Wired', label: 'Wired Internet Port' },
-  { key: 'Bluetooth', label: 'Bluetooth Speaker / Connectivity' }, // Assuming Bluetooth means speaker
-  // Add other tech items here if your 'techAvailable' object has more keys
+  { key: 'Bluetooth', label: 'Bluetooth Speaker' },
 ];
 
-// Configuration for Room Amenities
-// Maps keys from 'roomAmenitiesAvailiable' prop to labels and specifies if value should be shown
 const amenityConfig = [
-  { key: 'Coffee', label: 'Coffee Machine', showValue: true }, // Show the type of coffee
-  { key: 'Toothpaste', label: 'Toothpaste/Mouthwash etc.' },
+  { key: 'Coffee', label: 'Coffee Machine', showValue: true },
+  { key: 'Toothpaste', label: 'Toothpaste / Mouthwash' },
   { key: 'Fridge', label: 'Useable Fridge' },
-  { key: 'Slippers', label: 'Slippers/Robes' }, // Combined based on original code using same key
-  { key: 'Soap', label: 'Soap Provided', showValue: true }, // Show the type of soap
-  { key: 'Other', label: 'Additional Amenities (Sewing kit etc.)' },
-  // Add other amenities here
+  { key: 'Slippers', label: 'Slippers/Robes' },
+  { key: 'Soap', label: 'Soap Provided', showValue: true },
+  { key: 'Other', label: 'Additional Amenities' },
 ];
 
+// --- Reusable Sub-Components ---
 
-// --- Component Props ---
-// Define more specific types if possible, using types imported from sanity queries
-interface RoomTechProps {
-  speed?: number | null;
-  techAvailable?: Record<string, string | null | undefined> | null; // Object with string keys/values
-  roomAmenitiesAvailiable?: Record<string, string | null | undefined> | null;
-}
+// A consistent item for feature lists (e.g., "USB Ports: Yes")
+const FeatureItem = ({ label, isAvailable, details }) => (
+  <div className="flex items-start text-foreground">
+    {isAvailable ? (
+      <CheckCircle2 className="h-4 w-4 mr-2 mt-0.5 shrink-0 text-green-500" />
+    ) : (
+      <XCircle className="h-4 w-4 mr-2 mt-0.5 shrink-0  text-destructive" />
+    )}
+    <div className="flex flex-col">
+      <span>{label}</span>
+      {details && (
+        <span className="text-sm text-muted-foreground italic">({details})</span>
+      )}
+    </div>
+  </div>
+);
 
-// --- Refactored Component ---
+// A reusable card for Tech and Amenities sections
+const InfoCard = ({ title, icon, color, config, data }) => {
+  if (!data || Object.keys(data).length === 0) return null;
 
-const RoomTech: React.FC<RoomTechProps> = ({
-  speed = 0, // Default speed to 0 if undefined/null
-  techAvailable,
-  roomAmenitiesAvailiable,
-}) => {
+  const themeClasses = {
+    primary: { border: 'border-primary', text: 'text-primary' },
+    secondary: { border: 'border-secondary', text: 'text-secondary' },
+    third: { border: 'border-success', text: 'text-success' },
+  };
+  const theme = themeClasses[color];
 
-  // --- Calculate Internet Speed Details ---
-  const currentSpeedTier = speedTiers.find(tier => speed >= tier.threshold) || speedTiers[speedTiers.length - 1]; // Find matching tier or use fallback
-  const { text: textResult, color: bgColor, features: speedResult } = currentSpeedTier;
-
-  // --- Render ---
   return (
-    <>
-      <section className="mt-8">
-        <section className="overflow-hidden text-gray-800">
-          <div className="mx-6 pb-12 md:container md:mx-auto">
-            {/* Section Title */}
-            <div className="mb-9 flex w-full flex-col">
-              <SectionTitle
-                header={'Hotel Technology & Amenities'}
-                description={undefined}
-              />
+    <div className={`flex h-full flex-col rounded-2xl border-2 bg-card p-5 shadow-lg ${theme.border}`}>
+      <div className={`mb-3 flex items-center border-b border-border pb-3 font-bold uppercase tracking-wider ${theme.text}`}>
+        {React.cloneElement(icon, { className: 'h-5 w-5 mr-3 ' })}
+        {title}
+      </div>
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 ">
+        {config.map((item) => {
+          const value = data[item.key];
+          const isAvailable = value?.toLowerCase() === 'yes' || (item.showValue && value && !['no', 'none'].includes(value.toLowerCase()));
+          const details = item.showValue && isAvailable && value.toLowerCase() !== 'yes' ? value : undefined;
+          return <FeatureItem key={item.key} label={item.label} isAvailable={isAvailable} details={details} />;
+        })}
+      </div>
+    </div>
+  );
+};
+
+// --- Main Exported Component ---
+
+const RoomTech = ({ speed = 0, techAvailable, roomAmenitiesAvailiable }) => {
+  const speedTier = speedTiers.find((tier) => speed >= tier.threshold) || speedTiers[speedTiers.length - 1];
+
+  const themeClasses = {
+    success: 'bg-success text-success-foreground',
+    accent: 'bg-accent text-accent-foreground',
+    destructive: 'bg-destructive text-destructive-foreground',
+    muted: 'bg-muted text-muted-foreground',
+  };
+  const badgeClass = themeClasses[speedTier.theme];
+
+  return (
+    <section className="my-12">
+      <SectionTitle header={'Technology & Amenities'} />
+      <div className="container mx-auto px-4">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+          {/* --- Internet Speed Card --- */}
+          <div className="flex h-full flex-col rounded-2xl border-2 border-success bg-card p-5 shadow-lg">
+            <div className="mb-3 flex items-center border-b border-border pb-3 font-bold uppercase tracking-wider text-success">
+              <Wifi className="h-6 w-6 mr-3 text-green-500" />
+              Internet Speed
+              <span className={`ml-auto rounded-full px-3 py-1 text-xs font-semibold ${badgeClass}`}>
+                {speedTier.text}
+              </span>
             </div>
-
-            {/* Main Grid for Content Cards */}
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 ">
-
-              {/* --- Internet Speed Card --- */}
-              <div className="w-full">
-                <div className="relative flex h-full flex-col overflow-hidden rounded-lg border-2 border-green-500 p-4 py-6 md:p-5"> {/* Consistent padding */}
-                  {/* Speed Rating Badge */}
-                  <span className={`absolute right-0 top-0 m-1 rounded-bl-md rounded-tr-md ${bgColor} px-3 py-1 text-xs font-semibold uppercase tracking-wider text-white`}> {/* Adjusted styling */}
-                    {textResult}
-                  </span>
-                  {/* Card Title */}
-                  <h2 className="title-font mb-3 text-base font-medium uppercase tracking-widest text-green-500"> {/* Increased mb */}
-                    Internet Speed
-                  </h2>
-                  {/* Speed Display */}
-                  <div className="mb-4 flex items-end border-b border-gray-200 pb-4 text-gray-900"> {/* Changed items-start to items-end */}
-                    <span className="text-5xl font-bold leading-none lg:text-6xl">{speed}</span>
-                    <span className="ml-2 pb-1 text-lg font-normal text-gray-500"> {/* Adjusted alignment/color */}
-                      Mbps
-                    </span>
-                  </div>
-                  {/* Features List */}
-                  <p className="mb-3 text-base font-medium text-gray-800"> {/* Adjusted color */}
-                    Good for:
-                  </p>
-                  <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2"> {/* Responsive columns for features */}
-                    {speedResult.map((item, i) => (
-                      // Use FeatureItem for consistency
-                      <FeatureItem key={`speed-${i}`} label={item} isAvailable={true} />
-                    ))}
-                  </div>
+            <div className="flex items-end text-foreground">
+              <span className="text-6xl font-bold leading-none">{speed || '0'}</span>
+              <span className="ml-2 pb-1 text-lg font-normal text-muted-foreground">Mbps</span>
+            </div>
+            <p className="mt-4 mb-2 text-base font-medium text-foreground">Good for:</p>
+            <div className="grid grid-cols-1 gap-2 text-sm">
+              {['Web Browsing', 'Emails', 'Zoom', 'HD Streaming', '4K Streaming'].map((feature) => (
+                <div key={feature} className="flex items-center text-muted-foreground">
+                  <CheckCircle2 className="h-4 w-4 mr-2 text-green-500" /> {feature}
                 </div>
-              </div>
-              {/* --- End Internet Speed Card --- */}
+              ))}
+            </div>
+          </div>
 
+          {/* --- Tech Available Card --- */}
+          <InfoCard
+            title="Tech Available"
+            icon={<div />} // Placeholder, you can add a real icon
+            color="third"
+            config={techConfig}
+            data={techAvailable}
+          />
 
-              {/* --- Tech Available Card --- */}
-              {techAvailable && Object.keys(techAvailable).length > 0 && ( // Render only if techAvailable has data
-                <div className="w-full">
-                  <div className="relative flex h-full flex-col overflow-hidden rounded-lg border-2 border-pink-500 p-4 py-6 md:p-5"> {/* Consistent padding */}
-                    {/* Card Title */}
-                    <h2 className="title-font mb-3 border-b border-gray-200 pb-3 text-base font-medium uppercase tracking-widest text-pink-500"> {/* Added border-b, padding */}
-                      Tech Available
-                    </h2>
-                    {/* Features List */}
-                    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2"> {/* Responsive columns */}
-                      {techConfig.map((item) => {
-                        // Determine if the tech item is available ('Yes')
-                        const isAvailable = techAvailable[item.key]?.toLowerCase() === 'yes';
-                        // Render only if the key exists in the data, or always show status
-                        // Let's always show status for clarity
-                        // if (techAvailable.hasOwnProperty(item.key)) {
-                          return (
-                            <FeatureItem
-                              key={`tech-${item.key}`}
-                              label={item.label}
-                              isAvailable={isAvailable}
-                            />
-                          );
-                        // }
-                        // return null;
-                      })}
-                    </div>
-                  </div>
-                </div>
-              )}
-              {/* --- End Tech Available Card --- */}
-
-
-              {/* --- Room Amenities Card --- */}
-              {roomAmenitiesAvailiable && Object.keys(roomAmenitiesAvailiable).length > 0 && ( // Render only if roomAmenitiesAvailiable has data
-                <div className="w-full">
-                  <div className="relative flex h-full flex-col overflow-hidden rounded-lg border-2 border-blue-500 p-4 py-6 md:p-5"> {/* Consistent padding */}
-                    {/* Card Title */}
-                    <h2 className="title-font mb-3 border-b border-gray-200 pb-3 text-base font-medium uppercase tracking-widest text-blue-500"> {/* Added border-b, padding */}
-                      Room Amenities
-                    </h2>
-                     {/* Features List */}
-                     <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2"> {/* Responsive columns */}
-                      {amenityConfig.map((item) => {
-                        const value = roomAmenitiesAvailiable[item.key];
-                        // Determine availability: 'Yes' or if showValue is true and value exists and isn't explicitly 'No'/'None' etc.
-                        const isAvailable = value?.toLowerCase() === 'yes' ||
-                                           (item.showValue && value && value.toLowerCase() !== 'no' && value.toLowerCase() !== 'none');
-                        const details = (item.showValue && isAvailable && value?.toLowerCase() !== 'yes') ? value : undefined;
-
-                        // Render only if the key exists in the data, or always show status
-                        // Let's always show status for clarity
-                        // if (roomAmenitiesAvailiable.hasOwnProperty(item.key)) {
-                          return (
-                            <FeatureItem
-                              key={`amenity-${item.key}`}
-                              label={item.label}
-                              isAvailable={isAvailable}
-                              details={details} // Pass details like Coffee/Soap type
-                            />
-                          );
-                        // }
-                        // return null;
-                      })}
-                    </div>
-                  </div>
-                </div>
-              )}
-              {/* --- End Room Amenities Card --- */}
-
-            </div> {/* End Main Grid */}
-          </div> {/* End Container */}
-        </section>
-      </section>
-    </>
+          {/* --- Room Amenities Card --- */}
+          <InfoCard
+            title="Room Amenities"
+            icon={<div />} // Placeholder, you can add a real icon
+            color="third"
+            config={amenityConfig}
+            data={roomAmenitiesAvailiable}
+          />
+        </div>
+      </div>
+    </section>
   );
 };
 
 export default RoomTech;
-

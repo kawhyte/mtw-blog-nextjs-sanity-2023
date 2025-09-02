@@ -1,18 +1,22 @@
 import BlogHeader from 'components/BlogHeader'
 import Layout from 'components/BlogLayout'
+import Footer from 'components/Footer'
+import ImageGallery from 'components/ImageGallery'
 import PostBody from 'components/PostBody'
 import PostPageHead from 'components/PostPageHead'
 import PostTitle from 'components/PostTitle'
-import Footer from 'components/Footer'
 import ProConList from 'components/ProConList'
 import RoomTech from 'components/RoomTech'
 import VideoPlayer from 'components/Youtube'
-import ImageGallery from 'components/ImageGallery'
-import HeroPhotoGallery from './HeroPhotoGallery'
-
 import * as demo from 'lib/demo.data'
 import type { HotelReview, Settings } from 'lib/sanity.queries'
+import { BedDouble, CalendarDays, Hotel, MapPin } from 'lucide-react'
 import { notFound } from 'next/navigation'
+
+import HeroPhotoGallery from './HeroPhotoGallery'
+import HotelRating from './HotelRating'
+import SectionTitle from './SectionTitle'
+import HelpfulTip from './HelpfulTip'
 
 export interface HotelReviewPageProps {
   preview?: boolean
@@ -40,36 +44,59 @@ export default function HotelReviewPage(props: HotelReviewPageProps) {
     )
   }
 
+  const galleryImages = [
+    hotelReview.coverImage,
+    ...(hotelReview.gallery || []),
+  ].filter(Boolean)
+
   return (
     <div>
       <PostPageHead settings={settings} post={hotelReview} />
 
       <Layout preview={preview} loading={loading}>
         <BlogHeader title={title} level={2} />
-        
-        {hotelReview.gallery?.length > 0 && (
-          <HeroPhotoGallery images={hotelReview.gallery} />
+
+        {galleryImages.length > 0 && (
+          <HeroPhotoGallery images={galleryImages} />
         )}
 
-        <article className="container mx-auto px-4 py-12 md:px-6 lg:px-36 lg:py-20 xl:py-36">
+        <article className="container mx-auto px-4 py-6 md:px-6 lg:px- lg:py-4 xl:py-">
           {/* Hotel Review Header - will create dedicated component later */}
           <header className="mb-8">
             <h1 className="text-4xl font-bold mb-4">{hotelReview.title}</h1>
-            {hotelReview.location && (
-              <p className="text-lg text-muted-foreground mb-2">📍 {hotelReview.location}</p>
-            )}
-            {hotelReview.category && (
-              <p className="text-sm text-muted-foreground mb-2">🏨 {hotelReview.category}</p>
-            )}
-            {hotelReview.room && (
-              <p className="text-sm text-muted-foreground mb-4">🛏️ {hotelReview.room}</p>
-            )}
-            {hotelReview.date && (
-              <p className="text-sm text-muted-foreground">
-                📅 {new Date(hotelReview.date).toLocaleDateString()}
-              </p>
-            )}
+            <div className="flex flex-wrap items-center justify-start gap-x-6 gap-y-2 mb-4">
+              {hotelReview.location && (
+                <div className="flex items-center text-lg text-muted-foreground">
+                  <MapPin className="mr-2 h-5 w-5" />
+                  {hotelReview.location}
+                </div>
+              )}
+              {hotelReview.category && (
+                <div className="flex items-center text-sm text-muted-foreground">
+                  <Hotel className="mr-2 h-4 w-4" />
+                  {hotelReview.category}
+                </div>
+              )}
+              {hotelReview.room && (
+                <div className="flex items-center text-sm text-muted-foreground">
+                  <BedDouble className="mr-2 h-4 w-4" />
+                  {hotelReview.room}
+                </div>
+              )}
+              {hotelReview.date && (
+                <div className="flex items-center text-sm text-muted-foreground">
+                  <CalendarDays className="mr-2 h-4 w-4" />
+                  {new Date(hotelReview.date).toLocaleDateString()}
+                </div>
+              )}
+            </div>
           </header>
+
+          {hotelReview.hotelRating && (
+            <HotelRating hotelRating={hotelReview.hotelRating} />
+          )}
+
+          {hotelReview.tip && <HelpfulTip tip={hotelReview.tip} />}
 
           {/* Hotel-specific content sections */}
           <ProConList
@@ -77,7 +104,7 @@ export default function HotelReviewPage(props: HotelReviewPageProps) {
             negatives={hotelReview.negatives}
             verdict2={hotelReview.verdict}
           />
-          
+
           <RoomTech
             techAvailable={hotelReview.techRating}
             speed={hotelReview.internetSpeed}
@@ -100,4 +127,3 @@ export default function HotelReviewPage(props: HotelReviewPageProps) {
     </div>
   )
 }
-

@@ -565,7 +565,17 @@ export interface HotelReview {
   tip?: any[]
   gallery?: any[]
   youtube?: string
-  hotelRating?: any
+  hotelRating?: {
+    Value?: number
+    Gym?: number
+    Internet_Speed?: number
+    Service?: number
+    Room_Cleanliness?: number
+    Bed_Comfort?: number
+    Room_Amenities?: number
+    Pool?: number
+    Location?: number
+  }
   internetSpeed?: number
   roomAmenities?: any
   techRating?: any

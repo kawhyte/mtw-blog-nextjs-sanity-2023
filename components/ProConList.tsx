@@ -1,141 +1,149 @@
-import { Spoiler } from '@/components/ui/spoiler';
-
+import {
+CheckCircle2,
+  CircleCheckBig,
+  Scale,
+  ThumbsDown,
+  ThumbsUp,   XCircle,
+} from 'lucide-react';
 import React from 'react';
 
-import { ThumbsUp,ThumbsDown, CircleCheckBig,CircleX, Scale } from 'lucide-react';
+import { Spoiler } from '@/components/ui/spoiler';
 
+import PostBody from '../components/PostBody';
+import SectionTitle from './SectionTitle';
 
-import PostBody from '../components/PostBody'; // Renders Portable Text
-import SectionTitle from './SectionTitle'; // Your SectionTitle component
-import type { PortableTextBlock } from '@portabletext/types'; // For verdict type
+const boxHeight = 390; // Max height for spoiler content before collapsing
 
-// Define expected props - matching Sanity data structure
-interface ProConListProps {
-  positives?: string | string[];
-  negatives?: string | string[];
-  verdict2?: PortableTextBlock[] | string; // Use the prop name expected by the component
-}
+// --- Reusable Internal Component for Pro/Con/Verdict Boxes ---
+const InfoBox = ({
+  title,
+  icon,
+  color,
+  items,
+  content,
+}: {
+  title: string;
+  icon: React.ReactElement;
+  color: 'success' | 'destructive' | 'primary';
+  items?: string[];
+  content?: any;
+}) => {
+  // Dynamically set theme colors based on the 'color' prop
+  const themeClasses = {
+    success: {
+      border: 'border-success',
+      text: 'text-success',
+      shadow: 'shadow-success/10',
+      iconBg: 'bg-success/10',
+    },
+    destructive: {
+      border: 'border-destructive',
+      text: 'text-destructive',
+      shadow: 'shadow-destructive/10',
+      iconBg: 'bg-destructive/10',
+    },
+    primary: {
+      border: 'border-secondary',
+      text: 'text-secondary',
+      shadow: 'shadow-secondary/10',
+      iconBg: 'bg-secondary/10',
+    },
+  };
+  const theme = themeClasses[color];
 
-const boxHeight = 390; // Define max height for spoiler
+  return (
+    <div
+      className={`flex h-full flex-col rounded-2xl border-2 bg-card p-4 shadow-lg ${theme.border} ${theme.shadow}`}
+    >
+      {/* Box Header */}
+      <div className="flex items-center border-b border-border pb-3 mb-3">
+        <div
+          className={`mr-3 flex h-8 w-8 items-center justify-center rounded-full ${theme.iconBg}`}
+        >
+          {React.cloneElement(icon, { className: `h-5 w-5 ${theme.text}` })}
+        </div>
+        <h2 className={`text-lg font-bold uppercase tracking-wider ${theme.text}`}>
+          {title}
+        </h2>
+      </div>
 
-function ProConList({ positives, negatives, verdict2 }: ProConListProps) {
-  // Basic checks to see if sections have content
+      {/* Box Content */}
+      <div className="flex-grow text-sm leading-relaxed text-foreground md:text-base">
+        <Spoiler
+          maxHeight={boxHeight}
+          showLabel="Show more"
+          hideLabel="Show less"
+        >
+          {items && (
+            <ul className="pt-2 space-y-2">
+              {items.map((item, index) => (
+                <li key={index} className="flex items-start">
+                  <div className={`mr-2 shrink-0 pt-1 ${theme.text}`}>
+                    {color === 'success' ? (
+                      <CheckCircle2 className="h-4 w-4" />
+                    ) : (
+                      <XCircle className="h-4 w-4" />
+                    )}
+                  </div>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+          {content && (
+            <div className="prose prose-sm md:prose-base pt-2 max-w-none">
+              <PostBody content={content} />
+            </div>
+          )}
+        </Spoiler>
+      </div>
+    </div>
+  );
+};
+
+// --- Main Exported Component ---
+export default function ProConList({ positives, negatives, verdict2 }) {
   const showPositives = positives && positives.length > 0;
   const showNegatives = negatives && negatives.length > 0;
-  // Check if verdict is not null AND has content (Portable Text is an array)
   const showVerdict = verdict2 && verdict2.length > 0;
 
-  // Don't render the section at all if there's nothing to show
   if (!showPositives && !showNegatives && !showVerdict) {
     return null;
   }
 
   return (
-    <>
-      {/* Section Wrapper */}
-      <section className="mx-6 text-gray-800 md:mx-0">
-        {/* Section Title */}
-        <SectionTitle header={'Bottom Line'} description={undefined} />
+    <section className="my-12">
+      <SectionTitle header={'The Bottom Line'} />
+      <div className="container mx-auto px-4">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+          {showPositives && (
+            <InfoBox
+              title="What We Loved"
+              icon={<ThumbsUp />}
+              color="success"
+              items={positives}
+            />
+          )}
 
-        {/* Main Content Container */}
-        <div className="container flex flex-wrap py-6 md:mx-auto lg:py-8">
-          {/* Grid for Pros, Cons, Verdict */}
-          <div className=" grid grid-cols-1  gap-6 2xl:grid-cols-3">
+          {showNegatives && (
+            <InfoBox
+              title="What We Didn't Like"
+              icon={<ThumbsDown />}
+              color="destructive"
+              items={negatives}
+            />
+          )}
 
-            {/* --- Positives Column --- */}
-            {showPositives && (
-              <div className="md:w-full">
-                <div className="flex h-full flex-col rounded-lg border-2 border-green-500 border-opacity-50 p-2 shadow-sm shadow-green-200/40 md:p-5">
-                  {/* Header */}
-                  <div className="mb-3 flex justify-start border-b border-gray-200 pb-4 align-middle ">
-                    <ThumbsUp className="mr-3 h-7 w-7 rounded-2xl p-1 text-green-500 " />
-                    <h2 className="title-font mb-1 text-base font-medium uppercase tracking-widest text-green-500">
-                      What we loved
-                    </h2>
-                  </div>
-                  {/* List Content */}
-                  <div className="-mb-1 flex flex-col items-center space-y-2.5 sm:items-start sm:text-left">
-                    <Spoiler maxHeight={boxHeight} showLabel="Show more" hideLabel="Show less">
-                      <ul className="pt-2"> 
-                        {Array.isArray(positives) && positives.map((positive, index) => (
-                          <li key={`pro-${index}`} className=" my-3 text-sm leading-loose md:text-base">
-                            <div className="flex items-baseline ">
-                              <div className="mr-2 inline-flex shrink-0 items-center justify-center pt-0.5 text-green-500">
-                                <CircleCheckBig className="h-5 w-5 " /> 
-                              </div>
-                              <p className="">{positive}</p>
-                            </div>
-                          </li>
-                        ))}
-                      </ul>
-                    </Spoiler>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* --- Negatives Column --- */}
-            {showNegatives && (
-              <div className="md:w-full">
-                <div className="flex h-full flex-col rounded-lg border-2 border-red-500 border-opacity-50 p-2 shadow-sm shadow-red-200/60 md:p-5">
-                  {/* Header */}
-                  <div className="mb-3 flex justify-start border-b border-gray-200 pb-4 align-middle">
-                    <ThumbsDown className="mr-3 h-7 w-7  p-1 text-red-500 " />
-                    <h2 className="title-font mb-1 text-base font-medium uppercase tracking-widest text-red-500">
-                      What we did not like
-                    </h2>
-                  </div>
-                  {/* List Content */}
-                  <div className="-mb-1 flex flex-col items-center space-y-2.5 sm:items-start sm:text-left">
-                    <Spoiler maxHeight={boxHeight} showLabel="Show more" hideLabel="Show less">
-                      <ul className="pt-2"> {/* Added padding top */}
-                        {Array.isArray(negatives) && negatives.map((negative, index) => (
-                          <li key={`neg-${index}`} className=" my-3 text-sm leading-loose md:text-base">
-                            <div className="flex items-baseline ">
-                              <div className="mr-2 inline-flex shrink-0 items-center justify-center pt-0.5  text-red-500">
-                                <CircleX className="h-5 w-5 " /> {/* Added shrink-0 */}
-                              </div>
-                              <p className="">{negative}</p>
-                            </div>
-                          </li>
-                        ))}
-                      </ul>
-                    </Spoiler>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* --- Verdict Column --- */}
-            {showVerdict && (
-               <div className="md:w-full">
-                <div className="flex h-full flex-col rounded-lg border-2 border-indigo-500 border-opacity-50 p-2 shadow-md shadow-indigo-100/50 md:p-5">
-                  {/* Header */}
-                  <div className="mb-3 flex justify-start border-b border-gray-200 pb-4 align-middle ">
-                    <Scale className="ml-1 mr-3 h-7 w-7  text-indigo-500 " />
-                    <h2 className="title-font mb-1 text-base font-medium uppercase tracking-widest text-indigo-500">
-                      Verdict
-                    </h2>
-                  </div>
-                  {/* Content */}
-                  <div className="mb-3 text-sm leading-loose md:text-base">
-                    <Spoiler maxHeight={boxHeight} showLabel="Show more" hideLabel="Show less">
-                       {/* Ensure PostBody correctly handles Portable Text array */}
-                       {/* Added pt-2 for padding like others */}
-                      <div className="prose prose-sm md:prose-base pt-2"> {/* Added prose class for basic styling */}
-                        <PostBody content={verdict2} />
-                      </div>
-                    </Spoiler>
-                  </div>
-                </div>
-              </div>
-            )}
-
-          </div> {/* End Grid */}
-        </div> {/* End Container */}
-      </section> {/* End Section */}
-    </>
+          {showVerdict && (
+            <InfoBox
+              title="The Verdict"
+              icon={<Scale />}
+              color="primary"
+              content={verdict2}
+            />
+          )}
+        </div>
+      </div>
+    </section>
   );
 }
-
-export default ProConList;
