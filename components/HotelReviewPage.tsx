@@ -90,25 +90,25 @@ function HotelReviewPageContent(props: HotelReviewPageProps) {
             <h1 className="mb-4 text-4xl font-bold">{hotelReview.title}</h1>
             <div className="mb-4 flex flex-wrap items-center justify-start gap-x-6 gap-y-2">
               {hotelReview.location && (
-                <div className="flex items-center text-lg text-muted-foreground">
-                  <MapPin className="mr-2 h-5 w-5" />
+                <div className="flex items-center text-base text-muted-foreground">
+                  <MapPin className="mr-2 h-4 w-4" />
                   {hotelReview.location}
                 </div>
               )}
               {hotelReview.category && (
-                <div className="flex items-center text-sm text-muted-foreground">
+                <div className="flex items-center text-base text-muted-foreground capitalize">
                   <Hotel className="mr-2 h-4 w-4" />
                   {hotelReview.category}
                 </div>
               )}
               {hotelReview.room && (
-                <div className="flex items-center text-sm text-muted-foreground">
+                <div className="flex items-center text-base text-muted-foreground">
                   <BedDouble className="mr-2 h-4 w-4" />
                   {hotelReview.room}
                 </div>
               )}
               {hotelReview.date && (
-                <div className="flex items-center text-sm text-muted-foreground">
+                <div className="flex items-center text-base text-muted-foreground">
                   <CalendarDays className="mr-2 h-4 w-4" />
                   {new Date(hotelReview.date).toLocaleDateString()}
                 </div>

@@ -19,14 +19,14 @@ const techConfig = [
   { key: 'USB', label: 'USB Ports' },
   { key: 'HDMI', label: 'HDMI Port' },
   { key: 'TV', label: 'In-Room TV' },
-  { key: 'Chromecast', label: 'Chromecast / Smart TV' },
+  { key: 'Chromecast', label: 'Smart TV' },
   { key: 'Wired', label: 'Wired Internet Port' },
   { key: 'Bluetooth', label: 'Bluetooth Speaker' },
 ];
 
 const amenityConfig = [
   { key: 'Coffee', label: 'Coffee Machine', showValue: true },
-  { key: 'Toothpaste', label: 'Toothpaste / Mouthwash' },
+  { key: 'Toothpaste', label: 'Toothpaste' },
   { key: 'Fridge', label: 'Useable Fridge' },
   { key: 'Slippers', label: 'Slippers/Robes' },
   { key: 'Soap', label: 'Soap Provided', showValue: true },
@@ -95,7 +95,7 @@ const RoomTech = ({ speed = 0, techAvailable, roomAmenitiesAvailiable }) => {
   const badgeClass = themeClasses[speedTier.theme];
 
   return (
-    <section className="my-12">
+    <section className="my-16">
       <SectionTitle header={'Technology & Amenities'} />
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">

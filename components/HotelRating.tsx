@@ -1,10 +1,10 @@
 import {
   Bath,
   Bed,
+  BrushCleaning,
   Dumbbell,
   Handshake,
   MapPin,
-  Sparkles,
   Star,
   WavesLadder,
   Wifi,
@@ -54,7 +54,7 @@ const getRatingIcon = (ratingName: string) => {
     case 'Service':
       return <Handshake className="h-5 w-5 mr-2 " />
     case 'Room_Cleanliness':
-      return <Sparkles className="h-5 w-5 mr-2 " />
+      return <BrushCleaning className="h-5 w-5 mr-2 " />
     case 'Bed_Comfort':
       return <Bed className="h-5 w-5 mr-2 " />
     case 'Room_Amenities':

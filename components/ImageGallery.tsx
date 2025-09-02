@@ -49,10 +49,10 @@ export default function ImageGallery({
   const hasImages = images && images.length > 0;
 
   return (
-    <section className={`w-full my-12 ${className || ''}`}>
+    <section className={`w-full my-6 ${className || ''}`}>
       <div className="container mx-auto px-4">
         {title && (
-          <div className="pb-10">
+          <div className="pb-2">
             <SectionTitle header={title} />
           </div>
         )}
