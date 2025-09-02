@@ -257,7 +257,7 @@ export default function Page(props: PageProps) {
 
 
         {/* Sorting and Filtering Section */}
-         <div className="container mx-auto mb-6 mt-6 flex max-w-4xl flex-col items-center justify-between gap-y-4 rounded-lg bg-gray-50 px-4 py-4 shadow-sm md:flex-row md:gap-y-0 md:px-6">
+         <div className="container mx-auto mb-12 mt-6 flex max-w-4xl flex-col items-center justify-between gap-y-4 rounded-lg bg-gray-50 px-4 py-4 shadow-sm md:flex-row md:gap-y-0 md:px-6">
           {/* Sort By Dropdown */}
           <div className="flex w-full items-center md:w-auto">
             <label htmlFor="sort" className="mr-2 whitespace-nowrap text-sm font-medium text-gray-700">

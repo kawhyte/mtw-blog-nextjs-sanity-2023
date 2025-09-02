@@ -21,7 +21,7 @@ function ProgressRating({ progress, color }) {
 
 					</div>
 			</div>
-			<span className='text-sm ml-3 md:text-base font-bold '>{progress.toFixed(1)} </span>
+			<span className='text-sm ml-3 md:text-base font-bold '>{progress?.toFixed(1) || 0} </span>
 		</>
 	);
 }

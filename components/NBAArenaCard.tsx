@@ -1,11 +1,11 @@
-import { Skeleton } from '@/components/ui/skeleton'
-import RatingBadge from './RatingBadge'
 import { urlForImage } from 'lib/sanity.image'
 import { CalendarCheck, MapPin } from 'lucide-react'
-
 import Image from 'next/image'
 
+import { Skeleton } from '@/components/ui/skeleton'
+
 import PostDate from './PostDate'
+import RatingBadge from './RatingBadge'
 
 interface NBAArenaCardProps {
   arenaImageSrc: any
@@ -89,7 +89,7 @@ const Arenas = ({
 
         <div className=" flex justify-between text-gray-700  ">
           <div className="ml-2 mt-1 flex flex-col sm:mb-2 sm:ml-4 sm:gap-y-2 ">
-            <h1 className=" font-heading line-clamp-1 pt-1 font-montserrat text-sm font-bold text-gray-900  decoration-purple-500 decoration-dashed decoration-4 group-hover:underline sm:line-clamp-2 sm:h-8 sm:text-xl lg:text-xl  xl:pt-1.5">
+            <h1 className=" font-heading line-clamp-1 pt-1 font-montserrat text-lg font-bold text-gray-900  decoration-purple-500 decoration-dashed decoration-4 group-hover:underline sm:line-clamp-2 sm:h-8 sm:text-xl lg:text-xl  xl:pt-1.5">
               {arenaName}
             </h1>
 
@@ -98,7 +98,7 @@ const Arenas = ({
               {/* Child 1: Location */}
               <div className="flex items-center gap-x-2 text-gray-500">
                 <MapPin className="h-5 w-5 shrink-0 text-gray-500" />
-                <p className="text-xs">{location}</p>
+                <p className="">{location}</p>
               </div>
 
               {/* Child 2: Badge container - Add ml-auto here */}
@@ -106,11 +106,11 @@ const Arenas = ({
               <div className="sm:ml-auto md:-ml-5 ">
                 {' '}
                 {/* Add ml-auto */}
-                <span className="flex items-end  text-xs text-gray-500">
-                  <CalendarCheck className="mr-2 h-5 w-5 text-green-500 sm:ml-5" />
+                <span className="flex items-end text-gray-500">
+                  <CalendarCheck className="mr-2 h-5 w-5 sm:ml-5" />
                   {visited ? (
                     <>
-                      <span className="mr-1 hidden text-xs lg:block">
+                      <span className="mr-1 hidden  lg:block">
                         Visited on
                       </span>
                       <PostDate dateString={dateVisited} />
@@ -124,20 +124,21 @@ const Arenas = ({
           </div>
         </div>
 
-        <hr className=" mx-2 my-3" />
+        {/* <hr className=" mx-2 my-3" /> */}
 
-        {visited && (
-          <div className="container mx-auto mt-auto flex items-center pt-1">
-            {' '}
-            {/* Use mt-auto to push to bottom */}
-            <span
-              className="mx-auto mb-2 inline-block rounded-md bg-indigo-100 px-3 py-1 text-xs font-semibold text-purple-700 transition-colors duration-150 ease-in-out group-hover:bg-purple-600 group-hover:text-white"
-              aria-hidden="true" // Indicate it's decorative as the parent Link handles action
-            >
-              View Details
-            </span>
-          </div>
-        )}
+        <div className="container mx-auto mt-auto flex items-center pt-4 my-3">
+          <button
+            className={`mx-auto mb-2 inline-block rounded-md px-3 py-1 text-sm font-semibold transition-colors duration-150 ease-in-out ${
+              visited
+                ? 'bg-indigo-100 text-purple-700 group-hover:bg-purple-600 group-hover:text-white'
+                : 'cursor-not-allowed bg-gray-200 text-gray-500'
+            }`}
+            disabled={!visited}
+            aria-hidden="true"
+          >
+            {visited ? 'View Details' : 'Not Visited Yet'}
+          </button>
+        </div>
         {/* </div> */}
       </div>
 
