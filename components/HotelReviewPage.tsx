@@ -17,6 +17,7 @@ import { useCallback, useEffect, useState } from 'react'
 import HelpfulTip from './HelpfulTip'
 import HeroPhotoGallery from './HeroPhotoGallery'
 import HotelRating from './HotelRating'
+import HotelBlurb from './HotelBlurb'
 
 export interface HotelReviewPageProps {
   preview?: boolean
@@ -115,6 +116,10 @@ function HotelReviewPageContent(props: HotelReviewPageProps) {
               )}
             </div>
           </header>
+
+          {hotelReview.excerpt2 && (
+            <HotelBlurb content={hotelReview.excerpt2} source={hotelReview.blurbSource} />
+          )}
 
           <div className="space-y-12 md:space-y-16">
             {hotelReview.hotelRating && (

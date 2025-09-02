@@ -111,6 +111,13 @@ export default defineType({
     }),
 
     defineField({
+      name: 'blurbSource',
+      title: 'Blurb Source',
+      type: 'string',
+      description: 'The source of the blurb (e.g., Hyatt Regency Boston Harbor).',
+    }),
+
+    defineField({
       name: 'tip',
       title: 'Hotel Quick Tip',
       type: 'array',
