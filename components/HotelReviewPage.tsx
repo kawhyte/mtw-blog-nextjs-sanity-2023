@@ -12,6 +12,7 @@ import * as demo from 'lib/demo.data'
 import type { HotelReview, Settings } from 'lib/sanity.queries'
 import { BedDouble, CalendarDays, Hotel, MapPin } from 'lucide-react'
 import { notFound } from 'next/navigation'
+import { useCallback, useEffect, useState } from 'react'
 
 import HelpfulTip from './HelpfulTip'
 import HeroPhotoGallery from './HeroPhotoGallery'
@@ -28,6 +29,10 @@ export interface HotelReviewPageProps {
 export default function HotelReviewPage(props: HotelReviewPageProps) {
   const { preview, loading, hotelReview, settings } = props
   const { title = demo.title } = settings || {}
+
+  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(
+    null,
+  )
 
   if (!hotelReview?.slug && !preview) {
     notFound()
@@ -49,8 +54,38 @@ export default function HotelReviewPage(props: HotelReviewPageProps) {
     ...(hotelReview.gallery || []),
   ].filter(Boolean)
 
+  const openModal = (index: number) => setSelectedImageIndex(index)
 
-  console.log("hotel Review", hotelReview)
+  const closeModal = useCallback(() => setSelectedImageIndex(null), [])
+
+  const nextImage = useCallback(() => {
+    if (!galleryImages || galleryImages.length === 0) return
+    setSelectedImageIndex((prevIndex) =>
+      prevIndex === null ? null : (prevIndex + 1) % galleryImages.length,
+    )
+  }, [galleryImages])
+
+  const prevImage = useCallback(() => {
+    if (!galleryImages || galleryImages.length === 0) return
+    setSelectedImageIndex((prevIndex) =>
+      prevIndex === null
+        ? null
+        : (prevIndex - 1 + galleryImages.length) % galleryImages.length,
+    )
+  }, [galleryImages])
+
+  // Keyboard navigation for the modal
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (selectedImageIndex === null) return
+      if (e.key === 'ArrowRight') nextImage()
+      if (e.key === 'ArrowLeft') prevImage()
+      if (e.key === 'Escape') closeModal()
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [selectedImageIndex, nextImage, prevImage, closeModal])
+
   return (
     <div>
       <PostPageHead settings={settings} post={hotelReview} />
@@ -59,7 +94,10 @@ export default function HotelReviewPage(props: HotelReviewPageProps) {
         <BlogHeader title={title} level={2} />
 
         {galleryImages.length > 0 && (
-          <HeroPhotoGallery images={galleryImages} />
+          <HeroPhotoGallery
+            images={galleryImages}
+            onShowAllPhotos={() => openModal(0)}
+          />
         )}
 
         <article className="container mx-auto px-4 py-6 md:px-6 lg:px- lg:py-4 xl:py-">
@@ -121,7 +159,15 @@ export default function HotelReviewPage(props: HotelReviewPageProps) {
         <VideoPlayer url={hotelReview.youtube} />
 
         {hotelReview.gallery?.length > 0 && (
-          <ImageGallery title="Photo Gallery" images={hotelReview.gallery} />
+          <ImageGallery
+            title="Photo Gallery"
+            images={hotelReview.gallery}
+            selectedImageIndex={selectedImageIndex}
+            openModal={openModal}
+            closeModal={closeModal}
+            nextImage={nextImage}
+            prevImage={prevImage}
+          />
         )}
 
         <Footer />

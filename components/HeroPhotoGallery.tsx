@@ -1,13 +1,15 @@
 // components/HeroPhotoGallery.tsx
 
 import { urlForImage } from 'lib/sanity.image';
+import { Camera } from 'lucide-react';
 import Image from 'next/image';
 
 interface HeroPhotoGalleryProps {
   images: any[];
+  onShowAllPhotos: () => void;
 }
 
-export default function HeroPhotoGallery({ images }: HeroPhotoGalleryProps) {
+export default function HeroPhotoGallery({ images, onShowAllPhotos }: HeroPhotoGalleryProps) {
   if (!images || images.length === 0) {
     return null;
   }
@@ -16,7 +18,7 @@ export default function HeroPhotoGallery({ images }: HeroPhotoGalleryProps) {
   const otherImages = images.slice(1, 5);
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8 relative">
       {/* Mobile: Main image only */}
       <div className="relative h-96 md:hidden">
         <Image
@@ -56,6 +58,15 @@ export default function HeroPhotoGallery({ images }: HeroPhotoGalleryProps) {
           ))}
         </div>
       </div>
+
+      {/* Show all photos button */}
+      <button
+        onClick={onShowAllPhotos}
+        className="absolute bottom-12 right-8 bg-background text-foreground border border-border font-semibold py-2 px-4 rounded-lg flex items-center space-x-2 hover:bg-muted transition-colors duration-200"
+      >
+        <Camera className="h-5 w-5" />
+        <span>Show all photos</span>
+      </button>
     </div>
   );
 }

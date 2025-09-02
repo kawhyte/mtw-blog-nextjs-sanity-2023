@@ -3,7 +3,7 @@
 import { urlForImage } from 'lib/sanity.image';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 import Image from 'next/image';
-import React, { useCallback, useEffect, useState } from 'react';
+import React from 'react';
 
 import SectionTitle from './SectionTitle';
 
@@ -28,6 +28,11 @@ export interface ImageGalleryProps {
   images?: GalleryImage[];
   title?: string;
   className?: string;
+  selectedImageIndex: number | null;
+  openModal: (index: number) => void;
+  closeModal: () => void;
+  nextImage: () => void;
+  prevImage: () => void;
 }
 
 // --- Main Exported Component ---
@@ -35,45 +40,13 @@ export default function ImageGallery({
   images,
   title,
   className,
+  selectedImageIndex,
+  openModal,
+  closeModal,
+  nextImage,
+  prevImage,
 }: ImageGalleryProps) {
-  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(
-    null
-  );
-
   const hasImages = images && images.length > 0;
-
-  // --- Modal Control Functions ---
-  const openModal = (index: number) => setSelectedImageIndex(index);
-
-  const closeModal = useCallback(() => setSelectedImageIndex(null), []);
-
-  const nextImage = useCallback(() => {
-    if (!images || images.length === 0) return;
-    setSelectedImageIndex((prevIndex) =>
-      prevIndex === null ? null : (prevIndex + 1) % images.length
-    );
-  }, [images]);
-
-  const prevImage = useCallback(() => {
-    if (!images || images.length === 0) return;
-    setSelectedImageIndex((prevIndex) =>
-      prevIndex === null
-        ? null
-        : (prevIndex - 1 + images.length) % images.length
-    );
-  }, [images]);
-
-  // Keyboard navigation for the modal
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (selectedImageIndex === null) return;
-      if (e.key === 'ArrowRight') nextImage();
-      if (e.key === 'ArrowLeft') prevImage();
-      if (e.key === 'Escape') closeModal();
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [selectedImageIndex, nextImage, prevImage, closeModal]);
 
   return (
     <section className={`w-full my-12 ${className || ''}`}>
