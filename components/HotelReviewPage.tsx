@@ -8,6 +8,7 @@ import ProConList from 'components/ProConList'
 import RoomTech from 'components/RoomTech'
 import VideoPlayer from 'components/Youtube'
 import ImageGallery from 'components/ImageGallery'
+import HeroPhotoGallery from './HeroPhotoGallery'
 
 import * as demo from 'lib/demo.data'
 import type { HotelReview, Settings } from 'lib/sanity.queries'
@@ -46,21 +47,25 @@ export default function HotelReviewPage(props: HotelReviewPageProps) {
       <Layout preview={preview} loading={loading}>
         <BlogHeader title={title} level={2} />
         
+        {hotelReview.gallery?.length > 0 && (
+          <HeroPhotoGallery images={hotelReview.gallery} />
+        )}
+
         <article className="container mx-auto px-4 py-12 md:px-6 lg:px-36 lg:py-20 xl:py-36">
           {/* Hotel Review Header - will create dedicated component later */}
           <header className="mb-8">
             <h1 className="text-4xl font-bold mb-4">{hotelReview.title}</h1>
             {hotelReview.location && (
-              <p className="text-lg text-gray-600 mb-2">📍 {hotelReview.location}</p>
+              <p className="text-lg text-muted-foreground mb-2">📍 {hotelReview.location}</p>
             )}
             {hotelReview.category && (
-              <p className="text-sm text-gray-500 mb-2">🏨 {hotelReview.category}</p>
+              <p className="text-sm text-muted-foreground mb-2">🏨 {hotelReview.category}</p>
             )}
             {hotelReview.room && (
-              <p className="text-sm text-gray-500 mb-4">🛏️ {hotelReview.room}</p>
+              <p className="text-sm text-muted-foreground mb-4">🛏️ {hotelReview.room}</p>
             )}
             {hotelReview.date && (
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-muted-foreground">
                 📅 {new Date(hotelReview.date).toLocaleDateString()}
               </p>
             )}

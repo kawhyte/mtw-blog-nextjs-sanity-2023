@@ -2,10 +2,10 @@ import { PreviewSuspense } from '@sanity/preview-kit'
 import HotelReviewsPage from 'components/HotelReviewsPage' // The component that will eventually display posts + pagination logic
 // --- Import the actual functions from your updated sanity client ---
 import {
-  getSettings,
+  getAllHotelPosts,       // Now exists (renamed from getHotelPosts)
   getHotelPostsTotalCount, // Now exists
   getPaginatedHotelPosts,  // Now exists
-  getAllHotelPosts,       // Now exists (renamed from getHotelPosts)
+  getSettings,
 } from 'lib/sanity.client'
 // Import Hotel type alongside Post if needed, or ensure Hotel extends Post
 import { /* Post, */ Hotel, Settings } from 'lib/sanity.queries' // Adjust imports as needed

@@ -97,7 +97,7 @@ export default function CoverImage(props: CoverImageProps) {
                   categoryType.color === 'yellow' ? 'bg-accent text-accent-foreground' :
                   categoryType.color === 'green' ? 'bg-success text-success-foreground' :
                   'bg-destructive text-destructive-foreground'
-                } border-transparent hover:bg-opacity-80`}
+                } border-transparent `}
               >
                 <Hotel className="h-3 w-3 mr-1" /> {categoryType.name}
               </Badge>
