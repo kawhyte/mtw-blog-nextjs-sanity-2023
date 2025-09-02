@@ -130,20 +130,20 @@ function HotelReviewPageContent(props: HotelReviewPageProps) {
               <HotelRating hotelRating={hotelReview.hotelRating} />
             )}
 
-            {hotelReview.tip && <HelpfulTip tip={hotelReview.tip} />}
 
             {/* Hotel-specific content sections */}
             <ProConList
               positives={hotelReview.positives}
               negatives={hotelReview.negatives}
               verdict2={hotelReview.verdict}
-            />
+              />
 
+{hotelReview.tip && <HelpfulTip tip={hotelReview.tip} />}
             <RoomTech
               techAvailable={hotelReview.techRating}
               speed={hotelReview.internetSpeed}
               roomAmenitiesAvailiable={hotelReview.roomAmenities}
-            />
+              />
 
             {/* <div className="container mx-auto"> */}
             <PostBody content={hotelReview.content} />
