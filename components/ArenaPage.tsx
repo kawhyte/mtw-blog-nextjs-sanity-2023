@@ -7,6 +7,8 @@ import { urlForImage } from 'lib/sanity.image'
 import Image from 'next/image'
 import BlogHeader from './BlogHeader'
 import PostBody from './PostBody'
+import ImageGallery from './ImageGallery'
+import { useState } from 'react'
 
 import {
   Award,
@@ -65,6 +67,33 @@ export default function ArenaPage({
 }: ArenaPageProps) {
   const { title = 'Arena Review' } = settings || {}
   console.log('Arena ', arena)
+
+  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
+
+  const galleryImages = arena.photoGallerySection ? [
+    arena.photoGallerySection.mainImage,
+    ...(arena.photoGallerySection.otherImages || [])
+  ].filter(Boolean) : [];
+
+  const openModal = (index: number) => {
+    setSelectedImageIndex(index);
+  };
+
+  const closeModal = () => {
+    setSelectedImageIndex(null);
+  };
+
+  const nextImage = () => {
+    if (selectedImageIndex !== null) {
+      setSelectedImageIndex((selectedImageIndex + 1) % galleryImages.length);
+    }
+  };
+
+  const prevImage = () => {
+    if (selectedImageIndex !== null) {
+      setSelectedImageIndex((selectedImageIndex - 1 + galleryImages.length) % galleryImages.length);
+    }
+  };
 
   const calculateOverallRating = (review) => {
     if (!review) {
@@ -231,7 +260,7 @@ export default function ArenaPage({
                   </CardHeader>
                   <CardContent>
                     <p className="text-sm italic text-muted-foreground">
-                      {arena?.proTip > 0  ? arena?.proTip:" No Tips"}
+                      {arena?.proTip > 0  ? arena?.proTip:" No tip provided"}
                     </p>
                   </CardContent>
                 </Card>
@@ -306,22 +335,19 @@ export default function ArenaPage({
             )}
 
             {/* --- Gallery --- */}
-            <section className="mt-8">
-              <h2 className="mb-4 text-2xl font-bold tracking-tight flex items-center">
-                <Camera className="mr-2 h-6 w-6" /> Photo Gallery
-              </h2>
-              <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-                {arena.gallery.map((imgUrl, index) => (
-                  <div key={index} className="overflow-hidden rounded-lg">
-                    <img
-                      src={imgUrl}
-                      alt={`Gallery image ${index + 1} from ${arena.name}`}
-                      className="h-full w-full object-cover transition-transform hover:scale-105"
-                    />
-                  </div>
-                ))}
-              </div>
-            </section>
+            {arena.photoGallerySection && (
+              <section className="mt-8">
+                <ImageGallery
+                  images={galleryImages}
+                  title="Photo Gallery"
+                  selectedImageIndex={selectedImageIndex}
+                  openModal={openModal}
+                  closeModal={closeModal}
+                  nextImage={nextImage}
+                  prevImage={prevImage}
+                />
+              </section>
+            )}
           </div>
         </>
       </Layout>
