@@ -13,10 +13,10 @@ import type { HotelReview, Settings } from 'lib/sanity.queries'
 import { BedDouble, CalendarDays, Hotel, MapPin } from 'lucide-react'
 import { notFound } from 'next/navigation'
 
+import HelpfulTip from './HelpfulTip'
 import HeroPhotoGallery from './HeroPhotoGallery'
 import HotelRating from './HotelRating'
 import SectionTitle from './SectionTitle'
-import HelpfulTip from './HelpfulTip'
 
 export interface HotelReviewPageProps {
   preview?: boolean
@@ -49,6 +49,8 @@ export default function HotelReviewPage(props: HotelReviewPageProps) {
     ...(hotelReview.gallery || []),
   ].filter(Boolean)
 
+
+  console.log("hotel Review", hotelReview)
   return (
     <div>
       <PostPageHead settings={settings} post={hotelReview} />

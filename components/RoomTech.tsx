@@ -65,11 +65,11 @@ const InfoCard = ({ title, icon, color, config, data }) => {
 
   return (
     <div className={`flex h-full flex-col rounded-2xl border-2 bg-card p-5 shadow-lg ${theme.border}`}>
-      <div className={`mb-3 flex items-center border-b border-border pb-3 font-bold uppercase tracking-wider ${theme.text}`}>
+      <div className={`mb-3 flex items-center border-b border-border pb-3  font-bold uppercase tracking-wider ${theme.text}`}>
         {React.cloneElement(icon, { className: 'h-5 w-5 mr-3 ' })}
         {title}
       </div>
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 ">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 text-base ">
         {config.map((item) => {
           const value = data[item.key];
           const isAvailable = value?.toLowerCase() === 'yes' || (item.showValue && value && !['no', 'none'].includes(value.toLowerCase()));
@@ -113,7 +113,7 @@ const RoomTech = ({ speed = 0, techAvailable, roomAmenitiesAvailiable }) => {
               <span className="ml-2 pb-1 text-lg font-normal text-muted-foreground">Mbps</span>
             </div>
             <p className="mt-4 mb-2 text-base font-medium text-foreground">Good for:</p>
-            <div className="grid grid-cols-1 gap-2 text-sm">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-base">
               {['Web Browsing', 'Emails', 'Zoom', 'HD Streaming', '4K Streaming'].map((feature) => (
                 <div key={feature} className="flex items-center text-muted-foreground">
                   <CheckCircle2 className="h-4 w-4 mr-2 text-green-500" /> {feature}
