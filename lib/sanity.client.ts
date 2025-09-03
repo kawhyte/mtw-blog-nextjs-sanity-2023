@@ -66,6 +66,7 @@ import {
   paginatedHotelPostsQuery,
   topWeightedFoodQuery,
   topWeightedHotelsQuery,
+  independentGuideFields
 } from 'lib/sanity.queries'
 import { createClient, type SanityClient } from 'next-sanity'
 
@@ -258,6 +259,32 @@ export async function getFoodReviewsTotalCount(): Promise<number> {
     return count ?? 0;
   } catch (error) {
     console.error(`Error fetching food reviews total count:`, error);
+    return 0;
+  }
+}
+
+/** Fetches a specific page/slice of independent guides */
+export async function getPaginatedGuides(start: number, end: number): Promise<Guide[]> {
+  if (!client) return [];
+  try {
+    const results = await client.fetch<Guide[]>(`*[_type == "guide"] | order(date desc) [${start}...${end}] {
+      ${independentGuideFields}
+    }`);
+    return results ?? [];
+  } catch (error) {
+    console.error(`Error fetching paginated guides (start: ${start}, end: ${end}):`, error);
+    return [];
+  }
+}
+
+/** Gets the total count of independent guides */
+export async function getGuidesTotalCount(): Promise<number> {
+  if (!client) return 0;
+  try {
+    const count = await client.fetch<number>(`count(*[_type == "guide"])`);
+    return count ?? 0;
+  } catch (error) {
+    console.error(`Error fetching guides total count:`, error);
     return 0;
   }
 }

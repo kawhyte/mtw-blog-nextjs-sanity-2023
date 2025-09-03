@@ -365,7 +365,7 @@ export const arenaBySlugQuery = fetchDocumentBySlug(
 // --- End Arena Queries ---
 
 // --- NEW: Independent Guide Document Queries ---
-const independentGuideFields = groq`
+export const independentGuideFields = groq`
   _id,
   title,
   date,

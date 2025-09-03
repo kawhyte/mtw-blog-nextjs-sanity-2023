@@ -2,8 +2,8 @@ import { PreviewSuspense } from '@sanity/preview-kit'
 import StoryReviewsPage from 'components/StoryReviewsPage' // Component to display stories
 import {
   getSettings,
-  getPaginatedGuidePosts,
-  getGuidePostsTotalCount
+  getPaginatedGuides,
+  getGuidesTotalCount,
 } from 'lib/sanity.client'
 import { Guide, Settings } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
@@ -80,11 +80,11 @@ export const getStaticProps: GetStaticProps<
   // Fetch settings and total count concurrently
   const [settings, totalPostsCount] = await Promise.all([
     getSettings(),
-    getGuidePostsTotalCount(),
+    getGuidesTotalCount(),
   ]);
 
   // Fetch first page of posts
-  const initialPosts = await getPaginatedGuidePosts(0, ITEMS_PER_PAGE);
+  const initialPosts = await getPaginatedGuides(0, ITEMS_PER_PAGE);
 
   console.log('Guides Found:', initialPosts?.length || 0);
   console.log('Total Guides:', totalPostsCount);
@@ -92,7 +92,7 @@ export const getStaticProps: GetStaticProps<
 
   return {
     props: {
-      initialPosts: initialPosts as Guide[], // Cast to Guide[] for compatibility
+      initialPosts: initialPosts, // No longer need to cast
       totalPostsCount,
       settings,
       preview,
