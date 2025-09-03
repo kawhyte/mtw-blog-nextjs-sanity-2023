@@ -1,8 +1,8 @@
 import { PreviewSuspense } from '@sanity/preview-kit'
 import FoodReviewsPage from 'components/FoodReviewsPage' // Component to display food reviews
 import {
-  getFoodPostsTotalCount,
-  getPaginatedFoodPosts,
+  getFoodReviewsTotalCount,  // Independent food review count function
+  getPaginatedFoodReviews,   // Independent food review pagination function
   getSettings} from 'lib/sanity.client'
 import { FoodReview, Settings } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
@@ -79,11 +79,11 @@ export const getStaticProps: GetStaticProps<
   // Fetch settings and total count concurrently
   const [settings, totalPostsCount] = await Promise.all([
     getSettings(),
-    getFoodPostsTotalCount(),
+    getFoodReviewsTotalCount(),
   ]);
 
   // Fetch first page of posts and cast to FoodReview[]
-  const initialPosts = await getPaginatedFoodPosts(0, ITEMS_PER_PAGE);
+  const initialPosts = await getPaginatedFoodReviews(0, ITEMS_PER_PAGE);
 
   console.log('Food Reviews Found:', initialPosts?.length || 0);
   console.log('Total Food Reviews:', totalPostsCount);

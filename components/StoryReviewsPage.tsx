@@ -7,7 +7,7 @@ import type { Guide, Settings } from 'lib/sanity.queries';
 import Head from 'next/head';
 import { useState, useEffect } from 'react';
 import useSWR from 'swr';
-import { getPaginatedGuidePosts } from 'lib/sanity.client';
+import { getPaginatedGuides } from 'lib/sanity.client';
 import PaginationComponent from './PaginationComponent';
 import DynamicPostCard from './DynamicPostCard';
 
@@ -41,7 +41,7 @@ export default function StoryReviewsPage(props: StoryReviewsPageProps) {
 
   const { data, error } = useSWR(
     [currentPage, itemsPerPage],
-    ([page, limit]) => getPaginatedGuidePosts((page - 1) * limit, page * limit),
+    ([page, limit]) => getPaginatedGuides((page - 1) * limit, page * limit),
     {
       fallbackData: currentPage === 1 ? initialPosts : undefined,
     }
@@ -82,12 +82,12 @@ export default function StoryReviewsPage(props: StoryReviewsPageProps) {
                   <DynamicPostCard
                     key={guide._id}
                     title={guide.title}
+                    excerpt2={guide.excerpt2}
                     coverImage={guide.coverImage}
                     linkType="story"
                     date={guide.date}
                     showRating={false}
                     slug={guide.slug}
-                    location={guide.location}
                     category={guide.category}
                   />
                 ))}

@@ -1,0 +1,19 @@
+{
+  "migrationDate": "2025-09-03T21:57:00.454Z",
+  "sourceFile": "backups/test-unique-guides-backup-2025-09-03T21-56-25.json",
+  "total": 2,
+  "successful": 2,
+  "failed": 0,
+  "results": [
+    {
+      "success": true,
+      "id": "PHhuC41o5qRtc67VfJDtQ9",
+      "title": "Golden Foundation Tours: Small Group Taipei Lifestyle Review"
+    },
+    {
+      "success": true,
+      "id": "6fLR5WxYkIdskV71NvqtRF",
+      "title": "Celebrity Millennium Aqua Sky Suite the Retreat Review"
+    }
+  ]
+}

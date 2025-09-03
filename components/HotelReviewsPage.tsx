@@ -7,7 +7,7 @@ import type { HotelReview, Settings } from 'lib/sanity.queries';
 import Head from 'next/head';
 import { useState, useEffect } from 'react';
 import useSWR from 'swr';
-import { getPaginatedHotelPosts } from 'lib/sanity.client';
+import { getPaginatedHotelReviews } from 'lib/sanity.client';
 import PaginationComponent from './PaginationComponent';
 
 import { CMS_NAME } from '../lib/constants';
@@ -41,7 +41,7 @@ export default function HotelReviewsPage(props: HotelReviewsPageProps) {
 
   const { data, error } = useSWR(
     [currentPage, itemsPerPage],
-    ([page, limit]) => getPaginatedHotelPosts((page - 1) * limit, page * limit),
+    ([page, limit]) => getPaginatedHotelReviews((page - 1) * limit, page * limit),
     {
       fallbackData: currentPage === 1 ? initialPosts : undefined,
     }

@@ -415,7 +415,7 @@ export const guidesByCategoryQuery = groq`
 // --- End Independent Guide Document Queries ---
 
 // --- NEW: Independent Hotel Review Document Queries ---
-const independentHotelReviewFields = groq`
+export const independentHotelReviewFields = groq`
   _id,
   title,
   date,

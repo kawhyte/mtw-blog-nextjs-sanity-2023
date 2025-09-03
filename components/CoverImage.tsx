@@ -59,7 +59,7 @@ export default function CoverImage(props: CoverImageProps) {
     diningType,
   } = props;
 
-  const image = source?.asset?._ref ? (
+  const image = source?.asset?._ref || source?.asset?._id ? (
     <div className="relative h-full w-full">
       <Skeleton className="absolute inset-0 h-full w-full rounded-md" />
       <Image

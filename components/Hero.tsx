@@ -37,16 +37,16 @@ function Hero() {
         <div
           className={`${montserrat.variable} font-adventure-heading mb-8 flex flex-col uppercase leading-tight tracking-tight text-blog-heading space-y-0.5 text-adventure-subtitle py-2`}
         >
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[5rem]">
+          <h1 className="text-5xl sm:text-6xl md:text-8xl lg:text-7xl xl:text-[5rem]">
             Our Quest
           </h1>
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[5rem]">
+          <h1 className="text-5xl sm:text-6xl md:text-8xl lg:text-7xl xl:text-[5rem]">
             to Visit Every
           </h1>
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[5rem] text-pink-500 drop-shadow-lg">
+          <h1 className="text-5xl sm:text-6xl md:text-8xl lg:text-7xl xl:text-[5rem] text-pink-500 drop-shadow-lg">
             NBA & WNBA
           </h1>
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[5rem]">
+          <h1 className="text-5xl sm:text-6xl md:text-8xl lg:text-7xl xl:text-[5rem]">
             Arena
           </h1>
         </div>
@@ -70,7 +70,7 @@ function Hero() {
       </div>
 
       {/* Lottie Player Container - hidden on small screens */}
-      <div className="hidden w-5/6 max-w-sm md:block md:mt-0 lg:w-full lg:max-w-md xl:max-w-lg">
+      <div className="hidden w-5/6 max-w-sm lg:block md:mt-0 lg:w-full lg:max-w-md xl:max-w-lg">
         {isMounted && (
           <PlayerWithNoSSR autoplay keepLastFrame loop src={animation[randomNum]?.url} />
         )}

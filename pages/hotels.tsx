@@ -2,13 +2,13 @@ import { PreviewSuspense } from '@sanity/preview-kit'
 import HotelReviewsPage from 'components/HotelReviewsPage' // The component that will eventually display posts + pagination logic
 // --- Import the actual functions from your updated sanity client ---
 import {
-  getAllHotelPosts,       // Now exists (renamed from getHotelPosts)
-  getHotelPostsTotalCount, // Now exists
-  getPaginatedHotelPosts,  // Now exists
+  getAllHotelReviews,        // Independent hotel review function
+  getHotelReviewsTotalCount, // Independent hotel review count function
+  getPaginatedHotelReviews,  // Independent hotel review pagination function
   getSettings,
 } from 'lib/sanity.client'
-// Import Hotel type alongside Post if needed, or ensure Hotel extends Post
-import { /* Post, */ Hotel, Settings } from 'lib/sanity.queries' // Adjust imports as needed
+// Import HotelReview type for independent schema
+import { HotelReview, Settings } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
 import Head from "next/head";
 import { lazy } from 'react'
@@ -19,9 +19,9 @@ const PreviewIndexPage = lazy(() => import('components/PreviewIndexPage'))
 const ITEMS_PER_PAGE = 12; // Or your desired number
 
 // --- Updated PageProps ---
-// Use Hotel[] if the client functions return Hotel[]
+// Use HotelReview[] for independent schema
 interface PageProps {
-  initialPosts: Hotel[]     // Use Hotel type to match fetch functions
+  initialPosts: HotelReview[]     // Use HotelReview type for independent schema
   totalPostsCount: number
   settings: Settings
   preview: boolean
@@ -90,17 +90,17 @@ export const getStaticProps: GetStaticProps<
   const settingsPromise = getSettings();
 
   // Update type hint to match return type of fetch functions
-  let postsPromise: Promise<Hotel[]>;
+  let postsPromise: Promise<HotelReview[]>;
   let totalCountPromise: Promise<number>;
 
   if (preview) {
-    // Preview mode: fetch all hotel posts
-    postsPromise = getAllHotelPosts(); // Use the actual function
-    totalCountPromise = getHotelPostsTotalCount(); // Use the actual function
+    // Preview mode: fetch all hotel reviews
+    postsPromise = getAllHotelReviews(); // Use independent function
+    totalCountPromise = getHotelReviewsTotalCount(); // Use independent function
   } else {
     // Production mode: fetch first page and total count
-    totalCountPromise = getHotelPostsTotalCount(); // Use the actual function
-    postsPromise = getPaginatedHotelPosts(0, ITEMS_PER_PAGE); // Use the actual function
+    totalCountPromise = getHotelReviewsTotalCount(); // Use independent function
+    postsPromise = getPaginatedHotelReviews(0, ITEMS_PER_PAGE); // Use independent function
   }
 
   // Resolve all promises

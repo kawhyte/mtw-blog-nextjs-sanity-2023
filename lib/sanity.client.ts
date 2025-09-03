@@ -27,6 +27,8 @@ import {
   hotelReviewSlugsQuery,
   allHotelReviewsQuery,
   hotelReviewsByCategoryQuery,
+  independentHotelReviewFields,
+  independentFoodReviewFields,
   
   type FoodReview,
   foodReviewBySlugQuery,
@@ -694,6 +696,32 @@ export async function getHotelReviewsByCategory(category: string): Promise<Hotel
   } catch (error) {
     console.error(`Error fetching hotel reviews by category "${category}":`, error);
     return [];
+  }
+}
+
+/** Fetches a specific page/slice of independent hotel reviews */
+export async function getPaginatedHotelReviews(start: number, end: number): Promise<HotelReview[]> {
+  if (!client) return [];
+  try {
+    const results = await client.fetch<HotelReview[]>(`*[_type == "hotelReview"] | order(date desc) [${start}...${end}] {
+      ${independentHotelReviewFields}
+    }`);
+    return results || [];
+  } catch (error) {
+    console.error(`Error fetching paginated hotel reviews (${start}-${end}):`, error);
+    return [];
+  }
+}
+
+/** Gets the total count of independent hotel reviews */
+export async function getHotelReviewsTotalCount(): Promise<number> {
+  if (!client) return 0;
+  try {
+    const count = await client.fetch<number>(`count(*[_type == "hotelReview"])`);
+    return count ?? 0;
+  } catch (error) {
+    console.error('Error getting hotel reviews total count:', error);
+    return 0;
   }
 }
 

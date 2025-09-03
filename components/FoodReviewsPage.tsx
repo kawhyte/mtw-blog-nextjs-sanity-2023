@@ -9,7 +9,7 @@ import type { FoodReview, Settings } from 'lib/sanity.queries';
 import Head from 'next/head';
 import { useState, useEffect } from 'react';
 import useSWR from 'swr';
-import { getPaginatedFoodPosts } from 'lib/sanity.client';
+import { getPaginatedFoodReviews } from 'lib/sanity.client';
 import PaginationComponent from './PaginationComponent';
 import DynamicPostCard from './DynamicPostCard';
 
@@ -43,7 +43,7 @@ export default function FoodReviewsPage(props: FoodReviewsPageProps) {
 
   const { data, error } = useSWR(
     [currentPage, itemsPerPage],
-    ([page, limit]) => getPaginatedFoodPosts((page - 1) * limit, page * limit),
+    ([page, limit]) => getPaginatedFoodReviews((page - 1) * limit, page * limit),
     {
       fallbackData: currentPage === 1 ? initialPosts : undefined,
     }

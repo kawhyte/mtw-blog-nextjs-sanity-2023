@@ -42,14 +42,13 @@ export default defineType({
       validation: (rule) => rule.required(),
     }),
 
-    // defineField({
-    //   name: 'excerpt2',
-    //   title: 'Guide Summary',
-    //   type: 'array',
-    //   description: 'Add a short summary of the travel guide',
-    //   of: [{ type: 'block' }],
-    //   validation: (rule) => rule.required(),
-    // }),
+    defineField({
+      name: 'excerpt2',
+      title: 'Guide Summary',
+      type: 'array',
+      description: 'Add a short summary of the travel guide (optional)',
+      of: [{ type: 'block' }],
+    }),
 
     defineField({
       name: 'coverImage',
@@ -61,24 +60,25 @@ export default defineType({
       },
     }),
 
-    // defineField({
-    //   name: 'category',
-    //   title: 'Category',
-    //   type: 'string',
-    //   options: {
-    //     list: [
-    //       { title: 'City Guide', value: 'city' },
-    //       { title: 'Travel Tips', value: 'tips' },
-    //       { title: 'Transportation', value: 'transport' },
-    //       { title: 'Culture & History', value: 'culture' },
-    //       { title: 'Adventure', value: 'adventure' },
-    //       { title: 'Family Travel', value: 'family' },
-    //       { title: 'Budget Travel', value: 'budget' },
-    //       { title: 'Luxury Travel', value: 'luxury' },
-    //     ],
-    //     layout: 'dropdown',
-    //   },
-    // }),
+    defineField({
+      name: 'category',
+      title: 'Category',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'City Guide', value: 'city' },
+          { title: 'Travel Tips', value: 'tips' },
+          { title: 'Transportation', value: 'transport' },
+          { title: 'Culture & History', value: 'culture' },
+          { title: 'Adventure', value: 'adventure' },
+          { title: 'Family Travel', value: 'family' },
+          { title: 'Budget Travel', value: 'budget' },
+          { title: 'Luxury Travel', value: 'luxury' },
+        ],
+        layout: 'dropdown',
+      },
+      description: 'Optional category for better organization',
+    }),
 
     defineField({
       name: 'content',
@@ -153,14 +153,6 @@ export default defineType({
         },
       ],
     }),
-
-    // defineField({
-    //   name: 'tip',
-    //   title: 'Travel Guide Quick Tip',
-    //   type: 'array',
-    //   of: [{ type: 'block' }],
-    //   description: 'Add a helpful tip for this travel guide (optional)',
-    // }),
 
     defineField({
       name: 'tags',

@@ -1,0 +1,832 @@
+[
+  {
+    "_createdAt": "2025-03-12T21:41:03Z",
+    "_id": "drafts.3c9ff150-a441-4bcb-a31d-2ec8a371fe3d",
+    "_updatedAt": "2025-03-12T21:43:09Z",
+    "content": [
+      {
+        "_key": "e488d2289212",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "5f3bca85fa02",
+            "_type": "span",
+            "marks": [],
+            "text": "itinerary"
+          }
+        ],
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "c1e09c41d409",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "9bcbfcafc942",
+            "_type": "span",
+            "marks": [],
+            "text": "﻿• Temple"
+          }
+        ],
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "11d3d6a5a92d",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "99522a40d6d4",
+            "_type": "span",
+            "marks": [],
+            "text": "﻿• Lunch"
+          }
+        ],
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "321145ef16bf",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "b02aa7545ca0",
+            "_type": "span",
+            "marks": [],
+            "text": "﻿• Na Man Market"
+          }
+        ],
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "f18529f82556",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "e774572c1807",
+            "_type": "span",
+            "marks": [],
+            "text": "﻿• Tea Ceremony "
+          }
+        ],
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "e881b74364e5",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "00b09f7d9582",
+            "_type": "span",
+            "marks": [],
+            "text": "﻿• Market "
+          }
+        ],
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "f6314784924a",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "ee298e53efd3",
+            "_type": "span",
+            "marks": [],
+            "text": ""
+          }
+        ],
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "12002fd7f168",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "45133660de03",
+            "_type": "span",
+            "marks": [],
+            "text": ""
+          }
+        ],
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "fc75fd4b12f3",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "f542178059a8",
+            "_type": "span",
+            "marks": [],
+            "text": ""
+          }
+        ],
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "a843875c88eb",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "0da82b243c21",
+            "_type": "span",
+            "marks": [],
+            "text": "﻿"
+          }
+        ],
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "2c196bad40f0",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "ac2703b96ff7",
+            "_type": "span",
+            "marks": [],
+            "text": ""
+          }
+        ],
+        "markDefs": [],
+        "style": "normal"
+      }
+    ],
+    "coverImage": null,
+    "date": "2025-03-12T23:40:43.050Z",
+    "excerpt2": null,
+    "gallery": null,
+    "linkType": "story",
+    "slug": "golden-foundation-tours-small-group-taipei-lifestyle-review",
+    "tip": null,
+    "title": "Golden Foundation Tours: Small Group Taipei Lifestyle Review"
+  },
+  {
+    "_createdAt": "2025-03-10T05:19:24Z",
+    "_id": "drafts.7384922f-39f2-42a6-a095-525b3bd7533e",
+    "_updatedAt": "2025-05-26T02:56:16Z",
+    "content": [
+      {
+        "_key": "78d522ac1e24",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "d5e90b799f4a",
+            "_type": "span",
+            "marks": [],
+            "text": "Service:"
+          }
+        ],
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "b2a4f0886c42",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "ca5c574b455d",
+            "_type": "span",
+            "marks": [],
+            "text": "Likes:"
+          }
+        ],
+        "level": 1,
+        "listItem": "bullet",
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "691c219cec76",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "205e79eaecac",
+            "_type": "span",
+            "marks": [],
+            "text": "We were always greeted by name, each person we interacted with were friendly"
+          }
+        ],
+        "level": 2,
+        "listItem": "bullet",
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "0b31f26a2a55",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "cc665a5537d5",
+            "_type": "span",
+            "marks": [],
+            "text": "Dislikes:"
+          }
+        ],
+        "level": 1,
+        "listItem": "bullet",
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "ff2b1188a8dd",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "ded28f701499",
+            "_type": "span",
+            "marks": [],
+            "text": "Usman, the maitre d' of Luminae, on the first day, was a bit standoffish. He since warmed up."
+          }
+        ],
+        "level": 2,
+        "listItem": "bullet",
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "aff0715a43e7",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "f05497d88d75",
+            "_type": "span",
+            "marks": [],
+            "text": ""
+          }
+        ],
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "ca654a3c43c5",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "a726b82b9bc2",
+            "_type": "span",
+            "marks": [],
+            "text": "Amenities:"
+          }
+        ],
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "76ace13c17b9",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "e8c592c91047",
+            "_type": "span",
+            "marks": [],
+            "text": "Likes:"
+          }
+        ],
+        "level": 1,
+        "listItem": "bullet",
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "d46e29f2589d",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "13bbe23ef3ac",
+            "_type": "span",
+            "marks": [],
+            "text": "Dislikes:"
+          }
+        ],
+        "level": 1,
+        "listItem": "bullet",
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "6ca62f73fa88",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "732a557d36c4",
+            "_type": "span",
+            "marks": [],
+            "text": ""
+          }
+        ],
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "4c4c80ff5a3c",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "263a5e88b058",
+            "_type": "span",
+            "marks": [],
+            "text": "Wifi:"
+          }
+        ],
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "e806550af538",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "4efc29863e05",
+            "_type": "span",
+            "marks": [],
+            "text": "Likes:"
+          }
+        ],
+        "level": 1,
+        "listItem": "bullet",
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "f9299dd965f4",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "d34513d559e8",
+            "_type": "span",
+            "marks": [],
+            "text": "Speed: 3.2 "
+          }
+        ],
+        "level": 2,
+        "listItem": "bullet",
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "1a5df9119b48",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "c7df6834988c",
+            "_type": "span",
+            "marks": [],
+            "text": "Dislikes:"
+          }
+        ],
+        "level": 1,
+        "listItem": "bullet",
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "fce1b943759b",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "1be45ab1e8dc",
+            "_type": "span",
+            "marks": [],
+            "text": "In Hong Kong, it was rather slow; we were informed beforehand that this would happen."
+          }
+        ],
+        "level": 2,
+        "listItem": "bullet",
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "d50933c0d968",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "f2d0f7c696f9",
+            "_type": "span",
+            "marks": [],
+            "text": ""
+          }
+        ],
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "78f81bdc0f9c",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "f5bd1057ef2d",
+            "_type": "span",
+            "marks": [],
+            "text": "Retreat Sundeck:"
+          }
+        ],
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "152221e04187",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "d0f1a65bbd9e",
+            "_type": "span",
+            "marks": [],
+            "text": "Likes:"
+          }
+        ],
+        "level": 1,
+        "listItem": "bullet",
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "f779a1b7e5bc",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "def55620b9e7",
+            "_type": "span",
+            "marks": [],
+            "text": "Dislikes:"
+          }
+        ],
+        "level": 1,
+        "listItem": "bullet",
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "d85315cf1430",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "ab2ced54a4fa",
+            "_type": "span",
+            "marks": [],
+            "text": ""
+          }
+        ],
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "dc843cc067f1",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "dce4e0a81007",
+            "_type": "span",
+            "marks": [],
+            "text": "Retreat Lounge:"
+          }
+        ],
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "8e92936828bc",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "fb2aadeb1882",
+            "_type": "span",
+            "marks": [],
+            "text": "Likes:"
+          }
+        ],
+        "level": 1,
+        "listItem": "bullet",
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "9a49fe60f9ed",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "8785d5db0212",
+            "_type": "span",
+            "marks": [],
+            "text": "Great service"
+          }
+        ],
+        "level": 2,
+        "listItem": "bullet",
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "ef9ff87c7945",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "e74b10ea006d",
+            "_type": "span",
+            "marks": [],
+            "text": "Open 24 hours"
+          }
+        ],
+        "level": 2,
+        "listItem": "bullet",
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "4085db9a2563",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "f464ddf49d51",
+            "_type": "span",
+            "marks": [],
+            "text": "Offered retreat-specific events, including trivia"
+          }
+        ],
+        "level": 2,
+        "listItem": "bullet",
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "1d5515d92971",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "96752ad8f8d5",
+            "_type": "span",
+            "marks": [],
+            "text": "Dislikes:"
+          }
+        ],
+        "level": 1,
+        "listItem": "bullet",
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "49b66ba7197e",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "e46a8019f966",
+            "_type": "span",
+            "marks": [],
+            "text": "Minimal snack options outside of specific hours."
+          }
+        ],
+        "level": 2,
+        "listItem": "bullet",
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "92941b13fc3b",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "50027d6e2c81",
+            "_type": "span",
+            "marks": [],
+            "text": ""
+          }
+        ],
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "2ffca1f98b37",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "30a2895d0fe3",
+            "_type": "span",
+            "marks": [],
+            "text": "Luminae:"
+          }
+        ],
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "fb10edde51e9",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "2922e5e31f49",
+            "_type": "span",
+            "marks": [],
+            "text": "Likes"
+          }
+        ],
+        "level": 1,
+        "listItem": "bullet",
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "451b60f82447",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "adcb5f09d662",
+            "_type": "span",
+            "marks": [],
+            "text": "Dislikes:"
+          }
+        ],
+        "level": 1,
+        "listItem": "bullet",
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "ea89c2c232f4",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "55132f1f121e",
+            "_type": "span",
+            "marks": [],
+            "text": ""
+          }
+        ],
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "78845f97edc5",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "a2dab0b63762",
+            "_type": "span",
+            "marks": [],
+            "text": "Persian Garden:"
+          }
+        ],
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "bf14c0ced348",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "81a9917b3b7a",
+            "_type": "span",
+            "marks": [],
+            "text": "Likes:"
+          }
+        ],
+        "level": 1,
+        "listItem": "bullet",
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "34fd53acd6b7",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "4997bc19f983",
+            "_type": "span",
+            "marks": [],
+            "text": "the coed availability"
+          }
+        ],
+        "level": 2,
+        "listItem": "bullet",
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "c0c788347a30",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "f39d3fa38a94",
+            "_type": "span",
+            "marks": [],
+            "text": "Dislikes:"
+          }
+        ],
+        "level": 1,
+        "listItem": "bullet",
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "92d3c73a551e",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "640b12325f4f",
+            "_type": "span",
+            "marks": [],
+            "text": "It's rather small (3 rooms & a cold shower)"
+          }
+        ],
+        "level": 2,
+        "listItem": "bullet",
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "3f92debf9b3a",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "a69744c6e1ea",
+            "_type": "span",
+            "marks": [],
+            "text": "the smell of feet in the Hamas room"
+          }
+        ],
+        "level": 2,
+        "listItem": "bullet",
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "c3c758c74ad6",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "f6dc9656642c",
+            "_type": "span",
+            "marks": [],
+            "text": "I wish there was a changing room in the Persian garden, have to change down the hall & then walk through the Spa entrance to access it."
+          }
+        ],
+        "level": 2,
+        "listItem": "bullet",
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "fff9fc4ca794",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "1fe0a578f9ec",
+            "_type": "span",
+            "marks": [],
+            "text": "I wish there was a cold plunge"
+          }
+        ],
+        "level": 2,
+        "listItem": "bullet",
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "af04d4ed45e8",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "b8b5d8759479",
+            "_type": "span",
+            "marks": [],
+            "text": "They did not have enough large-sized flipflops (size 42.5), largest size provided was 39"
+          }
+        ],
+        "level": 2,
+        "listItem": "bullet",
+        "markDefs": [],
+        "style": "normal"
+      },
+      {
+        "_key": "1df6eb026b43",
+        "_type": "block",
+        "children": [
+          {
+            "_key": "f62a53ae2fcd",
+            "_type": "span",
+            "marks": [],
+            "text": ""
+          }
+        ],
+        "level": 1,
+        "listItem": "bullet",
+        "markDefs": [],
+        "style": "normal"
+      }
+    ],
+    "coverImage": null,
+    "date": "2025-03-10T05:19:21.959Z",
+    "excerpt2": null,
+    "gallery": null,
+    "linkType": "story",
+    "slug": "celebrity-millennium-aqua-sky-suite-the-retreat-review",
+    "tip": null,
+    "title": "Celebrity Millennium Aqua Sky Suite the Retreat Review"
+  }
+]
