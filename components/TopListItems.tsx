@@ -1,48 +1,55 @@
-import DynamicPostCard from 'components/DynamicPostCard'
-import type { Post } from 'lib/sanity.queries' // Changed import to Post
+import DynamicPostCard from 'components/DynamicPostCard';
+import type { Post } from 'lib/sanity.queries';
 
-import SectionTitle from './SectionTitle'
+import SectionTitle from './SectionTitle';
 
-export default function TopListItems(
-  { posts }: { posts: Post[] }, // Updated prop type to Post[]
+export default function TopListItems({ posts, title }: { posts: Post[]; title?: string }) {
+  if (!posts || posts.length === 0) {
+    return null;
+  }
 
-) {
   return (
-    <>
-   
-
-      <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4  gap-4 px-4 sm:px-6 lg:px-8 container mx-auto max-w-8xl">
-        {posts.map(
-          // Directly mapping over the top weighted posts
-          (post, i) => (
-            <div
-              key={post._id}
-              className="h-90 group relative m-auto w-full rounded-lg font-montserrat overflow-hidden"
+    <section className="my-12">
+      {/* Optional title for the entire section */}
+      {title && <SectionTitle header={title} />}
+      
+      {/* Grid container with vertical gap to space out the rows */}
+      <div className="container mx-auto grid grid-cols-1 gap-x-6 gap-y-24 px-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {posts.map((post, i) => (
+          // The group wrapper now has padding-top to create space for the number above the card
+          <div
+            key={post._id}
+            className="group relative pt-16"
+          >
+            {/* --- LARGE RANK NUMBER --- */}
+            {/* Positioned at the top of the container, centered horizontally */}
+            <span 
+              className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-16 sm:-translate-y-28 z-0 font-montserrat text-[9rem] font-black leading-none text-secondary/20 transition-all duration-300 group-hover:scale-110 group-hover:text-primary/40 sm:text-[14rem]"
+              aria-hidden="true" // Decorative element
             >
-              <span className=" absolute left-2 top-2 md:-left-6 md:-top-10 z-40 flex w-20 flex-col   text-[3.2rem] font-bold  leading-[0.88]  text-pink-500 drop-shadow-lg sm:text-[7.9rem] sm:tracking-[-1.2rem] md:text-[12.5rem]">
-                {i + 1}
-              </span>
+              {i + 1}
+            </span>
 
-              {/* <div className="absolute z-40 top-5 right-9 bg-green-300 px-2 ox-3">{post.weightedAverageRating}</div> */}
-
-              <div className="relative">
-                <DynamicPostCard
-                  key={post._id}
-                  title={post.title}
-                  coverImage={post.coverImage}
-                  date={post.date}
-                  author={post.author}
-                  slug={post.slug}
-                  excerpt2={post.excerpt2}
-                  location={post.location}
-                  category={post.category}
-                  showRating={false}
-                />
-              </div>
+            {/* --- DYNAMIC POST CARD WRAPPER --- */}
+            {/* Sits below the number, with z-10 to ensure it's clickable */}
+            <div className="relative z-10 h-full w-full  rounded-2xl bg-card ">
+              <DynamicPostCard
+                key={post._id}
+                title={post.title}
+                coverImage={post.coverImage}
+                date={post.date}
+                author={post.author}
+                slug={post.slug}
+                excerpt2={post.excerpt2}
+                location={post.location}
+                category={post.category}
+                showRating={false} // Rating is implied by the rank
+              />
             </div>
-          )
-        )}
+          </div>
+        ))}
       </div>
-    </>
-  )
+    </section>
+  );
 }
+

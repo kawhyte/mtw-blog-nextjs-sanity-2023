@@ -116,8 +116,6 @@ export default function FoodReviewPage(props: FoodReviewPageProps) {
           {foodReview.excerpt2 && (
             <ReviewBlurb
               content={foodReview.excerpt2}
-              source={foodReview.blurbSource}
-              url={foodReview.blurbUrl}
             />
           )}
 

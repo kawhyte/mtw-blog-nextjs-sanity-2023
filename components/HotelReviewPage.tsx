@@ -10,7 +10,7 @@ import RoomTech from 'components/RoomTech'
 import VideoPlayer from 'components/Youtube'
 import * as demo from 'lib/demo.data'
 import type { HotelReview, Settings } from 'lib/sanity.queries'
-import { BedDouble, CalendarDays, Hotel, MapPin } from 'lucide-react'
+import { Bath, Bed, BedDouble, BrushCleaning, CalendarDays, Dumbbell, Handshake, Hotel, MapPin, Star, WavesLadder, Wifi } from 'lucide-react'
 import { notFound } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 
