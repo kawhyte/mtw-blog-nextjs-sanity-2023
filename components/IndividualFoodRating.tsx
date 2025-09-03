@@ -1,133 +1,166 @@
-// import { webp } from '@cloudinary/url-gen/qualifiers/format'
-import { Badge } from '@/components/ui/badge'
-import { calculateTextRating } from 'lib/calculateTextRating'
-import { urlForImage } from 'lib/sanity.image'
-import { Oswald } from 'next/font/google'
+import { Badge } from '@/components/ui/badge';
+import { urlForImage } from 'lib/sanity.image';
+import { Medal } from 'lucide-react';
+import Image from 'next/image';
+import React from 'react';
 
-import React from 'react'
+import SectionTitle from './SectionTitle';
 
-import { IoStar, IoStarHalf, IoStarOutline } from 'react-icons/io5'
+// --- Reusable Sub-Components ---
 
+// NEW: A realistic, multi-tone cookie icon component that replaces the old system.
+const FoodieCookie = ({ type = 'full' }) => {
+  const cookieBaseColor = "#B5651D"; // A warm, golden-brown for the cookie
+  const chipColor = "#4F2A0D";    // A dark, rich chocolate chip color
 
-
-import SectionTitle from './SectionTitle'
-
-const oswald = Oswald({ subsets: ['latin'], variable: '--font-oswald' })
-
-const StarRating = ({ rating }: { rating: number }) => {
-  const fullStars = Math.floor(rating)
-  const halfStar = rating - fullStars >= 0.5
-  const emptyStars = 5 - fullStars - (halfStar ? 1 : 0)
-
-  const stars = []
-
-  // Full stars
-  for (let i = 0; i < fullStars; i++) {
-    stars.push(<IoStar key={`full-${i}`} className="h-5 w-5 text-yellow-400" />)
-  }
-
-  // Half star
-  if (halfStar) {
-    stars.push(<IoStarHalf key="half" className="h-5 w-5 text-yellow-400" />)
-  }
-
-  // Empty stars
-  for (let i = 0; i < emptyStars; i++) {
-    stars.push(<IoStar key={`empty-${i}`} className="h-5 w-5 text-gray-300" />)
-  }
-
-  return <div className="flex items-center">{stars}</div>
-}
-
-const individualFoodRating = ({ food }: { food: any[] }) => {
-  return (
+  const FullCookieContent = () => (
     <>
-      <div className="mx-7 pt-9">
-        <SectionTitle header={'Food/Drink We Tried'} description={undefined} />
+      <path d="M12 2a10 10 0 1 0 10 10 10 10 0 0 0-10-10Z" fill={cookieBaseColor} />
+      <circle cx="8" cy="9" r="1.5" fill={chipColor} />
+      <circle cx="15" cy="15" r="1.5" fill={chipColor} />
+      <circle cx="16" cy="8" r="1" fill={chipColor} />
+      <circle cx="10" cy="15" r="1" fill={chipColor} />
+    </>
+  );
 
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-          {food?.map((item, i) => {
-            const dishRating = item.rating?.Dish || 0 // Ensure rating exists
+  const EmptyCookieOutline = () => (
+    <path d="M12 2a10 10 0 1 0 10 10 10 10 0 0 0-10-10Z" fill="none" stroke="currentColor" strokeWidth="1.5" />
+  );
+
+  if (type === 'empty') {
+    return (
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="h-5 w-5 text-muted-foreground/40">
+        <EmptyCookieOutline />
+      </svg>
+    );
+  }
+
+  if (type === 'full') {
+    return (
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="h-5 w-5">
+        <FullCookieContent />
+      </svg>
+    );
+  }
+
+  if (type === 'half') {
+    return (
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="h-5 w-5">
+        <defs>
+          <clipPath id="clip-left-half-cookie"><rect x="0" y="0" width="12" height="24" /></clipPath>
+        </defs>
+        <g clipPath="url(#clip-left-half-cookie)">
+          <FullCookieContent />
+        </g>
+        <g className="text-muted-foreground/40">
+          <EmptyCookieOutline />
+        </g>
+      </svg>
+    );
+  }
+  
+  return null;
+};
+
+// Themed Cookie Rating Component
+const ThemedCookieRating = ({ rating }) => {
+  const fullCookies = Math.floor(rating);
+  const halfCookie = rating - fullCookies >= 0.5;
+  const emptyCookies = 5 - fullCookies - (halfCookie ? 1 : 0);
+
+  return (
+    <div className="flex items-center">
+      {[...Array(fullCookies)].map((_, i) => (
+        <FoodieCookie key={`full-${i}`} type="full" />
+      ))}
+      {halfCookie && <FoodieCookie key="half" type="half" />}
+      {[...Array(emptyCookies)].map((_, i) => (
+        <FoodieCookie key={`empty-${i}`} type="empty" />
+      ))}
+    </div>
+  );
+};
+
+
+// --- Main Exported Component ---
+
+const IndividualFoodRating = ({ food }) => {
+  if (!food || food.length === 0) {
+    return null;
+  }
+
+  // Helper to get themed styles for the rating badge
+  const getRatingTheme = (rating) => {
+    if (rating >= 4.5) return { text: "Excellent!", badgeClass: 'bg-success text-success-foreground border-success' };
+    if (rating >= 3.5) return { text: "Good", badgeClass: 'bg-accent text-accent-foreground border-accent-foreground' };
+    if (rating >= 2.5) return { text: "Average", badgeClass: 'bg-muted text-muted-foreground border-border' };
+    return { text: "Could Be Better", badgeClass: 'bg-destructive text-destructive-foreground border-destructive' };
+  };
+
+  return (
+    <section className="my-12">
+      <SectionTitle header={'Food & Drink We Tried'} />
+      <div className="container mx-auto px-4">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+          {food.map((item, i) => {
+            const dishRating = item.rating?.Dish || 0;
+            const ratingTheme = getRatingTheme(dishRating);
+            const isChefsKiss = dishRating >= 4.5;
+
             return (
               <div
                 key={i}
-                className="my-4 w-full max-w-md h-[35.4rem] overflow-hidden rounded-3xl border-4 border-black bg-white shadow-offsetIndigo dark:bg-gray-50"
+                className="flex h-full flex-col overflow-hidden rounded-2xl border-4 border-border-bold bg-card shadow-lg"
               >
-                <div className="mb-5">
-                  <img
-                    width={400}
-                    height={200}
-                    className="h-96 w-full max-w-md object-cover object-center brightness-[0.9]"
-                    src={urlForImage(item.asset._ref).format('webp').url()}
-                    alt={item?.name}
+                {/* --- IMAGE CONTAINER --- */}
+                <div className="relative h-64 w-full">
+                  <Image
+                    src={urlForImage(item.asset._ref).width(400).height(300).fit('crop').url()}
+                    alt={item?.name || 'Food item'}
+                    fill
+                    className="object-cover object-center"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
+                  {/* --- CHEF'S KISS AWARD --- */}
+                  {isChefsKiss && (
+                    <div className="absolute top-0 right-0 flex items-center gap-x-2 rounded-bl-xl bg-primary p-2 shadow-md">
+                      <Medal className="h-5 w-5 text-primary-foreground" />
+                      <span className="font-semibold text-primary-foreground">
+                        Chef's Kiss!
+                      </span>
+                    </div>
+                  )}
                 </div>
 
-                <div className="mx-4 mb-6 mt-1">
-                  <div className="flex flex-col gap-y-4">
-                    <div>
-                      <h1
-                        className="font-heading line-clamp-2 text-lg font-medium text-gray-700"
-                      >
-                        {item.name}
-                      </h1>
+                {/* --- CONTENT AREA --- */}
+                <div className="flex flex-grow flex-col p-4">
+                  <h3 className="text-xl font-bold text-foreground line-clamp-2">
+                    {item.name}
+                  </h3>
+
+                  {/* Rating Section */}
+                  <div className="my-3 flex flex-wrap items-center justify-between gap-2 border-y border-border py-2">
+                    <div className="flex items-center gap-x-2">
+                      <span className="text-lg font-bold text-foreground">{dishRating.toFixed(1)}</span>
+                      <ThemedCookieRating rating={dishRating} />
                     </div>
-
-                    <div className="flex flex-row items-end justify-evenly gap-y-4 border-b border-t py-2 align-bottom text-base text-gray-400">
-                      <div className='flex flex-row items-end'>
-                        <div
-                          className={`${oswald.variable} font-heading flex  text-lg`}
-                        >
-                          <p className="mr-3 pt-1 text-gray-600">{dishRating}</p>
-                          {/* <span className="text-sm uppercase text-gray-400">out of 5</span> */}
-                          <StarRating rating={dishRating} />
-                        </div>
-                        
-                      </div>
-
-                      <Badge
-                        variant="outline"
-                        className={`text-sm px-3 py-1 ${
-                          calculateTextRating(dishRating).backgroundColor === 'red' ? 'border-rating-poor text-rating-poor bg-rating-poor/10' :
-                          calculateTextRating(dishRating).backgroundColor === 'gray' ? 'border-muted-foreground text-muted-foreground bg-muted' :
-                          calculateTextRating(dishRating).backgroundColor === 'blue' ? 'border-brand-secondary text-brand-secondary bg-brand-secondary/10' :
-                          calculateTextRating(dishRating).backgroundColor === 'yellow' ? 'border-rating-good text-rating-good bg-rating-good/10' :
-                          calculateTextRating(dishRating).backgroundColor === 'indigo' ? 'border-brand-secondary text-brand-secondary bg-brand-secondary/10' :
-                          calculateTextRating(dishRating).backgroundColor === 'lime' ? 'border-rating-excellent text-rating-excellent bg-rating-excellent/10' :
-                          calculateTextRating(dishRating).backgroundColor === 'green' ? 'border-rating-excellent text-rating-excellent bg-rating-excellent/10' :
-                          'border-muted-foreground text-muted-foreground bg-muted'
-                        }`}
-                      >
-                        {calculateTextRating(dishRating).textRating}
-                      </Badge>
-                    </div>
-
-                    <p className="h-8 text-sm text-gray-500">{item?.review}</p>
+                    <Badge variant="outline" className={`font-semibold ${ratingTheme.badgeClass}`}>
+                      {ratingTheme.text}
+                    </Badge>
                   </div>
+
+                  <p className="flex-grow text-sm text-muted-foreground line-clamp-3">
+                    {item?.review}
+                  </p>
                 </div>
               </div>
-            )
+            );
           })}
         </div>
       </div>
-      <SectionSeparator />
-    </>
-  )
-}
+    </section>
+  );
+};
 
-// const SectionTitle = ({ header, description }: { header: string, description?: string }) => {
-//     return (
-//         <div className="text-center mb-8">
-//             <h2 className="text-3xl sm:text-4xl font-bold text-gray-800 dark:text-gray-200">{header}</h2>
-//             {description && <p className="text-gray-500 dark:text-gray-400">{description}</p>}
-//         </div>
-//     )
-// }
+export default IndividualFoodRating;
 
-const SectionSeparator = () => {
-  return (
-    <div className="my-8 border-t border-gray-200 dark:border-gray-700"></div>
-  )
-}
-
-export default individualFoodRating

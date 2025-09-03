@@ -130,7 +130,7 @@ export default function MoreStories({
       )}
 
       {/* Display Posts Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4  gap-4 px-4 sm:px-6 lg:px-8 container mx-auto max-w-8xl">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-4 px-4 sm:px-6 lg:px-8 container mx-auto max-w-8xl">
         {currentPagePosts.map((item) => {
           // Helper function to determine linkType for new schema types
           const getLinkType = (item: ContentItem): 'hotel' | 'food' | 'story' | 'favorite' => {

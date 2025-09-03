@@ -153,7 +153,7 @@ const DynamicPostCard = ({
             {location && (
               <div className="flex items-center gap-x-2 text-muted-foreground">
                 <MapPin className="h-5 w-5 shrink-0 text-muted-foreground" />
-                <p className="text-xs">{location}</p>
+                <p className="text-sm">{location}</p>
               </div>
             )}
 
@@ -162,7 +162,7 @@ const DynamicPostCard = ({
                 <Calendar className="mr-2 h-5 w-5 text-muted-foreground sm:ml-5" />
                
                   <>
-                    <span className="mr-1 hidden text-xs lg:block">Visited on</span>
+                    <span className="mr-1 hidden text-sm lg:block">Visited on</span>
                     <Date dateString={date} />
                   </>
                 
@@ -180,7 +180,7 @@ const DynamicPostCard = ({
           <Link href={href} className="w-full flex">
             <Button
               variant="secondary"
-              className="mx-auto mb-2 inline-block rounded-md bg-accent px-3 py-1 text-xs font-semibold text-primary transition-colors duration-150 ease-in-out hover:bg-primary hover:text-primary-foreground"
+              className="mx-auto mb-2 inline-block rounded-md bg-accent px-3 py-1 text-base font-semibold text-primary transition-colors duration-150 ease-in-out hover:bg-primary hover:text-primary-foreground"
             >
               View Details
             </Button>

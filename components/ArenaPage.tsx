@@ -66,7 +66,7 @@ export default function ArenaPage({
   loading,
 }: ArenaPageProps) {
   const { title = 'Arena Review' } = settings || {}
-  console.log('Arena ', arena)
+ 
 
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
 

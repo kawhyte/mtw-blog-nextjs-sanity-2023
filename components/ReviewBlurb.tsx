@@ -1,16 +1,16 @@
-// components/HotelBlurb.tsx
+// components/ReviewBlurb.tsx
 
 import { PortableText } from '@portabletext/react';
 import { Quote } from 'lucide-react';
 import Link from 'next/link';
 
-interface HotelBlurbProps {
+interface ReviewBlurbProps {
   content?: any[]; // Portable text content
   source?: string;
   url?: string;
 }
 
-export default function HotelBlurb({ content, source, url }: HotelBlurbProps) {
+export default function ReviewBlurb({ content, source, url }: ReviewBlurbProps) {
   if (!content) {
     return null;
   }

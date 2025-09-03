@@ -16,8 +16,8 @@ import { useCallback, useEffect, useState } from 'react'
 
 import HelpfulTip from './HelpfulTip'
 import HeroPhotoGallery from './HeroPhotoGallery'
-import HotelRating from './HotelRating'
-import HotelBlurb from './HotelBlurb'
+import ReviewRating from './ReviewRating';
+import ReviewBlurb from './ReviewBlurb'
 
 export interface HotelReviewPageProps {
   preview?: boolean
@@ -26,50 +26,33 @@ export interface HotelReviewPageProps {
   settings: Settings
 }
 
+import { usePhotoGallery } from 'hooks/usePhotoGallery';
+
+const hotelRatingIcons = {
+  Value: <Star className="h-5 w-5 mr-2 " />,
+  Gym: <Dumbbell className="h-5 w-5 mr-2 " />,
+  Internet_Speed: <Wifi className="h-5 w-5 mr-2 " />,
+  Service: <Handshake className="h-5 w-5 mr-2 " />,
+  Room_Cleanliness: <BrushCleaning className="h-5 w-5 mr-2 " />,
+  Bed_Comfort: <Bed className="h-5 w-5 mr-2 " />,
+  Room_Amenities: <Bath className="h-5 w-5 mr-2 " />,
+  Pool: <WavesLadder className="h-5 w-5 mr-2 " />,
+  Location: <MapPin className="h-5 w-5 mr-2 " />,
+};
+
 function HotelReviewPageContent(props: HotelReviewPageProps) {
   const { preview, loading, hotelReview, settings } = props
   const { title = demo.title } = settings || {}
 
-  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(
-    null,
-  )
+  const {
+    galleryImages,
+    selectedImageIndex,
+    openModal,
+    closeModal,
+    nextImage,
+    prevImage,
+  } = usePhotoGallery(hotelReview.coverImage, hotelReview.gallery);
 
-  const galleryImages = [
-    hotelReview.coverImage,
-    ...(hotelReview.gallery || []),
-  ].filter(Boolean)
-
-  const openModal = (index: number) => setSelectedImageIndex(index)
-
-  const closeModal = useCallback(() => setSelectedImageIndex(null), [])
-
-  const nextImage = useCallback(() => {
-    if (!galleryImages || galleryImages.length === 0) return
-    setSelectedImageIndex((prevIndex) =>
-      prevIndex === null ? null : (prevIndex + 1) % galleryImages.length,
-    )
-  }, [galleryImages])
-
-  const prevImage = useCallback(() => {
-    if (!galleryImages || galleryImages.length === 0) return
-    setSelectedImageIndex((prevIndex) =>
-      prevIndex === null
-        ? null
-        : (prevIndex - 1 + galleryImages.length) % galleryImages.length,
-    )
-  }, [galleryImages])
-
-  // Keyboard navigation for the modal
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (selectedImageIndex === null) return
-      if (e.key === 'ArrowRight') nextImage()
-      if (e.key === 'ArrowLeft') prevImage()
-      if (e.key === 'Escape') closeModal()
-    }
-    window.addEventListener('keydown', handleKeyDown)
-    return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [selectedImageIndex, nextImage, prevImage, closeModal])
 
   return (
     <div>
@@ -118,7 +101,7 @@ function HotelReviewPageContent(props: HotelReviewPageProps) {
           </header>
 
           {hotelReview.excerpt2 && (
-            <HotelBlurb
+            <ReviewBlurb
               content={hotelReview.excerpt2}
               source={hotelReview.blurbSource}
               url={hotelReview.blurbUrl}
@@ -127,7 +110,7 @@ function HotelReviewPageContent(props: HotelReviewPageProps) {
 
           <div className="space-y-12 md:space-y-16">
             {hotelReview.hotelRating && (
-              <HotelRating hotelRating={hotelReview.hotelRating} />
+              <ReviewRating ratings={hotelReview.hotelRating} ratingIcons={hotelRatingIcons} title="Hotel Rating" />
             )}
 
 
