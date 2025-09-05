@@ -8,15 +8,5 @@ module.exports = {
     './pages/**/*.{js,ts,jsx,tsx}',
     './plugins/**/*.{js,ts,jsx,tsx}',
   ],
-  theme: {
-    extend: {
-      colors: {
-        success: {
-          DEFAULT: 'hsl(var(--success))',
-          foreground: 'hsl(var(--success-foreground))',
-        },
-      },
-    },
-  },
   plugins: [require('tailwindcss-animate')],
 }

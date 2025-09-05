@@ -78,6 +78,18 @@
     --destructive-foreground: 0 84% 98%; /* Light red -> USE FOR: Text on top of destructive color (`text-destructive-foreground`) */
     --success: 145 63% 49%; /* Green -> USE FOR: Success messages, confirmation indicators (`bg-success`, `text-success`) */
     --success-foreground: 145 63% 98%; /* Light green -> USE FOR: Text on top of success color (`text-success-foreground`) */
+    
+    /* --- Badge Colors (Pastel) --- */
+    /* USAGE: Hotel category badges with soft, pastel backgrounds */
+    --badge-blue: 214 100% 85%; /* Light pastel blue -> USE FOR: Economy hotel badges (`bg-badge-blue`) */
+    --badge-blue-foreground: 214 100% 25%; /* Dark blue text -> USE FOR: Text on blue badges (`text-badge-blue-foreground`) */
+    --badge-yellow: 48 100% 85%; /* Light pastel yellow -> USE FOR: Luxury hotel badges (`bg-badge-yellow`) */
+    --badge-yellow-foreground: 48 100% 25%; /* Dark yellow text -> USE FOR: Text on yellow badges (`text-badge-yellow-foreground`) */
+    --badge-green: 145 60% 85%; /* Light pastel green -> USE FOR: Mid-scale hotel badges (`bg-badge-green`) */
+    --badge-green-foreground: 145 60% 25%; /* Dark green text -> USE FOR: Text on green badges (`text-badge-green-foreground`) */
+    --badge-red: 0 100% 85%; /* Light pastel red -> USE FOR: Unrated hotel badges (`bg-badge-red`) */
+    --badge-red-foreground: 0 100% 25%; /* Dark red text -> USE FOR: Text on red badges (`text-badge-red-foreground`) */
+    
     --ring: 330 81% 62%; /* Pink -> USE FOR: Focus rings on interactive elements (`ring-ring`) */
 
     /* --- Radius --- */
@@ -108,6 +120,17 @@
     --destructive-foreground: 0 72% 98%;
     --success: 145 63% 49%;
     --success-foreground: 145 63% 98%;
+    
+    /* --- Badge Colors (Dark Mode) --- */
+    --badge-blue: 214 50% 35%; /* Darker blue for dark mode */
+    --badge-blue-foreground: 214 100% 85%;
+    --badge-yellow: 48 50% 35%; /* Darker yellow for dark mode */
+    --badge-yellow-foreground: 48 100% 85%;
+    --badge-green: 145 40% 35%; /* Darker green for dark mode */
+    --badge-green-foreground: 145 60% 85%;
+    --badge-red: 0 50% 35%; /* Darker red for dark mode */
+    --badge-red-foreground: 0 100% 85%;
+    
     --ring: 330 81% 62%;
   }
 }
@@ -134,6 +157,16 @@
   --color-ring: hsl(var(--ring));
   --color-card: hsl(var(--card));
   --color-card-foreground: hsl(var(--card-foreground));
+  
+  /* Badge Colors */
+  --color-badge-blue: hsl(var(--badge-blue));
+  --color-badge-blue-foreground: hsl(var(--badge-blue-foreground));
+  --color-badge-yellow: hsl(var(--badge-yellow));
+  --color-badge-yellow-foreground: hsl(var(--badge-yellow-foreground));
+  --color-badge-green: hsl(var(--badge-green));
+  --color-badge-green-foreground: hsl(var(--badge-green-foreground));
+  --color-badge-red: hsl(var(--badge-red));
+  --color-badge-red-foreground: hsl(var(--badge-red-foreground));
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);

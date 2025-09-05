@@ -94,10 +94,10 @@ export default function CoverImage(props: CoverImageProps) {
   const categoryType = categoryRating(category)
 
   const badgeColorClasses = {
-    blue: 'bg-blue-200 text-blue-800',
-    yellow: 'bg-yellow-200 text-yellow-800', 
-    green: 'bg-green-200 text-green-800',
-    red: 'bg-red-200 text-red-800',
+    blue: 'bg-badge-blue text-badge-blue-foreground',
+    yellow: 'bg-badge-yellow text-badge-yellow-foreground', 
+    green: 'bg-badge-green text-badge-green-foreground',
+    red: 'bg-badge-red text-badge-red-foreground',
   }
 
   const badgeClasses =
