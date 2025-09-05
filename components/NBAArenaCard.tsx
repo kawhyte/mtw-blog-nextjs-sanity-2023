@@ -110,9 +110,7 @@ const Arenas = ({
                   <CalendarCheck className="mr-2 h-5 w-5 sm:ml-5" />
                   {visited ? (
                     <>
-                      <span className="mr-1 hidden  lg:block">
-                        Visited on
-                      </span>
+                      <span className="mr-1 hidden  lg:block">Visited on</span>
                       <PostDate dateString={dateVisited} />
                     </>
                   ) : (

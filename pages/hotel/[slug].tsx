@@ -52,12 +52,7 @@ export default function HotelSlugRoute(props: PageProps) {
     )
   }
 
-  return (
-    <HotelReviewPage 
-      hotelReview={hotelReview} 
-      settings={settings} 
-    />
-  )
+  return <HotelReviewPage hotelReview={hotelReview} settings={settings} />
 }
 
 export const getStaticProps: GetStaticProps<
@@ -79,7 +74,7 @@ export const getStaticProps: GetStaticProps<
       notFound: true,
     }
   }
-  
+
   return {
     props: {
       hotelReview,
@@ -87,6 +82,9 @@ export const getStaticProps: GetStaticProps<
       preview,
       token: previewData.token ?? null,
     },
+    // Revalidate every 60 seconds when page is requested
+    // Only rebuilds if content actually changed in Sanity
+    revalidate: 60,
   }
 }
 

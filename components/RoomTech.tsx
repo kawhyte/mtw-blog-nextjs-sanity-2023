@@ -1,7 +1,7 @@
-import { CheckCircle2, Wifi, XCircle } from 'lucide-react';
-import React from 'react';
+import { CheckCircle2, Wifi, XCircle } from 'lucide-react'
+import React from 'react'
 
-import SectionTitle from './SectionTitle';
+import SectionTitle from './SectionTitle'
 
 // --- Themed Data Definitions ---
 
@@ -13,7 +13,7 @@ const speedTiers = [
   { threshold: 6, text: 'Slow', theme: 'destructive' },
   { threshold: 0, text: 'Poor', theme: 'destructive' },
   { threshold: -Infinity, text: 'N/A', theme: 'muted' },
-];
+]
 
 const techConfig = [
   { key: 'USB', label: 'USB Ports' },
@@ -22,7 +22,7 @@ const techConfig = [
   { key: 'Chromecast', label: 'Smart TV' },
   { key: 'Wired', label: 'Wired Internet Port' },
   { key: 'Bluetooth', label: 'Bluetooth Speaker' },
-];
+]
 
 const amenityConfig = [
   { key: 'Coffee', label: 'Coffee Machine', showValue: true },
@@ -31,7 +31,7 @@ const amenityConfig = [
   { key: 'Slippers', label: 'Slippers/Robes' },
   { key: 'Soap', label: 'Soap Provided', showValue: true },
   { key: 'Other', label: 'Additional Amenities' },
-];
+]
 
 // --- Reusable Sub-Components ---
 
@@ -46,53 +46,75 @@ const FeatureItem = ({ label, isAvailable, details }) => (
     <div className="flex flex-col">
       <span>{label}</span>
       {details && (
-        <span className="text-sm text-muted-foreground italic">({details})</span>
+        <span className="text-sm text-muted-foreground italic">
+          ({details})
+        </span>
       )}
     </div>
   </div>
-);
+)
 
 // A reusable card for Tech and Amenities sections
 const InfoCard = ({ title, icon, color, config, data }) => {
-  if (!data || Object.keys(data).length === 0) return null;
+  if (!data || Object.keys(data).length === 0) return null
 
   const themeClasses = {
     primary: { border: 'border-primary', text: 'text-primary' },
     secondary: { border: 'border-secondary', text: 'text-secondary' },
     third: { border: 'border-success', text: 'text-success' },
-  };
-  const theme = themeClasses[color];
+  }
+  const theme = themeClasses[color]
 
   return (
-    <div className={`flex h-full flex-col rounded-2xl border-2 bg-card p-5 shadow-lg ${theme.border}`}>
-      <div className={`mb-3 flex items-center border-b border-border pb-3  font-bold uppercase tracking-wider ${theme.text}`}>
+    <div
+      className={`flex h-full flex-col rounded-2xl border-2 bg-card p-5 shadow-lg ${theme.border}`}
+    >
+      <div
+        className={`mb-3 flex items-center border-b border-border pb-3  font-bold uppercase tracking-wider ${theme.text}`}
+      >
         {React.cloneElement(icon, { className: 'h-5 w-5 mr-3 ' })}
         {title}
       </div>
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 text-base ">
         {config.map((item) => {
-          const value = data[item.key];
-          const isAvailable = value?.toLowerCase() === 'yes' || (item.showValue && value && !['no', 'none'].includes(value.toLowerCase()));
-          const details = item.showValue && isAvailable && value.toLowerCase() !== 'yes' ? value : undefined;
-          return <FeatureItem key={item.key} label={item.label} isAvailable={isAvailable} details={details} />;
+          const value = data[item.key]
+          const isAvailable =
+            value?.toLowerCase() === 'yes' ||
+            (item.showValue &&
+              value &&
+              !['no', 'none'].includes(value.toLowerCase()))
+          const details =
+            item.showValue && isAvailable && value.toLowerCase() !== 'yes'
+              ? value
+              : undefined
+          return (
+            <FeatureItem
+              key={item.key}
+              label={item.label}
+              isAvailable={isAvailable}
+              details={details}
+            />
+          )
         })}
       </div>
     </div>
-  );
-};
+  )
+}
 
 // --- Main Exported Component ---
 
 const RoomTech = ({ speed = 0, techAvailable, roomAmenitiesAvailiable }) => {
-  const speedTier = speedTiers.find((tier) => speed >= tier.threshold) || speedTiers[speedTiers.length - 1];
+  const speedTier =
+    speedTiers.find((tier) => speed >= tier.threshold) ||
+    speedTiers[speedTiers.length - 1]
 
   const themeClasses = {
     success: 'bg-success text-success-foreground',
     accent: 'bg-accent text-accent-foreground',
     destructive: 'bg-destructive text-destructive-foreground',
     muted: 'bg-muted text-muted-foreground',
-  };
-  const badgeClass = themeClasses[speedTier.theme];
+  }
+  const badgeClass = themeClasses[speedTier.theme]
 
   return (
     <section className="my-16">
@@ -104,19 +126,37 @@ const RoomTech = ({ speed = 0, techAvailable, roomAmenitiesAvailiable }) => {
             <div className="mb-3 flex items-center border-b border-border pb-3 font-bold uppercase tracking-wider text-success">
               <Wifi className="h-6 w-6 mr-3 text-green-500" />
               Internet Speed
-              <span className={`ml-auto rounded-full px-3 py-1 text-xs font-semibold ${badgeClass}`}>
+              <span
+                className={`ml-auto rounded-full px-3 py-1 text-xs font-semibold ${badgeClass}`}
+              >
                 {speedTier.text}
               </span>
             </div>
             <div className="flex items-end text-foreground">
-              <span className="text-6xl font-bold leading-none">{speed || '0'}</span>
-              <span className="ml-2 pb-1 text-lg font-normal text-muted-foreground">Mbps</span>
+              <span className="text-6xl font-bold leading-none">
+                {speed || '0'}
+              </span>
+              <span className="ml-2 pb-1 text-lg font-normal text-muted-foreground">
+                Mbps
+              </span>
             </div>
-            <p className="mt-4 mb-2 text-base font-medium text-foreground">Good for:</p>
+            <p className="mt-4 mb-2 text-base font-medium text-foreground">
+              Good for:
+            </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-base">
-              {['Web Browsing', 'Emails', 'Zoom', 'HD Streaming', '4K Streaming'].map((feature) => (
-                <div key={feature} className="flex items-center text-muted-foreground">
-                  <CheckCircle2 className="h-4 w-4 mr-2 text-green-500" /> {feature}
+              {[
+                'Web Browsing',
+                'Emails',
+                'Zoom',
+                'HD Streaming',
+                '4K Streaming',
+              ].map((feature) => (
+                <div
+                  key={feature}
+                  className="flex items-center text-muted-foreground"
+                >
+                  <CheckCircle2 className="h-4 w-4 mr-2 text-green-500" />{' '}
+                  {feature}
                 </div>
               ))}
             </div>
@@ -142,7 +182,7 @@ const RoomTech = ({ speed = 0, techAvailable, roomAmenitiesAvailiable }) => {
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default RoomTech;
+export default RoomTech

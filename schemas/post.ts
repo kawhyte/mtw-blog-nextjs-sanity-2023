@@ -1,8 +1,8 @@
-import { BillIcon,BookIcon } from '@sanity/icons'
+import { BillIcon, BookIcon } from '@sanity/icons'
 import { format, parseISO } from 'date-fns'
 import { defineField, defineType } from 'sanity'
 
-import { description } from './../lib/demo.data';
+import { description } from './../lib/demo.data'
 
 /**
  * This file is the schema definition for a post.
@@ -25,25 +25,18 @@ export default defineType({
   fields: [
     defineField({
       title: 'Legacy Post Type',
-      description: 'This schema is deprecated. Use specific document types instead.',
+      description:
+        'This schema is deprecated. Use specific document types instead.',
       name: 'linkType',
       type: 'string',
       validation: (Rule) => Rule.required(),
       options: {
-        list: [
-          { title: 'Things we like', value: 'favorite' },
-        ],
+        list: [{ title: 'Things we like', value: 'favorite' }],
         layout: 'radio',
       },
-      initialValue: 'favorite'
-
+      initialValue: 'favorite',
     }),
 
-
-
-
-
-  
     defineField({
       name: 'title',
       title: 'Title',
@@ -72,14 +65,10 @@ export default defineType({
       name: 'location',
       title: 'Location',
       type: 'string',
-      hidden: ({ parent, value }) =>
-        parent?.linkType == 'favorite',
+      hidden: ({ parent, value }) => parent?.linkType == 'favorite',
 
       //validation: (rule) => rule.required(),
     }),
-
-
-   
 
     defineField({
       name: 'link',
@@ -96,16 +85,6 @@ export default defineType({
       hidden: ({ parent, value }) => parent?.linkType != 'favorite',
       description: 'Cost.',
     }),
-
-
-
-
-  
-
-
-
-
-
 
     defineField({
       name: 'coverImage',
@@ -131,19 +110,17 @@ export default defineType({
       description: 'Add a short summary',
       type: 'array',
       of: [{ type: 'block' }],
-      hidden: ({ parent, value }) =>
-        parent?.linkType == 'favorite',
+      hidden: ({ parent, value }) => parent?.linkType == 'favorite',
     }),
 
     defineField({
       name: 'tip',
       title: 'Quick Tip',
-      
+
       description: 'Add a helpful tip (optional)',
       type: 'array',
       of: [{ type: 'block' }],
-      hidden: ({ parent, value }) =>
-        parent?.linkType == 'favorite',
+      hidden: ({ parent, value }) => parent?.linkType == 'favorite',
     }),
 
     // defineField({
@@ -162,10 +139,6 @@ export default defineType({
     // 	type: "array",
     // 	of: [{ type: "amenities" }],
     // },
-
-
-
-
 
     defineField({
       name: 'gallery',
@@ -192,7 +165,6 @@ export default defineType({
       ],
     }),
 
-    
     // defineField({
     //   name: 'gallery2',
     //   title: 'Photo Gallery222',
@@ -206,14 +178,9 @@ export default defineType({
       title: 'Youtube URL (optional)',
       type: 'string',
       description: 'Youtube link is Optional',
-      hidden: ({ parent, value }) =>
-        parent?.linkType == 'favorite',
+      hidden: ({ parent, value }) => parent?.linkType == 'favorite',
       //validation: (rule) => rule.required(),
     }),
-
-
-
-
 
     // {
     //   name: 'foodRating',
@@ -222,12 +189,6 @@ export default defineType({
     //   type: 'foodRating',
     //   hidden: ({ parent }) => parent?.linkType !== 'food',
     // },
-
-  
-
-
-
-
 
     // {
     //   title: "Hotel Resort Fees",
@@ -261,14 +222,11 @@ export default defineType({
     //   }
     // },
 
-
-
     defineField({
       title: 'Positives',
       name: 'positives',
       description: 'Add multiple positive points',
-      hidden: ({ parent, value }) =>
-        parent?.linkType == 'favorite',
+      hidden: ({ parent, value }) => parent?.linkType == 'favorite',
       //validation: (Rule) => Rule.required(),
       type: 'array',
       of: [{ type: 'text' }],
@@ -277,8 +235,7 @@ export default defineType({
       title: 'Negatives',
       name: 'negatives',
       description: 'Add multiple negative points',
-      hidden: ({ parent, value }) =>
-        parent?.linkType == 'favorite',
+      hidden: ({ parent, value }) => parent?.linkType == 'favorite',
       //validation: (Rule) => Rule.required(),
       type: 'array',
       of: [{ type: 'text' }],
@@ -288,8 +245,7 @@ export default defineType({
       name: 'verdict',
       title: 'Verdict',
       description: 'Add your overall verdict',
-      hidden: ({ parent, value }) =>
-        parent?.linkType == 'favorite',
+      hidden: ({ parent, value }) => parent?.linkType == 'favorite',
       //validation: (Rule) => Rule.required(),
       type: 'array',
       of: [{ type: 'block' }],
@@ -336,7 +292,7 @@ export default defineType({
           ],
         },
       ],
-    })
+    }),
     // {
     //   title: 'Tags',
     //   name: 'tags',

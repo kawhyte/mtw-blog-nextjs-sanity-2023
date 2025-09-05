@@ -1,19 +1,19 @@
 import { PreviewSuspense } from '@sanity/preview-kit'
 import StoryReviewsPage from 'components/StoryReviewsPage' // Component to display stories
 import {
-  getSettings,
-  getPaginatedGuides,
   getGuidesTotalCount,
+  getPaginatedGuides,
+  getSettings,
 } from 'lib/sanity.client'
 import { Guide, Settings } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
-import Head from "next/head"; // Keep Head if needed within StoryReviewsPage or here
+import Head from 'next/head' // Keep Head if needed within StoryReviewsPage or here
 import { lazy } from 'react'
 
 const PreviewIndexPage = lazy(() => import('components/PreviewIndexPage'))
 
 // Define how many items to show per page
-const ITEMS_PER_PAGE = 12;
+const ITEMS_PER_PAGE = 12
 
 interface PageProps {
   initialPosts: Guide[]
@@ -31,44 +31,38 @@ interface PreviewData {
   token?: string
 }
 
-
 export default function Page(props: PageProps) {
-    const {
-      initialPosts,
-      totalPostsCount,
-      settings,
-      preview,
-      token
-     } = props
+  const { initialPosts, totalPostsCount, settings, preview, token } = props
 
-    if (preview) {
-      return (
-        <PreviewSuspense
-          fallback={
-            <StoryReviewsPage
-              loading
-              preview
-              initialPosts={initialPosts}
-              totalPostsCount={totalPostsCount}
-              itemsPerPage={ITEMS_PER_PAGE}
-              settings={settings}
-            />
-          }
-        >
-          <PreviewIndexPage token={token} />
-        </PreviewSuspense>
-      )
-    }
-
+  if (preview) {
     return (
-      <StoryReviewsPage
-          initialPosts={initialPosts}
-          totalPostsCount={totalPostsCount}
-          itemsPerPage={ITEMS_PER_PAGE}
-          settings={settings}
-       />
+      <PreviewSuspense
+        fallback={
+          <StoryReviewsPage
+            loading
+            preview
+            initialPosts={initialPosts}
+            totalPostsCount={totalPostsCount}
+            itemsPerPage={ITEMS_PER_PAGE}
+            settings={settings}
+          />
+        }
+      >
+        <PreviewIndexPage token={token} />
+      </PreviewSuspense>
     )
   }
+
+  return (
+    <StoryReviewsPage
+      key="guides-page"
+      initialPosts={initialPosts}
+      totalPostsCount={totalPostsCount}
+      itemsPerPage={ITEMS_PER_PAGE}
+      settings={settings}
+    />
+  )
+}
 
 export const getStaticProps: GetStaticProps<
   PageProps,
@@ -81,14 +75,14 @@ export const getStaticProps: GetStaticProps<
   const [settings, totalPostsCount] = await Promise.all([
     getSettings(),
     getGuidesTotalCount(),
-  ]);
+  ])
 
   // Fetch first page of posts
-  const initialPosts = await getPaginatedGuides(0, ITEMS_PER_PAGE);
+  const initialPosts = await getPaginatedGuides(0, ITEMS_PER_PAGE)
 
-  console.log('Guides Found:', initialPosts?.length || 0);
-  console.log('Total Guides:', totalPostsCount);
-  console.log('Sample Guide:', initialPosts?.[0] || 'None');
+  console.log('Guides Found:', initialPosts?.length || 0)
+  console.log('Total Guides:', totalPostsCount)
+  console.log('Sample Guide:', initialPosts?.[0] || 'None')
 
   return {
     props: {

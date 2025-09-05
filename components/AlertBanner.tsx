@@ -1,7 +1,8 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 import Container from 'components/BlogContainer'
-import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Info } from 'lucide-react'
+
+import { Alert, AlertDescription } from '@/components/ui/alert'
 
 export default function AlertBanner({
   preview,

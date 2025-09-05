@@ -1,27 +1,28 @@
 // pages/search.js
-import Container from 'components/BlogContainer';
-import BlogHeader from 'components/BlogHeader';
-import Layout from 'components/BlogLayout';
-import Footer from 'components/Footer';
-import DynamicPostCard from 'components/DynamicPostCard';
-import * as demo from 'lib/demo.data';
-import dynamic from 'next/dynamic';
-import Head from 'next/head';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import Container from 'components/BlogContainer'
+import BlogHeader from 'components/BlogHeader'
+import Layout from 'components/BlogLayout'
+import DynamicPostCard from 'components/DynamicPostCard'
+import Footer from 'components/Footer'
+import * as demo from 'lib/demo.data'
+import dynamic from 'next/dynamic'
+import Head from 'next/head'
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
 
-import { PaginationWrapper as Pagination } from '@/components/ui/pagination-wrapper';
+import { PaginationWrapper as Pagination } from '@/components/ui/pagination-wrapper'
 
-import { CMS_NAME } from '../lib/constants';
-import { globalSearchQuery, Post } from '../lib/sanity.queries';
-import { Settings } from '../lib/sanity.queries';
-import { sanityClient } from '../lib/sanity.server';
+import { CMS_NAME } from '../lib/constants'
+import { globalSearchQuery, Post } from '../lib/sanity.queries'
+import { Settings } from '../lib/sanity.queries'
+import { sanityClient } from '../lib/sanity.server'
 
 // Dynamically import Lottie Player for the "not found" animation
 const PlayerWithNoSSR = dynamic(
-  () => import('@lottiefiles/react-lottie-player').then((module) => module.Player),
-  { ssr: false }
-);
+  () =>
+    import('@lottiefiles/react-lottie-player').then((module) => module.Player),
+  { ssr: false },
+)
 
 // --- Reusable UI Components for this page ---
 
@@ -29,44 +30,55 @@ const PlayerWithNoSSR = dynamic(
 const LoadingState = () => (
   <div className="flex flex-col items-center justify-center min-h-[60vh]">
     <div className="w-12 h-12 rounded-full animate-spin border-4 border-solid border-primary border-t-transparent"></div>
-    <p className="mt-4 text-lg text-muted-foreground">Searching the archives...</p>
+    <p className="mt-4 text-lg text-muted-foreground">
+      Searching the archives...
+    </p>
   </div>
-);
+)
 
 // NEW: A styled header for displaying the search query and result count
 const ResultsHeader = ({ query, count }) => (
   <div className="w-full text-center bg-primary-soft-background rounded-2xl p-8 my-8">
     <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-2">
-      Search results for <span className="text-primary">&quot;{query}&quot;</span>
+      Search results for{' '}
+      <span className="text-primary">&quot;{query}&quot;</span>
     </h1>
     <p className="text-lg text-muted-foreground">
       {count} {count === 1 ? 'item' : 'items'} found 😉
     </p>
   </div>
-);
+)
 
 // NEW: An improved "No Results" component with helpful suggestions
 const NoResultsFound = ({ query }) => {
-  const router = useRouter();
-  const popularSearches = ['Hyatt', 'Review', 'Travel', 'Marriott'];
+  const router = useRouter()
+  const popularSearches = ['Hyatt', 'Review', 'Travel', 'Marriott']
 
   const handleSuggestionClick = (term) => {
-    router.push(`/search?q=${term}`);
-  };
+    router.push(`/search?q=${term}`)
+  }
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[70vh] text-center px-4 py-10">
       <div className="w-full max-w-[250px] sm:max-w-[300px] md:max-w-[350px] mx-auto mb-8">
-        <PlayerWithNoSSR autoplay keepLastFrame loop src={'/confused-search.json'} />
+        <PlayerWithNoSSR
+          autoplay
+          keepLastFrame
+          loop
+          src={'/confused-search.json'}
+        />
       </div>
       <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">
         No results for <span className="text-primary">&quot;{query}&quot;</span>
       </h1>
       <p className="text-lg text-muted-foreground max-w-lg mx-auto">
-        It seems your search is playing hide-and-seek. Try checking the spelling or using a different term.
+        It seems your search is playing hide-and-seek. Try checking the spelling
+        or using a different term.
       </p>
       <div className="mt-8">
-        <p className="text-md font-semibold text-foreground mb-3">Popular searches:</p>
+        <p className="text-md font-semibold text-foreground mb-3">
+          Popular searches:
+        </p>
         <div className="flex flex-wrap items-center justify-center gap-2">
           {popularSearches.map((term) => (
             <button
@@ -80,56 +92,60 @@ const NoResultsFound = ({ query }) => {
         </div>
       </div>
     </div>
-  );
-};
-
+  )
+}
 
 // --- Main Search Results Page Component ---
 
 const SearchResults = ({ settings }: { settings: Settings }) => {
-  const router = useRouter();
-  const { q: searchQuery } = router.query;
-  const [results, setResults] = useState<Post[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
-  const [activePage, setPage] = useState(1);
-  const itemsPerPage = 9;
+  const router = useRouter()
+  const { q: searchQuery } = router.query
+  const [results, setResults] = useState<Post[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<Error | null>(null)
+  const [activePage, setPage] = useState(1)
+  const itemsPerPage = 9
 
-  const { title = demo.title, description = demo.description } = settings || {};
+  const { title = demo.title, description = demo.description } = settings || {}
 
   useEffect(() => {
-    const currentSearchQuery = router.query.q;
+    const currentSearchQuery = router.query.q
     if (typeof currentSearchQuery === 'string' && currentSearchQuery.trim()) {
-      setLoading(true);
-      setError(null);
-      setPage(1);
+      setLoading(true)
+      setError(null)
+      setPage(1)
       sanityClient
-        .fetch(globalSearchQuery, { searchTerm: `*${currentSearchQuery.trim()}*` })
+        .fetch(globalSearchQuery, {
+          searchTerm: `*${currentSearchQuery.trim()}*`,
+        })
         .then((data) => setResults(data || []))
         .catch((err) => {
-          setError(err);
-          setResults([]);
-          console.error('Error fetching search results:', err);
+          setError(err)
+          setResults([])
+          console.error('Error fetching search results:', err)
         })
-        .finally(() => setLoading(false));
+        .finally(() => setLoading(false))
     } else {
-      setResults([]);
-      setLoading(false);
-      setError(null);
+      setResults([])
+      setLoading(false)
+      setError(null)
     }
-  }, [router.query.q]);
+  }, [router.query.q])
 
-  const totalPages = Math.ceil(results.length / itemsPerPage);
-  const displayedResults = results.slice((activePage - 1) * itemsPerPage, activePage * itemsPerPage);
+  const totalPages = Math.ceil(results.length / itemsPerPage)
+  const displayedResults = results.slice(
+    (activePage - 1) * itemsPerPage,
+    activePage * itemsPerPage,
+  )
 
   const renderContent = () => {
-    if (loading) return <LoadingState />;
+    if (loading) return <LoadingState />
     if (error) {
       return (
         <div className="flex justify-center items-center min-h-[50vh] text-destructive">
           Blast! Something went wrong: {error.message}
         </div>
-      );
+      )
     }
     if (searchQuery && results.length > 0) {
       return (
@@ -142,14 +158,20 @@ const SearchResults = ({ settings }: { settings: Settings }) => {
           </div>
           {totalPages > 1 && (
             <div className="pb-6 pt-14">
-              <Pagination total={totalPages} value={activePage} onChange={setPage} position="center" size="lg" />
+              <Pagination
+                total={totalPages}
+                value={activePage}
+                onChange={setPage}
+                position="center"
+                size="lg"
+              />
             </div>
           )}
         </>
-      );
+      )
     }
     if (searchQuery) {
-      return <NoResultsFound query={searchQuery} />;
+      return <NoResultsFound query={searchQuery} />
     }
     return (
       <div className="flex flex-col items-center justify-center min-h-[70vh] text-center px-4">
@@ -158,19 +180,23 @@ const SearchResults = ({ settings }: { settings: Settings }) => {
           Pop a search term into the bar above to begin your adventure.
         </p>
       </div>
-    );
-  };
+    )
+  }
 
   return (
     <Layout preview={false} loading={loading}>
       <Head>
-        <title>{searchQuery ? `Search Results for "${searchQuery}"` : `Search - ${CMS_NAME}`}</title>
+        <title>
+          {searchQuery
+            ? `Search Results for "${searchQuery}"`
+            : `Search - ${CMS_NAME}`}
+        </title>
       </Head>
       <BlogHeader title={title} description={description} level={1} />
       <Container>{renderContent()}</Container>
       <Footer />
     </Layout>
-  );
-};
+  )
+}
 
-export default SearchResults;
+export default SearchResults

@@ -1,22 +1,22 @@
 // components/PageHeader.tsx
-import React from 'react';
+import React from 'react'
 
 // Define the structure for each info item
 interface HeaderItem {
-  icon: React.ReactNode; // Allows passing JSX elements like <MapPin />
-  text: string | number; // Can be text or a number (like capacity)
-  label?: string; // Optional label like "Built", "Capacity"
+  icon: React.ReactNode // Allows passing JSX elements like <MapPin />
+  text: string | number // Can be text or a number (like capacity)
+  label?: string // Optional label like "Built", "Capacity"
   // Optional: Add a unique key if needed, though index might suffice for static lists
 }
 
 // Define the props for the PageHeader component
 interface PageHeaderProps {
-  title: string;
-  items: HeaderItem[]; // An array of info items
+  title: string
+  items: HeaderItem[] // An array of info items
 }
 
 const PageHeader: React.FC<PageHeaderProps> = ({ title, items }) => {
-  const hasItems = items && items.length > 0;
+  const hasItems = items && items.length > 0
 
   return (
     // Use the exact same wrapper and classes as the original header
@@ -44,13 +44,13 @@ const PageHeader: React.FC<PageHeaderProps> = ({ title, items }) => {
                 </span>
               )}
               {/* Render the text */}
-            <span className='capitalize'> {item.text}</span>  
+              <span className="capitalize"> {item.text}</span>
             </li>
           ))}
         </ul>
       )}
     </header>
-  );
-};
+  )
+}
 
-export default PageHeader;
+export default PageHeader

@@ -1,38 +1,38 @@
 // components/ImageGallery.tsx
 
-import { urlForImage } from 'lib/sanity.image';
-import { ChevronLeft, ChevronRight, X } from 'lucide-react';
-import Image from 'next/image';
-import React from 'react';
+import { urlForImage } from 'lib/sanity.image'
+import { ChevronLeft, ChevronRight, X } from 'lucide-react'
+import Image from 'next/image'
+import React from 'react'
 
-import SectionTitle from './SectionTitle';
+import SectionTitle from './SectionTitle'
 
 // --- Interfaces ---
 export interface GalleryImage {
-  _key?: string;
-  alt?: string;
+  _key?: string
+  alt?: string
   asset?: {
-    _ref: string;
-    _type: 'reference';
+    _ref: string
+    _type: 'reference'
     metadata?: {
       dimensions?: {
-        width: number;
-        height: number;
-      };
-      lqip?: string;
-    };
-  };
+        width: number
+        height: number
+      }
+      lqip?: string
+    }
+  }
 }
 
 export interface ImageGalleryProps {
-  images?: GalleryImage[];
-  title?: string;
-  className?: string;
-  selectedImageIndex: number | null;
-  openModal: (index: number) => void;
-  closeModal: () => void;
-  nextImage: () => void;
-  prevImage: () => void;
+  images?: GalleryImage[]
+  title?: string
+  className?: string
+  selectedImageIndex: number | null
+  openModal: (index: number) => void
+  closeModal: () => void
+  nextImage: () => void
+  prevImage: () => void
 }
 
 // --- Main Exported Component ---
@@ -46,7 +46,7 @@ export default function ImageGallery({
   nextImage,
   prevImage,
 }: ImageGalleryProps) {
-  const hasImages = images && images.length > 0;
+  const hasImages = images && images.length > 0
 
   return (
     <section className={`w-full my-6 ${className || ''}`}>
@@ -60,10 +60,10 @@ export default function ImageGallery({
         {hasImages ? (
           <div className="columns-1 gap-4 space-y-4 sm:columns-2 md:columns-3 lg:columns-4">
             {images.map((item, i) => {
-              if (!item?.asset) return null;
-              const imageUrl = urlForImage(item).width(800).auto('format').url();
-              const imageAlt = item.alt || `Gallery image ${i + 1}`;
-              const blurData = item.asset.metadata?.lqip;
+              if (!item?.asset) return null
+              const imageUrl = urlForImage(item).width(800).auto('format').url()
+              const imageAlt = item.alt || `Gallery image ${i + 1}`
+              const blurData = item.asset.metadata?.lqip
 
               return (
                 <div
@@ -83,7 +83,7 @@ export default function ImageGallery({
                   />
                   <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/20 transition-colors duration-300 rounded-lg" />
                 </div>
-              );
+              )
             })}
           </div>
         ) : (
@@ -158,5 +158,5 @@ export default function ImageGallery({
         </div>
       )}
     </section>
-  );
+  )
 }

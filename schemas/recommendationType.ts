@@ -1,7 +1,7 @@
 // ./schema/recommendation/recommendationType.ts
 
-import {HeartIcon} from '@sanity/icons'
-import {defineField, defineType} from 'sanity'
+import { HeartIcon } from '@sanity/icons'
+import { defineField, defineType } from 'sanity'
 
 export const recommendationType = defineType({
   name: 'recommendation',
@@ -11,7 +11,7 @@ export const recommendationType = defineType({
     defineField({
       name: 'post',
       type: 'reference',
-      to: [{type: 'post'}],
+      to: [{ type: 'post' }],
     }),
     defineField({
       name: 'featured',
@@ -26,8 +26,10 @@ export const recommendationType = defineType({
       // year: 'post.year',
       featured: 'featured',
     },
-    prepare: ({title, featured}) => ({
-      title: [featured ? '⭐️ ' : '', `${title ?? `No book selected`}`].join(` `),
+    prepare: ({ title, featured }) => ({
+      title: [featured ? '⭐️ ' : '', `${title ?? `No book selected`}`].join(
+        ` `,
+      ),
       // subtitle: author && year ? `${author} (${year})` : undefined,
       media: HeartIcon,
     }),

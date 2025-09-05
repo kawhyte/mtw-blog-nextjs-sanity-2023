@@ -71,7 +71,8 @@ export default defineType({
       name: 'coverImage',
       title: 'Main Image',
       type: 'image',
-      description: 'For best results: Image size should be 850 x 405, webp quality 80%, 60% image resize.',
+      description:
+        'For best results: Image size should be 850 x 405, webp quality 80%, 60% image resize.',
       options: {
         hotspot: true,
       },
@@ -98,7 +99,8 @@ export default defineType({
       name: 'individualFoodRating',
       title: 'Individual Food Rating',
       type: 'array',
-      description: 'Rate individual dishes/drinks. For best results: Image size webp quality 40%, 40% image resize.',
+      description:
+        'Rate individual dishes/drinks. For best results: Image size webp quality 40%, 40% image resize.',
       of: [
         {
           type: 'image',
@@ -111,7 +113,10 @@ export default defineType({
               type: 'string',
               title: 'Dish/Drink name',
               description: 'The name should be 40 characters or less',
-              validation: (Rule) => Rule.max(40).warning(`The name shouldn't be more than 40 characters.`).required(),
+              validation: (Rule) =>
+                Rule.max(40)
+                  .warning(`The name shouldn't be more than 40 characters.`)
+                  .required(),
             },
             {
               name: 'rating',
@@ -121,8 +126,10 @@ export default defineType({
             {
               name: 'review',
               type: 'string',
-              title: 'Short "Twitter style" (120 characters or less) Review or additional info (optional)',
-              validation: (Rule) => Rule.max(120).warning(`shouldn't be more than 120 characters.`),
+              title:
+                'Short "Twitter style" (120 characters or less) Review or additional info (optional)',
+              validation: (Rule) =>
+                Rule.max(120).warning(`shouldn't be more than 120 characters.`),
             },
           ],
         },
@@ -133,7 +140,8 @@ export default defineType({
       name: 'gallery',
       title: 'Photo Gallery',
       type: 'array',
-      description: 'For best results: Image size should be 566 x 525, webp quality 80%, 80% image resize.',
+      description:
+        'For best results: Image size should be 566 x 525, webp quality 80%, 80% image resize.',
       of: [
         {
           type: 'image',
@@ -162,32 +170,36 @@ export default defineType({
     defineField({
       name: 'foodRating',
       title: 'Rating for Dine-in',
-      description: 'Add a rating for each dine-in section (only for dine-in experiences)',
+      description:
+        'Add a rating for each dine-in section (only for dine-in experiences)',
       type: 'foodRating',
       hidden: ({ parent }) => parent?.diningType !== 'dinein',
-      validation: (rule) => rule.custom((value, context) => {
-        const parent = context.parent as any
-        if (parent?.diningType === 'dinein' && !value) {
-          return 'Dine-in rating is required for dine-in experiences'
-        }
-        return true
-      }),
+      validation: (rule) =>
+        rule.custom((value, context) => {
+          const parent = context.parent as any
+          if (parent?.diningType === 'dinein' && !value) {
+            return 'Dine-in rating is required for dine-in experiences'
+          }
+          return true
+        }),
     }),
 
     // TAKEOUT SPECIFIC RATING SYSTEM
     defineField({
       name: 'takeoutRating',
       title: 'Rating for Takeout',
-      description: 'Add a rating for each takeout section (only for takeout experiences)',
+      description:
+        'Add a rating for each takeout section (only for takeout experiences)',
       type: 'takeOutFoodRating',
       hidden: ({ parent }) => parent?.diningType !== 'takeout',
-      validation: (rule) => rule.custom((value, context) => {
-        const parent = context.parent as any
-        if (parent?.diningType === 'takeout' && !value) {
-          return 'Takeout rating is required for takeout experiences'
-        }
-        return true
-      }),
+      validation: (rule) =>
+        rule.custom((value, context) => {
+          const parent = context.parent as any
+          if (parent?.diningType === 'takeout' && !value) {
+            return 'Takeout rating is required for takeout experiences'
+          }
+          return true
+        }),
     }),
 
     defineField({
@@ -196,7 +208,8 @@ export default defineType({
       description: 'Add multiple positive points about this restaurant',
       type: 'array',
       of: [{ type: 'text' }],
-      validation: (Rule) => Rule.min(1).error('Please add at least one positive point'),
+      validation: (Rule) =>
+        Rule.min(1).error('Please add at least one positive point'),
     }),
 
     defineField({
@@ -267,7 +280,8 @@ export default defineType({
       options: {
         layout: 'tags',
       },
-      description: 'Add relevant tags for better searchability (e.g., family friendly, date night, casual dining, etc.)',
+      description:
+        'Add relevant tags for better searchability (e.g., family friendly, date night, casual dining, etc.)',
     }),
   ],
 
@@ -313,4 +327,3 @@ export default defineType({
     },
   ],
 })
-

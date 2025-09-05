@@ -16,8 +16,7 @@ const category = [
     // 	"https://res.cloudinary.com/babyhulk/image/upload/c_scale,w_880/v1634776268/project/PXL_20210905_004151576.MP.webp",
     text: 'City skyline',
     alt: 'City skyline',
-    bgcolor:
-      ' text-pink-500  hover:bg-pink-100 ',
+    bgcolor: ' text-pink-500  hover:bg-pink-100 ',
   },
 
   {
@@ -28,8 +27,7 @@ const category = [
     // 	"https://res.cloudinary.com/babyhulk/image/upload/v1621897187/project/MVIMG_20191203_091517.webp",
     text: 'Hotel icon',
     alt: 'View of Food',
-    bgcolor:
-      'text-green-500 hover:bg-green-100 ',
+    bgcolor: 'text-green-500 hover:bg-green-100 ',
   },
   {
     name: ' Guides',
@@ -39,8 +37,7 @@ const category = [
     // 	"https://res.cloudinary.com/babyhulk/image/upload/v1621896780/project/PXL_20210428_025517322.MP.webp",
     text: 'Sunset',
     alt: 'View of Sunset at a hotel',
-    bgcolor:
-      'text-indigo-500 hover:bg-indigo-100 ',
+    bgcolor: 'text-indigo-500 hover:bg-indigo-100 ',
   },
   // {
   //   name: 'Stuff We Like',
@@ -72,21 +69,18 @@ function Categories() {
                     passHref
                     legacyBehavior
                   >
-                    <span className={`flex flex-row items-center text-base content-between text-gray-600 p-1 pr-4 pl-2 rounded-full ${item.bgcolor} `} >
+                    <span
+                      className={`flex flex-row items-center text-base content-between text-gray-600 p-1 pr-4 pl-2 rounded-full ${item.bgcolor} `}
+                    >
                       {item.image}
-                       {item.name} 
-                    
-                       
+                      {item.name}
                     </span>
-
                   </Link>
-
                 </div>
               ))}
             </div>
           </div>
         </div>
-
       </section>
     </>
   )

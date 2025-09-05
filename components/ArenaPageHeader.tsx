@@ -1,10 +1,11 @@
-import { Progress } from '@/components/ui/progress'
 import { urlForImage } from 'lib/sanity.image'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useRef } from 'react'
 import { FaRegCalendarAlt } from 'react-icons/fa'
 import { IoLocationOutline } from 'react-icons/io5'
+
+import { Progress } from '@/components/ui/progress'
 
 import PostDate from './PostDate'
 
@@ -14,10 +15,9 @@ function ReviewHeader({ title, arenas, summary, animation }) {
   //   0
   // )
 
-//  console.log("Percent",arenas)
+  //  console.log("Percent",arenas)
 
   const filteredList = arenas.filter((item) => item.visited === true)
-
 
   const arenaLastVisited = filteredList.sort(function (a, b) {
     return new Date(b.date).valueOf() - new Date(a.date).valueOf()
@@ -27,10 +27,8 @@ function ReviewHeader({ title, arenas, summary, animation }) {
   // const percentage = ((arenas[0]?.visitedCount / arenas.length) * 100).toFixed(
   //   0
   // )
-  const percentage = ((filteredList.length / arenas.length) * 100).toFixed(
-    0
-  )
- 
+  const percentage = ((filteredList.length / arenas.length) * 100).toFixed(0)
+
   return (
     <div className="mb-10 flex flex-col items-center  justify-center bg-indigo-50 pt-10  lg:flex-row">
       <div className="container mx-auto">
@@ -71,16 +69,12 @@ function ReviewHeader({ title, arenas, summary, animation }) {
               /></div> */}
             </div>
             <div className="flex max-w-4xl flex-col items-center justify-center pt-8 text-center align-middle   md:items-start lg:grow  ">
-             
-             
-             <Link href={''}> </Link>
-             
-              <h1
-                className="font-oswald container mx-auto  mb-1  font-heading text-4xl font-bold leading-tight tracking-tighter text-pink-500 sm:px-0  md:text-[4.3rem]"
-              >
+              <Link href={''}> </Link>
+
+              <h1 className="font-oswald container mx-auto  mb-1  font-heading text-4xl font-bold leading-tight tracking-tighter text-pink-500 sm:px-0  md:text-[4.3rem]">
                 {title}
               </h1>
-              <div className='container mx-auto flex flex-col items-center'>
+              <div className="container mx-auto flex flex-col items-center">
                 <p className="mb-8  mt-4 max-w-2xl leading-relaxed">
                   {' '}
                   {summary}
@@ -93,10 +87,11 @@ function ReviewHeader({ title, arenas, summary, animation }) {
                         ARENA LAST VISITED
                       </h2>
 
-                      <Link href={`/arena/${arenaLastVisited[0].slug}`}> 
-                      <h1 className="mb-4  border-gray-200 text-5xl leading-none text-gray-900 group-hover:text-gray-600 group-hover:underline decoration-pink-500 decoration-dashed decoration-4">
-                        {arenaLastVisited[0]?.name}
-                      </h1></Link>
+                      <Link href={`/arena/${arenaLastVisited[0].slug}`}>
+                        <h1 className="mb-4  border-gray-200 text-5xl leading-none text-gray-900 group-hover:text-gray-600 group-hover:underline decoration-pink-500 decoration-dashed decoration-4">
+                          {arenaLastVisited[0]?.name}
+                        </h1>
+                      </Link>
                       <div className="mb-4 flex flex-col md:flex-row items-center gap-y-3   justify-around border-b border-gray-200 pb-4 align-middle text-base leading-none text-gray-500">
                         <div className="flex items-center align-middle">
                           <FaRegCalendarAlt className="ml-1 mr-2 h-4 w-5   " />
@@ -154,7 +149,6 @@ function ReviewHeader({ title, arenas, summary, animation }) {
                           <div className="text-xs"> {percentage}%</div>
                         </div>
                       </div>
-                      
                     </div>
                   </div>
                 )}

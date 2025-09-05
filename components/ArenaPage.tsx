@@ -2,17 +2,12 @@
 
 import Layout from 'components/BlogLayout'
 import PostPageHead from 'components/PostPageHead'
-import { Arena, Settings } from 'lib/sanity.queries'
 import { urlForImage } from 'lib/sanity.image'
-import Image from 'next/image'
-import BlogHeader from './BlogHeader'
-import PostBody from './PostBody'
-import ImageGallery from './ImageGallery'
-import { useState } from 'react'
-
+import { Arena, Settings } from 'lib/sanity.queries'
 import {
   Award,
   BadgeCheck,
+  Building2,
   Calendar,
   Camera,
   Car,
@@ -25,18 +20,23 @@ import {
   Star,
   Ticket,
   Users,
+  Users2,
   Video,
   Wheelchair,
-  Building2,
-  Users2,
   XCircle,
 } from 'lucide-react'
+import Image from 'next/image'
+import { useState } from 'react'
 
 // import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Progress } from '@/components/ui/progress'
 import { Separator } from '@/components/ui/separator'
+
+import BlogHeader from './BlogHeader'
+import ImageGallery from './ImageGallery'
+import PostBody from './PostBody'
 
 interface ArenaPageProps {
   arena: Arena
@@ -52,12 +52,12 @@ const ratingIcons = {
   vibes: <Users className="h-5 w-5 text-muted-foreground" />,
   view: <Ticket className="h-5 w-5 text-muted-foreground" />,
   walkability: <Footprints className="h-5 w-5 text-muted-foreground" />,
-};
+}
 
 const formatCategoryName = (category: string) => {
-  const result = category.replace(/([A-Z])/g, " $1");
-  return result.charAt(0).toUpperCase() + result.slice(1);
-};
+  const result = category.replace(/([A-Z])/g, ' $1')
+  return result.charAt(0).toUpperCase() + result.slice(1)
+}
 
 export default function ArenaPage({
   arena,
@@ -66,34 +66,39 @@ export default function ArenaPage({
   loading,
 }: ArenaPageProps) {
   const { title = 'Arena Review' } = settings || {}
- 
 
-  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
+  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(
+    null,
+  )
 
-  const galleryImages = arena.photoGallerySection ? [
-    arena.photoGallerySection.mainImage,
-    ...(arena.photoGallerySection.otherImages || [])
-  ].filter(Boolean) : [];
+  const galleryImages = arena.photoGallerySection
+    ? [
+        arena.photoGallerySection.mainImage,
+        ...(arena.photoGallerySection.otherImages || []),
+      ].filter(Boolean)
+    : []
 
   const openModal = (index: number) => {
-    setSelectedImageIndex(index);
-  };
+    setSelectedImageIndex(index)
+  }
 
   const closeModal = () => {
-    setSelectedImageIndex(null);
-  };
+    setSelectedImageIndex(null)
+  }
 
   const nextImage = () => {
     if (selectedImageIndex !== null) {
-      setSelectedImageIndex((selectedImageIndex + 1) % galleryImages.length);
+      setSelectedImageIndex((selectedImageIndex + 1) % galleryImages.length)
     }
-  };
+  }
 
   const prevImage = () => {
     if (selectedImageIndex !== null) {
-      setSelectedImageIndex((selectedImageIndex - 1 + galleryImages.length) % galleryImages.length);
+      setSelectedImageIndex(
+        (selectedImageIndex - 1 + galleryImages.length) % galleryImages.length,
+      )
     }
-  };
+  }
 
   const calculateOverallRating = (review) => {
     if (!review) {
@@ -192,7 +197,9 @@ export default function ArenaPage({
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="flex flex-col items-center justify-center p-4 pt-0">
-                  <span className="text-6xl font-bold text-secondary">{overallRating}</span>
+                  <span className="text-6xl font-bold text-secondary">
+                    {overallRating}
+                  </span>
                   <span className="text-sm text-muted-foreground">
                     out of 5
                   </span>
@@ -214,20 +221,29 @@ export default function ArenaPage({
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-6">
-                    {arena.arenaReview && Object.entries(arena.arenaReview).map(([category, score]) => (
-                      typeof score === 'number' && (
-                        <div key={category}>
-                          <div className="mb-2 flex items-center justify-between">
-                            <div className="flex items-center space-x-3">
-                              {ratingIcons[category]}
-                              <span className="font-medium">{formatCategoryName(category)}</span>
+                    {arena.arenaReview &&
+                      Object.entries(arena.arenaReview).map(
+                        ([category, score]) =>
+                          typeof score === 'number' && (
+                            <div key={category}>
+                              <div className="mb-2 flex items-center justify-between">
+                                <div className="flex items-center space-x-3">
+                                  {ratingIcons[category]}
+                                  <span className="font-medium">
+                                    {formatCategoryName(category)}
+                                  </span>
+                                </div>
+                                <span className="font-semibold">
+                                  {score.toFixed(1)}
+                                </span>
+                              </div>
+                              <Progress
+                                value={(score / 10) * 100}
+                                className="h-2"
+                              />
                             </div>
-                            <span className="font-semibold">{score.toFixed(1)}</span>
-                          </div>
-                          <Progress value={(score / 10) * 100} className="h-2" />
-                        </div>
-                      )
-                    ))}
+                          ),
+                      )}
                   </CardContent>
                 </Card>
               </div>
@@ -243,11 +259,14 @@ export default function ArenaPage({
                   </CardHeader>
                   {arena.date && (
                     <CardContent className="text-sm">
-                      <p><strong>Date of Visit:</strong> {new Date(arena.date).toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
-                      })}</p>
+                      <p>
+                        <strong>Date of Visit:</strong>{' '}
+                        {new Date(arena.date).toLocaleDateString('en-US', {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric',
+                        })}
+                      </p>
                     </CardContent>
                   )}
                 </Card>
@@ -260,7 +279,7 @@ export default function ArenaPage({
                   </CardHeader>
                   <CardContent>
                     <p className="text-sm italic text-muted-foreground">
-                      {arena?.proTip > 0  ? arena?.proTip:" No tip provided"}
+                      {arena?.proTip > 0 ? arena?.proTip : ' No tip provided'}
                     </p>
                   </CardContent>
                 </Card>
@@ -269,51 +288,57 @@ export default function ArenaPage({
 
             {/* Pros, Cons, Verdict */}
             {arena.prosConsVerdict && (
-            <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
-              {arena.prosConsVerdict.positives && arena.prosConsVerdict.positives.length > 0 && (
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="flex items-center text-green-600">
-                      <CheckCircle2 className="mr-2 h-5 w-5" />
-                      What We Loved
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <ul className="list-inside list-disc space-y-1 text-base">
-                      {arena.prosConsVerdict.positives.map((pro, index) => <li key={index}>{pro}</li>)}
-                    </ul>
-                  </CardContent>
-                </Card>
-              )}
-              {arena.prosConsVerdict.negatives && arena.prosConsVerdict.negatives.length > 0 && (
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="flex items-center text-red-600">
-                      <XCircle className="mr-2 h-5 w-5" />
-                      What We Didn't Like
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <ul className="list-inside list-disc space-y-1 text-base">
-                      {arena.prosConsVerdict.negatives.map((con, index) => <li key={index}>{con}</li>)}
-                    </ul>
-                  </CardContent>
-                </Card>
-              )}
-              {arena.prosConsVerdict.verdict && (
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="flex items-center text-blue-600">
-                      <BadgeCheck className="mr-2 h-5 w-5" />
-                      The Verdict
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <PostBody content={arena.prosConsVerdict.verdict} />
-                  </CardContent>
-                </Card>
-              )}
-            </div>
+              <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
+                {arena.prosConsVerdict.positives &&
+                  arena.prosConsVerdict.positives.length > 0 && (
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="flex items-center text-green-600">
+                          <CheckCircle2 className="mr-2 h-5 w-5" />
+                          What We Loved
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <ul className="list-inside list-disc space-y-1 text-base">
+                          {arena.prosConsVerdict.positives.map((pro, index) => (
+                            <li key={index}>{pro}</li>
+                          ))}
+                        </ul>
+                      </CardContent>
+                    </Card>
+                  )}
+                {arena.prosConsVerdict.negatives &&
+                  arena.prosConsVerdict.negatives.length > 0 && (
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="flex items-center text-red-600">
+                          <XCircle className="mr-2 h-5 w-5" />
+                          What We Didn't Like
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <ul className="list-inside list-disc space-y-1 text-base">
+                          {arena.prosConsVerdict.negatives.map((con, index) => (
+                            <li key={index}>{con}</li>
+                          ))}
+                        </ul>
+                      </CardContent>
+                    </Card>
+                  )}
+                {arena.prosConsVerdict.verdict && (
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="flex items-center text-blue-600">
+                        <BadgeCheck className="mr-2 h-5 w-5" />
+                        The Verdict
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <PostBody content={arena.prosConsVerdict.verdict} />
+                    </CardContent>
+                  </Card>
+                )}
+              </div>
             )}
 
             {/* --- Optional Instagram Video --- */}

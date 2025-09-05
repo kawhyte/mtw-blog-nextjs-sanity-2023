@@ -79,7 +79,6 @@ const takeoutRatingFields = groq`
     }
 `
 
-
 // ------------------------------
 // 3. Reusable Content-Type Specific Field Sets
 // ------------------------------
@@ -167,7 +166,6 @@ const allFieldsLimited = groq`
     ${foodFieldsFragmentLimited}
 `
 
-
 // ------------------------------
 // 5. Specialized Field Sets
 // ------------------------------
@@ -239,7 +237,7 @@ const arenaFields = groq`
     date
 `
 // Define Arena Type Name - PLEASE VERIFY THIS matches your Sanity Studio schema
-const ARENA_TYPE_NAME = 'arenas'; // Or 'arena' - CHECK YOUR SCHEMA
+const ARENA_TYPE_NAME = 'arenas' // Or 'arena' - CHECK YOUR SCHEMA
 
 // ------------------------------
 // 6. Generic Query Functions
@@ -250,27 +248,26 @@ const ARENA_TYPE_NAME = 'arenas'; // Or 'arena' - CHECK YOUR SCHEMA
  * Includes handling for slice parameters which are passed at fetch time.
  */
 const fetchDocuments = (
-    type: string,
-    fields: string,
-    options: { order?: string; where?: string; slice?: string } = {}
-  ): string => {
-    let query = `*[_type == "${type}"`
-    if (options.where) {
-      query += ` && (${options.where})` // Ensure 'where' is enclosed if complex
-    }
-    query += `]`
-    if (options.order) {
-      query += ` | order(${options.order})`
-    }
-    // Apply slice if provided (e.g., '[$start...$end]' or '[0...10]')
-    if (options.slice) {
-      // The actual values for $start/$end are added by the client fetch call
-      query += ` ${options.slice}`
-    }
-    query += ` {${fields}}`
-    return query
+  type: string,
+  fields: string,
+  options: { order?: string; where?: string; slice?: string } = {},
+): string => {
+  let query = `*[_type == "${type}"`
+  if (options.where) {
+    query += ` && (${options.where})` // Ensure 'where' is enclosed if complex
   }
-
+  query += `]`
+  if (options.order) {
+    query += ` | order(${options.order})`
+  }
+  // Apply slice if provided (e.g., '[$start...$end]' or '[0...10]')
+  if (options.slice) {
+    // The actual values for $start/$end are added by the client fetch call
+    query += ` ${options.slice}`
+  }
+  query += ` {${fields}}`
+  return query
+}
 
 /**
  * Constructs a Groq query to fetch a single document by slug and related documents.
@@ -279,7 +276,7 @@ const fetchDocumentAndRelated = (
   type: string,
   fields: string,
   slugField: string,
-  relatedOptions: { where?: string } = {}
+  relatedOptions: { where?: string } = {},
 ): string => {
   let relatedWhere = relatedOptions.where ? `&& (${relatedOptions.where})` : '' // Enclose where
   return groq`
@@ -316,7 +313,7 @@ const fetchDocumentBySlug = (
   type: string,
   fields: string,
   slugField: string,
-  filter?: string
+  filter?: string,
 ): string => {
   let query = `*[_type == "${type}" && ${slugField} == $slug`
   if (filter) {
@@ -335,7 +332,7 @@ export const recommendationQuery = fetchDocuments(
   recommendationFields,
   {
     order: 'date desc, _updatedAt desc',
-  }
+  },
 )
 
 export const travelEssentialQuery = fetchDocuments(
@@ -343,7 +340,7 @@ export const travelEssentialQuery = fetchDocuments(
   travelEssentialFields,
   {
     order: 'date desc, _updatedAt desc',
-  }
+  },
 )
 
 // --- Arena Queries ---
@@ -353,14 +350,17 @@ export const arenaQuery = fetchDocuments(ARENA_TYPE_NAME, arenaFields, {
 
 // --- NEW: Arena Slugs Query ---
 // Fetches just the slugs for all arenas, needed for getStaticPaths
-export const arenaSlugsQuery = fetchSlugs(ARENA_TYPE_NAME, 'defined(slug.current)')
+export const arenaSlugsQuery = fetchSlugs(
+  ARENA_TYPE_NAME,
+  'defined(slug.current)',
+)
 
 // --- NEW: Single Arena By Slug Query ---
 // Fetches a single arena document based on its slug
 export const arenaBySlugQuery = fetchDocumentBySlug(
   ARENA_TYPE_NAME,
   arenaFields, // Use the updated arenaFields from Section 5
-  'slug.current'
+  'slug.current',
 )
 // --- End Arena Queries ---
 
@@ -369,12 +369,10 @@ export const independentGuideFields = groq`
   _id,
   title,
   date,
-  excerpt2,
   coverImage,
   category,
   content,
   gallery,
-  tip,
   tags,
   "slug": slug.current
 `
@@ -386,7 +384,7 @@ export const guideSlugsQuery = fetchSlugs('guide')
 export const guideBySlugQuery = fetchDocumentBySlug(
   'guide',
   independentGuideFields,
-  'slug.current'
+  'slug.current',
 )
 
 // Minimal guide query for preview API
@@ -449,7 +447,7 @@ export const hotelReviewSlugsQuery = fetchSlugs('hotelReview')
 export const hotelReviewBySlugQuery = fetchDocumentBySlug(
   'hotelReview',
   independentHotelReviewFields,
-  'slug.current'
+  'slug.current',
 )
 
 // Minimal hotel review query for preview API
@@ -508,7 +506,7 @@ export const foodReviewSlugsQuery = fetchSlugs('foodReview')
 export const foodReviewBySlugQuery = fetchDocumentBySlug(
   'foodReview',
   independentFoodReviewFields,
-  'slug.current'
+  'slug.current',
 )
 
 // Minimal food review query for preview API
@@ -613,14 +611,50 @@ export interface FoodReview {
   tags?: string[]
 }
 
+// Unified content type for independent schemas (no legacy posts)
+export interface IndependentContentItem {
+  _id: string
+  title?: string
+  slug?: string
+  date?: string
+  location?: string
+  coverImage?: any
+  contentType: 'guide' | 'hotelReview' | 'foodReview'
+  category?: string // for guides and hotel reviews
+  diningType?: 'dinein' | 'takeout' // for food reviews only
+}
+
+// Response type for latest independent content query
+export interface LatestIndependentContentResponse {
+  allContent: IndependentContentItem[]
+}
 
 export const settingsQuery = groq`*[_type == "settings"][0]`
 
-// Index query (example: first 6 of any post type, using limited fields)
+// Index query (example: first 6 of any post type, using limited fields) - LEGACY
 export const indexQuery = fetchDocuments('post', allFieldsLimited, {
-    order: 'date desc, _updatedAt desc',
-    slice: '[0...6]',
-  })
+  order: 'date desc, _updatedAt desc',
+  slice: '[0...6]',
+})
+
+// Combined latest content query that merges and sorts all independent content types
+export const latestIndependentContentQuery = groq`
+{
+  "allContent": [
+    ...*[_type == "guide"] | order(date desc) [0...10] {
+      ${independentGuideFields},
+      _type
+    },
+    ...*[_type == "hotelReview"] | order(date desc) [0...10] {
+      ${independentHotelReviewFields},
+      _type
+    },
+    ...*[_type == "foodReview"] | order(date desc) [0...10] {
+      ${independentFoodReviewFields},
+      _type
+    }
+  ] | order(date desc) [0...6]
+}`
 
 // Post Slugs and Single Post Fetching (Generic)
 export const postSlugsQuery = fetchSlugs('post')
@@ -628,13 +662,13 @@ export const postSlugsQuery = fetchSlugs('post')
 export const postBySlugQuery = fetchDocumentBySlug(
   'post',
   postFields, // Use full fields for single generic post
-  'slug.current'
+  'slug.current',
 )
 
 export const postAndMoreStoriesQuery = fetchDocumentAndRelated(
   'post',
   postFields, // Fields for main post
-  'slug.current'
+  'slug.current',
   // Related posts will use coreFieldsLimited as defined in helper
 )
 
@@ -648,19 +682,19 @@ export const hotelBySlugQuery = fetchDocumentBySlug(
   'post',
   hotelFields, // Use full hotel fields
   'slug.current',
-  'linkType == "hotel"'
+  'linkType == "hotel"',
 )
 export const storyBySlugQuery = fetchDocumentBySlug(
   'post',
   guideFields, // Use guide fields
   'slug.current',
-  'linkType == "story"'
+  'linkType == "story"',
 )
 export const foodBySlugQuery = fetchDocumentBySlug(
   'post',
   foodFields, // Use full food fields
   'slug.current',
-  'linkType == "food"'
+  'linkType == "food"',
 )
 
 // Type-Specific Single Item + Related Fetching
@@ -668,19 +702,19 @@ export const hotelAndMoreQuery = fetchDocumentAndRelated(
   'post',
   hotelFields, // Fields for main hotel post
   'slug.current',
-  { where: 'linkType == "hotel"' }
+  { where: 'linkType == "hotel"' },
 )
 export const storyAndMoreQuery = fetchDocumentAndRelated(
   'post',
   guideFields, // Fields for main guide post
   'slug.current',
-  { where: 'linkType == "story"' }
+  { where: 'linkType == "story"' },
 )
 export const foodAndMoreQuery = fetchDocumentAndRelated(
   'post',
   foodFields, // Fields for main food post
   'slug.current',
-  { where: 'linkType == "food"' }
+  { where: 'linkType == "food"' },
 )
 
 // Fetch ALL items of a specific type (NO pagination)
@@ -792,73 +826,70 @@ export const topWeightedFoodQuery = groq`
 | order(weightedAverageRating desc, takeoutRating.tasteAndFlavor desc, foodRating.Flavor_and_Taste desc) [0...10]
 `
 
-
 // --- PAGINATION QUERIES ---
 
 // -- Generic Post Pagination (Example - if needed) --
 export const paginatedAllPostsQuery = fetchDocuments(
-    'post',
-    coreFieldsLimited, // Use limited fields for generic list
-    {
-        order: 'date desc, _createdAt desc',
-        slice: '[$start...$end]'
-    }
-);
+  'post',
+  coreFieldsLimited, // Use limited fields for generic list
+  {
+    order: 'date desc, _createdAt desc',
+    slice: '[$start...$end]',
+  },
+)
 export const allPostsTotalCountQuery = groq`count(*[_type == "post"])`
-
 
 // -- Hotel Pagination --
 export const paginatedHotelPostsQuery = fetchDocuments(
-    'post',
-    hotelFieldsLimited,
-    {
-        order: 'date desc, _createdAt desc',
-        where: 'linkType == "hotel"',
-        slice: '[$start...$end]'
-    }
-);
+  'post',
+  hotelFieldsLimited,
+  {
+    order: 'date desc, _createdAt desc',
+    where: 'linkType == "hotel"',
+    slice: '[$start...$end]',
+  },
+)
 export const hotelPostsTotalCountQuery = groq`
   count(*[_type == "post" && linkType == "hotel"])
 `
 
 // -- Food Pagination --
 export const paginatedFoodPostsQuery = fetchDocuments(
-    'post',
-    foodFieldsLimited,
-    {
-        order: 'date desc, _createdAt desc',
-        where: 'linkType == "food"',
-        slice: '[$start...$end]'
-    }
-);
+  'post',
+  foodFieldsLimited,
+  {
+    order: 'date desc, _createdAt desc',
+    where: 'linkType == "food"',
+    slice: '[$start...$end]',
+  },
+)
 export const foodPostsTotalCountQuery = groq`
   count(*[_type == "post" && linkType == "food"])
-`;
+`
 
 // -- Guide/Story Pagination --
 export const paginatedGuidePostsQuery = fetchDocuments(
-    'post',
-    guideFieldsLimited, // Assuming limited fields for guides
-    {
-        order: 'date desc, _createdAt desc',
-        where: 'linkType == "story"', // Assuming 'story' is the linkType for guides
-        slice: '[$start...$end]'
-    }
-);
+  'post',
+  guideFieldsLimited, // Assuming limited fields for guides
+  {
+    order: 'date desc, _createdAt desc',
+    where: 'linkType == "story"', // Assuming 'story' is the linkType for guides
+    slice: '[$start...$end]',
+  },
+)
 
 export const guidePostsTotalCountQuery = groq`
   count(*[_type == "post" && linkType == "story"]) // Assuming 'story' is the linkType
-`;
-
+`
 
 // ------------------------------
 // 9. Interfaces
 // ------------------------------
 
 export interface ProsConsVerdict {
-  positives?: string; // Adjust type based on your schema
-  negatives?: string; // Adjust type based on your schema
-  verdict?: string;   // Adjust type based on your schema
+  positives?: string // Adjust type based on your schema
+  negatives?: string // Adjust type based on your schema
+  verdict?: string // Adjust type based on your schema
 }
 
 export interface Author {
@@ -906,31 +937,32 @@ export interface Arena {
   name?: string
   slug?: string // Add slug field
   arenaImage?: any // SanityImageObject
-  imageGallery?:any
+  imageGallery?: any
   gallery?: any[] // SanityImageObject[]
   photoGallerySection?: any[] // SanityImageObject[]
   location?: string
   buildDate?: string
   capacity?: number
-  videoUrl?:string
+  videoUrl?: string
   // Update arenaReview type based on your schema
-  arenaReview?: {
-      atmosphere?: number;
-      food?: number;
-      location?: number;
-      seats?: number;
-      staff?: number;
-      // Add other fields
-  } | any // Or use 'any' or PortableTextBlock if it's simple content
-visited?: boolean
+  arenaReview?:
+    | {
+        atmosphere?: number
+        food?: number
+        location?: number
+        seats?: number
+        staff?: number
+        // Add other fields
+      }
+    | any // Or use 'any' or PortableTextBlock if it's simple content
+  visited?: boolean
   date?: string
   teamType?: string // Keep if you use this field
   // Remove calculated fields if not fetched in arenaFields
   // visitedCount?: number
   // galleryCount?: number
-  prosConsVerdict?: ProsConsVerdict;
+  prosConsVerdict?: ProsConsVerdict
 }
-
 
 // Base interface for common Post fields
 interface BasePost {
@@ -976,15 +1008,16 @@ export interface Post extends BasePost {
   }
   // Food specific (optional)
   foodRating?: {
-    Flavor_and_Taste?: number,
-    Food_Value?: number,
-    Restaurant_Location?: number,
-    Presentation_on_Plate?: number,
-    Restaurant_Service?: number,
-    Memorability?: number,
+    Flavor_and_Taste?: number
+    Food_Value?: number
+    Restaurant_Location?: number
+    Presentation_on_Plate?: number
+    Restaurant_Service?: number
+    Memorability?: number
     Restaurant_Cleanliness?: number
   }
-  takeoutRating?: { // Optional if defined
+  takeoutRating?: {
+    // Optional if defined
     tasteAndFlavor?: number
     presentation?: number
     accuracy?: number
@@ -1045,7 +1078,6 @@ export interface Instagram {
   // Add children field if handling CAROUSEL_ALBUM
   // children?: { data: { id: string; media_url: string; media_type: string }[] }
 }
-
 
 // --- IMPORTANT ---
 // The code above defines the GROQ query *strings*.

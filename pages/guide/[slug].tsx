@@ -2,7 +2,11 @@
 
 import { PreviewSuspense } from '@sanity/preview-kit'
 import GuidePage from 'components/GuidePage'
-import { getAllGuideSlugs, getGuideBySlug, getSettings } from 'lib/sanity.client'
+import {
+  getAllGuideSlugs,
+  getGuideBySlug,
+  getSettings,
+} from 'lib/sanity.client'
 import { Guide, Settings } from 'lib/sanity.queries'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { lazy } from 'react'
@@ -72,12 +76,7 @@ export default function GuideSlugRoute(props: PageProps) {
     return (
       <PreviewSuspense
         fallback={
-          <GuidePage
-            loading
-            preview
-            guide={guide}
-            settings={settings}
-          />
+          <GuidePage loading preview guide={guide} settings={settings} />
         }
       >
         <PreviewGuidePage
@@ -90,10 +89,5 @@ export default function GuideSlugRoute(props: PageProps) {
     )
   }
 
-  return (
-    <GuidePage 
-      guide={guide} 
-      settings={settings} 
-    />
-  )
+  return <GuidePage guide={guide} settings={settings} />
 }

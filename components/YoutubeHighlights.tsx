@@ -1,12 +1,12 @@
-import { oswald } from 'app/fonts';
-import dynamic from 'next/dynamic';
-import React from 'react';
+import { oswald } from 'app/fonts'
+import dynamic from 'next/dynamic'
+import React from 'react'
 
-import SectionTitle from './SectionTitle';
+import SectionTitle from './SectionTitle'
 
 const ReactPlayer = dynamic(() => import('react-player/youtube'), {
   ssr: false,
-});
+})
 
 let walking = [
   {
@@ -27,7 +27,7 @@ let walking = [
   {
     url: 'https://youtu.be/TietUAnVBoA',
   },
-];
+]
 
 const YoutubeHighlights = () => {
   return (
@@ -54,7 +54,9 @@ const YoutubeHighlights = () => {
               light={index !== 0} // Use light mode for all other videos
             />
             {index === 0 && (
-              <h3 className={`${oswald.variable} mt-4 text-xl font-medium text-gray-900`}>
+              <h3
+                className={`${oswald.variable} mt-4 text-xl font-medium text-gray-900`}
+              >
                 Featured Highlight
               </h3>
             )}
@@ -62,7 +64,7 @@ const YoutubeHighlights = () => {
         ))}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default YoutubeHighlights;
+export default YoutubeHighlights

@@ -29,12 +29,12 @@ export { config } from 'next-sanity/webhook'
 
 export default async function revalidate(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ) {
   try {
     const { body, isValidSignature } = await parseBody(
       req,
-      process.env.SANITY_REVALIDATE_SECRET
+      process.env.SANITY_REVALIDATE_SECRET,
     )
     if (isValidSignature === false) {
       const message = 'Invalid signature'
@@ -60,13 +60,18 @@ export default async function revalidate(
   }
 }
 
-type StaleRoute = '/' | `/posts/${string}` | `/hotel/${string}` | `/food/${string}` | `/guide/${string}`
+type StaleRoute =
+  | '/'
+  | `/posts/${string}`
+  | `/hotel/${string}`
+  | `/food/${string}`
+  | `/guide/${string}`
 
 async function queryStaleRoutes(
-  body: Pick<ParseBody['body'], '_type' | '_id' | 'date' | 'slug'>
+  body: Pick<ParseBody['body'], '_type' | '_id' | 'date' | 'slug'>,
 ): Promise<StaleRoute[]> {
   const client = createClient({ projectId, dataset, apiVersion, useCdn: false })
- console.log("BODY")
+  console.log('BODY')
   // Handle possible deletions for all content types
   if (['post', 'hotelReview', 'foodReview', 'guide'].includes(body._type)) {
     const exists = await client.fetch(groq`*[_id == $id][0]`, { id: body._id })
@@ -97,10 +102,12 @@ async function queryStaleRoutes(
             groq`count(
               *[_type == "post"] | order(date desc, _updatedAt desc) [0...3] [dateTime(date) > dateTime($date)]
             )`,
-            { date: body.date }
+            { date: body.date },
           )
           if (moreStories < 3) {
-            return [...new Set([...(await queryAllRoutes(client)), ...staleRoutes])]
+            return [
+              ...new Set([...(await queryAllRoutes(client)), ...staleRoutes]),
+            ]
           }
           break
         case 'hotelReview':
@@ -139,11 +146,15 @@ async function _queryAllRoutes(client: SanityClient): Promise<string[]> {
   return await client.fetch(groq`*[_type == "post"].slug.current`)
 }
 
-async function _queryAllHotelReviewRoutes(client: SanityClient): Promise<string[]> {
+async function _queryAllHotelReviewRoutes(
+  client: SanityClient,
+): Promise<string[]> {
   return await client.fetch(groq`*[_type == "hotelReview"].slug.current`)
 }
 
-async function _queryAllFoodReviewRoutes(client: SanityClient): Promise<string[]> {
+async function _queryAllFoodReviewRoutes(
+  client: SanityClient,
+): Promise<string[]> {
   return await client.fetch(groq`*[_type == "foodReview"].slug.current`)
 }
 
@@ -156,13 +167,13 @@ async function queryAllRoutes(client: SanityClient): Promise<StaleRoute[]> {
     _queryAllRoutes(client),
     _queryAllHotelReviewRoutes(client),
     _queryAllFoodReviewRoutes(client),
-    _queryAllGuideRoutes(client)
+    _queryAllGuideRoutes(client),
   ])
 
   return [
     '/',
     '/hotels',
-    '/food', 
+    '/food',
     '/guides',
     ...postSlugs.map((slug) => `/posts/${slug}` as StaleRoute),
     ...hotelSlugs.map((slug) => `/hotel/${slug}` as StaleRoute),
@@ -173,10 +184,10 @@ async function queryAllRoutes(client: SanityClient): Promise<StaleRoute[]> {
 
 async function mergeWithMoreStories(
   client,
-  slugs: string[]
+  slugs: string[],
 ): Promise<string[]> {
   const moreStories = await client.fetch(
-    groq`*[_type == "post"] | order(date desc, _updatedAt desc) [0...3].slug.current`
+    groq`*[_type == "post"] | order(date desc, _updatedAt desc) [0...3].slug.current`,
   )
   if (slugs.some((slug) => moreStories.includes(slug))) {
     const allSlugs = await _queryAllRoutes(client)
@@ -188,13 +199,13 @@ async function mergeWithMoreStories(
 
 async function queryStaleAuthorRoutes(
   client: SanityClient,
-  id: string
+  id: string,
 ): Promise<StaleRoute[]> {
   let slugs = await client.fetch(
     groq`*[_type == "author" && _id == $id] {
     "slug": *[_type == "post" && references(^._id)].slug.current
   }["slug"][]`,
-    { id }
+    { id },
   )
 
   if (slugs.length > 0) {
@@ -207,11 +218,11 @@ async function queryStaleAuthorRoutes(
 
 async function queryStalePostRoutes(
   client: SanityClient,
-  id: string
+  id: string,
 ): Promise<StaleRoute[]> {
   let slugs = await client.fetch(
     groq`*[_type == "post" && _id == $id].slug.current`,
-    { id }
+    { id },
   )
 
   slugs = await mergeWithMoreStories(client, slugs)
@@ -221,11 +232,11 @@ async function queryStalePostRoutes(
 
 async function queryStaleHotelReviewRoutes(
   client: SanityClient,
-  id: string
+  id: string,
 ): Promise<StaleRoute[]> {
   const slugs = await client.fetch(
     groq`*[_type == "hotelReview" && _id == $id].slug.current`,
-    { id }
+    { id },
   )
 
   if (slugs.length > 0) {
@@ -237,11 +248,11 @@ async function queryStaleHotelReviewRoutes(
 
 async function queryStaleFoodReviewRoutes(
   client: SanityClient,
-  id: string
+  id: string,
 ): Promise<StaleRoute[]> {
   const slugs = await client.fetch(
     groq`*[_type == "foodReview" && _id == $id].slug.current`,
-    { id }
+    { id },
   )
 
   if (slugs.length > 0) {
@@ -253,11 +264,11 @@ async function queryStaleFoodReviewRoutes(
 
 async function queryStaleGuideRoutes(
   client: SanityClient,
-  id: string
+  id: string,
 ): Promise<StaleRoute[]> {
   const slugs = await client.fetch(
     groq`*[_type == "guide" && _id == $id].slug.current`,
-    { id }
+    { id },
   )
 
   if (slugs.length > 0) {

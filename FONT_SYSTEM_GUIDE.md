@@ -9,12 +9,14 @@ Your blog now features a professional, adventure-ready font pairing that perfect
 ## 🎯 **Font Pairing Philosophy**
 
 ### **Montserrat Black** - Bold & Modern
+
 - **Usage**: Headings, Navigation, Image Overlays, Buttons
 - **Weights**: 400, 500, 600, 700, 800, 900 (Black)
 - **Character**: Clean, geometric, impactful
 - **Perfect for**: Headlines that grab attention
 
-### **Raleway** - Friendly & Sleek  
+### **Raleway** - Friendly & Sleek
+
 - **Usage**: Body text, Descriptions, Links, Captions
 - **Weights**: 300 (Light), 400 (Regular), 500 (Medium), 600 (Semi-bold)
 - **Character**: Elegant, readable, approachable
@@ -66,6 +68,7 @@ The font system automatically adjusts for mobile devices:
 ## 🎨 **Typography Hierarchy**
 
 ### **Headings (Montserrat)**
+
 ```css
 h1: font-weight: 900 (Black), responsive sizing
 h2: font-weight: 800, clamp(1.5rem, 4vw, 2.5rem)
@@ -74,6 +77,7 @@ h4-h6: font-weight: 600, standard sizing
 ```
 
 ### **Body Text (Raleway)**
+
 ```css
 p, span, div: font-weight: 400, line-height: 1.6
 Links: font-weight: 500, hover: 600
@@ -81,6 +85,7 @@ Strong/Bold: font-weight: 600
 ```
 
 ### **Navigation & UI (Montserrat)**
+
 ```css
 Navigation: font-weight: 700
 Buttons: font-weight: 600
@@ -92,12 +97,14 @@ Badges/Overlays: font-weight: 700
 ## 🚀 **Performance Features**
 
 ### **Optimized Loading**
+
 - `display: 'swap'` for immediate text rendering
 - `preload: true` for critical fonts
 - Subset loading (Latin only) for smaller file sizes
 - Font variables for efficient CSS delivery
 
 ### **Bundle Impact**
+
 - **CSS Size**: +1KB (optimized)
 - **Font Loading**: Async with fallbacks
 - **Performance**: No layout shift with proper fallbacks
@@ -107,6 +114,7 @@ Badges/Overlays: font-weight: 700
 ## 💡 **Usage Examples**
 
 ### **Hero Section**
+
 ```tsx
 <h1 className="font-adventure-heading text-adventure-hero text-blog-heading">
   Discover Amazing Adventures
@@ -117,6 +125,7 @@ Badges/Overlays: font-weight: 700
 ```
 
 ### **Blog Post Title**
+
 ```tsx
 <h1 className="font-adventure-heading text-adventure-title">
   The Ultimate Guide to Tokyo
@@ -124,6 +133,7 @@ Badges/Overlays: font-weight: 700
 ```
 
 ### **Navigation Item**
+
 ```tsx
 <a className="font-adventure-nav text-base hover:text-brand-primary">
   Hotel Reviews
@@ -131,6 +141,7 @@ Badges/Overlays: font-weight: 700
 ```
 
 ### **Body Content**
+
 ```tsx
 <p className="font-adventure-body leading-relaxed">
   This is perfectly readable body text that flows naturally...
@@ -138,6 +149,7 @@ Badges/Overlays: font-weight: 700
 ```
 
 ### **Call-to-Action Button**
+
 ```tsx
 <button className="font-montserrat font-semibold px-6 py-3 bg-brand-primary text-white">
   Start Your Adventure
@@ -149,40 +161,44 @@ Badges/Overlays: font-weight: 700
 ## 🎯 **Design Guidelines**
 
 ### **Do's**
+
 ✅ Use Montserrat Black for impactful headlines  
 ✅ Use Raleway for all body text and descriptions  
 ✅ Maintain consistent font weights throughout  
 ✅ Test on mobile devices for readability  
-✅ Use responsive font sizes with `clamp()`  
+✅ Use responsive font sizes with `clamp()`
 
 ### **Don'ts**
+
 ❌ Mix too many font weights in one section  
 ❌ Use Montserrat Black for body text (too heavy)  
 ❌ Use Raleway for main headlines (not impactful enough)  
 ❌ Ignore mobile font weight adjustments  
-❌ Override the established hierarchy without reason  
+❌ Override the established hierarchy without reason
 
 ---
 
 ## 🔧 **Customization**
 
 ### **Adding New Font Weights**
+
 ```typescript
 // In app/fonts.ts
 export const montserrat = Montserrat({
-    weight: ['400', '500', '600', '700', '800', '900', '950'], // Add 950 if needed
-    // ... other options
+  weight: ['400', '500', '600', '700', '800', '900', '950'], // Add 950 if needed
+  // ... other options
 })
 ```
 
 ### **Custom Utility Classes**
+
 ```css
 /* Add to globals.css */
 .font-adventure-mega {
-    font-family: var(--font-montserrat), system-ui, sans-serif;
-    font-weight: 950; /* If available */
-    letter-spacing: -0.04em;
-    line-height: 1.0;
+  font-family: var(--font-montserrat), system-ui, sans-serif;
+  font-weight: 950; /* If available */
+  letter-spacing: -0.04em;
+  line-height: 1;
 }
 ```
 

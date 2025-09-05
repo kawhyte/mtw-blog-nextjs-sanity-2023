@@ -1,3 +1,7 @@
 export default function BlogContainer({ children }) {
-  return <div className="flex flex-col justify-center items-center xl:mx-32 ">{children}</div>
+  return (
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+      {children}
+    </div>
+  )
 }

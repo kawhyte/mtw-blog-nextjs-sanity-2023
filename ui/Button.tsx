@@ -1,22 +1,22 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
-import { inter } from 'app/fonts';
-import Link from 'next/link';
-import { ReactNode } from 'react';
-import * as LucideReact from 'lucide-react';
-import clsx from 'clsx';
+import { inter } from 'app/fonts'
+import Link from 'next/link'
+import { ReactNode } from 'react'
+import * as LucideReact from 'lucide-react'
+import clsx from 'clsx'
 
 interface ButtonProps {
-  children?: ReactNode;
-  link?: string;
-  text?: string;
-  size?: 'xs' | 'sm' | 'md' | 'lg';
-  fontSize?: 'sm' | 'md' | 'lg';
-  hoverColor?: string;
-  icon?: any;
-  iconSize?: number;
-  noBorder?: boolean;
-  align?: 'left' | 'center' | 'right';
-  className?: string; // Allow custom class names
+  children?: ReactNode
+  link?: string
+  text?: string
+  size?: 'xs' | 'sm' | 'md' | 'lg'
+  fontSize?: 'sm' | 'md' | 'lg'
+  hoverColor?: string
+  icon?: any
+  iconSize?: number
+  noBorder?: boolean
+  align?: 'left' | 'center' | 'right'
+  className?: string // Allow custom class names
 }
 
 const sizeClasses: Record<NonNullable<ButtonProps['size']>, string> = {
@@ -24,19 +24,19 @@ const sizeClasses: Record<NonNullable<ButtonProps['size']>, string> = {
   sm: 'text-sm py-1 px-3',
   md: 'text-base py-2 px-5',
   lg: 'text-lg py-3 px-7',
-};
+}
 
 const fontSizeClasses: Record<NonNullable<ButtonProps['fontSize']>, string> = {
   sm: 'text-xs',
   md: 'text-sm',
   lg: 'text-base',
-};
+}
 
 const alignClasses: Record<NonNullable<ButtonProps['align']>, string> = {
   left: 'text-left',
   center: 'text-center',
   right: 'text-right',
-};
+}
 
 export default function Button({
   text,
@@ -51,7 +51,7 @@ export default function Button({
   align = 'center',
   className,
 }: ButtonProps) {
-  const IconComponent = icon ? LucideReact[icon] : null;
+  const IconComponent = icon ? LucideReact[icon] : null
 
   const baseClasses = clsx(
     'flex',
@@ -101,42 +101,36 @@ export default function Button({
     fontSizeClasses[fontSize],
     `hover:bg-${hoverColor}`,
     !noBorder && 'border-4 border-[#1f1f1f] shadow-[4px_4px_#1f1f1f]',
-    className // Apply custom class names
-  );
+    className, // Apply custom class names
+  )
 
-  const containerClasses = clsx(
-    'w-full',
-    'flex',
-    {
-      'justify-start': align === 'left',
-      'justify-center': align === 'center',
-      'justify-end': align === 'right',
-    }
-  );
+  const containerClasses = clsx('w-full', 'flex', {
+    'justify-start': align === 'left',
+    'justify-center': align === 'center',
+    'justify-end': align === 'right',
+  })
 
   const buttonContent = (
     <div className={containerClasses}>
-     {icon && <span className='mr-2'>{icon}</span>}
+      {icon && <span className="mr-2">{icon}</span>}
       <div className={alignClasses[align]}>
         {text}
         {children}
       </div>
     </div>
-  );
+  )
 
   if (link) {
     return (
       <Link href={link} passHref legacyBehavior>
-        <div className={baseClasses}>
-          {buttonContent}
-        </div>
+        <div className={baseClasses}>{buttonContent}</div>
       </Link>
-    );
+    )
   } else {
     return (
       <button className={baseClasses} type="button">
         {buttonContent}
       </button>
-    );
+    )
   }
 }

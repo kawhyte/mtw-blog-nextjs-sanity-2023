@@ -1,18 +1,19 @@
 import { PreviewSuspense } from '@sanity/preview-kit'
 import FoodReviewsPage from 'components/FoodReviewsPage' // Component to display food reviews
 import {
-  getFoodReviewsTotalCount,  // Independent food review count function
-  getPaginatedFoodReviews,   // Independent food review pagination function
-  getSettings} from 'lib/sanity.client'
+  getFoodReviewsTotalCount, // Independent food review count function
+  getPaginatedFoodReviews, // Independent food review pagination function
+  getSettings,
+} from 'lib/sanity.client'
 import { FoodReview, Settings } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
-import Head from "next/head"; // Keep if used
+import Head from 'next/head' // Keep if used
 import { lazy } from 'react'
 
 const PreviewIndexPage = lazy(() => import('components/PreviewIndexPage'))
 
 // Define how many items to show per page
-const ITEMS_PER_PAGE = 12;
+const ITEMS_PER_PAGE = 12
 
 interface PageProps {
   initialPosts: FoodReview[]
@@ -30,44 +31,38 @@ interface PreviewData {
   token?: string
 }
 
-
 export default function Page(props: PageProps) {
-    const {
-      initialPosts,
-      totalPostsCount,
-      settings,
-      preview,
-      token
-     } = props
+  const { initialPosts, totalPostsCount, settings, preview, token } = props
 
-    if (preview) {
-      return (
-        <PreviewSuspense
-          fallback={
-            <FoodReviewsPage
-              loading
-              preview
-              initialPosts={initialPosts}
-              totalPostsCount={totalPostsCount}
-              itemsPerPage={ITEMS_PER_PAGE}
-              settings={settings}
-            />
-          }
-        >
-          <PreviewIndexPage token={token} />
-        </PreviewSuspense>
-      )
-    }
-
+  if (preview) {
     return (
-      <FoodReviewsPage
-          initialPosts={initialPosts}
-          totalPostsCount={totalPostsCount}
-          itemsPerPage={ITEMS_PER_PAGE}
-          settings={settings}
-       />
+      <PreviewSuspense
+        fallback={
+          <FoodReviewsPage
+            loading
+            preview
+            initialPosts={initialPosts}
+            totalPostsCount={totalPostsCount}
+            itemsPerPage={ITEMS_PER_PAGE}
+            settings={settings}
+          />
+        }
+      >
+        <PreviewIndexPage token={token} />
+      </PreviewSuspense>
     )
   }
+
+  return (
+    <FoodReviewsPage
+      key="food-page"
+      initialPosts={initialPosts}
+      totalPostsCount={totalPostsCount}
+      itemsPerPage={ITEMS_PER_PAGE}
+      settings={settings}
+    />
+  )
+}
 
 export const getStaticProps: GetStaticProps<
   PageProps,
@@ -80,14 +75,14 @@ export const getStaticProps: GetStaticProps<
   const [settings, totalPostsCount] = await Promise.all([
     getSettings(),
     getFoodReviewsTotalCount(),
-  ]);
+  ])
 
   // Fetch first page of posts and cast to FoodReview[]
-  const initialPosts = await getPaginatedFoodReviews(0, ITEMS_PER_PAGE);
+  const initialPosts = await getPaginatedFoodReviews(0, ITEMS_PER_PAGE)
 
-  console.log('Food Reviews Found:', initialPosts?.length || 0);
-  console.log('Total Food Reviews:', totalPostsCount);
-  console.log('Sample Food Review:', initialPosts?.[0] || 'None');
+  console.log('Food Reviews Found:', initialPosts?.length || 0)
+  console.log('Total Food Reviews:', totalPostsCount)
+  console.log('Sample Food Review:', initialPosts?.[0] || 'None')
 
   return {
     props: {

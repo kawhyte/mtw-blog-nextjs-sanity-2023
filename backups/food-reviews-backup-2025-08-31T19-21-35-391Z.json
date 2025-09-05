@@ -181,9 +181,7 @@
           {
             "_key": "ac25718ca834",
             "_type": "span",
-            "marks": [
-              "cdeedbd14bb7"
-            ],
+            "marks": ["cdeedbd14bb7"],
             "text": "rd & Fernwood"
           }
         ],
@@ -1904,9 +1902,7 @@
           {
             "_key": "b34de422a081",
             "_type": "span",
-            "marks": [
-              "2ac736c6a8de"
-            ],
+            "marks": ["2ac736c6a8de"],
             "text": "Google"
           }
         ],
@@ -2147,9 +2143,7 @@
           {
             "_key": "f95452bf4960",
             "_type": "span",
-            "marks": [
-              "b08b1cef7c22"
-            ],
+            "marks": ["b08b1cef7c22"],
             "text": "Tiger Fork"
           }
         ],
@@ -3119,9 +3113,7 @@
           {
             "_key": "2d0f1983f545",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "Entree Rankings:"
           }
         ],
@@ -3659,9 +3651,7 @@
     "negatives": [
       "Pricepoint. Granted we were in Miami & prices are on the high side, the $95 per person price tag was a bit excessive. Next time I will order 2 of my favorite dishes to share with my dinner companions."
     ],
-    "positives": [
-      "Great food was served by a great staff."
-    ],
+    "positives": ["Great food was served by a great staff."],
     "slug": {
       "_type": "slug",
       "current": "kyu-miami-restaurant-review"
@@ -3718,9 +3708,7 @@
           {
             "_key": "cc68f2708980",
             "_type": "span",
-            "marks": [
-              "43c9aa42a237"
-            ],
+            "marks": ["43c9aa42a237"],
             "text": "Jong-Ro Chicken"
           }
         ],
@@ -3900,9 +3888,7 @@
           {
             "_key": "a7bc97b80e7c",
             "_type": "span",
-            "marks": [
-              "e1a1723bd551"
-            ],
+            "marks": ["e1a1723bd551"],
             "text": "Astro Doughnuts & Fried Chicken"
           }
         ],
@@ -4538,9 +4524,7 @@
           {
             "_key": "bc947650a794",
             "_type": "span",
-            "marks": [
-              "30471f884730"
-            ],
+            "marks": ["30471f884730"],
             "text": "Mono Mono KFC"
           }
         ],
@@ -4625,9 +4609,7 @@
     "individualFoodRating": null,
     "linkType": "food",
     "location": "Denver, CO (Colfax location)",
-    "negatives": [
-      "No hot water is available to make a cup of tea"
-    ],
+    "negatives": ["No hot water is available to make a cup of tea"],
     "positives": [
       "Great price, so much food for $39!",
       "Good service, the waitress during our visit was prompt & courteous.",
@@ -4654,9 +4636,7 @@
           {
             "_key": "d83567d6d8fe",
             "_type": "span",
-            "marks": [
-              "257114c2e1a0"
-            ],
+            "marks": ["257114c2e1a0"],
             "text": "@monomonokfc"
           },
           {
@@ -4937,9 +4917,7 @@
           {
             "_key": "bc4c8fd770e3",
             "_type": "span",
-            "marks": [
-              "d1851462310f"
-            ],
+            "marks": ["d1851462310f"],
             "text": "Rooftop"
           }
         ],
@@ -5308,10 +5286,7 @@
           {
             "_key": "9fcdac07a1ab",
             "_type": "span",
-            "marks": [
-              "strong",
-              "71513792ae88"
-            ],
+            "marks": ["strong", "71513792ae88"],
             "text": "Mr. Stork"
           },
           {
@@ -5323,9 +5298,7 @@
           {
             "_key": "6ce3ae9d4df3",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "10 cozy teepee huts"
           },
           {
@@ -5612,9 +5585,7 @@
           {
             "_key": "4ed818704641",
             "_type": "span",
-            "marks": [
-              "cf40798c617f"
-            ],
+            "marks": ["cf40798c617f"],
             "text": "Andaz Singapore (review here"
           },
           {
@@ -5681,9 +5652,7 @@
           {
             "_key": "87e8fbad8f82",
             "_type": "span",
-            "marks": [
-              "a98f6027a04a"
-            ],
+            "marks": ["a98f6027a04a"],
             "text": "Jasmine's Caribbean Cuisine"
           }
         ],
@@ -5966,9 +5935,7 @@
           {
             "_key": "4f148d98596e",
             "_type": "span",
-            "marks": [
-              "72a6b55d25ba"
-            ],
+            "marks": ["72a6b55d25ba"],
             "text": "Chaplin"
           },
           {
@@ -6274,9 +6241,7 @@
     "linkType": "food",
     "location": "Washington, DC",
     "negatives": null,
-    "positives": [
-      ""
-    ],
+    "positives": [""],
     "slug": {
       "_type": "slug",
       "current": "chaplin-s-dc-restaurant-review"
@@ -6446,9 +6411,7 @@
           {
             "_key": "2fe9792cc8b2",
             "_type": "span",
-            "marks": [
-              "4316ba5b126c"
-            ],
+            "marks": ["4316ba5b126c"],
             "text": "Cosmo"
           }
         ],
@@ -7048,9 +7011,7 @@
           {
             "_key": "6bef2a22bde5",
             "_type": "span",
-            "marks": [
-              "8169eb273cf9"
-            ],
+            "marks": ["8169eb273cf9"],
             "text": "Hawai'i Foor and Wine Festival"
           }
         ],
@@ -7157,9 +7118,7 @@
           {
             "_key": "b442736ea159",
             "_type": "span",
-            "marks": [
-              "em"
-            ],
+            "marks": ["em"],
             "text": "Malmö Saluhall"
           },
           {
@@ -7171,9 +7130,7 @@
           {
             "_key": "bcc3932e21cc",
             "_type": "span",
-            "marks": [
-              "409f5098b450"
-            ],
+            "marks": ["409f5098b450"],
             "text": " Malmö Saluhall"
           }
         ],
@@ -7267,12 +7224,8 @@
     ],
     "linkType": "food",
     "location": "Gibraltargatan 6, Malmo",
-    "negatives": [
-      "test"
-    ],
-    "positives": [
-      "Test"
-    ],
+    "negatives": ["test"],
+    "positives": ["Test"],
     "slug": {
       "_type": "slug",
       "current": "malmo-saluhall-review"
@@ -7918,9 +7871,7 @@
           {
             "_key": "984f40b1f7c81",
             "_type": "span",
-            "marks": [
-              "em"
-            ],
+            "marks": ["em"],
             "text": "a"
           },
           {
@@ -7932,9 +7883,7 @@
           {
             "_key": "984f40b1f7c83",
             "_type": "span",
-            "marks": [
-              "em"
-            ],
+            "marks": ["em"],
             "text": "biscuit"
           },
           {
@@ -7946,9 +7895,7 @@
           {
             "_key": "984f40b1f7c85",
             "_type": "span",
-            "marks": [
-              "em"
-            ],
+            "marks": ["em"],
             "text": "a"
           },
           {
@@ -7960,9 +7907,7 @@
           {
             "_key": "984f40b1f7c87",
             "_type": "span",
-            "marks": [
-              "em"
-            ],
+            "marks": ["em"],
             "text": "bar"
           },
           {
@@ -7974,9 +7919,7 @@
           {
             "_key": "3954ee6395d6",
             "_type": "span",
-            "marks": [
-              "49d084b234b3"
-            ],
+            "marks": ["49d084b234b3"],
             "text": "The Biscuit Bar"
           }
         ],
@@ -8384,9 +8327,7 @@
           {
             "_key": "bc947650a794",
             "_type": "span",
-            "marks": [
-              "30471f884730"
-            ],
+            "marks": ["30471f884730"],
             "text": "Mono Mono KFC"
           }
         ],
@@ -8471,9 +8412,7 @@
     "individualFoodRating": null,
     "linkType": "food",
     "location": "Denver, CO (Colfax location)",
-    "negatives": [
-      "No hot water is available to make a cup of tea"
-    ],
+    "negatives": ["No hot water is available to make a cup of tea"],
     "positives": [
       "Great price, so much food for $39!",
       "Good service, the waitress during our visit was prompt & courteous.",
@@ -8500,9 +8439,7 @@
           {
             "_key": "d83567d6d8fe",
             "_type": "span",
-            "marks": [
-              "257114c2e1a0"
-            ],
+            "marks": ["257114c2e1a0"],
             "text": "@monomonokfc"
           },
           {
@@ -8569,9 +8506,7 @@
           {
             "_key": "543fcfed0ca3",
             "_type": "span",
-            "marks": [
-              "29c40cbe61b4"
-            ],
+            "marks": ["29c40cbe61b4"],
             "text": "Velvet Taco"
           }
         ],
@@ -9203,10 +9138,7 @@
           {
             "_key": "d2c2239b2d2a0",
             "_type": "span",
-            "marks": [
-              "em",
-              "4043e469d508"
-            ],
+            "marks": ["em", "4043e469d508"],
             "text": "Peaches Prime"
           },
           {
@@ -9306,9 +9238,7 @@
     ],
     "linkType": "food",
     "location": "Brooklyn, NY",
-    "negatives": [
-      ""
-    ],
+    "negatives": [""],
     "positives": null,
     "slug": {
       "_type": "slug",

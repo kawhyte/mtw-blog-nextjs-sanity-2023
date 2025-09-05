@@ -2,7 +2,11 @@
 
 import { PreviewSuspense } from '@sanity/preview-kit'
 import ArenaPage from 'components/ArenaPage'
-import { getAllArenaSlugs, getArenaBySlug, getSettings } from 'lib/sanity.client'
+import {
+  getAllArenaSlugs,
+  getArenaBySlug,
+  getSettings,
+} from 'lib/sanity.client'
 import { Arena, Settings } from 'lib/sanity.queries'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { lazy } from 'react'
@@ -71,27 +75,13 @@ export default function ArenaSlugRoute(props: PageProps) {
     return (
       <PreviewSuspense
         fallback={
-          <ArenaPage
-            loading
-            preview
-            arena={arena}
-            settings={settings}
-          />
+          <ArenaPage loading preview arena={arena} settings={settings} />
         }
       >
-        <PreviewArenaPage
-          token={token}
-          arena={arena}
-          settings={settings}
-        />
+        <PreviewArenaPage token={token} arena={arena} settings={settings} />
       </PreviewSuspense>
     )
   }
 
-  return (
-    <ArenaPage 
-      arena={arena} 
-      settings={settings} 
-    />
-  )
+  return <ArenaPage arena={arena} settings={settings} />
 }

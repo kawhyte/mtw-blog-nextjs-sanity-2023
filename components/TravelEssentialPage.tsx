@@ -1,4 +1,3 @@
-
 import BlogHeader from 'components/BlogHeader'
 import Layout from 'components/BlogLayout'
 import IndexPageHead from 'components/IndexPageHead'
@@ -10,7 +9,6 @@ import { CMS_NAME } from '../lib/constants'
 import Footer from './Footer'
 import ReviewHeader from './ReviewHeader'
 import TravelEssentialLayout from './TravelEssentialsLayout'
-
 
 export interface IndexPageProps {
   preview?: boolean
@@ -30,20 +28,21 @@ export default function IndexPage(props: IndexPageProps) {
 
       <Layout preview={preview} loading={loading}>
         <Head>
-        <title>{CMS_NAME}</title>
-        {/* <title> { `${CMS_NAME} - Travel and Food Reviews`}</title> */}
+          <title>{CMS_NAME}</title>
+          {/* <title> { `${CMS_NAME} - Travel and Food Reviews`}</title> */}
         </Head>
         {/* <Container> */}
-          <BlogHeader title={title} description={description} level={1} />
+        <BlogHeader title={title} description={description} level={1} />
 
-          <ReviewHeader
-					title={"Travel Gear and Gadgets"}
+        <ReviewHeader
+          title={'Travel Gear and Gadgets'}
+          summary={
+            "Ready to upgrade your travel game? We put the latest travel gear and gadgets to the test! Get quick thumbs up/down verdicts and bite-sized reviews (think Twitter-short) to see what's worth packing for your next adventure."
+          }
+          img={'/top.json'}
+        />
 
-					summary={"Ready to upgrade your travel game? We put the latest travel gear and gadgets to the test! Get quick thumbs up/down verdicts and bite-sized reviews (think Twitter-short) to see what's worth packing for your next adventure."}
-					img={'/top.json'}
-				/>
-
-          {posts.length > 0 && <TravelEssentialLayout posts={posts}  />}
+        {posts.length > 0 && <TravelEssentialLayout posts={posts} />}
         {/* </Container> */}
       </Layout>
       <Footer />

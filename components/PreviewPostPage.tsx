@@ -1,24 +1,24 @@
 import PostPage, { PostPageProps } from 'components/PostPage'
 import { usePreview } from 'lib/sanity.preview'
-import { 
-  type Post, 
-  type Guide, 
-  type HotelReview, 
+import {
   type FoodReview,
-  postAndMoreStoriesQuery,
+  foodReviewBySlugPreviewQuery,
+  type Guide,
   guideBySlugPreviewQuery,
+  type HotelReview,
   hotelReviewBySlugPreviewQuery,
-  foodReviewBySlugPreviewQuery
+  type Post,
+  postAndMoreStoriesQuery,
 } from 'lib/sanity.queries'
 
 // Union type for all possible content types
-type ContentItem = Post | Guide | HotelReview | FoodReview;
+type ContentItem = Post | Guide | HotelReview | FoodReview
 
 interface PreviewPostPageProps {
-  token: null | string;
-  post: ContentItem;
-  settings: any;
-  contentType?: 'post' | 'guide' | 'hotelReview' | 'foodReview';
+  token: null | string
+  post: ContentItem
+  settings: any
+  contentType?: 'post' | 'guide' | 'hotelReview' | 'foodReview'
 }
 
 export default function PreviewPostPage({
@@ -28,28 +28,31 @@ export default function PreviewPostPage({
   contentType,
 }: PreviewPostPageProps) {
   // Determine which query to use based on content type
-  let query: string;
-  let queryParams: { slug: string };
-  
+  let query: string
+  let queryParams: { slug: string }
+
   if (contentType === 'guide') {
-    query = guideBySlugPreviewQuery;
+    query = guideBySlugPreviewQuery
   } else if (contentType === 'hotelReview') {
-    query = hotelReviewBySlugPreviewQuery;
+    query = hotelReviewBySlugPreviewQuery
   } else if (contentType === 'foodReview') {
-    query = foodReviewBySlugPreviewQuery;
+    query = foodReviewBySlugPreviewQuery
   } else {
     // Default to post query for legacy posts
-    query = postAndMoreStoriesQuery;
+    query = postAndMoreStoriesQuery
   }
-  
-  queryParams = { slug: post.slug?.current || post.slug || '' };
+
+  queryParams = { slug: post.slug?.current || post.slug || '' }
 
   // Use the appropriate preview query
-  const previewData = usePreview(token, query, queryParams) || { post: null, morePosts: [] };
-  
+  const previewData = usePreview(token, query, queryParams) || {
+    post: null,
+    morePosts: [],
+  }
+
   // Extract the post data (the structure might be different for different queries)
-  const postPreview = previewData.post || previewData;
-  const morePosts = previewData.morePosts || [];
+  const postPreview = previewData.post || previewData
+  const morePosts = previewData.morePosts || []
 
   return (
     <PostPage

@@ -1,53 +1,76 @@
-import { Badge } from '@/components/ui/badge';
-import { urlForImage } from 'lib/sanity.image';
-import { Medal } from 'lucide-react';
-import Image from 'next/image';
-import React from 'react';
+import { urlForImage } from 'lib/sanity.image'
+import { Medal } from 'lucide-react'
+import Image from 'next/image'
+import React from 'react'
 
-import SectionTitle from './SectionTitle';
+import { Badge } from '@/components/ui/badge'
+
+import SectionTitle from './SectionTitle'
 
 // --- Reusable Sub-Components ---
 
 // NEW: A realistic, multi-tone cookie icon component that replaces the old system.
 const FoodieCookie = ({ type = 'full' }) => {
-  const cookieBaseColor = "#B5651D"; // A warm, golden-brown for the cookie
-  const chipColor = "#4F2A0D";    // A dark, rich chocolate chip color
+  const cookieBaseColor = '#B5651D' // A warm, golden-brown for the cookie
+  const chipColor = '#4F2A0D' // A dark, rich chocolate chip color
 
   const FullCookieContent = () => (
     <>
-      <path d="M12 2a10 10 0 1 0 10 10 10 10 0 0 0-10-10Z" fill={cookieBaseColor} />
+      <path
+        d="M12 2a10 10 0 1 0 10 10 10 10 0 0 0-10-10Z"
+        fill={cookieBaseColor}
+      />
       <circle cx="8" cy="9" r="1.5" fill={chipColor} />
       <circle cx="15" cy="15" r="1.5" fill={chipColor} />
       <circle cx="16" cy="8" r="1" fill={chipColor} />
       <circle cx="10" cy="15" r="1" fill={chipColor} />
     </>
-  );
+  )
 
   const EmptyCookieOutline = () => (
-    <path d="M12 2a10 10 0 1 0 10 10 10 10 0 0 0-10-10Z" fill="none" stroke="currentColor" strokeWidth="1.5" />
-  );
+    <path
+      d="M12 2a10 10 0 1 0 10 10 10 10 0 0 0-10-10Z"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
+  )
 
   if (type === 'empty') {
     return (
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="h-5 w-5 text-muted-foreground/40">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        className="h-5 w-5 text-muted-foreground/40"
+      >
         <EmptyCookieOutline />
       </svg>
-    );
+    )
   }
 
   if (type === 'full') {
     return (
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="h-5 w-5">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        className="h-5 w-5"
+      >
         <FullCookieContent />
       </svg>
-    );
+    )
   }
 
   if (type === 'half') {
     return (
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="h-5 w-5">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        className="h-5 w-5"
+      >
         <defs>
-          <clipPath id="clip-left-half-cookie"><rect x="0" y="0" width="12" height="24" /></clipPath>
+          <clipPath id="clip-left-half-cookie">
+            <rect x="0" y="0" width="12" height="24" />
+          </clipPath>
         </defs>
         <g clipPath="url(#clip-left-half-cookie)">
           <FullCookieContent />
@@ -56,17 +79,17 @@ const FoodieCookie = ({ type = 'full' }) => {
           <EmptyCookieOutline />
         </g>
       </svg>
-    );
+    )
   }
-  
-  return null;
-};
+
+  return null
+}
 
 // Themed Cookie Rating Component
 const ThemedCookieRating = ({ rating }) => {
-  const fullCookies = Math.floor(rating);
-  const halfCookie = rating - fullCookies >= 0.5;
-  const emptyCookies = 5 - fullCookies - (halfCookie ? 1 : 0);
+  const fullCookies = Math.floor(rating)
+  const halfCookie = rating - fullCookies >= 0.5
+  const emptyCookies = 5 - fullCookies - (halfCookie ? 1 : 0)
 
   return (
     <div className="flex items-center">
@@ -78,24 +101,39 @@ const ThemedCookieRating = ({ rating }) => {
         <FoodieCookie key={`empty-${i}`} type="empty" />
       ))}
     </div>
-  );
-};
-
+  )
+}
 
 // --- Main Exported Component ---
 
 const IndividualFoodRating = ({ food }) => {
   if (!food || food.length === 0) {
-    return null;
+    return null
   }
 
   // Helper to get themed styles for the rating badge
   const getRatingTheme = (rating) => {
-    if (rating >= 4.5) return { text: "Excellent!", badgeClass: 'bg-success text-success-foreground border-success' };
-    if (rating >= 3.5) return { text: "Good", badgeClass: 'bg-accent text-accent-foreground border-accent-foreground' };
-    if (rating >= 2.5) return { text: "Average", badgeClass: 'bg-muted text-muted-foreground border-border' };
-    return { text: "Could Be Better", badgeClass: 'bg-destructive text-destructive-foreground border-destructive' };
-  };
+    if (rating >= 4.5)
+      return {
+        text: 'Excellent!',
+        badgeClass: 'bg-success text-success-foreground border-success',
+      }
+    if (rating >= 3.5)
+      return {
+        text: 'Good',
+        badgeClass: 'bg-accent text-accent-foreground border-accent-foreground',
+      }
+    if (rating >= 2.5)
+      return {
+        text: 'Average',
+        badgeClass: 'bg-muted text-muted-foreground border-border',
+      }
+    return {
+      text: 'Could Be Better',
+      badgeClass:
+        'bg-destructive text-destructive-foreground border-destructive',
+    }
+  }
 
   return (
     <section className="my-12">
@@ -103,9 +141,9 @@ const IndividualFoodRating = ({ food }) => {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
           {food.map((item, i) => {
-            const dishRating = item.rating?.Dish || 0;
-            const ratingTheme = getRatingTheme(dishRating);
-            const isChefsKiss = dishRating >= 4.5;
+            const dishRating = item.rating?.Dish || 0
+            const ratingTheme = getRatingTheme(dishRating)
+            const isChefsKiss = dishRating >= 4.5
 
             return (
               <div
@@ -115,7 +153,11 @@ const IndividualFoodRating = ({ food }) => {
                 {/* --- IMAGE CONTAINER --- */}
                 <div className="relative h-64 w-full">
                   <Image
-                    src={urlForImage(item.asset._ref).width(400).height(300).fit('crop').url()}
+                    src={urlForImage(item.asset._ref)
+                      .width(400)
+                      .height(300)
+                      .fit('crop')
+                      .url()}
                     alt={item?.name || 'Food item'}
                     fill
                     className="object-cover object-center"
@@ -141,10 +183,15 @@ const IndividualFoodRating = ({ food }) => {
                   {/* Rating Section */}
                   <div className="my-3 flex flex-wrap items-center justify-between gap-2 border-y border-border py-2">
                     <div className="flex items-center gap-x-2">
-                      <span className="text-lg font-bold text-foreground">{dishRating.toFixed(1)}</span>
+                      <span className="text-lg font-bold text-foreground">
+                        {dishRating.toFixed(1)}
+                      </span>
                       <ThemedCookieRating rating={dishRating} />
                     </div>
-                    <Badge variant="outline" className={`font-semibold ${ratingTheme.badgeClass}`}>
+                    <Badge
+                      variant="outline"
+                      className={`font-semibold ${ratingTheme.badgeClass}`}
+                    >
                       {ratingTheme.text}
                     </Badge>
                   </div>
@@ -154,13 +201,12 @@ const IndividualFoodRating = ({ food }) => {
                   </p>
                 </div>
               </div>
-            );
+            )
           })}
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default IndividualFoodRating;
-
+export default IndividualFoodRating

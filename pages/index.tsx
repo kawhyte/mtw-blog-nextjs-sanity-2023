@@ -1,21 +1,21 @@
 import { PreviewSuspense } from '@sanity/preview-kit'
 import IndexPage from 'components/IndexPage'
-import { getArenaPosts, getIndexPosts, getInstagramPosts, getSettings, getTravelEssentialPosts } from 'lib/sanity.client'
-import { Arena, Essential, Post, Settings } from 'lib/sanity.queries'
+import { getLatestIndependentContent, getSettings } from 'lib/sanity.client'
+import { Guide, HotelReview, FoodReview, Settings } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
 import { lazy } from 'react'
 
 const PreviewIndexPage = lazy(() => import('components/PreviewIndexPage'))
 
 interface PageProps {
-  posts: Post[]
+  posts: (Guide | HotelReview | FoodReview)[]
+  // legacyPosts: Post[] // Keep legacy posts as backup if needed
   // Essentialposts: Essential[]
   // arenaPosts:  Arena[]
   settings: Settings
   // instagram: any
   preview: boolean
   token: string | null
- 
 }
 
 interface Query {
@@ -33,7 +33,7 @@ export default function Page(props: PageProps) {
     return (
       <PreviewSuspense
         fallback={
-          <IndexPage loading preview posts={posts} settings={settings}    />
+          <IndexPage loading preview posts={posts} settings={settings} />
           // <IndexPage loading preview posts={posts} settings={settings} instagram={instagram} Essentialposts={Essentialposts} arenaPosts={arenaPosts}  />
         }
       >
@@ -41,7 +41,6 @@ export default function Page(props: PageProps) {
       </PreviewSuspense>
     )
   }
-
 
   return <IndexPage posts={posts} settings={settings} />
   // return <IndexPage posts={posts} settings={settings} instagram={instagram} Essentialposts={Essentialposts} arenaPosts={arenaPosts}/>
@@ -55,9 +54,9 @@ export const getStaticProps: GetStaticProps<
   const { preview = false, previewData = {} } = ctx
 
   const [settings, posts = []] = await Promise.all([
-  // const [settings, posts = [], instagram,Essentialposts = [], arenaPosts=[]] = await Promise.all([
+    // const [settings, posts = [], instagram,Essentialposts = [], arenaPosts=[]] = await Promise.all([
     getSettings(),
-    getIndexPosts(),
+    getLatestIndependentContent(), // Using new independent content instead of legacy posts
     // getInstagramPosts(),
     // getTravelEssentialPosts(),
     // getArenaPosts(),
@@ -71,11 +70,9 @@ export const getStaticProps: GetStaticProps<
       // Essentialposts,
       // arenaPosts,
       preview,
-      
+
       token: previewData.token ?? null,
     },
-     revalidate:10
+    revalidate: 10,
   }
 }
-
-

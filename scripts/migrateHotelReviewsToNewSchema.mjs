@@ -2,10 +2,10 @@
 
 /**
  * Migration Script: Post Hotel Reviews → Independent Hotel Review Schema
- * 
- * This script converts backed-up hotel post data to the new independent 
+ *
+ * This script converts backed-up hotel post data to the new independent
  * 'hotelReview' document type and handles the migration process.
- * 
+ *
  * Usage:
  *   npm run migrate-hotels        # Dry run (preview only)
  *   npm run migrate-hotels:live   # Actual migration
@@ -61,7 +61,7 @@ function mapPostToHotelReview(post) {
   }
 
   // Remove undefined fields
-  Object.keys(hotelReview).forEach(key => {
+  Object.keys(hotelReview).forEach((key) => {
     if (hotelReview[key] === undefined) {
       delete hotelReview[key]
     }
@@ -83,7 +83,7 @@ function generateTagsFromHotelData(post) {
 
   // Add location-based tags
   if (post.location) {
-    const locationParts = post.location.split(',').map(part => part.trim())
+    const locationParts = post.location.split(',').map((part) => part.trim())
     tags.push(...locationParts)
   }
 
@@ -112,7 +112,11 @@ function generateTagsFromHotelData(post) {
 async function migrateHotelReviews() {
   try {
     console.log('🏨 Starting Hotel Review Migration...')
-    console.log(isDryRun ? '🔍 DRY RUN MODE - No changes will be made' : '🚀 LIVE MODE - Changes will be applied')
+    console.log(
+      isDryRun
+        ? '🔍 DRY RUN MODE - No changes will be made'
+        : '🚀 LIVE MODE - Changes will be applied',
+    )
 
     // Validate environment variables
     if (!process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) {
@@ -127,13 +131,19 @@ async function migrateHotelReviews() {
 
     // Find the most recent backup file
     const backupDir = 'backups'
-    const backupFiles = fs.readdirSync(backupDir)
-      .filter(file => file.startsWith('hotel-reviews-backup-') && file.endsWith('.json'))
+    const backupFiles = fs
+      .readdirSync(backupDir)
+      .filter(
+        (file) =>
+          file.startsWith('hotel-reviews-backup-') && file.endsWith('.json'),
+      )
       .sort()
       .reverse()
 
     if (backupFiles.length === 0) {
-      throw new Error('No hotel review backup files found. Please run backup script first.')
+      throw new Error(
+        'No hotel review backup files found. Please run backup script first.',
+      )
     }
 
     const latestBackupFile = path.join(backupDir, backupFiles[0])
@@ -150,10 +160,10 @@ async function migrateHotelReviews() {
 
     // Convert posts to hotel reviews
     const hotelReviews = backupData.map(mapPostToHotelReview)
-    
+
     console.log('\n🔄 Migration Preview:')
     console.log(`📄 Documents to create: ${hotelReviews.length}`)
-    
+
     // Show sample conversion
     if (hotelReviews.length > 0) {
       const sample = hotelReviews[0]
@@ -168,8 +178,12 @@ async function migrateHotelReviews() {
     if (isDryRun) {
       console.log('\n🔍 DRY RUN COMPLETE')
       console.log('📋 Summary of what would happen:')
-      console.log(`  ✅ Create ${hotelReviews.length} new 'hotelReview' documents`)
-      console.log(`  🗑️ Delete ${backupData.length} old 'post' documents with linkType='hotel'`)
+      console.log(
+        `  ✅ Create ${hotelReviews.length} new 'hotelReview' documents`,
+      )
+      console.log(
+        `  🗑️ Delete ${backupData.length} old 'post' documents with linkType='hotel'`,
+      )
       console.log('\n📌 To run the actual migration:')
       console.log('   npm run migrate-hotels:live')
       return
@@ -181,12 +195,12 @@ async function migrateHotelReviews() {
     const transaction = client.transaction()
 
     // Create new hotel review documents
-    hotelReviews.forEach(hotelReview => {
+    hotelReviews.forEach((hotelReview) => {
       transaction.create(hotelReview)
     })
 
     // Delete old hotel post documents
-    backupData.forEach(post => {
+    backupData.forEach((post) => {
       transaction.delete(post._id)
     })
 
@@ -205,7 +219,9 @@ async function migrateHotelReviews() {
       console.log(`\n📝 Sample created documents:`)
       result.results.slice(0, 3).forEach((doc, index) => {
         if (doc.operation === 'create') {
-          console.log(`  ${index + 1}. ${doc.document?.title || 'N/A'} (${doc.document?._id})`)
+          console.log(
+            `  ${index + 1}. ${doc.document?.title || 'N/A'} (${doc.document?._id})`,
+          )
         }
       })
     }
@@ -215,19 +231,17 @@ async function migrateHotelReviews() {
     console.log('  1. Test the new hotel review documents in Sanity Studio')
     console.log('  2. Verify preview functionality works')
     console.log('  3. Create /hotel/[slug].tsx page for frontend display')
-
   } catch (error) {
     console.error('❌ Error during migration:', error)
-    
+
     if (!isDryRun) {
       console.log('\n🔄 Migration failed. Your data is still safe.')
       console.log('📂 Original data is preserved in backup files.')
     }
-    
+
     process.exit(1)
   }
 }
 
 // Run the migration
 migrateHotelReviews()
-

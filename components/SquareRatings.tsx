@@ -1,11 +1,11 @@
-import React from 'react';
+import React from 'react'
 
 interface SquareRatingProps {
-  rating: number;
-  maxRating?: number;
-  size?: string;
-  gap?: string;
-  className?: string;
+  rating: number
+  maxRating?: number
+  size?: string
+  gap?: string
+  className?: string
 }
 
 const SquareRating: React.FC<SquareRatingProps> = ({
@@ -15,7 +15,7 @@ const SquareRating: React.FC<SquareRatingProps> = ({
   gap = '1',
   className,
 }) => {
-  const squares = Array.from({ length: maxRating }, (_, index) => index + 1);
+  const squares = Array.from({ length: maxRating }, (_, index) => index + 1)
 
   return (
     <div className={`flex items-center ${className}`}>
@@ -32,7 +32,7 @@ const SquareRating: React.FC<SquareRatingProps> = ({
         />
       ))}
     </div>
-  );
-};
+  )
+}
 
-export default SquareRating;
+export default SquareRating

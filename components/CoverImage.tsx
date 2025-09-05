@@ -1,49 +1,51 @@
 // src/components/CoverImage.tsx
 
 // Import shadcn/ui components
-import cn from 'classnames';
+import cn from 'classnames'
 // Your existing imports
-import { calculateRating } from 'lib/calculateRating';
-import { getRatingWeights } from 'lib/ratingWeights';
-import { urlForImage } from 'lib/sanity.image';
-import { Calendar, Hotel, MapPin } from 'lucide-react';
-import Image from 'next/image';
-import Link from 'next/link';
+import { calculateRating } from 'lib/calculateRating'
+import { getRatingWeights } from 'lib/ratingWeights'
+import { urlForImage } from 'lib/sanity.image'
+import { Calendar, Hotel, MapPin } from 'lucide-react'
+import Image from 'next/image'
+import Link from 'next/link'
 
-import { Badge } from '@/components/ui/badge';
-import { Skeleton } from '@/components/ui/skeleton';
+import { Badge } from '@/components/ui/badge'
+import { Skeleton } from '@/components/ui/skeleton'
 
-import { categoryRating } from '../lib/getHotelCategory';
-import RatingBadge from './RatingBadge';
+import { categoryRating } from '../lib/getHotelCategory'
+import RatingBadge from './RatingBadge'
 
 // Helper function to determine the link prefix based on post type
-const getLinkPrefix = (linkType?: 'hotel' | 'food' | 'story' | 'favorite'): string => {
+const getLinkPrefix = (
+  linkType?: 'hotel' | 'food' | 'story' | 'favorite',
+): string => {
   switch (linkType) {
     case 'hotel':
-      return '/hotel';
+      return '/hotel'
     case 'story':
-      return '/guide';
+      return '/guide'
     case 'food':
-      return '/food';
+      return '/food'
     case 'favorite':
     default:
-      return '/posts';
+      return '/posts'
   }
-};
+}
 
 interface CoverImageProps {
-  title: string;
-  slug?: string;
-  date?: any;
-  location?: string;
-  image: any;
-  category?: string;
-  priority?: boolean;
-  excerpt2?: any;
-  rating: any;
-  linkType?: 'hotel' | 'food' | 'story' | 'favorite';
-  diningType: any;
-  showRating: boolean;
+  title: string
+  slug?: string
+  date?: any
+  location?: string
+  image: any
+  category?: string
+  priority?: boolean
+  excerpt2?: any
+  rating: any
+  linkType?: 'hotel' | 'food' | 'story' | 'favorite'
+  diningType: any
+  showRating: boolean
 }
 
 export default function CoverImage(props: CoverImageProps) {
@@ -57,41 +59,49 @@ export default function CoverImage(props: CoverImageProps) {
     priority,
     linkType,
     diningType,
-  } = props;
+  } = props
 
-  const image = source?.asset?._ref || source?.asset?._id ? (
-    <div className="relative h-full w-full">
-      <Skeleton className="absolute inset-0 h-full w-full rounded-md" />
-      <Image
-        className={cn('w-full object-cover object-center brightness-[0.85] rounded-t-3xl', {
-          ' relative z-20 transition-all ': slug,
-        })}
-        placeholder="blur"
-        blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAO0lEQVR4nGNgYGBg+P//P1t9fT0TiM0we3ZjxZxZjQ9XLpwwe9nCHkOGGZOyanraY9aumN2wbsn0hmQA/MEWfj4ocjcAAAAASUVORK5CYII="
-        width={320}
-        height={200}
-        alt={`Cover Image for ${title}`}
-        src={urlForImage(source)?.height(200)?.width(320)?.fit('crop').url()}
-        loading='lazy'
-      />
-    </div>
-  ) : (
-    <div style={{ paddingTop: '50%', backgroundColor: '#ddd' }} />
-  );
+  const image =
+    source?.asset?._ref || source?.asset?._id ? (
+      <div className="relative h-full w-full">
+        <Skeleton className="absolute inset-0 h-full w-full rounded-md" />
+        <Image
+          className={cn(
+            'w-full object-cover object-center brightness-[0.85] rounded-t-3xl',
+            {
+              ' relative z-20 transition-all ': slug,
+            },
+          )}
+          placeholder="blur"
+          blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAO0lEQVR4nGNgYGBg+P//P1t9fT0TiM0we3ZjxZxZjQ9XLpwwe9nCHkOGGZOyanraY9aumN2wbsn0hmQA/MEWfj4ocjcAAAAASUVORK5CYII="
+          width={320}
+          height={200}
+          alt={`Cover Image for ${title}`}
+          src={urlForImage(source)?.height(200)?.width(320)?.fit('crop').url()}
+          loading="lazy"
+        />
+      </div>
+    ) : (
+      <div style={{ paddingTop: '50%', backgroundColor: '#ddd' }} />
+    )
 
-  const overallRating = calculateRating(rating, getRatingWeights(linkType, diningType));
-  const href = slug ? `${getLinkPrefix(linkType)}/${slug}` : '#';
+  const overallRating = calculateRating(
+    rating,
+    getRatingWeights(linkType, diningType),
+  )
+  const href = slug ? `${getLinkPrefix(linkType)}/${slug}` : '#'
 
-  const categoryType = categoryRating(category);
+  const categoryType = categoryRating(category)
 
   const badgeColorClasses = {
     blue: 'bg-accent text-accent-foreground',
     yellow: 'bg-accent text-accent-foreground',
     green: 'bg-success text-success-foreground',
     red: 'bg-destructive text-destructive-foreground',
-  };
+  }
 
-  const badgeClasses = badgeColorClasses[categoryType.color] || 'bg-gray-500 text-white';
+  const badgeClasses =
+    badgeColorClasses[categoryType.color] || 'bg-gray-500 text-white'
 
   return (
     <div className="relative overflow-hidden rounded-t-3xl">
@@ -122,5 +132,5 @@ export default function CoverImage(props: CoverImageProps) {
         )}
       </div>
     </div>
-  );
+  )
 }

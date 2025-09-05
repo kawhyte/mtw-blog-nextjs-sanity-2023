@@ -1,18 +1,22 @@
 // components/ReviewBlurb.tsx
 
-import { PortableText } from '@portabletext/react';
-import { Quote } from 'lucide-react';
-import Link from 'next/link';
+import { PortableText } from '@portabletext/react'
+import { Quote } from 'lucide-react'
+import Link from 'next/link'
 
 interface ReviewBlurbProps {
-  content?: any[]; // Portable text content
-  source?: string;
-  url?: string;
+  content?: any[] // Portable text content
+  source?: string
+  url?: string
 }
 
-export default function ReviewBlurb({ content, source, url }: ReviewBlurbProps) {
+export default function ReviewBlurb({
+  content,
+  source,
+  url,
+}: ReviewBlurbProps) {
   if (!content) {
-    return null;
+    return null
   }
 
   return (
@@ -41,5 +45,5 @@ export default function ReviewBlurb({ content, source, url }: ReviewBlurbProps) 
         )}
       </blockquote>
     </div>
-  );
+  )
 }

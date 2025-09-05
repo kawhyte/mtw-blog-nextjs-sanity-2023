@@ -57,9 +57,7 @@
           {
             "_key": "9967d4157729",
             "_type": "span",
-            "marks": [
-              "30efda5408b8"
-            ],
+            "marks": ["30efda5408b8"],
             "text": "100,000 Teslas to it's fleet"
           },
           {
@@ -71,9 +69,7 @@
           {
             "_key": "395488a6c5f9",
             "_type": "span",
-            "marks": [
-              "8274ba960261"
-            ],
+            "marks": ["8274ba960261"],
             "text": "superbowl commercials with Tom Brady"
           },
           {
@@ -1455,10 +1451,7 @@
           {
             "_key": "f424197e1cd3",
             "_type": "span",
-            "marks": [
-              "underline",
-              "em"
-            ],
+            "marks": ["underline", "em"],
             "text": "Note: this only works for trips booked directly with the hotel/airline. "
           }
         ],
@@ -1500,9 +1493,7 @@
           {
             "_key": "5b5e35f359f7",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "How To Search Hotel Rates"
           }
         ],
@@ -1522,9 +1513,7 @@
           {
             "_key": "bf5a8560a611",
             "_type": "span",
-            "marks": [
-              "abe9320dbe0b"
-            ],
+            "marks": ["abe9320dbe0b"],
             "text": "google.com/hotels"
           },
           {
@@ -1772,10 +1761,7 @@
           {
             "_key": "37c2bba009de",
             "_type": "span",
-            "marks": [
-              "strong",
-              "underline"
-            ],
+            "marks": ["strong", "underline"],
             "text": "AFTER"
           },
           {
@@ -1801,9 +1787,7 @@
           {
             "_key": "b5a4f723ff28",
             "_type": "span",
-            "marks": [
-              "65bc01ad6157"
-            ],
+            "marks": ["65bc01ad6157"],
             "text": "Best Rate Guarantee"
           },
           {
@@ -1849,9 +1833,7 @@
           {
             "_key": "6889b729312b",
             "_type": "span",
-            "marks": [
-              "7aaa2d43c811"
-            ],
+            "marks": ["7aaa2d43c811"],
             "text": "claim form"
           }
         ],
@@ -1931,9 +1913,7 @@
           {
             "_key": "eea19152bd840",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "How To Search Flight Rates "
           }
         ],
@@ -1953,9 +1933,7 @@
           {
             "_key": "a4451b0e7598",
             "_type": "span",
-            "marks": [
-              "81c11c35961c"
-            ],
+            "marks": ["81c11c35961c"],
             "text": "google.com/flights"
           },
           {
@@ -1967,9 +1945,7 @@
           {
             "_key": "1051ad4eef68",
             "_type": "span",
-            "marks": [
-              "underline"
-            ],
+            "marks": ["underline"],
             "text": "TIP: I always search for flights in Incognito."
           },
           {
@@ -2220,9 +2196,7 @@
           {
             "_key": "82a7be5efd000",
             "_type": "span",
-            "marks": [
-              "ddd5d8310716"
-            ],
+            "marks": ["ddd5d8310716"],
             "text": "Nike"
           },
           {
@@ -2234,9 +2208,7 @@
           {
             "_key": "82a7be5efd002",
             "_type": "span",
-            "marks": [
-              "48f39d97b5ba"
-            ],
+            "marks": ["48f39d97b5ba"],
             "text": "Air Max 1"
           },
           {
@@ -2248,9 +2220,7 @@
           {
             "_key": "82a7be5efd004",
             "_type": "span",
-            "marks": [
-              "197cb5da7ee3"
-            ],
+            "marks": ["197cb5da7ee3"],
             "text": "\"Give Fresh Air\" campaign"
           },
           {
@@ -2755,9 +2725,7 @@
           {
             "_key": "018c192fe0ed",
             "_type": "span",
-            "marks": [
-              "247cbcc3c11b"
-            ],
+            "marks": ["247cbcc3c11b"],
             "text": "Megabus"
           },
           {
@@ -2833,10 +2801,7 @@
           {
             "_key": "8afdbb9d064d",
             "_type": "span",
-            "marks": [
-              "em",
-              "strong"
-            ],
+            "marks": ["em", "strong"],
             "text": "View from the bus"
           }
         ],
@@ -2870,9 +2835,7 @@
           {
             "_key": "2bd6f6f525ba",
             "_type": "span",
-            "marks": [
-              "60a191d9f10d"
-            ],
+            "marks": ["60a191d9f10d"],
             "text": "Anise"
           },
           {
@@ -2962,9 +2925,7 @@
           {
             "_key": "c98359179500",
             "_type": "span",
-            "marks": [
-              "a1952adf44ba"
-            ],
+            "marks": ["a1952adf44ba"],
             "text": "Sand Pearl Resort"
           },
           {
@@ -3032,9 +2993,7 @@
           {
             "_key": "7fbbf227d51c",
             "_type": "span",
-            "marks": [
-              "45cabdc8e26d"
-            ],
+            "marks": ["45cabdc8e26d"],
             "text": "Opal Sands"
           },
           {
@@ -3102,9 +3061,7 @@
           {
             "_key": "3b14fb305c04",
             "_type": "span",
-            "marks": [
-              "352dbd970295"
-            ],
+            "marks": ["352dbd970295"],
             "text": "Clear Sky Cafe"
           },
           {
@@ -4292,9 +4249,7 @@
           {
             "_key": "832444490da3",
             "_type": "span",
-            "marks": [
-              "38895cb20af5"
-            ],
+            "marks": ["38895cb20af5"],
             "text": "Cruise Critic"
           },
           {
@@ -4306,9 +4261,7 @@
           {
             "_key": "10960dba1106",
             "_type": "span",
-            "marks": [
-              "5889c7133928"
-            ],
+            "marks": ["5889c7133928"],
             "text": "CruiseSheet"
           },
           {
@@ -4320,9 +4273,7 @@
           {
             "_key": "326cd833fd6c",
             "_type": "span",
-            "marks": [
-              "em"
-            ],
+            "marks": ["em"],
             "text": " Side note"
           },
           {
@@ -6867,9 +6818,7 @@
           {
             "_key": "f4e71e2c675f0",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "I. Introduction"
           }
         ],
@@ -6915,9 +6864,7 @@
           {
             "_key": "1ba42d0bd57e0",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "II. Cabin & Seat"
           }
         ],
@@ -6931,9 +6878,7 @@
           {
             "_key": "696bc08920680",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "Overall Impression"
           }
         ],
@@ -6981,9 +6926,7 @@
           {
             "_key": "a9a7ca228c560",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "Seat"
           }
         ],
@@ -7047,9 +6990,7 @@
           {
             "_key": "2550aa070cf30",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "Studio Space"
           }
         ],
@@ -7097,9 +7038,7 @@
           {
             "_key": "4c6d1a32329d0",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "Entertainment"
           }
         ],
@@ -7147,9 +7086,7 @@
           {
             "_key": "ce3597de2b7f0",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "III. Service"
           }
         ],
@@ -7163,9 +7100,7 @@
           {
             "_key": "dec0799c0b310",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "Pre-flight"
           }
         ],
@@ -7213,9 +7148,7 @@
           {
             "_key": "356afd18e7af0",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "In-flight"
           }
         ],
@@ -7317,9 +7250,7 @@
           {
             "_key": "33f6a05d766d0",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "IV. Value"
           }
         ],
@@ -7333,9 +7264,7 @@
           {
             "_key": "5537c61198e70",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "Price Comparison"
           }
         ],
@@ -7383,9 +7312,7 @@
           {
             "_key": "573cac62cc2b0",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "Target Audience"
           }
         ],
@@ -7417,9 +7344,7 @@
           {
             "_key": "2c9f55aa205c0",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "V. Conclusion"
           }
         ],
@@ -7481,9 +7406,7 @@
           {
             "_key": "86dfad40553b0",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "Additional Points to Consider (if applicable)"
           }
         ],
@@ -7561,9 +7484,7 @@
           {
             "_key": "0d7bd68ccd660",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "Remember:"
           }
         ],
@@ -8374,9 +8295,7 @@
           {
             "_key": "8f487cea444d",
             "_type": "span",
-            "marks": [
-              "em"
-            ],
+            "marks": ["em"],
             "text": "Later on, we realized this number corresponded to the tour group & was an easy way to distinguish folks."
           }
         ],
@@ -8888,9 +8807,7 @@
           {
             "_key": "9a21598fce5f",
             "_type": "span",
-            "marks": [
-              "underline"
-            ],
+            "marks": ["underline"],
             "text": " "
           },
           {
@@ -8924,9 +8841,7 @@
           {
             "_key": "d30fbc2b75ba",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "First Reservation Email "
           },
           {
@@ -8982,9 +8897,7 @@
           {
             "_key": "c90d50d891f7",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "Second Reservation Email "
           },
           {
@@ -9346,9 +9259,7 @@
           {
             "_key": "b8623d90b118",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "May 31: "
           }
         ],
@@ -9520,9 +9431,7 @@
           {
             "_key": "596a23813bd9",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "June 1:"
           },
           {
@@ -10575,9 +10484,7 @@
           {
             "_key": "a8cfbd3f6a5e",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "Total Cost: $360"
           }
         ],
@@ -11190,9 +11097,7 @@
           {
             "_key": "5f158d676e80",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "Hilton Hotels"
           },
           {
@@ -11248,9 +11153,7 @@
           {
             "_key": "9057c42e4521",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "Marriott Bonvoy:"
           },
           {
@@ -11306,9 +11209,7 @@
           {
             "_key": "f94cf6e8f6f1",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "Best Western:"
           },
           {
@@ -11378,9 +11279,7 @@
           {
             "_key": "741f04400c7d",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "Marriott Bonvoy (Luxury Brands):"
           },
           {
@@ -11436,9 +11335,7 @@
           {
             "_key": "a3b2b291d8e1",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "The Leading Hotels of the World:"
           },
           {
@@ -11494,9 +11391,7 @@
           {
             "_key": "a3f6615737bb",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "Four Seasons Hotels and Resorts:"
           },
           {
@@ -11552,9 +11447,7 @@
           {
             "_key": "a5ac980099b5",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "The LINE Hotels:"
           },
           {
@@ -11624,9 +11517,7 @@
           {
             "_key": "5d3d41813978",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "Waldorf Astoria, Conrad & LXR:"
           },
           {
@@ -12305,9 +12196,7 @@
           {
             "_key": "1dd5c8dd6dde",
             "_type": "span",
-            "marks": [
-              "1963104463f2"
-            ],
+            "marks": ["1963104463f2"],
             "text": "stateroom 6145 an Aqua Sky Suite"
           },
           {
@@ -12369,9 +12258,7 @@
           {
             "_key": "a8c0272e4d15",
             "_type": "span",
-            "marks": [
-              "em"
-            ],
+            "marks": ["em"],
             "text": "Celebrity canceled on embarkment day. We were given 30% off if we booked another ship excursion."
           }
         ],
@@ -12409,9 +12296,7 @@
           {
             "_key": "62cbda948414",
             "_type": "span",
-            "marks": [
-              "em"
-            ],
+            "marks": ["em"],
             "text": "Celebrity canceled this in November 2024."
           }
         ],
@@ -12449,9 +12334,7 @@
           {
             "_key": "d3125abf0cf9",
             "_type": "span",
-            "marks": [
-              "em"
-            ],
+            "marks": ["em"],
             "text": " rebooked price dropped to $52.99 December 25, 2024"
           }
         ],
@@ -12489,9 +12372,7 @@
           {
             "_key": "5326cfc93c0e",
             "_type": "span",
-            "marks": [
-              "em"
-            ],
+            "marks": ["em"],
             "text": "price dropped to $36.99 December 2024 | Rebooked & moved to Day 2 from Day 10. Price dropped 5 days out to $26.99, rebooked, and moved to Day 8."
           }
         ],
@@ -12513,9 +12394,7 @@
           {
             "_key": "9a0abf2575e5",
             "_type": "span",
-            "marks": [
-              "em"
-            ],
+            "marks": ["em"],
             "text": "price increased to $168.99 December 25, 2024"
           }
         ],
@@ -12553,9 +12432,7 @@
           {
             "_key": "16849585230d",
             "_type": "span",
-            "marks": [
-              "em"
-            ],
+            "marks": ["em"],
             "text": "rebooked as the price dropped to $135.99 February 2025. Celebrity canceled on embarkment day. We were given 20% off if we booked another excursion."
           }
         ],
@@ -12591,9 +12468,7 @@
           {
             "_key": "e35be04de736",
             "_type": "span",
-            "marks": [
-              "em"
-            ],
+            "marks": ["em"],
             "text": "$34.99 December 25, 2024"
           },
           {
@@ -12621,9 +12496,7 @@
           {
             "_key": "da78e7692adf",
             "_type": "span",
-            "marks": [
-              "em"
-            ],
+            "marks": ["em"],
             "text": "$7.99 December 25, 2024"
           },
           {
@@ -14569,9 +14442,7 @@
           {
             "_key": "a169d794c9db",
             "_type": "span",
-            "marks": [
-              "679fea523200"
-            ],
+            "marks": ["679fea523200"],
             "text": "link with description here"
           },
           {
@@ -14744,9 +14615,7 @@
           {
             "_key": "6df6b7a2c57d0",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "I. Introduction"
           }
         ],
@@ -14836,9 +14705,7 @@
           {
             "_key": "bac7317e23420",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "II. Planning Your European Escapade"
           }
         ],
@@ -14852,9 +14719,7 @@
           {
             "_key": "e473188886540",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "Deciding on Destinations:"
           },
           {
@@ -14922,9 +14787,7 @@
           {
             "_key": "c82ea14c52cd0",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "Transportation:"
           },
           {
@@ -14992,9 +14855,7 @@
           {
             "_key": "7692ddec14fb0",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "Accommodation:"
           },
           {
@@ -15048,9 +14909,7 @@
           {
             "_key": "cf199f7049d10",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "III. Hitting the Highlights (City by City)"
           }
         ],
@@ -15170,9 +15029,7 @@
           {
             "_key": "9bb49f103ddb0",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "IV. Hidden Gems: Unveiling Europe's Secrets"
           }
         ],
@@ -15232,9 +15089,7 @@
           {
             "_key": "7960b3e1f1a20",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "V. Budget Savvy Traveler"
           }
         ],
@@ -15294,9 +15149,7 @@
           {
             "_key": "60f502c26acc0",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "VI. Unexpected Delights and Lessons Learned"
           }
         ],
@@ -15356,9 +15209,7 @@
           {
             "_key": "4ae057ce07330",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "VII. Final Thoughts and Recommendations"
           }
         ],
@@ -15448,9 +15299,7 @@
           {
             "_key": "f897b7c933150",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "VIII. Bonus Section: Photo Gallery"
           }
         ],
@@ -15480,9 +15329,7 @@
           {
             "_key": "761b88dff3130",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "Note:"
           },
           {
@@ -15544,9 +15391,7 @@
           {
             "_key": "2478987d0936",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "Los Angeles"
           }
         ],
@@ -15574,9 +15419,7 @@
           {
             "_key": "e73b03eaaa71",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "Malmo"
           }
         ],
@@ -15604,9 +15447,7 @@
           {
             "_key": "55d3c237aeb9",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "London"
           }
         ],
@@ -15634,9 +15475,7 @@
           {
             "_key": "6db0583ef8f8",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "Paris"
           }
         ],
@@ -15664,9 +15503,7 @@
           {
             "_key": "70b8cf59410e",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "Amsterdam"
           }
         ],
@@ -15694,9 +15531,7 @@
           {
             "_key": "42e071d22450",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "Denmark"
           }
         ],
@@ -16946,9 +16781,7 @@
           {
             "_key": "8f487cea444d",
             "_type": "span",
-            "marks": [
-              "em"
-            ],
+            "marks": ["em"],
             "text": "Later on, we realized this number corresponded to the tour group & was an easy way to distinguish folks."
           }
         ],
@@ -17734,9 +17567,7 @@
           {
             "_key": "167ba912cf8a",
             "_type": "span",
-            "marks": [
-              "strike-through"
-            ],
+            "marks": ["strike-through"],
             "text": "Strike"
           }
         ],
@@ -17778,9 +17609,7 @@
           {
             "_key": "961dbbb50057",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "Bold"
           }
         ],
@@ -17794,9 +17623,7 @@
           {
             "_key": "98230e8b0b0a",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "This is bold of you"
           }
         ],
@@ -17824,9 +17651,7 @@
           {
             "_key": "f7b51a50dccc",
             "_type": "span",
-            "marks": [
-              "underline"
-            ],
+            "marks": ["underline"],
             "text": "Underline"
           }
         ],
@@ -17854,9 +17679,7 @@
           {
             "_key": "55e9db3c8b32",
             "_type": "span",
-            "marks": [
-              "underline"
-            ],
+            "marks": ["underline"],
             "text": "Underline me"
           }
         ],
@@ -18421,10 +18244,7 @@
           {
             "_key": "f4ce35f20987",
             "_type": "span",
-            "marks": [
-              "strong",
-              "4e25ae0f8a9e"
-            ],
+            "marks": ["strong", "4e25ae0f8a9e"],
             "text": "Chicago"
           },
           {
@@ -18436,10 +18256,7 @@
           {
             "_key": "498e8c3ad8df",
             "_type": "span",
-            "marks": [
-              "strong",
-              "e050aa4f3da7"
-            ],
+            "marks": ["strong", "e050aa4f3da7"],
             "text": "Baltimore"
           },
           {
@@ -18451,10 +18268,7 @@
           {
             "_key": "e222bbdb7f0a",
             "_type": "span",
-            "marks": [
-              "strong",
-              "647035d01fed"
-            ],
+            "marks": ["strong", "647035d01fed"],
             "text": "Jacksonville"
           },
           {
@@ -18504,9 +18318,7 @@
           {
             "_key": "f5adc4257872",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "1. Be Flexible!"
           }
         ],
@@ -18534,9 +18346,7 @@
           {
             "_key": "ce1f5d8e5d17",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "2. Have a Budget"
           }
         ],
@@ -18578,9 +18388,7 @@
           {
             "_key": "7fd57fb6b078",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "3. Book One Way Flights"
           }
         ],
@@ -18622,9 +18430,7 @@
           {
             "_key": "5348b1288d23",
             "_type": "span",
-            "marks": [
-              "98ae5236d7cb"
-            ],
+            "marks": ["98ae5236d7cb"],
             "text": "Google.com/flights"
           }
         ],
@@ -18646,9 +18452,7 @@
           {
             "_key": "243e94918ac9",
             "_type": "span",
-            "marks": [
-              "c0fbc9f59ae0"
-            ],
+            "marks": ["c0fbc9f59ae0"],
             "text": "Secretflying.com"
           }
         ],
@@ -18670,9 +18474,7 @@
           {
             "_key": "c2b762a836fe",
             "_type": "span",
-            "marks": [
-              "d3c9b1d8b3d4"
-            ],
+            "marks": ["d3c9b1d8b3d4"],
             "text": "Airfarewatchdog.com"
           },
           {
@@ -18700,9 +18502,7 @@
           {
             "_key": "e9599b894d9b",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "4. Fly To/From Different Airports"
           }
         ],
@@ -18730,9 +18530,7 @@
           {
             "_key": "a352639a4e90",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "5. Have an Itinerary"
           }
         ],
@@ -19293,9 +19091,7 @@
           {
             "_key": "48fd50560146",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "[7-930am] Flight"
           }
         ],
@@ -19337,9 +19133,7 @@
           {
             "_key": "6bd2086c7a86",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "[945-1045 am] Travel Time"
           }
         ],
@@ -19381,10 +19175,7 @@
           {
             "_key": "448687de0530",
             "_type": "span",
-            "marks": [
-              "strong",
-              "em"
-            ],
+            "marks": ["strong", "em"],
             "text": "Pro Tip"
           },
           {
@@ -19432,9 +19223,7 @@
           {
             "_key": "cb614fc14f2d",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "[11-1130am] Lunch"
           }
         ],
@@ -19548,9 +19337,7 @@
           {
             "_key": "ce2dd3395373",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "[1145-1215pm] Travel Time"
           },
           {
@@ -19584,9 +19371,7 @@
           {
             "_key": "0c73f1bee154",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "[1230-4pm] Adler Planetarium"
           },
           {
@@ -19620,10 +19405,7 @@
           {
             "_key": "6de18a015eb8",
             "_type": "span",
-            "marks": [
-              "em",
-              "strong"
-            ],
+            "marks": ["em", "strong"],
             "text": "Pro Tip"
           },
           {
@@ -19693,9 +19475,7 @@
           {
             "_key": "e9da22e38db9",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "[415-445pm] Travel Time"
           },
           {
@@ -19729,9 +19509,7 @@
           {
             "_key": "80e00a1d6c36",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "[450 – 5 pm] Eataly"
           },
           {
@@ -19757,9 +19535,7 @@
           {
             "_key": "2b246cfd8954",
             "_type": "span",
-            "marks": [
-              "em"
-            ],
+            "marks": ["em"],
             "text": "wrong"
           },
           {
@@ -19815,9 +19591,7 @@
           {
             "_key": "744ee452746a",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "[5 pm – 510p] Travel Time"
           }
         ],
@@ -19845,9 +19619,7 @@
           {
             "_key": "d3d710b4d033",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "[515- 615p] Lou Malnati’s"
           }
         ],
@@ -19867,9 +19639,7 @@
           {
             "_key": "58aa506899f6",
             "_type": "span",
-            "marks": [
-              "em"
-            ],
+            "marks": ["em"],
             "text": "spinach mix, mushrooms, and sliced Roma tomatoes covered with a blend of mozzarella, romano, and cheddar cheese"
           },
           {
@@ -19903,9 +19673,7 @@
           {
             "_key": "f5dc3a4b2d60",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "[620 – 720p] Travel Time:"
           },
           {
@@ -19917,9 +19685,7 @@
           {
             "_key": "6e1f15ac473c",
             "_type": "span",
-            "marks": [
-              "em"
-            ],
+            "marks": ["em"],
             "text": "ince we had the day pass"
           },
           {
@@ -19975,9 +19741,7 @@
           {
             "_key": "e25ba0790e8c",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "[830p-1230a] Flight"
           },
           {
@@ -20019,9 +19783,7 @@
           {
             "_key": "00732c303aa5",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "Total Cost:"
           },
           {
@@ -20590,9 +20352,7 @@
           {
             "_key": "c6572200e3d6",
             "_type": "span",
-            "marks": [
-              "e8ad7c677f3c"
-            ],
+            "marks": ["e8ad7c677f3c"],
             "text": "Miami Spice"
           },
           {
@@ -20604,9 +20364,7 @@
           {
             "_key": "5e56f306a386",
             "_type": "span",
-            "marks": [
-              "15b10dce7fd0"
-            ],
+            "marks": ["15b10dce7fd0"],
             "text": "Morton’s North Miami Beach Steakhouse"
           },
           {
@@ -20779,9 +20537,7 @@
           {
             "_key": "5818c3468857",
             "_type": "span",
-            "marks": [
-              "em"
-            ],
+            "marks": ["em"],
             "text": "Due to the rising cost of doing business in this location, including the cost associated with higher minimum wage rates, a 3% surcharge has been added to your bill"
           },
           {
@@ -21434,9 +21190,7 @@
           {
             "_key": "684f935cc8af",
             "_type": "span",
-            "marks": [
-              "em"
-            ],
+            "marks": ["em"],
             "text": "status challenge"
           },
           {
@@ -21528,9 +21282,7 @@
           {
             "_key": "2ce0740961bb",
             "_type": "span",
-            "marks": [
-              "em"
-            ],
+            "marks": ["em"],
             "text": "a carryover from 2019"
           },
           {
@@ -21558,9 +21310,7 @@
           {
             "_key": "b7e0f0ef77f4",
             "_type": "span",
-            "marks": [
-              "em"
-            ],
+            "marks": ["em"],
             "text": "earned)"
           }
         ],
@@ -21632,9 +21382,7 @@
           {
             "_key": "f6e30f518763",
             "_type": "span",
-            "marks": [
-              "c2693774d1f9"
-            ],
+            "marks": ["c2693774d1f9"],
             "text": "Hyatt Zilara Rose Hall"
           },
           {
@@ -22307,9 +22055,7 @@
           {
             "_key": "d5822179414d",
             "_type": "span",
-            "marks": [
-              "dd44509ef5da"
-            ],
+            "marks": ["dd44509ef5da"],
             "text": "Andaz Singapore"
           },
           {

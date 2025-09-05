@@ -1,5 +1,3 @@
-
-
 export default function AuthorAvatar({ data }) {
   return (
     <>
@@ -39,11 +37,9 @@ export default function AuthorAvatar({ data }) {
             </svg>
           </div>
 
-          <p className="text-sm text-gray-600">
-          {data.quote}
-          </p>
+          <p className="text-sm text-gray-600">{data.quote}</p>
 
-          <p className='text-sm'>{data.quoteBy}</p>
+          <p className="text-sm">{data.quoteBy}</p>
         </div>
       </div>
 

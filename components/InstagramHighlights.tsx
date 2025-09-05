@@ -35,7 +35,6 @@ let featuredInstagram = [
   {
     url: 'https://www.instagram.com/p/CyUlhrRrUx1/?next=%2Fmeet_the_whytes%2F',
   },
-  
 ]
 
 const InstagramHighlights = ({ instagram }) => {
@@ -54,13 +53,11 @@ const InstagramHighlights = ({ instagram }) => {
         </div>
       </div>
       <div className="grid grid-cols-1 justify-items-center gap-5 lg:gap-x-20   md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:gap-x-4  2xl:grid-cols-4">
-      
-          {/* {featuredInstagram?.map((item) => (
+        {/* {featuredInstagram?.map((item) => (
             <div key={item.url} >
               <InstagramEmbed  url={item.url} width={328} height={380} />
             </div>
           ))} */}
-   
 
         {/*  {instagram &&
           instagram.slice(0, 12).map(

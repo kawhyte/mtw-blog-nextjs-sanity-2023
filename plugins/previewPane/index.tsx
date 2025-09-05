@@ -9,7 +9,7 @@ import authorType from 'schemas/author'
 import guideType from 'schemas/guide'
 import hotelReviewType from 'schemas/hotelReview'
 import foodReviewType from 'schemas/foodReview'
-import areanasType from 'schemas/nbaArenas' 
+import areanasType from 'schemas/nbaArenas'
 import postType from 'schemas/post'
 
 import ArenaPreviewPane from './ArenaPreviewPane'
@@ -55,7 +55,6 @@ export const previewDocumentNode = ({
             .title('Preview'),
         ])
 
-
       case guideType.name:
         return S.document().views([
           S.view.form(),
@@ -98,7 +97,7 @@ export const previewDocumentNode = ({
             .title('Preview'),
         ])
 
-        case areanasType.name: // Add case for NBA Arenas
+      case areanasType.name: // Add case for NBA Arenas
         return S.document().views([
           S.view.form(),
           S.view

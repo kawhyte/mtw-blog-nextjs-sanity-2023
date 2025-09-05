@@ -5,12 +5,14 @@ This guide explains how to backup and migrate travel guide data from the old `po
 ## Overview
 
 The migration process consists of two main steps:
+
 1. **Backup**: Export existing travel guide data from posts
 2. **Migration**: Convert and import data to new guide schema
 
 ## Prerequisites
 
 Ensure you have the following environment variables set in your `.env.local`:
+
 - `NEXT_PUBLIC_SANITY_PROJECT_ID`
 - `NEXT_PUBLIC_SANITY_DATASET`
 - `NEXT_PUBLIC_SANITY_API_VERSION`
@@ -25,6 +27,7 @@ npm run backup-guides
 ```
 
 This will:
+
 - Query all posts with `linkType == 'story'`
 - Export them to `backups/travel-guides-backup-[timestamp].json`
 - Create a summary report in `backups/travel-guides-summary-[timestamp].json`
@@ -32,6 +35,7 @@ This will:
 ### Backup Output
 
 The backup includes:
+
 - All post data (title, slug, date, content, gallery, etc.)
 - Image assets with URLs
 - Metadata for tracking
@@ -46,6 +50,7 @@ npm run migrate-guides
 ```
 
 This shows:
+
 - How many guides will be migrated
 - Preview of 3 converted guides
 - Category assignments
@@ -55,21 +60,22 @@ This shows:
 
 The migration maps old post fields to new guide fields:
 
-| Old Post Field | New Guide Field | Notes |
-|----------------|-----------------|-------|
-| `title` | `title` | Direct copy |
-| `slug.current` | `slug.current` | Direct copy |
-| `date` | `date` | Story/guide date |
-| `coverImage` | `coverImage` | Direct copy |
-| `gallery` | `gallery` | Direct copy |
-| `content` | `content` | Direct copy |
-| `tip` | `tip` | Travel guide tip |
-| `location` | `tags` | Added as tag |
-| Auto-detected | `category` | Based on title keywords |
+| Old Post Field | New Guide Field | Notes                   |
+| -------------- | --------------- | ----------------------- |
+| `title`        | `title`         | Direct copy             |
+| `slug.current` | `slug.current`  | Direct copy             |
+| `date`         | `date`          | Story/guide date        |
+| `coverImage`   | `coverImage`    | Direct copy             |
+| `gallery`      | `gallery`       | Direct copy             |
+| `content`      | `content`       | Direct copy             |
+| `tip`          | `tip`           | Travel guide tip        |
+| `location`     | `tags`          | Added as tag            |
+| Auto-detected  | `category`      | Based on title keywords |
 
 ### Category Detection
 
 Categories are auto-assigned based on title keywords:
+
 - **City Guide**: "city", "guide to"
 - **Transportation**: "transport", "flight", "train"
 - **Culture & History**: "culture", "history"
@@ -92,6 +98,7 @@ npm run migrate-guides:live
 ### Migration Process
 
 The script will:
+
 1. Load backup data
 2. Convert each post to guide format
 3. Create new guide documents in batches
@@ -101,6 +108,7 @@ The script will:
 ### Migration Log
 
 A detailed log is saved to `backups/migration-log-[timestamp].json` containing:
+
 - Migration timestamp
 - Success/failure counts
 - Individual results
@@ -147,15 +155,19 @@ After successful migration and verification:
 ### Common Issues
 
 1. **Missing Environment Variables**:
+
    ```
    Error: Missing SANITY_API_WRITE_TOKEN
    ```
+
    - Ensure all environment variables are set in `.env.local`
 
 2. **No Travel Guides Found**:
+
    ```
    Found 0 travel guide posts
    ```
+
    - Check if you have posts with `linkType == "story"`
    - Verify your dataset connection
 
@@ -166,6 +178,7 @@ After successful migration and verification:
 ### Recovery
 
 If something goes wrong:
+
 1. **Restore from Backup**: Use the JSON backup to recreate data
 2. **Delete Failed Migrations**: Remove partially created guides
 3. **Re-run Migration**: Fix issues and retry
@@ -181,6 +194,7 @@ If something goes wrong:
 ## Schema Differences
 
 ### Old Post Schema (for Stories)
+
 ```javascript
 {
   _type: "post",
@@ -196,6 +210,7 @@ If something goes wrong:
 ```
 
 ### New Guide Schema
+
 ```javascript
 {
   _type: "guide",
@@ -222,8 +237,8 @@ If something goes wrong:
 ## Support
 
 If you encounter issues:
+
 1. Check the migration logs
 2. Verify your environment variables
 3. Test with a small subset first
 4. Reach out for technical support if needed
-

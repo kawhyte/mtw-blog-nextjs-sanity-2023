@@ -1,10 +1,10 @@
 import { oswald } from 'app/fonts' // Assuming font import is needed
 import { calculateRating } from 'lib/calculateRating' // Assuming calculation function import
 import { getRatingWeights } from 'lib/ratingWeights' // Assuming weights function import
+import type { FoodReview,HotelReview, Post } from 'lib/sanity.queries'
 import React from 'react'
 // --- Import Star Icons ---
 import { IoStar, IoStarHalf, IoStarOutline } from 'react-icons/io5'
-import type { Post, HotelReview, FoodReview } from 'lib/sanity.queries'
 
 // Assuming ratingItem map import
 import { ratingItem } from '../lib/getReviewType' // Adjust path if needed
@@ -14,7 +14,13 @@ import StarDisplay from './StarDisplay'
 
 // Define props for the component - now supports all schema types
 interface StarRatingProps {
-  rating?: HotelReview['hotelRating'] | FoodReview['foodRating'] | FoodReview['takeoutRating'] | Post['hotelRating'] | Post['foodRating'] | Post['takeoutRating']
+  rating?:
+    | HotelReview['hotelRating']
+    | FoodReview['foodRating']
+    | FoodReview['takeoutRating']
+    | Post['hotelRating']
+    | Post['foodRating']
+    | Post['takeoutRating']
   linkType?: 'hotel' | 'food' | 'story' | 'favorite'
   diningType?: FoodReview['diningType'] | Post['diningType']
 }
@@ -52,20 +58,20 @@ const StarRating: React.FC<StarRatingProps> = ({
     overallRatingResult = calculateRating(hotelRating, rateWeights)
     // Filter out Sanity's internal _type and non-numeric values
     ratingEntries = Object.entries(hotelRating).filter(
-      ([key, value]) => key !== '_type' && typeof value === 'number'
+      ([key, value]) => key !== '_type' && typeof value === 'number',
     ) as [string, number][]
   } else if (linkType === 'food') {
     if (diningType === 'dinein') {
       const foodRating = rating as NonNullable<Post['foodRating']>
       overallRatingResult = calculateRating(foodRating, rateWeights)
       ratingEntries = Object.entries(foodRating).filter(
-        ([key, value]) => key !== '_type' && typeof value === 'number'
+        ([key, value]) => key !== '_type' && typeof value === 'number',
       ) as [string, number][]
     } else if (diningType === 'takeout') {
       const takeoutRating = rating as NonNullable<Post['takeoutRating']>
       overallRatingResult = calculateRating(takeoutRating, rateWeights)
       ratingEntries = Object.entries(takeoutRating).filter(
-        ([key, value]) => key !== '_type' && typeof value === 'number'
+        ([key, value]) => key !== '_type' && typeof value === 'number',
       ) as [string, number][]
     }
   }
@@ -75,7 +81,7 @@ const StarRating: React.FC<StarRatingProps> = ({
   if (!overallRatingResult) {
     console.warn(
       'StarRating: Could not calculate overall rating for provided data.',
-      { rating, linkType, diningType }
+      { rating, linkType, diningType },
     )
     return null // Don't render if calculation fails
   }
@@ -97,7 +103,7 @@ const StarRating: React.FC<StarRatingProps> = ({
     // Add full stars
     for (let i = 0; i < fullStars; i++) {
       stars.push(
-        <IoStar key={`full-${i}`} className="h-5 w-5 text-yellow-400" />
+        <IoStar key={`full-${i}`} className="h-5 w-5 text-yellow-400" />,
       )
     }
 
@@ -110,7 +116,7 @@ const StarRating: React.FC<StarRatingProps> = ({
     for (let i = 0; i < emptyStars; i++) {
       // Consider using a different color for empty stars for contrast
       stars.push(
-        <IoStarOutline key={`empty-${i}`} className="h-5 w-5 text-gray-300" />
+        <IoStarOutline key={`empty-${i}`} className="h-5 w-5 text-gray-300" />,
       )
     }
     // Return exactly 5 stars
@@ -173,7 +179,7 @@ const StarRating: React.FC<StarRatingProps> = ({
             // Gracefully handle if a rating key isn't found in the map
             if (!itemInfo) {
               console.warn(
-                `StarRating: No display info found in ratingItem for key: ${categoryName}`
+                `StarRating: No display info found in ratingItem for key: ${categoryName}`,
               )
               return null // Skip rendering this item
             }

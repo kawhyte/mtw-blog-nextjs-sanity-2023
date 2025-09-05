@@ -82,11 +82,14 @@ export default defineType({
       description: '(optional)',
       options: {
         list: [
-          { title: 'Yes, paid or member only access', value: 'yes, paid or member only access' },
+          {
+            title: 'Yes, paid or member only access',
+            value: 'yes, paid or member only access',
+          },
           { title: 'Yes, free access', value: 'Yes, free access' },
           { title: 'No', value: 'No' },
         ],
-        layout: 'radio'
+        layout: 'radio',
       },
       initialValue: 'No',
     }),
@@ -95,7 +98,8 @@ export default defineType({
       name: 'coverImage',
       title: 'Main Image',
       type: 'image',
-      description: 'For best results: Image size should be 850 x 405, webp quality 80%, 60% image resize.',
+      description:
+        'For best results: Image size should be 850 x 405, webp quality 80%, 60% image resize.',
       options: {
         hotspot: true,
       },
@@ -114,7 +118,8 @@ export default defineType({
       name: 'blurbSource',
       title: 'Blurb Source',
       type: 'string',
-      description: 'The source of the blurb (e.g., Hyatt Regency Boston Harbor).',
+      description:
+        'The source of the blurb (e.g., Hyatt Regency Boston Harbor).',
     }),
 
     defineField({
@@ -136,7 +141,8 @@ export default defineType({
       name: 'gallery',
       title: 'Photo Gallery',
       type: 'array',
-      description: 'For best results: Image size should be 566 x 525, webp quality 80%, 80% image resize.',
+      description:
+        'For best results: Image size should be 566 x 525, webp quality 80%, 80% image resize.',
       of: [
         {
           type: 'image',
@@ -197,7 +203,8 @@ export default defineType({
       description: 'Add multiple positive points about this hotel',
       type: 'array',
       of: [{ type: 'text' }],
-      validation: (Rule) => Rule.min(1).error('Please add at least one positive point'),
+      validation: (Rule) =>
+        Rule.min(1).error('Please add at least one positive point'),
     }),
 
     defineField({
@@ -252,12 +259,12 @@ export default defineType({
               type: 'array',
               title: 'Images',
               of: [{ type: 'image' }],
-              validation: (Rule) => Rule.min(2).max(6),
+              // validation: (Rule) => Rule.min(2).max(6),
             },
           ],
         },
       ],
-      validation: (rule) => rule.required(),
+      // validation: (rule) => rule.required(),
     }),
 
     defineField({
@@ -268,7 +275,8 @@ export default defineType({
       options: {
         layout: 'tags',
       },
-      description: 'Add relevant tags for better searchability (e.g., business travel, family friendly, etc.)',
+      description:
+        'Add relevant tags for better searchability (e.g., business travel, family friendly, etc.)',
     }),
   ],
 

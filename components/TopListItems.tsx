@@ -1,29 +1,32 @@
-import DynamicPostCard from 'components/DynamicPostCard';
-import type { Post } from 'lib/sanity.queries';
+import DynamicPostCard from 'components/DynamicPostCard'
+import type { Post } from 'lib/sanity.queries'
 
-import SectionTitle from './SectionTitle';
+import SectionTitle from './SectionTitle'
 
-export default function TopListItems({ posts, title }: { posts: Post[]; title?: string }) {
+export default function TopListItems({
+  posts,
+  title,
+}: {
+  posts: Post[]
+  title?: string
+}) {
   if (!posts || posts.length === 0) {
-    return null;
+    return null
   }
 
   return (
     <section className="my-12">
       {/* Optional title for the entire section */}
       {title && <SectionTitle header={title} />}
-      
+
       {/* Grid container with vertical gap to space out the rows */}
       <div className="container mx-auto grid grid-cols-1 gap-x-6 gap-y-24 px-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {posts.map((post, i) => (
           // The group wrapper now has padding-top to create space for the number above the card
-          <div
-            key={post._id}
-            className="group relative pt-16"
-          >
+          <div key={post._id} className="group relative pt-16">
             {/* --- LARGE RANK NUMBER --- */}
             {/* Positioned at the top of the container, centered horizontally */}
-            <span 
+            <span
               className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-16 sm:-translate-y-28 z-0 font-montserrat text-[9rem] font-black leading-none text-secondary/20 transition-all duration-300 group-hover:scale-110 group-hover:text-primary/40 sm:text-[14rem]"
               aria-hidden="true" // Decorative element
             >
@@ -50,6 +53,5 @@ export default function TopListItems({ posts, title }: { posts: Post[]; title?: 
         ))}
       </div>
     </section>
-  );
+  )
 }
-

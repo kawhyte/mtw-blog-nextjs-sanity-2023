@@ -37,24 +37,18 @@ export default defineType({
       name: 'date',
       title: 'Story/Guide Date',
       type: 'datetime',
-      description: 'When this story/guide was written or when the trip occurred',
+      description:
+        'When this story/guide was written or when the trip occurred',
       initialValue: () => new Date().toISOString(),
       validation: (rule) => rule.required(),
-    }),
-
-    defineField({
-      name: 'excerpt2',
-      title: 'Guide Summary',
-      type: 'array',
-      description: 'Add a short summary of the travel guide (optional)',
-      of: [{ type: 'block' }],
     }),
 
     defineField({
       name: 'coverImage',
       title: 'Main Image',
       type: 'image',
-      description: 'For best results: Image size should be 850 x 405, webp quality 80%, 60% image resize.',
+      description:
+        'For best results: Image size should be 850 x 405, webp quality 80%, 60% image resize.',
       options: {
         hotspot: true,
       },
@@ -136,7 +130,8 @@ export default defineType({
       name: 'gallery',
       title: 'Photo Gallery',
       type: 'array',
-      description: 'For best results: Image size should be 566 x 525, webp quality 80%, 80% image resize.',
+      description:
+        'For best results: Image size should be 566 x 525, webp quality 80%, 80% image resize.',
       of: [
         {
           type: 'image',

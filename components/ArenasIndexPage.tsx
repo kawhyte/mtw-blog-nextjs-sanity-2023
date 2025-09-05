@@ -10,8 +10,7 @@ const ArenasIndexPage = ({ arenas }) => {
   //console.log('arenasH ', arenas[0])
 
   return (
-    <div className='relative '>
-   
+    <div className="relative ">
       <div className="absolute -left-36  -top-64 h-16   hidden w-2/6 md:mt-0 md:w-5/6 lg:block lg:w-full lg:max-w-xs   ">
         <PlayerWithNoSSR autoplay keepLastFrame loop src={'/basketball.json'} />
       </div>
@@ -27,7 +26,14 @@ const ArenasIndexPage = ({ arenas }) => {
             ></p>
             <div className="lg:mt-0 lg:shrink-0">
               <div className="mt-6 inline-flex ">
-                <Button icon={<LiaBasketballBallSolid className="h-7 w-8  text-pink-500" />} link={'/arenas'}>View Our Journey</Button>
+                <Button
+                  icon={
+                    <LiaBasketballBallSolid className="h-7 w-8  text-pink-500" />
+                  }
+                  link={'/arenas'}
+                >
+                  View Our Journey
+                </Button>
               </div>
             </div>
           </div>
@@ -80,5 +86,5 @@ export default ArenasIndexPage
 const PlayerWithNoSSR = dynamic(
   () =>
     import('@lottiefiles/react-lottie-player').then((module) => module.Player),
-  { ssr: false }
+  { ssr: false },
 )

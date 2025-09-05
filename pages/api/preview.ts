@@ -5,7 +5,13 @@ import {
   projectId,
   useCdn,
 } from 'lib/sanity.api'
-import { arenaBySlugQuery, guideBySlugQuery, hotelReviewBySlugQuery, foodReviewBySlugQuery, postBySlugQuery } from 'lib/sanity.queries'
+import {
+  arenaBySlugQuery,
+  foodReviewBySlugQuery,
+  guideBySlugQuery,
+  hotelReviewBySlugQuery,
+  postBySlugQuery,
+} from 'lib/sanity.queries'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import type { PageConfig } from 'next/types'
 import { createClient } from 'next-sanity'
@@ -18,7 +24,13 @@ export const config: PageConfig = { runtime: 'nodejs' }
 function redirectToPreview(
   res: NextApiResponse<string | void>,
   previewData: { token?: string },
-  Location: '/' | `/posts/${string}` | `/arena/${string}` | `/guide/${string}` | `/hotel/${string}` | `/food/${string}`  
+  Location:
+    | '/'
+    | `/posts/${string}`
+    | `/arena/${string}`
+    | `/guide/${string}`
+    | `/hotel/${string}`
+    | `/food/${string}`,
 ): void {
   // Enable Preview Mode by setting the cookies
   res.setPreviewData(previewData)
@@ -31,7 +43,7 @@ const _client = createClient({ projectId, dataset, apiVersion, useCdn })
 
 export default async function preview(
   req: NextApiRequest,
-  res: NextApiResponse<string | void>
+  res: NextApiResponse<string | void>,
 ) {
   const previewData: { token?: string } = {}
   // If you want to require preview mode sessions to be started from the Studio, set the SANITY_REQUIRE_PREVIEW_SECRET
@@ -50,7 +62,7 @@ export default async function preview(
     const token = process.env.SANITY_API_READ_TOKEN
     if (!token) {
       throw new Error(
-        'A secret is provided but there is no `SANITY_API_READ_TOKEN` environment variable setup.'
+        'A secret is provided but there is no `SANITY_API_READ_TOKEN` environment variable setup.',
       )
     }
     const client = _client.withConfig({ useCdn: false, token })
@@ -62,8 +74,8 @@ export default async function preview(
   }
 
   // If no slug is provided open preview mode on the frontpage
-  const slug = req.query.slug as string | undefined;
-  const type = req.query.type as string | undefined; // Read the 'type' parameter
+  const slug = req.query.slug as string | undefined
+  const type = req.query.type as string | undefined // Read the 'type' parameter
 
   // If no slug AND no type is provided, redirect to the frontpage
   if (!slug && !type) {
@@ -86,52 +98,59 @@ export default async function preview(
   //   return res.status(401).send('Invalid slug')
   // }
 
-  let document: { slug?: string } | null = null;
-  let documentPath: `/posts/${string}` | `/arena/${string}` | `/guide/${string}` | `/hotel/${string}` | `/food/${string}` | null = null;
+  let document: { slug?: string } | null = null
+  let documentPath:
+    | `/posts/${string}`
+    | `/arena/${string}`
+    | `/guide/${string}`
+    | `/hotel/${string}`
+    | `/food/${string}`
+    | null = null
 
   // Determine which document type to fetch and where to redirect
   if (type === 'post' && slug) {
-    document = await client.fetch(postBySlugQuery, { slug });
+    document = await client.fetch(postBySlugQuery, { slug })
     if (document) {
-      documentPath = `/posts/${document.slug}`;
+      documentPath = `/posts/${document.slug}`
     }
   } else if (type === 'arena' && slug) {
     // Handle arena documents
-    document = await client.fetch(arenaBySlugQuery, { slug });
+    document = await client.fetch(arenaBySlugQuery, { slug })
     if (document) {
-      documentPath = `/arena/${document.slug}`;
+      documentPath = `/arena/${document.slug}`
     }
   } else if (type === 'guide' && slug) {
     // Handle guide documents
-    document = await client.fetch(guideBySlugQuery, { slug });
+    document = await client.fetch(guideBySlugQuery, { slug })
     if (document) {
-      documentPath = `/guide/${document.slug}`;
+      documentPath = `/guide/${document.slug}`
     }
   } else if (type === 'hotelReview' && slug) {
     // Handle hotel review documents
-    document = await client.fetch(hotelReviewBySlugQuery, { slug });
+    document = await client.fetch(hotelReviewBySlugQuery, { slug })
     if (document) {
-      documentPath = `/hotel/${document.slug}`;
+      documentPath = `/hotel/${document.slug}`
     }
   } else if (type === 'foodReview' && slug) {
     // Handle food review documents
-    document = await client.fetch(foodReviewBySlugQuery, { slug });
+    document = await client.fetch(foodReviewBySlugQuery, { slug })
     if (document) {
-      documentPath = `/food/${document.slug}`;
+      documentPath = `/food/${document.slug}`
     }
   } else {
     // Handle cases where type is missing, unknown, or slug is missing for a known type
-     return res.status(401).send('Invalid request: missing slug or type');
+    return res.status(401).send('Invalid request: missing slug or type')
   }
 
-   // If the document was not found for the given slug and type
-   if (!document || !documentPath) {
-    return res.status(401).send(`Invalid slug or type: Could not find document with slug "${slug}" of type "${type}"`);
+  // If the document was not found for the given slug and type
+  if (!document || !documentPath) {
+    return res
+      .status(401)
+      .send(
+        `Invalid slug or type: Could not find document with slug "${slug}" of type "${type}"`,
+      )
   }
-
-
-
 
   // redirectToPreview(res, previewData, `/posts/${post.slug}`)
-  redirectToPreview(res, previewData, documentPath);
+  redirectToPreview(res, previewData, documentPath)
 }

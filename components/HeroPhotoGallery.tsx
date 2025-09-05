@@ -1,28 +1,34 @@
 // components/HeroPhotoGallery.tsx
 
-import { urlForImage } from 'lib/sanity.image';
-import { Camera } from 'lucide-react';
-import Image from 'next/image';
+import { urlForImage } from 'lib/sanity.image'
+import { Camera } from 'lucide-react'
+import Image from 'next/image'
 
 interface HeroPhotoGalleryProps {
-  images: any[];
-  onShowAllPhotos: () => void;
+  images: any[]
+  onShowAllPhotos: () => void
 }
 
-export default function HeroPhotoGallery({ images, onShowAllPhotos }: HeroPhotoGalleryProps) {
+export default function HeroPhotoGallery({
+  images,
+  onShowAllPhotos,
+}: HeroPhotoGalleryProps) {
   if (!images || images.length === 0) {
-    return null;
+    return null
   }
 
-  const mainImage = images[0];
-  const otherImages = images.slice(1, 5);
+  const mainImage = images[0]
+  const otherImages = images.slice(1, 5)
 
   return (
     <div className="container mx-auto px-4 py-8 relative">
       {/* Mobile: Main image only */}
       <div className="relative h-96 md:hidden">
         <Image
-          src={urlForImage(mainImage)?.width(800).height(600).fit('crop').url() || ''}
+          src={
+            urlForImage(mainImage)?.width(800).height(600).fit('crop').url() ||
+            ''
+          }
           alt={mainImage.alt || 'Main hotel image'}
           fill
           sizes="100vw"
@@ -35,7 +41,13 @@ export default function HeroPhotoGallery({ images, onShowAllPhotos }: HeroPhotoG
         {/* Main Image */}
         <div className="relative h-[550px]">
           <Image
-            src={urlForImage(mainImage)?.width(1200).height(800).fit('crop').url() || ''}
+            src={
+              urlForImage(mainImage)
+                ?.width(1200)
+                .height(800)
+                .fit('crop')
+                .url() || ''
+            }
             alt={mainImage.alt || 'Main hotel image'}
             fill
             sizes="(min-width: 768px) 50vw, 100vw"
@@ -48,7 +60,13 @@ export default function HeroPhotoGallery({ images, onShowAllPhotos }: HeroPhotoG
           {otherImages.map((image, index) => (
             <div key={index} className="relative h-[273px]">
               <Image
-                src={urlForImage(image)?.width(600).height(400).fit('crop').url() || ''}
+                src={
+                  urlForImage(image)
+                    ?.width(600)
+                    .height(400)
+                    .fit('crop')
+                    .url() || ''
+                }
                 alt={image.alt || `Hotel image ${index + 2}`}
                 fill
                 sizes="(min-width: 768px) 25vw, 100vw"
@@ -68,5 +86,5 @@ export default function HeroPhotoGallery({ images, onShowAllPhotos }: HeroPhotoG
         <span>Show all photos</span>
       </button>
     </div>
-  );
+  )
 }

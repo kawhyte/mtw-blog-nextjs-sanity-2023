@@ -1,4 +1,3 @@
-
 /**
  * This config is used to set up Sanity Studio that's mounted on the `/pages/studio/[[...index]].tsx` route
  */
@@ -13,7 +12,7 @@ import { defineConfig } from 'sanity'
 import { deskTool } from 'sanity/desk'
 import { unsplashImageAsset } from 'sanity-plugin-asset-source-unsplash'
 import { media } from 'sanity-plugin-media'
- import arenaReviewType from 'schemas/arenaReview'
+import arenaReviewType from 'schemas/arenaReview'
 // import amenitiesType from 'schemas/amenities'
 //  import authorType from 'schemas/author'
 // import {bookType} from 'schemas/bookType'
@@ -36,7 +35,6 @@ import settingsType from 'schemas/settings'
 import takeOutFoodRatingType from 'schemas/takeOutFoodRating'
 import travelEssentialType from 'schemas/travelEssentials'
 
-
 const title =
   process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE || 'Meet the Whytes Blog'
 
@@ -44,12 +42,30 @@ export default defineConfig({
   basePath: '/studio',
   projectId,
   dataset,
-  
+
   // icon:LogoutIcon,
   title,
   schema: {
     // If you want more content types, you can add them to this array
-    types: [galleryType,roomTechType,roomAmenitiesType,hotelType,foodType,takeOutFoodRatingType,individualFoodType, postType, guideType, hotelReviewType, foodReviewType, areanasType,photoGallery, arenaReviewType, travelEssentialType, galleryType2, settingsType],
+    types: [
+      galleryType,
+      roomTechType,
+      roomAmenitiesType,
+      hotelType,
+      foodType,
+      takeOutFoodRatingType,
+      individualFoodType,
+      postType,
+      guideType,
+      hotelReviewType,
+      foodReviewType,
+      areanasType,
+      photoGallery,
+      arenaReviewType,
+      travelEssentialType,
+      galleryType2,
+      settingsType,
+    ],
   },
   plugins: [
     deskTool({
@@ -63,7 +79,14 @@ export default defineConfig({
     productionUrl({
       apiVersion,
       previewSecretId,
-      types: [postType.name, guideType.name, hotelReviewType.name, foodReviewType.name, settingsType.name, areanasType.name],
+      types: [
+        postType.name,
+        guideType.name,
+        hotelReviewType.name,
+        foodReviewType.name,
+        settingsType.name,
+        areanasType.name,
+      ],
     }),
     // Add an image asset source for Unsplash
     unsplashImageAsset(),

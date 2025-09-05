@@ -1,12 +1,13 @@
-import PostBody from './PostBody'; // Assuming this component renders rich text
-import { Lightbulb } from 'lucide-react'; // Using lucide-react for a clean icon
+import { Lightbulb } from 'lucide-react' // Using lucide-react for a clean icon
+
+import PostBody from './PostBody' // Assuming this component renders rich text
 
 // You can place this component wherever you need to display a tip.
 // It expects a 'tip' prop containing the rich text/markdown content.
 export default function HelpfulTip({ tip }) {
   // If there's no tip content, the component won't render anything.
   if (!tip) {
-    return null;
+    return null
   }
 
   return (
@@ -36,7 +37,7 @@ export default function HelpfulTip({ tip }) {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
 // HOW TO USE IT IN YOUR PAGE:

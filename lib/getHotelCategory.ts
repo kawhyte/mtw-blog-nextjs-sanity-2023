@@ -12,7 +12,6 @@ export function categoryRating(category) {
       icon: '/icon/location.svg',
       color: 'blue',
       variant: 'light',
-     
     }
   } else if (category == 'luxury') {
     hotelCategoryObj = {
@@ -20,7 +19,6 @@ export function categoryRating(category) {
       icon: '/icon/clean.svg',
       color: 'yellow',
       variant: 'light',
-	 
     }
   } else if (category == 'mid-scale') {
     hotelCategoryObj = {
@@ -28,7 +26,6 @@ export function categoryRating(category) {
       icon: '/icon/clean.svg',
       color: 'green',
       variant: 'light',
-     
     }
   } else {
     hotelCategoryObj = {
@@ -36,14 +33,9 @@ export function categoryRating(category) {
       icon: '/icon/location.svg',
       color: 'red',
       variant: 'light',
-    
     }
     // Fall through
   }
 
-
-
   return hotelCategoryObj
 }
-
-

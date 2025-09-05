@@ -1,16 +1,12 @@
 // components/PreviewArenaPage.tsx
 import ArenaPage from 'components/ArenaPage'
 import { usePreview } from 'lib/sanity.preview'
-import { 
-  type Arena,
-  arenaBySlugQuery,
-  type Settings,
-} from 'lib/sanity.queries'
+import { type Arena, arenaBySlugQuery, type Settings } from 'lib/sanity.queries'
 
 interface PreviewArenaPageProps {
-  token: null | string;
-  arena: Arena;
-  settings: Settings;
+  token: null | string
+  arena: Arena
+  settings: Settings
 }
 
 export default function PreviewArenaPage({
@@ -18,15 +14,8 @@ export default function PreviewArenaPage({
   arena: initialArena,
   settings,
 }: PreviewArenaPageProps) {
-  
-  const params = { slug: initialArena.slug };
-  const previewArena: Arena = usePreview(token, arenaBySlugQuery, params);
-  
-  return (
-    <ArenaPage
-      preview
-      arena={previewArena}
-      settings={settings}
-    />
-  )
+  const params = { slug: initialArena.slug }
+  const previewArena: Arena = usePreview(token, arenaBySlugQuery, params)
+
+  return <ArenaPage preview arena={previewArena} settings={settings} />
 }

@@ -1,20 +1,24 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Disclosure, Menu, Transition } from '@headlessui/react';
-import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
-import { inter, space } from 'app/fonts';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import React, { useEffect, useRef, useState } from 'react';
-import { IoRestaurantOutline } from 'react-icons/io5';
-import { IoBasketballOutline } from 'react-icons/io5';
-import { LiaBasketballBallSolid, LiaBathSolid, LiaCrownSolid } from 'react-icons/lia';
-import { PiSneakerLight } from 'react-icons/pi';
-import { RiHotelLine } from 'react-icons/ri';
-import { TfiMapAlt } from 'react-icons/tfi';
+import { Disclosure, Menu, Transition } from '@headlessui/react'
+import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
+import { inter, space } from 'app/fonts'
+import Image from 'next/image'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import React, { useEffect, useRef, useState } from 'react'
+import { IoRestaurantOutline } from 'react-icons/io5'
+import { IoBasketballOutline } from 'react-icons/io5'
+import {
+  LiaBasketballBallSolid,
+  LiaBathSolid,
+  LiaCrownSolid,
+} from 'react-icons/lia'
+import { PiSneakerLight } from 'react-icons/pi'
+import { RiHotelLine } from 'react-icons/ri'
+import { TfiMapAlt } from 'react-icons/tfi'
 
 const bg =
-  '  underline decoration-pink-200 underline-offset-8 hover:decoration-pink-500 focus:decoration-pink-500/50 ';
+  '  underline decoration-pink-200 underline-offset-8 hover:decoration-pink-500 focus:decoration-pink-500/50 '
 const navigation = [
   {
     name: 'NBA & WNBA Arenas',
@@ -56,54 +60,54 @@ const navigation = [
     bg: '  hover:bg-linear-to-r from-pink-100 to-indigo-100  text-white w-full  focus:decoration-indigo-500/50',
     current: false,
   },
-];
+]
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ');
+  return classes.filter(Boolean).join(' ')
 }
 
 export default function Nav({ color = 'bg-black', bgColor }) {
-  let col = color ? ' text-gray-900' : ' text-white';
-  let bg = bgColor ? ' bg-white  ' : ' ';
-  const container = useRef(null);
-  const animation = 'food.json';
+  let col = color ? ' text-gray-900' : ' text-white'
+  let bg = bgColor ? ' bg-white  ' : ' '
+  const container = useRef(null)
+  const animation = 'food.json'
 
-  const router = useRouter();
-  const [searchTerm, setSearchTerm] = useState('');
+  const router = useRouter()
+  const [searchTerm, setSearchTerm] = useState('')
 
-  const [navSize, setnavSize] = useState('5rem');
-  const [navImage, setnavImage] = useState(bgColor);
-  const [navColor, setnavColor] = useState(bgColor);
+  const [navSize, setnavSize] = useState('5rem')
+  const [navImage, setnavImage] = useState(bgColor)
+  const [navColor, setnavColor] = useState(bgColor)
 
   const handleSearchChange = (event) => {
-    setSearchTerm(event.target.value);
-  };
+    setSearchTerm(event.target.value)
+  }
 
   const handleSearchSubmit = (event) => {
-    event.preventDefault();
+    event.preventDefault()
     if (searchTerm.trim()) {
-      router.push(`/search?q=${encodeURIComponent(searchTerm)}`);
+      router.push(`/search?q=${encodeURIComponent(searchTerm)}`)
     }
-  };
+  }
 
   useEffect(() => {
     const listenScrollEvent = () => {
       if (window !== undefined) {
-        window.scrollY > 10 ? setnavColor('#fcf2d7') : setnavColor(bgColor);
-        window.scrollY > 10 ? setnavSize('5rem') : setnavSize('4.9rem');
+        window.scrollY > 10 ? setnavColor('#fcf2d7') : setnavColor(bgColor)
+        window.scrollY > 10 ? setnavSize('5rem') : setnavSize('4.9rem')
         window.scrollY > 10
           ? setnavImage('linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%)')
-          : setnavImage('');
+          : setnavImage('')
       }
-    };
+    }
 
     if (window !== undefined) {
-      window.addEventListener('scroll', listenScrollEvent);
+      window.addEventListener('scroll', listenScrollEvent)
       return () => {
-        window.removeEventListener('scroll', listenScrollEvent);
-      };
+        window.removeEventListener('scroll', listenScrollEvent)
+      }
     }
-  }, [bgColor]);
+  }, [bgColor])
 
   return (
     <Disclosure
@@ -155,10 +159,11 @@ export default function Nav({ color = 'bg-black', bgColor }) {
                 </Link>
               </div> */}
               <div className="flex flex-1 items-center justify-center sm:items-stretch md:justify-between ">
-          
-
                 {/* Search Bar */}
-                <form onSubmit={handleSearchSubmit} className="ml-4 md:ml-6 hidden sm:block">
+                <form
+                  onSubmit={handleSearchSubmit}
+                  className="ml-4 md:ml-6 hidden sm:block"
+                >
                   <div className="relative rounded-md shadow-sm">
                     <input
                       type="text"
@@ -197,12 +202,6 @@ export default function Nav({ color = 'bg-black', bgColor }) {
                   </div>
                 </form>
 
-
-
-
-
-
-
                 <div className="hidden sm:ml-6 md:block">
                   <div className="flex flex-row items-center justify-center space-x-4  align-middle">
                     {navigation.map((item) => (
@@ -216,7 +215,7 @@ export default function Nav({ color = 'bg-black', bgColor }) {
                               'inline-flex items-center border-b-4 px-1 pt-1 text-sm font-medium',
                               router.route === item.href
                                 ? `border-pink-500 text-gray-900`
-                                : 'border-transparent text-gray-500  hover:text-gray-700'
+                                : 'border-transparent text-gray-500  hover:text-gray-700',
                             )}
                             aria-current={
                               router.route === item.href ? 'page' : undefined
@@ -242,7 +241,7 @@ export default function Nav({ color = 'bg-black', bgColor }) {
                       item.current
                         ? 'bg-gray-900 text-white'
                         : 'text-white hover:bg-gray-700 hover:text-pink-500',
-                      'block rounded-md bg-gray-700 px-3 py-2 text-base font-medium'
+                      'block rounded-md bg-gray-700 px-3 py-2 text-base font-medium',
                     )}
                     aria-current={item.current ? 'page' : undefined}
                   >
@@ -272,14 +271,8 @@ export default function Nav({ color = 'bg-black', bgColor }) {
               </form>
             </div>
           </Disclosure.Panel>
-
-
-
-
-
-
         </>
       )}
     </Disclosure>
-  );
+  )
 }

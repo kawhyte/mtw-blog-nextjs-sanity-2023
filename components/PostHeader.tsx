@@ -1,4 +1,3 @@
-import { Badge } from '@/components/ui/badge'
 import { inter, oswald } from 'app/fonts'
 import Date from 'components/PostDate'
 import type { Post } from 'lib/sanity.queries'
@@ -11,6 +10,8 @@ import {
 } from 'lucide-react'
 import { IconType } from 'react-icons'
 import { IoBed, IoLocation, IoStorefront } from 'react-icons/io5'
+
+import { Badge } from '@/components/ui/badge'
 
 import BodySectionSeparator from './body-section-separator'
 import CoverImagePost from './CoverImagePost'
@@ -28,11 +29,7 @@ interface PostMetaItemProps {
 const PostMetaItem: React.FC<PostMetaItemProps> = ({ icon: Icon, text }) => (
   <div className="flex items-center text-gray-700 md:text-left">
     <Icon className="mr-2 h-4 w-4 text-pink-500 md:h-5 md:w-5" />
-    {text && (
-      <span className="text-sm capitalize truncate">
-        {text}
-      </span>
-    )}
+    {text && <span className="text-sm capitalize truncate">{text}</span>}
   </div>
 )
 
@@ -67,7 +64,10 @@ interface DiningBadgeProps {
 // Component for displaying the dining type badge
 const DiningBadge: React.FC<DiningBadgeProps> = ({ linkType, diningType }) =>
   linkType === 'food' && diningType ? (
-    <Badge variant="default" className="bg-brand-primary hover:bg-brand-primary-dark text-primary-foreground border-brand-primary text-sm px-3 py-1">
+    <Badge
+      variant="default"
+      className="bg-brand-primary hover:bg-brand-primary-dark text-primary-foreground border-brand-primary text-sm px-3 py-1"
+    >
       {diningType.slice(0, 4)}-{diningType.slice(4)}
     </Badge>
   ) : null
@@ -261,10 +261,10 @@ export default function PostHeader({
                 linkType === 'hotel'
                   ? hotelRating
                   : linkType === 'food' && diningType === 'dinein'
-                  ? foodRating
-                  : linkType === 'food' && diningType === 'takeout'
-                  ? takeoutRating
-                  : undefined // Fallback if needed
+                    ? foodRating
+                    : linkType === 'food' && diningType === 'takeout'
+                      ? takeoutRating
+                      : undefined // Fallback if needed
               }
               // Pass discriminators if StarRating needs them
               diningType={diningType}

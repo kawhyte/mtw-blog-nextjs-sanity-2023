@@ -1,8 +1,9 @@
-"use client"
+'use client'
 
-import * as React from "react"
-import { ChevronDown, ChevronUp } from "lucide-react"
-import { cn } from "@/lib/utils"
+import { ChevronDown, ChevronUp } from 'lucide-react'
+import * as React from 'react'
+
+import { cn } from '@/lib/utils'
 
 interface SpoilerProps extends React.HTMLAttributes<HTMLDivElement> {
   maxHeight?: number
@@ -12,14 +13,17 @@ interface SpoilerProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const Spoiler = React.forwardRef<HTMLDivElement, SpoilerProps>(
-  ({ 
-    className, 
-    maxHeight = 100, 
-    showLabel = "Show more", 
-    hideLabel = "Show less",
-    children,
-    ...props 
-  }, ref) => {
+  (
+    {
+      className,
+      maxHeight = 100,
+      showLabel = 'Show more',
+      hideLabel = 'Show less',
+      children,
+      ...props
+    },
+    ref,
+  ) => {
     const [isExpanded, setIsExpanded] = React.useState(false)
     const [shouldShowButton, setShouldShowButton] = React.useState(false)
     const contentRef = React.useRef<HTMLDivElement>(null)
@@ -32,20 +36,21 @@ const Spoiler = React.forwardRef<HTMLDivElement, SpoilerProps>(
     }, [maxHeight, children])
 
     return (
-      <div ref={ref} className={cn("", className)} {...props}>
+      <div ref={ref} className={cn('', className)} {...props}>
         <div
           ref={contentRef}
           className={cn(
-            "overflow-hidden transition-all duration-300 ease-in-out",
-            !isExpanded && shouldShowButton && `max-h-[${maxHeight}px]`
+            'overflow-hidden transition-all duration-300 ease-in-out',
+            !isExpanded && shouldShowButton && `max-h-[${maxHeight}px]`,
           )}
           style={{
-            maxHeight: !isExpanded && shouldShowButton ? `${maxHeight}px` : 'none'
+            maxHeight:
+              !isExpanded && shouldShowButton ? `${maxHeight}px` : 'none',
           }}
         >
           {children}
         </div>
-        
+
         {shouldShowButton && (
           <button
             onClick={() => setIsExpanded(!isExpanded)}
@@ -61,8 +66,8 @@ const Spoiler = React.forwardRef<HTMLDivElement, SpoilerProps>(
         )}
       </div>
     )
-  }
+  },
 )
-Spoiler.displayName = "Spoiler"
+Spoiler.displayName = 'Spoiler'
 
 export { Spoiler }

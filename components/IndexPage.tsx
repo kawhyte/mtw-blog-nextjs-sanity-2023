@@ -1,4 +1,3 @@
-
 import Container from 'components/BlogContainer'
 // BlogHeader might be redundant if Hero covers the top section well
 // import BlogHeader from 'components/BlogHeader'
@@ -7,7 +6,7 @@ import IndexPageHead from 'components/IndexPageHead'
 import MoreStoriesIndex from 'components/MoreStories' // Your generic, paginated component
 import * as demo from 'lib/demo.data'
 // Import Post type and potentially the query used for the paginated components
-import type { Post, Settings } from 'lib/sanity.queries'
+import type { Settings, Guide, HotelReview, FoodReview } from 'lib/sanity.queries'
 import { paginatedAllPostsQuery } from 'lib/sanity.queries' // Import a valid query as a placeholder
 import { BriefcaseConveyorBelt, Plane, Trophy } from 'lucide-react'
 import Head from 'next/head'
@@ -26,7 +25,7 @@ import YoutubeHighlights from './YoutubeHighlights'
 export interface IndexPageProps {
   preview?: boolean
   loading?: boolean
-  posts: Post[] // These are the initial posts for the index page (e.g., first 6)
+  posts: (Guide | HotelReview | FoodReview)[] // These are the initial posts for the index page (e.g., first 6)
   settings: Settings
   // Add other props if needed (like arenaPosts, etc.)
   // arenaPosts?: Arena[]
@@ -42,12 +41,12 @@ export default function IndexPage(props: IndexPageProps) {
   } = props
 
   // This hero logic might conflict if posts is empty, handle gracefully
-  const heroPost = posts?.[0]; // Example: Safely access hero post if needed elsewhere
+  const heroPost = posts?.[0] // Example: Safely access hero post if needed elsewhere
   const { title = demo.title, description = demo.description } = settings || {}
 
   // Calculate props needed for MoreStories, even though pagination is off
-  const itemsPerPageForIndex = posts?.length || 6; // Set itemsPerPage >= number of posts
-  const totalPostsForIndex = posts?.length || 0;
+  const itemsPerPageForIndex = posts?.length || 6 // Set itemsPerPage >= number of posts
+  const totalPostsForIndex = posts?.length || 0
 
   return (
     <>
@@ -57,7 +56,7 @@ export default function IndexPage(props: IndexPageProps) {
         <Head>
           <title>{CMS_NAME}</title>
         </Head>
-    
+
         <BlogHeader title={title} description={description} level={1} />
         <Container>
           <Hero />
@@ -144,14 +143,12 @@ export default function IndexPage(props: IndexPageProps) {
               <ArenasIndexPage arenas={arenaPosts.slice(0, 8)} />
             </BlogSection>
           )} */}
-
         </Container>
       </Layout>
       <Footer />
     </>
   )
 }
-
 
 // IMPORTANT: getStaticProps for this IndexPage should fetch a LIMITED number of posts
 // using a query like `indexQuery` or similar, NOT all posts.

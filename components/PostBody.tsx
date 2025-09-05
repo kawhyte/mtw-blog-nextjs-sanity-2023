@@ -1,12 +1,12 @@
-import { PortableText } from '@portabletext/react';
-import { getImageDimensions } from '@sanity/asset-utils';
-import { urlForImage } from 'lib/sanity.image';
+import { PortableText } from '@portabletext/react'
+import { getImageDimensions } from '@sanity/asset-utils'
+import { urlForImage } from 'lib/sanity.image'
 
-import styles from './PostBody.module.css';
+import styles from './PostBody.module.css'
 
 // Image Component
 const SampleImageComponent = ({ value }) => {
-  const { width, height } = getImageDimensions(value);
+  const { width, height } = getImageDimensions(value)
   return (
     <figure className="image-container">
       <img
@@ -16,37 +16,41 @@ const SampleImageComponent = ({ value }) => {
         className="single-image"
         style={{ aspectRatio: width / height }}
       />
-      {value.caption && <figcaption className="image-caption">{value.caption}</figcaption>}
+      {value.caption && (
+        <figcaption className="image-caption">{value.caption}</figcaption>
+      )}
     </figure>
-  );
-};
+  )
+}
 
 export default function PostBody({ content }) {
   const processBlocks = (blocks) => {
-    let result = [];
-    let imageGroup = [];
+    let result = []
+    let imageGroup = []
 
     blocks?.forEach((block) => {
-      if (block._type === "image") {
-        imageGroup.push(block);
+      if (block._type === 'image') {
+        imageGroup.push(block)
       } else {
         if (imageGroup.length > 0) {
-          result.push({ _type: "imageGroup", images: imageGroup });
-          imageGroup = [];
+          result.push({ _type: 'imageGroup', images: imageGroup })
+          imageGroup = []
         }
-        result.push(block);
+        result.push(block)
       }
-    });
+    })
 
     if (imageGroup.length > 0) {
-      result.push({ _type: "imageGroup", images: imageGroup });
+      result.push({ _type: 'imageGroup', images: imageGroup })
     }
 
-    return result;
-  };
+    return result
+  }
 
   return (
-    <div className={`max-w-7xl leading-loose text-sm md:text-base font-thin ${styles.portableText}`}>
+    <div
+      className={`max-w-7xl leading-loose text-sm md:text-base font-thin ${styles.portableText}`}
+    >
       <PortableText
         value={processBlocks(content)}
         components={{
@@ -63,5 +67,5 @@ export default function PostBody({ content }) {
         }}
       />
     </div>
-  );
+  )
 }

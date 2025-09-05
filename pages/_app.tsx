@@ -1,8 +1,15 @@
-import '../styles/globals.css';
+import '../styles/globals.css'
 
-import { AppProps } from 'next/app';
+import { AppProps } from 'next/app'
 
-import { inter, montserrat, oswald, raleway, roboto_mono, space } from '../app/fonts';
+import {
+  inter,
+  montserrat,
+  oswald,
+  raleway,
+  roboto_mono,
+  space,
+} from '../app/fonts'
 
 // Fonts are now imported from app/fonts.ts for better organization
 
@@ -15,5 +22,5 @@ export default function App({ Component, pageProps }: AppProps) {
         <Component {...pageProps} />
       </main>
     </>
-  );
+  )
 }

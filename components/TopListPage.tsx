@@ -19,7 +19,8 @@ export interface IndexPageProps {
   settings: Settings
   postHeader: string
   img: string
-  summary: string}
+  summary: string
+}
 
 let count = 2
 
@@ -57,10 +58,7 @@ export default function IndexPage(props: IndexPageProps) {
 
         <ReviewHeader
           title={postHeader}
-      
-          summary={
-            summary ||'Our top picks'
-          }
+          summary={summary || 'Our top picks'}
           img={img}
         />
 
@@ -89,7 +87,7 @@ export default function IndexPage(props: IndexPageProps) {
 }
 
 export const getStaticProps: GetStaticProps<IndexPageProps> = async (
-  context
+  context,
 ) => {
   const { preview = false } = context
   const settings = await getSettings()
@@ -103,7 +101,8 @@ export const getStaticProps: GetStaticProps<IndexPageProps> = async (
       settings,
       postHeader: 'Top Hotels and Restaurants', // Add the missing postHeader property
       img: '/top2.json',
-      summary: 'Our top 10 hotels based on weighted average ratings, and our curated food guide. Discover the best experiences for your next adventure.',
+      summary:
+        'Our top 10 hotels based on weighted average ratings, and our curated food guide. Discover the best experiences for your next adventure.',
     },
     revalidate: 10,
   }

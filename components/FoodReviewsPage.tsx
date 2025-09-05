@@ -1,29 +1,27 @@
+import Container from 'components/BlogContainer'
+import BlogHeader from 'components/BlogHeader'
+import Layout from 'components/BlogLayout'
+import IndexPageHead from 'components/IndexPageHead'
+import * as demo from 'lib/demo.data'
+import { getPaginatedFoodReviews } from 'lib/sanity.client'
+import type { FoodReview, Settings } from 'lib/sanity.queries'
+import Head from 'next/head'
+import { useEffect,useState } from 'react'
+import useSWR, { mutate } from 'swr'
 
-
-import Container from 'components/BlogContainer';
-import BlogHeader from 'components/BlogHeader';
-import Layout from 'components/BlogLayout';
-import IndexPageHead from 'components/IndexPageHead';
-import * as demo from 'lib/demo.data';
-import type { FoodReview, Settings } from 'lib/sanity.queries';
-import Head from 'next/head';
-import { useState, useEffect } from 'react';
-import useSWR from 'swr';
-import { getPaginatedFoodReviews } from 'lib/sanity.client';
-import PaginationComponent from './PaginationComponent';
-import DynamicPostCard from './DynamicPostCard';
-
-import { CMS_NAME } from '../lib/constants';
-import Footer from './Footer';
-import ReviewHeader from './ReviewHeader';
+import { CMS_NAME } from '../lib/constants'
+import DynamicPostCard from './DynamicPostCard'
+import Footer from './Footer'
+import PaginationComponent from './PaginationComponent'
+import ReviewHeader from './ReviewHeader'
 
 export interface FoodReviewsPageProps {
-  preview?: boolean;
-  loading?: boolean;
-  initialPosts: FoodReview[];
-  totalPostsCount: number;
-  itemsPerPage: number;
-  settings: Settings;
+  preview?: boolean
+  loading?: boolean
+  initialPosts: FoodReview[]
+  totalPostsCount: number
+  itemsPerPage: number
+  settings: Settings
 }
 
 export default function FoodReviewsPage(props: FoodReviewsPageProps) {
@@ -34,30 +32,44 @@ export default function FoodReviewsPage(props: FoodReviewsPageProps) {
     totalPostsCount,
     itemsPerPage,
     settings,
-  } = props;
+  } = props
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [posts, setPosts] = useState(initialPosts);
+  const [currentPage, setCurrentPage] = useState(1)
+  const [posts, setPosts] = useState(initialPosts)
+  const [isTransitioning, setIsTransitioning] = useState(false)
 
-  const { title = demo.title, description = demo.description } = settings || {};
+  const { title = demo.title, description = demo.description } = settings || {}
 
   const { data, error } = useSWR(
     [currentPage, itemsPerPage],
-    ([page, limit]) => getPaginatedFoodReviews((page - 1) * limit, page * limit),
+    ([page, limit]) =>
+      getPaginatedFoodReviews((page - 1) * limit, page * limit),
     {
       fallbackData: currentPage === 1 ? initialPosts : undefined,
-    }
-  );
+    },
+  )
+
+  // Reset state when initialPosts change (page navigation)
+  useEffect(() => {
+    setIsTransitioning(true)
+    setPosts(initialPosts)
+    setCurrentPage(1)
+    // Clear SWR cache to prevent stale data
+    mutate(() => true, undefined, { revalidate: false })
+    const timer = setTimeout(() => setIsTransitioning(false), 100)
+    return () => clearTimeout(timer)
+  }, [initialPosts])
 
   useEffect(() => {
     if (data) {
-      setPosts(data as FoodReview[]);
+      setPosts(data as FoodReview[])
+      setIsTransitioning(false)
     }
-  }, [data]);
+  }, [data])
 
   const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-  };
+    setCurrentPage(page)
+  }
 
   return (
     <>
@@ -95,12 +107,13 @@ export default function FoodReviewsPage(props: FoodReviewsPageProps) {
                     showRating={true}
                     slug={foodReview.slug}
                     location={foodReview.location}
-                    category={foodReview.category}
                   />
                 ))}
               </div>
             ) : (
-              <p className="text-center my-10 text-muted-foreground">No food reviews found. Loading: {loading ? 'Yes' : 'No'}</p>
+              <p className="text-center my-10 text-muted-foreground">
+                No food reviews found. Loading: {loading ? 'Yes' : 'No'}
+              </p>
             )}
           </div>
           <PaginationComponent
@@ -113,5 +126,5 @@ export default function FoodReviewsPage(props: FoodReviewsPageProps) {
       </Layout>
       <Footer />
     </>
-  );
+  )
 }

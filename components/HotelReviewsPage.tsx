@@ -1,27 +1,27 @@
-import Container from 'components/BlogContainer';
-import BlogHeader from 'components/BlogHeader';
-import Layout from 'components/BlogLayout';
-import IndexPageHead from 'components/IndexPageHead';
-import * as demo from 'lib/demo.data';
-import type { HotelReview, Settings } from 'lib/sanity.queries';
-import Head from 'next/head';
-import { useState, useEffect } from 'react';
-import useSWR from 'swr';
-import { getPaginatedHotelReviews } from 'lib/sanity.client';
-import PaginationComponent from './PaginationComponent';
+import Container from 'components/BlogContainer'
+import BlogHeader from 'components/BlogHeader'
+import Layout from 'components/BlogLayout'
+import IndexPageHead from 'components/IndexPageHead'
+import * as demo from 'lib/demo.data'
+import { getPaginatedHotelReviews } from 'lib/sanity.client'
+import type { HotelReview, Settings } from 'lib/sanity.queries'
+import Head from 'next/head'
+import { useEffect,useState } from 'react'
+import useSWR, { mutate } from 'swr'
 
-import { CMS_NAME } from '../lib/constants';
-import Footer from './Footer';
-import DynamicPostCard from './DynamicPostCard';
-import ReviewHeader from './ReviewHeader';
+import { CMS_NAME } from '../lib/constants'
+import DynamicPostCard from './DynamicPostCard'
+import Footer from './Footer'
+import PaginationComponent from './PaginationComponent'
+import ReviewHeader from './ReviewHeader'
 
 export interface HotelReviewsPageProps {
-  preview?: boolean;
-  loading?: boolean;
-  initialPosts: HotelReview[];
-  settings: Settings;
-  totalPostsCount: number;
-  itemsPerPage: number;
+  preview?: boolean
+  loading?: boolean
+  initialPosts: HotelReview[]
+  settings: Settings
+  totalPostsCount: number
+  itemsPerPage: number
 }
 
 export default function HotelReviewsPage(props: HotelReviewsPageProps) {
@@ -32,30 +32,45 @@ export default function HotelReviewsPage(props: HotelReviewsPageProps) {
     settings,
     totalPostsCount,
     itemsPerPage,
-  } = props;
+  } = props
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [posts, setPosts] = useState(initialPosts);
+  const [currentPage, setCurrentPage] = useState(1)
+  const [posts, setPosts] = useState(initialPosts)
+  const [isTransitioning, setIsTransitioning] = useState(false)
 
-  const { title = demo.title, description = demo.description } = settings || {};
+  const { title = demo.title, description = demo.description } = settings || {}
 
   const { data, error } = useSWR(
     [currentPage, itemsPerPage],
-    ([page, limit]) => getPaginatedHotelReviews((page - 1) * limit, page * limit),
+    ([page, limit]) =>
+      getPaginatedHotelReviews((page - 1) * limit, page * limit),
     {
       fallbackData: currentPage === 1 ? initialPosts : undefined,
-    }
-  );
+    },
+  )
+
+  // Reset state when initialPosts change (page navigation)
+  useEffect(() => {
+    setIsTransitioning(true)
+    setPosts(initialPosts)
+    setCurrentPage(1)
+    // Clear SWR cache to prevent stale data
+    mutate(() => true, undefined, { revalidate: false })
+    const timer = setTimeout(() => setIsTransitioning(false), 100)
+    return () => clearTimeout(timer)
+  }, [initialPosts])
 
   useEffect(() => {
     if (data) {
-      setPosts(data);
+      setPosts(data)
+      setIsTransitioning(false)
+      console.log(`Page ${currentPage} loaded with ${data.length} posts:`, data.map(p => p.title))
     }
-  }, [data]);
+  }, [data, currentPage])
 
   const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-  };
+    setCurrentPage(page)
+  }
 
   return (
     <>
@@ -77,9 +92,9 @@ export default function HotelReviewsPage(props: HotelReviewsPageProps) {
         />
 
         <Container>
-          <div className="my-10">
+          <div className="my-10 w-full max-w-7xl mx-auto">
             {posts && posts.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
                 {posts.map((hotelReview) => (
                   <DynamicPostCard
                     key={hotelReview._id}
@@ -96,7 +111,9 @@ export default function HotelReviewsPage(props: HotelReviewsPageProps) {
                 ))}
               </div>
             ) : (
-              <p className="text-center my-10 text-muted-foreground">No hotel reviews found. Loading: {loading ? 'Yes' : 'No'}</p>
+              <p className="text-center my-10 text-muted-foreground">
+                No hotel reviews found. Loading: {loading ? 'Yes' : 'No'}
+              </p>
             )}
           </div>
           <PaginationComponent
@@ -109,5 +126,5 @@ export default function HotelReviewsPage(props: HotelReviewsPageProps) {
       </Layout>
       <Footer />
     </>
-  );
+  )
 }

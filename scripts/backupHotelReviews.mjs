@@ -2,10 +2,10 @@
 
 /**
  * Backup Script for Hotel Review Data
- * 
+ *
  * This script exports all existing 'post' documents with linkType == 'hotel'
  * to prepare for migration to the new independent 'hotelReview' schema.
- * 
+ *
  * Usage:
  *   npm run backup-hotels
  */
@@ -91,8 +91,14 @@ async function backupHotelReviews() {
 
     // Generate timestamp for backup files
     const timestamp = new Date().toISOString().replace(/[:.]/g, '-')
-    const backupFile = path.join(backupDir, `hotel-reviews-backup-${timestamp}.json`)
-    const summaryFile = path.join(backupDir, `hotel-reviews-summary-${timestamp}.json`)
+    const backupFile = path.join(
+      backupDir,
+      `hotel-reviews-backup-${timestamp}.json`,
+    )
+    const summaryFile = path.join(
+      backupDir,
+      `hotel-reviews-summary-${timestamp}.json`,
+    )
 
     // Save the full backup
     fs.writeFileSync(backupFile, JSON.stringify(hotelPosts, null, 2))
@@ -102,29 +108,35 @@ async function backupHotelReviews() {
     const summary = {
       timestamp: new Date().toISOString(),
       totalDocuments: hotelPosts.length,
-      documentIds: hotelPosts.map(post => post._id),
+      documentIds: hotelPosts.map((post) => post._id),
       categories: {
-        luxury: hotelPosts.filter(p => p.category === 'luxury').length,
-        'mid-scale': hotelPosts.filter(p => p.category === 'mid-scale').length,
-        economy: hotelPosts.filter(p => p.category === 'economy').length,
-        undefined: hotelPosts.filter(p => !p.category).length,
+        luxury: hotelPosts.filter((p) => p.category === 'luxury').length,
+        'mid-scale': hotelPosts.filter((p) => p.category === 'mid-scale')
+          .length,
+        economy: hotelPosts.filter((p) => p.category === 'economy').length,
+        undefined: hotelPosts.filter((p) => !p.category).length,
       },
       fieldsAnalysis: {
-        withLocation: hotelPosts.filter(p => p.location).length,
-        withRoom: hotelPosts.filter(p => p.room).length,
-        withLounge: hotelPosts.filter(p => p.lounge).length,
-        withGallery: hotelPosts.filter(p => p.gallery && p.gallery.length > 0).length,
-        withYoutube: hotelPosts.filter(p => p.youtube).length,
-        withHotelRating: hotelPosts.filter(p => p.hotelRating).length,
-        withInternetSpeed: hotelPosts.filter(p => p.internetSpeed).length,
-        withRoomAmenities: hotelPosts.filter(p => p.roomAmenities).length,
-        withTechRating: hotelPosts.filter(p => p.techRating).length,
-        withPositives: hotelPosts.filter(p => p.positives && p.positives.length > 0).length,
-        withNegatives: hotelPosts.filter(p => p.negatives && p.negatives.length > 0).length,
-        withVerdict: hotelPosts.filter(p => p.verdict).length,
-        withContent: hotelPosts.filter(p => p.content).length,
+        withLocation: hotelPosts.filter((p) => p.location).length,
+        withRoom: hotelPosts.filter((p) => p.room).length,
+        withLounge: hotelPosts.filter((p) => p.lounge).length,
+        withGallery: hotelPosts.filter((p) => p.gallery && p.gallery.length > 0)
+          .length,
+        withYoutube: hotelPosts.filter((p) => p.youtube).length,
+        withHotelRating: hotelPosts.filter((p) => p.hotelRating).length,
+        withInternetSpeed: hotelPosts.filter((p) => p.internetSpeed).length,
+        withRoomAmenities: hotelPosts.filter((p) => p.roomAmenities).length,
+        withTechRating: hotelPosts.filter((p) => p.techRating).length,
+        withPositives: hotelPosts.filter(
+          (p) => p.positives && p.positives.length > 0,
+        ).length,
+        withNegatives: hotelPosts.filter(
+          (p) => p.negatives && p.negatives.length > 0,
+        ).length,
+        withVerdict: hotelPosts.filter((p) => p.verdict).length,
+        withContent: hotelPosts.filter((p) => p.content).length,
       },
-      sampleTitles: hotelPosts.slice(0, 5).map(p => p.title),
+      sampleTitles: hotelPosts.slice(0, 5).map((p) => p.title),
     }
 
     fs.writeFileSync(summaryFile, JSON.stringify(summary, null, 2))
@@ -138,13 +150,23 @@ async function backupHotelReviews() {
     console.log(`  - Mid-Scale: ${summary.categories['mid-scale']}`)
     console.log(`  - Economy: ${summary.categories.economy}`)
     console.log(`  - No Category: ${summary.categories.undefined}`)
-    
+
     console.log(`\n🔍 Data completeness:`)
-    console.log(`  - With Location: ${summary.fieldsAnalysis.withLocation}/${summary.totalDocuments}`)
-    console.log(`  - With Room Info: ${summary.fieldsAnalysis.withRoom}/${summary.totalDocuments}`)
-    console.log(`  - With Gallery: ${summary.fieldsAnalysis.withGallery}/${summary.totalDocuments}`)
-    console.log(`  - With Hotel Rating: ${summary.fieldsAnalysis.withHotelRating}/${summary.totalDocuments}`)
-    console.log(`  - With Content: ${summary.fieldsAnalysis.withContent}/${summary.totalDocuments}`)
+    console.log(
+      `  - With Location: ${summary.fieldsAnalysis.withLocation}/${summary.totalDocuments}`,
+    )
+    console.log(
+      `  - With Room Info: ${summary.fieldsAnalysis.withRoom}/${summary.totalDocuments}`,
+    )
+    console.log(
+      `  - With Gallery: ${summary.fieldsAnalysis.withGallery}/${summary.totalDocuments}`,
+    )
+    console.log(
+      `  - With Hotel Rating: ${summary.fieldsAnalysis.withHotelRating}/${summary.totalDocuments}`,
+    )
+    console.log(
+      `  - With Content: ${summary.fieldsAnalysis.withContent}/${summary.totalDocuments}`,
+    )
 
     if (summary.sampleTitles.length > 0) {
       console.log(`\n📝 Sample titles:`)
@@ -158,7 +180,6 @@ async function backupHotelReviews() {
     console.log('  1. Review the backup files')
     console.log('  2. Run preview migration: npm run migrate-hotels (dry run)')
     console.log('  3. Run actual migration: npm run migrate-hotels:live')
-
   } catch (error) {
     console.error('❌ Error during backup:', error)
     process.exit(1)
@@ -167,4 +188,3 @@ async function backupHotelReviews() {
 
 // Run the backup
 backupHotelReviews()
-

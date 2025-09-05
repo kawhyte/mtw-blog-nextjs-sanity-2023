@@ -1,7 +1,10 @@
-import { NextApiRequest, NextApiResponse } from 'next'
 import { sanityClient } from 'lib/sanity.server'
+import { NextApiRequest, NextApiResponse } from 'next'
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse,
+) {
   const { start = 0, limit = 12, type = 'all' } = req.query
 
   try {
@@ -93,17 +96,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           }`),
           sanityClient.fetch(`*[_type == "guide"] | order(_createdAt desc) [${start}...${+start + +limit}] {
             _id, _type, title, slug, coverImage, date, category
-          }`)
+          }`),
         ])
-        
+
         return res.status(200).json({
           content: {
             posts,
             hotelReviews,
             foodReviews,
-            guides
+            guides,
           },
-          total: posts.length + hotelReviews.length + foodReviews.length + guides.length
+          total:
+            posts.length +
+            hotelReviews.length +
+            foodReviews.length +
+            guides.length,
         })
     }
 

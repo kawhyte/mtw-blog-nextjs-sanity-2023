@@ -319,9 +319,7 @@
           {
             "_key": "167ba912cf8a",
             "_type": "span",
-            "marks": [
-              "strike-through"
-            ],
+            "marks": ["strike-through"],
             "text": "Strike"
           }
         ],
@@ -363,9 +361,7 @@
           {
             "_key": "961dbbb50057",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "Bold"
           }
         ],
@@ -379,9 +375,7 @@
           {
             "_key": "98230e8b0b0a",
             "_type": "span",
-            "marks": [
-              "strong"
-            ],
+            "marks": ["strong"],
             "text": "This is bold of you"
           }
         ],
@@ -409,9 +403,7 @@
           {
             "_key": "f7b51a50dccc",
             "_type": "span",
-            "marks": [
-              "underline"
-            ],
+            "marks": ["underline"],
             "text": "Underline"
           }
         ],
@@ -439,9 +431,7 @@
           {
             "_key": "55e9db3c8b32",
             "_type": "span",
-            "marks": [
-              "underline"
-            ],
+            "marks": ["underline"],
             "text": "Underline me"
           }
         ],

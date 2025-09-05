@@ -1,27 +1,27 @@
-import Container from 'components/BlogContainer';
-import BlogHeader from 'components/BlogHeader';
-import Layout from 'components/BlogLayout';
-import IndexPageHead from 'components/IndexPageHead';
-import * as demo from 'lib/demo.data';
-import type { Guide, Settings } from 'lib/sanity.queries';
-import Head from 'next/head';
-import { useState, useEffect } from 'react';
-import useSWR from 'swr';
-import { getPaginatedGuides } from 'lib/sanity.client';
-import PaginationComponent from './PaginationComponent';
-import DynamicPostCard from './DynamicPostCard';
+import Container from 'components/BlogContainer'
+import BlogHeader from 'components/BlogHeader'
+import Layout from 'components/BlogLayout'
+import IndexPageHead from 'components/IndexPageHead'
+import * as demo from 'lib/demo.data'
+import { getPaginatedGuides } from 'lib/sanity.client'
+import type { Guide, Settings } from 'lib/sanity.queries'
+import Head from 'next/head'
+import { useEffect,useState } from 'react'
+import useSWR, { mutate } from 'swr'
 
-import { CMS_NAME } from '../lib/constants';
-import Footer from './Footer';
-import ReviewHeader from './ReviewHeader';
+import { CMS_NAME } from '../lib/constants'
+import DynamicPostCard from './DynamicPostCard'
+import Footer from './Footer'
+import PaginationComponent from './PaginationComponent'
+import ReviewHeader from './ReviewHeader'
 
 export interface StoryReviewsPageProps {
-  preview?: boolean;
-  loading?: boolean;
-  initialPosts: Guide[];
-  totalPostsCount: number;
-  itemsPerPage: number;
-  settings: Settings;
+  preview?: boolean
+  loading?: boolean
+  initialPosts: Guide[]
+  totalPostsCount: number
+  itemsPerPage: number
+  settings: Settings
 }
 
 export default function StoryReviewsPage(props: StoryReviewsPageProps) {
@@ -32,30 +32,43 @@ export default function StoryReviewsPage(props: StoryReviewsPageProps) {
     totalPostsCount,
     itemsPerPage,
     settings,
-  } = props;
+  } = props
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [posts, setPosts] = useState(initialPosts);
+  const [currentPage, setCurrentPage] = useState(1)
+  const [posts, setPosts] = useState(initialPosts)
+  const [isTransitioning, setIsTransitioning] = useState(false)
 
-  const { title = demo.title, description = demo.description } = settings || {};
+  const { title = demo.title, description = demo.description } = settings || {}
 
   const { data, error } = useSWR(
     [currentPage, itemsPerPage],
     ([page, limit]) => getPaginatedGuides((page - 1) * limit, page * limit),
     {
       fallbackData: currentPage === 1 ? initialPosts : undefined,
-    }
-  );
+    },
+  )
+
+  // Reset state when initialPosts change (page navigation)
+  useEffect(() => {
+    setIsTransitioning(true)
+    setPosts(initialPosts)
+    setCurrentPage(1)
+    // Clear SWR cache to prevent stale data
+    mutate(() => true, undefined, { revalidate: false })
+    const timer = setTimeout(() => setIsTransitioning(false), 100)
+    return () => clearTimeout(timer)
+  }, [initialPosts])
 
   useEffect(() => {
     if (data) {
-      setPosts(data as Guide[]);
+      setPosts(data as Guide[])
+      setIsTransitioning(false)
     }
-  }, [data]);
+  }, [data])
 
   const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-  };
+    setCurrentPage(page)
+  }
 
   return (
     <>
@@ -69,8 +82,10 @@ export default function StoryReviewsPage(props: StoryReviewsPageProps) {
         <BlogHeader title={title} description={description} level={1} />
 
         <ReviewHeader
-          title={"Stories & Guides"}
-          summary={"Uncover insider tips, hidden gems, and unforgettable adventures. From budget backpacking to luxury escapes, We’ve got you covered. Let's explore together!"}
+          title={'Stories & Guides'}
+          summary={
+            "Uncover insider tips, hidden gems, and unforgettable adventures. From budget backpacking to luxury escapes, We’ve got you covered. Let's explore together!"
+          }
           img={'/plane.json'}
         />
 
@@ -93,7 +108,9 @@ export default function StoryReviewsPage(props: StoryReviewsPageProps) {
                 ))}
               </div>
             ) : (
-              <p className="text-center my-10 text-muted-foreground">No stories or guides found. Loading: {loading ? 'Yes' : 'No'}</p>
+              <p className="text-center my-10 text-muted-foreground">
+                No stories or guides found. Loading: {loading ? 'Yes' : 'No'}
+              </p>
             )}
           </div>
           <PaginationComponent
@@ -106,5 +123,5 @@ export default function StoryReviewsPage(props: StoryReviewsPageProps) {
       </Layout>
       <Footer />
     </>
-  );
+  )
 }

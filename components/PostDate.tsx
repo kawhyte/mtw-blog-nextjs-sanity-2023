@@ -7,7 +7,7 @@ export default function PostDate({ dateString }: { dateString: string }) {
   return <time dateTime={dateString}>{format(date, 'PP')}</time>
 }
 
-export  function PostYear({ dateString }: { dateString: string }) {
+export function PostYear({ dateString }: { dateString: string }) {
   if (!dateString) return null
 
   const date = parseISO(dateString)

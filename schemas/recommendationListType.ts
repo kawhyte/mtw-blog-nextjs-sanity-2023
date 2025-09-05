@@ -1,6 +1,6 @@
 // ./schema/readingListType.ts
 
-import {defineField, defineType, isKeyedObject,Reference} from 'sanity'
+import { defineField, defineType, isKeyedObject, Reference } from 'sanity'
 
 type Recommendation = {
   _key?: string
@@ -14,12 +14,12 @@ export const recommendationListType = defineType({
   type: 'document',
   fields: [
     defineField({
-      title:'List title',
+      title: 'List title',
       name: 'title',
       type: 'string',
     }),
     defineField({
-      title:'List type',
+      title: 'List type',
       name: 'listType',
       type: 'string',
       validation: (Rule) => Rule.required(),
@@ -27,23 +27,25 @@ export const recommendationListType = defineType({
         list: [
           { title: 'Hotel', value: 'hotel' },
           { title: 'Food', value: 'food' },
-     
         ],
         layout: 'radio',
       },
-     
     }),
     defineField({
       name: 'recommendations',
       type: 'array',
-      of: [{type: 'recommendation'}],
+      of: [{ type: 'recommendation' }],
       validation: (rule) =>
         rule.custom((items?: Recommendation[]) => {
-          const featuredItems = items ? items.filter((item) => item.featured) : []
+          const featuredItems = items
+            ? items.filter((item) => item.featured)
+            : []
 
           if (featuredItems.length > 1) {
             return {
-              paths: featuredItems.filter(isKeyedObject).map((item) => [{_key: item._key}]),
+              paths: featuredItems
+                .filter(isKeyedObject)
+                .map((item) => [{ _key: item._key }]),
               message: 'Only one book can be featured',
             }
           }

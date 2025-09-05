@@ -13,9 +13,7 @@ interface CountriesCardProps {
 function CountriesCard({ countries }: CountriesCardProps) {
   return (
     <div className="max-w-8xl w-full rounded-3xl bg-primary-soft-background  p-6">
-      <h2
-       className=" font-montserrat my-4  mb-6    text-xl font-bold text-gray-900 sm:text-2xl lg:text-3xl"
-      >
+      <h2 className=" font-montserrat my-4  mb-6    text-xl font-bold text-gray-900 sm:text-2xl lg:text-3xl">
         Countries we&apos;ve visited
       </h2>
       <div className="flex flex-wrap gap-2">

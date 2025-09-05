@@ -52,12 +52,7 @@ export default function FoodSlugRoute(props: PageProps) {
     )
   }
 
-  return (
-    <FoodReviewPage 
-      foodReview={foodReview} 
-      settings={settings} 
-    />
-  )
+  return <FoodReviewPage foodReview={foodReview} settings={settings} />
 }
 
 export const getStaticProps: GetStaticProps<
@@ -87,6 +82,8 @@ export const getStaticProps: GetStaticProps<
       preview,
       token: previewData.token ?? null,
     },
+    // Revalidate every 60 seconds when page is requested
+    revalidate: 60,
   }
 }
 

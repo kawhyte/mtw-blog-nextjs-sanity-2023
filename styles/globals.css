@@ -43,43 +43,42 @@
 ================================================================================
 */
 
-
 /* ===== 1. DEFINE YOUR COLOR PALETTE (HSL VALUES) ===== */
 @layer base {
   :root {
     /* --- Neutrals --- */
     /* USAGE: Core backgrounds and text colors. */
-    --background: 240 8% 98%;      /* Light Stone White -> USE FOR: Main page background (`bg-background`) */
-    --foreground: 209 34% 20%;     /* Dark Charcoal Blue -> USE FOR: Main body text (`text-foreground`) */
-    --card: 0 0% 100%;             /* Pure White -> USE FOR: Card backgrounds (`bg-card`) */
-    --card-foreground: 209 34% 20%;/* Dark Charcoal Blue -> USE FOR: Text inside cards (`text-card-foreground`) */
-    
+    --background: 240 8% 98%; /* Light Stone White -> USE FOR: Main page background (`bg-background`) */
+    --foreground: 209 34% 20%; /* Dark Charcoal Blue -> USE FOR: Main body text (`text-foreground`) */
+    --card: 0 0% 100%; /* Pure White -> USE FOR: Card backgrounds (`bg-card`) */
+    --card-foreground: 209 34% 20%; /* Dark Charcoal Blue -> USE FOR: Text inside cards (`text-card-foreground`) */
+
     /* --- Muted & Borders --- */
     /* USAGE: Subtle UI elements, dividers, and input fields. */
-    --muted: 30 8% 90%;            /* Light Gray -> USE FOR: Subtle backgrounds, e.g., disabled items (`bg-muted`) */
-    --muted-foreground: 240 4% 46%;  /* Medium Gray -> USE FOR: Placeholder text or secondary info (`text-muted-foreground`) */
-    --border: 30 8% 90%;           /* Light Gray -> USE FOR: Component borders (`border-border`) */
-    --input: 30 8% 85%;            /* Slightly darker gray -> USE FOR: Input field borders (`border-input`) */
-    --border-bold: 209 34% 20%;    /* Dark Charcoal Blue -> USE FOR: Bold card/container borders (`border-border-bold`) */
+    --muted: 30 8% 90%; /* Light Gray -> USE FOR: Subtle backgrounds, e.g., disabled items (`bg-muted`) */
+    --muted-foreground: 240 4% 46%; /* Medium Gray -> USE FOR: Placeholder text or secondary info (`text-muted-foreground`) */
+    --border: 30 8% 90%; /* Light Gray -> USE FOR: Component borders (`border-border`) */
+    --input: 30 8% 85%; /* Slightly darker gray -> USE FOR: Input field borders (`border-input`) */
+    --border-bold: 209 34% 20%; /* Dark Charcoal Blue -> USE FOR: Bold card/container borders (`border-border-bold`) */
 
     /* --- Brand Colors (Your Core Palette) --- */
     /* USAGE: Primary actions, links, and highlighted UI elements. */
-    --primary: 330 81% 62%;        /* Tailwind Pink-500 -> USE FOR: Primary buttons, important links (`bg-primary`, `text-primary`) */
+    --primary: 330 81% 62%; /* Tailwind Pink-500 -> USE FOR: Primary buttons, important links (`bg-primary`, `text-primary`) */
     --primary-foreground: 330 81% 98%; /* Very light pink -> USE FOR: Text on top of primary color elements (`text-primary-foreground`) */
     --primary-soft-background: 330 100% 98%; /* Very light pink tint -> USE FOR: Large section backgrounds */
-    --secondary: 262 92% 65%;      /* Tailwind Purple-500 -> USE FOR: Secondary buttons, alternative actions (`bg-secondary`) */
+    --secondary: 262 92% 65%; /* Tailwind Purple-500 -> USE FOR: Secondary buttons, alternative actions (`bg-secondary`) */
     --secondary-foreground: 262 92% 98%; /* Very light purple -> USE FOR: Text on top of secondary color elements (`text-secondary-foreground`) */
     --secondary-soft-background: 262 100% 98%; /* Very light purple tint -> USE FOR: Large section backgrounds */
 
     /* --- Accent & Semantic Colors --- */
     /* USAGE: For visual flair and communicating status (success, error). */
-    --accent: 54 91% 95%;          /* Light Buttery Yellow -> USE FOR: Hover states on list items, badges (`bg-accent`) */
+    --accent: 54 91% 95%; /* Light Buttery Yellow -> USE FOR: Hover states on list items, badges (`bg-accent`) */
     --accent-foreground: 48 96% 26%; /* Dark yellow -> USE FOR: Text on top of accent color (`text-accent-foreground`) */
-    --destructive: 0 84% 60%;      /* Red -> USE FOR: Delete buttons, error messages (`bg-destructive`, `text-destructive`) */
+    --destructive: 0 84% 60%; /* Red -> USE FOR: Delete buttons, error messages (`bg-destructive`, `text-destructive`) */
     --destructive-foreground: 0 84% 98%; /* Light red -> USE FOR: Text on top of destructive color (`text-destructive-foreground`) */
-    --success: 145 63% 49%;        /* Green -> USE FOR: Success messages, confirmation indicators (`bg-success`, `text-success`) */
+    --success: 145 63% 49%; /* Green -> USE FOR: Success messages, confirmation indicators (`bg-success`, `text-success`) */
     --success-foreground: 145 63% 98%; /* Light green -> USE FOR: Text on top of success color (`text-success-foreground`) */
-    --ring: 330 81% 62%;           /* Pink -> USE FOR: Focus rings on interactive elements (`ring-ring`) */
+    --ring: 330 81% 62%; /* Pink -> USE FOR: Focus rings on interactive elements (`ring-ring`) */
 
     /* --- Radius --- */
     /* USAGE: Controls the roundness of corners on elements. */
@@ -147,30 +146,40 @@
   * {
     @apply border-border;
   }
-  
+
   body {
     @apply bg-background text-foreground;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    font-feature-settings:
+      'rlig' 1,
+      'calt' 1;
   }
 
   /* Focus Styles */
   :focus-visible {
     @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
   }
-  
+
   /* Selection */
   ::selection {
     @apply bg-primary/20 text-primary;
   }
 
   /* You can keep your existing font styles (h1, p, a, etc.) here if you like them! */
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-montserrat), system-ui, sans-serif;
     font-weight: 800;
     @apply text-foreground;
   }
 
-  p, span, div, li {
+  p,
+  span,
+  div,
+  li {
     font-family: var(--font-raleway), system-ui, sans-serif;
   }
 }
@@ -179,4 +188,3 @@
 @layer utilities {
   /* Your .font-adventure-heading, etc. can remain here */
 }
-

@@ -1,6 +1,7 @@
-"use client"
+'use client'
 
-import * as React from "react"
+import * as React from 'react'
+
 import {
   Pagination,
   PaginationContent,
@@ -9,14 +10,14 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "@/components/ui/pagination"
+} from '@/components/ui/pagination'
 
 interface PaginationWrapperProps {
   total: number
   value: number
   onChange: (page: number) => void
-  position?: "left" | "center" | "right"
-  size?: "sm" | "md" | "lg"
+  position?: 'left' | 'center' | 'right'
+  size?: 'sm' | 'md' | 'lg'
   className?: string
 }
 
@@ -24,8 +25,8 @@ export function PaginationWrapper({
   total,
   value,
   onChange,
-  position = "center",
-  size = "md",
+  position = 'center',
+  size = 'md',
   className,
 }: PaginationWrapperProps) {
   const currentPage = value
@@ -37,12 +38,16 @@ export function PaginationWrapper({
     const range = []
     const rangeWithDots = []
 
-    for (let i = Math.max(2, currentPage - delta); i <= Math.min(totalPages - 1, currentPage + delta); i++) {
+    for (
+      let i = Math.max(2, currentPage - delta);
+      i <= Math.min(totalPages - 1, currentPage + delta);
+      i++
+    ) {
       range.push(i)
     }
 
     if (currentPage - delta > 2) {
-      rangeWithDots.push(1, "ellipsis-start")
+      rangeWithDots.push(1, 'ellipsis-start')
     } else {
       rangeWithDots.push(1)
     }
@@ -50,7 +55,7 @@ export function PaginationWrapper({
     rangeWithDots.push(...range)
 
     if (currentPage + delta < totalPages - 1) {
-      rangeWithDots.push("ellipsis-end", totalPages)
+      rangeWithDots.push('ellipsis-end', totalPages)
     } else if (totalPages > 1) {
       rangeWithDots.push(totalPages)
     }
@@ -61,30 +66,34 @@ export function PaginationWrapper({
   const visiblePages = getVisiblePages()
 
   const positionClass = {
-    left: "justify-start",
-    center: "justify-center", 
-    right: "justify-end"
+    left: 'justify-start',
+    center: 'justify-center',
+    right: 'justify-end',
   }[position]
 
   const sizeClass = {
-    sm: "text-sm",
-    md: "text-base",
-    lg: "text-lg"
+    sm: 'text-sm',
+    md: 'text-base',
+    lg: 'text-lg',
   }[size]
 
   return (
-    <Pagination className={`${positionClass} ${sizeClass} ${className || ""}`}>
+    <Pagination className={`${positionClass} ${sizeClass} ${className || ''}`}>
       <PaginationContent>
         <PaginationItem>
-          <PaginationPrevious 
+          <PaginationPrevious
             onClick={() => onChange(Math.max(1, currentPage - 1))}
-            className={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
+            className={
+              currentPage === 1
+                ? 'pointer-events-none opacity-50'
+                : 'cursor-pointer'
+            }
           />
         </PaginationItem>
 
         {visiblePages.map((page, index) => (
           <PaginationItem key={index}>
-            {page === "ellipsis-start" || page === "ellipsis-end" ? (
+            {page === 'ellipsis-start' || page === 'ellipsis-end' ? (
               <PaginationEllipsis />
             ) : (
               <PaginationLink
@@ -99,9 +108,13 @@ export function PaginationWrapper({
         ))}
 
         <PaginationItem>
-          <PaginationNext 
+          <PaginationNext
             onClick={() => onChange(Math.min(totalPages, currentPage + 1))}
-            className={currentPage === totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"}
+            className={
+              currentPage === totalPages
+                ? 'pointer-events-none opacity-50'
+                : 'cursor-pointer'
+            }
           />
         </PaginationItem>
       </PaginationContent>

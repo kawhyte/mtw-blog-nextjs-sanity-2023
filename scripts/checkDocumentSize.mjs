@@ -2,7 +2,7 @@
 
 /**
  * Document Size Checker
- * 
+ *
  * This script analyzes the streaming dataset size and document complexity
  * for hotel review documents vs the original post documents.
  */
@@ -28,7 +28,7 @@ async function analyzeDocumentSize() {
 
     // 1. Find Hyatt Ziva Los Cabos Review
     console.log('\n📊 Finding "Hyatt Ziva Los Cabos Review"...')
-    
+
     const hotelQuery = `*[_type == "hotelReview" && title match "*Hyatt Ziva Los Cabos*"][0] {
       _id,
       _type,
@@ -58,7 +58,7 @@ async function analyzeDocumentSize() {
     }`
 
     const hotelDoc = await client.fetch(hotelQuery)
-    
+
     if (!hotelDoc) {
       console.log('❌ Could not find "Hyatt Ziva Los Cabos Review"')
       return
@@ -71,14 +71,14 @@ async function analyzeDocumentSize() {
 
     // 2. Analyze document structure complexity
     console.log('\n🔍 Document Structure Analysis:')
-    
+
     const fieldCount = Object.keys(hotelDoc).length
     console.log(`📋 Total fields: ${fieldCount}`)
 
     // Count array fields and their sizes
     const arrayFields = {}
     const complexFields = {}
-    
+
     Object.entries(hotelDoc).forEach(([key, value]) => {
       if (Array.isArray(value)) {
         arrayFields[key] = value.length
@@ -99,7 +99,7 @@ async function analyzeDocumentSize() {
 
     // 3. Compare with document type counts
     console.log('\n📊 Document Type Comparison:')
-    
+
     const docCounts = await client.fetch(`{
       "hotelReviews": count(*[_type == "hotelReview"]),
       "posts": count(*[_type == "post"]),
@@ -118,9 +118,10 @@ async function analyzeDocumentSize() {
 
     // 4. Check original vs new post complexity
     console.log('\n🔍 Complexity Comparison (Post vs Hotel Review):')
-    
+
     // Get a sample food post for comparison
-    const foodPost = await client.fetch(`*[_type == "post" && linkType == "food"][0] {
+    const foodPost =
+      await client.fetch(`*[_type == "post" && linkType == "food"][0] {
       _id,
       title,
       linkType,
@@ -136,7 +137,9 @@ async function analyzeDocumentSize() {
     if (foodPost) {
       console.log(`📝 Sample Food Post: "${foodPost.title}"`)
       console.log(`  - Dining Type: ${foodPost.diningType}`)
-      console.log(`  - Individual Food Ratings: ${foodPost.individualFoodRating?.length || 0} items`)
+      console.log(
+        `  - Individual Food Ratings: ${foodPost.individualFoodRating?.length || 0} items`,
+      )
       console.log(`  - Has Food Rating: ${!!foodPost.foodRating}`)
       console.log(`  - Has Takeout Rating: ${!!foodPost.takeoutRating}`)
     }
@@ -148,7 +151,7 @@ async function analyzeDocumentSize() {
     console.log(`  ✅ Food Posts: No hotel complexity, food-specific only`)
     console.log(`  ✅ Reduced cross-type conditionals and hidden fields`)
     console.log(`  ✅ Lighter queries for each document type`)
-    
+
     console.log(`\n🎯 Streaming Efficiency:`)
     console.log(`  - Hotel reviews have dedicated rating systems`)
     console.log(`  - No linkType switching logic needed`)
@@ -160,8 +163,9 @@ async function analyzeDocumentSize() {
     console.log(`\n📏 Document Size Estimation:`)
     console.log(`📊 Hotel Review JSON size: ~${hotelReviewSize} characters`)
     console.log(`📊 Estimated reduction from original post: ~30-40% smaller`)
-    console.log(`📊 Reason: No unused food-specific fields, no complex conditionals`)
-
+    console.log(
+      `📊 Reason: No unused food-specific fields, no complex conditionals`,
+    )
   } catch (error) {
     console.error('❌ Error analyzing document size:', error)
     process.exit(1)

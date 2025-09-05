@@ -10,14 +10,27 @@ import RoomTech from 'components/RoomTech'
 import VideoPlayer from 'components/Youtube'
 import * as demo from 'lib/demo.data'
 import type { HotelReview, Settings } from 'lib/sanity.queries'
-import { Bath, Bed, BedDouble, BrushCleaning, CalendarDays, Dumbbell, Handshake, Hotel, MapPin, Star, WavesLadder, Wifi } from 'lucide-react'
+import {
+  Bath,
+  Bed,
+  BedDouble,
+  BrushCleaning,
+  CalendarDays,
+  Dumbbell,
+  Handshake,
+  Hotel,
+  MapPin,
+  Star,
+  WavesLadder,
+  Wifi,
+} from 'lucide-react'
 import { notFound } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 
 import HelpfulTip from './HelpfulTip'
 import HeroPhotoGallery from './HeroPhotoGallery'
-import ReviewRating from './ReviewRating';
 import ReviewBlurb from './ReviewBlurb'
+import ReviewRating from './ReviewRating'
 
 export interface HotelReviewPageProps {
   preview?: boolean
@@ -26,7 +39,7 @@ export interface HotelReviewPageProps {
   settings: Settings
 }
 
-import { usePhotoGallery } from 'hooks/usePhotoGallery';
+import { usePhotoGallery } from 'hooks/usePhotoGallery'
 
 const hotelRatingIcons = {
   Value: <Star className="h-5 w-5 mr-2 " />,
@@ -38,7 +51,7 @@ const hotelRatingIcons = {
   Room_Amenities: <Bath className="h-5 w-5 mr-2 " />,
   Pool: <WavesLadder className="h-5 w-5 mr-2 " />,
   Location: <MapPin className="h-5 w-5 mr-2 " />,
-};
+}
 
 function HotelReviewPageContent(props: HotelReviewPageProps) {
   const { preview, loading, hotelReview, settings } = props
@@ -51,8 +64,7 @@ function HotelReviewPageContent(props: HotelReviewPageProps) {
     closeModal,
     nextImage,
     prevImage,
-  } = usePhotoGallery(hotelReview.coverImage, hotelReview.gallery);
-
+  } = usePhotoGallery(hotelReview.coverImage, hotelReview.gallery)
 
   return (
     <div>
@@ -110,23 +122,26 @@ function HotelReviewPageContent(props: HotelReviewPageProps) {
 
           <div className="space-y-12 md:space-y-16">
             {hotelReview.hotelRating && (
-              <ReviewRating ratings={hotelReview.hotelRating} ratingIcons={hotelRatingIcons} title="Hotel Rating" />
+              <ReviewRating
+                ratings={hotelReview.hotelRating}
+                ratingIcons={hotelRatingIcons}
+                title="Hotel Rating"
+              />
             )}
-
 
             {/* Hotel-specific content sections */}
             <ProConList
               positives={hotelReview.positives}
               negatives={hotelReview.negatives}
               verdict2={hotelReview.verdict}
-              />
+            />
 
-{hotelReview.tip && <HelpfulTip tip={hotelReview.tip} />}
+            {hotelReview.tip && <HelpfulTip tip={hotelReview.tip} />}
             <RoomTech
               techAvailable={hotelReview.techRating}
               speed={hotelReview.internetSpeed}
               roomAmenitiesAvailiable={hotelReview.roomAmenities}
-              />
+            />
 
             {/* <div className="container mx-auto"> */}
             <PostBody content={hotelReview.content} />

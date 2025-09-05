@@ -2,7 +2,7 @@ import { UserIcon } from '@sanity/icons'
 import { defineField, defineType } from 'sanity'
 
 export default defineType({
-    name: 'gallery2',
+  name: 'gallery2',
   type: 'object',
   title: 'Gallery',
   fields: [
@@ -58,15 +58,13 @@ export default defineType({
       image: 'images.0',
     },
     prepare(selection) {
-      const { images, image } = selection;
+      const { images, image } = selection
 
       return {
         title: `Gallery block of ${Object.keys(images).length} images`,
         subtitle: `Alt text: ${image.alt}`,
         media: image,
-      };
+      }
     },
   },
 })
-
-

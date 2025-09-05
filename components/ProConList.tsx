@@ -1,18 +1,19 @@
 import {
-CheckCircle2,
+  CheckCircle2,
   CircleCheckBig,
   Scale,
   ThumbsDown,
-  ThumbsUp,   XCircle,
-} from 'lucide-react';
-import React from 'react';
+  ThumbsUp,
+  XCircle,
+} from 'lucide-react'
+import React from 'react'
 
-import { Spoiler } from '@/components/ui/spoiler';
+import { Spoiler } from '@/components/ui/spoiler'
 
-import PostBody from '../components/PostBody';
-import SectionTitle from './SectionTitle';
+import PostBody from '../components/PostBody'
+import SectionTitle from './SectionTitle'
 
-const boxHeight = 390; // Max height for spoiler content before collapsing
+const boxHeight = 390 // Max height for spoiler content before collapsing
 
 // --- Reusable Internal Component for Pro/Con/Verdict Boxes ---
 const InfoBox = ({
@@ -22,11 +23,11 @@ const InfoBox = ({
   items,
   content,
 }: {
-  title: string;
-  icon: React.ReactElement;
-  color: 'success' | 'destructive' | 'primary';
-  items?: string[];
-  content?: any;
+  title: string
+  icon: React.ReactElement
+  color: 'success' | 'destructive' | 'primary'
+  items?: string[]
+  content?: any
 }) => {
   // Dynamically set theme colors based on the 'color' prop
   const themeClasses = {
@@ -48,8 +49,8 @@ const InfoBox = ({
       shadow: 'shadow-secondary/10',
       iconBg: 'bg-secondary/10',
     },
-  };
-  const theme = themeClasses[color];
+  }
+  const theme = themeClasses[color]
 
   return (
     <div
@@ -62,7 +63,9 @@ const InfoBox = ({
         >
           {React.cloneElement(icon, { className: `h-5 w-5 ${theme.text}` })}
         </div>
-        <h2 className={`text-lg font-bold uppercase tracking-wider ${theme.text}`}>
+        <h2
+          className={`text-lg font-bold uppercase tracking-wider ${theme.text}`}
+        >
           {title}
         </h2>
       </div>
@@ -98,17 +101,17 @@ const InfoBox = ({
         </Spoiler>
       </div>
     </div>
-  );
-};
+  )
+}
 
 // --- Main Exported Component ---
 export default function ProConList({ positives, negatives, verdict2 }) {
-  const showPositives = positives && positives.length > 0;
-  const showNegatives = negatives && negatives.length > 0;
-  const showVerdict = verdict2 && verdict2.length > 0;
+  const showPositives = positives && positives.length > 0
+  const showNegatives = negatives && negatives.length > 0
+  const showVerdict = verdict2 && verdict2.length > 0
 
   if (!showPositives && !showNegatives && !showVerdict) {
-    return null;
+    return null
   }
 
   return (
@@ -145,5 +148,5 @@ export default function ProConList({ positives, negatives, verdict2 }) {
         </div>
       </div>
     </section>
-  );
+  )
 }

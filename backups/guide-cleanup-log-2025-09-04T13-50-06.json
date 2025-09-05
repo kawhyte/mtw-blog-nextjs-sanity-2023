@@ -1,0 +1,109 @@
+{
+  "cleanupDate": "2025-09-04T13:50:26.879Z",
+  "backupFile": "/Users/Kenny/mtwblog2023/mtw-blog-nextjs-sanity-2023/backups/existing-guides-backup-2025-09-04T13-50-06.json",
+  "totalGuides": 20,
+  "successful": 20,
+  "failed": 0,
+  "results": [
+    {
+      "success": true,
+      "id": "6fLR5WxYkIdskV71O2sCJv",
+      "title": "American Express Centurion Lounge (Miami, FL)"
+    },
+    {
+      "success": true,
+      "id": "6fLR5WxYkIdskV71O2sCUR",
+      "title": "Escape Lounge - The Century Studio Partner | Reno-Tahoe Int'l Airport"
+    },
+    {
+      "success": true,
+      "id": "6fLR5WxYkIdskV71O2sCex",
+      "title": "Conrad Las Vegas at Resorts World | Amex Fine Hotels & Resorts"
+    },
+    {
+      "success": true,
+      "id": "6fLR5WxYkIdskV71O2sD5F",
+      "title": "Book Once, Check Twice | How To Save Money Booking Flights and Hotels"
+    },
+    {
+      "success": true,
+      "id": "6fLR5WxYkIdskV71O2sDan",
+      "title": "Amtrak California Zephyr Roommette Review"
+    },
+    {
+      "success": true,
+      "id": "6fLR5WxYkIdskV71O2sDlJ",
+      "title": "Celebrity Millennium Aqua Sky Suite the Retreat Review"
+    },
+    {
+      "success": true,
+      "id": "6fLR5WxYkIdskV71O2sDvp",
+      "title": "Day Trip Tips: How to Travel More Without Breaking the Bank "
+    },
+    {
+      "success": true,
+      "id": "JrdVc0h2g58Twb1VMU5ytx",
+      "title": "Renting a Tesla Model Y From Hertz"
+    },
+    {
+      "success": true,
+      "id": "JrdVc0h2g58Twb1VMU5yvD",
+      "title": "Trip from Miami to Tampa on a Megabus"
+    },
+    {
+      "success": true,
+      "id": "JrdVc0h2g58Twb1VMU5ywT",
+      "title": "Baltimore, Maryland Day Trip | Budget Travel"
+    },
+    {
+      "success": true,
+      "id": "JrdVc0h2g58Twb1VMU5yxj",
+      "title": "Celebrity Retreat: 12 Night Hong Kong, Japan & Vietnam Pre-Cruise Story"
+    },
+    {
+      "success": true,
+      "id": "JrdVc0h2g58Twb1VMU5z5H",
+      "title": "Golden Foundation Tours: Small Group Taipei Lifestyle Review"
+    },
+    {
+      "success": true,
+      "id": "JrdVc0h2g58Twb1VMU5z6X",
+      "title": "Morton’s North Miami Beach Steakhouse – Miami Spice 2017 Review"
+    },
+    {
+      "success": true,
+      "id": "JrdVc0h2g58Twb1VMU5z7n",
+      "title": "How I Earned  Elite Status in 2021"
+    },
+    {
+      "success": true,
+      "id": "JrdVc0h2g58Twb1VMU5z93",
+      "title": "Chicago, Illinois Day Trip | Budget Travel"
+    },
+    {
+      "success": true,
+      "id": "PHhuC41o5qRtc67VfKTXOD",
+      "title": "American Express Hotel Membership Rewards Offer Challenge"
+    },
+    {
+      "success": true,
+      "id": "PHhuC41o5qRtc67VfKTXRJ",
+      "title": "Our First Cruise - Royal Caribbean Indy Thanksgiving 2016"
+    },
+    {
+      "success": true,
+      "id": "PHhuC41o5qRtc67VfKTXVR",
+      "title": "TUI Destination Experiences: Walking Tour of Old and New Hong Kong Review"
+    },
+    {
+      "success": true,
+      "id": "PHhuC41o5qRtc67VfKTXXV",
+      "title": "Lorem Ipsum Title for me"
+    },
+    {
+      "success": true,
+      "id": "PHhuC41o5qRtc67VfKTXZZ",
+      "title": "The Whytes Takes Europe  - \" Our 20 European Adventure\""
+    }
+  ]
+}

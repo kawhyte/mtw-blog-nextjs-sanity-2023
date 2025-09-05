@@ -2,6 +2,7 @@ import AuthorAvatar from 'components/AuthorAvatar'
 import Date from 'components/PostDate'
 import type { Post } from 'lib/sanity.queries'
 import Link from 'next/link'
+
 import CoverImage from './CoverImage'
 
 export default function HeroPost(
@@ -15,7 +16,7 @@ export default function HeroPost(
     | 'slug'
     | 'hotelRating'
     | 'location'
-  >
+  >,
 ) {
   const {
     title,
@@ -52,8 +53,11 @@ export default function HeroPost(
               title={title}
               date={date}
               location={location}
-              excerpt2={excerpt2} rating={undefined} linkType={''} diningType={undefined} // url={coverImage}
-              showRating={false}              // linkType={linkType}
+              excerpt2={excerpt2}
+              rating={undefined}
+              linkType={''}
+              diningType={undefined} // url={coverImage}
+              showRating={false} // linkType={linkType}
             />
           </div>
         </div>

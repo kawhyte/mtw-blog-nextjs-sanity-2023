@@ -84,7 +84,7 @@ export default defineType({
     defineField({
       title: 'Purchase price',
       name: 'price',
-      type: 'number'
+      type: 'number',
     }),
 
     defineField({
@@ -94,19 +94,19 @@ export default defineType({
       //validation: (Rule) => Rule.required(),
       validation: (Rule) =>
         Rule.max(120).warning(
-          `The description/rating shouldn't be more than 120 characters.`
+          `The description/rating shouldn't be more than 120 characters.`,
         ),
 
       type: 'array',
-      of: [{ type: 'block',
-
+      of: [
+        {
+          type: 'block',
 
           // Only allow these block styles
           styles: [{ title: 'H5', value: 'h5' }],
-
-       }],
+        },
+      ],
     }),
-
 
     // defineField({
     //   name: 'textRating',
@@ -134,7 +134,6 @@ export default defineType({
       description: 'Set to true if you like the item',
       validation: (Rule) => Rule.required(),
     }),
-
 
     defineField({
       name: 'productImage',

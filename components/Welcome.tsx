@@ -12,32 +12,32 @@ import {
   Pizza,
   Ship,
   ToyBrick,
-} from 'lucide-react';
-import React from 'react';
+} from 'lucide-react'
+import React from 'react'
 
-import AvatarCard from './AvatarCard';
-import CountriesCard from './CountriesCard';
-import InterestCard from './InterestCard';
-import SectionTitle from './SectionTitle';
+import AvatarCard from './AvatarCard'
+import CountriesCard from './CountriesCard'
+import InterestCard from './InterestCard'
+import SectionTitle from './SectionTitle'
 
 // Interfaces for the data
 interface Duo {
-  id: number;
-  color: string;
-  name: string;
-  image: string;
-  quoteBy: string;
-  quote: string;
+  id: number
+  color: string
+  name: string
+  image: string
+  quoteBy: string
+  quote: string
 }
 
 interface Interest {
-  icon: React.ComponentType<React.ComponentProps<typeof Book>>;
-  label: string;
+  icon: React.ComponentType<React.ComponentProps<typeof Book>>
+  label: string
 }
 
 interface Country {
-  code: string;
-  name: string;
+  code: string
+  name: string
 }
 
 function Welcome(): JSX.Element {
@@ -58,7 +58,7 @@ function Welcome(): JSX.Element {
       quoteBy: '- Frank Zappa',
       quote: 'So many books, so little time',
     },
-  ];
+  ]
 
   const interests: Interest[] = [
     { icon: Pizza, label: 'Pizza' },
@@ -74,7 +74,7 @@ function Welcome(): JSX.Element {
     { icon: ToyBrick, label: 'Legos' },
     { icon: Clapperboard, label: 'Movies' },
     { icon: Ship, label: 'Cruise' },
-  ];
+  ]
 
   const countries: Country[] = [
     { code: 'HK', name: 'Hong Kong' },
@@ -95,7 +95,7 @@ function Welcome(): JSX.Element {
     { code: 'BS', name: 'The Bahamas' },
     { code: 'GB', name: 'United Kingdom' },
     { code: 'US', name: 'United States' },
-  ];
+  ]
 
   return (
     <div className="container mx-auto space-y-16 py-12">
@@ -118,7 +118,7 @@ function Welcome(): JSX.Element {
         <CountriesCard countries={countries} />
       </div>
     </div>
-  );
+  )
 }
 
-export default Welcome;
+export default Welcome

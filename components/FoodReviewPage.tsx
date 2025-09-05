@@ -1,21 +1,21 @@
 import BlogHeader from 'components/BlogHeader'
 import Layout from 'components/BlogLayout'
+import Footer from 'components/Footer'
+import HeroPhotoGallery from 'components/HeroPhotoGallery'
+import ImageGallery from 'components/ImageGallery'
 import FoodRatings from 'components/IndividualFoodRating'
 import PostBody from 'components/PostBody'
 import PostPageHead from 'components/PostPageHead'
 import PostTitle from 'components/PostTitle'
-import Footer from 'components/Footer'
 import ProConList from 'components/ProConList'
-import HelpfulTip from './HelpfulTip'
 import VideoPlayer from 'components/Youtube'
-import ImageGallery from 'components/ImageGallery'
-import HeroPhotoGallery from 'components/HeroPhotoGallery'
-import ReviewBlurb from './ReviewBlurb'
-import { useState, useCallback, useEffect } from 'react'
-
 import * as demo from 'lib/demo.data'
 import type { FoodReview, Settings } from 'lib/sanity.queries'
 import { notFound } from 'next/navigation'
+import { useCallback, useEffect,useState } from 'react'
+
+import HelpfulTip from './HelpfulTip'
+import ReviewBlurb from './ReviewBlurb'
 
 export interface FoodReviewPageProps {
   preview?: boolean
@@ -25,8 +25,19 @@ export interface FoodReviewPageProps {
 }
 
 import { usePhotoGallery } from 'hooks/usePhotoGallery'
-import { BedDouble, CalendarDays, MapPin, Utensils, Star, Smile, Presentation, SprayCan, Handshake } from 'lucide-react'
-import ReviewRating from './ReviewRating';
+import {
+  BedDouble,
+  CalendarDays,
+  Handshake,
+  MapPin,
+  Presentation,
+  Smile,
+  SprayCan,
+  Star,
+  Utensils,
+} from 'lucide-react'
+
+import ReviewRating from './ReviewRating'
 
 const foodRatingIcons = {
   Flavor_and_Taste: <Utensils className="h-5 w-5 mr-2 " />,
@@ -36,7 +47,7 @@ const foodRatingIcons = {
   Restaurant_Cleanliness: <SprayCan className="h-5 w-5 mr-2 " />,
   Restaurant_Location: <MapPin className="h-5 w-5 mr-2 " />,
   Restaurant_Service: <Handshake className="h-5 w-5 mr-2 " />,
-};
+}
 
 export default function FoodReviewPage(props: FoodReviewPageProps) {
   const { preview, loading, foodReview, settings } = props
@@ -113,14 +124,14 @@ export default function FoodReviewPage(props: FoodReviewPageProps) {
             </div>
           </header>
 
-          {foodReview.excerpt2 && (
-            <ReviewBlurb
-              content={foodReview.excerpt2}
-            />
-          )}
+          {foodReview.excerpt2 && <ReviewBlurb content={foodReview.excerpt2} />}
 
           {currentRating && (
-            <ReviewRating ratings={currentRating} ratingIcons={foodRatingIcons} title="Food Rating" />
+            <ReviewRating
+              ratings={currentRating}
+              ratingIcons={foodRatingIcons}
+              title="Food Rating"
+            />
           )}
 
           {/* Individual Food Ratings */}
@@ -135,7 +146,6 @@ export default function FoodReviewPage(props: FoodReviewPageProps) {
             negatives={foodReview.negatives}
             verdict2={foodReview.verdict}
           />
-
         </article>
 
         <div className="container mx-auto">

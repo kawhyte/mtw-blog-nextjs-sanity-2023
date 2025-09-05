@@ -2,39 +2,34 @@ import { UserIcon } from '@sanity/icons'
 import { defineField, defineType } from 'sanity'
 
 export default defineType({
-    name: 'gallery',
-    type: 'object',
-    title: 'Gallery',
-    fields: [
-        defineField({
-        name: 'images',
-        type: 'array',
-        title: 'Images',
-        of: [
-          {
-            name: 'image',
-            type: 'image',
-            title: 'Image',
-            options: {
-              hotspot: true,
-            },
-            fields: [
-              {
-                name: 'alt',
-                type: 'string',
-                title: 'Alternative text',
-              },
-            ],
+  name: 'gallery',
+  type: 'object',
+  title: 'Gallery',
+  fields: [
+    defineField({
+      name: 'images',
+      type: 'array',
+      title: 'Images',
+      of: [
+        {
+          name: 'image',
+          type: 'image',
+          title: 'Image',
+          options: {
+            hotspot: true,
           },
-        ],
-        options: {
-          layout: 'grid',
+          fields: [
+            {
+              name: 'alt',
+              type: 'string',
+              title: 'Alternative text',
+            },
+          ],
         },
-      }),
-    
-    
-    ],
- 
+      ],
+      options: {
+        layout: 'grid',
+      },
+    }),
+  ],
 })
-
-

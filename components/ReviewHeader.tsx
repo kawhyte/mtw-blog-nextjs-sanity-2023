@@ -1,31 +1,32 @@
-import { Progress } from '@/components/ui/progress'; // Note: Progress is imported but not used in the provided JSX
-import { inter, oswald } from 'app/fonts'; // Ensure fonts are correctly configured
-import { urlForImage } from 'lib/sanity.image'; // Note: urlForImage is imported but not used
-import Image from 'next/image'; // Note: Image is imported but not used
-import React, { useEffect, useRef } from 'react'; // Note: useEffect, useRef imported but not used
-import { FaRegCalendarAlt } from 'react-icons/fa'; // Note: FaRegCalendarAlt imported but not used
-import { IoLocationOutline } from 'react-icons/io5'; // Note: IoLocationOutline imported but not used
-import dynamic from 'next/dynamic';
+import { inter, oswald } from 'app/fonts' // Ensure fonts are correctly configured
+import { urlForImage } from 'lib/sanity.image' // Note: urlForImage is imported but not used
+import dynamic from 'next/dynamic'
+import Image from 'next/image' // Note: Image is imported but not used
+import React, { useEffect, useRef } from 'react' // Note: useEffect, useRef imported but not used
+import { FaRegCalendarAlt } from 'react-icons/fa' // Note: FaRegCalendarAlt imported but not used
+import { IoLocationOutline } from 'react-icons/io5' // Note: IoLocationOutline imported but not used
 
-import PostDate from './PostDate'; // Note: PostDate imported but not used
+import { Progress } from '@/components/ui/progress' // Note: Progress is imported but not used in the provided JSX
+
+import PostDate from './PostDate' // Note: PostDate imported but not used
 
 // Dynamically import the Lottie Player component to avoid SSR issues
 const PlayerWithNoSSR = dynamic(
   () =>
     import('@lottiefiles/react-lottie-player').then((module) => module.Player),
-  { ssr: false }
-);
+  { ssr: false },
+)
 
 // Define props for the component
 interface ReviewHeaderProps {
-  title: string;
-  summary: string;
-  img?: any; // Prop for animation data/URL (currently unused in JSX below)
+  title: string
+  summary: string
+  img?: any // Prop for animation data/URL (currently unused in JSX below)
 }
 
 function ReviewHeader({ title, summary, img }: ReviewHeaderProps) {
   // Removed unused totalDistance calculation
- console.log('img ', img)
+  console.log('img ', img)
   return (
     // 1. Use container for consistent width and padding, matching other sections
     // Removed mx-16, added container, mx-auto, and responsive padding px-*
@@ -71,7 +72,7 @@ function ReviewHeader({ title, summary, img }: ReviewHeaderProps) {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default ReviewHeader;
+export default ReviewHeader

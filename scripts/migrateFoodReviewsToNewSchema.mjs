@@ -2,10 +2,10 @@
 
 /**
  * Migration Script: Post Food Reviews → Independent Food Review Schema
- * 
- * This script converts backed-up food post data to the new independent 
+ *
+ * This script converts backed-up food post data to the new independent
  * 'foodReview' document type and handles the migration process.
- * 
+ *
  * Usage:
  *   npm run migrate-food        # Dry run (preview only)
  *   npm run migrate-food:live   # Actual migration
@@ -58,7 +58,7 @@ function mapPostToFoodReview(post) {
   }
 
   // Remove undefined fields
-  Object.keys(foodReview).forEach(key => {
+  Object.keys(foodReview).forEach((key) => {
     if (foodReview[key] === undefined) {
       delete foodReview[key]
     }
@@ -80,30 +80,52 @@ function generateTagsFromFoodData(post) {
 
   // Add location-based tags
   if (post.location) {
-    const locationParts = post.location.split(',').map(part => part.trim())
+    const locationParts = post.location.split(',').map((part) => part.trim())
     tags.push(...locationParts)
   }
 
   // Add food-related tags based on individual ratings
   if (post.individualFoodRating && post.individualFoodRating.length > 0) {
     tags.push('individual ratings')
-    
+
     // Add cuisine type tags based on dish names (simple keyword matching)
-    const dishNames = post.individualFoodRating.map(item => item.name?.toLowerCase() || '').join(' ')
-    
-    if (dishNames.includes('sushi') || dishNames.includes('ramen') || dishNames.includes('tempura')) {
+    const dishNames = post.individualFoodRating
+      .map((item) => item.name?.toLowerCase() || '')
+      .join(' ')
+
+    if (
+      dishNames.includes('sushi') ||
+      dishNames.includes('ramen') ||
+      dishNames.includes('tempura')
+    ) {
       tags.push('japanese cuisine')
     }
-    if (dishNames.includes('pizza') || dishNames.includes('pasta') || dishNames.includes('risotto')) {
+    if (
+      dishNames.includes('pizza') ||
+      dishNames.includes('pasta') ||
+      dishNames.includes('risotto')
+    ) {
       tags.push('italian cuisine')
     }
-    if (dishNames.includes('burger') || dishNames.includes('fries') || dishNames.includes('bbq')) {
+    if (
+      dishNames.includes('burger') ||
+      dishNames.includes('fries') ||
+      dishNames.includes('bbq')
+    ) {
       tags.push('american cuisine')
     }
-    if (dishNames.includes('taco') || dishNames.includes('burrito') || dishNames.includes('salsa')) {
+    if (
+      dishNames.includes('taco') ||
+      dishNames.includes('burrito') ||
+      dishNames.includes('salsa')
+    ) {
       tags.push('mexican cuisine')
     }
-    if (dishNames.includes('curry') || dishNames.includes('naan') || dishNames.includes('biryani')) {
+    if (
+      dishNames.includes('curry') ||
+      dishNames.includes('naan') ||
+      dishNames.includes('biryani')
+    ) {
       tags.push('indian cuisine')
     }
   }
@@ -135,10 +157,12 @@ async function checkReferences(postIds) {
     title,
     "referencedPosts": *[_id in $postIds && references(^._id)] { _id, title }
   }`
-  
+
   try {
     const references = await client.fetch(referencesQuery, { postIds })
-    return references.filter(ref => ref.referencedPosts && ref.referencedPosts.length > 0)
+    return references.filter(
+      (ref) => ref.referencedPosts && ref.referencedPosts.length > 0,
+    )
   } catch (error) {
     console.warn('Could not check references:', error.message)
     return []
@@ -148,7 +172,11 @@ async function checkReferences(postIds) {
 async function migrateFoodReviews() {
   try {
     console.log('🍽️ Starting Food Review Migration...')
-    console.log(isDryRun ? '🔍 DRY RUN MODE - No changes will be made' : '🚀 LIVE MODE - Changes will be applied')
+    console.log(
+      isDryRun
+        ? '🔍 DRY RUN MODE - No changes will be made'
+        : '🚀 LIVE MODE - Changes will be applied',
+    )
 
     // Validate environment variables
     if (!process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) {
@@ -163,13 +191,19 @@ async function migrateFoodReviews() {
 
     // Find the most recent backup file
     const backupDir = 'backups'
-    const backupFiles = fs.readdirSync(backupDir)
-      .filter(file => file.startsWith('food-reviews-backup-') && file.endsWith('.json'))
+    const backupFiles = fs
+      .readdirSync(backupDir)
+      .filter(
+        (file) =>
+          file.startsWith('food-reviews-backup-') && file.endsWith('.json'),
+      )
       .sort()
       .reverse()
 
     if (backupFiles.length === 0) {
-      throw new Error('No food review backup files found. Please run backup script first.')
+      throw new Error(
+        'No food review backup files found. Please run backup script first.',
+      )
     }
 
     const latestBackupFile = path.join(backupDir, backupFiles[0])
@@ -186,13 +220,17 @@ async function migrateFoodReviews() {
 
     // Check for references
     console.log('🔍 Checking for references to food posts...')
-    const postIds = backupData.map(post => post._id)
+    const postIds = backupData.map((post) => post._id)
     const references = await checkReferences(postIds)
-    
+
     if (references.length > 0) {
-      console.log(`⚠️ Found ${references.length} documents referencing food posts:`)
-      references.slice(0, 5).forEach(ref => {
-        console.log(`  - ${ref._type}: "${ref.title || ref._id}" references ${ref.referencedPosts?.length || 0} food posts`)
+      console.log(
+        `⚠️ Found ${references.length} documents referencing food posts:`,
+      )
+      references.slice(0, 5).forEach((ref) => {
+        console.log(
+          `  - ${ref._type}: "${ref.title || ref._id}" references ${ref.referencedPosts?.length || 0} food posts`,
+        )
       })
       if (references.length > 5) {
         console.log(`  ... and ${references.length - 5} more`)
@@ -203,17 +241,23 @@ async function migrateFoodReviews() {
 
     // Convert posts to food reviews
     const foodReviews = backupData.map(mapPostToFoodReview)
-    
+
     console.log('\n🔄 Migration Preview:')
     console.log(`📄 Documents to create: ${foodReviews.length}`)
-    
+
     if (references.length > 0) {
-      console.log(`⚠️ Strategy: CREATE ONLY (old posts will remain due to references)`)
-      console.log(`📝 Recommendation: Update references manually, then delete old posts`)
+      console.log(
+        `⚠️ Strategy: CREATE ONLY (old posts will remain due to references)`,
+      )
+      console.log(
+        `📝 Recommendation: Update references manually, then delete old posts`,
+      )
     } else {
-      console.log(`✅ Strategy: CREATE + DELETE (no references blocking deletion)`)
+      console.log(
+        `✅ Strategy: CREATE + DELETE (no references blocking deletion)`,
+      )
     }
-    
+
     // Show sample conversion
     if (foodReviews.length > 0) {
       const sample = foodReviews[0]
@@ -222,24 +266,32 @@ async function migrateFoodReviews() {
       console.log(`  Slug: ${sample.slug?.current || 'N/A'}`)
       console.log(`  Dining Type: ${sample.diningType}`)
       console.log(`  Location: ${sample.location || 'N/A'}`)
-      console.log(`  Individual Food Ratings: ${sample.individualFoodRating?.length || 0} dishes`)
+      console.log(
+        `  Individual Food Ratings: ${sample.individualFoodRating?.length || 0} dishes`,
+      )
       console.log(`  Food Rating System: ${sample.foodRating ? 'Yes' : 'No'}`)
-      console.log(`  Takeout Rating System: ${sample.takeoutRating ? 'Yes' : 'No'}`)
+      console.log(
+        `  Takeout Rating System: ${sample.takeoutRating ? 'Yes' : 'No'}`,
+      )
       console.log(`  Tags: ${sample.tags?.join(', ') || 'None'}`)
     }
 
     if (isDryRun) {
       console.log('\n🔍 DRY RUN COMPLETE')
       console.log('📋 Summary of what would happen:')
-      console.log(`  ✅ Create ${foodReviews.length} new 'foodReview' documents`)
-      
+      console.log(
+        `  ✅ Create ${foodReviews.length} new 'foodReview' documents`,
+      )
+
       if (references.length > 0) {
-        console.log(`  ⚠️ Keep ${backupData.length} old 'post' documents (due to references)`)
+        console.log(
+          `  ⚠️ Keep ${backupData.length} old 'post' documents (due to references)`,
+        )
         console.log(`  📝 Manual cleanup needed after updating references`)
       } else {
         console.log(`  🗑️ Delete ${backupData.length} old 'post' documents`)
       }
-      
+
       console.log('\n📌 To run the actual migration:')
       console.log('   npm run migrate-food:live')
       return
@@ -251,12 +303,14 @@ async function migrateFoodReviews() {
     // Strategy: Create new documents (safer approach)
     console.log('📝 Creating new food review documents...')
     const createdDocuments = []
-    
+
     for (const foodReview of foodReviews) {
       try {
         const created = await client.create(foodReview)
         createdDocuments.push(created)
-        console.log(`✅ Created: ${created.title} (${created.diningType}) - ${created._id}`)
+        console.log(
+          `✅ Created: ${created.title} (${created.diningType}) - ${created._id}`,
+        )
       } catch (error) {
         console.error(`❌ Failed to create: ${foodReview.title}`, error.message)
       }
@@ -264,13 +318,21 @@ async function migrateFoodReviews() {
 
     console.log('\n✅ MIGRATION COMPLETED!')
     console.log(`📊 Results:`)
-    console.log(`  ✅ Created: ${createdDocuments.length}/${foodReviews.length} food review documents`)
-    
+    console.log(
+      `  ✅ Created: ${createdDocuments.length}/${foodReviews.length} food review documents`,
+    )
+
     if (references.length > 0) {
-      console.log(`  ⚠️ Kept: ${backupData.length} old food post documents (due to references)`)
+      console.log(
+        `  ⚠️ Kept: ${backupData.length} old food post documents (due to references)`,
+      )
       console.log('\n📋 Next Steps:')
-      console.log('  1. Update any references to point to new food review documents')
-      console.log('  2. Manually delete old food posts when no longer referenced')
+      console.log(
+        '  1. Update any references to point to new food review documents',
+      )
+      console.log(
+        '  2. Manually delete old food posts when no longer referenced',
+      )
       console.log('  3. Test new food review functionality')
     } else {
       console.log(`  🎯 Old posts can be safely deleted if needed`)
@@ -278,28 +340,28 @@ async function migrateFoodReviews() {
 
     // Show dining type breakdown
     const diningBreakdown = {
-      dinein: createdDocuments.filter(doc => doc.diningType === 'dinein').length,
-      takeout: createdDocuments.filter(doc => doc.diningType === 'takeout').length,
+      dinein: createdDocuments.filter((doc) => doc.diningType === 'dinein')
+        .length,
+      takeout: createdDocuments.filter((doc) => doc.diningType === 'takeout')
+        .length,
     }
-    
+
     console.log('\n🍽️ Dining Type Breakdown:')
     console.log(`  - Dine-in experiences: ${diningBreakdown.dinein}`)
     console.log(`  - Takeout experiences: ${diningBreakdown.takeout}`)
 
     console.log('\n🎉 Food reviews are now available as independent documents!')
-
   } catch (error) {
     console.error('❌ Error during migration:', error)
-    
+
     if (!isDryRun) {
       console.log('\n🔄 Migration failed. Your data is still safe.')
       console.log('📂 Original data is preserved in backup files.')
     }
-    
+
     process.exit(1)
   }
 }
 
 // Run the migration
 migrateFoodReviews()
-

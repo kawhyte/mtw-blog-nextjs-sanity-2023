@@ -32,7 +32,9 @@ export default function CoverImage(props: CoverImageProps) {
             src={urlForImage(source)
               .width(560)
               .height(610)
-              .format('webp').fit('crop').auto('format')
+              .format('webp')
+              .fit('crop')
+              .auto('format')
               .url()}
             alt={source.alt}
             placeholder="blur"
@@ -41,8 +43,6 @@ export default function CoverImage(props: CoverImageProps) {
             height={438}
             priority={true}
           />
-
-     
         </div>
 
         {gallery?.length > 3 ? (
@@ -51,7 +51,13 @@ export default function CoverImage(props: CoverImageProps) {
               <div key={item._key} className="relative">
                 <Image
                   className={twMerge(`h-auto max-w-full  `, ImageBorder[i])}
-                  src={urlForImage(item)?.height(300)?.width(300)?.format('webp').fit('crop').auto('format')?.url()}
+                  src={urlForImage(item)
+                    ?.height(300)
+                    ?.width(300)
+                    ?.format('webp')
+                    .fit('crop')
+                    .auto('format')
+                    ?.url()}
                   alt=""
                   width={300}
                   height={300}
@@ -66,8 +72,6 @@ export default function CoverImage(props: CoverImageProps) {
           <></>
         )}
       </div>
-
-      
     </>
   ) : (
     <div style={{ paddingTop: '50%', backgroundColor: '#ddd' }} />

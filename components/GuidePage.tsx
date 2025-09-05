@@ -1,22 +1,28 @@
 // components/GuidePage.tsx
 
-import Layout from 'components/BlogLayout';
-import PostBody from 'components/PostBody';
-import PostPageHead from 'components/PostPageHead';
-import { Guide, Settings } from 'lib/sanity.queries';
-import { urlForImage } from 'lib/sanity.image';
-import Image from 'next/image';
-import BlogHeader from './BlogHeader';
+import Layout from 'components/BlogLayout'
+import PostBody from 'components/PostBody'
+import PostPageHead from 'components/PostPageHead'
+import { urlForImage } from 'lib/sanity.image'
+import { Guide, Settings } from 'lib/sanity.queries'
+import Image from 'next/image'
+
+import BlogHeader from './BlogHeader'
 
 interface GuidePageProps {
-  guide: Guide;
-  settings: Settings;
-  preview?: boolean;
-  loading?: boolean;
+  guide: Guide
+  settings: Settings
+  preview?: boolean
+  loading?: boolean
 }
 
-export default function GuidePage({ guide, settings, preview, loading }: GuidePageProps) {
-  const { title = 'Travel Guide' } = settings || {};
+export default function GuidePage({
+  guide,
+  settings,
+  preview,
+  loading,
+}: GuidePageProps) {
+  const { title = 'Travel Guide' } = settings || {}
 
   return (
     <div>
@@ -38,7 +44,11 @@ export default function GuidePage({ guide, settings, preview, loading }: GuidePa
           {guide.coverImage && (
             <div className="mb-12">
               <Image
-                src={urlForImage(guide.coverImage).width(1200).height(630).fit('crop').url()}
+                src={urlForImage(guide.coverImage)
+                  .width(1200)
+                  .height(630)
+                  .fit('crop')
+                  .url()}
                 alt={guide.title || 'Guide Cover Image'}
                 width={1200}
                 height={630}
@@ -53,5 +63,5 @@ export default function GuidePage({ guide, settings, preview, loading }: GuidePa
         </article>
       </Layout>
     </div>
-  );
+  )
 }
