@@ -94,14 +94,23 @@ export default function CoverImage(props: CoverImageProps) {
   const categoryType = categoryRating(category)
 
   const badgeColorClasses = {
-    blue: 'bg-accent text-accent-foreground',
-    yellow: 'bg-accent text-accent-foreground',
-    green: 'bg-success text-success-foreground',
-    red: 'bg-destructive text-destructive-foreground',
+    blue: 'bg-blue-200 text-blue-800',
+    yellow: 'bg-yellow-200 text-yellow-800', 
+    green: 'bg-green-200 text-green-800',
+    red: 'bg-red-200 text-red-800',
   }
 
   const badgeClasses =
     badgeColorClasses[categoryType.color] || 'bg-gray-500 text-white'
+
+  // Debug logging
+  if (category === 'mid-scale') {
+    console.log('Mid-scale hotel debug:', {
+      category,
+      categoryType,
+      badgeClasses,
+    })
+  }
 
   return (
     <div className="relative overflow-hidden rounded-t-3xl">
