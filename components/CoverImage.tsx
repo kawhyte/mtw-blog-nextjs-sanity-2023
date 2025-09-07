@@ -45,6 +45,7 @@ interface CoverImageProps {
   linkType?: 'hotel' | 'food' | 'story' | 'favorite'
   diningType: any
   showRating: boolean
+  priority?: boolean // Add priority prop for above-the-fold images
 }
 
 export default function CoverImage(props: CoverImageProps) {
@@ -57,6 +58,8 @@ export default function CoverImage(props: CoverImageProps) {
     image: source,
     linkType,
     diningType,
+    priority = false,
+    location,
   } = props
 
   const image =
@@ -74,9 +77,18 @@ export default function CoverImage(props: CoverImageProps) {
           blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAO0lEQVR4nGNgYGBg+P//P1t9fT0TiM0we3ZjxZxZjQ9XLpwwe9nCHkOGGZOyanraY9aumN2wbsn0hmQA/MEWfj4ocjcAAAAASUVORK5CYII="
           width={320}
           height={200}
-          alt={`Cover Image for ${title}`}
+          alt={
+            linkType === 'hotel'
+              ? `${title} - NBA Arena Hotel Review${location ? ` in ${location}` : ''}`
+              : linkType === 'food'
+                ? `${title} - NBA Arena Food Review${location ? ` in ${location}` : ''}`
+                : linkType === 'story'
+                  ? `${title} - NBA Arena Travel Guide${location ? ` for ${location}` : ''}`
+                  : `${title} - NBA Arena Travel Review`
+          }
           src={urlForImage(source)?.height(200)?.width(320)?.fit('crop').url()}
-          loading="lazy"
+          priority={priority}
+          loading={priority ? undefined : 'lazy'}
         />
       </div>
     ) : (
@@ -93,15 +105,13 @@ export default function CoverImage(props: CoverImageProps) {
 
   const badgeColorClasses = {
     blue: 'bg-badge-blue text-badge-blue-foreground',
-    yellow: 'bg-badge-yellow text-badge-yellow-foreground', 
+    yellow: 'bg-badge-yellow text-badge-yellow-foreground',
     green: 'bg-badge-green text-badge-green-foreground',
     red: 'bg-badge-red text-badge-red-foreground',
   }
 
   const badgeClasses =
     badgeColorClasses[categoryType.color] || 'bg-gray-500 text-white'
-
- 
 
   return (
     <div className="relative overflow-hidden rounded-t-3xl">

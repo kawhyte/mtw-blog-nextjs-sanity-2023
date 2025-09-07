@@ -114,9 +114,9 @@ export async function getLatestIndependentContent(): Promise<
     return []
   }
   try {
-    const response = await client.fetch<{ allContent: (Guide | HotelReview | FoodReview)[] }>(
-      latestIndependentContentQuery,
-    )
+    const response = await client.fetch<{
+      allContent: (Guide | HotelReview | FoodReview)[]
+    }>(latestIndependentContentQuery)
     return response?.allContent ?? []
   } catch (error) {
     console.error(`Error fetching latest independent content:`, error)

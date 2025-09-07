@@ -43,30 +43,82 @@ export default function IndexPageHead({ settings }: IndexPageHeadProps) {
     ogImageUrl = `${SITE_URL}${ogImageUrl.startsWith('/') ? '' : '/'}${ogImageUrl}`
   }
 
-  const pageTitle = title || demo.title // Use site title for homepage
-  const pageDescription = description
-    ? toPlainText(description)
-    : demo.description
+  // SEO-optimized title for NBA/WNBA arena travel blog
+  const pageTitle =
+    'NBA & WNBA Arena Travel Guide | Hotels, Food & Reviews - Meet the Whytes'
+
+  // SEO-optimized description focusing on the arena quest niche
+  const pageDescription =
+    'Join our quest to visit every NBA & WNBA arena! Honest hotel reviews, local food guides, and travel tips from fellow basketball fans. Plan your arena road trip with insider knowledge.'
+
   const pageUrl = SITE_URL + '/' // URL of the homepage
 
   return (
     <Head>
       {/* <title>{title}</title> */}
       <BlogMeta />
-      <meta
-        key="description"
-        name="description"
-        content={toPlainText(description)}
+      <title>{pageTitle}</title>
+      <meta key="description" name="description" content={pageDescription} />
+      <meta property="og:type" content="website" />
+      <meta property="og:title" content={pageTitle} />
+      <meta property="og:description" content={pageDescription} />
+      <meta property="og:url" content={pageUrl} />
+      <meta property="og:image" content={ogImageUrl} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content={pageTitle} />
+      <meta name="twitter:description" content={pageDescription} />
+      <meta name="twitter:image" content={ogImageUrl} />
+      <meta name="twitter:url" content={pageUrl} />
+
+      {/* Canonical URL */}
+      <link rel="canonical" href={pageUrl} />
+
+      {/* Organization Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Organization',
+            name: 'Meet the Whytes',
+            description:
+              'NBA & WNBA Arena Travel Blog - Join our quest to visit every basketball arena!',
+            url: SITE_URL,
+            logo: `${SITE_URL}/MeettheWhytes.png`,
+            sameAs: [
+              // Add social media profiles when available
+            ],
+            contactPoint: {
+              '@type': 'ContactPoint',
+              contactType: 'customer service',
+            },
+          }),
+        }}
       />
-      <meta
-        property="og:image"
-        // Because OG images must have a absolute URL, we use the
-        // `VERCEL_URL` environment variable to get the deployment’s URL.
-        // More info:
-        // https://vercel.com/docs/concepts/projects/environment-variables
-        content={`${
-          process.env.VERCEL_URL ? 'https://' + process.env.VERCEL_URL : ''
-        }/api/og?${new URLSearchParams({ title: ogImageTitle })}`}
+
+      {/* Website Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'WebSite',
+            name: 'Meet the Whytes - NBA & WNBA Arena Travel Guide',
+            description: pageDescription,
+            url: SITE_URL,
+            potentialAction: {
+              '@type': 'SearchAction',
+              target: {
+                '@type': 'EntryPoint',
+                urlTemplate: `${SITE_URL}/search?q={search_term_string}`,
+              },
+              'query-input': 'required name=search_term_string',
+            },
+          }),
+        }}
       />
     </Head>
   )

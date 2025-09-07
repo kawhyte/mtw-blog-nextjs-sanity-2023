@@ -19,6 +19,7 @@ interface PreviewPostPageProps {
   post: ContentItem
   settings: any
   contentType?: 'post' | 'guide' | 'hotelReview' | 'foodReview'
+  morePosts?: Post[]
 }
 
 export default function PreviewPostPage({
@@ -42,7 +43,7 @@ export default function PreviewPostPage({
     query = postAndMoreStoriesQuery
   }
 
-  queryParams = { slug: post.slug?.current || post.slug || '' }
+  queryParams = { slug: (post.slug as any)?.current || post.slug || '' }
 
   // Use the appropriate preview query
   const previewData = usePreview(token, query, queryParams) || {

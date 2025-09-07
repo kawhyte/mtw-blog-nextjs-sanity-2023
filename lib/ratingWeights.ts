@@ -31,7 +31,7 @@ interface DineinWeights {
 
 export function getRatingWeights(
   linkType: string,
-  diningType: string,
+  diningType?: string,
 ): Partial<HotelWeights & TakeoutWeights & DineinWeights> {
   let weights: Partial<HotelWeights & TakeoutWeights & DineinWeights> = {}
 

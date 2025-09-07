@@ -1,7 +1,7 @@
 import { oswald } from 'app/fonts' // Assuming font import is needed
 import { calculateRating } from 'lib/calculateRating' // Assuming calculation function import
 import { getRatingWeights } from 'lib/ratingWeights' // Assuming weights function import
-import type { FoodReview,HotelReview, Post } from 'lib/sanity.queries'
+import type { FoodReview, HotelReview, Post } from 'lib/sanity.queries'
 import React from 'react'
 // --- Import Star Icons ---
 import { IoStar, IoStarHalf, IoStarOutline } from 'react-icons/io5'
@@ -217,7 +217,7 @@ const StarRating: React.FC<StarRatingProps> = ({
                   <div className="mt-1 flex flex-1 flex-row items-center align-middle text-sm">
                     {' '}
                     {/* Added mt-1 */}
-                    <ProgressRating progress={value} />
+                    <ProgressRating progress={value} color="slate" />
                   </div>
                 )}
               </div>

@@ -1,16 +1,17 @@
 import Container from 'components/BlogContainer'
 import BlogHeader from 'components/BlogHeader'
 import Layout from 'components/BlogLayout'
-import IndexPageHead from 'components/IndexPageHead'
+import CategoryPageHead from 'components/CategoryPageHead'
 import * as demo from 'lib/demo.data'
 import { getPaginatedHotelReviews } from 'lib/sanity.client'
 import type { HotelReview, Settings } from 'lib/sanity.queries'
 import Head from 'next/head'
-import { useEffect,useState } from 'react'
+import { useEffect, useState } from 'react'
 import useSWR, { mutate } from 'swr'
 
-import { CMS_NAME } from '../lib/constants'
 import { CardSkeletonGrid } from '@/components/ui/card-skeleton'
+
+import { CMS_NAME } from '../lib/constants'
 import DynamicPostCard from './DynamicPostCard'
 import Footer from './Footer'
 import PaginationComponent from './PaginationComponent'
@@ -65,7 +66,10 @@ export default function HotelReviewsPage(props: HotelReviewsPageProps) {
     if (data) {
       setPosts(data)
       setIsTransitioning(false)
-      console.log(`Page ${currentPage} loaded with ${data.length} posts:`, data.map(p => p.title))
+      console.log(
+        `Page ${currentPage} loaded with ${data.length} posts:`,
+        data.map((p) => p.title),
+      )
     }
   }, [data, currentPage])
 
@@ -75,13 +79,13 @@ export default function HotelReviewsPage(props: HotelReviewsPageProps) {
 
   return (
     <>
-      <IndexPageHead settings={settings} />
+      <CategoryPageHead
+        settings={settings}
+        categoryType="hotels"
+        totalCount={totalPostsCount}
+      />
 
       <Layout preview={preview} loading={loading}>
-        <Head>
-          <title>{`Hotel Reviews - ${CMS_NAME}`}</title>
-        </Head>
-
         <BlogHeader title={title} description={description} level={1} />
 
         <ReviewHeader

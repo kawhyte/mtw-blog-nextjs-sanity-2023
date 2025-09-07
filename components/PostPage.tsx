@@ -108,7 +108,15 @@ export default function PostPage(props: PostPageProps) {
         <VideoPlayer url={post.youtube} />
 
         {post.gallery?.length > 0 && (
-          <ImageGallery title="Photo Gallery" images={post.gallery} />
+          <ImageGallery 
+            title="Photo Gallery" 
+            images={post.gallery}
+            selectedImageIndex={null}
+            openModal={() => {}}
+            closeModal={() => {}}
+            nextImage={() => {}}
+            prevImage={() => {}}
+          />
         )}
 
         <Footer />

@@ -34,7 +34,20 @@ export default function PostPageHead({
   contentType,
 }: PostPageHeadProps) {
   const siteTitle = settings?.title || demo.title
-  const pageTitle = post?.title ? `${post.title} | ${siteTitle}` : siteTitle
+
+  // SEO-optimized title generation based on content type
+  let pageTitle = siteTitle
+  if (post?.title) {
+    if (contentType === 'hotel') {
+      pageTitle = `${post.title} Review | NBA Arena Hotel Guide - Meet the Whytes`
+    } else if (contentType === 'food') {
+      pageTitle = `${post.title} Review | Arena Food Guide - Meet the Whytes`
+    } else if (contentType === 'guide') {
+      pageTitle = `${post.title} | NBA Arena Travel Guide - Meet the Whytes`
+    } else {
+      pageTitle = `${post.title} | NBA & WNBA Arena Travel - Meet the Whytes`
+    }
+  }
 
   // --- Generate Description (Ensure it's always a string) ---
   let pageDescription: string // Explicitly type as string
@@ -143,6 +156,49 @@ export default function PostPageHead({
       <meta name="twitter:description" content={pageDescription} />
       <meta name="twitter:image" content={ogImageUrl} />
       <meta name="twitter:url" content={pageUrl} />
+      {/* Canonical URL */}
+      <link rel="canonical" href={pageUrl} />
+      {/* Article Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': contentType === 'guide' ? 'TravelGuide' : 'BlogPosting',
+            headline: post?.title,
+            description: pageDescription,
+            image: ogImageUrl,
+            url: pageUrl,
+            datePublished: post?.date,
+            dateModified: post?.date,
+            author: {
+              '@type': 'Organization',
+              name: 'Meet the Whytes',
+              url: SITE_URL,
+            },
+            publisher: {
+              '@type': 'Organization',
+              name: 'Meet the Whytes',
+              url: SITE_URL,
+              logo: {
+                '@type': 'ImageObject',
+                url: `${SITE_URL}/MeettheWhytes.png`,
+              },
+            },
+            mainEntityOfPage: {
+              '@type': 'WebPage',
+              '@id': pageUrl,
+            },
+            ...(contentType === 'guide' && {
+              touristType: 'Basketball fans, Sports travelers, NBA enthusiasts',
+              itinerary: {
+                '@type': 'ItemList',
+                name: `${post?.title} Guide`,
+              },
+            }),
+          }),
+        }}
+      />
       {/* Optional: Add Twitter creator handle if available */}
       {/* {post?.author?.twitterHandle && <meta name="twitter:creator" content={`@${post.author.twitterHandle}`} />} */}
     </Head>

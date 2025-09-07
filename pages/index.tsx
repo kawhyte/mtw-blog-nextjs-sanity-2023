@@ -1,7 +1,7 @@
 import { PreviewSuspense } from '@sanity/preview-kit'
 import IndexPage from 'components/IndexPage'
 import { getLatestIndependentContent, getSettings } from 'lib/sanity.client'
-import { Guide, HotelReview, FoodReview, Settings } from 'lib/sanity.queries'
+import { FoodReview, Guide, HotelReview, Settings } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
 import { lazy } from 'react'
 

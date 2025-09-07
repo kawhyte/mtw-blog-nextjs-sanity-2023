@@ -168,7 +168,7 @@ const IndividualFoodRating = ({ food }) => {
                     <div className="absolute top-0 right-0 flex items-center gap-x-2 rounded-bl-xl bg-primary p-2 shadow-md">
                       <Medal className="h-5 w-5 text-primary-foreground" />
                       <span className="font-semibold text-primary-foreground">
-                        Chef's Kiss!
+                        Chef&apos;s Kiss!
                       </span>
                     </div>
                   )}

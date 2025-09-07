@@ -61,11 +61,16 @@ interface CardSkeletonGridProps {
   layout?: 'search' | 'page' // Different layouts for different pages
 }
 
-export function CardSkeletonGrid({ count = 9, className, layout = 'search' }: CardSkeletonGridProps) {
-  const gridClass = layout === 'search' 
-    ? 'grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 container mx-auto max-w-8xl'
-    : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full'
-  
+export function CardSkeletonGrid({
+  count = 9,
+  className,
+  layout = 'search',
+}: CardSkeletonGridProps) {
+  const gridClass =
+    layout === 'search'
+      ? 'grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 container mx-auto max-w-8xl'
+      : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full'
+
   return (
     <div className={`grid ${gridClass} ${className}`}>
       {Array.from({ length: count }, (_, index) => (

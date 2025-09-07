@@ -27,10 +27,12 @@ import {
 import { notFound } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 
+import BreadcrumbStructuredData from './BreadcrumbStructuredData'
 import HelpfulTip from './HelpfulTip'
 import HeroPhotoGallery from './HeroPhotoGallery'
 import ReviewBlurb from './ReviewBlurb'
 import ReviewRating from './ReviewRating'
+import ReviewStructuredData from './ReviewStructuredData'
 
 export interface HotelReviewPageProps {
   preview?: boolean
@@ -40,6 +42,7 @@ export interface HotelReviewPageProps {
 }
 
 import { usePhotoGallery } from 'hooks/usePhotoGallery'
+import { urlForImage } from 'lib/sanity.image'
 
 const hotelRatingIcons = {
   Value: <Star className="h-5 w-5 mr-2 " />,
@@ -68,7 +71,33 @@ function HotelReviewPageContent(props: HotelReviewPageProps) {
 
   return (
     <div>
-      <PostPageHead settings={settings} post={hotelReview} />
+      <PostPageHead
+        settings={settings}
+        post={hotelReview}
+        contentType="hotel"
+      />
+
+      <ReviewStructuredData
+        review={hotelReview}
+        reviewType="hotel"
+        pageUrl={`${process.env.NEXT_PUBLIC_SITE_URL}/hotel/${typeof hotelReview.slug === 'string' ? hotelReview.slug : (hotelReview.slug as any)?.current || ''}`}
+        imageUrl={
+          hotelReview.coverImage
+            ? urlForImage(hotelReview.coverImage).width(1200).height(630).url()
+            : `${process.env.NEXT_PUBLIC_SITE_URL}/MeettheWhytes.png`
+        }
+      />
+
+      <BreadcrumbStructuredData
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Hotel Reviews', url: '/hotels' },
+          {
+            name: hotelReview.title || 'Hotel Review',
+            url: `/hotel/${typeof hotelReview.slug === 'string' ? hotelReview.slug : (hotelReview.slug as any)?.current || ''}`,
+          },
+        ]}
+      />
 
       <Layout preview={preview} loading={loading}>
         <BlogHeader title={title} level={2} />

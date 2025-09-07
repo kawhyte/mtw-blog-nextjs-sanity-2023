@@ -31,7 +31,7 @@ function ArenaRating({ rating, text, icon }) {
           <div className="flex w-full flex-1 flex-row items-center px-2 align-middle  text-sm ">
             {/* <p className="text-xs font-medium md:text-xs"></p> */}
 
-            <ProgressRating progress={displayRating} />
+            <ProgressRating progress={displayRating} color="slate" />
           </div>
         )}
       </div>

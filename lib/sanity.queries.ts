@@ -939,7 +939,10 @@ export interface Arena {
   arenaImage?: any // SanityImageObject
   imageGallery?: any
   gallery?: any[] // SanityImageObject[]
-  photoGallerySection?: any[] // SanityImageObject[]
+  photoGallerySection?: {
+    mainImage?: any // SanityImageObject
+    otherImages?: any[] // SanityImageObject[]
+  }
   location?: string
   buildDate?: string
   capacity?: number

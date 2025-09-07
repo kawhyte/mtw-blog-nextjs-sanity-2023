@@ -1,0 +1,27 @@
+# Robots.txt for Meet the Whytes - NBA/WNBA Arena Quest
+# https://www.meetthewhytes.com
+
+User-agent: *
+Allow: /
+
+# Prioritize important pages for NBA/WNBA arena content
+Allow: /arenas
+Allow: /hotels
+Allow: /food
+Allow: /guides
+Allow: /arena/
+Allow: /hotel/
+Allow: /food/
+Allow: /guide/
+
+# Block admin and preview pages
+Disallow: /studio
+Disallow: /api/
+Disallow: /admin/
+Disallow: /preview/
+
+# Point to sitemap (we'll create this next)
+Sitemap: https://www.meetthewhytes.com/sitemap.xml
+
+# Additional crawl optimization
+Crawl-delay: 1

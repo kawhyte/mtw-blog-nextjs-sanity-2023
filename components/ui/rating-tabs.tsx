@@ -1,6 +1,6 @@
 'use client'
 
-import { Bed, Car,MapPin, Star, Utensils, Wifi } from 'lucide-react'
+import { Bed, Car, MapPin, Star, Utensils, Wifi } from 'lucide-react'
 import * as React from 'react'
 
 import { Badge } from '@/components/ui/badge'

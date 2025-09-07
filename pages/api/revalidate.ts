@@ -66,6 +66,9 @@ type StaleRoute =
   | `/hotel/${string}`
   | `/food/${string}`
   | `/guide/${string}`
+  | '/hotels'
+  | '/food'
+  | '/guides'
 
 async function queryStaleRoutes(
   body: Pick<ParseBody['body'], '_type' | '_id' | 'date' | 'slug'>,

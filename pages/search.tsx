@@ -10,8 +10,8 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
-import { PaginationWrapper as Pagination } from '@/components/ui/pagination-wrapper'
 import { CardSkeletonGrid } from '@/components/ui/card-skeleton'
+import { PaginationWrapper as Pagination } from '@/components/ui/pagination-wrapper'
 
 import { CMS_NAME } from '../lib/constants'
 import { globalSearchQuery, Post } from '../lib/sanity.queries'
@@ -167,7 +167,7 @@ const SearchResults = ({ settings }: { settings: Settings }) => {
           <ResultsHeader query={searchQuery} count={results.length} />
           <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 container mx-auto max-w-8xl">
             {displayedResults.map((post) => (
-              <DynamicPostCard key={post._id} {...post} showRating={true} />
+              <DynamicPostCard key={post._id} {...post} linkType={post.linkType as any} showRating={true} />
             ))}
           </div>
           {totalPages > 1 && (

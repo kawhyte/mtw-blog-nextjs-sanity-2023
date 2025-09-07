@@ -12,10 +12,12 @@ import VideoPlayer from 'components/Youtube'
 import * as demo from 'lib/demo.data'
 import type { FoodReview, Settings } from 'lib/sanity.queries'
 import { notFound } from 'next/navigation'
-import { useCallback, useEffect,useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
+import BreadcrumbStructuredData from './BreadcrumbStructuredData'
 import HelpfulTip from './HelpfulTip'
 import ReviewBlurb from './ReviewBlurb'
+import ReviewStructuredData from './ReviewStructuredData'
 
 export interface FoodReviewPageProps {
   preview?: boolean
@@ -25,6 +27,7 @@ export interface FoodReviewPageProps {
 }
 
 import { usePhotoGallery } from 'hooks/usePhotoGallery'
+import { urlForImage } from 'lib/sanity.image'
 import {
   BedDouble,
   CalendarDays,
@@ -86,7 +89,29 @@ export default function FoodReviewPage(props: FoodReviewPageProps) {
 
   return (
     <div>
-      <PostPageHead settings={settings} post={foodReview} />
+      <PostPageHead settings={settings} post={foodReview} contentType="food" />
+
+      <ReviewStructuredData
+        review={foodReview}
+        reviewType="food"
+        pageUrl={`${process.env.NEXT_PUBLIC_SITE_URL}/food/${typeof foodReview.slug === 'string' ? foodReview.slug : (foodReview.slug as any)?.current || ''}`}
+        imageUrl={
+          foodReview.coverImage
+            ? urlForImage(foodReview.coverImage).width(1200).height(630).url()
+            : `${process.env.NEXT_PUBLIC_SITE_URL}/MeettheWhytes.png`
+        }
+      />
+
+      <BreadcrumbStructuredData
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Food Reviews', url: '/food' },
+          {
+            name: foodReview.title || 'Food Review',
+            url: `/food/${typeof foodReview.slug === 'string' ? foodReview.slug : (foodReview.slug as any)?.current || ''}`,
+          },
+        ]}
+      />
 
       <Layout preview={preview} loading={loading}>
         <BlogHeader title={title} level={2} />

@@ -22,7 +22,6 @@ import {
   Users,
   Users2,
   Video,
-  Wheelchair,
   XCircle,
 } from 'lucide-react'
 import Image from 'next/image'
@@ -110,7 +109,7 @@ export default function ArenaPage({
     if (ratings.length === 0) {
       return 'N/A'
     }
-    const sum = ratings.reduce((acc, rating) => acc + rating, 0)
+    const sum = ratings.reduce((acc, rating) => (acc as number) + (rating as number), 0) as number
     const average = sum / ratings.length
     // The ratings are out of 10, but the display is out of 5.
     return (average / 2).toFixed(1)
@@ -279,7 +278,7 @@ export default function ArenaPage({
                   </CardHeader>
                   <CardContent>
                     <p className="text-sm italic text-muted-foreground">
-                      {arena?.proTip > 0 ? arena?.proTip : ' No tip provided'}
+                      {(arena as any)?.tip || 'No tip provided'}
                     </p>
                   </CardContent>
                 </Card>
@@ -300,7 +299,7 @@ export default function ArenaPage({
                       </CardHeader>
                       <CardContent>
                         <ul className="list-inside list-disc space-y-1 text-base">
-                          {arena.prosConsVerdict.positives.map((pro, index) => (
+                          {(arena.prosConsVerdict.positives as unknown as any[])?.map((pro, index) => (
                             <li key={index}>{pro}</li>
                           ))}
                         </ul>
@@ -313,12 +312,12 @@ export default function ArenaPage({
                       <CardHeader>
                         <CardTitle className="flex items-center text-red-600">
                           <XCircle className="mr-2 h-5 w-5" />
-                          What We Didn't Like
+                          What We Didn&apos;t Like
                         </CardTitle>
                       </CardHeader>
                       <CardContent>
                         <ul className="list-inside list-disc space-y-1 text-base">
-                          {arena.prosConsVerdict.negatives.map((con, index) => (
+                          {(arena.prosConsVerdict.negatives as unknown as any[])?.map((con, index) => (
                             <li key={index}>{con}</li>
                           ))}
                         </ul>
@@ -342,14 +341,14 @@ export default function ArenaPage({
             )}
 
             {/* --- Optional Instagram Video --- */}
-            {arena.instagramVideoEmbedUrl && (
+            {(arena as any).instagramVideoEmbedUrl && (
               <section className="mt-8">
                 <h2 className="mb-4 text-2xl font-bold tracking-tight flex items-center">
                   <Video className="mr-2 h-6 w-6" /> Our Experience
                 </h2>
                 <div className="overflow-hidden rounded-lg shadow-lg">
                   <iframe
-                    src={arena.instagramVideoEmbedUrl}
+                    src={(arena as any).instagramVideoEmbedUrl}
                     className="h-full w-full"
                     frameBorder="0"
                     scrolling="no"

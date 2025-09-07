@@ -1,5 +1,35 @@
 @import 'tailwindcss';
 
+/* Critical Performance Optimizations */
+@media (max-width: 768px) {
+  /* Reduce motion for mobile performance */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Mobile-specific optimizations */
+  * {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  input,
+  textarea,
+  [contenteditable] {
+    -webkit-user-select: text;
+    user-select: text;
+  }
+}
+
 /*
 ================================================================================
 |                              TAILWIND V4 COLOR SYSTEM                          |
@@ -78,7 +108,7 @@
     --destructive-foreground: 0 84% 98%; /* Light red -> USE FOR: Text on top of destructive color (`text-destructive-foreground`) */
     --success: 145 63% 49%; /* Green -> USE FOR: Success messages, confirmation indicators (`bg-success`, `text-success`) */
     --success-foreground: 145 63% 98%; /* Light green -> USE FOR: Text on top of success color (`text-success-foreground`) */
-    
+
     /* --- Badge Colors (Pastel) --- */
     /* USAGE: Hotel category badges with soft, pastel backgrounds */
     --badge-blue: 214 100% 85%; /* Light pastel blue -> USE FOR: Economy hotel badges (`bg-badge-blue`) */
@@ -89,7 +119,7 @@
     --badge-green-foreground: 145 60% 25%; /* Dark green text -> USE FOR: Text on green badges (`text-badge-green-foreground`) */
     --badge-red: 0 100% 85%; /* Light pastel red -> USE FOR: Unrated hotel badges (`bg-badge-red`) */
     --badge-red-foreground: 0 100% 25%; /* Dark red text -> USE FOR: Text on red badges (`text-badge-red-foreground`) */
-    
+
     --ring: 330 81% 62%; /* Pink -> USE FOR: Focus rings on interactive elements (`ring-ring`) */
 
     /* --- Radius --- */
@@ -120,7 +150,7 @@
     --destructive-foreground: 0 72% 98%;
     --success: 145 63% 49%;
     --success-foreground: 145 63% 98%;
-    
+
     /* --- Badge Colors (Dark Mode) --- */
     --badge-blue: 214 50% 35%; /* Darker blue for dark mode */
     --badge-blue-foreground: 214 100% 85%;
@@ -130,7 +160,7 @@
     --badge-green-foreground: 145 60% 85%;
     --badge-red: 0 50% 35%; /* Darker red for dark mode */
     --badge-red-foreground: 0 100% 85%;
-    
+
     --ring: 330 81% 62%;
   }
 }
@@ -157,7 +187,7 @@
   --color-ring: hsl(var(--ring));
   --color-card: hsl(var(--card));
   --color-card-foreground: hsl(var(--card-foreground));
-  
+
   /* Badge Colors */
   --color-badge-blue: hsl(var(--badge-blue));
   --color-badge-blue-foreground: hsl(var(--badge-blue-foreground));
@@ -185,6 +215,15 @@
     font-feature-settings:
       'rlig' 1,
       'calt' 1;
+    /* Performance optimizations */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Preload critical fonts */
+  html {
+    font-display: swap;
   }
 
   /* Focus Styles */

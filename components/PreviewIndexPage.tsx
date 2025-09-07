@@ -1,16 +1,17 @@
 import IndexPage from 'components/IndexPage'
 import { usePreview } from 'lib/sanity.preview'
 import {
-  latestIndependentContentQuery,
+  type FoodReview,
   type Guide,
   type HotelReview,
-  type FoodReview,
+  latestIndependentContentQuery,
   type Settings,
   settingsQuery,
 } from 'lib/sanity.queries'
 
 export default function PreviewIndexPage({ token }: { token: null | string }) {
-  const response: { allContent: (Guide | HotelReview | FoodReview)[] } = usePreview(token, latestIndependentContentQuery) || { allContent: [] }
+  const response: { allContent: (Guide | HotelReview | FoodReview)[] } =
+    usePreview(token, latestIndependentContentQuery) || { allContent: [] }
   const posts = response.allContent
   const settings: Settings = usePreview(token, settingsQuery) || {}
   // const instagram: Instagram = usePreview(token, settingsQuery) || {}

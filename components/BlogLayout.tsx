@@ -32,7 +32,40 @@ export default function BlogLayout({
       <Head>
         {/* Standard Meta */}
         <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, viewport-fit=cover"
+        />
+        <meta
+          name="theme-color"
+          content="hsl(330, 81%, 62%)"
+          media="(prefers-color-scheme: light)"
+        />
+        <meta
+          name="theme-color"
+          content="hsl(209, 34%, 12%)"
+          media="(prefers-color-scheme: dark)"
+        />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="Meet the Whytes" />
+        {/* Resource hints for mobile performance */}
+        <link rel="dns-prefetch" href="//cdn.sanity.io" />
+        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+        <link rel="preconnect" href="//cdn.sanity.io" crossOrigin="anonymous" />
+        <link
+          rel="preconnect"
+          href="//fonts.googleapis.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preconnect"
+          href="//fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
         {/* Default SEO */}
         <title>{siteTitle}</title> {/* Default title */}
         <meta name="description" content={siteDescription} />{' '}

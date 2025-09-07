@@ -4,7 +4,7 @@
 export const fontVariables = {
   montserrat: '--font-montserrat',
   raleway: '--font-raleway',
-  inter: '--font-inter', 
+  inter: '--font-inter',
   space: '--font-space-grotesk',
   roboto_mono: '--font-roboto-mono',
   oswald: '--font-oswald',

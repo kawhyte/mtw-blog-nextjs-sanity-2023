@@ -8,6 +8,7 @@ import { Guide, Settings } from 'lib/sanity.queries'
 import Image from 'next/image'
 
 import BlogHeader from './BlogHeader'
+import BreadcrumbStructuredData from './BreadcrumbStructuredData'
 
 interface GuidePageProps {
   guide: Guide
@@ -26,7 +27,18 @@ export default function GuidePage({
 
   return (
     <div>
-      <PostPageHead settings={settings} post={guide} />
+      <PostPageHead settings={settings} post={guide} contentType="guide" />
+
+      <BreadcrumbStructuredData
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Travel Guides', url: '/guides' },
+          {
+            name: guide.title || 'Travel Guide',
+            url: `/guide/${typeof guide.slug === 'string' ? guide.slug : (guide.slug as any)?.current || ''}`,
+          },
+        ]}
+      />
 
       <Layout preview={preview} loading={loading}>
         <BlogHeader title={title} level={2} />
@@ -49,7 +61,7 @@ export default function GuidePage({
                   .height(630)
                   .fit('crop')
                   .url()}
-                alt={guide.title || 'Guide Cover Image'}
+                alt={`${guide.title} - NBA Arena Travel Guide Cover Image`}
                 width={1200}
                 height={630}
                 className="w-full h-auto rounded-lg"

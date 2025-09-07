@@ -132,9 +132,9 @@ export default function Navbar() {
               autoFocus // Automatically focus the input when it appears
             />
             <button
-              type="button" // Important: type="button" to prevent form submission
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground"
-              onClick={toggleSearch} // Use toggleSearch to close
+              type="button"
+              className="absolute right-3 top-1/2 -translate-y-1/2 min-h-11 min-w-11 p-2 text-muted-foreground hover:text-primary focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+              onClick={toggleSearch}
               aria-label="Close search"
             >
               <X size={18} />
@@ -152,7 +152,7 @@ export default function Navbar() {
                 <Image
                   className="rounded-xl"
                   src="/icon/icon.jpg" // Ensure this path is correct in your public folder
-                  alt="MTW icon"
+                  alt="Meet the Whytes - NBA & WNBA Arena Travel Blog Logo"
                   width={45}
                   height={45}
                   loading="lazy"
@@ -193,7 +193,7 @@ export default function Navbar() {
           {/* Mobile Search Button */}
           <button
             type="button"
-            className="ml-auto mr-2 p-1 text-muted-foreground hover:text-primary" // Added padding for easier tapping
+            className="ml-auto mr-2 min-h-11 min-w-11 p-2 text-muted-foreground hover:text-primary focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
             onClick={toggleSearch}
             aria-label="Open search"
           >
@@ -203,10 +203,10 @@ export default function Navbar() {
           {/* Mobile Menu Button */}
           <button
             type="button"
-            className="p-1 text-muted-foreground hover:text-primary" // Added padding
+            className="min-h-11 min-w-11 p-2 text-muted-foreground hover:text-primary focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
             onClick={toggleMenu}
             aria-label="Toggle menu"
-            aria-expanded={isMenuOpen} // Accessibility: Indicate if menu is open
+            aria-expanded={isMenuOpen}
           >
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -340,10 +340,9 @@ export default function Navbar() {
           {/* Button to toggle the mobile dropdown sub-menu */}
           <button
             type="button"
-            onClick={togglePicksDropdown} // Toggles only the sub-menu visibility
+            onClick={togglePicksDropdown}
             className={cn(
-              'flex w-full items-center justify-between border-b border-border py-3 text-left text-foreground transition-colors duration-200 ease-in-out hover:bg-muted', // Added text-left
-              // Highlight if dropdown is open or a child is active
+              'flex w-full items-center justify-between border-b border-border py-4 px-2 text-left text-foreground transition-colors duration-200 ease-in-out hover:bg-muted focus:outline-none focus:ring-2 focus:ring-inset focus:ring-ring min-h-12',
               {
                 'bg-accent text-primary font-medium':
                   isPicksDropdownOpen ||
@@ -351,8 +350,8 @@ export default function Navbar() {
                   router.pathname.startsWith('/top-restaurant-picks'),
               },
             )}
-            aria-expanded={isPicksDropdownOpen} // Accessibility
-            aria-controls="mobile-picks-submenu" // Accessibility: Links button to the submenu content
+            aria-expanded={isPicksDropdownOpen}
+            aria-controls="mobile-picks-submenu"
           >
             <span className="flex items-center">
               {/* Icon for the dropdown toggle */}
@@ -486,11 +485,10 @@ function MobileNavItem({
   href: string
   icon: React.ReactNode
   text: string
-  onClick?: () => void // MADE OPTIONAL
+  onClick?: () => void
   isSubItem?: boolean
 }) {
   const router = useRouter()
-  // Determine active state for styling/aria attributes
   const isActive =
     router.pathname === href ||
     (href !== '/' && router.pathname.startsWith(href + '/'))
@@ -498,25 +496,19 @@ function MobileNavItem({
   return (
     <Link
       href={href}
-      // Only attach onClick handler if it was actually provided
-      // For sub-menu items, it won't be provided, allowing the link to navigate
       onClick={onClick}
       className={cn(
-        'flex items-center border-b border-border py-3 text-foreground transition-colors duration-200 ease-in-out hover:bg-muted',
+        'flex items-center border-b border-border py-4 px-2 text-foreground transition-colors duration-200 ease-in-out hover:bg-muted focus:outline-none focus:ring-2 focus:ring-inset focus:ring-ring min-h-12',
         {
-          'bg-accent text-primary font-medium': isActive, // Style for active item
-          'pl-2': isSubItem, // Indent sub-items slightly
-          // Example: 'last:border-b-0': isSubItem // Potentially remove border for last sub-item if needed
+          'bg-accent text-primary font-medium': isActive,
+          'pl-4': isSubItem,
         },
       )}
-      // Add aria-current for accessibility on active links
       aria-current={isActive ? 'page' : undefined}
     >
-      {/* Icon container */}
       <span className={cn('mr-3', isActive ? 'text-primary' : 'text-primary')}>
         {icon}
       </span>
-      {/* Text label */}
       <span>{text}</span>
     </Link>
   )

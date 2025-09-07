@@ -55,9 +55,10 @@ export default function HeroPost(
               location={location}
               excerpt2={excerpt2}
               rating={undefined}
-              linkType={''}
+              linkType={'story'}
               diningType={undefined} // url={coverImage}
               showRating={false} // linkType={linkType}
+              priority={true} // Hero image should load with priority
             />
           </div>
         </div>

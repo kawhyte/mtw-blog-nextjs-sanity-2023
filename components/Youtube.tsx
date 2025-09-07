@@ -1,7 +1,7 @@
 // components/VideoPlayer.tsx
 import dynamic from 'next/dynamic'
 import Script from 'next/script'
-import React, { useCallback,useEffect, useMemo, useRef } from 'react' // Import useCallback
+import React, { useCallback, useEffect, useMemo, useRef } from 'react' // Import useCallback
 
 import SectionTitle from './SectionTitle' // Adjust path if needed
 
