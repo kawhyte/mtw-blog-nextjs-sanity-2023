@@ -1,5 +1,6 @@
-import { BookIcon } from '@sanity/icons'
+import { IceCreamIcon } from '@sanity/icons'
 import { format, parseISO } from 'date-fns'
+import { IceCream } from 'lucide-react'
 import { defineField, defineType } from 'sanity'
 
 /**
@@ -11,7 +12,7 @@ import { defineField, defineType } from 'sanity'
 export default defineType({
   name: 'foodReview',
   title: 'Food Review',
-  icon: BookIcon,
+  icon: IceCreamIcon,
   type: 'document',
 
   fields: [

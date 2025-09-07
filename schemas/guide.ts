@@ -1,4 +1,4 @@
-import { BookIcon } from '@sanity/icons'
+import { BoltIcon } from '@sanity/icons'
 import { format, parseISO } from 'date-fns'
 import { defineField, defineType } from 'sanity'
 
@@ -10,7 +10,7 @@ import { defineField, defineType } from 'sanity'
 export default defineType({
   name: 'guide',
   title: 'Travel Guide',
-  icon: BookIcon,
+  icon: BoltIcon,
   type: 'document',
 
   fields: [

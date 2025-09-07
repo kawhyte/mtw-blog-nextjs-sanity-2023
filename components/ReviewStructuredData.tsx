@@ -63,7 +63,7 @@ export default function ReviewStructuredData({
       url: SITE_URL,
       logo: {
         '@type': 'ImageObject',
-        url: `${SITE_URL}/MeettheWhytes.png`,
+        url: `${SITE_URL}/MeettheWhytes.jpg`,
       },
     },
     datePublished: review.date,

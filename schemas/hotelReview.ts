@@ -1,4 +1,4 @@
-import { BookIcon } from '@sanity/icons'
+import { HomeIcon } from '@sanity/icons'
 import { format, parseISO } from 'date-fns'
 import { defineField, defineType } from 'sanity'
 
@@ -10,7 +10,7 @@ import { defineField, defineType } from 'sanity'
 export default defineType({
   name: 'hotelReview',
   title: 'Hotel Review',
-  icon: BookIcon,
+  icon: HomeIcon,
   type: 'document',
 
   fields: [

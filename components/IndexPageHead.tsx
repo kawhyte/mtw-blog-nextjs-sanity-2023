@@ -20,7 +20,7 @@ export default function IndexPageHead({ settings }: IndexPageHeadProps) {
   const ogImageTitle = ogImage?.title || demo.ogImageTitle
 
   // --- Generate OG Image URL ---
-  let ogImageUrl = `${SITE_URL}/MeettheWhytes.png` // Fallback
+  let ogImageUrl = `${SITE_URL}/MeettheWhytes.jpg` // Fallback
   if (ogImage?.asset?._ref) {
     // If an image is set in Sanity settings, use it
     ogImageUrl = urlForImage(ogImage)
@@ -68,6 +68,7 @@ export default function IndexPageHead({ settings }: IndexPageHeadProps) {
       <meta property="og:image:height" content="630" />
 
       <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:site" content="@meetthewhytes" />
       <meta name="twitter:title" content={pageTitle} />
       <meta name="twitter:description" content={pageDescription} />
       <meta name="twitter:image" content={ogImageUrl} />
@@ -87,7 +88,7 @@ export default function IndexPageHead({ settings }: IndexPageHeadProps) {
             description:
               'NBA & WNBA Arena Travel Blog - Join our quest to visit every basketball arena!',
             url: SITE_URL,
-            logo: `${SITE_URL}/MeettheWhytes.png`,
+            logo: `${SITE_URL}/MeettheWhytes.jpg`,
             sameAs: [
               // Add social media profiles when available
             ],

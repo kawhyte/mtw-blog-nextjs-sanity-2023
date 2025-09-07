@@ -44,7 +44,7 @@ export default function CategoryPageHead({
     categoryData[categoryType]
 
   // Generate OG Image URL
-  let ogImageUrl = `${SITE_URL}/MeettheWhytes.png` // Fallback
+  let ogImageUrl = `${SITE_URL}/MeettheWhytes.jpg` // Fallback
   if (ogImage?.asset?._ref) {
     ogImageUrl = urlForImage(ogImage).width(1200).height(630).fit('crop').url()
   }
@@ -73,6 +73,7 @@ export default function CategoryPageHead({
 
       {/* Twitter Card tags */}
       <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:site" content="@meetthewhytes" />
       <meta name="twitter:title" content={pageTitle} />
       <meta name="twitter:description" content={pageDescription} />
       <meta name="twitter:image" content={ogImageUrl} />

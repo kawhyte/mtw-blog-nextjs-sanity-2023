@@ -98,7 +98,7 @@ export default function FoodReviewPage(props: FoodReviewPageProps) {
         imageUrl={
           foodReview.coverImage
             ? urlForImage(foodReview.coverImage).width(1200).height(630).url()
-            : `${process.env.NEXT_PUBLIC_SITE_URL}/MeettheWhytes.png`
+            : `${process.env.NEXT_PUBLIC_SITE_URL}/MeettheWhytes.jpg`
         }
       />
 

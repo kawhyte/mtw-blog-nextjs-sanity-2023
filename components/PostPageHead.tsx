@@ -82,7 +82,7 @@ export default function PostPageHead({
 
   // --- Generate OG Image URL ---
   // Use the actual default image name from BlogLayout.tsx
-  let ogImageUrl = `${SITE_URL}/MeettheWhytes.png`
+  let ogImageUrl = `${SITE_URL}/MeettheWhytes.jpg`
   if (post?.coverImage?.asset?._ref) {
     ogImageUrl = urlForImage(post.coverImage)
       .width(1200)
@@ -151,6 +151,7 @@ export default function PostPageHead({
       {/* {post?.author?.name && <meta property="article:author" content={post.author.name} />} */}
       {/* --- Twitter Card Overrides --- */}
       <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:site" content="@meetthewhytes" />
       <meta name="twitter:title" content={pageTitle} />
       {/* Use the guaranteed string description */}
       <meta name="twitter:description" content={pageDescription} />
@@ -182,7 +183,7 @@ export default function PostPageHead({
               url: SITE_URL,
               logo: {
                 '@type': 'ImageObject',
-                url: `${SITE_URL}/MeettheWhytes.png`,
+                url: `${SITE_URL}/MeettheWhytes.jpg`,
               },
             },
             mainEntityOfPage: {
