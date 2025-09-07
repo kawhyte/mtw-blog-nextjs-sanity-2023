@@ -388,7 +388,6 @@ export default function Page(props: PageProps) {
   )
 }
 
-// --- getStaticProps remains unchanged ---
 export const getStaticProps: GetStaticProps<
   PageProps,
   Query,

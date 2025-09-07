@@ -2,7 +2,7 @@
  * This config is used to set up Sanity Studio that's mounted on the `/pages/studio/[[...index]].tsx` route
  */
 
-import { LogoutIcon } from '@heroicons/react/outline'
+import { GlobeAltIcon, PlusCircleIcon } from '@heroicons/react/outline'
 import { visionTool } from '@sanity/vision'
 import { apiVersion, dataset, previewSecretId, projectId } from 'lib/sanity.api'
 import { previewDocumentNode } from 'plugins/previewPane'
@@ -42,8 +42,8 @@ export default defineConfig({
   basePath: '/studio',
   projectId,
   dataset,
-
-  // icon:LogoutIcon,
+  
+  icon: PlusCircleIcon,
   title,
   schema: {
     // If you want more content types, you can add them to this array
