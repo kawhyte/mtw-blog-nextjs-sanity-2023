@@ -10,6 +10,7 @@ import { useEffect,useState } from 'react'
 import useSWR, { mutate } from 'swr'
 
 import { CMS_NAME } from '../lib/constants'
+import { CardSkeletonGrid } from '@/components/ui/card-skeleton'
 import DynamicPostCard from './DynamicPostCard'
 import Footer from './Footer'
 import PaginationComponent from './PaginationComponent'
@@ -91,7 +92,9 @@ export default function StoryReviewsPage(props: StoryReviewsPageProps) {
 
         <Container>
           <div className="my-10">
-            {posts && posts.length > 0 ? (
+            {loading || isTransitioning ? (
+              <CardSkeletonGrid count={12} layout="page" />
+            ) : posts && posts.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {posts.map((guide) => (
                   <DynamicPostCard
@@ -109,7 +112,7 @@ export default function StoryReviewsPage(props: StoryReviewsPageProps) {
               </div>
             ) : (
               <p className="text-center my-10 text-muted-foreground">
-                No stories or guides found. Loading: {loading ? 'Yes' : 'No'}
+                No stories or guides found.
               </p>
             )}
           </div>

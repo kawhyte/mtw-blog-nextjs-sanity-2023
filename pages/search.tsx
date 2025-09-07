@@ -11,6 +11,7 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
 import { PaginationWrapper as Pagination } from '@/components/ui/pagination-wrapper'
+import { CardSkeletonGrid } from '@/components/ui/card-skeleton'
 
 import { CMS_NAME } from '../lib/constants'
 import { globalSearchQuery, Post } from '../lib/sanity.queries'
@@ -26,14 +27,27 @@ const PlayerWithNoSSR = dynamic(
 
 // --- Reusable UI Components for this page ---
 
-// NEW: A styled loading indicator that uses the theme's primary color
-const LoadingState = () => (
-  <div className="flex flex-col items-center justify-center min-h-[60vh]">
-    <div className="w-12 h-12 rounded-full animate-spin border-4 border-solid border-primary border-t-transparent"></div>
-    <p className="mt-4 text-lg text-muted-foreground">
-      Searching the archives...
-    </p>
-  </div>
+// NEW: A styled loading state with card skeletons to prevent UI shifting
+const LoadingState = ({ searchQuery }: { searchQuery?: string | string[] }) => (
+  <>
+    {searchQuery && (
+      <div className="w-full text-center bg-primary-soft-background rounded-2xl p-8 my-8">
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-12 h-12 rounded-full animate-spin border-4 border-solid border-primary border-t-transparent"></div>
+          <div>
+            <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-2">
+              Searching for{' '}
+              <span className="text-primary">&quot;{searchQuery}&quot;</span>
+            </h1>
+            <p className="text-lg text-muted-foreground">
+              Looking through the archives...
+            </p>
+          </div>
+        </div>
+      </div>
+    )}
+    <CardSkeletonGrid count={9} layout="search" />
+  </>
 )
 
 // NEW: A styled header for displaying the search query and result count
@@ -139,7 +153,7 @@ const SearchResults = ({ settings }: { settings: Settings }) => {
   )
 
   const renderContent = () => {
-    if (loading) return <LoadingState />
+    if (loading) return <LoadingState searchQuery={searchQuery} />
     if (error) {
       return (
         <div className="flex justify-center items-center min-h-[50vh] text-destructive">

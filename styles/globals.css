@@ -197,14 +197,24 @@
     @apply bg-primary/20 text-primary;
   }
 
-  /* You can keep your existing font styles (h1, p, a, etc.) here if you like them! */
+  /* Font definitions using CSS custom properties */
+  :root {
+    --font-montserrat: 'Montserrat', system-ui, sans-serif;
+    --font-raleway: 'Raleway', system-ui, sans-serif;
+    --font-inter: 'Inter', system-ui, sans-serif;
+    --font-space-grotesk: 'Space Grotesk', system-ui, sans-serif;
+    --font-roboto-mono: 'Roboto Mono', 'Courier New', monospace;
+    --font-oswald: 'Oswald', system-ui, sans-serif;
+  }
+
+  /* Font styles */
   h1,
   h2,
   h3,
   h4,
   h5,
   h6 {
-    font-family: var(--font-montserrat), system-ui, sans-serif;
+    font-family: var(--font-montserrat);
     font-weight: 800;
     @apply text-foreground;
   }
@@ -213,7 +223,7 @@
   span,
   div,
   li {
-    font-family: var(--font-raleway), system-ui, sans-serif;
+    font-family: var(--font-raleway);
   }
 }
 
