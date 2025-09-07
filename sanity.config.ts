@@ -17,12 +17,12 @@ import arenaReviewType from 'schemas/arenaReview'
 //  import authorType from 'schemas/author'
 // import {bookType} from 'schemas/bookType'
 import foodType from 'schemas/foodRating'
+import foodReviewType from 'schemas/foodReview'
 import galleryType from 'schemas/gallery'
 import galleryType2 from 'schemas/gallery2'
 import guideType from 'schemas/guide'
-import hotelReviewType from 'schemas/hotelReview'
-import foodReviewType from 'schemas/foodReview'
 import hotelType from 'schemas/hotelRating'
+import hotelReviewType from 'schemas/hotelReview'
 import individualFoodType from 'schemas/individualFoodRating'
 import areanasType from 'schemas/nbaArenas'
 import photoGallery from 'schemas/photoGallery'
@@ -55,15 +55,15 @@ export default defineConfig({
       foodType,
       takeOutFoodRatingType,
       individualFoodType,
-      postType,
-      guideType,
       hotelReviewType,
       foodReviewType,
+      guideType,
       areanasType,
       photoGallery,
       arenaReviewType,
       travelEssentialType,
       galleryType2,
+      postType,
       settingsType,
     ],
   },
@@ -80,8 +80,8 @@ export default defineConfig({
       apiVersion,
       previewSecretId,
       types: [
-        postType.name,
         guideType.name,
+        postType.name,
         hotelReviewType.name,
         foodReviewType.name,
         settingsType.name,

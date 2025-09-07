@@ -18,7 +18,7 @@ import { description } from './../lib/demo.data'
 
 export default defineType({
   name: 'post',
-  title: 'Post (Legacy)',
+  title: 'Post (Legacy - RENE, DONT USE)',
   icon: BookIcon,
   type: 'document',
 
