@@ -84,7 +84,7 @@ export default defineType({
       type: 'array',
       description: 'Add a short summary of your dining experience',
       of: [{ type: 'block' }],
-      validation: (rule) => rule.required(),
+      // validation: (rule) => rule.required(),
     }),
 
     defineField({
@@ -269,7 +269,7 @@ export default defineType({
           ],
         },
       ],
-      validation: (rule) => rule.required(),
+      // validation: (rule) => rule.required(),
     }),
 
     defineField({

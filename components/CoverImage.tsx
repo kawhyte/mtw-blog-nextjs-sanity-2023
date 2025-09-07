@@ -103,14 +103,7 @@ export default function CoverImage(props: CoverImageProps) {
   const badgeClasses =
     badgeColorClasses[categoryType.color] || 'bg-gray-500 text-white'
 
-  // Debug logging
-  if (category === 'mid-scale') {
-    console.log('Mid-scale hotel debug:', {
-      category,
-      categoryType,
-      badgeClasses,
-    })
-  }
+ 
 
   return (
     <div className="relative overflow-hidden rounded-t-3xl">

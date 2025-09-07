@@ -126,23 +126,14 @@ export default function IndexPage(props: IndexPageProps) {
           </BlogSection>
 
           <BlogSection className={undefined}>
-            <SectionTitle
+            {/* <SectionTitle
               header={'Featured Videos'}
               description={'Walking Tour from our trips'}
-            />
+            /> */}
             <YoutubeHighlights />
           </BlogSection>
 
-          {/* Example: Conditional Arena Section */}
-          {/* {arenaPosts && arenaPosts.length > 0 && (
-            <BlogSection
-              className={
-                'my-24 bg-linear-to-r from-indigo-200 via-pink-200 to-yellow-50 md:mt-24'
-              }
-            >
-              <ArenasIndexPage arenas={arenaPosts.slice(0, 8)} />
-            </BlogSection>
-          )} */}
+      
         </Container>
       </Layout>
       <Footer />
@@ -150,30 +141,4 @@ export default function IndexPage(props: IndexPageProps) {
   )
 }
 
-// IMPORTANT: getStaticProps for this IndexPage should fetch a LIMITED number of posts
-// using a query like `indexQuery` or similar, NOT all posts.
 
-// Example getStaticProps (ensure yours fetches limited posts):
-/*
-export const getStaticProps: GetStaticProps<IndexPageProps> = async (ctx) => {
-  const { preview = false, previewData = {} } = ctx
-
-  // Fetch settings and the LIMITED posts for the index page (using indexQuery)
-  const [settings, posts = []] = await Promise.all([
-    getSettings(),
-    getIndexPosts() // Use function that fetches limited posts (e.g., via indexQuery)
-    // Fetch other needed data like arenaPosts, essentialPosts if uncommented
-  ])
-
-  return {
-    props: {
-      posts,
-      settings,
-      preview,
-      token: previewData.token ?? null,
-      // arenaPosts, // Pass other data if fetched
-    },
-    revalidate: 60 // Or your desired revalidation time
-  }
-}
-*/

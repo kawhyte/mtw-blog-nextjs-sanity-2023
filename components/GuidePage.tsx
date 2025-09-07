@@ -42,7 +42,7 @@ export default function GuidePage({
           </header>
 
           {guide.coverImage && (
-            <div className="mb-12">
+            <div className="mb-12 container mx-auto max-w-5xl">
               <Image
                 src={urlForImage(guide.coverImage)
                   .width(1200)
