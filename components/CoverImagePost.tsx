@@ -8,7 +8,6 @@ interface CoverImageProps {
   title: string
   slug?: string
   image: any
-  priority?: boolean
   gallery: any
 }
 
@@ -20,7 +19,7 @@ const ImageBorder = {
 }
 
 export default function CoverImage(props: CoverImageProps) {
-  const { title, slug, image: source, priority, gallery } = props
+  const { title, slug, image: source, gallery } = props
   //console.log('COVER IMage Post ', props)
 
   const image = source?.asset?._ref ? (
@@ -41,7 +40,7 @@ export default function CoverImage(props: CoverImageProps) {
             blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAO0lEQVR4nGNgYGBg+P//P1t9fT0TiM0we3ZjxZxZjQ9XLpwwe9nCHkOGGZOyanraY9aumN2wbsn0hmQA/MEWfj4ocjcAAAAASUVORK5CYII="
             width={560}
             height={438}
-            priority={true}
+            loading="lazy"
           />
         </div>
 
@@ -63,7 +62,7 @@ export default function CoverImage(props: CoverImageProps) {
                   height={300}
                   placeholder="blur"
                   blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAO0lEQVR4nGNgYGBg+P//P1t9fT0TiM0we3ZjxZxZjQ9XLpwwe9nCHkOGGZOyanraY9aumN2wbsn0hmQA/MEWfj4ocjcAAAAASUVORK5CYII="
-                  priority={true}
+                  loading="lazy"
                 />
               </div>
             ))}

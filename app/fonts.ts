@@ -39,7 +39,6 @@ export const montserrat = Montserrat({
   subsets: ['latin'],
   variable: '--font-montserrat',
   display: 'swap',
-  preload: true, // Prioritize loading for headings
 })
 
 export const raleway = Raleway({
@@ -47,5 +46,4 @@ export const raleway = Raleway({
   subsets: ['latin'],
   variable: '--font-raleway',
   display: 'swap',
-  preload: true, // Prioritize loading for body text
 })

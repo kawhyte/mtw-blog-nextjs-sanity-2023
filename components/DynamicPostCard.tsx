@@ -132,7 +132,6 @@ const DynamicPostCard = ({
           slug={safeSlug}
           title={title}
           image={coverImage}
-          priority={false}
           rating={currentRating}
           showRating={showRating}
           linkType={linkType}

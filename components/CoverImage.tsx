@@ -40,7 +40,6 @@ interface CoverImageProps {
   location?: string
   image: any
   category?: string
-  priority?: boolean
   excerpt2?: any
   rating: any
   linkType?: 'hotel' | 'food' | 'story' | 'favorite'
@@ -56,7 +55,6 @@ export default function CoverImage(props: CoverImageProps) {
     rating,
     category,
     image: source,
-    priority,
     linkType,
     diningType,
   } = props

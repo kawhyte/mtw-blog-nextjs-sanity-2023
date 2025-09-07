@@ -219,7 +219,6 @@ export default function PostHeader({
         <CoverImagePost
           title={title}
           image={coverImage}
-          priority
           slug={slug}
           gallery={gallery}
         />

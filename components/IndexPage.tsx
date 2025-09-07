@@ -6,7 +6,7 @@ import IndexPageHead from 'components/IndexPageHead'
 import MoreStoriesIndex from 'components/MoreStories' // Your generic, paginated component
 import * as demo from 'lib/demo.data'
 // Import Post type and potentially the query used for the paginated components
-import type { Settings, Guide, HotelReview, FoodReview } from 'lib/sanity.queries'
+import type { FoodReview,Guide, HotelReview, Settings } from 'lib/sanity.queries'
 import { paginatedAllPostsQuery } from 'lib/sanity.queries' // Import a valid query as a placeholder
 import { BriefcaseConveyorBelt, Plane, Trophy } from 'lucide-react'
 import Head from 'next/head'
