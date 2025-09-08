@@ -89,7 +89,7 @@ const Arenas = ({
 
         <div className=" flex justify-between text-gray-700  ">
           <div className="ml-2 mt-1 flex flex-col sm:mb-2 sm:ml-4 sm:gap-y-2 ">
-            <h1 className=" font-heading line-clamp-1 pt-1 font-montserrat text-lg font-bold text-gray-900  decoration-purple-500 decoration-dashed decoration-4 group-hover:underline sm:line-clamp-2 sm:h-8 sm:text-xl lg:text-xl  xl:pt-1.5">
+            <h1 className=" font-heading line-clamp-1 pt-1 font-montserrat text-lg font-bold text-gray-900  decoration-primary decoration-dashed decoration-4 group-hover:underline sm:line-clamp-2 sm:h-8 sm:text-xl lg:text-xl  xl:pt-1.5">
               {arenaName}
             </h1>
 

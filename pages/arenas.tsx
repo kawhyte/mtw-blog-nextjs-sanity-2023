@@ -1,14 +1,15 @@
 import { PreviewSuspense } from '@sanity/preview-kit'
+import ArenaPageContent from 'components/arena/ArenaPageContent'
 import ArenaPageHeader from 'components/ArenaPageHeader'
 import BlogHeader from 'components/BlogHeader'
 import Layout from 'components/BlogLayout'
 import Footer from 'components/Footer'
-import ArenaPageContent from 'components/arena/ArenaPageContent'
 import { getArenaPosts, getSettings } from 'lib/sanity.client'
 import { Arena, Settings } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import { lazy } from 'react'
+
 import { CMS_NAME } from '../lib/constants'
 
 const PreviewIndexPage = lazy(() => import('components/PreviewIndexPage'))

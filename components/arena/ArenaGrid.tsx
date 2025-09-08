@@ -1,5 +1,5 @@
-import Link from 'next/link'
 import NBAArenaCard from 'components/NBAArenaCard'
+import Link from 'next/link'
 import { ArenaWithRating } from 'utils/arena/arenaConstants'
 
 interface ArenaGridProps {

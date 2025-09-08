@@ -10,12 +10,7 @@ import { Progress } from '@/components/ui/progress'
 import PostDate from './PostDate'
 
 function ReviewHeader({ title, arenas, summary, animation }) {
-  // const totalDistance = arenas.reduce(
-  //   (total, item) => total + item.galleryCount,
-  //   0
-  // )
 
-  //  console.log("Percent",arenas)
 
   const filteredList = arenas.filter((item) => item.visited === true)
 
@@ -23,10 +18,6 @@ function ReviewHeader({ title, arenas, summary, animation }) {
     return new Date(b.date).valueOf() - new Date(a.date).valueOf()
   })
 
-  // console.log("ArenaLastVisited",arenaLastVisited)
-  // const percentage = ((arenas[0]?.visitedCount / arenas.length) * 100).toFixed(
-  //   0
-  // )
   const percentage = ((filteredList.length / arenas.length) * 100).toFixed(0)
 
   return (
@@ -56,17 +47,7 @@ function ReviewHeader({ title, arenas, summary, animation }) {
                   />
                 </div>
               ))}
-              {/* <div>
-              <Image
-              width={389}
-              height={288}
-              placeholder='blur'
-              blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAO0lEQVR4nGNgYGBg+P//P1t9fT0TiM0we3ZjxZxZjQ9XLpwwe9nCHkOGGZOyanraY9aumN2wbsn0hmQA/MEWfj4ocjcAAAAASUVORK5CYII='
-
-                className=" object-cover object-center h-full"
-                alt="hero"
-                 src={animation}
-              /></div> */}
+          
             </div>
             <div className="flex max-w-4xl flex-col items-center justify-center pt-8 text-center align-middle   md:items-start lg:grow  ">
               <Link href={''}> </Link>
@@ -108,12 +89,7 @@ function ReviewHeader({ title, arenas, summary, animation }) {
                       </div>
 
                       <div className="  ">
-                        {/* <div className="mt-2 flex flex-row  justify-between">
-                          <span className="title-font mb-1 text-sm  font-medium text-gray-500 ">
-                          {arenas[4]?.visitedCount} of 37 arenas visited
-                          </span>
-                          
-                        </div> */}
+                
                         <div className="mt-2 flex flex-row  justify-between">
                           <span className=" mb-2 text-sm  font-medium text-gray-500 ">
                             We&apos;ve visited{' '}
@@ -124,23 +100,10 @@ function ReviewHeader({ title, arenas, summary, animation }) {
                             arenas so far
                           </span>
                         </div>
-                        {/* <div className=""> 
-                        <Progress value={parseInt(percentage)} className="h-2" />
-                        <div className='text-xs'> {percentage}%</div> 
-
-</div> */}
+ 
                         <div className="flex items-center justify-center gap-x-2">
                           <div className=" h-3 w-full rounded-full ">
-                            {/* <div className="w-full rounded-full  dark:bg-gray-200">
-                              <div
-                                className="h-3  rounded-r-full bg-linear-to-r  from-pink-200 to-pink-500 p-0 text-center text-sm font-black leading-none text-gray-600  "
-                                style={{ width: `${percentage}%` }}
-                              >
-                        
-
-
-                              </div>
-                            </div> */}
+                     
                             <Progress
                               value={parseInt(percentage)}
                               className="h-4 rounded-lg bg-gray-200"
