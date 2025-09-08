@@ -36,7 +36,7 @@ export const calculateArenaRanks = (arenas: Arena[]): Map<string, number> => {
     const nameB = b.name ?? ''
     const { average: scoreA } = calculateAverageRating(a.arenaReview || {})
     const { average: scoreB } = calculateAverageRating(b.arenaReview || {})
-    
+
     const numScoreA = parseFloat(scoreA) || 0
     const numScoreB = parseFloat(scoreB) || 0
 
@@ -75,7 +75,7 @@ export const enrichArenasWithDisplayData = (
         textRating,
         color,
       },
-      rank: arena.visited ? rankMap.get(arena._id) ?? null : null,
+      rank: arena.visited ? (rankMap.get(arena._id) ?? null) : null,
     }
   })
 }

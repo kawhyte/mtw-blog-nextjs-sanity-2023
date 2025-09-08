@@ -4,7 +4,7 @@
 import cn from 'classnames'
 // Your existing imports
 import { calculateRating } from 'lib/calculateRating'
-import { getRatingWeights } from 'lib/ratingWeights'
+import { FOOD_WEIGHTS, HOTEL_WEIGHTS } from 'lib/ratingWeights'
 import { urlForImage } from 'lib/sanity.image'
 import { Calendar, Hotel, MapPin } from 'lucide-react'
 import Image from 'next/image'
@@ -97,7 +97,7 @@ export default function CoverImage(props: CoverImageProps) {
 
   const overallRating = calculateRating(
     rating,
-    getRatingWeights(linkType, diningType),
+    linkType === 'hotel' ? HOTEL_WEIGHTS : FOOD_WEIGHTS,
   )
   const href = slug ? `${getLinkPrefix(linkType)}/${slug}` : '#'
 

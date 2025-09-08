@@ -155,6 +155,7 @@ function HotelReviewPageContent(props: HotelReviewPageProps) {
                 ratings={hotelReview.hotelRating}
                 ratingIcons={hotelRatingIcons}
                 title="Hotel Rating"
+                reviewType="hotel"
               />
             )}
 

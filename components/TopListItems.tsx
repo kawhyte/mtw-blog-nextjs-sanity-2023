@@ -1,14 +1,16 @@
 import DynamicPostCard from 'components/DynamicPostCard'
-import type { Post } from 'lib/sanity.queries'
+import type { FoodReview, HotelReview, Post } from 'lib/sanity.queries'
 
 import SectionTitle from './SectionTitle'
 
 export default function TopListItems({
   posts,
   title,
+  contentType = 'post',
 }: {
-  posts: Post[]
+  posts: (Post | HotelReview | FoodReview)[]
   title?: string
+  contentType?: 'post' | 'hotel' | 'food'
 }) {
   if (!posts || posts.length === 0) {
     return null
@@ -41,12 +43,39 @@ export default function TopListItems({
                 title={post.title}
                 coverImage={post.coverImage}
                 date={post.date}
-                author={post.author}
+                author={'author' in post ? post.author : undefined}
                 slug={post.slug}
                 excerpt2={post.excerpt2}
                 location={post.location}
-                category={post.category}
+                category={'category' in post ? post.category : undefined}
                 showRating={false} // Rating is implied by the rank
+                linkType={
+                  contentType === 'hotel'
+                    ? 'hotel'
+                    : contentType === 'food'
+                      ? 'food'
+                      : undefined
+                }
+                hotelRating={
+                  contentType === 'hotel'
+                    ? (post as HotelReview).hotelRating
+                    : undefined
+                }
+                foodRating={
+                  contentType === 'food'
+                    ? (post as FoodReview).foodRating
+                    : undefined
+                }
+                takeoutRating={
+                  contentType === 'food'
+                    ? (post as FoodReview).takeoutRating
+                    : undefined
+                }
+                diningType={
+                  contentType === 'food'
+                    ? (post as FoodReview).diningType
+                    : undefined
+                }
               />
             </div>
           </div>

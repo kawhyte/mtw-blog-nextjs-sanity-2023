@@ -1,6 +1,6 @@
 import { oswald } from 'app/fonts' // Assuming font import is needed
 import { calculateRating } from 'lib/calculateRating' // Assuming calculation function import
-import { getRatingWeights } from 'lib/ratingWeights' // Assuming weights function import
+import { FOOD_WEIGHTS, HOTEL_WEIGHTS } from 'lib/ratingWeights' // Import weight objects
 import type { FoodReview, HotelReview, Post } from 'lib/sanity.queries'
 import React from 'react'
 // --- Import Star Icons ---
@@ -44,8 +44,7 @@ const StarRating: React.FC<StarRatingProps> = ({
   }
 
   // --- Determine Weights based on type ---
-  // getRatingWeights should return appropriate weights for hotel/food/takeout
-  const rateWeights = getRatingWeights(linkType, diningType)
+  const rateWeights = linkType === 'hotel' ? HOTEL_WEIGHTS : FOOD_WEIGHTS
 
   // --- Process Rating based on type ---
   let overallRatingResult: OverallRating | null = null

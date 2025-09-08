@@ -10,8 +10,6 @@ import { Progress } from '@/components/ui/progress'
 import PostDate from './PostDate'
 
 function ReviewHeader({ title, arenas, summary, animation }) {
-
-
   const filteredList = arenas.filter((item) => item.visited === true)
 
   const arenaLastVisited = filteredList.sort(function (a, b) {
@@ -47,7 +45,6 @@ function ReviewHeader({ title, arenas, summary, animation }) {
                   />
                 </div>
               ))}
-          
             </div>
             <div className="flex max-w-4xl flex-col items-center justify-center pt-8 text-center align-middle   md:items-start lg:grow  ">
               <Link href={''}> </Link>
@@ -89,7 +86,6 @@ function ReviewHeader({ title, arenas, summary, animation }) {
                       </div>
 
                       <div className="  ">
-                
                         <div className="mt-2 flex flex-row  justify-between">
                           <span className=" mb-2 text-sm  font-medium text-gray-500 ">
                             We&apos;ve visited{' '}
@@ -100,10 +96,9 @@ function ReviewHeader({ title, arenas, summary, animation }) {
                             arenas so far
                           </span>
                         </div>
- 
+
                         <div className="flex items-center justify-center gap-x-2">
                           <div className=" h-3 w-full rounded-full ">
-                     
                             <Progress
                               value={parseInt(percentage)}
                               className="h-4 rounded-lg bg-gray-200"

@@ -6,7 +6,6 @@ import Head from 'next/head'
 // Assuming you have access to global settings if needed
 // import { Settings } from 'lib/sanity.queries';
 
-
 export default function BlogLayout({
   preview,
   loading,

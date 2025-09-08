@@ -1,3 +1,5 @@
+import { calculateRating } from 'lib/calculateRating'
+import { FOOD_WEIGHTS, HOTEL_WEIGHTS } from 'lib/ratingWeights'
 import { ReactElement } from 'react'
 
 import ProgressRating from './ProgressRating'
@@ -10,25 +12,18 @@ const formatRatingName = (name: string): string => {
     .join(' ')
 }
 
-const getTextScore = (rating: number): string => {
-  if (rating >= 4.5) return 'Excellent'
-  if (rating >= 4) return 'Great'
-  if (rating >= 3.75) return 'Good'
-  if (rating >= 3) return 'Fair'
-  if (rating >= 2) return 'Poor'
-  return 'Horrible'
-}
-
 interface ReviewRatingProps {
   ratings: { [key: string]: number }
   ratingIcons: { [key: string]: ReactElement }
   title: string
+  reviewType?: 'food' | 'hotel' // Add review type to determine weights
 }
 
 export default function ReviewRating({
   ratings,
   ratingIcons,
   title,
+  reviewType = 'food', // Default to food if not specified
 }: ReviewRatingProps) {
   if (!ratings) {
     return null
@@ -40,12 +35,10 @@ export default function ReviewRating({
     return null
   }
 
-  const totalScore = ratingEntries.reduce(
-    (acc, [_, value]) => acc + (value || 0),
-    0,
-  )
-  const overallRating = totalScore / ratingEntries.length
-  const textScore = getTextScore(overallRating)
+  // Use weighted calculation based on review type
+  const weights = reviewType === 'hotel' ? HOTEL_WEIGHTS : FOOD_WEIGHTS
+  const { numericalRating: overallRating, textRating: textScore } =
+    calculateRating(ratings, weights)
 
   return (
     <section className="bg-secondary-soft-background rounded-2xl p-6 sm:p-8 my-8">

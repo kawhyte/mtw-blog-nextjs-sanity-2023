@@ -15,17 +15,27 @@ import TopListItems from './TopListItems'
 export interface IndexPageProps {
   preview?: boolean
   loading?: boolean
-  posts: Post[] // Changed type to Post[] to reflect the output of getTopWeightedHotelPosts
+  posts: any[] // Made generic to accept Post[] or HotelReview[]
   settings: Settings
   postHeader: string
   img: string
   summary: string
+  contentType?: 'post' | 'hotel' | 'food' // Add contentType prop
 }
 
 let count = 2
 
 export default function IndexPage(props: IndexPageProps) {
-  const { preview, loading, posts, settings, postHeader, img, summary } = props
+  const {
+    preview,
+    loading,
+    posts,
+    settings,
+    postHeader,
+    img,
+    summary,
+    contentType = 'post',
+  } = props
   const { title = demo.title, description = demo.description } = settings || {}
 
   // Define a reusable function to filter and sort posts by linkType and rating.
@@ -64,7 +74,7 @@ export default function IndexPage(props: IndexPageProps) {
 
         {posts.length > 0 && (
           <>
-            <TopListItems posts={posts} />
+            <TopListItems posts={posts} contentType={contentType} />
           </>
         )}
         {/* {topHotels.length > 0 && (

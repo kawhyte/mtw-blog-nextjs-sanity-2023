@@ -355,7 +355,6 @@ export default function Page(props: PageProps) {
                   prefetch={item.visited ? undefined : false}
                 >
                   <NBAArenaCard
-                  
                     arenaImageSrc={item.arenaImage}
                     location={item.location}
                     constructionDate={item.buildDate}
@@ -376,7 +375,6 @@ export default function Page(props: PageProps) {
               )
             })
           ) : (
-          
             <p className="col-span-full text-center text-gray-500">
               No arenas match the current filter and sort criteria.
             </p>

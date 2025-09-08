@@ -18,13 +18,11 @@ import {
   // Legacy queries for backward compatibility
   type Food,
   foodAndMoreQuery,
-  foodBySlugQuery,
   foodPostsTotalCountQuery,
   type FoodReview,
   foodReviewBySlugQuery,
   foodReviewsByDiningTypeQuery,
   foodReviewSlugsQuery,
-  foodSlugsQuery,
   type Guide,
   guideBySlugQuery,
   guidePostsTotalCountQuery,
@@ -60,6 +58,8 @@ import {
   storyAndMoreQuery,
   storyBySlugQuery,
   storySlugsQuery,
+  topFoodReviewsQuery,
+  topHotelReviewsQuery,
   topWeightedFoodQuery,
   topWeightedHotelsQuery,
   travelEssentialQuery,
@@ -741,6 +741,102 @@ export async function getAllHotelReviews(): Promise<HotelReview[]> {
     return hotelReviews || []
   } catch (error) {
     console.error('Error fetching all hotel reviews:', error)
+    return []
+  }
+}
+
+/**
+ * Fetches top weighted hotel reviews sorted by rating.
+ * @param limit Maximum number of reviews to return (default: 10)
+ * @returns An array of HotelReview objects sorted by weighted rating, or empty array on error.
+ */
+export async function getTopWeightedHotelReviews(
+  limit: number = 10,
+): Promise<HotelReview[]> {
+  if (!client) {
+    console.warn('Sanity client is not initialized.')
+    return []
+  }
+
+  try {
+    const hotelReviews = await client.fetch(topHotelReviewsQuery)
+
+    if (!hotelReviews || hotelReviews.length === 0) {
+      return []
+    }
+
+    // Import weights and calculate ratings
+    const { calculateRating } = await import('./calculateRating')
+    const { HOTEL_WEIGHTS } = await import('./ratingWeights')
+
+    // Calculate weighted ratings and sort
+    const reviewsWithRatings = hotelReviews
+      .map((review: HotelReview) => {
+        if (!review.hotelRating) {
+          return { ...review, calculatedRating: 0 }
+        }
+
+        const { numericalRating } = calculateRating(
+          review.hotelRating,
+          HOTEL_WEIGHTS,
+        )
+        return { ...review, calculatedRating: numericalRating }
+      })
+      .sort((a: any, b: any) => b.calculatedRating - a.calculatedRating)
+      .slice(0, limit)
+
+    // Remove the temporary calculatedRating property
+    return reviewsWithRatings.map(({ calculatedRating, ...review }) => review)
+  } catch (error) {
+    console.error('Error fetching top weighted hotel reviews:', error)
+    return []
+  }
+}
+
+/**
+ * Fetches the top weighted food reviews based on calculated ratings
+ * @param limit The maximum number of food reviews to return (default: 10)
+ * @returns An array of FoodReview objects sorted by weighted rating, or an empty array on error.
+ */
+export async function getTopWeightedFoodReviews(
+  limit: number = 10,
+): Promise<FoodReview[]> {
+  if (!client) {
+    console.warn('Sanity client is not initialized.')
+    return []
+  }
+
+  try {
+    const foodReviews = await client.fetch(topFoodReviewsQuery)
+
+    if (!foodReviews || foodReviews.length === 0) {
+      return []
+    }
+
+    // Import weights and calculate ratings
+    const { calculateRating } = await import('./calculateRating')
+    const { FOOD_WEIGHTS } = await import('./ratingWeights')
+
+    // Calculate weighted ratings and sort
+    const reviewsWithRatings = foodReviews
+      .map((review: FoodReview) => {
+        // Use foodRating for dine-in experiences, fallback to takeoutRating
+        const ratingsToUse = review.foodRating || review.takeoutRating
+
+        if (!ratingsToUse) {
+          return { ...review, calculatedRating: 0 }
+        }
+
+        const { numericalRating } = calculateRating(ratingsToUse, FOOD_WEIGHTS)
+        return { ...review, calculatedRating: numericalRating }
+      })
+      .sort((a: any, b: any) => b.calculatedRating - a.calculatedRating)
+      .slice(0, limit)
+
+    // Remove the temporary calculatedRating property
+    return reviewsWithRatings.map(({ calculatedRating, ...review }) => review)
+  } catch (error) {
+    console.error('Error fetching top weighted food reviews:', error)
     return []
   }
 }

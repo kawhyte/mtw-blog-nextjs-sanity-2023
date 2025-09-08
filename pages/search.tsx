@@ -167,7 +167,12 @@ const SearchResults = ({ settings }: { settings: Settings }) => {
           <ResultsHeader query={searchQuery} count={results.length} />
           <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 container mx-auto max-w-8xl">
             {displayedResults.map((post) => (
-              <DynamicPostCard key={post._id} {...post} linkType={post.linkType as any} showRating={true} />
+              <DynamicPostCard
+                key={post._id}
+                {...post}
+                linkType={post.linkType as any}
+                showRating={true}
+              />
             ))}
           </div>
           {totalPages > 1 && (

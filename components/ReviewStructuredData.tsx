@@ -2,7 +2,7 @@ import { FoodReview, HotelReview } from 'lib/sanity.queries'
 import Head from 'next/head'
 
 import { calculateRating } from '../lib/calculateRating'
-import { getRatingWeights } from '../lib/ratingWeights'
+import { FOOD_WEIGHTS, HOTEL_WEIGHTS } from '../lib/ratingWeights'
 
 interface ReviewStructuredDataProps {
   review: HotelReview | FoodReview
@@ -22,12 +22,12 @@ export default function ReviewStructuredData({
   // Calculate overall rating
   const rating =
     reviewType === 'hotel'
-      ? calculateRating((review as HotelReview).hotelRating, getRatingWeights('hotel'))
+      ? calculateRating((review as HotelReview).hotelRating, HOTEL_WEIGHTS)
       : calculateRating(
           (review as FoodReview).diningType === 'takeout'
             ? (review as FoodReview).takeoutRating
             : (review as FoodReview).foodRating,
-          getRatingWeights('food', (review as FoodReview).diningType)
+          FOOD_WEIGHTS,
         )
 
   const structuredData = {

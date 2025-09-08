@@ -468,6 +468,13 @@ export const allHotelReviewsQuery = groq`
   }
 `
 
+// Top hotel reviews for rankings/top lists
+export const topHotelReviewsQuery = groq`
+  *[_type == "hotelReview" && defined(hotelRating)] {
+    ${independentHotelReviewFields}
+  }
+`
+
 // Hotel reviews by category
 export const hotelReviewsByCategoryQuery = groq`
   *[_type == "hotelReview" && category == $category] | order(date desc) {
@@ -497,6 +504,13 @@ export const independentFoodReviewFields = groq`
   content,
   tags,
   "slug": slug.current
+`
+
+// Top food reviews for rankings/top lists
+export const topFoodReviewsQuery = groq`
+  *[_type == "foodReview" && (defined(foodRating) || defined(takeoutRating))] {
+    ${independentFoodReviewFields}
+  }
 `
 
 // Food review slugs query

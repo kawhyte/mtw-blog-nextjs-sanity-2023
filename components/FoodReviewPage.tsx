@@ -156,6 +156,7 @@ export default function FoodReviewPage(props: FoodReviewPageProps) {
               ratings={currentRating}
               ratingIcons={foodRatingIcons}
               title="Food Rating"
+              reviewType="food"
             />
           )}
 

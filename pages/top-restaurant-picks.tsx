@@ -1,19 +1,14 @@
 import { PreviewSuspense } from '@sanity/preview-kit'
 import TopListPage from 'components/TopListPage'
-import {
-  getSettings,
-  getTopWeightedFoodPosts,
-  getTopWeightedHotelPosts,
-} from 'lib/sanity.client'
-import { Post, Settings } from 'lib/sanity.queries'
+import { getSettings, getTopWeightedFoodReviews } from 'lib/sanity.client'
+import { FoodReview, Settings } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
-import Head from 'next/head'
 import { lazy } from 'react'
 
 const PreviewIndexPage = lazy(() => import('components/PreviewIndexPage'))
 
 interface PageProps {
-  posts: Post[]
+  foodReviews: FoodReview[]
   settings: Settings
   preview: boolean
   token: string | null
@@ -28,7 +23,7 @@ interface PreviewData {
 }
 
 export default function Page(props: PageProps) {
-  const { posts, settings, preview, token } = props
+  const { foodReviews, settings, preview, token } = props
 
   if (preview) {
     return (
@@ -37,11 +32,12 @@ export default function Page(props: PageProps) {
           <TopListPage
             loading
             preview
-            posts={posts}
+            posts={foodReviews}
             settings={settings}
             postHeader={''}
             img={''}
             summary={''}
+            contentType="food"
           />
         }
       >
@@ -52,13 +48,14 @@ export default function Page(props: PageProps) {
 
   return (
     <TopListPage
-      posts={posts}
+      posts={foodReviews}
       settings={settings}
       postHeader={'Our Top Restaurant Picks'}
       img={'/ramen.json'}
       summary={
-        'Our top 100 hotels based on weighted average ratings, and our curated food guide. Discover the best experiences for your next adventure.'
+        'Our top 10 restaurants based on weighted average ratings using our new rating system. Discover the best culinary experiences for your next adventure.'
       }
+      contentType="food"
     />
   )
 }
@@ -70,23 +67,18 @@ export const getStaticProps: GetStaticProps<
 > = async (ctx) => {
   const { preview = false, previewData = {} } = ctx
 
-  const [settings, topWeightedFoods = []] = await Promise.all([
+  const [settings, foodReviews = []] = await Promise.all([
     getSettings(),
-    // getRecommendationPosts(),
-    // getTopWeightedHotelPosts(), // Use the function to fetch top weighted hotels
-    getTopWeightedFoodPosts(), // Use the new function to fetch top weighted food
+    getTopWeightedFoodReviews(10), // Get top 10 weighted food reviews
   ])
 
-  const posts = topWeightedFoods // Combine the top weighted hotels and foods
-  //  console.log( "Top Food1", topWeightedHotels)
-  //  console.log( "Top Food100", topWeightedFoods)
   return {
     props: {
-      posts,
+      foodReviews,
       settings,
       preview,
       token: previewData.token ?? null,
     },
-    revalidate: 10,
+    revalidate: 60, // Cache for 1 minute since we're doing calculations
   }
 }

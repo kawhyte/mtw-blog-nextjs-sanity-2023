@@ -66,7 +66,6 @@ export default function ArenasPage(props: PageProps) {
           animation={'/basketball.svg'}
         />
 
-   
         <ArenaPageContent arenas={arenaPosts} />
 
         <Footer />

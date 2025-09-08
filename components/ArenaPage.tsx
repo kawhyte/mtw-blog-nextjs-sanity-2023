@@ -109,7 +109,10 @@ export default function ArenaPage({
     if (ratings.length === 0) {
       return 'N/A'
     }
-    const sum = ratings.reduce((acc, rating) => (acc as number) + (rating as number), 0) as number
+    const sum = ratings.reduce(
+      (acc, rating) => (acc as number) + (rating as number),
+      0,
+    ) as number
     const average = sum / ratings.length
     // The ratings are out of 10, but the display is out of 5.
     return (average / 2).toFixed(1)
@@ -299,7 +302,9 @@ export default function ArenaPage({
                       </CardHeader>
                       <CardContent>
                         <ul className="list-inside list-disc space-y-1 text-base">
-                          {(arena.prosConsVerdict.positives as unknown as any[])?.map((pro, index) => (
+                          {(
+                            arena.prosConsVerdict.positives as unknown as any[]
+                          )?.map((pro, index) => (
                             <li key={index}>{pro}</li>
                           ))}
                         </ul>
@@ -317,7 +322,9 @@ export default function ArenaPage({
                       </CardHeader>
                       <CardContent>
                         <ul className="list-inside list-disc space-y-1 text-base">
-                          {(arena.prosConsVerdict.negatives as unknown as any[])?.map((con, index) => (
+                          {(
+                            arena.prosConsVerdict.negatives as unknown as any[]
+                          )?.map((con, index) => (
                             <li key={index}>{con}</li>
                           ))}
                         </ul>

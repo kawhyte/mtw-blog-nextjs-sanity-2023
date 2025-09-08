@@ -1,11 +1,7 @@
 import { PreviewSuspense } from '@sanity/preview-kit'
 import TopListPage from 'components/TopListPage'
-import {
-  getSettings,
-  getTopWeightedFoodPosts,
-  getTopWeightedHotelPosts,
-} from 'lib/sanity.client'
-import { Post, Settings } from 'lib/sanity.queries'
+import { getSettings, getTopWeightedHotelReviews } from 'lib/sanity.client'
+import { HotelReview, Settings } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import { lazy } from 'react'
@@ -13,7 +9,7 @@ import { lazy } from 'react'
 const PreviewIndexPage = lazy(() => import('components/PreviewIndexPage'))
 
 interface PageProps {
-  posts: Post[]
+  hotelReviews: HotelReview[]
   settings: Settings
   preview: boolean
   token: string | null
@@ -28,7 +24,7 @@ interface PreviewData {
 }
 
 export default function Page(props: PageProps) {
-  const { posts, settings, preview, token } = props
+  const { hotelReviews, settings, preview, token } = props
 
   if (preview) {
     return (
@@ -37,11 +33,12 @@ export default function Page(props: PageProps) {
           <TopListPage
             loading
             preview
-            posts={posts}
+            posts={hotelReviews}
             settings={settings}
             postHeader={''}
             img={''}
             summary={''}
+            contentType="hotel"
           />
         }
       >
@@ -52,13 +49,14 @@ export default function Page(props: PageProps) {
 
   return (
     <TopListPage
-      posts={posts}
+      posts={hotelReviews}
       settings={settings}
       postHeader={'Our Top Hotel Picks'}
       img={'/top2.json'}
       summary={
-        'Our top 10 hotels based on weighted average ratings, and our curated food guide. Discover the best experiences for your next adventure.'
+        'Our top 10 hotels based on weighted average ratings using our new rating system. Discover the best hotel experiences for your next NBA arena adventure.'
       }
+      contentType="hotel"
     />
   )
 }
@@ -70,23 +68,18 @@ export const getStaticProps: GetStaticProps<
 > = async (ctx) => {
   const { preview = false, previewData = {} } = ctx
 
-  const [settings, topWeightedHotels = [], topWeightedFoods = []] =
-    await Promise.all([
-      getSettings(),
-      // getRecommendationPosts(),
-      getTopWeightedHotelPosts(), // Use the function to fetch top weighted hotels
-      // getTopWeightedFoodPosts(), // Use the new function to fetch top weighted food
-    ])
-
-  const posts = topWeightedHotels
+  const [settings, hotelReviews = []] = await Promise.all([
+    getSettings(),
+    getTopWeightedHotelReviews(10), // Get top 10 weighted hotel reviews
+  ])
 
   return {
     props: {
-      posts,
+      hotelReviews,
       settings,
       preview,
       token: previewData.token ?? null,
     },
-    revalidate: 10,
+    revalidate: 60, // Cache for 1 minute since we're doing calculations
   }
 }

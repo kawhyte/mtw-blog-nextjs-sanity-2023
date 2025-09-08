@@ -42,7 +42,7 @@ export default defineConfig({
   basePath: '/studio',
   projectId,
   dataset,
-  
+
   icon: PlusCircleIcon,
   title,
   schema: {
