@@ -4,167 +4,25 @@ import { groq } from 'next-sanity'
 // 1. Core Field Definitions
 // ------------------------------
 
-const coreFields = groq`
-    _id,
-    title,
-    date,
-    excerpt2,
-    coverImage,
-    youtube,
-    location,
-    gallery,
-    positives,
-    negatives,
-    verdict,
-    tip,
-    "slug": slug.current,
-    "author": author->{name, picture},
-    linkType,
-    category
-`
-const coreFieldsLimited = groq`
-    _id,
-    title,
-    date,
-
-    coverImage,
-
-    location,
-
-
-    "slug": slug.current,
-
-    linkType,
-    category
-`
+// LEGACY CORE FIELDS REMOVED - These included linkType which doesn't exist in independent schemas
 
 // ------------------------------
-// 2. Reusable Rating Field Definitions
+// 2. Rating Field Definitions
 // ------------------------------
-
-const hotelRatingFields = groq`
-    hotelRating{
-        Value,
-        Gym,
-        Internet_Speed,
-        Service,
-        Room_Cleanliness,
-        Bed_Comfort,
-        Room_Amenities,
-        Pool,
-        Location
-    }
-`
-
-const foodRatingFields = groq`
-    foodRating{
-        Flavor_and_Taste,
-        Food_Value,
-        Restaurant_Location,
-        Presentation_on_Plate,
-        Restaurant_Service,
-        Memorability,
-        Restaurant_Cleanliness
-    }
-`
-// NOTE: Assuming a similar structure might exist or be needed for takeoutRating if it's an object
-const takeoutRatingFields = groq`
-    takeoutRating{
-      tasteAndFlavor,
-      presentation,
-      accuracy,
-      packaging,
-      overallSatisfaction,
-      foodValue
-    }
-`
+// LEGACY RATING FIELDS REMOVED - These were only used by legacy field fragments
+// Modern queries define rating fields inline as needed
 
 // ------------------------------
 // 3. Reusable Content-Type Specific Field Sets
 // ------------------------------
 
-const postFieldsFragment = groq`
-    individualFoodRating, // Assuming this exists
-    room,
-    internetSpeed,
-    techRating,
-    roomAmenities,
-    ${hotelRatingFields},
-    ${foodRatingFields},
-    ${takeoutRatingFields}, // Include if takeoutRating is an object
-    // takeoutRating, // Use this if takeoutRating is a simple type (e.g., number)
-    diningType
-`
-
-const hotelFieldsFragment = groq`
-    room,
-    internetSpeed,
-    ${hotelRatingFields},
-    techRating,
-    roomAmenities
-`
-const hotelFieldsFragmentLimited = groq`
-    ${hotelRatingFields},
-
-`
-
-const foodFieldsFragment = groq`
-    ${foodRatingFields},
-    ${takeoutRatingFields}, // Include if takeoutRating is an object
-    // takeoutRating, // Use this if takeoutRating is a simple type
-    diningType
-`
-const foodFieldsFragmentLimited = groq`
-    ${foodRatingFields},
-    ${takeoutRatingFields}, // Include if takeoutRating is an object
-    // takeoutRating, // Use this if takeoutRating is a simple type
-    diningType
-`
-
-const guideFieldsFragment = groq`` // No specific fields for guides yet
+// LEGACY FIELD FRAGMENTS REMOVED - These were only used by the legacy combined field definitions
 
 // ------------------------------
-// 4. Combine Core and Specific Fields
+// 4. Combined Field Definitions
 // ------------------------------
-
-const postFields = groq`
-    ${coreFields},
-    ${postFieldsFragment}
-`
-
-const hotelFields = groq`
-    ${coreFields},
-    ${hotelFieldsFragment}
-`
-const hotelFieldsLimited = groq`
-    ${coreFieldsLimited},
-    ${hotelFieldsFragmentLimited}
-`
-
-const foodFields = groq`
-    ${coreFields}, // Use full core fields for single food view
-    ${foodFieldsFragment}
-`
-const foodFieldsLimited = groq`
-    ${coreFieldsLimited}, // Use limited core fields for food list view
-    ${foodFieldsFragmentLimited}
-`
-
-const guideFields = groq`
-    ${coreFields}, // Use full core fields for single guide view
-    ${guideFieldsFragment}
-`
-const guideFieldsLimited = groq`
-    ${coreFieldsLimited}, // Use limited core fields for guide list view
-    ${guideFieldsFragment}
-`
-
-const allFieldsLimited = groq`
-    ${coreFieldsLimited},
-    ${hotelFieldsFragmentLimited}
-    ${guideFieldsFragment}
-    ${foodFieldsFragmentLimited}
-`
+// LEGACY FIELD DEFINITIONS REMOVED - These referenced the legacy post schema with linkType
+// Modern queries use schema-specific field definitions directly
 
 // ------------------------------
 // 5. Specialized Field Sets
@@ -269,30 +127,7 @@ const fetchDocuments = (
   return query
 }
 
-/**
- * Constructs a Groq query to fetch a single document by slug and related documents.
- */
-const fetchDocumentAndRelated = (
-  type: string,
-  fields: string,
-  slugField: string,
-  relatedOptions: { where?: string } = {},
-): string => {
-  let relatedWhere = relatedOptions.where ? `&& (${relatedOptions.where})` : '' // Enclose where
-  return groq`
-        {
-            "post": *[_type == "${type}" && ${slugField} == $slug] | order(_updatedAt desc) [0] {
-                content,
-                ${fields}
-            },
-            "morePosts": *[_type == "${type}" && ${slugField} != $slug ${relatedWhere}] | order(date desc, _updatedAt desc) [0...2] {
-                content,
-                // Use limited fields for related posts if desired for performance
-                ${coreFieldsLimited} // Example: Using limited fields
-            }
-        }
-    `
-}
+// LEGACY FUNCTION REMOVED - fetchDocumentAndRelated used legacy field definitions
 
 /**
  * Constructs a Groq query to fetch slugs for a given document type.
@@ -645,11 +480,7 @@ export interface LatestIndependentContentResponse {
 
 export const settingsQuery = groq`*[_type == "settings"][0]`
 
-// Index query (example: first 6 of any post type, using limited fields) - LEGACY
-export const indexQuery = fetchDocuments('post', allFieldsLimited, {
-  order: 'date desc, _updatedAt desc',
-  slice: '[0...6]',
-})
+// REMOVED: Legacy indexQuery - replaced by latestIndependentContentQuery
 
 // Combined latest content query that merges and sorts all independent content types
 export const latestIndependentContentQuery = groq`
@@ -671,230 +502,69 @@ export const latestIndependentContentQuery = groq`
 }`
 
 // Post Slugs and Single Post Fetching (Generic)
-export const postSlugsQuery = fetchSlugs('post')
+// REMOVED: Legacy post queries - replaced by independent schema queries
+// postSlugsQuery -> use hotelReviewSlugsQuery/foodReviewSlugsQuery/guideSlugsQuery
+// postBySlugQuery -> use hotelReviewBySlugQuery/foodReviewBySlugQuery/guideBySlugQuery  
+// postAndMoreStoriesQuery -> use specific schema queries with related content
 
-export const postBySlugQuery = fetchDocumentBySlug(
-  'post',
-  postFields, // Use full fields for single generic post
-  'slug.current',
-)
+// REMOVED: Legacy linkType-specific queries - replaced by independent schema queries
+// hotelSlugsQuery -> hotelReviewSlugsQuery
+// storySlugsQuery -> guideSlugsQuery  
+// foodSlugsQuery -> foodReviewSlugsQuery
+// hotelBySlugQuery -> hotelReviewBySlugQuery
+// storyBySlugQuery -> guideBySlugQuery
+// foodBySlugQuery -> foodReviewBySlugQuery
 
-export const postAndMoreStoriesQuery = fetchDocumentAndRelated(
-  'post',
-  postFields, // Fields for main post
-  'slug.current',
-  // Related posts will use coreFieldsLimited as defined in helper
-)
+// REMOVED: Legacy linkType-specific related and collection queries
+// hotelAndMoreQuery -> hotelReviewAndMoreQuery (if needed)
+// storyAndMoreQuery -> guideAndMoreQuery (if needed)  
+// foodAndMoreQuery -> foodReviewAndMoreQuery (if needed)
+// allHotelsQuery -> allHotelReviewsQuery
+// allFoodQuery -> allFoodReviewsQuery
+// allStoriesQuery -> allGuidesQuery
 
-// Type-Specific Slugs
-export const hotelSlugsQuery = fetchSlugs('post', 'linkType == "hotel"')
-export const storySlugsQuery = fetchSlugs('post', 'linkType == "story"')
-export const foodSlugsQuery = fetchSlugs('post', 'linkType == "food"')
-
-// Type-Specific Single Item Fetching
-export const hotelBySlugQuery = fetchDocumentBySlug(
-  'post',
-  hotelFields, // Use full hotel fields
-  'slug.current',
-  'linkType == "hotel"',
-)
-export const storyBySlugQuery = fetchDocumentBySlug(
-  'post',
-  guideFields, // Use guide fields
-  'slug.current',
-  'linkType == "story"',
-)
-export const foodBySlugQuery = fetchDocumentBySlug(
-  'post',
-  foodFields, // Use full food fields
-  'slug.current',
-  'linkType == "food"',
-)
-
-// Type-Specific Single Item + Related Fetching
-export const hotelAndMoreQuery = fetchDocumentAndRelated(
-  'post',
-  hotelFields, // Fields for main hotel post
-  'slug.current',
-  { where: 'linkType == "hotel"' },
-)
-export const storyAndMoreQuery = fetchDocumentAndRelated(
-  'post',
-  guideFields, // Fields for main guide post
-  'slug.current',
-  { where: 'linkType == "story"' },
-)
-export const foodAndMoreQuery = fetchDocumentAndRelated(
-  'post',
-  foodFields, // Fields for main food post
-  'slug.current',
-  { where: 'linkType == "food"' },
-)
-
-// Fetch ALL items of a specific type (NO pagination)
-export const allHotelsQuery = fetchDocuments('post', hotelFieldsLimited, {
-  order: 'date desc, _updatedAt desc',
-  where: 'linkType == "hotel"',
-})
-
-export const allFoodQuery = fetchDocuments('post', foodFieldsLimited, {
-  order: 'date desc, _createdAt desc',
-  where: 'linkType == "food"',
-})
-
-export const allStoriesQuery = fetchDocuments('post', guideFieldsLimited, {
-  order: 'date desc, _updatedAt desc',
-  where: 'linkType == "story"',
-})
-
-// Global Search Query
+// Global Search Query - Searches across all independent schemas
 export const globalSearchQuery = groq`
-  *[_type == "post" && (
+{
+  "hotels": *[_type == "hotelReview" && (
     title match $searchTerm ||
-    location match $searchTerm
-    // Add other fields to search here if needed
+    location match $searchTerm ||
+    excerpt2 match $searchTerm ||
+    category match $searchTerm
   )] {
-    //{coreFieldsLimited} // Use limited fields for search results
-    ${allFieldsLimited}
+    ${independentHotelReviewFields},
+    "_contentType": "hotel"
+  },
+  "food": *[_type == "foodReview" && (
+    title match $searchTerm ||
+    location match $searchTerm ||
+    excerpt2 match $searchTerm ||
+    diningType match $searchTerm
+  )] {
+    ${independentFoodReviewFields},
+    "_contentType": "food"
+  },
+  "guides": *[_type == "guide" && (
+    title match $searchTerm ||
+    location match $searchTerm ||
+    excerpt2 match $searchTerm ||
+    guideType match $searchTerm
+  )] {
+    ${independentGuideFields},
+    "_contentType": "guide"
   }
-`
+}`
 
-// ------------------------------
-// 8. Top Weighted Queries
-// ------------------------------
-export const topWeightedHotelsQuery = groq`
-  *[_type == "post" && defined(hotelRating) && linkType == "hotel"] {
-    ${coreFieldsLimited},
-    hotelRating{
-      Value,
-      Gym,
-      Internet_Speed,
-      Service,
-      Room_Cleanliness,
-      Bed_Comfort,
-      Room_Amenities,
-      Pool,
-      Location
-    },
-    "weightedAverageRating": round(
-      (
-        (hotelRating.Location * 0.2) +
-        (hotelRating.Bed_Comfort * 0.2) +
-        (hotelRating.Room_Cleanliness * 0.1) +
-        (hotelRating.Gym * 0.05) +
-        (hotelRating.Pool * 0.05) +
-        (hotelRating.Service * 0.15) +
-        (hotelRating.Internet_Speed * 0.05) +
-        (hotelRating.Room_Amenities * 0.1) +
-        (hotelRating.Value * 0.1)
-      ) * 1000
-    ) / 1000,
-    "totalAverageRating": round(
-      (
-        hotelRating.Value +
-        hotelRating.Gym +
-        hotelRating.Internet_Speed +
-        hotelRating.Service +
-        hotelRating.Room_Cleanliness +
-        hotelRating.Bed_Comfort +
-        hotelRating.Room_Amenities +
-        hotelRating.Pool +
-        hotelRating.Location
-      ) / 9 * 1000
-    ) / 1000
-  }
-  | order(totalAverageRating desc, hotelRating.Service desc, hotelRating.Location desc) [0...10]
-`
-
-export const topWeightedFoodQuery = groq`
-*[_type == "post" && (defined(takeoutRating) || defined(foodRating)) && linkType == "food"] {
-  ${coreFieldsLimited},
-  diningType,
-  foodRating, // Keep for dine-in
-  takeoutRating, // Keep field for takeout ratings (assuming simple type or object structure)
-  "weightedAverageRating": round(
-    select(
-      diningType == "dinein" && defined(foodRating) => (
-        (foodRating.Restaurant_Location * 0.05) +
-        (foodRating.Restaurant_Service * 0.2) +
-        (foodRating.Food_Value * 0.15) +
-        (foodRating.Presentation_on_Plate * 0.05) +
-        (foodRating.Memorability * 0.15) +
-        (foodRating.Restaurant_Cleanliness * 0.2) +
-        (foodRating.Flavor_and_Taste * 0.2)
-      ),
-      diningType == "takeout" && defined(takeoutRating) => (
-        // Adjust weights based on your takeoutRating structure/importance
-        (takeoutRating.tasteAndFlavor * 0.3) +
-        (takeoutRating.presentation * 0.1) +
-        (takeoutRating.accuracy * 0.1) +
-        (takeoutRating.packaging * 0.1) +
-        (takeoutRating.overallSatisfaction * 0.2) +
-        (takeoutRating.foodValue * 0.2)
-      ),
-      // Handle cases where diningType is not defined or rating is missing
-      0
-    ) * 1000
-  ) / 1000
-}
-| order(weightedAverageRating desc, takeoutRating.tasteAndFlavor desc, foodRating.Flavor_and_Taste desc) [0...10]
-`
+// REMOVED: Legacy weighted queries - replaced by new weighted calculation functions
+// topWeightedHotelsQuery -> getTopWeightedHotelReviews() in sanity.client.ts
+// topWeightedFoodQuery -> getTopWeightedFoodReviews() in sanity.client.ts
 
 // --- PAGINATION QUERIES ---
-
-// -- Generic Post Pagination (Example - if needed) --
-export const paginatedAllPostsQuery = fetchDocuments(
-  'post',
-  coreFieldsLimited, // Use limited fields for generic list
-  {
-    order: 'date desc, _createdAt desc',
-    slice: '[$start...$end]',
-  },
-)
-export const allPostsTotalCountQuery = groq`count(*[_type == "post"])`
-
-// -- Hotel Pagination --
-export const paginatedHotelPostsQuery = fetchDocuments(
-  'post',
-  hotelFieldsLimited,
-  {
-    order: 'date desc, _createdAt desc',
-    where: 'linkType == "hotel"',
-    slice: '[$start...$end]',
-  },
-)
-export const hotelPostsTotalCountQuery = groq`
-  count(*[_type == "post" && linkType == "hotel"])
-`
-
-// -- Food Pagination --
-export const paginatedFoodPostsQuery = fetchDocuments(
-  'post',
-  foodFieldsLimited,
-  {
-    order: 'date desc, _createdAt desc',
-    where: 'linkType == "food"',
-    slice: '[$start...$end]',
-  },
-)
-export const foodPostsTotalCountQuery = groq`
-  count(*[_type == "post" && linkType == "food"])
-`
-
-// -- Guide/Story Pagination --
-export const paginatedGuidePostsQuery = fetchDocuments(
-  'post',
-  guideFieldsLimited, // Assuming limited fields for guides
-  {
-    order: 'date desc, _createdAt desc',
-    where: 'linkType == "story"', // Assuming 'story' is the linkType for guides
-    slice: '[$start...$end]',
-  },
-)
-
-export const guidePostsTotalCountQuery = groq`
-  count(*[_type == "post" && linkType == "story"]) // Assuming 'story' is the linkType
-`
+// LEGACY QUERIES REMOVED - Use independent schema queries instead:
+// - For hotels: Use hotelReviewsQuery with slice parameters
+// - For food: Use foodReviewsQuery with slice parameters  
+// - For guides: Use guidesQuery with slice parameters
+// - For all content: Use latestIndependentContentQuery with slice parameters
 
 // ------------------------------
 // 9. Interfaces

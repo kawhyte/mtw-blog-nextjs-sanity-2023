@@ -60,39 +60,19 @@ export default async function handler(
         resultKey = 'guides'
         break
       case 'post':
-        query = `
-          *[_type == "post"] | order(_createdAt desc) [${start}...${+start + +limit}] {
-            _id,
-            _type,
-            title,
-            slug,
-            coverImage,
-            date,
-            author,
-            excerpt2,
-            location,
-            category,
-            linkType,
-            foodRating,
-            hotelRating,
-            takeoutRating,
-            diningType
-          }
-        `
-        resultKey = 'posts'
-        break
+        // Legacy post support removed - redirect to 'all' instead
+        return res.status(400).json({ 
+          error: 'Legacy post type no longer supported. Use hotel, food, guide, or all instead.' 
+        })
       case 'all':
       default:
-        // Fetch all content types together
-        const [posts, hotelReviews, foodReviews, guides] = await Promise.all([
-          sanityClient.fetch(`*[_type == "post"] | order(_createdAt desc) [${start}...${+start + +limit}] {
-            _id, _type, title, slug, coverImage, date, author, excerpt2, location, category, linkType
-          }`),
+        // Fetch all content types together (excluding legacy posts)
+        const [hotelReviews, foodReviews, guides] = await Promise.all([
           sanityClient.fetch(`*[_type == "hotelReview"] | order(_createdAt desc) [${start}...${+start + +limit}] {
-            _id, _type, title, slug, coverImage, date, location, category
+            _id, _type, title, slug, coverImage, date, location, category, hotelRating
           }`),
           sanityClient.fetch(`*[_type == "foodReview"] | order(_createdAt desc) [${start}...${+start + +limit}] {
-            _id, _type, title, slug, coverImage, date, location, diningType
+            _id, _type, title, slug, coverImage, date, location, diningType, foodRating, takeoutRating
           }`),
           sanityClient.fetch(`*[_type == "guide"] | order(_createdAt desc) [${start}...${+start + +limit}] {
             _id, _type, title, slug, coverImage, date, category
@@ -101,13 +81,11 @@ export default async function handler(
 
         return res.status(200).json({
           content: {
-            posts,
             hotelReviews,
             foodReviews,
             guides,
           },
           total:
-            posts.length +
             hotelReviews.length +
             foodReviews.length +
             guides.length,

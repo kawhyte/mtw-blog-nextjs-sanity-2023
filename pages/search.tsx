@@ -14,8 +14,8 @@ import { CardSkeletonGrid } from '@/components/ui/card-skeleton'
 import { PaginationWrapper as Pagination } from '@/components/ui/pagination-wrapper'
 
 import { CMS_NAME } from '../lib/constants'
-import { globalSearchQuery, Post } from '../lib/sanity.queries'
-import { Settings } from '../lib/sanity.queries'
+import { globalSearchQuery } from '../lib/sanity.queries'
+import { Settings, HotelReview, FoodReview, Guide } from '../lib/sanity.queries'
 import { sanityClient } from '../lib/sanity.server'
 
 // Dynamically import Lottie Player for the "not found" animation
@@ -111,10 +111,13 @@ const NoResultsFound = ({ query }) => {
 
 // --- Main Search Results Page Component ---
 
+// Union type for all content types that can appear in search results
+type SearchResult = (HotelReview | FoodReview | Guide) & { _contentType: string }
+
 const SearchResults = ({ settings }: { settings: Settings }) => {
   const router = useRouter()
   const { q: searchQuery } = router.query
-  const [results, setResults] = useState<Post[]>([])
+  const [results, setResults] = useState<SearchResult[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<Error | null>(null)
   const [activePage, setPage] = useState(1)
@@ -132,7 +135,23 @@ const SearchResults = ({ settings }: { settings: Settings }) => {
         .fetch(globalSearchQuery, {
           searchTerm: `*${currentSearchQuery.trim()}*`,
         })
-        .then((data) => setResults(data || []))
+        .then((data) => {
+          // Flatten the results from all content types into a single array
+          const flattenedResults = [
+            ...(data?.hotels || []),
+            ...(data?.food || []),
+            ...(data?.guides || [])
+          ]
+          
+          // Sort by date (most recent first) to provide consistent ordering
+          flattenedResults.sort((a, b) => {
+            const dateA = new Date(a.date || a._updatedAt || 0)
+            const dateB = new Date(b.date || b._updatedAt || 0)
+            return dateB.getTime() - dateA.getTime()
+          })
+          
+          setResults(flattenedResults)
+        })
         .catch((err) => {
           setError(err)
           setResults([])
@@ -166,12 +185,24 @@ const SearchResults = ({ settings }: { settings: Settings }) => {
         <>
           <ResultsHeader query={searchQuery} count={results.length} />
           <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 container mx-auto max-w-8xl">
-            {displayedResults.map((post) => (
+            {displayedResults.map((result) => (
               <DynamicPostCard
-                key={post._id}
-                {...post}
-                linkType={post.linkType as any}
+                key={result._id}
+                title={result.title}
+                coverImage={result.coverImage}
+                date={result.date}
+                author={'author' in result ? result.author : undefined}
+                slug={result.slug}
+                excerpt2={result.excerpt2}
+                location={'location' in result ? result.location : undefined}
+                category={'category' in result ? result.category : undefined}
+                linkType={result._contentType as any}
                 showRating={true}
+                // Type-specific props
+                hotelRating={result._contentType === 'hotel' ? (result as HotelReview).hotelRating : undefined}
+                foodRating={result._contentType === 'food' ? (result as FoodReview).foodRating : undefined}
+                takeoutRating={result._contentType === 'food' ? (result as FoodReview).takeoutRating : undefined}
+                diningType={result._contentType === 'food' ? (result as FoodReview).diningType : undefined}
               />
             ))}
           </div>

@@ -1,99 +1,76 @@
-import { PreviewSuspense } from '@sanity/preview-kit'
-import PostPage from 'components/PostPage'
 import {
-  getAllPostsSlugs,
-  getPostAndMoreStories,
-  getSettings,
+  getHotelReviewBySlug,
+  getFoodReviewBySlug,
+  getGuideBySlug,
 } from 'lib/sanity.client'
-import { Post, Settings } from 'lib/sanity.queries'
-import { GetStaticProps } from 'next'
-import { lazy } from 'react'
+import { GetServerSideProps } from 'next'
 
-const PreviewPostPage = lazy(() => import('components/PreviewPostPage'))
+// This page now serves as a redirect layer for legacy /posts/* URLs
+// It determines the content type and redirects to the appropriate new route
 
-interface PageProps {
-  post: Post
-  morePosts: Post[]
-  settings?: Settings
-  preview: boolean
-  token: string | null
+
+// This component should never render since we always redirect
+export default function LegacyPostRedirect() {
+  return (
+    <div>
+      <h1>Redirecting...</h1>
+      <p>You should be automatically redirected to the correct page.</p>
+    </div>
+  )
 }
 
-interface Query {
-  [key: string]: string
-}
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const slug = context.params?.slug as string
 
-interface PreviewData {
-  token?: string
-}
-
-export default function ProjectSlugRoute(props: PageProps) {
-  const { settings, post, morePosts, preview, token } = props
-
-  if (preview) {
-    return (
-      <PreviewSuspense
-        fallback={
-          <PostPage
-            loading
-            preview
-            post={post}
-            morePosts={morePosts}
-            settings={settings}
-          />
-        }
-      >
-        <PreviewPostPage
-          token={token}
-          post={post}
-          morePosts={morePosts}
-          settings={settings}
-        />
-      </PreviewSuspense>
-    )
-  }
-
-  return <PostPage post={post} morePosts={morePosts} settings={settings} />
-}
-
-export const getStaticProps: GetStaticProps<
-  PageProps,
-  Query,
-  PreviewData
-> = async (ctx) => {
-  const { preview = false, previewData = {}, params = {} } = ctx
-
-  const token = previewData.token
-
-  const [settings, { post, morePosts }] = await Promise.all([
-    getSettings(),
-    getPostAndMoreStories(params.slug),
-  ])
-
-  if (!post) {
+  if (!slug) {
     return {
       notFound: true,
     }
   }
 
-  return {
-    props: {
-      post,
-      morePosts,
-      settings,
-      preview,
-      token: previewData.token ?? null,
-    },
-    // Revalidate every 60 seconds when page is requested
-    revalidate: 60,
-  }
-}
+  // Try to find the content in each schema and redirect accordingly
+  try {
+    // Check if it's a hotel review
+    const hotelReview = await getHotelReviewBySlug(slug)
+    if (hotelReview) {
+      return {
+        redirect: {
+          destination: `/hotel/${slug}`,
+          permanent: true, // 301 redirect for SEO
+        },
+      }
+    }
 
-export const getStaticPaths = async () => {
-  const slugs = await getAllPostsSlugs()
+    // Check if it's a food review  
+    const foodReview = await getFoodReviewBySlug(slug)
+    if (foodReview) {
+      return {
+        redirect: {
+          destination: `/food/${slug}`,
+          permanent: true,
+        },
+      }
+    }
 
-  return {
-    paths: slugs?.map(({ slug }) => `/posts/${slug}`) || [],
-    fallback: 'blocking',
+    // Check if it's a guide/story
+    const guide = await getGuideBySlug(slug)
+    if (guide) {
+      return {
+        redirect: {
+          destination: `/guide/${slug}`,
+          permanent: true,
+        },
+      }
+    }
+
+    // If not found in any schema, return 404
+    return {
+      notFound: true,
+    }
+  } catch (error) {
+    console.error('Error looking up legacy post:', error)
+    return {
+      notFound: true,
+    }
   }
 }

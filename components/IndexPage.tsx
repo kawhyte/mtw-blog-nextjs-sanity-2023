@@ -12,7 +12,7 @@ import type {
   HotelReview,
   Settings,
 } from 'lib/sanity.queries'
-import { paginatedAllPostsQuery } from 'lib/sanity.queries' // Import a valid query as a placeholder
+// Removed legacy import - pagination is disabled on index page
 import { BriefcaseConveyorBelt, Plane, Trophy } from 'lucide-react'
 import Head from 'next/head'
 import Button from 'ui/Button'
@@ -102,7 +102,7 @@ export default function IndexPage(props: IndexPageProps) {
                 initialPosts={posts}
                 totalPostsCount={totalPostsForIndex}
                 itemsPerPage={itemsPerPageForIndex} // Ensures totalPages <= 1
-                paginatedQuery={paginatedAllPostsQuery} // Provide a valid query (won't be used if showPagination=false or totalPages=1)
+                paginatedQuery={null} // Not used since showPagination=false
                 // Explicitly disable pagination and control rating display
                 showPagination={false}
                 showRating={true}

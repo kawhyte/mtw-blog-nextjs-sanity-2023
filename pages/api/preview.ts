@@ -10,7 +10,7 @@ import {
   foodReviewBySlugQuery,
   guideBySlugQuery,
   hotelReviewBySlugQuery,
-  postBySlugQuery,
+  // Removed legacy postBySlugQuery import
 } from 'lib/sanity.queries'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import type { PageConfig } from 'next/types'
@@ -89,9 +89,8 @@ export default async function preview(
     token:
       process.env.SANITY_API_READ_TOKEN || process.env.SANITY_API_WRITE_TOKEN,
   })
-  const post = await client.fetch(postBySlugQuery, {
-    slug: req.query.slug,
-  })
+  // Legacy post preview removed - posts redirect through /posts/[slug].tsx
+  const post = null
 
   // If the slug doesn't exist prevent preview mode from being enabled
   // if (!post) {
@@ -109,10 +108,9 @@ export default async function preview(
 
   // Determine which document type to fetch and where to redirect
   if (type === 'post' && slug) {
-    document = await client.fetch(postBySlugQuery, { slug })
-    if (document) {
-      documentPath = `/posts/${document.slug}`
-    }
+    // Legacy posts are handled by the redirect system in /pages/posts/[slug].tsx
+    document = null
+    documentPath = `/posts/${slug}` // Let the redirect system handle it
   } else if (type === 'arena' && slug) {
     // Handle arena documents
     document = await client.fetch(arenaBySlugQuery, { slug })

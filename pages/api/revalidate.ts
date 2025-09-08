@@ -8,7 +8,7 @@
  * 2. Click "Create webhook"
  * 3. Set the URL to https://YOUR_NEXTJS_SITE_URL/api/revalidate
  * 4. Trigger on: "Create", "Update", and "Delete"
- * 5. Filter: _type == "post" || _type == "author" || _type == "settings" || _type == "hotelReview" || _type == "foodReview" || _type == "guide"
+ * 5. Filter: _type == "author" || _type == "settings" || _type == "hotelReview" || _type == "foodReview" || _type == "guide"
  * 6. Projection: Leave empty
  * 7. HTTP method: POST
  * 8. API version: v2021-03-25
@@ -76,16 +76,13 @@ async function queryStaleRoutes(
   const client = createClient({ projectId, dataset, apiVersion, useCdn: false })
   console.log('BODY')
   // Handle possible deletions for all content types
-  if (['post', 'hotelReview', 'foodReview', 'guide'].includes(body._type)) {
+  if (['hotelReview', 'foodReview', 'guide'].includes(body._type)) {
     const exists = await client.fetch(groq`*[_id == $id][0]`, { id: body._id })
     if (!exists) {
       let staleRoutes: StaleRoute[] = ['/']
       if ((body.slug as any)?.current) {
         // Route to appropriate path based on content type
         switch (body._type) {
-          case 'post':
-            staleRoutes.push(`/posts/${(body.slug as any).current}`)
-            break
           case 'hotelReview':
             staleRoutes.push(`/hotel/${(body.slug as any).current}`)
             break
@@ -99,20 +96,6 @@ async function queryStaleRoutes(
       }
       // For deletions, also revalidate the listing pages
       switch (body._type) {
-        case 'post':
-          // Check if we need to revalidate all legacy posts
-          const moreStories = await client.fetch(
-            groq`count(
-              *[_type == "post"] | order(date desc, _updatedAt desc) [0...3] [dateTime(date) > dateTime($date)]
-            )`,
-            { date: body.date },
-          )
-          if (moreStories < 3) {
-            return [
-              ...new Set([...(await queryAllRoutes(client)), ...staleRoutes]),
-            ]
-          }
-          break
         case 'hotelReview':
           staleRoutes.push('/hotels')
           break
@@ -130,8 +113,6 @@ async function queryStaleRoutes(
   switch (body._type) {
     case 'author':
       return await queryStaleAuthorRoutes(client, body._id)
-    case 'post':
-      return await queryStalePostRoutes(client, body._id)
     case 'hotelReview':
       return await queryStaleHotelReviewRoutes(client, body._id)
     case 'foodReview':
@@ -146,7 +127,13 @@ async function queryStaleRoutes(
 }
 
 async function _queryAllRoutes(client: SanityClient): Promise<string[]> {
-  return await client.fetch(groq`*[_type == "post"].slug.current`)
+  // Query all routes from independent schemas
+  const [hotelSlugs, foodSlugs, guideSlugs] = await Promise.all([
+    client.fetch(groq`*[_type == "hotelReview"].slug.current`),
+    client.fetch(groq`*[_type == "foodReview"].slug.current`),
+    client.fetch(groq`*[_type == "guide"].slug.current`),
+  ])
+  return [...hotelSlugs, ...foodSlugs, ...guideSlugs]
 }
 
 async function _queryAllHotelReviewRoutes(
@@ -190,7 +177,8 @@ async function mergeWithMoreStories(
   slugs: string[],
 ): Promise<string[]> {
   const moreStories = await client.fetch(
-    groq`*[_type == "post"] | order(date desc, _updatedAt desc) [0...3].slug.current`,
+    // Latest content from independent schemas
+    groq`*[_type == "hotelReview" || _type == "foodReview" || _type == "guide"] | order(date desc, _updatedAt desc) [0...3].slug.current`,
   )
   if (slugs.some((slug) => moreStories.includes(slug))) {
     const allSlugs = await _queryAllRoutes(client)
@@ -206,7 +194,7 @@ async function queryStaleAuthorRoutes(
 ): Promise<StaleRoute[]> {
   let slugs = await client.fetch(
     groq`*[_type == "author" && _id == $id] {
-    "slug": *[_type == "post" && references(^._id)].slug.current
+    "slug": *[(_type == "hotelReview" || _type == "foodReview" || _type == "guide") && references(^._id)].slug.current
   }["slug"][]`,
     { id },
   )
@@ -219,19 +207,6 @@ async function queryStaleAuthorRoutes(
   return []
 }
 
-async function queryStalePostRoutes(
-  client: SanityClient,
-  id: string,
-): Promise<StaleRoute[]> {
-  let slugs = await client.fetch(
-    groq`*[_type == "post" && _id == $id].slug.current`,
-    { id },
-  )
-
-  slugs = await mergeWithMoreStories(client, slugs)
-
-  return ['/', ...slugs.map((slug) => `/posts/${slug}`)]
-}
 
 async function queryStaleHotelReviewRoutes(
   client: SanityClient,

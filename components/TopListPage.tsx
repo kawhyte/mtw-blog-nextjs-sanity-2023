@@ -2,8 +2,8 @@ import BlogHeader from 'components/BlogHeader'
 import Layout from 'components/BlogLayout'
 import IndexPageHead from 'components/IndexPageHead'
 import * as demo from 'lib/demo.data'
-import { getSettings, getTopWeightedHotelPosts } from 'lib/sanity.client' // Import the new function
-import type { Post, Settings } from 'lib/sanity.queries'
+import { getSettings, getTopWeightedHotelReviews } from 'lib/sanity.client'
+import type { HotelReview, Settings } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
 
@@ -101,7 +101,7 @@ export const getStaticProps: GetStaticProps<IndexPageProps> = async (
 ) => {
   const { preview = false } = context
   const settings = await getSettings()
-  const topWeightedHotelPosts = await getTopWeightedHotelPosts() // Fetch the top weighted hotels
+  const topWeightedHotelPosts = await getTopWeightedHotelReviews() // Fetch the top weighted hotels
 
   return {
     props: {

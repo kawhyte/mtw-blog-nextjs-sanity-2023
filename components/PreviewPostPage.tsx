@@ -8,7 +8,7 @@ import {
   type HotelReview,
   hotelReviewBySlugPreviewQuery,
   type Post,
-  postAndMoreStoriesQuery,
+  // Removed legacy postAndMoreStoriesQuery import
 } from 'lib/sanity.queries'
 
 // Union type for all possible content types
@@ -39,8 +39,8 @@ export default function PreviewPostPage({
   } else if (contentType === 'foodReview') {
     query = foodReviewBySlugPreviewQuery
   } else {
-    // Default to post query for legacy posts
-    query = postAndMoreStoriesQuery
+    // Fallback to guide query for unknown content types
+    query = guideBySlugPreviewQuery
   }
 
   queryParams = { slug: (post.slug as any)?.current || post.slug || '' }

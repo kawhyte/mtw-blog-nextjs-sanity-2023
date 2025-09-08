@@ -1,13 +1,9 @@
 import { apiVersion, dataset, projectId, useCdn } from 'lib/sanity.api'
 // Import queries and types from the updated queries file
 import {
-  // Legacy post queries (for old data)
-  allFoodQuery,
   allFoodReviewsQuery,
   allGuidesQuery,
   allHotelReviewsQuery,
-  allHotelsQuery,
-  allStoriesQuery,
   // Independent schema types and queries
   type Arena,
   arenaBySlugQuery,
@@ -15,53 +11,33 @@ import {
   arenaSlugsQuery,
   // Other types
   type Essential,
-  // Legacy queries for backward compatibility
+  // Legacy types (still used by some components)
   type Food,
-  foodAndMoreQuery,
-  foodPostsTotalCountQuery,
   type FoodReview,
   foodReviewBySlugQuery,
   foodReviewsByDiningTypeQuery,
   foodReviewSlugsQuery,
   type Guide,
   guideBySlugQuery,
-  guidePostsTotalCountQuery,
   guidesByCategoryQuery,
   guideSlugsQuery,
   type Hotel,
-  hotelAndMoreQuery,
-  hotelBySlugQuery,
-  hotelPostsTotalCountQuery,
   type HotelReview,
   hotelReviewBySlugQuery,
   hotelReviewsByCategoryQuery,
   hotelReviewSlugsQuery,
-  hotelSlugsQuery,
+  independentHotelReviewFields,
   independentFoodReviewFields,
   independentGuideFields,
-  independentHotelReviewFields,
-  // Index and recommendation queries
-  indexQuery,
   type Instagram,
   latestIndependentContentQuery,
-  paginatedFoodPostsQuery,
-  paginatedGuidePostsQuery,
-  paginatedHotelPostsQuery,
   type Post,
-  postAndMoreStoriesQuery,
-  postBySlugQuery,
-  postSlugsQuery,
   recommendationQuery,
   type Settings,
   settingsQuery,
   type Story,
-  storyAndMoreQuery,
-  storyBySlugQuery,
-  storySlugsQuery,
   topFoodReviewsQuery,
   topHotelReviewsQuery,
-  topWeightedFoodQuery,
-  topWeightedHotelsQuery,
   travelEssentialQuery,
 } from 'lib/sanity.queries'
 import { createClient, type SanityClient } from 'next-sanity'
@@ -91,19 +67,7 @@ export async function getSettings(): Promise<Settings> {
 }
 
 // --- Generic Posts (Index Page) - LEGACY ---
-export async function getIndexPosts(): Promise<Post[]> {
-  if (!client) {
-    console.warn('Sanity client is not initialized.')
-    return []
-  }
-  try {
-    const posts = await client.fetch<Post[]>(indexQuery)
-    return posts ?? []
-  } catch (error) {
-    console.error(`Error fetching index posts:`, error)
-    return []
-  }
-}
+// REMOVED: getIndexPosts() - Use getLatestIndependentContent() instead
 
 // --- Latest Independent Content (Index Page) ---
 export async function getLatestIndependentContent(): Promise<
@@ -202,16 +166,7 @@ export async function getHotelPostsTotalCount(): Promise<number> {
 }
 
 /** Fetches top weighted hotel posts */
-export async function getTopWeightedHotelPosts(): Promise<Post[]> {
-  if (!client) return []
-  try {
-    const results = await client.fetch<Post[]>(topWeightedHotelsQuery)
-    return results ?? []
-  } catch (error) {
-    console.error(`Error fetching top weighted hotel posts:`, error)
-    return []
-  }
-}
+// REMOVED: getTopWeightedHotelPosts() - Use getTopWeightedHotelReviews() instead
 
 // --- Food Posts ---
 
