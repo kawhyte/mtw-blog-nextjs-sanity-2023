@@ -128,8 +128,8 @@ const Arenas = ({
           <button
             className={`mx-auto mb-2 inline-block rounded-md px-3 py-1 text-sm font-semibold transition-colors duration-150 ease-in-out ${
               visited
-                ? 'bg-indigo-100 text-purple-700 group-hover:bg-purple-600 group-hover:text-white'
-                : 'cursor-not-allowed bg-gray-200 text-gray-500'
+                ? 'bg-accent text-primary hover:bg-primary hover:text-primary-foreground'
+                : 'cursor-not-allowed bg-muted text-muted-foreground'
             }`}
             disabled={!visited}
             aria-hidden="true"
