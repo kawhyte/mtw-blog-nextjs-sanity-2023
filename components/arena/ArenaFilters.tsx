@@ -1,0 +1,69 @@
+import {
+  FILTER_OPTIONS,
+  FilterCriteriaType,
+  SORT_OPTIONS,
+  SortCriteriaType,
+} from 'utils/arena/arenaConstants'
+
+interface ArenaFiltersProps {
+  sortCriteria: SortCriteriaType
+  filterCriteria: FilterCriteriaType
+  onSortChange: (criteria: SortCriteriaType) => void
+  onFilterChange: (criteria: FilterCriteriaType) => void
+  isSortDisabled: boolean
+}
+
+export default function ArenaFilters({
+  sortCriteria,
+  filterCriteria,
+  onSortChange,
+  onFilterChange,
+  isSortDisabled,
+}: ArenaFiltersProps) {
+  return (
+    <div className="container mx-auto mb-12 mt-6 flex max-w-4xl flex-col items-center justify-between gap-y-4 rounded-lg bg-gray-50 px-4 py-4 shadow-sm md:flex-row md:gap-y-0 md:px-6">
+      {/* Sort By Dropdown */}
+      <div className="flex w-full items-center md:w-auto">
+        <label
+          htmlFor="sort"
+          className="mr-2 whitespace-nowrap text-sm font-medium text-gray-700"
+        >
+          Sort by:
+        </label>
+        <select
+          id="sort"
+          value={sortCriteria}
+          onChange={(e) => onSortChange(e.target.value as SortCriteriaType)}
+          className="grow appearance-none rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-700 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 md:grow-0"
+          disabled={isSortDisabled}
+        >
+          {SORT_OPTIONS.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {/* Filter By Buttons */}
+      <div className="flex w-full items-center justify-center space-x-2 md:w-auto md:justify-end">
+        <span className="mr-2 hidden text-sm font-medium text-gray-700 sm:inline">
+          Filter:
+        </span>
+        {FILTER_OPTIONS.map((option) => (
+          <button
+            key={option.value}
+            onClick={() => onFilterChange(option.value)}
+            className={`rounded-md px-3 py-2 text-sm font-medium capitalize transition-colors duration-150 ${
+              filterCriteria === option.value
+                ? 'bg-indigo-600 text-white shadow-sm hover:bg-indigo-700'
+                : 'border border-gray-300 bg-white text-gray-700 hover:bg-gray-50'
+            }`}
+          >
+            {option.label}
+          </button>
+        ))}
+      </div>
+    </div>
+  )
+}
