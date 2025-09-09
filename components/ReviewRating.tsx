@@ -4,12 +4,23 @@ import { ReactElement } from 'react'
 
 import ProgressRating from './ProgressRating'
 
-// Helper function to format snake_case to Title Case
+// Helper function to format snake_case and camelCase to Title Case
 const formatRatingName = (name: string): string => {
-  return name
-    .split('_')
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ')
+  // Handle camelCase (e.g., "foodValue" -> "Food Value", "tasteAndFlavor" -> "Taste And Flavor")
+  if (name.includes('_')) {
+    // snake_case handling
+    return name
+      .split('_')
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ')
+  } else {
+    // camelCase handling
+    return name
+      .replace(/([a-z])([A-Z])/g, '$1 $2') // Insert space before uppercase letters
+      .split(' ')
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ')
+  }
 }
 
 // Helper function to get display text for amenities that are not available

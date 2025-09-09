@@ -31,9 +31,12 @@ import { urlForImage } from 'lib/sanity.image'
 import {
   BedDouble,
   CalendarDays,
+  CheckCircle,
   Handshake,
   MapPin,
+  Package,
   Presentation,
+  ShoppingBag,
   Smile,
   SprayCan,
   Star,
@@ -50,6 +53,15 @@ const foodRatingIcons = {
   Restaurant_Cleanliness: <SprayCan className="h-5 w-5 mr-2 " />,
   Restaurant_Location: <MapPin className="h-5 w-5 mr-2 " />,
   Restaurant_Service: <Handshake className="h-5 w-5 mr-2 " />,
+}
+
+const takeoutRatingIcons = {
+  tasteAndFlavor: <Utensils className="h-5 w-5 mr-2 " />,
+  foodValue: <Star className="h-5 w-5 mr-2 " />,
+  overallSatisfaction: <Smile className="h-5 w-5 mr-2 " />,
+  presentation: <Presentation className="h-5 w-5 mr-2 " />,
+  packaging: <Package className="h-5 w-5 mr-2 " />,
+  accuracy: <CheckCircle className="h-5 w-5 mr-2 " />,
 }
 
 export default function FoodReviewPage(props: FoodReviewPageProps) {
@@ -81,11 +93,16 @@ export default function FoodReviewPage(props: FoodReviewPageProps) {
     )
   }
 
-  // Determine which rating to show based on dining type
+  // Determine which rating and icons to show based on dining type
   const currentRating =
     foodReview.diningType === 'takeout'
       ? foodReview.takeoutRating
       : foodReview.foodRating
+  
+  const currentRatingIcons =
+    foodReview.diningType === 'takeout'
+      ? takeoutRatingIcons
+      : foodRatingIcons
 
   return (
     <div>
@@ -154,7 +171,7 @@ export default function FoodReviewPage(props: FoodReviewPageProps) {
           {currentRating && (
             <ReviewRating
               ratings={currentRating}
-              ratingIcons={foodRatingIcons}
+              ratingIcons={currentRatingIcons}
               title="Food Rating"
               reviewType="food"
             />
