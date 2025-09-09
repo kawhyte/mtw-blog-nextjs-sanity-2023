@@ -11,8 +11,6 @@ import {
   arenaSlugsQuery,
   // Other types
   type Essential,
-  // Legacy types (still used by some components)
-  type Food,
   type FoodReview,
   foodReviewBySlugQuery,
   foodReviewsByDiningTypeQuery,
@@ -21,21 +19,18 @@ import {
   guideBySlugQuery,
   guidesByCategoryQuery,
   guideSlugsQuery,
-  type Hotel,
   type HotelReview,
   hotelReviewBySlugQuery,
   hotelReviewsByCategoryQuery,
   hotelReviewSlugsQuery,
-  independentHotelReviewFields,
   independentFoodReviewFields,
   independentGuideFields,
+  independentHotelReviewFields,
   type Instagram,
   latestIndependentContentQuery,
-  type Post,
   recommendationQuery,
   type Settings,
   settingsQuery,
-  type Story,
   topFoodReviewsQuery,
   topHotelReviewsQuery,
   travelEssentialQuery,
@@ -119,113 +114,20 @@ export async function getInstagramPosts(): Promise<Instagram | null> {
 // ============================================
 
 // --- Hotel Posts ---
-
-/** Fetches ALL hotel posts using limited fields */
-export async function getAllHotelPosts(): Promise<Post[]> {
-  if (!client) return []
-  try {
-    const results = await client.fetch<Post[]>(allHotelsQuery)
-    return results ?? []
-  } catch (error) {
-    console.error(`Error fetching all hotel posts:`, error)
-    return []
-  }
-}
-
-/** Fetches a specific page/slice of hotel posts */
-export async function getPaginatedHotelPosts(
-  start: number,
-  end: number,
-): Promise<Post[]> {
-  if (!client) return []
-  try {
-    const results = await client.fetch<Post[]>(paginatedHotelPostsQuery, {
-      start,
-      end,
-    })
-    return results ?? []
-  } catch (error) {
-    console.error(
-      `Error fetching paginated hotel posts (start: ${start}, end: ${end}):`,
-      error,
-    )
-    return []
-  }
-}
-
-/** Gets the total count of hotel posts */
-export async function getHotelPostsTotalCount(): Promise<number> {
-  if (!client) return 0
-  try {
-    const count = await client.fetch<number>(hotelPostsTotalCountQuery)
-    return count ?? 0
-  } catch (error) {
-    console.error(`Error fetching hotel posts total count:`, error)
-    return 0
-  }
-}
+// REMOVED: Legacy hotel post functions - Use independent hotel review functions instead:
+// - getAllHotelPosts() -> getAllHotelReviews()
+// - getPaginatedHotelPosts() -> getPaginatedHotelReviews()
+// - getHotelPostsTotalCount() -> getHotelReviewsTotalCount()
 
 /** Fetches top weighted hotel posts */
 // REMOVED: getTopWeightedHotelPosts() - Use getTopWeightedHotelReviews() instead
 
 // --- Food Posts ---
-
-/** Fetches ALL food posts using limited fields */
-export async function getAllFoodPosts(): Promise<Post[]> {
-  if (!client) return []
-  try {
-    const results = await client.fetch<Post[]>(allFoodQuery)
-    return results ?? []
-  } catch (error) {
-    console.error(`Error fetching all food posts:`, error)
-    return []
-  }
-}
-
-/** Fetches a specific page/slice of food posts */
-export async function getPaginatedFoodPosts(
-  start: number,
-  end: number,
-): Promise<Post[]> {
-  if (!client) return []
-  try {
-    const results = await client.fetch<Post[]>(paginatedFoodPostsQuery, {
-      start,
-      end,
-    })
-    return results ?? []
-  } catch (error) {
-    console.error(
-      `Error fetching paginated food posts (start: ${start}, end: ${end}):`,
-      error,
-    )
-    return []
-  }
-}
-
-/** Gets the total count of food posts */
-export async function getFoodPostsTotalCount(): Promise<number> {
-  if (!client) return 0
-  try {
-    const count = await client.fetch<number>(foodPostsTotalCountQuery)
-    return count ?? 0
-  } catch (error) {
-    console.error(`Error fetching food posts total count:`, error)
-    return 0
-  }
-}
-
-/** Fetches top weighted food posts */
-export async function getTopWeightedFoodPosts(): Promise<Post[]> {
-  if (!client) return []
-  try {
-    const results = await client.fetch<Post[]>(topWeightedFoodQuery)
-    return results ?? []
-  } catch (error) {
-    console.error(`Error fetching top weighted food posts:`, error)
-    return []
-  }
-}
+// REMOVED: Legacy food post functions - Use independent food review functions instead:
+// - getAllFoodPosts() -> getAllFoodReviews()
+// - getPaginatedFoodPosts() -> getPaginatedFoodReviews()
+// - getFoodPostsTotalCount() -> getFoodReviewsTotalCount()
+// - getTopWeightedFoodPosts() -> getTopWeightedFoodReviews()
 
 /** Fetches a specific page/slice of independent food reviews */
 export async function getPaginatedFoodReviews(
@@ -295,52 +197,11 @@ export async function getGuidesTotalCount(): Promise<number> {
   }
 }
 
-// --- Story/Guide Posts (assuming linkType == 'story') ---
-
-/** Fetches ALL story posts using limited fields */
-export async function getAllStoryPosts(): Promise<Post[]> {
-  if (!client) return []
-  try {
-    const results = await client.fetch<Post[]>(allStoriesQuery)
-    return results ?? []
-  } catch (error) {
-    console.error(`Error fetching all story posts:`, error)
-    return []
-  }
-}
-
-/** Fetches a specific page/slice of story/guide posts */
-export async function getPaginatedGuidePosts(
-  start: number,
-  end: number,
-): Promise<Post[]> {
-  if (!client) return []
-  try {
-    const results = await client.fetch<Post[]>(paginatedGuidePostsQuery, {
-      start,
-      end,
-    })
-    return results ?? []
-  } catch (error) {
-    console.error(
-      `Error fetching paginated guide posts (start: ${start}, end: ${end}):`,
-      error,
-    )
-    return []
-  }
-}
-
-/** Gets the total count of story/guide posts */
-export async function getGuidePostsTotalCount(): Promise<number> {
-  if (!client) return 0
-  try {
-    const count = await client.fetch<number>(guidePostsTotalCountQuery)
-    return count ?? 0
-  } catch (error) {
-    console.error(`Error fetching guide posts total count:`, error)
-    return 0
-  }
-}
+// --- Story/Guide Posts ---
+// REMOVED: Legacy story/guide post functions - Use independent guide functions instead:
+// - getAllStoryPosts() -> getAllGuides()
+// - getPaginatedGuidePosts() -> getPaginatedGuides()
+// - getGuidePostsTotalCount() -> getGuidesTotalCount()
 
 // --- Recommendations ---
 export async function getRecommendationPosts(): Promise<any[]> {
@@ -408,43 +269,12 @@ export async function getArenaBySlug(slug: string): Promise<Arena | null> {
 // --- End Arenas Section ---
 
 // ============================================
-// --- Slug Fetching ---
+// --- Legacy Slug Fetching (REMOVED) ---
 // ============================================
-
-export async function getAllPostsSlugs(): Promise<Pick<Post, 'slug'>[]> {
-  if (!client) return []
-  try {
-    const slugs = await client.fetch<string[]>(postSlugsQuery)
-    return slugs ? slugs.map((slug) => ({ slug })) : []
-  } catch (error) {
-    console.error(`Error fetching all post slugs:`, error)
-    return []
-  }
-}
-
-export async function getAllHotelSlugs(): Promise<Pick<Hotel, 'slug'>[]> {
-  if (!client) return []
-  try {
-    const slugs = await client.fetch<string[]>(hotelSlugsQuery)
-    return slugs ? slugs.map((slug) => ({ slug })) : []
-  } catch (error) {
-    console.error(`Error fetching all hotel slugs:`, error)
-    return []
-  }
-}
-
-export async function getAllStorySlugs(): Promise<Pick<Story, 'slug'>[]> {
-  if (!client) return []
-  try {
-    const slugs = await client.fetch<string[]>(storySlugsQuery)
-    return slugs ? slugs.map((slug) => ({ slug })) : []
-  } catch (error) {
-    console.error(`Error fetching all story slugs:`, error)
-    return []
-  }
-}
-
-// Legacy food function removed - now using independent foodReview schema
+// REMOVED: Legacy slug functions - Use independent schema slug functions instead:
+// - getAllPostsSlugs() -> Use type-specific functions instead
+// - getAllHotelSlugs() -> getAllHotelReviewSlugs()
+// - getAllStorySlugs() -> getAllGuideSlugs()
 
 // --- Fetch All Arena Slugs ---
 /**
@@ -468,51 +298,14 @@ export async function getAllArenaSlugs(): Promise<string[]> {
 // --- End Slug Fetching Section ---
 
 // ============================================
-// --- Get By Slug ---
+// --- Legacy Get By Slug (REMOVED) ---
 // ============================================
+// REMOVED: Legacy bySlug functions - Use independent schema functions instead:
+// - getPostBySlug() -> Use type-specific functions or redirect system in /posts/[slug].tsx
+// - getHotelBySlug() -> getHotelReviewBySlug()
+// - getStoryBySlug() -> getGuideBySlug()
 
-// Generic post by slug
-export async function getPostBySlug(slug: string): Promise<Post | null> {
-  if (!client) return null
-  try {
-    const post = await client.fetch<Post | undefined>(postBySlugQuery, { slug })
-    return post ?? null
-  } catch (error) {
-    console.error(`Error fetching post by slug "${slug}":`, error)
-    return null
-  }
-}
-
-// Specific types by slug
-export async function getHotelBySlug(slug: string): Promise<Hotel | null> {
-  if (!client) return null
-  try {
-    const hotel = await client.fetch<Hotel | undefined>(hotelBySlugQuery, {
-      slug,
-    })
-    return hotel ?? null
-  } catch (error) {
-    console.error(`Error fetching hotel by slug "${slug}":`, error)
-    return null
-  }
-}
-
-export async function getStoryBySlug(slug: string): Promise<Story | null> {
-  if (!client) return null
-  try {
-    const story = await client.fetch<Story | undefined>(storyBySlugQuery, {
-      slug,
-    })
-    return story ?? null
-  } catch (error) {
-    console.error(`Error fetching story by slug "${slug}":`, error)
-    return null
-  }
-}
-
-// Legacy food function removed - now using independent foodReview schema
-
-// NOTE: getArenaBySlug is already updated above in the 'Arenas' section.
+// NOTE: Modern independent bySlug functions are implemented below in their respective sections.
 
 // ============================================
 // --- Guides ---
@@ -901,91 +694,12 @@ export async function getFoodReviewsByDiningType(
 }
 
 // ============================================
-// --- Get By Slug And More Stories ---
+// --- Legacy "And More" Functions (REMOVED) ---
 // ============================================
-// These already used client.fetch directly in the original code,
-// but we'll ensure the pattern is consistent (check client, try/catch)
-
-const defaultAndMoreResult = { post: null, morePosts: [] }
-
-export async function getHotelAndMore(
-  slug: string,
-): Promise<{ post: Hotel | null; morePosts: Post[] }> {
-  if (!client) return defaultAndMoreResult
-  try {
-    const result = await client.fetch<{ post: Hotel; morePosts: Post[] }>(
-      hotelAndMoreQuery,
-      { slug },
-    )
-    return {
-      post: result?.post ?? null,
-      morePosts: result?.morePosts ?? [],
-    }
-  } catch (error) {
-    console.error(`Error fetching hotel and more for slug "${slug}":`, error)
-    return defaultAndMoreResult
-  }
-}
-
-export async function getStoryAndMore(
-  slug: string,
-): Promise<{ post: Story | null; morePosts: Post[] }> {
-  if (!client) return defaultAndMoreResult
-  try {
-    const result = await client.fetch<{ post: Story; morePosts: Post[] }>(
-      storyAndMoreQuery,
-      { slug },
-    )
-    return {
-      post: result?.post ?? null,
-      morePosts: result?.morePosts ?? [],
-    }
-  } catch (error) {
-    console.error(`Error fetching story and more for slug "${slug}":`, error)
-    return defaultAndMoreResult
-  }
-}
-
-export async function getFoodReviewAndMore(
-  slug: string,
-): Promise<{ post: Food | null; morePosts: Post[] }> {
-  if (!client) return defaultAndMoreResult
-  try {
-    const result = await client.fetch<{ post: Food; morePosts: Post[] }>(
-      foodAndMoreQuery,
-      { slug },
-    )
-    return {
-      post: result?.post ?? null,
-      morePosts: result?.morePosts ?? [],
-    }
-  } catch (error) {
-    console.error(
-      `Error fetching food review and more for slug "${slug}":`,
-      error,
-    )
-    return defaultAndMoreResult
-  }
-}
-
-export async function getPostAndMoreStories( // Generic version
-  slug: string,
-): Promise<{ post: Post | null; morePosts: Post[] }> {
-  if (!client) return defaultAndMoreResult
-  try {
-    const result = await client.fetch<{ post: Post; morePosts: Post[] }>(
-      postAndMoreStoriesQuery,
-      { slug },
-    )
-    return {
-      post: result?.post ?? null,
-      morePosts: result?.morePosts ?? [],
-    }
-  } catch (error) {
-    console.error(
-      `Error fetching post and more stories for slug "${slug}":`,
-      error,
-    )
-    return defaultAndMoreResult
-  }
-}
+// REMOVED: Legacy "AndMore" functions that fetched related posts - No longer needed:
+// - getHotelAndMore() -> Use getHotelReviewBySlug() + separate related content fetching if needed
+// - getStoryAndMore() -> Use getGuideBySlug() + separate related content fetching if needed
+// - getFoodReviewAndMore() -> Use getFoodReviewBySlug() + separate related content fetching if needed
+// - getPostAndMoreStories() -> Use type-specific functions instead
+//
+// Modern approach: Fetch individual content and related items separately for better caching and flexibility

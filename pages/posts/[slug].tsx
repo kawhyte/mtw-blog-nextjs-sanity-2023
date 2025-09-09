@@ -1,13 +1,12 @@
 import {
-  getHotelReviewBySlug,
   getFoodReviewBySlug,
   getGuideBySlug,
+  getHotelReviewBySlug,
 } from 'lib/sanity.client'
 import { GetServerSideProps } from 'next'
 
 // This page now serves as a redirect layer for legacy /posts/* URLs
 // It determines the content type and redirects to the appropriate new route
-
 
 // This component should never render since we always redirect
 export default function LegacyPostRedirect() {
@@ -41,7 +40,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       }
     }
 
-    // Check if it's a food review  
+    // Check if it's a food review
     const foodReview = await getFoodReviewBySlug(slug)
     if (foodReview) {
       return {

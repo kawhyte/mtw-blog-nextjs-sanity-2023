@@ -15,7 +15,7 @@ import { PaginationWrapper as Pagination } from '@/components/ui/pagination-wrap
 
 import { CMS_NAME } from '../lib/constants'
 import { globalSearchQuery } from '../lib/sanity.queries'
-import { Settings, HotelReview, FoodReview, Guide } from '../lib/sanity.queries'
+import { FoodReview, Guide,HotelReview, Settings } from '../lib/sanity.queries'
 import { sanityClient } from '../lib/sanity.server'
 
 // Dynamically import Lottie Player for the "not found" animation
@@ -112,7 +112,9 @@ const NoResultsFound = ({ query }) => {
 // --- Main Search Results Page Component ---
 
 // Union type for all content types that can appear in search results
-type SearchResult = (HotelReview | FoodReview | Guide) & { _contentType: string }
+type SearchResult = (HotelReview | FoodReview | Guide) & {
+  _contentType: string
+}
 
 const SearchResults = ({ settings }: { settings: Settings }) => {
   const router = useRouter()
@@ -140,16 +142,16 @@ const SearchResults = ({ settings }: { settings: Settings }) => {
           const flattenedResults = [
             ...(data?.hotels || []),
             ...(data?.food || []),
-            ...(data?.guides || [])
+            ...(data?.guides || []),
           ]
-          
+
           // Sort by date (most recent first) to provide consistent ordering
           flattenedResults.sort((a, b) => {
             const dateA = new Date(a.date || a._updatedAt || 0)
             const dateB = new Date(b.date || b._updatedAt || 0)
             return dateB.getTime() - dateA.getTime()
           })
-          
+
           setResults(flattenedResults)
         })
         .catch((err) => {
@@ -199,10 +201,26 @@ const SearchResults = ({ settings }: { settings: Settings }) => {
                 linkType={result._contentType as any}
                 showRating={true}
                 // Type-specific props
-                hotelRating={result._contentType === 'hotel' ? (result as HotelReview).hotelRating : undefined}
-                foodRating={result._contentType === 'food' ? (result as FoodReview).foodRating : undefined}
-                takeoutRating={result._contentType === 'food' ? (result as FoodReview).takeoutRating : undefined}
-                diningType={result._contentType === 'food' ? (result as FoodReview).diningType : undefined}
+                hotelRating={
+                  result._contentType === 'hotel'
+                    ? (result as HotelReview).hotelRating
+                    : undefined
+                }
+                foodRating={
+                  result._contentType === 'food'
+                    ? (result as FoodReview).foodRating
+                    : undefined
+                }
+                takeoutRating={
+                  result._contentType === 'food'
+                    ? (result as FoodReview).takeoutRating
+                    : undefined
+                }
+                diningType={
+                  result._contentType === 'food'
+                    ? (result as FoodReview).diningType
+                    : undefined
+                }
               />
             ))}
           </div>

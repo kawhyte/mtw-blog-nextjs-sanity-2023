@@ -504,12 +504,12 @@ export const latestIndependentContentQuery = groq`
 // Post Slugs and Single Post Fetching (Generic)
 // REMOVED: Legacy post queries - replaced by independent schema queries
 // postSlugsQuery -> use hotelReviewSlugsQuery/foodReviewSlugsQuery/guideSlugsQuery
-// postBySlugQuery -> use hotelReviewBySlugQuery/foodReviewBySlugQuery/guideBySlugQuery  
+// postBySlugQuery -> use hotelReviewBySlugQuery/foodReviewBySlugQuery/guideBySlugQuery
 // postAndMoreStoriesQuery -> use specific schema queries with related content
 
 // REMOVED: Legacy linkType-specific queries - replaced by independent schema queries
 // hotelSlugsQuery -> hotelReviewSlugsQuery
-// storySlugsQuery -> guideSlugsQuery  
+// storySlugsQuery -> guideSlugsQuery
 // foodSlugsQuery -> foodReviewSlugsQuery
 // hotelBySlugQuery -> hotelReviewBySlugQuery
 // storyBySlugQuery -> guideBySlugQuery
@@ -517,7 +517,7 @@ export const latestIndependentContentQuery = groq`
 
 // REMOVED: Legacy linkType-specific related and collection queries
 // hotelAndMoreQuery -> hotelReviewAndMoreQuery (if needed)
-// storyAndMoreQuery -> guideAndMoreQuery (if needed)  
+// storyAndMoreQuery -> guideAndMoreQuery (if needed)
 // foodAndMoreQuery -> foodReviewAndMoreQuery (if needed)
 // allHotelsQuery -> allHotelReviewsQuery
 // allFoodQuery -> allFoodReviewsQuery
@@ -562,7 +562,7 @@ export const globalSearchQuery = groq`
 // --- PAGINATION QUERIES ---
 // LEGACY QUERIES REMOVED - Use independent schema queries instead:
 // - For hotels: Use hotelReviewsQuery with slice parameters
-// - For food: Use foodReviewsQuery with slice parameters  
+// - For food: Use foodReviewsQuery with slice parameters
 // - For guides: Use guidesQuery with slice parameters
 // - For all content: Use latestIndependentContentQuery with slice parameters
 

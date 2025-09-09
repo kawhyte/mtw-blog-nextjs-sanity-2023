@@ -207,7 +207,6 @@ async function queryStaleAuthorRoutes(
   return []
 }
 
-
 async function queryStaleHotelReviewRoutes(
   client: SanityClient,
   id: string,

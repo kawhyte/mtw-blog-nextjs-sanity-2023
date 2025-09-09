@@ -61,8 +61,9 @@ export default async function handler(
         break
       case 'post':
         // Legacy post support removed - redirect to 'all' instead
-        return res.status(400).json({ 
-          error: 'Legacy post type no longer supported. Use hotel, food, guide, or all instead.' 
+        return res.status(400).json({
+          error:
+            'Legacy post type no longer supported. Use hotel, food, guide, or all instead.',
         })
       case 'all':
       default:
@@ -85,10 +86,7 @@ export default async function handler(
             foodReviews,
             guides,
           },
-          total:
-            hotelReviews.length +
-            foodReviews.length +
-            guides.length,
+          total: hotelReviews.length + foodReviews.length + guides.length,
         })
     }
 
