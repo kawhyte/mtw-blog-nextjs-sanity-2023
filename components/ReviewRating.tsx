@@ -77,7 +77,7 @@ export default function ReviewRating({
         <div className="md:col-span-4 flex flex-col items-center md:items-start text-center md:text-left border-b-2 md:border-b-0 md:border-r-2 border-border pb-6 md:pb-0 md:pr-8 mb-6 md:mb-0">
           <h2 className="text-2xl font-bold text-foreground mb-2">{title}</h2>
           <p className="text-7xl font-bold text-secondary mb-2">
-            {overallRating.toFixed(1)}
+            {Math.floor(overallRating * 100) / 100}
           </p>
           <p className="text-2xl font-semibold text-foreground mb-2">
             {textScore}

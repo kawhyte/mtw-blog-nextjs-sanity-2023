@@ -184,7 +184,7 @@ const IndividualFoodRating = ({ food }) => {
                   <div className="my-3 flex flex-wrap items-center justify-between gap-2 border-y border-border py-2">
                     <div className="flex items-center gap-x-2">
                       <span className="text-lg font-bold text-foreground">
-                        {dishRating.toFixed(1)}
+                        {(Math.floor(dishRating * 100) / 100).toFixed(2)}
                       </span>
                       <ThemedCookieRating rating={dishRating} />
                     </div>

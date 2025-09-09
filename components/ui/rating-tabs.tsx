@@ -87,7 +87,7 @@ export function RatingTabs({
               {ratingText}
             </Badge>
             <span className="text-sm font-semibold">
-              {rating.toFixed(1)}/{maxRating}
+              {(Math.floor(rating * 100) / 100).toFixed(2)}/{maxRating}
             </span>
           </div>
         </div>
@@ -128,7 +128,7 @@ export function RatingTabs({
                     Overall:
                   </span>
                   <Badge variant="default" className="bg-brand-primary">
-                    {overallRating.toFixed(1)}/10
+                    {(Math.floor(overallRating * 100) / 100).toFixed(2)}/10
                   </Badge>
                 </div>
               )}
@@ -151,7 +151,7 @@ export function RatingTabs({
                     Overall:
                   </span>
                   <Badge variant="default" className="bg-brand-primary">
-                    {overallRating.toFixed(1)}/10
+                    {(Math.floor(overallRating * 100) / 100).toFixed(2)}/10
                   </Badge>
                 </div>
               )}

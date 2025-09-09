@@ -122,8 +122,8 @@ export default function Button({
 
   if (link) {
     return (
-      <Link href={link} passHref legacyBehavior>
-        <div className={baseClasses}>{buttonContent}</div>
+      <Link href={link} className={baseClasses}>
+        {buttonContent}
       </Link>
     )
   } else {

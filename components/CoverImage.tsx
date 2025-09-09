@@ -139,7 +139,7 @@ export default function CoverImage(props: CoverImageProps) {
             {showRating && linkType !== 'story' && (
               <div className="absolute right-4 top-4 z-30 flex items-center justify-center rounded-full bg-background/20 text-foreground backdrop-blur-sm">
                 <RatingBadge
-                  average={overallRating.numericalRating.toFixed(2)}
+                  average={(Math.floor(overallRating.numericalRating * 100) / 100).toString()}
                   textRating={overallRating.textRating}
                   color={overallRating.color}
                 />

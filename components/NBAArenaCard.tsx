@@ -69,13 +69,14 @@ const Arenas = ({
 
           <Image
             src={
-              arenaImageSrc.asset?._ref
-                ? urlForImage(arenaImageSrc.asset?._ref)
+              arenaImageSrc?.asset?._ref || arenaImageSrc?.asset?._id
+                ? urlForImage(arenaImageSrc)
                     .height(200)
                     .width(320)
                     .fit('crop')
+                    .auto('format')
                     .url()
-                : 'https://fakeimg.pl/1240x801'
+                : 'https://fakeimg.pl/320x200?text=Arena+Image&font=georgia'
             }
             placeholder="blur"
             blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAO0lEQVR4nGNgYGBg+P//P1t9fT0TiM0we3ZjxZxZjQ9XLpwwe9nCHkOGGZOyanraY9aumN2wbsn0hmQA/MEWfj4ocjcAAAAASUVORK5CYII="

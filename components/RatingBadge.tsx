@@ -15,7 +15,7 @@ const RatingBadge = ({ average, textRating, color }: RatingBadgeProps) => {
       {/* Average Number */}
       <div className="text-white">
         <span className="font-montserrat  font-black leading-tight tracking-tighter text-gray-900 sm:text-xl md:text-left md:text-2xl md:leading-none lg:text-xl">
-          {Number(average).toFixed(2)}
+          {(Math.floor(Number(average) * 100) / 100).toFixed(2)}
         </span>
       </div>
 

@@ -5,18 +5,20 @@ function ProgressRating({ progress, color }) {
 
   return (
     <>
-      <div className="h-2 w-full bg-gray-300 ">
+      <div className="h-2 w-full bg-gray-300 rounded-2xl overflow-hidden">
         <div
-          style={{ width: `${progressPercentage}%` }}
-          // className={`h-full  ${
-          // 	progressPercentage < 65 ? "bg-linear-to-r from-pink-500 via-red-500 to-yellow-500 rounded-lg " : "bg-linear-to-r from-green-500 to-green-700 rounded-lg "
-          // }`}
-
-          className="h-full bg-slate-500 rounded-2xl"
+          style={{ 
+            width: `${progressPercentage}%`,
+            backgroundColor: '#64748b',
+            height: '100%',
+            borderRadius: '1rem',
+            transition: 'width 0.3s ease-in-out'
+          }}
+          className="h-full"
         ></div>
       </div>
       <span className="text-sm ml-3 md:text-base font-bold ">
-        {progress?.toFixed(1) || 0}{' '}
+        {(Math.floor(progress * 100) / 100).toFixed(2) || '0.00'}{' '}
       </span>
     </>
   )
