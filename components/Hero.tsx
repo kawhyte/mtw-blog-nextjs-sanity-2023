@@ -1,5 +1,6 @@
 import { inter, montserrat, raleway } from 'app/fonts'
 import dynamic from 'next/dynamic'
+import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { LiaBasketballBallSolid } from 'react-icons/lia'
 import Button from 'ui/Button'
@@ -57,7 +58,8 @@ function Hero() {
               roads!) to check out and rank every single NBA and WNBA arena
               across the US and Canada. Buckle up and follow our adventure!
             </p>
-
+<Link href={'/arenas'}>
+Hello</Link>
             {/* CTA Button */}
             <div className="flex pt-4 lg:mt-0 lg:shrink-0">
               <Button
