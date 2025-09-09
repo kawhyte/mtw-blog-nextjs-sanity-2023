@@ -9,6 +9,14 @@ interface HeroPhotoGalleryProps {
   onShowAllPhotos: () => void
 }
 
+// Helper function to generate low-res blur placeholder from the actual image
+const generateBlurDataURL = (image: any) => {
+  if (!image) return "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknywtgFnoLVlOIl8LsJzPLOKKKKKKoihCgBqxlIyQxoRvlr3C8oD/9k="
+  
+  // Generate a very low resolution version of the image for blur placeholder
+  return urlForImage(image)?.width(10).height(10).quality(20).blur(50).url() || "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknywtgFnoLVlOIl8LsJzPLOKKKKKKoihCgBqxlIyQxoRvlr3C8oD/9k="
+}
+
 export default function HeroPhotoGallery({
   images,
   onShowAllPhotos,
@@ -33,6 +41,8 @@ export default function HeroPhotoGallery({
           fill
           sizes="100vw"
           className="rounded-xl object-cover"
+          placeholder="blur"
+          blurDataURL={generateBlurDataURL(mainImage)}
         />
       </div>
 
@@ -52,6 +62,8 @@ export default function HeroPhotoGallery({
             fill
             sizes="(min-width: 768px) 50vw, 100vw"
             className="rounded-l-xl object-cover"
+            placeholder="blur"
+            blurDataURL={generateBlurDataURL(mainImage)}
           />
         </div>
 
@@ -71,6 +83,8 @@ export default function HeroPhotoGallery({
                 fill
                 sizes="(min-width: 768px) 25vw, 100vw"
                 className={`${index === 1 ? 'rounded-tr-xl' : ''} ${index === 3 ? 'rounded-br-xl' : ''} object-cover`}
+                placeholder="blur"
+                blurDataURL={generateBlurDataURL(image)}
               />
             </div>
           ))}
