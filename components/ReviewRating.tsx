@@ -1,5 +1,5 @@
 import { calculateRating } from 'lib/calculateRating'
-import { FOOD_WEIGHTS, HOTEL_WEIGHTS } from 'lib/ratingWeights'
+import { FOOD_WEIGHTS, HOTEL_WEIGHTS, TAKEOUT_WEIGHTS } from 'lib/ratingWeights'
 import { ReactElement } from 'react'
 
 import ProgressRating from './ProgressRating'
@@ -10,6 +10,16 @@ const formatRatingName = (name: string): string => {
     .split('_')
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ')
+}
+
+// Helper function to get display text for amenities that are not available
+const getUnavailableText = (name: string): string => {
+  const amenityMap: { [key: string]: string } = {
+    Pool: 'No Pool',
+    Gym: 'No Gym', 
+    Internet_Speed: 'No Internet'
+  }
+  return amenityMap[name] || 'Not Available'
 }
 
 interface ReviewRatingProps {
@@ -35,8 +45,18 @@ export default function ReviewRating({
     return null
   }
 
-  // Use weighted calculation based on review type
-  const weights = reviewType === 'hotel' ? HOTEL_WEIGHTS : FOOD_WEIGHTS
+  // Determine weights based on review type and field names
+  let weights: typeof HOTEL_WEIGHTS | typeof FOOD_WEIGHTS | typeof TAKEOUT_WEIGHTS
+  if (reviewType === 'hotel') {
+    weights = HOTEL_WEIGHTS
+  } else {
+    // For food reviews, detect if it's takeout based on field names
+    const isTakeoutRating = Object.keys(ratings).some(key => 
+      ['tasteAndFlavor', 'foodValue', 'packaging', 'accuracy', 'overallSatisfaction'].includes(key)
+    )
+    weights = isTakeoutRating ? TAKEOUT_WEIGHTS : FOOD_WEIGHTS
+  }
+  
   const { numericalRating: overallRating, textRating: textScore } =
     calculateRating(ratings, weights)
 
@@ -66,7 +86,13 @@ export default function ReviewRating({
                   </span>
                 </div>
                 <div className="flex items-center">
-                  <ProgressRating progress={value} color="secondary" />
+                  {value === 0 && ['Pool', 'Gym', 'Internet_Speed'].includes(name) ? (
+                    <span className="text-sm text-muted-foreground italic">
+                      {getUnavailableText(name)}
+                    </span>
+                  ) : (
+                    <ProgressRating progress={value} color="secondary" />
+                  )}
                 </div>
               </div>
             ))}

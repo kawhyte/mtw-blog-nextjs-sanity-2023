@@ -563,19 +563,27 @@ export async function getTopWeightedFoodReviews(
 
     // Import weights and calculate ratings
     const { calculateRating } = await import('./calculateRating')
-    const { FOOD_WEIGHTS } = await import('./ratingWeights')
+    const { FOOD_WEIGHTS, TAKEOUT_WEIGHTS } = await import('./ratingWeights')
 
     // Calculate weighted ratings and sort
     const reviewsWithRatings = foodReviews
       .map((review: FoodReview) => {
-        // Use foodRating for dine-in experiences, fallback to takeoutRating
-        const ratingsToUse = review.foodRating || review.takeoutRating
+        // Use the correct rating based on dining type, just like FoodReviewPage.tsx
+        const ratingsToUse = review.diningType === 'takeout' 
+          ? review.takeoutRating 
+          : review.foodRating
 
         if (!ratingsToUse) {
           return { ...review, calculatedRating: 0 }
         }
 
-        const { numericalRating } = calculateRating(ratingsToUse, FOOD_WEIGHTS)
+        // Determine the correct weights based on the rating type
+        const isTakeoutRating = Object.keys(ratingsToUse).some(key => 
+          ['tasteAndFlavor', 'foodValue', 'packaging', 'accuracy', 'overallSatisfaction'].includes(key)
+        )
+        const weights = isTakeoutRating ? TAKEOUT_WEIGHTS : FOOD_WEIGHTS
+
+        const { numericalRating } = calculateRating(ratingsToUse, weights)
         return { ...review, calculatedRating: numericalRating }
       })
       .sort((a: any, b: any) => b.calculatedRating - a.calculatedRating)

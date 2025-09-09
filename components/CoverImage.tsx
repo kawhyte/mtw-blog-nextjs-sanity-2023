@@ -4,7 +4,7 @@
 import cn from 'classnames'
 // Your existing imports
 import { calculateRating } from 'lib/calculateRating'
-import { FOOD_WEIGHTS, HOTEL_WEIGHTS } from 'lib/ratingWeights'
+import { FOOD_WEIGHTS, HOTEL_WEIGHTS, TAKEOUT_WEIGHTS } from 'lib/ratingWeights'
 import { urlForImage } from 'lib/sanity.image'
 import { Calendar, Hotel, MapPin } from 'lucide-react'
 import Image from 'next/image'
@@ -95,10 +95,19 @@ export default function CoverImage(props: CoverImageProps) {
       <div style={{ paddingTop: '50%', backgroundColor: '#ddd' }} />
     )
 
-  const overallRating = calculateRating(
-    rating,
-    linkType === 'hotel' ? HOTEL_WEIGHTS : FOOD_WEIGHTS,
-  )
+  // Determine the correct weights based on linkType and rating field names
+  let weights: typeof HOTEL_WEIGHTS | typeof FOOD_WEIGHTS | typeof TAKEOUT_WEIGHTS
+  if (linkType === 'hotel') {
+    weights = HOTEL_WEIGHTS
+  } else {
+    // For food reviews, detect if it's takeout based on field names or diningType
+    const isTakeoutRating = diningType === 'takeout' || Object.keys(rating || {}).some(key => 
+      ['tasteAndFlavor', 'foodValue', 'packaging', 'accuracy', 'overallSatisfaction'].includes(key)
+    )
+    weights = isTakeoutRating ? TAKEOUT_WEIGHTS : FOOD_WEIGHTS
+  }
+
+  const overallRating = calculateRating(rating, weights)
   const href = slug ? `${getLinkPrefix(linkType)}/${slug}` : '#'
 
   const categoryType = categoryRating(category)

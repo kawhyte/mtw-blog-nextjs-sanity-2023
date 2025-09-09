@@ -42,6 +42,10 @@ export function calculateRating(
   let weightedSum = 0
   let totalWeight = 0
 
+  // Define which hotel amenities should be excluded when they have value 0
+  // These represent "Not Available" amenities rather than "Poor" ratings
+  const excludableHotelAmenities = ['Pool', 'Gym', 'Internet_Speed']
+
   for (const key in ratingObject) {
     if (
       Object.prototype.hasOwnProperty.call(ratingObject, key) &&
@@ -49,11 +53,21 @@ export function calculateRating(
     ) {
       const rating = ratingObject[key]
       const weight = weights[key]
-      weightedSum += rating * weight
-      totalWeight += weight
+      
+      // Only exclude zero values for specific hotel amenities that represent "Not Available"
+      // For all other ratings (including food reviews), include zero as a valid poor rating
+      const shouldExcludeZero = rating === 0 && excludableHotelAmenities.includes(key)
+      
+      if (!shouldExcludeZero) {
+        weightedSum += rating * weight
+        totalWeight += weight
+      }
     }
   }
 
+  // When amenities are excluded (value 0), the remaining weights should still add up to a proper weighted average
+  // The numericalRating calculation automatically handles this by only including positive ratings in both 
+  // the weighted sum and total weight, maintaining the proportional importance of available amenities
   const numericalRating = totalWeight > 0 ? weightedSum / totalWeight : 0
 
   // Convert the numerical rating to a text rating (more efficient lookup)
