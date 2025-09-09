@@ -31,7 +31,7 @@ function Hero() {
       <section className="body-font container mx-auto relative px-4 text-gray-900 sm:px-6 lg:px-8">
         <div className="mx-auto flex w-full flex-col items-center pt-12 md:flex-row md:items-start md:justify-between md:pt-16 lg:pt-24 xl:max-w-[1200px]">
           {/* Text Content Container */}
-          <div className="z-10 flex flex-col items-center text-center md:items-start md:text-left">
+          <div className="relative z-10 flex flex-col items-center text-center md:items-start md:text-left">
             {/* Hero Headline */}
             <div
               className={`${montserrat.variable} font-adventure-heading mb-8 flex flex-col uppercase leading-tight tracking-tight text-blog-heading space-y-0.5 text-adventure-subtitle py-2`}
@@ -58,15 +58,15 @@ function Hero() {
               roads!) to check out and rank every single NBA and WNBA arena
               across the US and Canada. Buckle up and follow our adventure!
             </p>
-<Link href={'/arenas'}>
-Hello</Link>
+
             {/* CTA Button */}
-            <div className="flex pt-4 lg:mt-0 lg:shrink-0">
+            <div className="relative z-20 flex w-full max-w-xs pt-4 lg:mt-0 lg:shrink-0">
               <Button
                 icon={
                   <LiaBasketballBallSolid className="h-7 w-8 text-pink-500" />
                 }
                 link={'/arenas'}
+                className="relative z-20 cursor-pointer"
               >
                 Follow Our Journey
               </Button>

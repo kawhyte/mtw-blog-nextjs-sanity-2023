@@ -150,7 +150,12 @@ export default function Button({
       )
     }
     return (
-      <Link href={link} className={baseClasses}>
+      <Link 
+        href={link} 
+        className={cn(baseClasses, 'block')}
+        role="button"
+        tabIndex={0}
+      >
         {buttonContent}
       </Link>
     )
