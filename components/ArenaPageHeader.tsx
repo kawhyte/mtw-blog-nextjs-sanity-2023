@@ -33,7 +33,7 @@ function ReviewHeader({ title, arenas, summary, animation }) {
                     sizes="64px"
                     placeholder="blur"
                     blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAO0lEQVR4nGNgYGBg+P//P1t9fT0TiM0we3ZjxZxZjQ9XLpwwe9nCHkOGGZOyanraY9aumN2wbsn0hmQA/MEWfj4ocjcAAAAASUVORK5CYII="
-                    className="object-cover object-center w-16 h-16 rounded-full bg-gray-100"
+                    className="object-cover object-center w-16 h-16 rounded-full"
                     alt={`${item.name} arena`}
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
