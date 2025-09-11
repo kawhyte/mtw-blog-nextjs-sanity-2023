@@ -33,17 +33,34 @@ function ReviewHeader({ title, arenas, summary, animation }) {
                     sizes="64px"
                     placeholder="blur"
                     blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAO0lEQVR4nGNgYGBg+P//P1t9fT0TiM0we3ZjxZxZjQ9XLpwwe9nCHkOGGZOyanraY9aumN2wbsn0hmQA/MEWfj4ocjcAAAAASUVORK5CYII="
-                    className="object-cover object-center w-16 h-16"
+                    className="object-cover object-center w-16 h-16 rounded-full bg-gray-100"
                     alt={`${item.name} arena`}
-                    src={
-                      item?.firstGalleryImage?.asset?._ref || item?.gallery?.[0]?.asset?._ref
-                        ? urlForImage(item?.firstGalleryImage?.asset?._ref || item?.gallery?.[0]?.asset?._ref)
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.src = `https://fakeimg.pl/64x64/f3f4f6/9ca3af?text=${encodeURIComponent(item.name?.substring(0, 3) || 'NBA')}`;
+                    }}
+                    src={(() => {
+                      // Try firstGalleryImage first (new optimized field)
+                      const imageRef = item?.firstGalleryImage?.asset?._ref || 
+                                     item?.gallery?.[0]?.asset?._ref ||
+                                     item?.arenaImage?.asset?._ref;
+                      
+                      if (imageRef) {
+                        try {
+                          return urlForImage(imageRef)
                             .height(64)
                             .width(64)
                             .fit('crop')
-                            .url()
-                        : 'https://fakeimg.pl/64x64'
-                    }
+                            .auto('format')
+                            .url();
+                        } catch (error) {
+                          console.warn('Error creating image URL:', error);
+                          return `https://fakeimg.pl/64x64/f3f4f6/9ca3af?text=${encodeURIComponent(item.name?.substring(0, 3) || 'NBA')}`;
+                        }
+                      }
+                      
+                      return `https://fakeimg.pl/64x64/f3f4f6/9ca3af?text=${encodeURIComponent(item.name?.substring(0, 3) || 'NBA')}`;
+                    })()}
                   />
                 </div>
               ))}
