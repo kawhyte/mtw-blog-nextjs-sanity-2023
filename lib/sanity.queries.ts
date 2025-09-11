@@ -57,8 +57,30 @@ const travelEssentialFields = groq`
     categoryName
 `
 
-// UPDATED arenaFields - includes slug and clarifies arenaReview structure possibility
+// Optimized arenaFields for listing page - reduced payload
 const arenaFields = groq`
+    _id,
+    name,
+    "slug": slug.current, 
+    arenaImage,
+    "firstGalleryImage": gallery[0],
+    location,
+    buildDate,
+    capacity,
+    visited,
+    arenaReview {
+      transportation,
+      walkability,
+      vibes,
+      view,
+      seatComfort,
+      food
+    },
+    date
+`
+
+// Full arenaFields for individual arena pages
+const arenaFieldsDetailed = groq`
     _id,
     name,
     "slug": slug.current, 
@@ -67,31 +89,23 @@ const arenaFields = groq`
     location,
     buildDate,
     capacity,
-    gallery,
     photoGallerySection,
     imageGallery,
     visited,
-  videoUrl,
-  prosConsVerdict { 
-    positives,     
-    negatives,     
-    verdict       
-  },
-  
+    videoUrl,
+    prosConsVerdict { 
+      positives,     
+      negatives,     
+      verdict       
+    },
     arenaReview {
-   
       transportation,
       walkability,
       vibes,
       view,
       seatComfort,
-      food,
-      
-      
+      food
     },
-    // If arenaReview is just a simple type (like Portable Text), keep it as:
-    // arenaReview,
-    visited,
     date
 `
 // Define Arena Type Name - PLEASE VERIFY THIS matches your Sanity Studio schema
@@ -194,7 +208,7 @@ export const arenaSlugsQuery = fetchSlugs(
 // Fetches a single arena document based on its slug
 export const arenaBySlugQuery = fetchDocumentBySlug(
   ARENA_TYPE_NAME,
-  arenaFields, // Use the updated arenaFields from Section 5
+  arenaFieldsDetailed, // Use the detailed fields for individual pages
   'slug.current',
 )
 // --- End Arena Queries ---
@@ -615,14 +629,15 @@ export interface Essential {
   date?: string
 }
 
-// UPDATED Arena Interface - ensure it aligns with arenaFields
+// UPDATED Arena Interface - optimized for listing page
 export interface Arena {
   _id: string
   name?: string
-  slug?: string // Add slug field
+  slug?: string
   arenaImage?: any // SanityImageObject
-  imageGallery?: any
-  gallery?: any[] // SanityImageObject[]
+  firstGalleryImage?: any // Single gallery image for listing
+  gallery?: any[] // Full gallery for detailed pages
+  imageGallery?: any // For detailed pages
   photoGallerySection?: {
     mainImage?: any // SanityImageObject
     otherImages?: any[] // SanityImageObject[]
@@ -631,24 +646,25 @@ export interface Arena {
   buildDate?: string
   capacity?: number
   videoUrl?: string
-  // Update arenaReview type based on your schema
-  arenaReview?:
-    | {
-        atmosphere?: number
-        food?: number
-        location?: number
-        seats?: number
-        staff?: number
-        // Add other fields
-      }
-    | any // Or use 'any' or PortableTextBlock if it's simple content
+  prosConsVerdict?: {
+    positives?: any
+    negatives?: any
+    verdict?: any
+  }
+  arenaReview?: {
+    transportation?: number
+    walkability?: number
+    vibes?: number
+    view?: number
+    seatComfort?: number
+    food?: number
+  } | any // Or use 'any' or PortableTextBlock if it's simple content
   visited?: boolean
   date?: string
   teamType?: string // Keep if you use this field
   // Remove calculated fields if not fetched in arenaFields
   // visitedCount?: number
   // galleryCount?: number
-  prosConsVerdict?: ProsConsVerdict
 }
 
 // Base interface for common Post fields

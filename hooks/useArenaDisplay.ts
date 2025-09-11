@@ -13,6 +13,7 @@ import {
 
 /**
  * Custom hook that combines filtering, sorting, and ranking logic
+ * Optimized to reduce re-calculations
  */
 export const useArenaDisplay = (
   arenas: Arena[],
@@ -20,16 +21,16 @@ export const useArenaDisplay = (
   sortCriteria: SortCriteriaType,
   rankMap: Map<string, number>,
 ): ArenaWithRating[] => {
+  // Memoize base processing to avoid recalculation when only sort changes
+  const baseProcessed = useMemo(() => {
+    return processArenas(arenas, filterCriteria, sortCriteria)
+  }, [arenas, filterCriteria, sortCriteria])
+
+  // Memoize enrichment separately
   const displayArenas = useMemo(() => {
-    // Process arenas (filter and sort)
-    const processed = processArenas(arenas, filterCriteria, sortCriteria)
-
-    // Enrich with display data (ratings and ranks)
-    const enriched = enrichArenasWithDisplayData(processed, rankMap)
-
-    // Filter out invalid arenas
+    const enriched = enrichArenasWithDisplayData(baseProcessed, rankMap)
     return enriched.filter(isArenaValid)
-  }, [arenas, filterCriteria, sortCriteria, rankMap])
+  }, [baseProcessed, rankMap])
 
   return displayArenas
 }

@@ -16,8 +16,6 @@ interface NBAArenaCardProps {
   location: string
   dateVisited: string
   visited: boolean
-  // visitedCount:string;
-  // galleryCount:string;
   gallery: any
   id: string
   averageRating: string
@@ -25,7 +23,7 @@ interface NBAArenaCardProps {
   ratingColor: string
   arenaReview?: any | null
   rank: number
-  // ratings: ArenaRating;
+  priority?: boolean
 }
 
 const Arenas = ({
@@ -34,14 +32,13 @@ const Arenas = ({
   visited,
   arenaName,
   alt,
-
   dateVisited,
   arenaImageSrc,
-
   averageRating,
   textRating,
   ratingColor,
   rank,
+  priority = false,
 }: NBAArenaCardProps) => {
   return (
     <>
@@ -84,7 +81,9 @@ const Arenas = ({
             height={200}
             className="w-full object-cover object-center brightness-[0.85] "
             alt={alt}
-            loading="lazy"
+            loading={priority ? "eager" : "lazy"}
+            priority={priority}
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />
         </div>
 

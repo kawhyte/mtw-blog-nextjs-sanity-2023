@@ -19,10 +19,11 @@ export default function ArenaGrid({ arenas }: ArenaGridProps) {
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-8 px-4 md:gap-x-6 md:gap-y-10 md:px-6 lg:gap-x-8 mx-auto container">
-      {arenas.map((arena) => {
+      {arenas.map((arena, index) => {
         const isVisited = arena.visited
         const displayRating = arena.displayRating!
         const rank = arena.rank
+        const isPriority = index < 6 // First 6 cards are above the fold
 
         return (
           <Link
@@ -46,7 +47,7 @@ export default function ArenaGrid({ arenas }: ArenaGridProps) {
               alt={`${arena.name ?? 'Arena'} exterior`}
               arenaReview={arena.arenaReview || {}}
               arenaName={arena.name}
-              gallery={arena.gallery}
+              gallery={arena.firstGalleryImage ? [arena.firstGalleryImage] : arena.gallery}
               visited={arena.visited}
               dateVisited={arena.date}
               id={arena._id}
@@ -54,6 +55,7 @@ export default function ArenaGrid({ arenas }: ArenaGridProps) {
               textRating={displayRating.textRating}
               ratingColor={displayRating.color}
               rank={rank}
+              priority={isPriority}
             />
           </Link>
         )

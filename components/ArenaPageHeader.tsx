@@ -24,23 +24,25 @@ function ReviewHeader({ title, arenas, summary, animation }) {
         <section className="body-font text-gray-600">
           <div className=" flex flex-col items-center px-5 py-7 ">
             <div className="grid max-w-4xl grid-cols-9 place-content-center  place-items-center gap-2   ">
-              {arenas.slice(0, 27).map((item) => (
+              {arenas.slice(0, 27).map((item, index: number) => (
                 <div key={item.name}>
                   <Image
-                    width={189}
-                    height={189}
-                    // placeholder="blur"
-                    // blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAO0lEQVR4nGNgYGBg+P//P1t9fT0TiM0we3ZjxZxZjQ9XLpwwe9nCHkOGGZOyanraY9aumN2wbsn0hmQA/MEWfj4ocjcAAAAASUVORK5CYII="
-                    className="  object-cover object-center md:h-16 md:w-16"
-                    alt="hero"
+                    width={64}
+                    height={64}
+                    loading={index < 9 ? "eager" : "lazy"}
+                    sizes="64px"
+                    placeholder="blur"
+                    blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAO0lEQVR4nGNgYGBg+P//P1t9fT0TiM0we3ZjxZxZjQ9XLpwwe9nCHkOGGZOyanraY9aumN2wbsn0hmQA/MEWfj4ocjcAAAAASUVORK5CYII="
+                    className="object-cover object-center w-16 h-16"
+                    alt={`${item.name} arena`}
                     src={
-                      item?.gallery[0].asset?._ref
-                        ? urlForImage(item?.gallery[0].asset?._ref)
-                            .height(200)
-                            .width(200)
+                      item?.firstGalleryImage?.asset?._ref || item?.gallery?.[0]?.asset?._ref
+                        ? urlForImage(item?.firstGalleryImage?.asset?._ref || item?.gallery?.[0]?.asset?._ref)
+                            .height(64)
+                            .width(64)
                             .fit('crop')
                             .url()
-                        : 'https://fakeimg.pl/1240x801'
+                        : 'https://fakeimg.pl/64x64'
                     }
                   />
                 </div>
