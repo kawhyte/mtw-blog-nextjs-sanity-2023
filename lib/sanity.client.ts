@@ -569,17 +569,24 @@ export async function getTopWeightedFoodReviews(
     const reviewsWithRatings = foodReviews
       .map((review: FoodReview) => {
         // Use the correct rating based on dining type, just like FoodReviewPage.tsx
-        const ratingsToUse = review.diningType === 'takeout' 
-          ? review.takeoutRating 
-          : review.foodRating
+        const ratingsToUse =
+          review.diningType === 'takeout'
+            ? review.takeoutRating
+            : review.foodRating
 
         if (!ratingsToUse) {
           return { ...review, calculatedRating: 0 }
         }
 
         // Determine the correct weights based on the rating type
-        const isTakeoutRating = Object.keys(ratingsToUse).some(key => 
-          ['tasteAndFlavor', 'foodValue', 'packaging', 'accuracy', 'overallSatisfaction'].includes(key)
+        const isTakeoutRating = Object.keys(ratingsToUse).some((key) =>
+          [
+            'tasteAndFlavor',
+            'foodValue',
+            'packaging',
+            'accuracy',
+            'overallSatisfaction',
+          ].includes(key),
         )
         const weights = isTakeoutRating ? TAKEOUT_WEIGHTS : FOOD_WEIGHTS
 

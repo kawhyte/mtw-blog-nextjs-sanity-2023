@@ -98,11 +98,9 @@ export default function FoodReviewPage(props: FoodReviewPageProps) {
     foodReview.diningType === 'takeout'
       ? foodReview.takeoutRating
       : foodReview.foodRating
-  
+
   const currentRatingIcons =
-    foodReview.diningType === 'takeout'
-      ? takeoutRatingIcons
-      : foodRatingIcons
+    foodReview.diningType === 'takeout' ? takeoutRatingIcons : foodRatingIcons
 
   return (
     <div>

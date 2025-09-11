@@ -27,8 +27,8 @@ const formatRatingName = (name: string): string => {
 const getUnavailableText = (name: string): string => {
   const amenityMap: { [key: string]: string } = {
     Pool: 'No Pool',
-    Gym: 'No Gym', 
-    Internet_Speed: 'No Internet'
+    Gym: 'No Gym',
+    Internet_Speed: 'No Internet',
   }
   return amenityMap[name] || 'Not Available'
 }
@@ -57,17 +57,26 @@ export default function ReviewRating({
   }
 
   // Determine weights based on review type and field names
-  let weights: typeof HOTEL_WEIGHTS | typeof FOOD_WEIGHTS | typeof TAKEOUT_WEIGHTS
+  let weights:
+    | typeof HOTEL_WEIGHTS
+    | typeof FOOD_WEIGHTS
+    | typeof TAKEOUT_WEIGHTS
   if (reviewType === 'hotel') {
     weights = HOTEL_WEIGHTS
   } else {
     // For food reviews, detect if it's takeout based on field names
-    const isTakeoutRating = Object.keys(ratings).some(key => 
-      ['tasteAndFlavor', 'foodValue', 'packaging', 'accuracy', 'overallSatisfaction'].includes(key)
+    const isTakeoutRating = Object.keys(ratings).some((key) =>
+      [
+        'tasteAndFlavor',
+        'foodValue',
+        'packaging',
+        'accuracy',
+        'overallSatisfaction',
+      ].includes(key),
     )
     weights = isTakeoutRating ? TAKEOUT_WEIGHTS : FOOD_WEIGHTS
   }
-  
+
   const { numericalRating: overallRating, textRating: textScore } =
     calculateRating(ratings, weights)
 
@@ -97,7 +106,8 @@ export default function ReviewRating({
                   </span>
                 </div>
                 <div className="flex items-center">
-                  {value === 0 && ['Pool', 'Gym', 'Internet_Speed'].includes(name) ? (
+                  {value === 0 &&
+                  ['Pool', 'Gym', 'Internet_Speed'].includes(name) ? (
                     <span className="text-sm text-muted-foreground italic">
                       {getUnavailableText(name)}
                     </span>

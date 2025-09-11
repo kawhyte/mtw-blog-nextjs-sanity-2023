@@ -9,6 +9,7 @@ import {
 } from 'lib/sanity.client'
 import { Arena, Settings } from 'lib/sanity.queries'
 import { GetStaticPaths, GetStaticProps } from 'next'
+import Head from 'next/head'
 import { lazy } from 'react'
 
 const PreviewArenaPage = lazy(() => import('components/PreviewArenaPage'))
@@ -83,5 +84,18 @@ export default function ArenaSlugRoute(props: PageProps) {
     )
   }
 
-  return <ArenaPage arena={arena} settings={settings} />
+  return (
+    <>
+      <Head>
+        {arena.arenaImage && (
+          <link
+            rel="preload"
+            as="image"
+            href={`https://cdn.sanity.io/images/${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}/${process.env.NEXT_PUBLIC_SANITY_DATASET}/${arena.arenaImage.asset._ref.replace('image-', '').replace('-jpg', '.jpg').replace('-png', '.png').replace('-webp', '.webp')}`}
+          />
+        )}
+      </Head>
+      <ArenaPage arena={arena} settings={settings} />
+    </>
+  )
 }

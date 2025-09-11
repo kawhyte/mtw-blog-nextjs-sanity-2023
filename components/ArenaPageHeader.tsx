@@ -29,22 +29,23 @@ function ReviewHeader({ title, arenas, summary, animation }) {
                   <Image
                     width={64}
                     height={64}
-                    loading={index < 9 ? "eager" : "lazy"}
+                    loading={index < 9 ? 'eager' : 'lazy'}
                     sizes="64px"
                     placeholder="blur"
                     blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAO0lEQVR4nGNgYGBg+P//P1t9fT0TiM0we3ZjxZxZjQ9XLpwwe9nCHkOGGZOyanraY9aumN2wbsn0hmQA/MEWfj4ocjcAAAAASUVORK5CYII="
                     className="object-cover object-center w-16 h-16 rounded-full"
                     alt={`${item.name} arena`}
                     onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.src = `https://fakeimg.pl/64x64/f3f4f6/9ca3af?text=${encodeURIComponent(item.name?.substring(0, 3) || 'NBA')}`;
+                      const target = e.target as HTMLImageElement
+                      target.src = `https://fakeimg.pl/64x64/f3f4f6/9ca3af?text=${encodeURIComponent(item.name?.substring(0, 3) || 'NBA')}`
                     }}
                     src={(() => {
                       // Try firstGalleryImage first (new optimized field)
-                      const imageRef = item?.firstGalleryImage?.asset?._ref || 
-                                     item?.gallery?.[0]?.asset?._ref ||
-                                     item?.arenaImage?.asset?._ref;
-                      
+                      const imageRef =
+                        item?.firstGalleryImage?.asset?._ref ||
+                        item?.gallery?.[0]?.asset?._ref ||
+                        item?.arenaImage?.asset?._ref
+
                       if (imageRef) {
                         try {
                           return urlForImage(imageRef)
@@ -52,14 +53,14 @@ function ReviewHeader({ title, arenas, summary, animation }) {
                             .width(64)
                             .fit('crop')
                             .auto('format')
-                            .url();
+                            .url()
                         } catch (error) {
-                          console.warn('Error creating image URL:', error);
-                          return `https://fakeimg.pl/64x64/f3f4f6/9ca3af?text=${encodeURIComponent(item.name?.substring(0, 3) || 'NBA')}`;
+                          console.warn('Error creating image URL:', error)
+                          return `https://fakeimg.pl/64x64/f3f4f6/9ca3af?text=${encodeURIComponent(item.name?.substring(0, 3) || 'NBA')}`
                         }
                       }
-                      
-                      return `https://fakeimg.pl/64x64/f3f4f6/9ca3af?text=${encodeURIComponent(item.name?.substring(0, 3) || 'NBA')}`;
+
+                      return `https://fakeimg.pl/64x64/f3f4f6/9ca3af?text=${encodeURIComponent(item.name?.substring(0, 3) || 'NBA')}`
                     })()}
                   />
                 </div>

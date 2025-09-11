@@ -24,8 +24,16 @@ import {
   Video,
   XCircle,
 } from 'lucide-react'
+import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import { useState } from 'react'
+
+// Dynamic imports for non-critical components
+const ImageGallery = dynamic(() => import('./ImageGallery'), {
+  loading: () => (
+    <div className="animate-pulse bg-gray-200 h-96 rounded-lg"></div>
+  ),
+})
 
 // import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Badge } from '@/components/ui/badge'
@@ -34,7 +42,6 @@ import { Progress } from '@/components/ui/progress'
 import { Separator } from '@/components/ui/separator'
 
 import BlogHeader from './BlogHeader'
-import ImageGallery from './ImageGallery'
 import PostBody from './PostBody'
 
 interface ArenaPageProps {
@@ -99,7 +106,7 @@ export default function ArenaPage({
     }
   }
 
-  const calculateOverallRating = (review) => {
+  const calculateOverallRating = (review: any) => {
     if (!review) {
       return 'N/A'
     }
@@ -129,21 +136,27 @@ export default function ArenaPage({
         <>
           <div className="container mx-auto max-w-7xl p-4 md:p-8">
             {/* --- Main Image --- */}
-            <div className="w-full overflow-hidden rounded-lg ">
-              {arena.arenaImage && (
-                <div className="mb-12">
+            <div className="w-full overflow-hidden rounded-lg">
+              {arena.arenaImage ? (
+                <div className="mb-12 relative aspect-[1200/630]">
                   <Image
                     src={urlForImage(arena.arenaImage)
                       .width(1200)
                       .height(630)
                       .fit('crop')
+                      .auto('format')
                       .url()}
                     alt={arena.name || 'Arena Cover Image'}
-                    width={1200}
-                    height={630}
-                    className="w-full h-auto rounded-lg"
+                    fill
+                    className="object-cover rounded-lg"
+                    priority
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 1200px"
+                    placeholder="blur"
+                    blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAO0lEQVR4nGNgYGBg+P//P1t9fT0TiC0we3ZjxZxZjQ9XLpwwe9lCHkOGGZOyanraY9aumN2wbsn0hmQA/MEWfj4ocjcAAAAASUVORK5CYII="
                   />
                 </div>
+              ) : (
+                <div className="mb-12 aspect-[1200/630] bg-gray-200 rounded-lg animate-pulse"></div>
               )}
             </div>
 
@@ -170,22 +183,25 @@ export default function ArenaPage({
                 </div>
 
                 <div className="mt-6 flex flex-wrap gap-2">
-                  {arena.gallery.map((team) => (
+                  {arena.gallery?.map((team, index) => (
                     <Badge
-                      key={team.name}
+                      key={team.name || index}
                       variant="outline"
                       className="uppercase flex items-center gap-2"
                     >
                       <Image
                         src={urlForImage(team.asset)
-                          .width(20)
-                          .height(20)
+                          .width(25)
+                          .height(25)
                           .fit('crop')
+                          .auto('format')
                           .url()}
-                        alt={team.name || 'Team logo'}
+                        alt={`${team.name || 'Team'} logo`}
                         width={25}
                         height={25}
                         className="rounded-full"
+                        loading="lazy"
+                        sizes="25px"
                       />
                       {team.name} ({team.teamType})
                     </Badge>
@@ -199,7 +215,10 @@ export default function ArenaPage({
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="flex flex-col items-center justify-center p-4 pt-0">
-                  <span className="text-6xl font-bold text-secondary">
+                  <span
+                    className="text-6xl font-bold text-secondary"
+                    aria-label={`Overall rating: ${overallRating} out of 5 stars`}
+                  >
                     {overallRating}
                   </span>
                   <span className="text-sm text-muted-foreground">
@@ -231,17 +250,24 @@ export default function ArenaPage({
                               <div className="mb-2 flex items-center justify-between">
                                 <div className="flex items-center space-x-3">
                                   {ratingIcons[category]}
-                                  <span className="font-medium">
+                                  <span
+                                    className="font-medium"
+                                    id={`rating-label-${category}`}
+                                  >
                                     {formatCategoryName(category)}
                                   </span>
                                 </div>
-                                <span className="font-semibold">
-                                  {score.toFixed(1)}
+                                <span
+                                  className="font-semibold"
+                                  aria-labelledby={`rating-label-${category}`}
+                                >
+                                  {score.toFixed(1)} out of 10
                                 </span>
                               </div>
                               <Progress
                                 value={(score / 10) * 100}
                                 className="h-2"
+                                aria-label={`${formatCategoryName(category)} rating: ${score.toFixed(1)} out of 10`}
                               />
                             </div>
                           ),
@@ -356,10 +382,11 @@ export default function ArenaPage({
                 <div className="overflow-hidden rounded-lg shadow-lg">
                   <iframe
                     src={(arena as any).instagramVideoEmbedUrl}
-                    className="h-full w-full"
-                    frameBorder="0"
-                    scrolling="no"
+                    className="h-full w-full border-0"
+                    style={{ overflow: 'hidden' }}
                     allowFullScreen
+                    title="Arena Video Experience"
+                    loading="lazy"
                   ></iframe>
                 </div>
               </section>

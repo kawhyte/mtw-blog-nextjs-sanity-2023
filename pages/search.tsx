@@ -15,7 +15,7 @@ import { PaginationWrapper as Pagination } from '@/components/ui/pagination-wrap
 
 import { CMS_NAME } from '../lib/constants'
 import { globalSearchQuery } from '../lib/sanity.queries'
-import { FoodReview, Guide,HotelReview, Settings } from '../lib/sanity.queries'
+import { FoodReview, Guide, HotelReview, Settings } from '../lib/sanity.queries'
 import { sanityClient } from '../lib/sanity.server'
 
 // Dynamically import Lottie Player for the "not found" animation

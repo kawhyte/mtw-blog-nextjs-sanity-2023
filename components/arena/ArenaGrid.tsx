@@ -47,7 +47,11 @@ export default function ArenaGrid({ arenas }: ArenaGridProps) {
               alt={`${arena.name ?? 'Arena'} exterior`}
               arenaReview={arena.arenaReview || {}}
               arenaName={arena.name}
-              gallery={arena.firstGalleryImage ? [arena.firstGalleryImage] : arena.gallery}
+              gallery={
+                arena.firstGalleryImage
+                  ? [arena.firstGalleryImage]
+                  : arena.gallery
+              }
               visited={arena.visited}
               dateVisited={arena.date}
               id={arena._id}

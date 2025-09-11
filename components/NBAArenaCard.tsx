@@ -81,7 +81,7 @@ const Arenas = ({
             height={200}
             className="w-full object-cover object-center brightness-[0.85] "
             alt={alt}
-            loading={priority ? "eager" : "lazy"}
+            loading={priority ? 'eager' : 'lazy'}
             priority={priority}
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />

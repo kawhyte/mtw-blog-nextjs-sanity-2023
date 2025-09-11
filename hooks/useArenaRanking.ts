@@ -14,7 +14,9 @@ export const useArenaRanking = (arenas: Arena[]) => {
     // Check if arenas have actually changed
     if (
       arenas.length === lastArenasRef.current.length &&
-      arenas.every((arena, index) => arena._id === lastArenasRef.current[index]?._id)
+      arenas.every(
+        (arena, index) => arena._id === lastArenasRef.current[index]?._id,
+      )
     ) {
       return cachedRankMapRef.current
     }

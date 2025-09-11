@@ -96,14 +96,25 @@ export default function CoverImage(props: CoverImageProps) {
     )
 
   // Determine the correct weights based on linkType and rating field names
-  let weights: typeof HOTEL_WEIGHTS | typeof FOOD_WEIGHTS | typeof TAKEOUT_WEIGHTS
+  let weights:
+    | typeof HOTEL_WEIGHTS
+    | typeof FOOD_WEIGHTS
+    | typeof TAKEOUT_WEIGHTS
   if (linkType === 'hotel') {
     weights = HOTEL_WEIGHTS
   } else {
     // For food reviews, detect if it's takeout based on field names or diningType
-    const isTakeoutRating = diningType === 'takeout' || Object.keys(rating || {}).some(key => 
-      ['tasteAndFlavor', 'foodValue', 'packaging', 'accuracy', 'overallSatisfaction'].includes(key)
-    )
+    const isTakeoutRating =
+      diningType === 'takeout' ||
+      Object.keys(rating || {}).some((key) =>
+        [
+          'tasteAndFlavor',
+          'foodValue',
+          'packaging',
+          'accuracy',
+          'overallSatisfaction',
+        ].includes(key),
+      )
     weights = isTakeoutRating ? TAKEOUT_WEIGHTS : FOOD_WEIGHTS
   }
 
@@ -139,7 +150,9 @@ export default function CoverImage(props: CoverImageProps) {
             {showRating && linkType !== 'story' && (
               <div className="absolute right-4 top-4 z-30 flex items-center justify-center rounded-full bg-background/20 text-foreground backdrop-blur-sm">
                 <RatingBadge
-                  average={(Math.floor(overallRating.numericalRating * 100) / 100).toString()}
+                  average={(
+                    Math.floor(overallRating.numericalRating * 100) / 100
+                  ).toString()}
                   textRating={overallRating.textRating}
                   color={overallRating.color}
                 />

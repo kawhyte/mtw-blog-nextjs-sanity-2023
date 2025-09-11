@@ -34,7 +34,7 @@ const buttonVariants = cva(
     variants: {
       size: {
         xs: 'text-xs py-1 px-3',
-        sm: 'text-sm py-1 px-3', 
+        sm: 'text-sm py-1 px-3',
         md: 'text-base py-2 px-5',
         lg: 'text-lg py-3 px-7',
       },
@@ -56,10 +56,10 @@ const buttonVariants = cva(
     defaultVariants: {
       size: 'md',
       fontSize: 'md',
-      align: 'center', 
+      align: 'center',
       bordered: true,
     },
-  }
+  },
 )
 
 interface ButtonProps
@@ -100,7 +100,9 @@ export default function Button({
   let iconElement: React.ReactNode = null
   if (icon) {
     if (typeof icon === 'string' && LucideReact[icon]) {
-      const IconComponent = LucideReact[icon] as React.ComponentType<{size?: number}>
+      const IconComponent = LucideReact[icon] as React.ComponentType<{
+        size?: number
+      }>
       iconElement = <IconComponent size={iconSize} />
     } else {
       iconElement = icon
@@ -109,19 +111,17 @@ export default function Button({
 
   // Create hover color class
   const hoverColorClass = `hover:bg-${hoverColor}`
-  
+
   const buttonContent = (
     <div className="w-full flex">
-      {iconElement && (
-        <span className="mr-2">
-          {iconElement}
-        </span>
-      )}
-      <div className={cn('w-full flex', {
-        'justify-start': align === 'left',
-        'justify-center': align === 'center', 
-        'justify-end': align === 'right',
-      })}>
+      {iconElement && <span className="mr-2">{iconElement}</span>}
+      <div
+        className={cn('w-full flex', {
+          'justify-start': align === 'left',
+          'justify-center': align === 'center',
+          'justify-end': align === 'right',
+        })}
+      >
         <div className={alignTextClasses[align]}>
           {text}
           {children}
@@ -138,20 +138,16 @@ export default function Button({
       bordered: !noBorder,
     }),
     hoverColorClass,
-    className
+    className,
   )
 
   if (link) {
     if (asChild) {
-      return (
-        <Slot className={baseClasses}>
-          {buttonContent}
-        </Slot>
-      )
+      return <Slot className={baseClasses}>{buttonContent}</Slot>
     }
     return (
-      <Link 
-        href={link} 
+      <Link
+        href={link}
         className={cn(baseClasses, 'block')}
         role="button"
         tabIndex={0}

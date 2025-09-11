@@ -651,14 +651,16 @@ export interface Arena {
     negatives?: any
     verdict?: any
   }
-  arenaReview?: {
-    transportation?: number
-    walkability?: number
-    vibes?: number
-    view?: number
-    seatComfort?: number
-    food?: number
-  } | any // Or use 'any' or PortableTextBlock if it's simple content
+  arenaReview?:
+    | {
+        transportation?: number
+        walkability?: number
+        vibes?: number
+        view?: number
+        seatComfort?: number
+        food?: number
+      }
+    | any // Or use 'any' or PortableTextBlock if it's simple content
   visited?: boolean
   date?: string
   teamType?: string // Keep if you use this field
