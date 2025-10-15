@@ -146,7 +146,9 @@ export default function CoverImage(props: CoverImageProps) {
                 aria-label={`Hotel category: ${categoryType.name}`}
               >
                 <Hotel className="h-3 w-3 mr-1" aria-hidden="true" />
-                <span className="truncate max-w-[80px]">{categoryType.name}</span>
+                <span className="truncate max-w-[80px]">
+                  {categoryType.name}
+                </span>
               </Badge>
             )}
 

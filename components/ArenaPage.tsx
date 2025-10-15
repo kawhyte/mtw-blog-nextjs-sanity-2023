@@ -2,6 +2,7 @@
 
 import Layout from 'components/BlogLayout'
 import PostPageHead from 'components/PostPageHead'
+import { usePhotoGallery } from 'hooks/usePhotoGallery'
 import { urlForImage } from 'lib/sanity.image'
 import { Arena, Settings } from 'lib/sanity.queries'
 import {
@@ -17,7 +18,6 @@ import {
   MapPin,
   Pizza,
   Sofa,
-  Star,
   Ticket,
   Users,
   Users2,
@@ -26,7 +26,6 @@ import {
 } from 'lucide-react'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
-import { useState } from 'react'
 
 // Dynamic imports for non-critical components
 const ImageGallery = dynamic(() => import('./ImageGallery'), {
@@ -42,6 +41,7 @@ import { Progress } from '@/components/ui/progress'
 import { Separator } from '@/components/ui/separator'
 
 import BlogHeader from './BlogHeader'
+import HeroPhotoGallery from './HeroPhotoGallery'
 import PostBody from './PostBody'
 
 interface ArenaPageProps {
@@ -73,38 +73,26 @@ export default function ArenaPage({
 }: ArenaPageProps) {
   const { title = 'Arena Review' } = settings || {}
 
-  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(
-    null,
-  )
+  console.log('arena', arena)
+  console.log('arena.photoGallerySection', arena.photoGallerySection)
 
-  const galleryImages = arena.photoGallerySection
+  // Smart fallback: prioritize photoGallerySection, fallback to arenaImage + gallery
+  const rawGalleryImages = arena.photoGallerySection
     ? [
         arena.photoGallerySection.mainImage,
         ...(arena.photoGallerySection.otherImages || []),
       ].filter(Boolean)
-    : []
+    : [arena.arenaImage, ...(arena.gallery || [])].filter(Boolean)
 
-  const openModal = (index: number) => {
-    setSelectedImageIndex(index)
-  }
-
-  const closeModal = () => {
-    setSelectedImageIndex(null)
-  }
-
-  const nextImage = () => {
-    if (selectedImageIndex !== null) {
-      setSelectedImageIndex((selectedImageIndex + 1) % galleryImages.length)
-    }
-  }
-
-  const prevImage = () => {
-    if (selectedImageIndex !== null) {
-      setSelectedImageIndex(
-        (selectedImageIndex - 1 + galleryImages.length) % galleryImages.length,
-      )
-    }
-  }
+  // Use unified photo gallery hook for state management
+  const {
+    galleryImages,
+    selectedImageIndex,
+    openModal,
+    closeModal,
+    nextImage,
+    prevImage,
+  } = usePhotoGallery(rawGalleryImages[0], rawGalleryImages.slice(1))
 
   const calculateOverallRating = (review: any) => {
     if (!review) {
@@ -133,33 +121,17 @@ export default function ArenaPage({
 
       <Layout preview={preview} loading={loading}>
         <BlogHeader title={title} level={2} />
+
+        {/* Full-width Hero Photo Gallery */}
+        {galleryImages.length > 0 && (
+          <HeroPhotoGallery
+            images={galleryImages}
+            onShowAllPhotos={() => openModal(0)}
+          />
+        )}
+
         <>
           <div className="container mx-auto max-w-7xl p-4 md:p-8">
-            {/* --- Main Image --- */}
-            <div className="w-full overflow-hidden rounded-lg">
-              {arena.arenaImage ? (
-                <div className="mb-12 relative aspect-[1200/630]">
-                  <Image
-                    src={urlForImage(arena.arenaImage)
-                      .width(1200)
-                      .height(630)
-                      .fit('crop')
-                      .auto('format')
-                      .url()}
-                    alt={arena.name || 'Arena Cover Image'}
-                    fill
-                    className="object-cover rounded-lg"
-                    priority
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 1200px"
-                    placeholder="blur"
-                    blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAO0lEQVR4nGNgYGBg+P//P1t9fT0TiC0we3ZjxZxZjQ9XLpwwe9lCHkOGGZOyanraY9aumN2wbsn0hmQA/MEWfj4ocjcAAAAASUVORK5CYII="
-                  />
-                </div>
-              ) : (
-                <div className="mb-12 aspect-[1200/630] bg-gray-200 rounded-lg animate-pulse"></div>
-              )}
-            </div>
-
             {/* --- Header & Teams --- */}
             <header className="mt-8 flex flex-col md:flex-row md:items-center md:justify-between">
               <div>
@@ -393,8 +365,11 @@ export default function ArenaPage({
             )}
 
             {/* --- Gallery --- */}
-            {arena.photoGallerySection && (
+            {galleryImages.length > 0 && (
               <section className="mt-8">
+                <h2 className="mb-4 text-2xl font-bold tracking-tight flex items-center">
+                  {/* <Camera className="mr-2 h-6 w-6" /> Photo Gallery */}
+                </h2>
                 <ImageGallery
                   images={galleryImages}
                   title="Photo Gallery"

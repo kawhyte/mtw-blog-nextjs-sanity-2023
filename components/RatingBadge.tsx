@@ -28,10 +28,16 @@ const RatingBadge = ({ average, textRating, color }: RatingBadgeProps) => {
       </div>
 
       {/* Vertical Separator (Mobile Only) */}
-      <div className="h-4 w-px bg-gray-900 block sm:hidden" aria-hidden="true"></div>
+      <div
+        className="h-4 w-px bg-gray-900 block sm:hidden"
+        aria-hidden="true"
+      ></div>
 
       {/* Horizontal Separator (Desktop Only) */}
-      <div className="h-px w-full bg-gray-900 hidden sm:block" aria-hidden="true"></div>
+      <div
+        className="h-px w-full bg-gray-900 hidden sm:block"
+        aria-hidden="true"
+      ></div>
 
       {/* Text Rating */}
       <p
