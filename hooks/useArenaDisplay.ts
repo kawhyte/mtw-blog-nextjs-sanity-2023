@@ -1,36 +1,26 @@
 import { useMemo } from 'react'
-import { Arena } from 'lib/sanity.queries'
 import {
   SortCriteriaType,
   FilterCriteriaType,
   ArenaWithRating,
 } from 'utils/arena/arenaConstants'
-import {
-  processArenas,
-  enrichArenasWithDisplayData,
-  isArenaValid,
-} from 'utils/arena/arenaUtils'
+import { processArenas, isArenaValid } from 'utils/arena/arenaUtils'
 
 /**
- * Custom hook that combines filtering, sorting, and ranking logic
- * Optimized to reduce re-calculations
+ * Custom hook that handles filtering and sorting of pre-computed arena data
+ * Optimized: Now expects arenas to already have display data and rankings
+ * All expensive calculations are done at build time in getStaticProps
  */
 export const useArenaDisplay = (
-  arenas: Arena[],
+  arenas: ArenaWithRating[], // ✅ Now expects pre-enriched data
   filterCriteria: FilterCriteriaType,
   sortCriteria: SortCriteriaType,
-  rankMap: Map<string, number>,
 ): ArenaWithRating[] => {
-  // Memoize base processing to avoid recalculation when only sort changes
-  const baseProcessed = useMemo(() => {
-    return processArenas(arenas, filterCriteria, sortCriteria)
-  }, [arenas, filterCriteria, sortCriteria])
-
-  // Memoize enrichment separately
+  // Memoize processing - no enrichment needed, data is pre-computed!
   const displayArenas = useMemo(() => {
-    const enriched = enrichArenasWithDisplayData(baseProcessed, rankMap)
-    return enriched.filter(isArenaValid)
-  }, [baseProcessed, rankMap])
+    const processed = processArenas(arenas, filterCriteria, sortCriteria)
+    return processed.filter(isArenaValid)
+  }, [arenas, filterCriteria, sortCriteria])
 
   return displayArenas
 }

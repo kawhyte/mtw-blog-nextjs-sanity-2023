@@ -1,4 +1,5 @@
 import '../styles/globals.css'
+import '../styles/nprogress.css'
 
 import { AppProps } from 'next/app'
 
@@ -10,12 +11,14 @@ import {
   roboto_mono,
   space,
 } from '../app/fonts'
+import NProgressBar from '../components/NProgressBar'
 
 // Fonts are now imported from app/fonts.ts for better organization
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
+      <NProgressBar />
       <main
         className={`${montserrat.variable} ${raleway.variable} ${inter.variable} ${space.variable} ${roboto_mono.variable} ${oswald.variable}`}
       >

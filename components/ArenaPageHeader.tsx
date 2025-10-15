@@ -1,7 +1,7 @@
 import { urlForImage } from 'lib/sanity.image'
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { useEffect, useRef } from 'react'
+import React, { useMemo } from 'react'
 import { FaRegCalendarAlt } from 'react-icons/fa'
 import { IoLocationOutline } from 'react-icons/io5'
 
@@ -9,8 +9,31 @@ import { Progress } from '@/components/ui/progress'
 
 import PostDate from './PostDate'
 
+/**
+ * Get random subset of arenas without duplicates
+ * Uses Fisher-Yates shuffle for true randomness
+ * @param arenas - Array of all arenas
+ * @param count - Number of random arenas to select (default: 12)
+ * @returns Random subset of arenas
+ */
+const getRandomArenas = (arenas: any[], count: number = 12) => {
+  // Create a copy to avoid mutating original array
+  const shuffled = [...arenas]
+
+  // Fisher-Yates shuffle algorithm
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
+  }
+
+  return shuffled.slice(0, Math.min(count, arenas.length))
+}
+
 function ReviewHeader({ title, arenas, summary, animation }) {
   const filteredList = arenas.filter((item) => item.visited === true)
+
+  // Memoize random arena selection to prevent re-shuffling on re-renders
+  const displayArenas = useMemo(() => getRandomArenas(arenas, 12), [arenas])
 
   const arenaLastVisited = filteredList.sort(function (a, b) {
     return new Date(b.date).valueOf() - new Date(a.date).valueOf()
@@ -23,13 +46,13 @@ function ReviewHeader({ title, arenas, summary, animation }) {
       <div className="container mx-auto">
         <section className="body-font text-gray-600">
           <div className=" flex flex-col items-center px-5 py-7 ">
-            <div className="grid max-w-4xl grid-cols-9 place-content-center  place-items-center gap-2   ">
-              {arenas.slice(0, 27).map((item, index: number) => (
-                <div key={item.name}>
+            <div className="grid max-w-4xl grid-cols-6 md:grid-cols-9 lg:grid-cols-12 place-content-center place-items-center gap-2">
+              {displayArenas.map((item, index: number) => (
+                <div key={item._id || item.name}>
                   <Image
                     width={64}
                     height={64}
-                    loading={index < 9 ? 'eager' : 'lazy'}
+                    loading={index < 6 ? 'eager' : 'lazy'}
                     sizes="64px"
                     placeholder="blur"
                     blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAO0lEQVR4nGNgYGBg+P//P1t9fT0TiM0we3ZjxZxZjQ9XLpwwe9nCHkOGGZOyanraY9aumN2wbsn0hmQA/MEWfj4ocjcAAAAASUVORK5CYII="
@@ -53,6 +76,8 @@ function ReviewHeader({ title, arenas, summary, animation }) {
                             .width(64)
                             .fit('crop')
                             .auto('format')
+                            .format('webp')
+                            .quality(85)
                             .url()
                         } catch (error) {
                           console.warn('Error creating image URL:', error)

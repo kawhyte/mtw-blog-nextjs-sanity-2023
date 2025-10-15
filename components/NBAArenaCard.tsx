@@ -1,6 +1,7 @@
 import { urlForImage } from 'lib/sanity.image'
 import { CalendarCheck, MapPin } from 'lucide-react'
 import Image from 'next/image'
+import React from 'react'
 
 import { Skeleton } from '@/components/ui/skeleton'
 
@@ -26,7 +27,12 @@ interface NBAArenaCardProps {
   priority?: boolean
 }
 
-const Arenas = ({
+/**
+ * NBA Arena Card Component - Optimized with React.memo
+ * Prevents unnecessary re-renders when parent components update
+ * Significantly improves performance during filtering/sorting
+ */
+const Arenas = React.memo(({
   location,
   id,
   visited,
@@ -72,6 +78,8 @@ const Arenas = ({
                     .width(320)
                     .fit('crop')
                     .auto('format')
+                    .format('webp')
+                    .quality(85)
                     .url()
                 : 'https://fakeimg.pl/320x200?text=Arena+Image&font=georgia'
             }
@@ -143,6 +151,9 @@ const Arenas = ({
       {/* </div> */}
     </>
   )
-}
+})
+
+// Set display name for React DevTools
+Arenas.displayName = 'NBAArenaCard'
 
 export default Arenas

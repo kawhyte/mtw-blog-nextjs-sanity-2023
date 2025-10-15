@@ -1,13 +1,12 @@
 import { useArenaDisplay } from 'hooks/useArenaDisplay'
 import { useArenaFiltering } from 'hooks/useArenaFiltering'
-import { useArenaRanking } from 'hooks/useArenaRanking'
-import { Arena } from 'lib/sanity.queries'
+import { ArenaWithRating } from 'utils/arena/arenaConstants'
 
 import ArenaFilters from './ArenaFilters'
 import ArenaGrid from './ArenaGrid'
 
 interface ArenaPageContentProps {
-  arenas: Arena[]
+  arenas: ArenaWithRating[] // ✅ Now expects pre-enriched data
 }
 
 export default function ArenaPageContent({ arenas }: ArenaPageContentProps) {
@@ -20,14 +19,8 @@ export default function ArenaPageContent({ arenas }: ArenaPageContentProps) {
     isSortDisabled,
   } = useArenaFiltering()
 
-  const rankMap = useArenaRanking(arenas)
-
-  const displayArenas = useArenaDisplay(
-    arenas,
-    filterCriteria,
-    sortCriteria,
-    rankMap,
-  )
+  // ✅ No more ranking calculations - data is pre-computed!
+  const displayArenas = useArenaDisplay(arenas, filterCriteria, sortCriteria)
 
   return (
     <>

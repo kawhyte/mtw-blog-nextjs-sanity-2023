@@ -9,6 +9,10 @@ import { Arena, Settings } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import { lazy } from 'react'
+import {
+  calculateArenaRanks,
+  enrichArenasWithDisplayData,
+} from 'utils/arena/arenaUtils'
 
 import { CMS_NAME } from '../lib/constants'
 
@@ -91,13 +95,21 @@ export const getStaticProps: GetStaticProps<
     console.error('getArenaPosts did not return an array.')
   }
 
+  // ✅ PRE-COMPUTE: Calculate arena rankings at build time (not runtime)
+  // This eliminates expensive calculations on the client
+  const rankMap = calculateArenaRanks(arenaPosts)
+
+  // ✅ PRE-COMPUTE: Enrich arenas with display data (ratings, rankings)
+  // All display properties are now pre-calculated during build
+  const enrichedArenas = enrichArenasWithDisplayData(arenaPosts, rankMap)
+
   return {
     props: {
-      arenaPosts: arenaPosts || [],
+      arenaPosts: enrichedArenas, // ✅ Send pre-computed data to client
       settings: settings || {},
       preview,
       token: previewData.token ?? null,
     },
-    revalidate: 60,
+    revalidate: 60, // Revalidate every minute to keep data fresh
   }
 }
