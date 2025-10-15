@@ -20,7 +20,7 @@ const RatingBadge = ({ average, textRating, color }: RatingBadgeProps) => {
       {/* Average Number */}
       <div className="text-white">
         <span
-          className="font-montserrat font-black leading-tight tracking-tighter text-gray-900 text-sm sm:text-xl md:text-2xl"
+          className="font-montserrat font-black leading-tight tracking-tighter text-gray-900 text-sm sm:text-xl md:text-lg"
           aria-hidden="true"
         >
           {numericRating}
