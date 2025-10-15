@@ -53,7 +53,7 @@ export default function IndexPage(props: IndexPageProps) {
   // const topHotels = getTopPostsByType(posts, 'hotel')
   // const topRestaurants = getTopPostsByType(posts, 'food')
 
-  // console.log('topRestaurants1', topRestaurants)
+
 
   return (
     <>

@@ -7,7 +7,6 @@ import Button from 'ui/Button'
 import SectionTitle from './SectionTitle'
 
 const ArenasIndexPage = ({ arenas }) => {
-  //console.log('arenasH ', arenas[0])
 
   return (
     <div className="relative ">

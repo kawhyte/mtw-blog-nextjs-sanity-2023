@@ -61,7 +61,7 @@ export const getStaticProps: GetStaticProps<
     // getTravelEssentialPosts(),
     // getArenaPosts(),
   ])
-  // console.log('Fetched Posts:', posts)
+
   return {
     props: {
       posts,

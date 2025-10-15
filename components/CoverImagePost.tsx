@@ -20,7 +20,7 @@ const ImageBorder = {
 
 export default function CoverImage(props: CoverImageProps) {
   const { title, slug, image: source, gallery } = props
-  //console.log('COVER IMage Post ', props)
+ 
 
   const image = source?.asset?._ref ? (
     <>

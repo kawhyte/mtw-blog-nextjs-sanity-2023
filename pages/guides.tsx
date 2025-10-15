@@ -80,9 +80,7 @@ export const getStaticProps: GetStaticProps<
   // Fetch first page of posts
   const initialPosts = await getPaginatedGuides(0, ITEMS_PER_PAGE)
 
-  console.log('Guides Found:', initialPosts?.length || 0)
-  console.log('Total Guides:', totalPostsCount)
-  console.log('Sample Guide:', initialPosts?.[0] || 'None')
+
 
   return {
     props: {

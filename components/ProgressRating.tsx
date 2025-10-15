@@ -5,7 +5,7 @@ function ProgressRating({ progress, color }) {
 
   return (
     <>
-      <div className="h-2 w-full bg-gray-300 rounded-2xl overflow-hidden">
+      <div className="h-2 w-full bg-gray-300 rounded-full overflow-hidden">
         <div
           style={{
             width: `${progressPercentage}%`,

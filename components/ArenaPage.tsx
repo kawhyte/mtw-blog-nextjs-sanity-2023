@@ -10,7 +10,6 @@ import {
   BadgeCheck,
   Building2,
   Calendar,
-  Camera,
   Car,
   CheckCircle2,
   Footprints,
@@ -73,9 +72,6 @@ export default function ArenaPage({
 }: ArenaPageProps) {
   const { title = 'Arena Review' } = settings || {}
 
-  console.log('arena', arena)
-  console.log('arena.photoGallerySection', arena.photoGallerySection)
-
   // Smart fallback: prioritize photoGallerySection, fallback to arenaImage + gallery
   const rawGalleryImages = arena.photoGallerySection
     ? [
@@ -130,10 +126,9 @@ export default function ArenaPage({
           />
         )}
 
-        <>
-          <div className="container mx-auto max-w-7xl p-4 md:p-8">
-            {/* --- Header & Teams --- */}
-            <header className="mt-8 flex flex-col md:flex-row md:items-center md:justify-between">
+        <article className="container mx-auto px-4 py-8 md:px-6 md:py-12">
+          {/* --- Header & Teams --- */}
+          <header className="mb-12 flex flex-col md:flex-row md:items-center md:justify-between">
               <div>
                 <h1 className="text-4xl font-bold tracking-tighter">
                   {arena.name}
@@ -209,7 +204,7 @@ export default function ArenaPage({
                 <Card>
                   <CardHeader>
                     <CardTitle className="flex items-center space-x-2">
-                      <Award className="h-6 w-6" />
+                      {/* <Award className="h-6 w-6" /> */}
                       <span>Arena Rating Breakdown</span>
                     </CardTitle>
                   </CardHeader>
@@ -218,7 +213,7 @@ export default function ArenaPage({
                       Object.entries(arena.arenaReview).map(
                         ([category, score]) =>
                           typeof score === 'number' && (
-                            <div key={category}>
+                            <div key={category} >
                               <div className="mb-2 flex items-center justify-between">
                                 <div className="flex items-center space-x-3">
                                   {ratingIcons[category]}
@@ -233,7 +228,7 @@ export default function ArenaPage({
                                   className="font-semibold"
                                   aria-labelledby={`rating-label-${category}`}
                                 >
-                                  {score.toFixed(1)} out of 10
+                                  {(score / 2).toFixed(1)}
                                 </span>
                               </div>
                               <Progress
@@ -242,6 +237,8 @@ export default function ArenaPage({
                                 aria-label={`${formatCategoryName(category)} rating: ${score.toFixed(1)} out of 10`}
                               />
                             </div>
+
+                            
                           ),
                       )}
                   </CardContent>
@@ -367,9 +364,6 @@ export default function ArenaPage({
             {/* --- Gallery --- */}
             {galleryImages.length > 0 && (
               <section className="mt-8">
-                <h2 className="mb-4 text-2xl font-bold tracking-tight flex items-center">
-                  {/* <Camera className="mr-2 h-6 w-6" /> Photo Gallery */}
-                </h2>
                 <ImageGallery
                   images={galleryImages}
                   title="Photo Gallery"
@@ -381,8 +375,7 @@ export default function ArenaPage({
                 />
               </section>
             )}
-          </div>
-        </>
+        </article>
       </Layout>
     </div>
   )

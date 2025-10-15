@@ -62,7 +62,6 @@ export default function MoreStories({
       const start = (page - 1) * itemsPerPage
       const end = start + itemsPerPage
 
-      // console.log(`Workspaceing posts for page ${page}, range [${start}...${end}] using query: ${paginatedQuery}`); // Generic log
 
       try {
         // Fetch data using the Sanity client and the provided paginated query
