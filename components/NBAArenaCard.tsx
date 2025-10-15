@@ -54,20 +54,30 @@ const Arenas = React.memo(({
           visited === false ? 'opacity-40 grayscale  ' : 'grayscale-0 '
         }  `}
       >
-        {rank && (
-          <div className="absolute left-2 top-12 z-10 rounded-full bg-black bg-opacity-70 px-2 py-1 text-xs font-bold text-white md:left-2 md:top-2">
-            {rank === 1 ? '🏆 Best Arena' : `#${rank}`}
-          </div>
-        )}
+        <div className="relative">
+          {rank && (
+            <div
+              className="absolute left-3 top-3 z-30 rounded-full bg-black bg-opacity-70 px-2 py-1 text-xs font-bold text-white min-h-[32px] flex items-center"
+              role="status"
+              aria-label={rank === 1 ? 'Best Arena ranking' : `Arena rank: ${rank}`}
+            >
+              {rank === 1 ? '🏆 Best Arena' : `#${rank}`}
+            </div>
+          )}
 
-        <div className="relative ">
-          {averageRating > '0' ? (
-            <RatingBadge
-              average={averageRating}
-              textRating={textRating}
-              color={ratingColor}
-            />
-          ) : null}
+          {averageRating > '0' && (
+            <div
+              className="absolute right-3 top-3 z-30"
+              style={{ maxWidth: 'calc(100% - 120px)' }}
+            >
+              <RatingBadge
+                average={averageRating}
+                textRating={textRating}
+                color={ratingColor}
+              />
+            </div>
+          )}
+
           <Skeleton className="absolute inset-0 h-full w-full rounded-md" />
 
           <Image
@@ -84,7 +94,7 @@ const Arenas = React.memo(({
                 : 'https://fakeimg.pl/320x200?text=Arena+Image&font=georgia'
             }
             placeholder="blur"
-            blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAO0lEQVR4nGNgYGBg+P//P1t9fT0TiM0we3ZjxZxZjQ9XLpwwe9nCHkOGGZOyanraY9aumN2wbsn0hmQA/MEWfj4ocjcAAAAASUVORK5CYII="
+            blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAO0lEQVR4nGNgYGBg+P//P1t9fT0TiC0we3ZjxZxZjQ9XLpwwe9nCHkOGGZOyanraY9aumN2wbsn0hmQA/MEWfj4ocjcAAAAASUVORK5CYII="
             width={320}
             height={200}
             className="w-full object-cover object-center brightness-[0.85] "
