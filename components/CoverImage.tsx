@@ -141,14 +141,20 @@ export default function CoverImage(props: CoverImageProps) {
             {image}
             {linkType === 'hotel' && category && (
               <Badge
-                className={`absolute top-4 left-4 z-30 ${badgeClasses} border-transparent`}
+                className={`absolute top-3 left-3 z-30 ${badgeClasses} border-transparent min-h-[32px] flex items-center`}
+                role="status"
+                aria-label={`Hotel category: ${categoryType.name}`}
               >
-                <Hotel className="h-3 w-3 mr-1" /> {categoryType.name}
+                <Hotel className="h-3 w-3 mr-1" aria-hidden="true" />
+                <span className="truncate max-w-[80px]">{categoryType.name}</span>
               </Badge>
             )}
 
             {showRating && linkType !== 'story' && (
-              <div className="absolute right-4 top-4 z-30 flex items-center justify-center rounded-full bg-background/20 text-foreground backdrop-blur-sm">
+              <div
+                className="absolute right-3 top-3 z-30"
+                style={{ maxWidth: 'calc(100% - 120px)' }}
+              >
                 <RatingBadge
                   average={(
                     Math.floor(overallRating.numericalRating * 100) / 100

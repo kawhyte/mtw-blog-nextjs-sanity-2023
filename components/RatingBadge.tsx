@@ -7,28 +7,39 @@ interface RatingBadgeProps {
 }
 
 const RatingBadge = ({ average, textRating, color }: RatingBadgeProps) => {
+  // Pre-calculate numeric rating for accessibility
+  const numericRating = (Math.floor(Number(average) * 100) / 100).toFixed(2)
+
   return (
     <div
-      className="absolute left-3 sm:left-auto  sm:right-3 top-3 z-30 text-xs flex sm:flex-col items-center justify-center rounded-2xl bg-black px-1.5 py-0.5 sm:p-2 space-x-1.5 sm:space-x-0 sm:space-y-1" // Added space utilities for spacing between items
-      style={{ backgroundColor: color, opacity: 0.7 }}
+      className="text-xs flex sm:flex-col items-center justify-center rounded-2xl bg-black px-1 py-0.5 sm:px-2 sm:py-2 space-x-1.5 sm:space-x-0 sm:space-y-1 min-h-[44px] sm:min-h-0"
+      style={{ backgroundColor: color, opacity: 0.85 }}
+      role="img"
+      aria-label={`Rating: ${numericRating} out of 5, ${textRating}`}
     >
       {/* Average Number */}
       <div className="text-white">
-        <span className="font-montserrat  font-black leading-tight tracking-tighter text-gray-900 sm:text-xl md:text-left md:text-2xl md:leading-none lg:text-xl">
-          {(Math.floor(Number(average) * 100) / 100).toFixed(2)}
+        <span
+          className="font-montserrat font-black leading-tight tracking-tighter text-gray-900 text-sm sm:text-xl md:text-2xl"
+          aria-hidden="true"
+        >
+          {numericRating}
         </span>
       </div>
 
       {/* Vertical Separator (Mobile Only) */}
-      {/* Visible by default (block), hidden on sm screens and up */}
-      <div className="h-4 w-px bg-gray-900 block sm:hidden"></div>
+      <div className="h-4 w-px bg-gray-900 block sm:hidden" aria-hidden="true"></div>
 
       {/* Horizontal Separator (Desktop Only) */}
-      {/* Hidden by default, visible (block) on sm screens and up */}
-      <div className="h-px w-full bg-gray-900 hidden sm:block"></div>
+      <div className="h-px w-full bg-gray-900 hidden sm:block" aria-hidden="true"></div>
 
       {/* Text Rating */}
-      <p className="font-montserrat  font-bold text-gray-900">{textRating}</p>
+      <p
+        className="font-montserrat font-bold text-gray-900 text-xs sm:text-sm truncate max-w-[60px] sm:max-w-none"
+        aria-hidden="true"
+      >
+        {textRating}
+      </p>
     </div>
   )
 }
