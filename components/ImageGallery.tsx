@@ -11,6 +11,7 @@ import SectionTitle from './SectionTitle'
 export interface GalleryImage {
   _key?: string
   alt?: string
+  caption?: string
   asset?: {
     _ref: string
     _type: 'reference'
@@ -64,6 +65,7 @@ export default function ImageGallery({
               const imageUrl = urlForImage(item).width(800).auto('format').url()
               const imageAlt = item.alt || `Gallery image ${i + 1}`
               const blurData = item.asset.metadata?.lqip
+              const hasCaption = item.caption && item.caption.trim().length > 0
 
               return (
                 <div
@@ -82,6 +84,13 @@ export default function ImageGallery({
                     blurDataURL={blurData}
                   />
                   <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/20 transition-colors duration-300 rounded-lg" />
+                  {hasCaption && (
+                    <div className="absolute inset-0 flex items-end rounded-lg bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-3">
+                      <p className="text-sm text-muted-foreground line-clamp-2">
+                        {item.caption}
+                      </p>
+                    </div>
+                  )}
                 </div>
               )
             })}
@@ -101,7 +110,7 @@ export default function ImageGallery({
         >
           {/* Main Modal Content */}
           <div
-            className="relative flex h-full max-h-[90vh] w-full max-w-[90vw] items-center justify-center"
+            className="relative flex h-full max-h-[90vh] w-full max-w-[90vw] flex-col items-center justify-center"
             onClick={(e) => e.stopPropagation()} // Prevents modal from closing when clicking on the image/buttons
           >
             {/* Image Display */}
@@ -119,7 +128,7 @@ export default function ImageGallery({
                 images[selectedImageIndex].asset.metadata?.dimensions?.height ||
                 1080
               }
-              className="object-contain w-auto h-auto max-w-full max-h-full rounded-lg shadow-2xl"
+              className="object-contain w-auto h-auto max-w-full max-h-[calc(100%-80px)] rounded-lg shadow-2xl"
               placeholder={
                 images[selectedImageIndex].asset.metadata?.lqip
                   ? 'blur'
@@ -127,6 +136,13 @@ export default function ImageGallery({
               }
               blurDataURL={images[selectedImageIndex].asset.metadata?.lqip}
             />
+
+            {/* Caption Display */}
+            {images[selectedImageIndex].caption && (
+              <p className="mt-3 max-w-full px-4 text-center text-sm text-muted-foreground">
+                {images[selectedImageIndex].caption}
+              </p>
+            )}
 
             {/* Close Button */}
             <button

@@ -629,6 +629,24 @@ export interface Essential {
   date?: string
 }
 
+// --- Image Gallery Item Interface ---
+export interface GalleryImageItem {
+  _key?: string
+  asset?: {
+    _ref: string
+    _type: 'reference'
+    metadata?: {
+      dimensions?: {
+        width: number
+        height: number
+      }
+      lqip?: string
+    }
+  }
+  alt?: string
+  caption?: string // Optional caption for image gallery items
+}
+
 // UPDATED Arena Interface - optimized for listing page
 export interface Arena {
   _id: string
@@ -636,8 +654,8 @@ export interface Arena {
   slug?: string
   arenaImage?: any // SanityImageObject
   firstGalleryImage?: any // Single gallery image for listing
-  gallery?: any[] // Full gallery for detailed pages
-  imageGallery?: any // For detailed pages
+  gallery?: any[] // Full gallery for detailed pages (teams/logos)
+  imageGallery?: GalleryImageItem[] // New flexible image gallery with captions
   photoGallerySection?: {
     mainImage?: any // SanityImageObject
     otherImages?: any[] // SanityImageObject[]

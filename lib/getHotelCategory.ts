@@ -8,21 +8,21 @@ export function categoryRating(category) {
 
   if (category == 'economy') {
     hotelCategoryObj = {
-      name: 'Economy Hotel',
+      name: 'Economy',
       icon: '/icon/location.svg',
       color: 'blue',
       variant: 'light',
     }
   } else if (category == 'luxury') {
     hotelCategoryObj = {
-      name: 'Luxury Hotel',
+      name: 'Luxury',
       icon: '/icon/clean.svg',
       color: 'yellow',
       variant: 'light',
     }
   } else if (category == 'mid-scale') {
     hotelCategoryObj = {
-      name: 'Mid-Scale Hotel',
+      name: 'Mid-Scale',
       icon: '/icon/clean.svg',
       color: 'green',
       variant: 'light',

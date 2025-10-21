@@ -72,13 +72,24 @@ export default function ArenaPage({
 }: ArenaPageProps) {
   const { title = 'Arena Review' } = settings || {}
 
-  // Smart fallback: prioritize photoGallerySection, fallback to arenaImage + gallery
-  const rawGalleryImages = arena.photoGallerySection
+  // Smart fallback: prioritize photoGallerySection, add imageGallery, fallback to arenaImage + gallery
+  const photoGalleryImages = arena.photoGallerySection
     ? [
         arena.photoGallerySection.mainImage,
         ...(arena.photoGallerySection.otherImages || []),
       ].filter(Boolean)
-    : [arena.arenaImage, ...(arena.gallery || [])].filter(Boolean)
+    : []
+
+  const imageGalleryImages = arena.imageGallery || []
+
+  const allGalleryImages = [...photoGalleryImages, ...imageGalleryImages]
+
+  const rawGalleryImages =
+    allGalleryImages.length > 0
+      ? allGalleryImages
+      : arena.arenaImage
+      ? [arena.arenaImage, ...(arena.gallery || [])].filter(Boolean)
+      : []
 
   // Use unified photo gallery hook for state management
   const {
