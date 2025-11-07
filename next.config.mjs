@@ -2,6 +2,7 @@
 const config = {
   //  staticPageGenerationTimeout: 140000,
   images: {
+    unoptimized: true,
     remotePatterns: [
       { hostname: 'cdn.sanity.io' },
       { hostname: 'source.unsplash.com' },
