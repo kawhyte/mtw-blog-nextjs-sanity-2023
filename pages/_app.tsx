@@ -22,6 +22,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <Script
         src="https://cloud.umami.is/script.js"
         data-website-id="eaac332f-08e9-4b09-8d7a-66ff636cfcd9"
+        data-domains="www.meetthewhytes.com"
         strategy="afterInteractive"
       />
       <NProgressBar />
