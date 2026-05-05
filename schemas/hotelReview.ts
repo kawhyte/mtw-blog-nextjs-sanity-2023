@@ -282,8 +282,22 @@ export default defineType({
     defineField({
       name: 'publishedAt',
       title: 'Publish Date / Scheduled Time',
-      description: 'Optional. Set a future date to schedule this post. Leave blank to publish immediately.',
+      description: 'Complete all required fields to enable scheduling. Set a future date to schedule, or leave blank to publish immediately.',
       type: 'datetime',
+      readOnly: ({ document }) => {
+        const doc = document as any
+        return !(
+          doc?.title?.trim() &&
+          doc?.slug?.current &&
+          doc?.date &&
+          doc?.location?.trim() &&
+          doc?.category &&
+          (doc?.excerpt2 as unknown[])?.length > 0 &&
+          doc?.hotelRating &&
+          (doc?.positives as unknown[])?.length > 0 &&
+          (doc?.verdict as unknown[])?.length > 0
+        )
+      },
       validation: (rule) =>
         rule.custom((value) => {
           if (!value) return true
