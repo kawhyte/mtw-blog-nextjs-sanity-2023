@@ -284,6 +284,21 @@ export default defineType({
       description:
         'Add relevant tags for better searchability (e.g., family friendly, date night, casual dining, etc.)',
     }),
+
+    defineField({
+      name: 'publishedAt',
+      title: 'Publish Date / Scheduled Time',
+      description: 'Optional. Set a future date to schedule this post. Leave blank to publish immediately.',
+      type: 'datetime',
+      validation: (rule) =>
+        rule.custom((value) => {
+          if (!value) return true
+          if (new Date(value as string) > new Date()) {
+            return `Scheduled — this post will not appear publicly until ${new Date(value as string).toLocaleDateString('en-US', { dateStyle: 'long' })}.`
+          }
+          return true
+        }).warning(),
+    }),
   ],
 
   preview: {

@@ -248,14 +248,14 @@ export const guideBySlugPreviewQuery = groq`
 
 // All guides query
 export const allGuidesQuery = groq`
-  *[_type == "guide"] | order(date desc) {
+  *[_type == "guide" && (!defined(publishedAt) || publishedAt <= now())] | order(date desc) {
     ${independentGuideFields}
   }
 `
 
 // Guides by category
 export const guidesByCategoryQuery = groq`
-  *[_type == "guide" && category == $category] | order(date desc) {
+  *[_type == "guide" && category == $category && (!defined(publishedAt) || publishedAt <= now())] | order(date desc) {
     ${independentGuideFields}
   }
 `
@@ -312,21 +312,21 @@ export const hotelReviewBySlugPreviewQuery = groq`
 
 // All hotel reviews query
 export const allHotelReviewsQuery = groq`
-  *[_type == "hotelReview"] | order(date desc) {
+  *[_type == "hotelReview" && (!defined(publishedAt) || publishedAt <= now())] | order(date desc) {
     ${independentHotelReviewFields}
   }
 `
 
 // Top hotel reviews for rankings/top lists
 export const topHotelReviewsQuery = groq`
-  *[_type == "hotelReview" && defined(hotelRating)] {
+  *[_type == "hotelReview" && defined(hotelRating) && (!defined(publishedAt) || publishedAt <= now())] {
     ${independentHotelReviewFields}
   }
 `
 
 // Hotel reviews by category
 export const hotelReviewsByCategoryQuery = groq`
-  *[_type == "hotelReview" && category == $category] | order(date desc) {
+  *[_type == "hotelReview" && category == $category && (!defined(publishedAt) || publishedAt <= now())] | order(date desc) {
     ${independentHotelReviewFields}
   }
 `
@@ -357,7 +357,7 @@ export const independentFoodReviewFields = groq`
 
 // Top food reviews for rankings/top lists
 export const topFoodReviewsQuery = groq`
-  *[_type == "foodReview" && (defined(foodRating) || defined(takeoutRating))] {
+  *[_type == "foodReview" && (defined(foodRating) || defined(takeoutRating)) && (!defined(publishedAt) || publishedAt <= now())] {
     ${independentFoodReviewFields}
   }
 `
@@ -385,14 +385,14 @@ export const foodReviewBySlugPreviewQuery = groq`
 
 // All food reviews query
 export const allFoodReviewsQuery = groq`
-  *[_type == "foodReview"] | order(date desc) {
+  *[_type == "foodReview" && (!defined(publishedAt) || publishedAt <= now())] | order(date desc) {
     ${independentFoodReviewFields}
   }
 `
 
 // Food reviews by dining type
 export const foodReviewsByDiningTypeQuery = groq`
-  *[_type == "foodReview" && diningType == $diningType] | order(date desc) {
+  *[_type == "foodReview" && diningType == $diningType && (!defined(publishedAt) || publishedAt <= now())] | order(date desc) {
     ${independentFoodReviewFields}
   }
 `
@@ -500,15 +500,15 @@ export const settingsQuery = groq`*[_type == "settings"][0]`
 export const latestIndependentContentQuery = groq`
 {
   "allContent": [
-    ...*[_type == "guide"] | order(date desc) [0...10] {
+    ...*[_type == "guide" && (!defined(publishedAt) || publishedAt <= now())] | order(date desc) [0...10] {
       ${independentGuideFields},
       _type
     },
-    ...*[_type == "hotelReview"] | order(date desc) [0...10] {
+    ...*[_type == "hotelReview" && (!defined(publishedAt) || publishedAt <= now())] | order(date desc) [0...10] {
       ${independentHotelReviewFields},
       _type
     },
-    ...*[_type == "foodReview"] | order(date desc) [0...10] {
+    ...*[_type == "foodReview" && (!defined(publishedAt) || publishedAt <= now())] | order(date desc) [0...10] {
       ${independentFoodReviewFields},
       _type
     }
@@ -540,7 +540,7 @@ export const latestIndependentContentQuery = groq`
 // Global Search Query - Searches across all independent schemas
 export const globalSearchQuery = groq`
 {
-  "hotels": *[_type == "hotelReview" && (
+  "hotels": *[_type == "hotelReview" && (!defined(publishedAt) || publishedAt <= now()) && (
     title match $searchTerm ||
     location match $searchTerm ||
     excerpt2 match $searchTerm ||
@@ -549,7 +549,7 @@ export const globalSearchQuery = groq`
     ${independentHotelReviewFields},
     "_contentType": "hotel"
   },
-  "food": *[_type == "foodReview" && (
+  "food": *[_type == "foodReview" && (!defined(publishedAt) || publishedAt <= now()) && (
     title match $searchTerm ||
     location match $searchTerm ||
     excerpt2 match $searchTerm ||
@@ -558,7 +558,7 @@ export const globalSearchQuery = groq`
     ${independentFoodReviewFields},
     "_contentType": "food"
   },
-  "guides": *[_type == "guide" && (
+  "guides": *[_type == "guide" && (!defined(publishedAt) || publishedAt <= now()) && (
     title match $searchTerm ||
     location match $searchTerm ||
     excerpt2 match $searchTerm ||

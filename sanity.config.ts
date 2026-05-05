@@ -7,6 +7,7 @@ import { visionTool } from '@sanity/vision'
 import { apiVersion, dataset, previewSecretId, projectId } from 'lib/sanity.api'
 import { previewDocumentNode } from 'plugins/previewPane'
 import { productionUrl } from 'plugins/productionUrl'
+import { ScheduledBadge } from 'plugins/scheduledBadge'
 import { settingsPlugin, settingsStructure } from 'plugins/settings'
 import { defineConfig } from 'sanity'
 import { deskTool } from 'sanity/desk'
@@ -38,6 +39,8 @@ import travelEssentialType from 'schemas/travelEssentials'
 const title =
   process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE || 'Meet the Whytes Blog'
 
+const SCHEDULED_SCHEMA_TYPES = ['guide', 'hotelReview', 'foodReview']
+
 export default defineConfig({
   basePath: '/studio',
   projectId,
@@ -45,6 +48,15 @@ export default defineConfig({
 
   icon: PlusCircleIcon,
   title,
+
+  document: {
+    badges: (prev, { schemaType }) => {
+      if (SCHEDULED_SCHEMA_TYPES.includes(schemaType)) {
+        return [...prev, ScheduledBadge]
+      }
+      return prev
+    },
+  },
   schema: {
     // If you want more content types, you can add them to this array
     types: [
