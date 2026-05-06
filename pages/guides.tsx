@@ -80,8 +80,6 @@ export const getStaticProps: GetStaticProps<
   // Fetch first page of posts
   const initialPosts = await getPaginatedGuides(0, ITEMS_PER_PAGE)
 
-
-
   return {
     props: {
       initialPosts: initialPosts, // No longer need to cast

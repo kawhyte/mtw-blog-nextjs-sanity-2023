@@ -5,8 +5,6 @@ import Link from 'next/link'
 import Button from 'ui/Button'
 
 const SneakersIndexPage = ({ arenas }) => {
-
-
   return (
     <>
       <div className=" pt-0 md:pt-1 container mx-auto   lg:pt-1 xl:p-10">

@@ -7,6 +7,7 @@ import {
   getArenaBySlug,
   getSettings,
 } from 'lib/sanity.client'
+import { urlForImage } from 'lib/sanity.image'
 import { Arena, Settings } from 'lib/sanity.queries'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
@@ -91,7 +92,11 @@ export default function ArenaSlugRoute(props: PageProps) {
           <link
             rel="preload"
             as="image"
-            href={`https://cdn.sanity.io/images/${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}/${process.env.NEXT_PUBLIC_SANITY_DATASET}/${arena.arenaImage.asset._ref.replace('image-', '').replace('-jpg', '.jpg').replace('-png', '.png').replace('-webp', '.webp')}`}
+            href={urlForImage(arena.arenaImage)
+              .width(1200)
+              .height(630)
+              .quality(85)
+              .url()}
           />
         )}
       </Head>

@@ -28,12 +28,12 @@ const defaultRatingThresholds: RatingThresholds = {
 }
 
 const ratingColorMap: { [threshold: number]: string } = {
-  9: '#34D319',   // Excellent
-  8: '#4ADE99',   // Great
+  9: '#34D319', // Excellent
+  8: '#4ADE99', // Great
   7.5: '#FBBF24', // Good
-  6: 'Orange',    // Fair
-  4: '#EF4444',   // Poor
-  0: 'DarkRed',   // Horrible
+  6: 'Orange', // Fair
+  4: '#EF4444', // Poor
+  0: 'DarkRed', // Horrible
 }
 
 export function calculateRating(

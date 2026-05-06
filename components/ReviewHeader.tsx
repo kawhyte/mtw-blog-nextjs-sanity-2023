@@ -1,14 +1,5 @@
-import { inter, oswald } from 'app/fonts' // Ensure fonts are correctly configured
-import { urlForImage } from 'lib/sanity.image' // Note: urlForImage is imported but not used
+import { inter, oswald } from 'app/fonts'
 import dynamic from 'next/dynamic'
-import Image from 'next/image' // Note: Image is imported but not used
-import React, { useEffect, useRef } from 'react' // Note: useEffect, useRef imported but not used
-import { FaRegCalendarAlt } from 'react-icons/fa' // Note: FaRegCalendarAlt imported but not used
-import { IoLocationOutline } from 'react-icons/io5' // Note: IoLocationOutline imported but not used
-
-import { Progress } from '@/components/ui/progress' // Note: Progress is imported but not used in the provided JSX
-
-import PostDate from './PostDate' // Note: PostDate imported but not used
 
 // Dynamically import the Lottie Player component to avoid SSR issues
 const PlayerWithNoSSR = dynamic(

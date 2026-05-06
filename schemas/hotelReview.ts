@@ -282,7 +282,8 @@ export default defineType({
     defineField({
       name: 'publishedAt',
       title: 'Publish Date / Scheduled Time',
-      description: 'Complete all required fields to enable scheduling. Set a future date to schedule, or leave blank to publish immediately.',
+      description:
+        'Complete all required fields to enable scheduling. Set a future date to schedule, or leave blank to publish immediately.',
       type: 'datetime',
       readOnly: ({ document }) => {
         const doc = document as any
@@ -299,13 +300,15 @@ export default defineType({
         )
       },
       validation: (rule) =>
-        rule.custom((value) => {
-          if (!value) return true
-          if (new Date(value as string) > new Date()) {
-            return `Scheduled — this post will not appear publicly until ${new Date(value as string).toLocaleDateString('en-US', { dateStyle: 'long' })}.`
-          }
-          return true
-        }).warning(),
+        rule
+          .custom((value) => {
+            if (!value) return true
+            if (new Date(value as string) > new Date()) {
+              return `Scheduled — this post will not appear publicly until ${new Date(value as string).toLocaleDateString('en-US', { dateStyle: 'long' })}.`
+            }
+            return true
+          })
+          .warning(),
     }),
   ],
 

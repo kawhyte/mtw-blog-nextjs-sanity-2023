@@ -155,7 +155,8 @@ async function migrateFoodReviews() {
     console.log(`  ${IS_LIVE ? 'PATCH' : 'DRY'} ${doc._id}`)
     for (const [key, val] of Object.entries(combinedPatch)) {
       const parts = key.split('.')
-      const ratingObj = parts[0] === 'foodRating' ? doc.foodRating : doc.takeoutRating
+      const ratingObj =
+        parts[0] === 'foodRating' ? doc.foodRating : doc.takeoutRating
       const old = ratingObj?.[parts[1]]
       console.log(`    ${key}: ${old} → ${val}`)
     }
@@ -183,7 +184,9 @@ async function main() {
   }
 
   console.log(`\n=== Rating Scale Migration: 5-point → 10-point ===`)
-  console.log(`Mode: ${IS_LIVE ? 'LIVE (writing to Sanity)' : 'DRY RUN (no writes)'}`)
+  console.log(
+    `Mode: ${IS_LIVE ? 'LIVE (writing to Sanity)' : 'DRY RUN (no writes)'}`,
+  )
   console.log(`Project: ${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}`)
   console.log(`Dataset: ${process.env.NEXT_PUBLIC_SANITY_DATASET}`)
 
@@ -193,7 +196,11 @@ async function main() {
   console.log(`\n=== Summary ===`)
   console.log(`Hotel reviews processed: ${hotelCount}`)
   console.log(`Food reviews processed:  ${foodCount}`)
-  console.log(IS_LIVE ? 'Migration complete.' : 'Dry run complete. Re-run with --live to apply.')
+  console.log(
+    IS_LIVE
+      ? 'Migration complete.'
+      : 'Dry run complete. Re-run with --live to apply.',
+  )
 }
 
 main().catch((err) => {

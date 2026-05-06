@@ -81,7 +81,6 @@ export default function FoodReviewPage(props: FoodReviewPageProps) {
     notFound()
   }
 
-
   // Early return if food review is not found
   if (!foodReview) {
     return preview ? (

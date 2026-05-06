@@ -7,7 +7,6 @@ import Button from 'ui/Button'
 import SectionTitle from './SectionTitle'
 
 const ArenasIndexPage = ({ arenas }) => {
-
   return (
     <div className="relative ">
       <div className="absolute -left-36  -top-64 h-16   hidden w-2/6 md:mt-0 md:w-5/6 lg:block lg:w-full lg:max-w-xs   ">

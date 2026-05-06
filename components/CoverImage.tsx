@@ -5,9 +5,7 @@ import cn from 'classnames'
 // Your existing imports
 import { calculateRating } from 'lib/calculateRating'
 import { FOOD_WEIGHTS, HOTEL_WEIGHTS, TAKEOUT_WEIGHTS } from 'lib/ratingWeights'
-import { urlForImage } from 'lib/sanity.image'
 import { Calendar, Hotel, MapPin } from 'lucide-react'
-import Image from 'next/image'
 import Link from 'next/link'
 
 import { Badge } from '@/components/ui/badge'
@@ -15,6 +13,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 
 import { categoryRating } from '../lib/getHotelCategory'
 import RatingBadge from './RatingBadge'
+import SanityImage from './SanityImage'
 
 // Helper function to determine the link prefix based on post type
 const getLinkPrefix = (
@@ -62,31 +61,32 @@ export default function CoverImage(props: CoverImageProps) {
     location,
   } = props
 
+  const altText =
+    linkType === 'hotel'
+      ? `${title} - NBA Arena Hotel Review${location ? ` in ${location}` : ''}`
+      : linkType === 'food'
+        ? `${title} - NBA Arena Food Review${location ? ` in ${location}` : ''}`
+        : linkType === 'story'
+          ? `${title} - NBA Arena Travel Guide${location ? ` for ${location}` : ''}`
+          : `${title} - NBA Arena Travel Review`
+
   const image =
     source?.asset?._ref || source?.asset?._id ? (
       <div className="relative h-full w-full">
         <Skeleton className="absolute inset-0 h-full w-full rounded-md" />
-        <Image
+        <SanityImage
+          image={source}
           className={cn(
             'w-full object-cover object-center brightness-[0.85] rounded-t-3xl',
             {
               ' relative z-20 transition-all ': slug,
             },
           )}
-          placeholder="blur"
-          blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAO0lEQVR4nGNgYGBg+P//P1t9fT0TiM0we3ZjxZxZjQ9XLpwwe9nCHkOGGZOyanraY9aumN2wbsn0hmQA/MEWfj4ocjcAAAAASUVORK5CYII="
           width={320}
           height={200}
-          alt={
-            linkType === 'hotel'
-              ? `${title} - NBA Arena Hotel Review${location ? ` in ${location}` : ''}`
-              : linkType === 'food'
-                ? `${title} - NBA Arena Food Review${location ? ` in ${location}` : ''}`
-                : linkType === 'story'
-                  ? `${title} - NBA Arena Travel Guide${location ? ` for ${location}` : ''}`
-                  : `${title} - NBA Arena Travel Review`
-          }
-          src={urlForImage(source)?.height(200)?.width(320)?.fit('crop').url()}
+          alt={altText}
+          style={{ objectFit: 'cover' }}
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           priority={priority}
           loading={priority ? undefined : 'lazy'}
         />

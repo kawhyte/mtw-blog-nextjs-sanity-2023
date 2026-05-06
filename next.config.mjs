@@ -1,26 +1,38 @@
 /** @type {import('next').NextConfig} */
 const config = {
   //  staticPageGenerationTimeout: 140000,
+
+  // 1. ADDED: Tell Next.js we are using the experimental App Router
+  experimental: {
+    appDir: true,
+  },
+
+  // 2. ADDED: Enable the SWC compiler for styled-components (Fixes the Sanity Media Plugin error)
+  compiler: {
+    styledComponents: true,
+  },
+
   images: {
+    // Bypass Vercel's image optimization pipeline (Hobby plan: 1,000/month limit).
+    // All resizing, format negotiation (WebP/AVIF), and quality is handled by Sanity CDN
+    // via urlForImage() transformation params in lib/sanity.image.ts.
     unoptimized: true,
     remotePatterns: [
       { hostname: 'cdn.sanity.io' },
       { hostname: 'source.unsplash.com' },
-      { hostname: 'fakeimg.pl' }, // ✅ Fallback image service
+      { hostname: 'fakeimg.pl' },
     ],
-    formats: ['image/avif', 'image/webp'], // ✅ Prioritize AVIF for better compression
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    minimumCacheTTL: 60 * 60 * 24 * 30, // 30 days
   },
+
   typescript: {
     // Set this to false if you want production builds to abort if there's type errors
     ignoreBuildErrors: process.env.VERCEL_ENV === 'production',
   },
   eslint: {
-    /// Set this to false if you want production builds to abort if there's lint errors
+    // Set this to false if you want production builds to abort if there's lint errors
     ignoreDuringBuilds: process.env.VERCEL_ENV === 'production',
   },
+
   async headers() {
     return [
       {

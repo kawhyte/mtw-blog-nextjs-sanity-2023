@@ -1,12 +1,11 @@
-import { urlForImage } from 'lib/sanity.image'
 import { CalendarCheck, MapPin } from 'lucide-react'
-import Image from 'next/image'
 import React from 'react'
 
 import { Skeleton } from '@/components/ui/skeleton'
 
 import PostDate from './PostDate'
 import RatingBadge from './RatingBadge'
+import SanityImage from './SanityImage'
 
 interface NBAArenaCardProps {
   arenaImageSrc: any
@@ -83,29 +82,27 @@ const Arenas = React.memo(
 
             <Skeleton className="absolute inset-0 h-full w-full rounded-md" />
 
-            <Image
-              src={
-                arenaImageSrc?.asset?._ref || arenaImageSrc?.asset?._id
-                  ? urlForImage(arenaImageSrc)
-                      .height(200)
-                      .width(320)
-                      .fit('crop')
-                      .auto('format')
-                      .format('webp')
-                      .quality(85)
-                      .url()
-                  : 'https://fakeimg.pl/320x200?text=Arena+Image&font=georgia'
-              }
-              placeholder="blur"
-              blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAO0lEQVR4nGNgYGBg+P//P1t9fT0TiC0we3ZjxZxZjQ9XLpwwe9nCHkOGGZOyanraY9aumN2wbsn0hmQA/MEWfj4ocjcAAAAASUVORK5CYII="
-              width={320}
-              height={200}
-              className="w-full object-cover object-center brightness-[0.85] "
-              alt={alt}
-              loading={priority ? 'eager' : 'lazy'}
-              priority={priority}
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            />
+            {arenaImageSrc?.asset?._ref || arenaImageSrc?.asset?._id ? (
+              <SanityImage
+                image={arenaImageSrc}
+                width={320}
+                height={200}
+                className="w-full object-cover object-center brightness-[0.85]"
+                alt={alt}
+                loading={priority ? 'eager' : 'lazy'}
+                priority={priority}
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                style={{ objectFit: 'cover' }}
+              />
+            ) : (
+              <img
+                src="https://fakeimg.pl/320x200?text=Arena+Image&font=georgia"
+                width={320}
+                height={200}
+                className="w-full object-cover object-center brightness-[0.85]"
+                alt={alt}
+              />
+            )}
           </div>
 
           <div className=" flex justify-between text-gray-700  ">

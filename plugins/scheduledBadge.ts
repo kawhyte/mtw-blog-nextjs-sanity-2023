@@ -1,6 +1,9 @@
 import { type DocumentBadgeComponent } from 'sanity'
 
-export const ScheduledBadge: DocumentBadgeComponent = ({ draft, published }) => {
+export const ScheduledBadge: DocumentBadgeComponent = ({
+  draft,
+  published,
+}) => {
   const doc = draft ?? published
   const publishedAt = doc?.publishedAt as string | undefined
 

@@ -38,7 +38,6 @@ let featuredInstagram = [
 ]
 
 const InstagramHighlights = ({ instagram }) => {
-
   return (
     <div className="container mx-auto my-12 rounded-xl bg-yellow-50 px-10 py-12 ">
       <div className=" container mx-auto mb-10 flex w-full flex-wrap">

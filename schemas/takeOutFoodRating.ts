@@ -46,7 +46,8 @@ export default defineType({
     }),
     defineField({
       title: 'Would we order from this Restaurant again?',
-      description: 'Overall Satisfaction: Likelihood to reorder, overall experience (10 = Absolutely / 0 = Never)',
+      description:
+        'Overall Satisfaction: Likelihood to reorder, overall experience (10 = Absolutely / 0 = Never)',
       name: 'overallSatisfaction',
       type: 'number',
       validation: (Rule) => Rule.required().min(0).max(10),

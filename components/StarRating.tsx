@@ -87,7 +87,12 @@ const StarRating: React.FC<StarRatingProps> = ({
   }
 
   // --- Destructure results for rendering, providing default color ---
-  const { numericalRating, displayRating, textRating, color = '#808080' } = overallRatingResult
+  const {
+    numericalRating,
+    displayRating,
+    textRating,
+    color = '#808080',
+  } = overallRatingResult
 
   // --- Helper Function to Render Stars ---
   const renderStars = (ratingValue: number) => {

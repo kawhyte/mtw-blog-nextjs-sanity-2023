@@ -62,7 +62,6 @@ export default function MoreStories({
       const start = (page - 1) * itemsPerPage
       const end = start + itemsPerPage
 
-
       try {
         // Fetch data using the Sanity client and the provided paginated query
         const posts = await client.fetch<ContentItem[]>(

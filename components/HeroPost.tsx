@@ -29,7 +29,6 @@ export default function HeroPost(
     location,
   } = props
 
-
   return (
     <section className="mt-10  max-w-full  ">
       <div className=" container mx-auto mb-10 flex w-full flex-wrap">

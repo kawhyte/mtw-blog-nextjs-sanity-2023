@@ -80,8 +80,6 @@ export const getStaticProps: GetStaticProps<
   // Fetch first page of posts and cast to FoodReview[]
   const initialPosts = await getPaginatedFoodReviews(0, ITEMS_PER_PAGE)
 
- 
-
   return {
     props: {
       initialPosts: initialPosts as FoodReview[], // Cast to FoodReview[] for compatibility

@@ -34,10 +34,13 @@ const recommendationFields = groq`
     listType,
     recommendations[] {
         post->{
-            _id, // Added _id for key prop usage
+            _id,
             title,
             "slug": slug.current,
-            coverImage,
+            coverImage {
+              ...,
+              asset->{ _id, metadata { lqip, dimensions { width, height } } }
+            },
             location,
             linkType
         }
@@ -53,7 +56,10 @@ const travelEssentialFields = groq`
     description,
     recommend,
     price,
-    productImage,
+    productImage {
+      ...,
+      asset->{ _id, metadata { lqip, dimensions { width, height } } }
+    },
     categoryName
 `
 
@@ -61,9 +67,15 @@ const travelEssentialFields = groq`
 const arenaFields = groq`
     _id,
     name,
-    "slug": slug.current, 
-    arenaImage,
-    "firstGalleryImage": gallery[0],
+    "slug": slug.current,
+    arenaImage {
+      ...,
+      asset->{ _id, metadata { lqip, dimensions { width, height } } }
+    },
+    "firstGalleryImage": gallery[0] {
+      ...,
+      asset->{ _id, metadata { lqip, dimensions { width, height } } }
+    },
     location,
     buildDate,
     capacity,
@@ -83,20 +95,38 @@ const arenaFields = groq`
 const arenaFieldsDetailed = groq`
     _id,
     name,
-    "slug": slug.current, 
-    arenaImage,
-    gallery,
+    "slug": slug.current,
+    arenaImage {
+      ...,
+      asset->{ _id, metadata { lqip, dimensions { width, height } } }
+    },
+    gallery[] {
+      ...,
+      asset->{ _id, metadata { lqip, dimensions { width, height } } }
+    },
     location,
     buildDate,
     capacity,
-    photoGallerySection,
-    imageGallery,
+    photoGallerySection {
+      mainImage {
+        ...,
+        asset->{ _id, metadata { lqip, dimensions { width, height } } }
+      },
+      otherImages[] {
+        ...,
+        asset->{ _id, metadata { lqip, dimensions { width, height } } }
+      }
+    },
+    imageGallery[] {
+      ...,
+      asset->{ _id, metadata { lqip, dimensions { width, height } } }
+    },
     visited,
     videoUrl,
-    prosConsVerdict { 
-      positives,     
-      negatives,     
-      verdict       
+    prosConsVerdict {
+      positives,
+      negatives,
+      verdict
     },
     arenaReview {
       transportation,
@@ -218,10 +248,16 @@ export const independentGuideFields = groq`
   _id,
   title,
   date,
-  coverImage,
+  coverImage {
+    ...,
+    asset->{ _id, metadata { lqip, dimensions { width, height } } }
+  },
   category,
   content,
-  gallery,
+  gallery[] {
+    ...,
+    asset->{ _id, metadata { lqip, dimensions { width, height } } }
+  },
   tags,
   "slug": slug.current
 `
@@ -270,12 +306,18 @@ export const independentHotelReviewFields = groq`
   category,
   room,
   lounge,
-  coverImage,
+  coverImage {
+    ...,
+    asset->{ _id, metadata { lqip, dimensions { width, height } } }
+  },
   excerpt2,
   blurbSource,
   blurbUrl,
   tip,
-  gallery,
+  gallery[] {
+    ...,
+    asset->{ _id, metadata { lqip, dimensions { width, height } } }
+  },
   youtube,
   hotelRating,
   internetSpeed,
@@ -339,11 +381,17 @@ export const independentFoodReviewFields = groq`
   date,
   location,
   diningType,
-  coverImage,
+  coverImage {
+    ...,
+    asset->{ _id, metadata { lqip, dimensions { width, height } } }
+  },
   excerpt2,
   tip,
   individualFoodRating,
-  gallery,
+  gallery[] {
+    ...,
+    asset->{ _id, metadata { lqip, dimensions { width, height } } }
+  },
   youtube,
   foodRating,
   takeoutRating,

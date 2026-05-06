@@ -105,7 +105,6 @@ export const getStaticProps: GetStaticProps<
     totalCountPromise,
   ])
 
- 
   return {
     props: {
       initialPosts, // Pass the first page (or all in preview)

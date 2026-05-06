@@ -4,7 +4,8 @@ export default defineType({
   name: 'hotelRating',
   type: 'object',
   title: 'hotelRating',
-  description: 'Rating for HOTEL (0–10 scale; 0 = Not available for Gym, Pool, Internet)',
+  description:
+    'Rating for HOTEL (0–10 scale; 0 = Not available for Gym, Pool, Internet)',
   fieldsets: [{ name: 'social', title: 'Give a rating 0–10 for each item' }],
   options: {
     collapsible: true,
