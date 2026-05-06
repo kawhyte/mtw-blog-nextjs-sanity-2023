@@ -1,102 +1,66 @@
-import { defineType } from 'sanity'
-
-const ratingOptions = {
-  list: [
-    { title: '5 stars', value: 5 },
-    { title: '4.5 stars', value: 4.5 },
-    { title: '4 stars', value: 4 },
-    { title: '3.5 stars', value: 3.5 },
-    { title: '3 stars', value: 3 },
-    { title: '2.5 stars', value: 2.5 },
-    { title: '2 stars', value: 2 },
-    { title: '1.5 stars', value: 1.5 },
-    { title: '1 star', value: 1 },
-    { title: '.5 stars', value: 0.5 },
-  ],
-  layout: 'radio',
-}
+import { defineField, defineType } from 'sanity'
 
 export default defineType({
   type: 'object',
   name: 'foodRating',
-  description: 'Rating for Food',
+  description: 'Rating for Food (0–10 scale)',
   title: 'foodRating',
-  fieldsets: [{ name: 'social', title: 'Give a rating 1-5 for each item' }],
+  fieldsets: [{ name: 'social', title: 'Give a rating 0–10 for each item' }],
   options: {
     collapsible: true,
     collapsed: false,
     columns: 3,
   },
-
   fields: [
-    {
+    defineField({
       title: 'Restaurant Location',
       name: 'Restaurant_Location',
       type: 'number',
-      options: ratingOptions,
-      initialValue: 3, // Default value for Restaurant Location
-    },
-    {
+      validation: (Rule) => Rule.required().min(0).max(10),
+      initialValue: 6,
+    }),
+    defineField({
       title: 'Food Flavor & Taste',
       name: 'Flavor_and_Taste',
       type: 'number',
-      options: ratingOptions,
-      initialValue: 3, // Default value for Food Flavor & Taste
-    },
-    {
+      validation: (Rule) => Rule.required().min(0).max(10),
+      initialValue: 6,
+    }),
+    defineField({
       title: 'Food Presentation',
       name: 'Presentation_on_Plate',
       type: 'number',
-      options: ratingOptions,
-      initialValue: 3, // Default value for Food Presentation
-    },
-    {
+      validation: (Rule) => Rule.required().min(0).max(10),
+      initialValue: 6,
+    }),
+    defineField({
       title: 'Restaurant Service/Staff',
       name: 'Restaurant_Service',
       type: 'number',
-      options: ratingOptions,
-      initialValue: 3, // Default value for Restaurant Service/Staff
-    },
-    {
+      validation: (Rule) => Rule.required().min(0).max(10),
+      initialValue: 6,
+    }),
+    defineField({
       title: 'Restaurant Cleanliness',
       name: 'Restaurant_Cleanliness',
       type: 'number',
-      options: ratingOptions,
-      initialValue: 3, // Default value for Restaurant Cleanliness
-    },
-    {
+      validation: (Rule) => Rule.required().min(0).max(10),
+      initialValue: 6,
+    }),
+    defineField({
       title: 'Would we return to this Restaurant?',
+      description: '10 = Absolutely / 0 = Never again',
       name: 'Memorability',
       type: 'number',
-      options: {
-        ...ratingOptions, // Spread the existing options
-        list: [
-          {
-            title: '5 stars - Fo sho! we would travel for this food 👍🏽',
-            value: 5,
-          },
-          {
-            title: '4.5 stars - Yes, but only if we were in the area 😉',
-            value: 4.5,
-          },
-          { title: '4 stars', value: 4 },
-          { title: '3.5 stars', value: 3.5 },
-          { title: '3 stars - Maybe', value: 3 },
-          { title: '2.5 stars', value: 2.5 },
-          { title: '2 stars - ', value: 2 },
-          { title: '1.5 stars - Only if we were starving', value: 1.5 },
-          { title: '1 star - Nah 👎🏽', value: 1 },
-          { title: '.5 star - F*ck No! 🤬', value: 0.5 },
-        ],
-      },
-      initialValue: 3, // Default value for Memorability
-    },
-    {
+      validation: (Rule) => Rule.required().min(0).max(10),
+      initialValue: 6,
+    }),
+    defineField({
       title: 'Food Value',
       name: 'Food_Value',
       type: 'number',
-      options: ratingOptions,
-      initialValue: 3, // Default value for Food Value
-    },
+      validation: (Rule) => Rule.required().min(0).max(10),
+      initialValue: 6,
+    }),
   ],
 })

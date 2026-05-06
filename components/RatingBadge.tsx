@@ -8,7 +8,7 @@ interface RatingBadgeProps {
 
 const RatingBadge = ({ average, textRating, color }: RatingBadgeProps) => {
   // Pre-calculate numeric rating for accessibility
-  const numericRating = (Math.floor(Number(average) * 100) / 100).toFixed(2)
+  const numericRating = (Math.round(Number(average) * 10) / 10).toFixed(1)
 
   return (
     <div

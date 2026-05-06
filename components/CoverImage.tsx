@@ -158,9 +158,7 @@ export default function CoverImage(props: CoverImageProps) {
                 style={{ maxWidth: 'calc(100% - 120px)' }}
               >
                 <RatingBadge
-                  average={(
-                    Math.floor(overallRating.numericalRating * 100) / 100
-                  ).toString()}
+                  average={overallRating.displayRating}
                   textRating={overallRating.textRating}
                   color={overallRating.color}
                 />

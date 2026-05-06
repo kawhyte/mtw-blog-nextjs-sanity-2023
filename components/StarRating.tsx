@@ -28,8 +28,9 @@ interface StarRatingProps {
 // Define a type for the structure returned by calculateRating
 type OverallRating = {
   numericalRating: number
+  displayRating: string
   textRating: string
-  color?: string // Color can be optional
+  color?: string
 }
 
 // The StarRating functional component
@@ -86,7 +87,7 @@ const StarRating: React.FC<StarRatingProps> = ({
   }
 
   // --- Destructure results for rendering, providing default color ---
-  const { numericalRating, textRating, color = '#808080' } = overallRatingResult
+  const { numericalRating, displayRating, textRating, color = '#808080' } = overallRatingResult
 
   // --- Helper Function to Render Stars ---
   const renderStars = (ratingValue: number) => {
@@ -135,7 +136,7 @@ const StarRating: React.FC<StarRatingProps> = ({
           {/* Numerical Rating */}
           <div className="text-gray-900">
             <span className="ml-1 mr-1 font-montserrat text-5xl font-black leading-tight tracking-tighter sm:text-5xl md:text-left md:text-5xl md:leading-none lg:text-5xl">
-              {numericalRating.toFixed(2)}
+              {displayRating}
             </span>
           </div>
           {/* Separator */}
@@ -143,7 +144,7 @@ const StarRating: React.FC<StarRatingProps> = ({
           {/* Adjusted width and color */}
           {/* Star Rendering Area */}
           <div className="mt-1 flex items-center">
-            <StarDisplay ratingValue={numericalRating} />
+            <StarDisplay ratingValue={parseFloat(displayRating)} />
 
             {/* {renderStars(numericalRating)} */}
           </div>
@@ -216,7 +217,7 @@ const StarRating: React.FC<StarRatingProps> = ({
                   <div className="mt-1 flex flex-1 flex-row items-center align-middle text-sm">
                     {' '}
                     {/* Added mt-1 */}
-                    <ProgressRating progress={value} color="slate" />
+                    <ProgressRating progress={value / 2} color="slate" />
                   </div>
                 )}
               </div>

@@ -77,8 +77,11 @@ export default function ReviewRating({
     weights = isTakeoutRating ? TAKEOUT_WEIGHTS : FOOD_WEIGHTS
   }
 
-  const { numericalRating: overallRating, textRating: textScore } =
-    calculateRating(ratings, weights)
+  const {
+    numericalRating: overallRating,
+    displayRating,
+    textRating: textScore,
+  } = calculateRating(ratings, weights)
 
   return (
     <section className="bg-secondary-soft-background rounded-2xl p-6 sm:p-8 my-8">
@@ -86,7 +89,7 @@ export default function ReviewRating({
         <div className="md:col-span-4 flex flex-col items-center md:items-start text-center md:text-left border-b-2 md:border-b-0 md:border-r-2 border-border pb-6 md:pb-0 md:pr-8 mb-6 md:mb-0">
           <h2 className="text-2xl font-bold text-foreground mb-2">{title}</h2>
           <p className="text-7xl font-bold text-secondary mb-2">
-            {Math.floor(overallRating * 100) / 100}
+            {displayRating}
           </p>
           <p className="text-2xl font-semibold text-foreground mb-2">
             {textScore}
@@ -112,7 +115,7 @@ export default function ReviewRating({
                       {getUnavailableText(name)}
                     </span>
                   ) : (
-                    <ProgressRating progress={value} color="secondary" />
+                    <ProgressRating progress={value / 2} color="secondary" />
                   )}
                 </div>
               </div>
