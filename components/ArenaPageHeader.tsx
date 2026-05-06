@@ -47,49 +47,47 @@ function ReviewHeader({ title, arenas, summary, animation }) {
         <section className="body-font text-gray-600">
           <div className=" flex flex-col items-center px-5 py-7 ">
             <div className="grid max-w-4xl grid-cols-6 md:grid-cols-9 lg:grid-cols-12 place-content-center place-items-center gap-2">
-              {displayArenas.map((item, index: number) => (
-                <div key={item._id || item.name}>
-                  <Image
-                    width={64}
-                    height={64}
-                    loading={index < 6 ? 'eager' : 'lazy'}
-                    sizes="64px"
-                    placeholder="blur"
-                    blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAO0lEQVR4nGNgYGBg+P//P1t9fT0TiM0we3ZjxZxZjQ9XLpwwe9nCHkOGGZOyanraY9aumN2wbsn0hmQA/MEWfj4ocjcAAAAASUVORK5CYII="
-                    className="object-cover object-center w-16 h-16 rounded-full"
-                    alt={`${item.name} arena`}
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement
-                      target.src = `https://fakeimg.pl/64x64/f3f4f6/9ca3af?text=${encodeURIComponent(item.name?.substring(0, 3) || 'NBA')}`
-                    }}
-                    src={(() => {
-                      // Try firstGalleryImage first (new optimized field)
-                      const imageRef =
-                        item?.firstGalleryImage?.asset?._ref ||
-                        item?.gallery?.[0]?.asset?._ref ||
-                        item?.arenaImage?.asset?._ref
+              {displayArenas.map((item, index: number) => {
+                // asset is dereferenced in query (_id present, _ref absent) — pass full image object
+                const imageObj = item?.firstGalleryImage || item?.arenaImage
+                let src: string | null = null
+                if (imageObj?.asset?._id) {
+                  try {
+                    src = urlForImage(imageObj)
+                      .height(64)
+                      .width(64)
+                      .fit('crop')
+                      .format('webp')
+                      .quality(85)
+                      .url()
+                  } catch (error) {
+                    console.warn('Error creating image URL:', error)
+                  }
+                }
+                const lqip = imageObj?.asset?.metadata?.lqip
 
-                      if (imageRef) {
-                        try {
-                          return urlForImage(imageRef)
-                            .height(64)
-                            .width(64)
-                            .fit('crop')
-                            .auto('format')
-                            .format('webp')
-                            .quality(85)
-                            .url()
-                        } catch (error) {
-                          console.warn('Error creating image URL:', error)
-                          return `https://fakeimg.pl/64x64/f3f4f6/9ca3af?text=${encodeURIComponent(item.name?.substring(0, 3) || 'NBA')}`
-                        }
-                      }
-
-                      return `https://fakeimg.pl/64x64/f3f4f6/9ca3af?text=${encodeURIComponent(item.name?.substring(0, 3) || 'NBA')}`
-                    })()}
-                  />
-                </div>
-              ))}
+                return (
+                  <div key={item._id || item.name}>
+                    {src ? (
+                      <Image
+                        width={64}
+                        height={64}
+                        loading={index < 6 ? 'eager' : 'lazy'}
+                        sizes="64px"
+                        placeholder={lqip ? 'blur' : 'empty'}
+                        blurDataURL={lqip}
+                        className="object-cover object-center w-16 h-16 rounded-full"
+                        alt={`${item.name} arena`}
+                        src={src}
+                      />
+                    ) : (
+                      <div className="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center text-xs text-gray-500 font-medium">
+                        {item.name?.substring(0, 3) || 'NBA'}
+                      </div>
+                    )}
+                  </div>
+                )
+              })}
             </div>
             <div className="flex max-w-4xl flex-col items-center justify-center pt-8 text-center align-middle   md:items-start lg:grow  ">
               <Link href={''}> </Link>
