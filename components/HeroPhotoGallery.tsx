@@ -10,12 +10,14 @@ interface HeroPhotoGalleryProps {
   onShowAllPhotos: () => void
 }
 
-const FadeImage = ({ image, className, ...props }: { image: any; className?: string; [key: string]: any }) => {
+const FadeImage = ({ image, className, src, alt, ...props }: { image: any; className?: string; src: string; alt: string; [key: string]: any }) => {
   const [isLoaded, setIsLoaded] = useState(false)
   const lqip = image?.asset?.metadata?.lqip
 
   return (
     <Image
+      src={src}
+      alt={alt}
       placeholder={lqip ? 'blur' : 'empty'}
       blurDataURL={lqip}
       onLoad={() => setIsLoaded(true)}
