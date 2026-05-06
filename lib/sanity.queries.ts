@@ -253,7 +253,13 @@ export const independentGuideFields = groq`
     asset->{ _id, metadata { lqip, dimensions { width, height } } }
   },
   category,
-  content,
+  content[] {
+    ...,
+    _type == "image" => {
+      ...,
+      asset->{ _id, metadata { lqip, dimensions { width, height } } }
+    }
+  },
   gallery[] {
     ...,
     asset->{ _id, metadata { lqip, dimensions { width, height } } }

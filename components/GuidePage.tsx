@@ -6,6 +6,7 @@ import PostPageHead from 'components/PostPageHead'
 import { urlForImage } from 'lib/sanity.image'
 import { Guide, Settings } from 'lib/sanity.queries'
 import Image from 'next/image'
+import { useState } from 'react'
 
 import BlogHeader from './BlogHeader'
 import BreadcrumbStructuredData from './BreadcrumbStructuredData'
@@ -24,6 +25,8 @@ export default function GuidePage({
   loading,
 }: GuidePageProps) {
   const { title = 'Travel Guide' } = settings || {}
+  const [coverLoaded, setCoverLoaded] = useState(false)
+  const coverLqip = guide.coverImage?.asset?.metadata?.lqip
 
   return (
     <div>
@@ -54,7 +57,7 @@ export default function GuidePage({
           </header>
 
           {guide.coverImage && (
-            <div className="mb-12 container mx-auto max-w-5xl">
+            <div className="mb-12 container mx-auto max-w-5xl overflow-hidden rounded-lg">
               <Image
                 src={urlForImage(guide.coverImage)
                   .width(1200)
@@ -64,7 +67,11 @@ export default function GuidePage({
                 alt={`${guide.title} - NBA Arena Travel Guide Cover Image`}
                 width={1200}
                 height={630}
-                className="w-full h-auto rounded-lg"
+                priority
+                placeholder={coverLqip ? 'blur' : 'empty'}
+                blurDataURL={coverLqip}
+                onLoad={() => setCoverLoaded(true)}
+                className={`w-full h-auto transition-all duration-700 ease-in-out ${coverLoaded ? 'blur-0 scale-100' : 'blur-xl scale-105'}`}
               />
             </div>
           )}

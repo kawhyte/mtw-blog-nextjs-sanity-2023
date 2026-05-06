@@ -1,19 +1,27 @@
 import { PortableText } from '@portabletext/react'
 import { getImageDimensions } from '@sanity/asset-utils'
 import { urlForImage } from 'lib/sanity.image'
+import Image from 'next/image'
+import { useState } from 'react'
 
 import styles from './PostBody.module.css'
 
-// Image Component
 const SampleImageComponent = ({ value }) => {
+  const [isLoaded, setIsLoaded] = useState(false)
   const { width, height } = getImageDimensions(value)
+  const lqip = value.asset?.metadata?.lqip
+
   return (
     <figure className="image-container">
-      <img
+      <Image
         src={urlForImage(value).height(height).width(width).url()}
         alt={value.alt || ' '}
-        loading="lazy"
-        className="single-image"
+        width={width}
+        height={height}
+        placeholder={lqip ? 'blur' : 'empty'}
+        blurDataURL={lqip}
+        onLoad={() => setIsLoaded(true)}
+        className={`single-image transition-all duration-700 ease-in-out ${isLoaded ? 'blur-0 scale-100' : 'blur-xl scale-105'}`}
         style={{ aspectRatio: width / height }}
       />
       {value.caption && (
