@@ -1,5 +1,6 @@
 import { urlForImage } from 'lib/sanity.image'
 import Image, { ImageProps } from 'next/image'
+import { useState } from 'react'
 
 interface SanityImageAsset {
   _ref?: string
@@ -33,8 +34,11 @@ export default function SanityImage({
   height,
   quality = 85,
   alt,
+  className,
   ...props
 }: SanityImageProps) {
+  const [isLoaded, setIsLoaded] = useState(false)
+
   if (!image?.asset?._ref && !image?.asset?._id) return null
 
   const lqip = image.asset?.metadata?.lqip
@@ -56,6 +60,8 @@ export default function SanityImage({
       blurDataURL={lqip}
       placeholder={lqip ? 'blur' : 'empty'}
       alt={alt ?? image.alt ?? ''}
+      onLoad={() => setIsLoaded(true)}
+      className={`transition-all duration-700 ease-in-out ${isLoaded ? 'blur-0 scale-100' : 'blur-xl scale-105'} ${className ?? ''}`}
       {...props}
     />
   )

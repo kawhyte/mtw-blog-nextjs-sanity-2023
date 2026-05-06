@@ -49,10 +49,11 @@ export default function Footer() {
 
         <span className="flex flex-row sm:ml-auto sm:mt-0 mt-4 justify-center  sm:justify-start cursor-pointer">
           <a
-            className="ml-3  text-primary"
+            className="ml-3 p-2 text-primary"
             rel="noopener noreferrer nofollow"
             target="_blank"
             href="https://www.instagram.com/mtwtravel/"
+            aria-label="Follow us on Instagram"
           >
             <svg
               fill="none"
@@ -60,18 +61,20 @@ export default function Footer() {
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeWidth="2"
-              className="w-8 h-8"
+              className="w-6 h-6"
               viewBox="0 0 24 24"
+              aria-hidden="true"
             >
               <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
               <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01"></path>
             </svg>
           </a>
           <a
-            className="ml-3 text-primary"
+            className="ml-3 p-2 text-primary"
             rel="noopener noreferrer nofollow"
             target="_blank"
             href="https://www.youtube.com/channel/UC519Rsb02cRpbzDNLMWflVA"
+            aria-label="Watch us on YouTube"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -79,8 +82,9 @@ export default function Footer() {
               stroke="currentColor"
               width="24"
               height="24"
-              className="w-8 h-8"
+              className="w-6 h-6"
               viewBox="0 0 24 24"
+              aria-hidden="true"
             >
               <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z" />
             </svg>

@@ -155,7 +155,6 @@ export default function Navbar() {
                   alt="Meet the Whytes - NBA & WNBA Arena Travel Blog Logo"
                   width={45}
                   height={45}
-                  loading="lazy"
                 />
               </span>
             </div>
