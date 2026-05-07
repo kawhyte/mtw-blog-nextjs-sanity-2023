@@ -53,7 +53,23 @@ export function calculateRating(
   let weightedSum = 0
   let totalWeight = 0
 
-  // These hotel amenities use 0 to mean "Not Available", not a poor rating
+  /**
+   * Amenities that treat an exact `0` value as "Not Available" rather than a
+   * legitimate rock-bottom score.
+   *
+   * Preferred signal: leave the Sanity field blank (null/undefined) — the
+   * `typeof rating !== 'number'` guard above already excludes those safely.
+   *
+   * This list is a legacy fallback for documents that were saved with `0`
+   * before the schema enforced optional fields. Because `shouldExcludeZero`
+   * uses strict equality (`=== 0`), a score of `0.1` still flows through as a
+   * real (very poor) rating — intentional, so reviewers can tank an amenity
+   * without hitting the legacy `0` trap.
+   *
+   * WARNING: Adding a field here means no reviewer can ever legitimately
+   * award a 0/10 for that amenity. Only include fields where `0` carries no
+   * meaningful score semantics.
+   */
   const excludableHotelAmenities = ['Pool', 'Gym', 'Internet_Speed']
 
   for (const key in ratingObject) {
@@ -67,6 +83,7 @@ export function calculateRating(
       // Guard against null/undefined/NaN values from unpopulated Sanity fields
       if (typeof rating !== 'number' || isNaN(rating)) continue
 
+      // Strict equality: 0.1 is a real score; only exact 0 triggers legacy exclusion
       const shouldExcludeZero =
         rating === 0 && excludableHotelAmenities.includes(key)
 

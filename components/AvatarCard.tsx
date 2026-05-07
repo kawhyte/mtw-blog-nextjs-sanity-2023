@@ -5,7 +5,7 @@ export default function AuthorAvatar({ data }) {
         <img
           src={data?.image}
           alt={data?.name}
-          className="mx-auto h-24 w-24 md:h-32 md:w-32  rounded-full border-4 border-white object-cover shadow"
+          className="mx-auto h-24 w-24 md:h-32 md:w-32 rounded-lg overflow-hidden object-cover"
         />
         {/* {isPro && (
           <span className="inline-block rounded-full bg-gray-100 px-3 py-1 text-xs text-gray-600">
