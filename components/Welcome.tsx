@@ -103,7 +103,7 @@ function Welcome(): JSX.Element {
       <header className="mx-auto mb-12">
         <SectionTitle
           header="A Little About Us"
-          description={`Hey there! 👋 We're the Whytes, a husband and wife duo with a serious case of wanderlust. Our blog is a digital scrapbook of our adventures, from savoring new foods to exploring incredible destinations and sharing our favorite hobbies along the way. We're here to inspire your next journey!`}
+          description={`We're Rene and Kenny, and we travel for basketball. We're on a mission to cross every single NBA and WNBA arena off our list. But tip-off is only half the trip. This space is our playbook for the culture around it—the hotels we crash in, the local food we hunt down, and the sneakers we pack. Welcome to our courtside lifestyle.`}
         />
       </header>
 
