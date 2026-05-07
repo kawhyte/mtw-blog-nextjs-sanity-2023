@@ -77,7 +77,7 @@ export default function IndexPage(props: IndexPageProps) {
                 description={`Speedy thumbs up/down ratings and bite-sized, Twitter-style reviews of travel gadgets. Discover what truly enhances your adventures with our concise assessments.`}
               />
               <div className="flex   pt-9 lg:mt-0 lg:shrink-0">
-                <div className="w-full px-5">
+                <div className="w-fit px-5">
                   <Button
                     icon={<Plane className="text-pink-500" />}
                     link={'/essentials'}
@@ -111,7 +111,7 @@ export default function IndexPage(props: IndexPageProps) {
 
             {/* You might want a button linking to the actual paginated page */}
             <div className="flex justify-center  pt-9 lg:mt-0 lg:shrink-0">
-              <div className="w-full">
+              <div className="w-fit">
                 <Button
                   icon={<BriefcaseConveyorBelt className="text-pink-500" />}
                   link="/hotels" // Link to the page that shows ALL reviews/guides with pagination
