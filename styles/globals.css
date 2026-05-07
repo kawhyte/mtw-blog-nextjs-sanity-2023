@@ -79,9 +79,9 @@
     /* --- Neutrals --- */
     /* USAGE: Core backgrounds and text colors. */
     --background: 240 8% 98%; /* Light Stone White -> USE FOR: Main page background (`bg-background`) */
-    --foreground: 209 34% 20%; /* Dark Charcoal Blue -> USE FOR: Main body text (`text-foreground`) */
+    --foreground: 215 28% 17%; /* Deep Gray-Charcoal #1F2937 -> USE FOR: Main body text, borders, block shadows (`text-foreground`) */
     --card: 0 0% 100%; /* Pure White -> USE FOR: Card backgrounds (`bg-card`) */
-    --card-foreground: 209 34% 20%; /* Dark Charcoal Blue -> USE FOR: Text inside cards (`text-card-foreground`) */
+    --card-foreground: 215 28% 17%; /* Deep Gray-Charcoal -> USE FOR: Text inside cards (`text-card-foreground`) */
 
     /* --- Muted & Borders --- */
     /* USAGE: Subtle UI elements, dividers, and input fields. */
@@ -89,16 +89,18 @@
     --muted-foreground: 240 4% 46%; /* Medium Gray -> USE FOR: Placeholder text or secondary info (`text-muted-foreground`) */
     --border: 30 8% 90%; /* Light Gray -> USE FOR: Component borders (`border-border`) */
     --input: 30 8% 85%; /* Slightly darker gray -> USE FOR: Input field borders (`border-input`) */
-    --border-bold: 209 34% 20%; /* Dark Charcoal Blue -> USE FOR: Bold card/container borders (`border-border-bold`) */
+    --border-bold: 215 28% 17%; /* Deep Gray-Charcoal -> USE FOR: Bold card/container borders, Neo-Brutalist 4px structural borders (`border-border-bold`) */
 
     /* --- Brand Colors (Your Core Palette) --- */
     /* USAGE: Primary actions, links, and highlighted UI elements. */
     --primary: 330 81% 62%; /* Tailwind Pink-500 -> USE FOR: Primary buttons, important links (`bg-primary`, `text-primary`) */
     --primary-foreground: 330 81% 98%; /* Very light pink -> USE FOR: Text on top of primary color elements (`text-primary-foreground`) */
     --primary-soft-background: 330 100% 98%; /* Very light pink tint -> USE FOR: Large section backgrounds */
-    --secondary: 262 92% 65%; /* Tailwind Purple-500 -> USE FOR: Secondary buttons, alternative actions (`bg-secondary`) */
-    --secondary-foreground: 262 92% 98%; /* Very light purple -> USE FOR: Text on top of secondary color elements (`text-secondary-foreground`) */
-    --secondary-soft-background: 262 100% 98%; /* Very light purple tint -> USE FOR: Large section backgrounds */
+    --secondary: 239 84% 67%; /* Indigo #6366F1 -> USE FOR: Secondary buttons, alternative actions (`bg-secondary`) */
+    --secondary-foreground: 239 84% 98%; /* Very light indigo -> USE FOR: Text on top of secondary color elements (`text-secondary-foreground`) */
+    --secondary-soft-background: 239 100% 98%; /* Very light indigo tint -> USE FOR: Large section backgrounds */
+    --tertiary: 324 88% 95%; /* Soft Pink Tint #FCE7F3 -> USE FOR: Large decorative surfaces (`bg-tertiary`) */
+    --tertiary-foreground: 330 81% 30%; /* Deep Pink -> USE FOR: Text on tertiary surfaces (`text-tertiary-foreground`) */
 
     /* --- Accent & Semantic Colors --- */
     /* USAGE: For visual flair and communicating status (success, error). */
@@ -141,9 +143,11 @@
     --primary: 330 81% 62%;
     --primary-foreground: 330 81% 98%;
     --primary-soft-background: 330 40% 14%; /* Dark, subtle pink tint */
-    --secondary: 262 92% 65%;
-    --secondary-foreground: 262 92% 98%;
-    --secondary-soft-background: 262 40% 14%; /* Dark, subtle purple tint */
+    --secondary: 239 84% 67%;
+    --secondary-foreground: 239 84% 98%;
+    --secondary-soft-background: 239 40% 14%; /* Dark, subtle indigo tint */
+    --tertiary: 330 40% 14%; /* Dark, subtle tertiary tint */
+    --tertiary-foreground: 330 81% 80%;
     --accent: 209 34% 25%;
     --accent-foreground: 240 8% 98%;
     --destructive: 0 72% 51%;
@@ -175,6 +179,8 @@
   --color-secondary: hsl(var(--secondary));
   --color-secondary-foreground: hsl(var(--secondary-foreground));
   --color-secondary-soft-background: hsl(var(--secondary-soft-background));
+  --color-tertiary: hsl(var(--tertiary));
+  --color-tertiary-foreground: hsl(var(--tertiary-foreground));
   --color-muted: hsl(var(--muted));
   --color-muted-foreground: hsl(var(--muted-foreground));
   --color-accent: hsl(var(--accent));
@@ -244,6 +250,9 @@
     --font-space-grotesk: 'Space Grotesk', system-ui, sans-serif;
     --font-roboto-mono: 'Roboto Mono', 'Courier New', monospace;
     --font-oswald: 'Oswald', system-ui, sans-serif;
+    /* Neo-Brutalist design system fonts */
+    --font-heading: 'Epilogue', system-ui, sans-serif;
+    --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
   }
 
   /* Font styles */
@@ -253,7 +262,7 @@
   h4,
   h5,
   h6 {
-    font-family: var(--font-montserrat);
+    font-family: var(--font-heading);
     font-weight: 800;
     @apply text-foreground;
   }
@@ -262,11 +271,27 @@
   span,
   div,
   li {
-    font-family: var(--font-raleway);
+    font-family: var(--font-body);
   }
 }
 
 /* You can keep your custom @layer utilities here as well */
 @layer utilities {
   /* Your .font-adventure-heading, etc. can remain here */
+
+  /* Neo-Brutalist signature block shadows */
+  .shadow-brutalist {
+    box-shadow: 4px 4px 0px 0px hsl(var(--foreground));
+  }
+  .shadow-brutalist-sm {
+    box-shadow: 2px 2px 0px 0px hsl(var(--foreground));
+  }
+  /* Tactile "press" state — pair with hover:translate-x-[2px] hover:translate-y-[2px] */
+  .shadow-brutalist-pressed {
+    box-shadow: 2px 2px 0px 0px hsl(var(--foreground));
+  }
+  .hover\:shadow-brutalist-pressed:hover {
+    box-shadow: 2px 2px 0px 0px hsl(var(--foreground));
+    transform: translate(2px, 2px);
+  }
 }

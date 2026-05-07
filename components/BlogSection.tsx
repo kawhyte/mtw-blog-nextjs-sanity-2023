@@ -5,7 +5,7 @@ export default function BlogSection({ children, className, ...props }) {
   return (
     <section
       className={twMerge(
-        'container mx-auto  sm:rounded-2xl  py-9 text-gray-600 lg:mb-24  ',
+        'container mx-auto sm:rounded-2xl py-16 md:py-24 text-gray-600',
         className,
       )}
       {...props}

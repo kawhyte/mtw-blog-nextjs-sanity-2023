@@ -1,4 +1,3 @@
-import { oswald } from 'app/fonts'
 import cn from 'classnames'
 
 interface SectionTitleProps {
@@ -20,17 +19,17 @@ export default function SectionTitle({
         'text-center': isCentered,
       })}
     >
-      <h1 className="font-adventure-heading capitalize text-2xl sm:text-3xl md:text-4xl font-extrabold text-blog-heading">
+      <h2
+        className={cn(
+          'text-sm font-bold uppercase tracking-widest border-b-4 border-foreground pb-2 mb-6',
+          { 'mx-auto max-w-fit': isCentered },
+        )}
+      >
         {header}
-      </h1>
-      <div
-        className={cn('h-1.5 w-24 mt-2 rounded-full bg-brand-primary', {
-          'mx-auto': isCentered,
-        })}
-      ></div>
+      </h2>
 
       {description && (
-        <p className="font-adventure-body mt-4 text-base leading-relaxed text-blog-text-light md:text-lg lg:text-xl max-w-4xl">
+        <p className="mt-4 text-base leading-relaxed text-muted-foreground md:text-lg max-w-4xl">
           {description}
         </p>
       )}

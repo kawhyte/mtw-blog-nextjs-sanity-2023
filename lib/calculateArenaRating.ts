@@ -37,15 +37,12 @@ export default function calculateAverageRating(
   const weights = { ...defaultWeights, ...customWeights } // Merge default and custom weights
 
   for (const key in arenaReview) {
-    if (
-      typeof arenaReview[key] === 'number' &&
-      !isNaN(arenaReview[key] as number) &&
-      Object.prototype.hasOwnProperty.call(weights, key)
-    ) {
-      const weight = weights[key]!
-      weightedSum += (arenaReview[key] as number) * weight
-      totalWeight += weight
-    }
+    if (!Object.prototype.hasOwnProperty.call(weights, key)) continue
+    const value = arenaReview[key]
+    if (typeof value !== 'number' || isNaN(value)) continue
+    const weight = weights[key]!
+    weightedSum += value * weight
+    totalWeight += weight
   }
 
   const averageRaw = totalWeight > 0 ? weightedSum / totalWeight / 2 : 0

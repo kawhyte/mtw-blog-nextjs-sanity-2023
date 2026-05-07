@@ -21,6 +21,9 @@ module.exports = {
         ],
         'roboto-mono': ['var(--font-roboto-mono)', 'Courier New', 'monospace'],
         oswald: ['var(--font-oswald)', 'system-ui', 'sans-serif'],
+        // Neo-Brutalist design system fonts
+        epilogue: ['var(--font-heading)', 'system-ui', 'sans-serif'],
+        'plus-jakarta-sans': ['var(--font-body)', 'system-ui', 'sans-serif'],
       },
     },
   },

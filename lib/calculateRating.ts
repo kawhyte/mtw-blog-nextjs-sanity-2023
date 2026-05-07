@@ -36,6 +36,15 @@ const ratingColorMap: { [threshold: number]: string } = {
   0: '#991B1B', // Horrible
 }
 
+// Pre-computed at module scope — avoids re-sorting on every call
+const _sortedDefaultThresholds = Object.keys(defaultRatingThresholds)
+  .map(Number)
+  .sort((a, b) => b - a)
+
+const _sortedDefaultColors = Object.keys(ratingColorMap)
+  .map(Number)
+  .sort((a, b) => b - a)
+
 export function calculateRating(
   ratingObject: RatingObject,
   weights: RatingWeights,
@@ -73,9 +82,12 @@ export function calculateRating(
   // Convert 10-point score to 5-point display value with strict 1-decimal formatting
   const displayRating = (Math.round((numericalRating / 2) * 10) / 10).toFixed(1)
 
-  const sortedThresholds = Object.keys(ratingThresholds)
-    .map(Number)
-    .sort((a, b) => b - a)
+  const sortedThresholds =
+    ratingThresholds === defaultRatingThresholds
+      ? _sortedDefaultThresholds
+      : Object.keys(ratingThresholds)
+          .map(Number)
+          .sort((a, b) => b - a)
 
   let textRating =
     ratingThresholds[sortedThresholds[sortedThresholds.length - 1]]
@@ -88,9 +100,7 @@ export function calculateRating(
   }
 
   let color: string | undefined
-  for (const threshold of Object.keys(ratingColorMap)
-    .map(Number)
-    .sort((a, b) => b - a)) {
+  for (const threshold of _sortedDefaultColors) {
     if (numericalRating >= threshold) {
       color = ratingColorMap[threshold]
       break

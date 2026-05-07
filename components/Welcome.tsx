@@ -19,6 +19,7 @@ import AvatarCard from './AvatarCard'
 import CountriesCard from './CountriesCard'
 import InterestCard from './InterestCard'
 import SectionTitle from './SectionTitle'
+import { Section } from './ui/Section'
 
 // Interfaces for the data
 interface Duo {
@@ -98,7 +99,7 @@ function Welcome(): JSX.Element {
   ]
 
   return (
-    <div className="container mx-auto space-y-16 py-12">
+    <Section as="div" spacing="standard" className="container mx-auto space-y-16">
       <header className="mx-auto mb-12">
         <SectionTitle
           header="A Little About Us"
@@ -117,7 +118,7 @@ function Welcome(): JSX.Element {
         <InterestCard interests={interests} />
         <CountriesCard countries={countries} />
       </div>
-    </div>
+    </Section>
   )
 }
 

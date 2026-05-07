@@ -12,7 +12,7 @@ const buttonVariants = cva(
   [
     // Base styles - exactly matching the original
     'relative z-10 flex w-full items-center overflow-hidden whitespace-nowrap',
-    'rounded-[36px] bg-white font-medium uppercase leading-6 tracking-tight',
+    'rounded-[36px] bg-white font-medium uppercase leading-none tracking-tight',
     'text-gray-700 transition-transform duration-300 scale-95',
     // Pseudo elements for the original shine and gradient effects
     'before:absolute before:inset-0 before:-z-10 before:rounded-[36px]',
@@ -112,16 +112,16 @@ export default function Button({
   const hoverColorClass = `hover:bg-${hoverColor}`
 
   const buttonContent = (
-    <div className="w-full flex">
-      {iconElement && <span className="mr-2">{iconElement}</span>}
+    <div className="w-full flex items-center">
+      {iconElement && <span className="mr-2 flex items-center justify-center">{iconElement}</span>}
       <div
-        className={cn('w-full flex', {
+        className={cn('w-full flex items-center', {
           'justify-start': align === 'left',
           'justify-center': align === 'center',
           'justify-end': align === 'right',
         })}
       >
-        <div className={alignTextClasses[align]}>
+        <div className={cn(alignTextClasses[align], 'mt-[1px]')}>
           {text}
           {children}
         </div>

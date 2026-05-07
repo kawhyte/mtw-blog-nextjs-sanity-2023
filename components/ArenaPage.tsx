@@ -45,6 +45,7 @@ import BlogHeader from './BlogHeader'
 import HeroPhotoGallery from './HeroPhotoGallery'
 import PostBody from './PostBody'
 import RevisitTimeline from './RevisitTimeline'
+import { Section } from './ui/Section'
 
 interface ArenaPageProps {
   arena: Arena
@@ -176,7 +177,7 @@ export default function ArenaPage({
           />
         )}
 
-        <article className="container mx-auto px-4 py-8 md:px-6 md:py-12">
+        <Section as="article" spacing="tight" className="container mx-auto px-4 md:px-6">
           {/* --- Header & Teams --- */}
           <header className="mb-12 flex flex-col md:flex-row md:items-center md:justify-between">
             <div>
@@ -434,7 +435,7 @@ export default function ArenaPage({
               />
             </section>
           )}
-        </article>
+        </Section>
       </Layout>
     </div>
   )
