@@ -125,8 +125,8 @@ export default function Navbar() {
           <div className="relative w-full">
             <input
               type="text"
-              placeholder="Search for Hotels, Restaurants, or Guides..."
-              className="w-full rounded-full border border-input bg-card py-2 pl-4 pr-10 focus:outline-none focus:ring-2 focus:ring-ring"
+              placeholder="Search Hotels, Restaurants, Guides, or Arenas..."
+              className="w-full rounded-full border border-input bg-card py-3 pl-5 pr-12 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-foreground transition-shadow duration-150"
               value={searchTerm}
               onChange={handleSearchChange}
               autoFocus // Automatically focus the input when it appears
@@ -172,8 +172,8 @@ export default function Navbar() {
           <div className="relative">
             <input
               type="text"
-              placeholder="Search for Hotels, Restaurants, or Guides..."
-              className="w-full rounded-full border border-input bg-card py-2 pl-4 pr-10 focus:outline-none focus:ring-2 focus:ring-ring"
+              placeholder="Search Hotels, Restaurants, Guides, or Arenas..."
+              className="w-full rounded-full border border-input bg-card py-2 pl-4 pr-10 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-foreground transition-shadow duration-150"
               value={searchTerm}
               onChange={handleSearchChange}
             />

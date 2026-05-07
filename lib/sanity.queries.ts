@@ -620,6 +620,14 @@ export const globalSearchQuery = groq`
   )] {
     ${independentGuideFields},
     "_contentType": "guide"
+  },
+  "arenas": *[_type == "arenas" && visited == true && (
+    name match $searchTerm ||
+    location match $searchTerm
+  )] {
+    ${arenaFields},
+    "title": name,
+    "_contentType": "arena"
   }
 }`
 

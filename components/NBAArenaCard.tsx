@@ -22,7 +22,7 @@ interface NBAArenaCardProps {
   textRating: string
   ratingColor: string
   arenaReview?: any | null
-  rank: number
+  rank?: number
   priority?: boolean
 }
 
@@ -55,7 +55,7 @@ const Arenas = React.memo(
           }  `}
         >
           <div className="relative">
-            {rank && (
+            {!!rank && (
               <div
                 className="absolute left-3 top-3 z-30 rounded-full bg-black bg-opacity-70 px-2 py-1 text-xs font-bold text-white min-h-[32px] flex items-center"
                 role="status"
