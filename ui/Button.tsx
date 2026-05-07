@@ -11,8 +11,8 @@ import { cn } from '@/lib/utils'
 const buttonVariants = cva(
   [
     // Base styles - exactly matching the original
-    'relative z-10 flex w-full items-center overflow-hidden whitespace-nowrap',
-    'rounded-[36px] bg-white font-medium uppercase leading-none tracking-tight',
+    'relative z-10 flex w-full items-center overflow-hidden whitespace-normal',
+    'rounded-[36px] bg-white font-medium uppercase leading-tight tracking-tight',
     'text-gray-700 transition-transform duration-300 scale-95',
     // Pseudo elements for the original shine and gradient effects
     'before:absolute before:inset-0 before:-z-10 before:rounded-[36px]',
@@ -33,10 +33,10 @@ const buttonVariants = cva(
   {
     variants: {
       size: {
-        xs: 'text-xs py-1 px-3',
-        sm: 'text-sm py-1 px-3',
-        md: 'text-base py-2 px-5',
-        lg: 'text-lg py-3 px-7',
+        xs: 'text-xs py-1 px-2 md:px-3',
+        sm: 'text-sm py-1 px-3 md:px-4',
+        md: 'text-base py-2 px-4 md:px-5',
+        lg: 'text-lg py-3 px-4 md:px-7',
       },
       fontSize: {
         sm: 'text-xs',
@@ -113,7 +113,7 @@ export default function Button({
 
   const buttonContent = (
     <div className="w-full flex items-center">
-      {iconElement && <span className="mr-2 flex items-center justify-center">{iconElement}</span>}
+      {iconElement && <span className="mr-2 flex items-center justify-center shrink-0">{iconElement}</span>}
       <div
         className={cn('w-full flex items-center', {
           'justify-start': align === 'left',
@@ -121,7 +121,7 @@ export default function Button({
           'justify-end': align === 'right',
         })}
       >
-        <div className={cn(alignTextClasses[align], 'mt-[1px]')}>
+        <div className={cn(alignTextClasses[align], 'mt-[1px] text-balance whitespace-normal break-words min-w-0 leading-tight')}>
           {text}
           {children}
         </div>
