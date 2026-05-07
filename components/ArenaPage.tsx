@@ -2,7 +2,9 @@
 
 import Layout from 'components/BlogLayout'
 import PostPageHead from 'components/PostPageHead'
+import calculateAverageRating from 'lib/calculateArenaRating'
 import { usePhotoGallery } from 'hooks/usePhotoGallery'
+import { computeTimelineEntries, getEffectiveRating } from 'lib/mergeRatings'
 import { urlForImage } from 'lib/sanity.image'
 import { Arena, Settings } from 'lib/sanity.queries'
 import {
@@ -42,6 +44,7 @@ import { Separator } from '@/components/ui/separator'
 import BlogHeader from './BlogHeader'
 import HeroPhotoGallery from './HeroPhotoGallery'
 import PostBody from './PostBody'
+import RevisitTimeline from './RevisitTimeline'
 
 interface ArenaPageProps {
   arena: Arena
@@ -57,6 +60,15 @@ const ratingIcons = {
   vibes: <Users className="h-5 w-5 text-muted-foreground" />,
   view: <Ticket className="h-5 w-5 text-muted-foreground" />,
   walkability: <Footprints className="h-5 w-5 text-muted-foreground" />,
+}
+
+const ARENA_RATING_LABELS: Record<string, string> = {
+  transportation: 'Transportation',
+  walkability: 'Walkability',
+  seatComfort: 'Seat Comfort',
+  food: 'Food',
+  view: 'View',
+  vibes: 'Vibes',
 }
 
 const formatCategoryName = (category: string) => {
@@ -101,26 +113,53 @@ export default function ArenaPage({
     prevImage,
   } = usePhotoGallery(rawGalleryImages[0], rawGalleryImages.slice(1))
 
-  const calculateOverallRating = (review: any) => {
-    if (!review) {
-      return 'N/A'
-    }
-    const ratings = Object.values(review).filter(
-      (val) => typeof val === 'number',
-    )
-    if (ratings.length === 0) {
-      return 'N/A'
-    }
-    const sum = ratings.reduce(
-      (acc, rating) => (acc as number) + (rating as number),
-      0,
-    ) as number
-    const average = sum / ratings.length
-    // The ratings are out of 10, but the display is out of 5.
-    return (average / 2).toFixed(1)
-  }
+  // Compute effective arena review by accumulating all revisit updates
+  const effectiveArenaReview = arena.arenaReview
+    ? getEffectiveRating(
+        arena.arenaReview as Record<string, number | undefined>,
+        (arena.revisits ?? []).map((r) => ({
+          visitDate: r.visitDate,
+          ratingUpdates: r.ratingUpdates as Record<string, number | undefined>,
+        })),
+      )
+    : arena.arenaReview
 
-  const overallRating = calculateOverallRating(arena.arenaReview)
+  const ratingResult = effectiveArenaReview
+    ? calculateAverageRating(effectiveArenaReview as any)
+    : null
+
+  const overallRating = ratingResult ? ratingResult.average : 'N/A'
+
+  // Compute original (base) rating for timeline baseline
+  const originalRatingResult = arena.arenaReview
+    ? calculateAverageRating(arena.arenaReview as any)
+    : null
+
+  // Compute timeline entries with per-revisit deltas
+  const timelineEntries =
+    arena.revisits?.length && arena.arenaReview
+      ? computeTimelineEntries(
+          arena.arenaReview as Record<string, number | undefined>,
+          (arena.revisits ?? []).map((r) => ({
+            visitDate: r.visitDate,
+            notes: r.notes,
+            ratingUpdates: r.ratingUpdates as Record<string, number | undefined>,
+          })),
+          ARENA_RATING_LABELS,
+        ).map((entry) => {
+          const result = calculateAverageRating(
+            entry.accumulatedState as any,
+          )
+          return {
+            visitDate: entry.visitDate,
+            notes: entry.notes,
+            deltas: entry.deltas,
+            displayRating: result.average,
+            textRating: result.textRating,
+            color: result.color,
+          }
+        })
+      : []
 
   return (
     <div>
@@ -218,8 +257,8 @@ export default function ArenaPage({
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-6">
-                  {arena.arenaReview &&
-                    Object.entries(arena.arenaReview).map(
+                  {effectiveArenaReview &&
+                    Object.entries(effectiveArenaReview).map(
                       ([category, score]) =>
                         typeof score === 'number' && (
                           <div key={category}>
@@ -289,6 +328,19 @@ export default function ArenaPage({
               </Card>
             </div>
           </div>
+
+          {/* Visit History Timeline */}
+          {timelineEntries.length > 0 && originalRatingResult && arena.date && (
+            <div className="mt-8">
+              <RevisitTimeline
+                originalDate={arena.date}
+                originalDisplayRating={originalRatingResult.average}
+                originalTextRating={originalRatingResult.textRating}
+                originalColor={originalRatingResult.color}
+                entries={timelineEntries}
+              />
+            </div>
+          )}
 
           {/* Pros, Cons, Verdict */}
           {arena.prosConsVerdict && (

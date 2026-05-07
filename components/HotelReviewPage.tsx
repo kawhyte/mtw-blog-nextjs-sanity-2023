@@ -9,6 +9,9 @@ import ProConList from 'components/ProConList'
 import RoomTech from 'components/RoomTech'
 import VideoPlayer from 'components/Youtube'
 import * as demo from 'lib/demo.data'
+import { calculateRating } from 'lib/calculateRating'
+import { computeTimelineEntries, getEffectiveRating } from 'lib/mergeRatings'
+import { HOTEL_WEIGHTS } from 'lib/ratingWeights'
 import type { HotelReview, Settings } from 'lib/sanity.queries'
 import {
   Bath,
@@ -30,6 +33,7 @@ import { useCallback, useEffect, useState } from 'react'
 import BreadcrumbStructuredData from './BreadcrumbStructuredData'
 import HelpfulTip from './HelpfulTip'
 import HeroPhotoGallery from './HeroPhotoGallery'
+import RevisitTimeline from './RevisitTimeline'
 import ReviewBlurb from './ReviewBlurb'
 import ReviewRating from './ReviewRating'
 import ReviewStructuredData from './ReviewStructuredData'
@@ -43,6 +47,18 @@ export interface HotelReviewPageProps {
 
 import { usePhotoGallery } from 'hooks/usePhotoGallery'
 import { urlForImage } from 'lib/sanity.image'
+
+const HOTEL_RATING_LABELS: Record<string, string> = {
+  Location: 'Location',
+  Bed_Comfort: 'Bed Comfort',
+  Service: 'Service',
+  Value: 'Value',
+  Room_Cleanliness: 'Cleanliness',
+  Room_Amenities: 'Room Amenities',
+  Internet_Speed: 'Internet Speed',
+  Gym: 'Gym',
+  Pool: 'Pool',
+}
 
 const hotelRatingIcons = {
   Value: <Star className="h-5 w-5 mr-2 " />,
@@ -59,6 +75,53 @@ const hotelRatingIcons = {
 function HotelReviewPageContent(props: HotelReviewPageProps) {
   const { preview, loading, hotelReview, settings } = props
   const { title = demo.title } = settings || {}
+
+  // Compute effective rating by accumulating all revisit updates
+  const effectiveHotelRating = hotelReview.hotelRating
+    ? getEffectiveRating(
+        hotelReview.hotelRating as Record<string, number | undefined>,
+        (hotelReview.revisits ?? []).map((r) => ({
+          visitDate: r.visitDate,
+          ratingUpdates: r.ratingUpdates as Record<string, number | undefined>,
+        })),
+      )
+    : hotelReview.hotelRating
+
+  // Compute original rating for the timeline baseline
+  const originalRatingResult =
+    hotelReview.hotelRating
+      ? calculateRating(
+          hotelReview.hotelRating as Record<string, number>,
+          HOTEL_WEIGHTS,
+        )
+      : null
+
+  // Compute timeline entries with per-revisit deltas
+  const timelineEntries =
+    hotelReview.revisits?.length && hotelReview.hotelRating
+      ? computeTimelineEntries(
+          hotelReview.hotelRating as Record<string, number | undefined>,
+          (hotelReview.revisits ?? []).map((r) => ({
+            visitDate: r.visitDate,
+            notes: r.notes,
+            ratingUpdates: r.ratingUpdates as Record<string, number | undefined>,
+          })),
+          HOTEL_RATING_LABELS,
+        ).map((entry) => {
+          const result = calculateRating(
+            entry.accumulatedState as Record<string, number>,
+            HOTEL_WEIGHTS,
+          )
+          return {
+            visitDate: entry.visitDate,
+            notes: entry.notes,
+            deltas: entry.deltas,
+            displayRating: result.displayRating,
+            textRating: result.textRating,
+            color: result.color ?? '#6B7280',
+          }
+        })
+      : []
 
   const {
     galleryImages,
@@ -150,12 +213,22 @@ function HotelReviewPageContent(props: HotelReviewPageProps) {
           )}
 
           <div className="space-y-12 md:space-y-16">
-            {hotelReview.hotelRating && (
+            {effectiveHotelRating && (
               <ReviewRating
-                ratings={hotelReview.hotelRating}
+                ratings={effectiveHotelRating}
                 ratingIcons={hotelRatingIcons}
                 title="Hotel Rating"
                 reviewType="hotel"
+              />
+            )}
+
+            {timelineEntries.length > 0 && originalRatingResult && hotelReview.date && (
+              <RevisitTimeline
+                originalDate={hotelReview.date}
+                originalDisplayRating={originalRatingResult.displayRating}
+                originalTextRating={originalRatingResult.textRating}
+                originalColor={originalRatingResult.color ?? '#6B7280'}
+                entries={timelineEntries}
               />
             )}
 

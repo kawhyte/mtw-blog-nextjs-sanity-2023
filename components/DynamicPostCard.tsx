@@ -6,7 +6,7 @@ import { inter } from 'app/fonts'
 import Date from 'components/PostDate'
 import type { FoodReview, Guide, HotelReview, Post } from 'lib/sanity.queries'
 // Import Lucide icons
-import { Calendar, Hotel, MapPin } from 'lucide-react'
+import { Calendar, Hotel, MapPin, RefreshCw } from 'lucide-react'
 import Link from 'next/link'
 
 import { Badge } from '@/components/ui/badge'
@@ -39,6 +39,7 @@ interface DynamicPostCardProps {
   excerpt2?: any
   category?: string
   visited?: boolean
+  revisitCount?: number
 }
 
 // Your existing helper functions - no change here
@@ -98,6 +99,7 @@ const DynamicPostCard = ({
   location,
   category,
   visited,
+  revisitCount,
 }: DynamicPostCardProps) => {
   const safeSlug = slug ?? ''
   const href = `${getLinkPrefix(linkType)}/${safeSlug}`
@@ -142,6 +144,15 @@ const DynamicPostCard = ({
 
       <CardContent className="flex grow flex-col justify-between p-4">
         <div className="flex flex-col sm:mb-2 sm:ml-2 sm:gap-y-2">
+          {revisitCount && revisitCount > 0 ? (
+            <div className="flex items-center gap-1 text-[11px] font-medium text-muted-foreground">
+              <RefreshCw className="h-3 w-3" />
+              <span>
+                {revisitCount === 1 ? 'Revisited' : `${revisitCount + 1} visits`}
+              </span>
+            </div>
+          ) : null}
+
           <Link
             href={href}
             className={`${inter.variable} font-secondary`}

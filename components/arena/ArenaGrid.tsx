@@ -60,6 +60,7 @@ export default function ArenaGrid({ arenas }: ArenaGridProps) {
               ratingColor={displayRating.color}
               rank={rank}
               priority={isPriority}
+              revisitCount={arena.revisitCount}
             />
           </Link>
         )

@@ -321,6 +321,148 @@ export default defineType({
           })
           .warning(),
     }),
+
+    defineField({
+      name: 'revisits',
+      title: 'Revisit History',
+      description:
+        'Log subsequent visits. Only fill in the rating categories that actually changed.',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          title: 'Revisit',
+          options: { collapsible: true, collapsed: false },
+          fields: [
+            defineField({
+              name: 'visitDate',
+              title: 'Visit Date',
+              type: 'datetime',
+              validation: (rule) => rule.required(),
+            }),
+            defineField({
+              name: 'notes',
+              title: 'What Changed?',
+              description:
+                'Describe what improved or declined since the original visit.',
+              type: 'array',
+              of: [{ type: 'block' }],
+              validation: (rule) => rule.required(),
+            }),
+            defineField({
+              name: 'foodRatingUpdates',
+              title: 'Changed Dine-in Ratings Only',
+              description:
+                'Leave blank for unchanged categories. Only visible for dine-in reviews.',
+              type: 'object',
+              hidden: ({ document }) => document?.diningType !== 'dinein',
+              options: { collapsible: true, collapsed: true, columns: 3 },
+              fields: [
+                {
+                  name: 'Flavor_and_Taste',
+                  title: 'Flavor & Taste',
+                  type: 'number',
+                  validation: (rule) => rule.min(0).max(10),
+                },
+                {
+                  name: 'Food_Value',
+                  title: 'Food Value',
+                  type: 'number',
+                  validation: (rule) => rule.min(0).max(10),
+                },
+                {
+                  name: 'Restaurant_Service',
+                  title: 'Service',
+                  type: 'number',
+                  validation: (rule) => rule.min(0).max(10),
+                },
+                {
+                  name: 'Memorability',
+                  title: 'Memorability',
+                  type: 'number',
+                  validation: (rule) => rule.min(0).max(10),
+                },
+                {
+                  name: 'Presentation_on_Plate',
+                  title: 'Presentation',
+                  type: 'number',
+                  validation: (rule) => rule.min(0).max(10),
+                },
+                {
+                  name: 'Restaurant_Cleanliness',
+                  title: 'Cleanliness',
+                  type: 'number',
+                  validation: (rule) => rule.min(0).max(10),
+                },
+                {
+                  name: 'Restaurant_Location',
+                  title: 'Location',
+                  type: 'number',
+                  validation: (rule) => rule.min(0).max(10),
+                },
+              ],
+            }),
+            defineField({
+              name: 'takeoutRatingUpdates',
+              title: 'Changed Takeout Ratings Only',
+              description:
+                'Leave blank for unchanged categories. Only visible for takeout reviews.',
+              type: 'object',
+              hidden: ({ document }) => document?.diningType !== 'takeout',
+              options: { collapsible: true, collapsed: true, columns: 3 },
+              fields: [
+                {
+                  name: 'tasteAndFlavor',
+                  title: 'Taste & Flavor',
+                  type: 'number',
+                  validation: (rule) => rule.min(0).max(10),
+                },
+                {
+                  name: 'foodValue',
+                  title: 'Food Value',
+                  type: 'number',
+                  validation: (rule) => rule.min(0).max(10),
+                },
+                {
+                  name: 'overallSatisfaction',
+                  title: 'Overall Satisfaction',
+                  type: 'number',
+                  validation: (rule) => rule.min(0).max(10),
+                },
+                {
+                  name: 'presentation',
+                  title: 'Presentation',
+                  type: 'number',
+                  validation: (rule) => rule.min(0).max(10),
+                },
+                {
+                  name: 'packaging',
+                  title: 'Packaging',
+                  type: 'number',
+                  validation: (rule) => rule.min(0).max(10),
+                },
+                {
+                  name: 'accuracy',
+                  title: 'Accuracy',
+                  type: 'number',
+                  validation: (rule) => rule.min(0).max(10),
+                },
+              ],
+            }),
+          ],
+          preview: {
+            select: { date: 'visitDate' },
+            prepare({ date }) {
+              return {
+                title: date
+                  ? `Revisit: ${new Date(date).toLocaleDateString('en-US', { dateStyle: 'medium' })}`
+                  : 'Revisit: No date set',
+              }
+            },
+          },
+        },
+      ],
+    }),
   ],
 
   preview: {

@@ -111,6 +111,7 @@ export default function FoodReviewsPage(props: FoodReviewsPageProps) {
                     showRating={true}
                     slug={foodReview.slug}
                     location={foodReview.location}
+                    revisitCount={foodReview.revisitCount}
                   />
                 ))}
               </div>

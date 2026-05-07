@@ -114,6 +114,7 @@ export default function HotelReviewsPage(props: HotelReviewsPageProps) {
                     slug={hotelReview.slug}
                     location={hotelReview.location}
                     category={hotelReview.category}
+                    revisitCount={hotelReview.revisitCount}
                   />
                 ))}
               </div>

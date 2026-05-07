@@ -10,12 +10,16 @@ import PostTitle from 'components/PostTitle'
 import ProConList from 'components/ProConList'
 import VideoPlayer from 'components/Youtube'
 import * as demo from 'lib/demo.data'
+import { calculateRating } from 'lib/calculateRating'
+import { computeTimelineEntries, getEffectiveRating } from 'lib/mergeRatings'
+import { FOOD_WEIGHTS, TAKEOUT_WEIGHTS } from 'lib/ratingWeights'
 import type { FoodReview, Settings } from 'lib/sanity.queries'
 import { notFound } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 
 import BreadcrumbStructuredData from './BreadcrumbStructuredData'
 import HelpfulTip from './HelpfulTip'
+import RevisitTimeline from './RevisitTimeline'
 import ReviewBlurb from './ReviewBlurb'
 import ReviewStructuredData from './ReviewStructuredData'
 
@@ -44,6 +48,25 @@ import {
 } from 'lucide-react'
 
 import ReviewRating from './ReviewRating'
+
+const FOOD_RATING_LABELS: Record<string, string> = {
+  Flavor_and_Taste: 'Flavor & Taste',
+  Food_Value: 'Food Value',
+  Restaurant_Service: 'Service',
+  Memorability: 'Memorability',
+  Presentation_on_Plate: 'Presentation',
+  Restaurant_Cleanliness: 'Cleanliness',
+  Restaurant_Location: 'Location',
+}
+
+const TAKEOUT_RATING_LABELS: Record<string, string> = {
+  tasteAndFlavor: 'Taste & Flavor',
+  foodValue: 'Food Value',
+  overallSatisfaction: 'Satisfaction',
+  presentation: 'Presentation',
+  packaging: 'Packaging',
+  accuracy: 'Accuracy',
+}
 
 const foodRatingIcons = {
   Flavor_and_Taste: <Utensils className="h-5 w-5 mr-2 " />,
@@ -92,14 +115,59 @@ export default function FoodReviewPage(props: FoodReviewPageProps) {
     )
   }
 
-  // Determine which rating and icons to show based on dining type
-  const currentRating =
-    foodReview.diningType === 'takeout'
-      ? foodReview.takeoutRating
-      : foodReview.foodRating
+  const isTakeout = foodReview.diningType === 'takeout'
+  const weights = isTakeout ? TAKEOUT_WEIGHTS : FOOD_WEIGHTS
+  const labelMap = isTakeout ? TAKEOUT_RATING_LABELS : FOOD_RATING_LABELS
+
+  const baseRating = isTakeout ? foodReview.takeoutRating : foodReview.foodRating
+
+  // Build revisit updates using the appropriate rating field
+  const revisitsForMerge = (foodReview.revisits ?? []).map((r) => ({
+    visitDate: r.visitDate,
+    notes: r.notes,
+    ratingUpdates: (isTakeout ? r.takeoutRatingUpdates : r.foodRatingUpdates) as
+      | Record<string, number | undefined>
+      | undefined,
+  }))
+
+  // Compute effective rating by accumulating all revisit updates
+  const effectiveRating = baseRating
+    ? getEffectiveRating(
+        baseRating as Record<string, number | undefined>,
+        revisitsForMerge,
+      )
+    : baseRating
 
   const currentRatingIcons =
-    foodReview.diningType === 'takeout' ? takeoutRatingIcons : foodRatingIcons
+    isTakeout ? takeoutRatingIcons : foodRatingIcons
+
+  // Compute original rating for the timeline baseline
+  const originalRatingResult = baseRating
+    ? calculateRating(baseRating as Record<string, number>, weights)
+    : null
+
+  // Compute timeline entries with per-revisit deltas
+  const timelineEntries =
+    foodReview.revisits?.length && baseRating
+      ? computeTimelineEntries(
+          baseRating as Record<string, number | undefined>,
+          revisitsForMerge,
+          labelMap,
+        ).map((entry) => {
+          const result = calculateRating(
+            entry.accumulatedState as Record<string, number>,
+            weights,
+          )
+          return {
+            visitDate: entry.visitDate,
+            notes: entry.notes,
+            deltas: entry.deltas,
+            displayRating: result.displayRating,
+            textRating: result.textRating,
+            color: result.color ?? '#6B7280',
+          }
+        })
+      : []
 
   return (
     <div>
@@ -165,12 +233,22 @@ export default function FoodReviewPage(props: FoodReviewPageProps) {
 
           {foodReview.excerpt2 && <ReviewBlurb content={foodReview.excerpt2} />}
 
-          {currentRating && (
+          {effectiveRating && (
             <ReviewRating
-              ratings={currentRating}
+              ratings={effectiveRating}
               ratingIcons={currentRatingIcons}
               title="Food Rating"
               reviewType="food"
+            />
+          )}
+
+          {timelineEntries.length > 0 && originalRatingResult && foodReview.date && (
+            <RevisitTimeline
+              originalDate={foodReview.date}
+              originalDisplayRating={originalRatingResult.displayRating}
+              originalTextRating={originalRatingResult.textRating}
+              originalColor={originalRatingResult.color ?? '#6B7280'}
+              entries={timelineEntries}
             />
           )}
 

@@ -310,6 +310,112 @@ export default defineType({
           })
           .warning(),
     }),
+
+    defineField({
+      name: 'revisits',
+      title: 'Revisit History',
+      description:
+        'Log subsequent visits. Only fill in the rating categories that actually changed.',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          title: 'Revisit',
+          options: { collapsible: true, collapsed: false },
+          fields: [
+            defineField({
+              name: 'visitDate',
+              title: 'Visit Date',
+              type: 'datetime',
+              validation: (rule) => rule.required(),
+            }),
+            defineField({
+              name: 'notes',
+              title: 'What Changed?',
+              description:
+                'Describe what improved or declined since the original visit.',
+              type: 'array',
+              of: [{ type: 'block' }],
+              validation: (rule) => rule.required(),
+            }),
+            defineField({
+              name: 'ratingUpdates',
+              title: 'Changed Ratings Only',
+              description:
+                'Leave blank for any category that did NOT change. Enter 0 to explicitly downgrade to 0.',
+              type: 'object',
+              options: { collapsible: true, collapsed: true, columns: 3 },
+              fields: [
+                {
+                  name: 'Location',
+                  title: 'Location',
+                  type: 'number',
+                  validation: (rule) => rule.min(0).max(10),
+                },
+                {
+                  name: 'Bed_Comfort',
+                  title: 'Bed Comfort',
+                  type: 'number',
+                  validation: (rule) => rule.min(0).max(10),
+                },
+                {
+                  name: 'Service',
+                  title: 'Service',
+                  type: 'number',
+                  validation: (rule) => rule.min(0).max(10),
+                },
+                {
+                  name: 'Value',
+                  title: 'Value',
+                  type: 'number',
+                  validation: (rule) => rule.min(0).max(10),
+                },
+                {
+                  name: 'Room_Cleanliness',
+                  title: 'Cleanliness',
+                  type: 'number',
+                  validation: (rule) => rule.min(0).max(10),
+                },
+                {
+                  name: 'Room_Amenities',
+                  title: 'Room Amenities',
+                  type: 'number',
+                  validation: (rule) => rule.min(0).max(10),
+                },
+                {
+                  name: 'Internet_Speed',
+                  title: 'Internet Speed',
+                  type: 'number',
+                  validation: (rule) => rule.min(0).max(10),
+                },
+                {
+                  name: 'Gym',
+                  title: 'Gym',
+                  type: 'number',
+                  validation: (rule) => rule.min(0).max(10),
+                },
+                {
+                  name: 'Pool',
+                  title: 'Pool',
+                  type: 'number',
+                  validation: (rule) => rule.min(0).max(10),
+                },
+              ],
+            }),
+          ],
+          preview: {
+            select: { date: 'visitDate' },
+            prepare({ date }) {
+              return {
+                title: date
+                  ? `Revisit: ${new Date(date).toLocaleDateString('en-US', { dateStyle: 'medium' })}`
+                  : 'Revisit: No date set',
+              }
+            },
+          },
+        },
+      ],
+    }),
   ],
 
   preview: {

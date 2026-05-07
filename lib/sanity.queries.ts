@@ -88,7 +88,8 @@ const arenaFields = groq`
       seatComfort,
       food
     },
-    date
+    date,
+    "revisitCount": count(revisits)
 `
 
 // Full arenaFields for individual arena pages
@@ -136,7 +137,13 @@ const arenaFieldsDetailed = groq`
       seatComfort,
       food
     },
-    date
+    date,
+    "revisitCount": count(revisits),
+    revisits[] {
+      visitDate,
+      notes,
+      ratingUpdates
+    }
 `
 // Define Arena Type Name - PLEASE VERIFY THIS matches your Sanity Studio schema
 const ARENA_TYPE_NAME = 'arenas' // Or 'arena' - CHECK YOUR SCHEMA
@@ -334,7 +341,13 @@ export const independentHotelReviewFields = groq`
   verdict,
   content,
   tags,
-  "slug": slug.current
+  "slug": slug.current,
+  "revisitCount": count(revisits),
+  revisits[] {
+    visitDate,
+    notes,
+    ratingUpdates
+  }
 `
 
 // Hotel review slugs query
@@ -406,7 +419,14 @@ export const independentFoodReviewFields = groq`
   verdict,
   content,
   tags,
-  "slug": slug.current
+  "slug": slug.current,
+  "revisitCount": count(revisits),
+  revisits[] {
+    visitDate,
+    notes,
+    foodRatingUpdates,
+    takeoutRatingUpdates
+  }
 `
 
 // Top food reviews for rankings/top lists
@@ -503,6 +523,22 @@ export interface HotelReview {
   verdict?: any[]
   content?: any[]
   tags?: string[]
+  revisitCount?: number
+  revisits?: Array<{
+    visitDate: string
+    notes?: any[]
+    ratingUpdates?: Partial<{
+      Location: number
+      Bed_Comfort: number
+      Service: number
+      Value: number
+      Room_Cleanliness: number
+      Room_Amenities: number
+      Internet_Speed: number
+      Gym: number
+      Pool: number
+    }>
+  }>
 }
 
 // Export FoodReview type
@@ -526,6 +562,28 @@ export interface FoodReview {
   verdict?: any[]
   content?: any[]
   tags?: string[]
+  revisitCount?: number
+  revisits?: Array<{
+    visitDate: string
+    notes?: any[]
+    foodRatingUpdates?: Partial<{
+      Flavor_and_Taste: number
+      Food_Value: number
+      Restaurant_Service: number
+      Memorability: number
+      Presentation_on_Plate: number
+      Restaurant_Cleanliness: number
+      Restaurant_Location: number
+    }>
+    takeoutRatingUpdates?: Partial<{
+      tasteAndFlavor: number
+      foodValue: number
+      overallSatisfaction: number
+      presentation: number
+      packaging: number
+      accuracy: number
+    }>
+  }>
 }
 
 // Unified content type for independent schemas (no legacy posts)
@@ -744,9 +802,19 @@ export interface Arena {
     | any // Or use 'any' or PortableTextBlock if it's simple content
   visited?: boolean
   date?: string
-  // Remove calculated fields if not fetched in arenaFields
-  // visitedCount?: number
-  // galleryCount?: number
+  revisitCount?: number
+  revisits?: Array<{
+    visitDate: string
+    notes?: any[]
+    ratingUpdates?: Partial<{
+      transportation: number
+      walkability: number
+      seatComfort: number
+      food: number
+      view: number
+      vibes: number
+    }>
+  }>
 }
 
 // Base interface for common Post fields

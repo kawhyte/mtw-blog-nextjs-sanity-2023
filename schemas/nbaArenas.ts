@@ -334,6 +334,96 @@ export default defineType({
           return true
         }),
     }), // --- End Detailed Ratings ---
+
+    // --- Revisit History ---
+    defineField({
+      name: 'revisits',
+      title: 'Revisit History',
+      description:
+        'Log subsequent visits. Only fill in the rating categories that actually changed.',
+      type: 'array',
+      hidden: ({ document }) => !document?.visited,
+      of: [
+        {
+          type: 'object',
+          title: 'Revisit',
+          options: { collapsible: true, collapsed: false },
+          fields: [
+            defineField({
+              name: 'visitDate',
+              title: 'Visit Date',
+              type: 'datetime',
+              validation: (rule) => rule.required(),
+            }),
+            defineField({
+              name: 'notes',
+              title: 'What Changed?',
+              description:
+                'Describe what improved or declined since the original visit.',
+              type: 'array',
+              of: [{ type: 'block' }],
+              validation: (rule) => rule.required(),
+            }),
+            defineField({
+              name: 'ratingUpdates',
+              title: 'Changed Ratings Only',
+              description:
+                'Leave blank for any category that did NOT change. Enter a value to override it.',
+              type: 'object',
+              options: { collapsible: true, collapsed: true, columns: 3 },
+              fields: [
+                {
+                  name: 'transportation',
+                  title: 'Transportation',
+                  type: 'number',
+                  validation: (rule) => rule.min(1).max(10),
+                },
+                {
+                  name: 'walkability',
+                  title: 'Walkability',
+                  type: 'number',
+                  validation: (rule) => rule.min(1).max(10),
+                },
+                {
+                  name: 'seatComfort',
+                  title: 'Seat Comfort',
+                  type: 'number',
+                  validation: (rule) => rule.min(1).max(10),
+                },
+                {
+                  name: 'food',
+                  title: 'Food',
+                  type: 'number',
+                  validation: (rule) => rule.min(1).max(10),
+                },
+                {
+                  name: 'view',
+                  title: 'View',
+                  type: 'number',
+                  validation: (rule) => rule.min(1).max(10),
+                },
+                {
+                  name: 'vibes',
+                  title: 'Vibes',
+                  type: 'number',
+                  validation: (rule) => rule.min(1).max(10),
+                },
+              ],
+            }),
+          ],
+          preview: {
+            select: { date: 'visitDate' },
+            prepare({ date }) {
+              return {
+                title: date
+                  ? `Revisit: ${new Date(date).toLocaleDateString('en-US', { dateStyle: 'medium' })}`
+                  : 'Revisit: No date set',
+              }
+            },
+          },
+        },
+      ],
+    }), // --- End Revisit History ---
   ], // --- End Main Fields Array ---
 
   // --- Document Preview Configuration ---

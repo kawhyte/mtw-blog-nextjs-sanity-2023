@@ -31,9 +31,9 @@ const ratingColorMap: { [threshold: number]: string } = {
   9: '#34D319', // Excellent
   8: '#4ADE99', // Great
   7.5: '#FBBF24', // Good
-  6: 'Orange', // Fair
+  6: '#F97316', // Fair
   4: '#EF4444', // Poor
-  0: 'DarkRed', // Horrible
+  0: '#991B1B', // Horrible
 }
 
 export function calculateRating(
@@ -54,6 +54,9 @@ export function calculateRating(
     ) {
       const rating = ratingObject[key]
       const weight = weights[key]
+
+      // Guard against null/undefined/NaN values from unpopulated Sanity fields
+      if (typeof rating !== 'number' || isNaN(rating)) continue
 
       const shouldExcludeZero =
         rating === 0 && excludableHotelAmenities.includes(key)

@@ -1,4 +1,4 @@
-import { CalendarCheck, MapPin } from 'lucide-react'
+import { CalendarCheck, MapPin, RefreshCw } from 'lucide-react'
 import React from 'react'
 
 import { Skeleton } from '@/components/ui/skeleton'
@@ -24,6 +24,7 @@ interface NBAArenaCardProps {
   arenaReview?: any | null
   rank?: number
   priority?: boolean
+  revisitCount?: number
 }
 
 /**
@@ -45,6 +46,7 @@ const Arenas = React.memo(
     ratingColor,
     rank,
     priority = false,
+    revisitCount,
   }: NBAArenaCardProps) => {
     return (
       <>
@@ -107,6 +109,16 @@ const Arenas = React.memo(
 
           <div className=" flex justify-between text-gray-700  ">
             <div className="ml-2 mt-1 flex flex-col sm:mb-2 sm:ml-4 sm:gap-y-2 ">
+              {revisitCount && revisitCount > 0 ? (
+                <div className="flex items-center gap-1 text-[11px] font-medium text-gray-400">
+                  <RefreshCw className="h-3 w-3" />
+                  <span>
+                    {revisitCount === 1
+                      ? 'Revisited'
+                      : `${revisitCount + 1} visits`}
+                  </span>
+                </div>
+              ) : null}
               <h1 className=" font-heading line-clamp-1 pt-1 font-montserrat text-lg font-bold text-gray-900  decoration-primary decoration-dashed decoration-4 group-hover:underline sm:line-clamp-2 sm:h-8 sm:text-xl lg:text-xl  xl:pt-1.5">
                 {arenaName}
               </h1>
