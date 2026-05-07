@@ -20,7 +20,9 @@
     "migrate-food": "node scripts/migrateFoodReviewsToNewSchema.mjs",
     "migrate-food:live": "node scripts/migrateFoodReviewsToNewSchema.mjs --no-dry-run",
     "check-doc-size": "node scripts/checkDocumentSize.mjs",
-    "check-andaz": "node scripts/checkAndazSingaporeHotel.mjs"
+    "check-andaz": "node scripts/checkAndazSingaporeHotel.mjs",
+    "fix-arena-teams": "node scripts/fix-arena-team-names.mjs",
+    "fix-arena-teams:live": "node scripts/fix-arena-team-names.mjs --no-dry-run"
   },
   "prettier": {
     "semi": false,

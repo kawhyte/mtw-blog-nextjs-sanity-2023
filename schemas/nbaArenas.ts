@@ -152,6 +152,7 @@ export default defineType({
               name: 'name',
               type: 'string',
               title: 'Team Name',
+              description: 'Full team name — e.g., "Houston Rockets", not just "Rockets"',
               validation: (Rule) => Rule.required(),
             }),
             defineField({
@@ -160,15 +161,21 @@ export default defineType({
               type: 'boolean',
             }),
             defineField({
-              title: 'Team type',
+              title: 'League / Team Type',
               name: 'teamType',
               type: 'string',
               options: {
                 list: [
                   { title: 'NBA', value: 'nba' },
                   { title: 'WNBA', value: 'wnba' },
+                  { title: 'NHL', value: 'nhl' },
+                  { title: 'MLB', value: 'mlb' },
+                  { title: 'MLS', value: 'mls' },
+                  { title: 'G League', value: 'gleague' },
+                  { title: 'NWSL', value: 'nwsl' },
+                  { title: 'NFL', value: 'nfl' },
+                  { title: 'Other', value: 'other' },
                 ],
-                layout: 'radio',
               },
             }),
             defineField({

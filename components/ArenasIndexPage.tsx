@@ -43,31 +43,34 @@ const ArenasIndexPage = ({ arenas }) => {
                   className=" flex flex-row items-center justify-evenly"
                 >
                   <div
-                    key={item.gallery[0].name}
+                    key={item.gallery?.[0]?.name || item._id}
                     className="my-2 flex flex-col   items-center align-middle "
                   >
-                    <img
-                      src={
-                        item.gallery[0]?.asset?._ref
-                          ? urlForImage(item.gallery[0])
-                              .height(90)
-                              .width(90)
-                              .fit('crop')
-                              .url()
-                          : ''
-                      }
-                      className=" h-14  w-14  "
-                      height={90}
-                      width={90}
-                      alt={`${item.gallery[0].name} logo`}
-                    />
-
-                    <p
-                      className="ml-2 mt-1 text-center  text-sm  font-extralight text-gray-500 "
-                      role="link"
-                    >
-                      {item.gallery[0].name}
-                    </p>
+                    {item.gallery?.[0] && (
+                      <>
+                        <img
+                          src={
+                            item.gallery[0]?.asset?._ref
+                              ? urlForImage(item.gallery[0])
+                                  .height(90)
+                                  .width(90)
+                                  .fit('crop')
+                                  .url()
+                              : ''
+                          }
+                          className=" h-14  w-14  "
+                          height={90}
+                          width={90}
+                          alt={`${item.gallery[0].name} logo`}
+                        />
+                        <p
+                          className="ml-2 mt-1 text-center  text-sm  font-extralight text-gray-500 "
+                          role="link"
+                        >
+                          {item.gallery[0].name}
+                        </p>
+                      </>
+                    )}
                   </div>
                 </div>
               ))}

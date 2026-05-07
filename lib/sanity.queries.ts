@@ -623,7 +623,8 @@ export const globalSearchQuery = groq`
   },
   "arenas": *[_type == "arenas" && visited == true && (
     name match $searchTerm ||
-    location match $searchTerm
+    location match $searchTerm ||
+    gallery[].name match $searchTerm
   )] {
     ${arenaFields},
     "title": name,
@@ -743,7 +744,6 @@ export interface Arena {
     | any // Or use 'any' or PortableTextBlock if it's simple content
   visited?: boolean
   date?: string
-  teamType?: string // Keep if you use this field
   // Remove calculated fields if not fetched in arenaFields
   // visitedCount?: number
   // galleryCount?: number
