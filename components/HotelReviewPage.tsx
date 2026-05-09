@@ -1,20 +1,22 @@
 import BlogHeader from 'components/BlogHeader'
-import { formatDate } from 'components/PostDate'
 import Layout from 'components/BlogLayout'
 import Footer from 'components/Footer'
 import ImageGallery from 'components/ImageGallery'
 import PostBody from 'components/PostBody'
+import { formatDate } from 'components/PostDate'
 import PostPageHead from 'components/PostPageHead'
 import PostTitle from 'components/PostTitle'
 import ProConList from 'components/ProConList'
 import RoomTech from 'components/RoomTech'
 import VideoPlayer from 'components/Youtube'
-import * as demo from 'lib/demo.data'
 import { calculateRating } from 'lib/calculateRating'
+import * as demo from 'lib/demo.data'
 import { computeTimelineEntries, getEffectiveRating } from 'lib/mergeRatings'
 import { HOTEL_WEIGHTS } from 'lib/ratingWeights'
 import type { HotelReview, Settings } from 'lib/sanity.queries'
 import {
+  Armchair,
+  Banknote,
   Bath,
   Bed,
   BedDouble,
@@ -24,7 +26,10 @@ import {
   Handshake,
   Hotel,
   MapPin,
+  RefreshCw,
   Star,
+  Tag,
+  Users,
   WavesLadder,
   Wifi,
 } from 'lucide-react'
@@ -33,10 +38,11 @@ import { notFound } from 'next/navigation'
 import BreadcrumbStructuredData from './BreadcrumbStructuredData'
 import HelpfulTip from './HelpfulTip'
 import HeroPhotoGallery from './HeroPhotoGallery'
-import RevisitTimeline from './RevisitTimeline'
+import ResortFeeCard from './ResortFeeCard'
 import ReviewBlurb from './ReviewBlurb'
 import ReviewRating from './ReviewRating'
 import ReviewStructuredData from './ReviewStructuredData'
+import RevisitTimeline from './RevisitTimeline'
 import { Section } from './ui/Section'
 
 export interface HotelReviewPageProps {
@@ -59,6 +65,30 @@ const HOTEL_RATING_LABELS: Record<string, string> = {
   Internet_Speed: 'Internet Speed',
   Gym: 'Gym',
   Pool: 'Pool',
+}
+
+const WOULD_RETURN_CONFIG = {
+  yes: { label: 'Would Return', className: 'text-green-600' },
+  if_prices_drop: { label: 'Would Return If Cheaper', className: 'text-amber-500' },
+  maybe: { label: 'Maybe Return', className: 'text-amber-500' },
+  no: { label: "Wouldn't Return", className: 'text-destructive' },
+} as const
+
+const PRICE_TIER_LABELS: Record<string, string> = {
+  under_100: 'Under $100/night',
+  '100_200': '$100–$200/night',
+  '200_350': '$200–$350/night',
+  '350_500': '$350–$500/night',
+  '500_plus': '$500+/night',
+}
+
+const BEST_FOR_LABELS: Record<string, string> = {
+  business: 'Business Travel',
+  couples: 'Couples',
+  families: 'Families',
+  solo: 'Solo Travel',
+  leisure: 'Leisure',
+  points: 'Points Redemption',
 }
 
 const hotelRatingIcons = {
@@ -200,7 +230,44 @@ function HotelReviewPageContent(props: HotelReviewPageProps) {
                     {formatDate(hotelReview.date)}
                   </div>
                 )}
+                {hotelReview.lounge && hotelReview.lounge.toLowerCase() !== 'no' && (
+                  <div className="flex items-center text-base text-muted-foreground">
+                    <Armchair className="mr-2 h-4 w-4" />
+                    {hotelReview.lounge.toLowerCase().includes('free')
+                      ? 'Lounge: Free Access'
+                      : 'Lounge: Member/Paid'}
+                  </div>
+                )}
+                {hotelReview.wouldReturn && (
+                  <div className={`flex items-center text-base font-medium ${WOULD_RETURN_CONFIG[hotelReview.wouldReturn].className}`}>
+                    <RefreshCw className="mr-2 h-4 w-4 shrink-0" />
+                    {WOULD_RETURN_CONFIG[hotelReview.wouldReturn].label}
+                  </div>
+                )}
+                {hotelReview.priceTier && (
+                  <div className="flex items-center text-base text-muted-foreground">
+                    <Banknote className="mr-2 h-4 w-4 shrink-0" />
+                    {PRICE_TIER_LABELS[hotelReview.priceTier] ?? hotelReview.priceTier}
+                  </div>
+                )}
               </div>
+
+              {hotelReview.bestFor && hotelReview.bestFor.length > 0 && (
+                <div className="mt-2 flex flex-wrap items-center gap-2">
+                  <div className="flex items-center text-sm text-muted-foreground">
+                    <Users className="mr-1.5 h-4 w-4 shrink-0" />
+                    <span className="font-medium">Best for:</span>
+                  </div>
+                  {hotelReview.bestFor.map((type) => (
+                    <span
+                      key={type}
+                      className="rounded-full border border-border bg-muted px-3 py-0.5 text-sm text-muted-foreground"
+                    >
+                      {BEST_FOR_LABELS[type] ?? type}
+                    </span>
+                  ))}
+                </div>
+              )}
             </header>
 
             {hotelReview.excerpt2 && (
@@ -243,6 +310,12 @@ function HotelReviewPageContent(props: HotelReviewPageProps) {
             />
           </Section>
 
+          {hotelReview.resortFee && (
+            <Section spacing="tight" as="div">
+              <ResortFeeCard data={hotelReview.resortFee} />
+            </Section>
+          )}
+
           {hotelReview.tip && (
             <Section spacing="tight" as="div">
               <HelpfulTip tip={hotelReview.tip} />
@@ -254,12 +327,30 @@ function HotelReviewPageContent(props: HotelReviewPageProps) {
               techAvailable={hotelReview.techRating}
               speed={hotelReview.internetSpeed}
               roomAmenitiesAvailiable={hotelReview.roomAmenities}
+              parking={hotelReview.parking}
+              breakfast={hotelReview.breakfast}
             />
           </Section>
 
           <Section spacing="tight" as="div">
             <PostBody content={hotelReview.content} />
           </Section>
+
+          {hotelReview.tags && hotelReview.tags.length > 0 && (
+            <Section spacing="tight" as="div">
+              <div className="flex flex-wrap items-center gap-2">
+                <Tag className="h-4 w-4 text-muted-foreground shrink-0" />
+                {hotelReview.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="rounded-full border border-border bg-muted px-3 py-1 text-sm text-muted-foreground"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </Section>
+          )}
 
           {hotelReview.youtube && (
             <Section spacing="tight" as="div">

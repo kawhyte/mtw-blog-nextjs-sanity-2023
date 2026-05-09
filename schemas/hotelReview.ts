@@ -268,6 +268,140 @@ export default defineType({
     }),
 
     defineField({
+      name: 'wouldReturn',
+      title: 'Would You Return?',
+      type: 'string',
+      description: 'Your honest verdict on returning (optional)',
+      options: {
+        list: [
+          { title: 'Yes, absolutely', value: 'yes' },
+          { title: 'Yes, if prices drop', value: 'if_prices_drop' },
+          { title: 'Maybe', value: 'maybe' },
+          { title: 'No', value: 'no' },
+        ],
+        layout: 'radio',
+      },
+    }),
+
+    defineField({
+      name: 'priceTier',
+      title: 'Approximate Nightly Rate (at time of visit)',
+      type: 'string',
+      description: 'Approximate cash rate per night — not points value (optional)',
+      options: {
+        list: [
+          { title: 'Under $100/night', value: 'under_100' },
+          { title: '$100–$200/night', value: '100_200' },
+          { title: '$200–$350/night', value: '200_350' },
+          { title: '$350–$500/night', value: '350_500' },
+          { title: '$500+/night', value: '500_plus' },
+        ],
+        layout: 'radio',
+      },
+    }),
+
+    defineField({
+      name: 'bestFor',
+      title: 'Best For (traveler type)',
+      type: 'array',
+      description: 'Select all traveler types this hotel suits (optional)',
+      of: [{ type: 'string' }],
+      options: {
+        list: [
+          { title: 'Business Travel', value: 'business' },
+          { title: 'Couples / Romance', value: 'couples' },
+          { title: 'Families', value: 'families' },
+          { title: 'Solo Travel', value: 'solo' },
+          { title: 'Leisure / Vacation', value: 'leisure' },
+          { title: 'Points Redemption', value: 'points' },
+        ],
+        layout: 'grid',
+      },
+    }),
+
+    defineField({
+      name: 'resortFee',
+      title: 'Resort Fee',
+      description: 'Daily resort fee details (optional)',
+      type: 'object',
+      options: { collapsible: true, collapsed: false, columns: 2 },
+      fields: [
+        defineField({
+          name: 'amount',
+          title: 'Daily Fee ($)',
+          type: 'number',
+          description: 'Daily resort fee in USD (e.g. 45)',
+        }),
+        defineField({
+          name: 'worthIt',
+          title: 'Is the resort fee worth it?',
+          type: 'string',
+          options: {
+            list: [
+              { title: 'Yes', value: 'yes' },
+              { title: 'Partially', value: 'partially' },
+              { title: 'No', value: 'no' },
+            ],
+            layout: 'radio',
+          },
+        }),
+        defineField({
+          name: 'covers',
+          title: 'What does it cover?',
+          type: 'array',
+          description: 'Add each item the fee covers (e.g. WiFi, Parking, Beach Chairs)',
+          of: [{ type: 'string' }],
+          options: { layout: 'tags' },
+        }),
+      ],
+    }),
+
+    defineField({
+      name: 'parking',
+      title: 'Parking',
+      description: 'Parking options at this hotel (optional)',
+      type: 'object',
+      options: { collapsible: true, collapsed: false, columns: 2 },
+      fields: [
+        defineField({
+          name: 'parkingType',
+          title: 'Parking Type',
+          type: 'string',
+          options: {
+            list: [
+              { title: 'Valet', value: 'valet' },
+              { title: 'Self-park', value: 'self_park' },
+              { title: 'Street', value: 'street' },
+              { title: 'None / No parking', value: 'none' },
+            ],
+            layout: 'radio',
+          },
+        }),
+        defineField({
+          name: 'dailyCost',
+          title: 'Daily Parking Cost ($)',
+          type: 'number',
+          description: 'Daily parking cost in USD (leave blank if free or N/A)',
+        }),
+      ],
+    }),
+
+    defineField({
+      name: 'breakfast',
+      title: 'Breakfast',
+      type: 'string',
+      description: 'Breakfast availability at this hotel (optional)',
+      options: {
+        list: [
+          { title: 'Included with stay', value: 'included' },
+          { title: 'Available for purchase', value: 'paid' },
+          { title: 'Not available on-site', value: 'none' },
+        ],
+        layout: 'radio',
+      },
+    }),
+
+    defineField({
       name: 'tags',
       title: 'Tags',
       type: 'array',

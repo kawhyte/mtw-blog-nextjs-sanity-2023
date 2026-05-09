@@ -81,19 +81,47 @@ export default function ReviewRating({
     numericalRating: overallRating,
     displayRating,
     textRating: textScore,
+    color: ratingColor,
   } = calculateRating(ratings, weights)
+
+  const activeCategoryCount = ratingEntries.filter(([name, value]) => {
+    if (['Pool', 'Gym', 'Internet_Speed'].includes(name) && value === 0) return false
+    return true
+  }).length
 
   return (
     <section className="bg-secondary-soft-background rounded-2xl p-6 sm:p-8 my-8">
       <div className="grid grid-cols-1 md:grid-cols-12 md:gap-x-12">
-        <div className="md:col-span-4 flex flex-col items-center md:items-start text-center md:text-left border-b-2 md:border-b-0 md:border-r-2 border-border pb-6 md:pb-0 md:pr-8 mb-6 md:mb-0">
-          <h2 className="text-2xl font-bold text-foreground mb-2">{title}</h2>
-          <p className="text-7xl font-bold text-secondary mb-2 leading-none">
-            {displayRating}
-          </p>
-          <p className="text-2xl font-semibold text-foreground mb-2">
-            {textScore}
-          </p>
+        <div className="md:col-span-4 flex flex-col items-center text-center border-b-2 md:border-b-0 md:border-r-2 border-border pb-6 md:pb-0 md:pr-8 mb-6 md:mb-0">
+          {/* Title */}
+          <h2 className="text-2xl font-bold text-foreground mb-6">{title}</h2>
+
+          {/* Score — centered, fills remaining space */}
+          <div className="flex flex-col items-center gap-2 flex-1 justify-center">
+            <div className="flex items-baseline gap-1">
+              <span className="text-9xl font-bold text-secondary leading-none">
+                {displayRating}
+              </span>
+              <span className="text-2xl font-normal text-muted-foreground">
+                / 5.0
+              </span>
+            </div>
+            <p className="text-2xl font-bold" style={{ color: ratingColor }}>
+              {textScore}
+            </p>
+          </div>
+
+          {/* Bottom anchor */}
+          <div className="w-full mt-6">
+            <div
+              className="h-1 w-full rounded-full mb-1.5"
+              style={{ backgroundColor: ratingColor }}
+            />
+            <p className="text-xs text-muted-foreground">
+              Weighted across {activeCategoryCount}{' '}
+              {activeCategoryCount === 1 ? 'category' : 'categories'}
+            </p>
+          </div>
         </div>
         <div className="md:col-span-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">

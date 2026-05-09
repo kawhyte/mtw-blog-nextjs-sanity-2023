@@ -341,6 +341,12 @@ export const independentHotelReviewFields = groq`
   verdict,
   content,
   tags,
+  wouldReturn,
+  priceTier,
+  bestFor,
+  resortFee,
+  parking,
+  breakfast,
   "slug": slug.current,
   "revisitCount": count(revisits),
   revisits[] {
@@ -523,6 +529,19 @@ export interface HotelReview {
   verdict?: any[]
   content?: any[]
   tags?: string[]
+  wouldReturn?: 'yes' | 'if_prices_drop' | 'maybe' | 'no'
+  priceTier?: 'under_100' | '100_200' | '200_350' | '350_500' | '500_plus'
+  bestFor?: string[]
+  resortFee?: {
+    amount?: number
+    covers?: string[]
+    worthIt?: 'yes' | 'partially' | 'no'
+  }
+  parking?: {
+    parkingType?: 'valet' | 'self_park' | 'street' | 'none'
+    dailyCost?: number
+  }
+  breakfast?: 'included' | 'paid' | 'none'
   revisitCount?: number
   revisits?: Array<{
     visitDate: string

@@ -1,4 +1,4 @@
-import { CheckCircle2, ConciergeBell, Laptop, Mail, MonitorPlay, Tv, Video, Wifi, XCircle } from 'lucide-react'
+import { Car, CheckCircle2, ConciergeBell, Laptop, Mail, MonitorPlay, Tv, UtensilsCrossed, Video, Wifi, XCircle } from 'lucide-react'
 import React from 'react'
 
 import SectionTitle from './SectionTitle'
@@ -16,12 +16,12 @@ const speedTiers = [
 ]
 
 const techConfig = [
-  { key: 'USB', label: 'USB Ports' },
-  { key: 'HDMI', label: 'HDMI Port' },
-  { key: 'TV', label: 'In-Room TV' },
+  { key: 'USB', label: 'Key Card for Elevator' },
+  { key: 'HDMI', label: 'Guest In-Room Tablet' },
+  { key: 'TV', label: 'Mobile Key Access' },
   { key: 'Chromecast', label: 'Smart TV' },
-  { key: 'Wired', label: 'Wired Internet Port' },
-  { key: 'Bluetooth', label: 'Bluetooth Speaker' },
+  { key: 'Wired', label: 'Wired Internet' },
+  { key: 'Bluetooth', label: 'Hospitality App/Texting' },
 ]
 
 const amenityConfig = [
@@ -108,9 +108,34 @@ const InfoCard = ({ title, icon, color, config, data }) => {
   )
 }
 
+const PARKING_LABELS: Record<string, string> = {
+  valet: 'Valet',
+  self_park: 'Self-park',
+  street: 'Street',
+  none: 'No Parking',
+}
+
+const BREAKFAST_LABELS: Record<string, string> = {
+  included: 'Breakfast Included',
+  paid: 'Breakfast (Paid)',
+  none: 'No On-site Breakfast',
+}
+
 // --- Main Exported Component ---
 
-const RoomTech = ({ speed = 0, techAvailable, roomAmenitiesAvailiable }) => {
+const RoomTech = ({
+  speed = 0,
+  techAvailable,
+  roomAmenitiesAvailiable,
+  parking,
+  breakfast,
+}: {
+  speed?: number
+  techAvailable?: any
+  roomAmenitiesAvailiable?: any
+  parking?: { parkingType?: string; dailyCost?: number }
+  breakfast?: string
+}) => {
   const speedTier =
     speedTiers.find((tier) => speed >= tier.threshold) ||
     speedTiers[speedTiers.length - 1]
@@ -188,6 +213,49 @@ const RoomTech = ({ speed = 0, techAvailable, roomAmenitiesAvailiable }) => {
             data={roomAmenitiesAvailiable}
           />
         </div>
+
+        {/* --- Parking & Breakfast row (only shown when data exists) --- */}
+        {(parking?.parkingType || breakfast) && (
+          <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2">
+            {parking?.parkingType && (
+              <div className="flex items-start gap-3 rounded-2xl border border-border bg-card p-4">
+                <Car className="h-5 w-5 shrink-0 text-muted-foreground mt-0.5" />
+                <div>
+                  <p className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+                    Parking
+                  </p>
+                  <p className="font-medium text-foreground">
+                    {PARKING_LABELS[parking.parkingType] ?? parking.parkingType}
+                    {parking.dailyCost != null && parking.dailyCost > 0 && (
+                      <span className="ml-1 text-muted-foreground font-normal">
+                        (${parking.dailyCost}/day)
+                      </span>
+                    )}
+                    {parking.dailyCost === 0 && (
+                      <span className="ml-1 text-muted-foreground font-normal">
+                        (Free)
+                      </span>
+                    )}
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {breakfast && (
+              <div className="flex items-start gap-3 rounded-2xl border border-border bg-card p-4">
+                <UtensilsCrossed className="h-5 w-5 shrink-0 text-muted-foreground mt-0.5" />
+                <div>
+                  <p className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+                    Breakfast
+                  </p>
+                  <p className="font-medium text-foreground">
+                    {BREAKFAST_LABELS[breakfast] ?? breakfast}
+                  </p>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </section>
   )
