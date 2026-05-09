@@ -38,9 +38,9 @@ const InfoBox = ({
       iconBg: 'bg-green-600/10',
     },
     destructive: {
-      border: 'border-success',
-      text: 'text-success',
-      shadow: 'shadow-success/10',
+      border: 'border-destructive',
+      text: 'text-destructive',
+      shadow: 'shadow-destructive/10',
       iconBg: 'bg-destructive/10',
     },
     primary: {

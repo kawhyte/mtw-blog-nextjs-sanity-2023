@@ -267,13 +267,13 @@ function HotelReviewPageContent(props: HotelReviewPageProps) {
             </Section>
           )}
 
-          {hotelReview.gallery?.length > 0 && (
+          {galleryImages.length > 0 && (
             <ImageGallery
-              title="Photo Gallery"
-              images={hotelReview.gallery}
+              images={galleryImages}
               isOpen={isOpen}
               openModal={openModal}
               closeModal={closeModal}
+              showInlineGrid={false}
             />
           )}
         </article>

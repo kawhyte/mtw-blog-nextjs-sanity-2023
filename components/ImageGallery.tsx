@@ -33,6 +33,7 @@ export interface ImageGalleryProps {
   isOpen: boolean
   openModal: () => void
   closeModal: () => void
+  showInlineGrid?: boolean
 }
 
 // --- Main Exported Component ---
@@ -43,11 +44,13 @@ export default function ImageGallery({
   isOpen,
   openModal,
   closeModal,
+  showInlineGrid = true,
 }: ImageGalleryProps) {
   const hasImages = images && images.length > 0
 
   return (
     <section className={`w-full my-6 ${className || ''}`}>
+      {showInlineGrid && (
       <div className="container mx-auto px-4">
         {title && (
           <div className="pb-2">
@@ -98,6 +101,7 @@ export default function ImageGallery({
           </p>
         )}
       </div>
+      )}
 
       {/* --- Airbnb-style Full-Screen Gallery Modal --- */}
       {isOpen && hasImages && (

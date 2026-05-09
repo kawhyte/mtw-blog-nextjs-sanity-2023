@@ -1,4 +1,4 @@
-import { CheckCircle2, Wifi, XCircle } from 'lucide-react'
+import { CheckCircle2, Laptop, Mail, MonitorPlay, Sparkles, Tv, Video, Wifi, XCircle } from 'lucide-react'
 import React from 'react'
 
 import SectionTitle from './SectionTitle'
@@ -31,6 +31,13 @@ const amenityConfig = [
   { key: 'Slippers', label: 'Slippers/Robes' },
   { key: 'Soap', label: 'Soap Provided', showValue: true },
   { key: 'Other', label: 'Additional Amenities' },
+]
+
+const wifiCapabilities = [
+  { label: 'Check Email & Browse', minSpeed: 2, icon: <Mail className="h-4 w-4 mr-2 shrink-0" /> },
+  { label: 'Video Call (Zoom, FaceTime)', minSpeed: 5, icon: <Video className="h-4 w-4 mr-2 shrink-0" /> },
+  { label: 'Watch Netflix / HD Streaming', minSpeed: 8, icon: <Tv className="h-4 w-4 mr-2 shrink-0" /> },
+  { label: 'Stream in 4K', minSpeed: 25, icon: <MonitorPlay className="h-4 w-4 mr-2 shrink-0" /> },
 ]
 
 // --- Reusable Sub-Components ---
@@ -140,32 +147,33 @@ const RoomTech = ({ speed = 0, techAvailable, roomAmenitiesAvailiable }) => {
                 Mbps
               </span>
             </div>
-            <p className="mt-4 mb-2 text-base font-medium text-foreground">
-              Good for:
+            <p className="mt-4 mb-2 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+              Can you...
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-base">
-              {[
-                'Web Browsing',
-                'Emails',
-                'Zoom',
-                'HD Streaming',
-                '4K Streaming',
-              ].map((feature) => (
-                <div
-                  key={feature}
-                  className="flex items-center text-muted-foreground"
-                >
-                  <CheckCircle2 className="h-4 w-4 mr-2 text-green-500" />{' '}
-                  {feature}
-                </div>
-              ))}
+            <div className="flex flex-col gap-2 text-sm">
+              {wifiCapabilities.map(({ label, minSpeed, icon }) => {
+                const capable = speed >= minSpeed
+                return (
+                  <div
+                    key={label}
+                    className={`flex items-center ${capable ? 'text-foreground' : 'text-muted-foreground opacity-50'}`}
+                  >
+                    {capable ? (
+                      <CheckCircle2 className="h-4 w-4 mr-2 shrink-0 text-green-500" />
+                    ) : (
+                      <XCircle className="h-4 w-4 mr-2 shrink-0 text-destructive" />
+                    )}
+                    {label}
+                  </div>
+                )
+              })}
             </div>
           </div>
 
           {/* --- Tech Available Card --- */}
           <InfoCard
             title="Tech Available"
-            icon={<div />} // Placeholder, you can add a real icon
+            icon={<Laptop />}
             color="third"
             config={techConfig}
             data={techAvailable}
@@ -174,7 +182,7 @@ const RoomTech = ({ speed = 0, techAvailable, roomAmenitiesAvailiable }) => {
           {/* --- Room Amenities Card --- */}
           <InfoCard
             title="Room Amenities"
-            icon={<div />} // Placeholder, you can add a real icon
+            icon={<Sparkles />}
             color="third"
             config={amenityConfig}
             data={roomAmenitiesAvailiable}
