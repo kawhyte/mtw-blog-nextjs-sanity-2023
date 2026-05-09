@@ -1,4 +1,4 @@
-import { CheckCircle2, Laptop, Mail, MonitorPlay, Sparkles, Tv, Video, Wifi, XCircle } from 'lucide-react'
+import { CheckCircle2, ConciergeBell, Laptop, Mail, MonitorPlay, Tv, Video, Wifi, XCircle } from 'lucide-react'
 import React from 'react'
 
 import SectionTitle from './SectionTitle'
@@ -182,7 +182,7 @@ const RoomTech = ({ speed = 0, techAvailable, roomAmenitiesAvailiable }) => {
           {/* --- Room Amenities Card --- */}
           <InfoCard
             title="Room Amenities"
-            icon={<Sparkles />}
+            icon={<ConciergeBell />}
             color="third"
             config={amenityConfig}
             data={roomAmenitiesAvailiable}

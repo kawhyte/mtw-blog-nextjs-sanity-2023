@@ -121,14 +121,14 @@ export default function ImageGallery({
           </div>
 
           {/* Scrollable image grid */}
-          <div className="mx-auto grid max-w-6xl grid-cols-1 gap-4 p-4 md:grid-cols-2 md:p-8">
+          <div className="mx-auto max-w-6xl columns-1 space-y-4 p-4 md:columns-2 md:p-8">
             {images.map((item, i) => {
               if (!item?.asset) return null
               const imageAlt = item.alt || `Gallery image ${i + 1}`
               const hasCaption = item.caption && item.caption.trim().length > 0
 
               return (
-                <div key={item._key || `modal-${i}`} className="flex flex-col gap-2">
+                <div key={item._key || `modal-${i}`} className="break-inside-avoid flex flex-col gap-2">
                   <SanityImage
                     image={item as any}
                     width={1200}
