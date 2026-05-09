@@ -1,4 +1,5 @@
 import BlogHeader from 'components/BlogHeader'
+import { formatDate } from 'components/PostDate'
 import Layout from 'components/BlogLayout'
 import Footer from 'components/Footer'
 import ImageGallery from 'components/ImageGallery'
@@ -198,7 +199,7 @@ function HotelReviewPageContent(props: HotelReviewPageProps) {
               {hotelReview.date && (
                 <div className="flex items-center text-base text-muted-foreground">
                   <CalendarDays className="mr-2 h-4 w-4" />
-                  {new Date(hotelReview.date).toLocaleDateString()}
+                  {formatDate(hotelReview.date)}
                 </div>
               )}
             </div>

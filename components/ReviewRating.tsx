@@ -94,9 +94,6 @@ export default function ReviewRating({
           <p className="text-2xl font-semibold text-foreground mb-2">
             {textScore}
           </p>
-          <div className="mt-4 text-sm text-muted-foreground italic">
-            A comprehensive look at what makes this special.
-          </div>
         </div>
         <div className="md:col-span-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">

@@ -21,18 +21,18 @@ interface RatingResult {
 const defaultRatingThresholds: RatingThresholds = {
   9: 'Excellent',
   8: 'Great',
-  7.5: 'Good',
-  6: 'Fair',
-  4: 'Poor',
+  7: 'Good',
+  5.5: 'Fair',
+  3: 'Poor',
   0: 'Horrible',
 }
 
 const ratingColorMap: { [threshold: number]: string } = {
   9: '#34D319', // Excellent
   8: '#4ADE99', // Great
-  7.5: '#FBBF24', // Good
-  6: '#F97316', // Fair
-  4: '#EF4444', // Poor
+  7: '#FBBF24', // Good
+  5.5: '#F97316', // Fair
+  3: '#EF4444', // Poor
   0: '#991B1B', // Horrible
 }
 

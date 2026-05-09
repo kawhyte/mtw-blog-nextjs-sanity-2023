@@ -13,8 +13,8 @@ interface RatingThreshold {
 const ratingThresholds: RatingThreshold[] = [
   { rating: 'Excellent', threshold: 4.5, color: '#34D319' },
   { rating: 'Great', threshold: 4.0, color: '#4ADE99' },
-  { rating: 'Good', threshold: 3.75, color: '#FBBF24' },
-  { rating: 'Fair', threshold: 3.0, color: '#F97316' },
+  { rating: 'Good', threshold: 3.5, color: '#FBBF24' },
+  { rating: 'Fair', threshold: 2.75, color: '#F97316' },
   { rating: 'Poor', threshold: 1.5, color: '#EF4444' },
   { rating: 'Horrible', threshold: 0, color: '#991B1B' },
 ]

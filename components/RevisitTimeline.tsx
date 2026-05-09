@@ -1,4 +1,5 @@
 import { PortableText } from '@portabletext/react'
+import { format, parseISO } from 'date-fns'
 import { CalendarCheck, History, TrendingDown, TrendingUp } from 'lucide-react'
 
 import { Separator } from '@/components/ui/separator'
@@ -28,10 +29,7 @@ interface RevisitTimelineProps {
 }
 
 function formatVisitDate(dateString: string): string {
-  return new Date(dateString).toLocaleDateString('en-US', {
-    month: 'short',
-    year: 'numeric',
-  })
+  return format(parseISO(dateString), 'MMM yyyy')
 }
 
 const portableTextComponents = {

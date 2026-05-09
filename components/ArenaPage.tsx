@@ -1,6 +1,7 @@
 // components/ArenaPage.tsx
 
 import Layout from 'components/BlogLayout'
+import { formatDate } from 'components/PostDate'
 import PostPageHead from 'components/PostPageHead'
 import calculateAverageRating from 'lib/calculateArenaRating'
 import { usePhotoGallery } from 'hooks/usePhotoGallery'
@@ -305,11 +306,7 @@ export default function ArenaPage({
                   <CardContent className="text-sm">
                     <p>
                       <strong>Date of Visit:</strong>{' '}
-                      {new Date(arena.date).toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
-                      })}
+                      {formatDate(arena.date)}
                     </p>
                   </CardContent>
                 )}

@@ -1,4 +1,5 @@
 import BlogHeader from 'components/BlogHeader'
+import { formatDate } from 'components/PostDate'
 import Layout from 'components/BlogLayout'
 import Footer from 'components/Footer'
 import HeroPhotoGallery from 'components/HeroPhotoGallery'
@@ -225,7 +226,7 @@ export default function FoodReviewPage(props: FoodReviewPageProps) {
               {foodReview.date && (
                 <div className="flex items-center text-base text-muted-foreground">
                   <CalendarDays className="mr-2 h-4 w-4" />
-                  {new Date(foodReview.date).toLocaleDateString()}
+                  {formatDate(foodReview.date)}
                 </div>
               )}
             </div>

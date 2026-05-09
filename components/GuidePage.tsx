@@ -1,6 +1,7 @@
 // components/GuidePage.tsx
 
 import Layout from 'components/BlogLayout'
+import { formatDate } from 'components/PostDate'
 import PostBody from 'components/PostBody'
 import PostPageHead from 'components/PostPageHead'
 import { urlForImage } from 'lib/sanity.image'
@@ -51,7 +52,7 @@ export default function GuidePage({
             <h1 className="mb-4 text-4xl font-bold">{guide.title}</h1>
             {guide.date && (
               <p className="text-lg text-muted-foreground">
-                Published on {new Date(guide.date).toLocaleDateString()}
+                Published on {formatDate(guide.date)}
               </p>
             )}
           </header>
