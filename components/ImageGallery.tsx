@@ -1,10 +1,11 @@
 // components/ImageGallery.tsx
 
 import { urlForImage } from 'lib/sanity.image'
-import { ChevronLeft, ChevronRight, X } from 'lucide-react'
+import { X } from 'lucide-react'
 import Image from 'next/image'
 import React from 'react'
 
+import SanityImage from './SanityImage'
 import SectionTitle from './SectionTitle'
 
 // --- Interfaces ---
@@ -29,11 +30,9 @@ export interface ImageGalleryProps {
   images?: GalleryImage[]
   title?: string
   className?: string
-  selectedImageIndex: number | null
-  openModal: (index: number) => void
+  isOpen: boolean
+  openModal: () => void
   closeModal: () => void
-  nextImage: () => void
-  prevImage: () => void
 }
 
 // --- Main Exported Component ---
@@ -41,11 +40,9 @@ export default function ImageGallery({
   images,
   title,
   className,
-  selectedImageIndex,
+  isOpen,
   openModal,
   closeModal,
-  nextImage,
-  prevImage,
 }: ImageGalleryProps) {
   const hasImages = images && images.length > 0
 
@@ -71,7 +68,7 @@ export default function ImageGallery({
                 <div
                   key={item._key || `gallery-${i}`}
                   className="break-inside-avoid group relative cursor-pointer"
-                  onClick={() => openModal(i)}
+                  onClick={openModal}
                 >
                   <Image
                     className="h-auto w-full rounded-lg object-cover shadow-md transition-all duration-300 group-hover:shadow-xl group-hover:scale-105"
@@ -102,74 +99,47 @@ export default function ImageGallery({
         )}
       </div>
 
-      {/* --- Lightbox Modal --- */}
-      {selectedImageIndex !== null && hasImages && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm"
-          onClick={closeModal}
-        >
-          {/* Main Modal Content */}
-          <div
-            className="relative flex h-full max-h-[90vh] w-full max-w-[90vw] flex-col items-center justify-center"
-            onClick={(e) => e.stopPropagation()} // Prevents modal from closing when clicking on the image/buttons
-          >
-            {/* Image Display */}
-            <Image
-              src={urlForImage(images[selectedImageIndex])
-                .width(1920)
-                .auto('format')
-                .url()}
-              alt={images[selectedImageIndex].alt || 'Full screen image'}
-              width={
-                images[selectedImageIndex].asset.metadata?.dimensions?.width ||
-                1920
-              }
-              height={
-                images[selectedImageIndex].asset.metadata?.dimensions?.height ||
-                1080
-              }
-              className="object-contain w-auto h-auto max-w-full max-h-[calc(100%-80px)] rounded-lg shadow-2xl"
-              placeholder={
-                images[selectedImageIndex].asset.metadata?.lqip
-                  ? 'blur'
-                  : 'empty'
-              }
-              blurDataURL={images[selectedImageIndex].asset.metadata?.lqip}
-            />
-
-            {/* Caption Display */}
-            {images[selectedImageIndex].caption && (
-              <p className="mt-3 max-w-full px-4 text-center text-sm text-muted-foreground">
-                {images[selectedImageIndex].caption}
-              </p>
-            )}
-
-            {/* Close Button */}
+      {/* --- Airbnb-style Full-Screen Gallery Modal --- */}
+      {isOpen && hasImages && (
+        <div className="fixed inset-0 z-50 bg-background overflow-y-auto">
+          {/* Sticky header */}
+          <div className="sticky top-0 z-10 flex items-center justify-between border-b border-border bg-background/90 p-4 backdrop-blur">
+            <span className="font-semibold text-foreground">
+              All photos ({images.length})
+            </span>
             <button
               onClick={closeModal}
-              className="absolute -top-4 -right-4 lg:top-0 lg:right-0 m-4 p-2 rounded-full bg-card border border-border text-foreground hover:bg-muted transition-colors"
-              aria-label="Close image view"
+              className="rounded-full p-2 transition-colors hover:bg-muted"
+              aria-label="Close gallery"
             >
               <X className="h-6 w-6" />
             </button>
+          </div>
 
-            {/* Previous Button */}
-            <button
-              onClick={prevImage}
-              className="absolute left-0 m-4 p-2 rounded-full bg-card border border-border text-foreground hover:bg-muted transition-colors"
-              aria-label="Previous image"
-            >
-              <ChevronLeft className="h-8 w-8" />
-            </button>
+          {/* Scrollable image grid */}
+          <div className="mx-auto grid max-w-6xl grid-cols-1 gap-4 p-4 md:grid-cols-2 md:p-8">
+            {images.map((item, i) => {
+              if (!item?.asset) return null
+              const imageAlt = item.alt || `Gallery image ${i + 1}`
+              const hasCaption = item.caption && item.caption.trim().length > 0
 
-            {/* Next Button */}
-            <button
-              onClick={nextImage}
-              className="absolute right-0 m-4 p-2 rounded-full bg-card border border-border text-foreground hover:bg-muted transition-colors"
-              aria-label="Next image"
-            >
-              <ChevronRight className="h-8 w-8" />
-            </button>
+              return (
+                <div key={item._key || `modal-${i}`} className="flex flex-col gap-2">
+                  <SanityImage
+                    image={item as any}
+                    width={1200}
+                    className="h-auto w-full rounded-lg object-cover"
+                    alt={imageAlt}
+                    loading={i < 2 ? 'eager' : 'lazy'}
+                  />
+                  {hasCaption && (
+                    <p className="px-1 text-sm text-muted-foreground">
+                      {item.caption}
+                    </p>
+                  )}
+                </div>
+              )
+            })}
           </div>
         </div>
       )}

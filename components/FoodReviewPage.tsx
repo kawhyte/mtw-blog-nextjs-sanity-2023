@@ -94,11 +94,9 @@ export default function FoodReviewPage(props: FoodReviewPageProps) {
 
   const {
     galleryImages,
-    selectedImageIndex,
+    isOpen,
     openModal,
     closeModal,
-    nextImage,
-    prevImage,
   } = usePhotoGallery(foodReview.coverImage, foodReview.gallery)
 
   if (!foodReview?.slug && !preview) {
@@ -202,7 +200,7 @@ export default function FoodReviewPage(props: FoodReviewPageProps) {
         {galleryImages.length > 0 && (
           <HeroPhotoGallery
             images={galleryImages}
-            onShowAllPhotos={() => openModal(0)}
+            onShowAllPhotos={openModal}
           />
         )}
 
@@ -277,11 +275,9 @@ export default function FoodReviewPage(props: FoodReviewPageProps) {
           <ImageGallery
             title="Photo Gallery"
             images={galleryImages}
-            selectedImageIndex={selectedImageIndex}
+            isOpen={isOpen}
             openModal={openModal}
             closeModal={closeModal}
-            nextImage={nextImage}
-            prevImage={prevImage}
           />
         )}
 

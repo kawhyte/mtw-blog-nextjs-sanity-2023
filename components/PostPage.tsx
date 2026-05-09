@@ -111,11 +111,9 @@ export default function PostPage(props: PostPageProps) {
           <ImageGallery
             title="Photo Gallery"
             images={post.gallery}
-            selectedImageIndex={null}
+            isOpen={false}
             openModal={() => {}}
             closeModal={() => {}}
-            nextImage={() => {}}
-            prevImage={() => {}}
           />
         )}
 

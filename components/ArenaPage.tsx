@@ -108,11 +108,9 @@ export default function ArenaPage({
   // Use unified photo gallery hook for state management
   const {
     galleryImages,
-    selectedImageIndex,
+    isOpen,
     openModal,
     closeModal,
-    nextImage,
-    prevImage,
   } = usePhotoGallery(rawGalleryImages[0], rawGalleryImages.slice(1))
 
   // Compute effective arena review by accumulating all revisit updates
@@ -174,7 +172,7 @@ export default function ArenaPage({
         {galleryImages.length > 0 && (
           <HeroPhotoGallery
             images={galleryImages}
-            onShowAllPhotos={() => openModal(0)}
+            onShowAllPhotos={openModal}
           />
         )}
 
@@ -424,11 +422,9 @@ export default function ArenaPage({
               <ImageGallery
                 images={galleryImages}
                 title="Photo Gallery"
-                selectedImageIndex={selectedImageIndex}
+                isOpen={isOpen}
                 openModal={openModal}
                 closeModal={closeModal}
-                nextImage={nextImage}
-                prevImage={prevImage}
               />
             </section>
           )}

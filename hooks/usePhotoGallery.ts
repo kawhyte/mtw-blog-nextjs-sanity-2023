@@ -5,51 +5,33 @@ export function usePhotoGallery(
   coverImage?: GalleryImage,
   gallery?: GalleryImage[],
 ) {
-  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(
-    null,
-  )
+  const [isOpen, setIsOpen] = useState(false)
 
   const galleryImages = [coverImage, ...(gallery || [])].filter(
     Boolean,
   ) as GalleryImage[]
 
-  const openModal = (index: number) => setSelectedImageIndex(index)
-
-  const closeModal = useCallback(() => setSelectedImageIndex(null), [])
-
-  const nextImage = useCallback(() => {
-    if (!galleryImages || galleryImages.length === 0) return
-    setSelectedImageIndex((prevIndex) =>
-      prevIndex === null ? null : (prevIndex + 1) % galleryImages.length,
-    )
-  }, [galleryImages, selectedImageIndex])
-
-  const prevImage = useCallback(() => {
-    if (!galleryImages || galleryImages.length === 0) return
-    setSelectedImageIndex((prevIndex) =>
-      prevIndex === null
-        ? null
-        : (prevIndex - 1 + galleryImages.length) % galleryImages.length,
-    )
-  }, [galleryImages, selectedImageIndex])
+  const openModal = useCallback(() => setIsOpen(true), [])
+  const closeModal = useCallback(() => setIsOpen(false), [])
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (selectedImageIndex === null) return
-      if (e.key === 'ArrowRight') nextImage()
-      if (e.key === 'ArrowLeft') prevImage()
+      if (!isOpen) return
       if (e.key === 'Escape') closeModal()
     }
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [selectedImageIndex, nextImage, prevImage, closeModal])
+  }, [isOpen, closeModal])
+
+  useEffect(() => {
+    document.body.classList.toggle('overflow-hidden', isOpen)
+    return () => document.body.classList.remove('overflow-hidden')
+  }, [isOpen])
 
   return {
     galleryImages,
-    selectedImageIndex,
+    isOpen,
     openModal,
     closeModal,
-    nextImage,
-    prevImage,
   }
 }

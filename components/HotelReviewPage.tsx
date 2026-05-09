@@ -29,7 +29,6 @@ import {
   Wifi,
 } from 'lucide-react'
 import { notFound } from 'next/navigation'
-import { useCallback, useEffect, useState } from 'react'
 
 import BreadcrumbStructuredData from './BreadcrumbStructuredData'
 import HelpfulTip from './HelpfulTip'
@@ -38,6 +37,7 @@ import RevisitTimeline from './RevisitTimeline'
 import ReviewBlurb from './ReviewBlurb'
 import ReviewRating from './ReviewRating'
 import ReviewStructuredData from './ReviewStructuredData'
+import { Section } from './ui/Section'
 
 export interface HotelReviewPageProps {
   preview?: boolean
@@ -126,11 +126,9 @@ function HotelReviewPageContent(props: HotelReviewPageProps) {
 
   const {
     galleryImages,
-    selectedImageIndex,
+    isOpen,
     openModal,
     closeModal,
-    nextImage,
-    prevImage,
   } = usePhotoGallery(hotelReview.coverImage, hotelReview.gallery)
 
   return (
@@ -169,61 +167,64 @@ function HotelReviewPageContent(props: HotelReviewPageProps) {
         {galleryImages.length > 0 && (
           <HeroPhotoGallery
             images={galleryImages}
-            onShowAllPhotos={() => openModal(0)}
+            onShowAllPhotos={openModal}
           />
         )}
 
-        <article className="container mx-auto px-4 py-8 md:px-6 md:py-12">
-          {/* Hotel Review Header - will create dedicated component later */}
-          <header className="mb-12">
-            <h1 className="mb-4 text-4xl font-bold">{hotelReview.title}</h1>
-            <div className="mb-4 flex flex-wrap items-center justify-start gap-x-6 gap-y-2">
-              {hotelReview.location && (
-                <div className="flex items-center text-base text-muted-foreground">
-                  <MapPin className="mr-2 h-4 w-4" />
-                  {hotelReview.location}
-                </div>
-              )}
-              {hotelReview.category && (
-                <div className="flex items-center text-base text-muted-foreground capitalize">
-                  <Hotel className="mr-2 h-4 w-4" />
-                  {hotelReview.category}
-                </div>
-              )}
-              {hotelReview.room && (
-                <div className="flex items-center text-base text-muted-foreground">
-                  <BedDouble className="mr-2 h-4 w-4" />
-                  {hotelReview.room}
-                </div>
-              )}
-              {hotelReview.date && (
-                <div className="flex items-center text-base text-muted-foreground">
-                  <CalendarDays className="mr-2 h-4 w-4" />
-                  {formatDate(hotelReview.date)}
-                </div>
-              )}
-            </div>
-          </header>
+        <article className="container mx-auto px-4 md:px-6">
+          <Section spacing="tight" as="div">
+            <header>
+              <h1 className="mb-4 text-4xl font-bold">{hotelReview.title}</h1>
+              <div className="mb-4 flex flex-wrap items-center justify-start gap-x-6 gap-y-2">
+                {hotelReview.location && (
+                  <div className="flex items-center text-base text-muted-foreground">
+                    <MapPin className="mr-2 h-4 w-4" />
+                    {hotelReview.location}
+                  </div>
+                )}
+                {hotelReview.category && (
+                  <div className="flex items-center text-base text-muted-foreground capitalize">
+                    <Hotel className="mr-2 h-4 w-4" />
+                    {hotelReview.category}
+                  </div>
+                )}
+                {hotelReview.room && (
+                  <div className="flex items-center text-base text-muted-foreground">
+                    <BedDouble className="mr-2 h-4 w-4" />
+                    {hotelReview.room}
+                  </div>
+                )}
+                {hotelReview.date && (
+                  <div className="flex items-center text-base text-muted-foreground">
+                    <CalendarDays className="mr-2 h-4 w-4" />
+                    {formatDate(hotelReview.date)}
+                  </div>
+                )}
+              </div>
+            </header>
 
-          {hotelReview.excerpt2 && (
-            <ReviewBlurb
-              content={hotelReview.excerpt2}
-              source={hotelReview.blurbSource}
-              url={hotelReview.blurbUrl}
-            />
-          )}
+            {hotelReview.excerpt2 && (
+              <ReviewBlurb
+                content={hotelReview.excerpt2}
+                source={hotelReview.blurbSource}
+                url={hotelReview.blurbUrl}
+              />
+            )}
+          </Section>
 
-          <div className="space-y-12 md:space-y-16">
-            {effectiveHotelRating && (
+          {effectiveHotelRating && (
+            <Section spacing="tight" as="div">
               <ReviewRating
                 ratings={effectiveHotelRating}
                 ratingIcons={hotelRatingIcons}
                 title="Hotel Rating"
                 reviewType="hotel"
               />
-            )}
+            </Section>
+          )}
 
-            {timelineEntries.length > 0 && originalRatingResult && hotelReview.date && (
+          {timelineEntries.length > 0 && originalRatingResult && hotelReview.date && (
+            <Section spacing="tight" as="div">
               <RevisitTimeline
                 originalDate={hotelReview.date}
                 originalDisplayRating={originalRatingResult.displayRating}
@@ -231,40 +232,50 @@ function HotelReviewPageContent(props: HotelReviewPageProps) {
                 originalColor={originalRatingResult.color ?? '#6B7280'}
                 entries={timelineEntries}
               />
-            )}
+            </Section>
+          )}
 
-            {/* Hotel-specific content sections */}
+          <Section spacing="tight" as="div">
             <ProConList
               positives={hotelReview.positives}
               negatives={hotelReview.negatives}
               verdict2={hotelReview.verdict}
             />
+          </Section>
 
-            {hotelReview.tip && <HelpfulTip tip={hotelReview.tip} />}
+          {hotelReview.tip && (
+            <Section spacing="tight" as="div">
+              <HelpfulTip tip={hotelReview.tip} />
+            </Section>
+          )}
+
+          <Section spacing="tight" as="div">
             <RoomTech
               techAvailable={hotelReview.techRating}
               speed={hotelReview.internetSpeed}
               roomAmenitiesAvailiable={hotelReview.roomAmenities}
             />
+          </Section>
 
-            {/* <div className="container mx-auto"> */}
+          <Section spacing="tight" as="div">
             <PostBody content={hotelReview.content} />
-            {/* </div> */}
+          </Section>
 
-            {hotelReview.youtube && <VideoPlayer url={hotelReview.youtube} />}
+          {hotelReview.youtube && (
+            <Section spacing="tight" as="div">
+              <VideoPlayer url={hotelReview.youtube} />
+            </Section>
+          )}
 
-            {hotelReview.gallery?.length > 0 && (
-              <ImageGallery
-                title="Photo Gallery"
-                images={hotelReview.gallery}
-                selectedImageIndex={selectedImageIndex}
-                openModal={openModal}
-                closeModal={closeModal}
-                nextImage={nextImage}
-                prevImage={prevImage}
-              />
-            )}
-          </div>
+          {hotelReview.gallery?.length > 0 && (
+            <ImageGallery
+              title="Photo Gallery"
+              images={hotelReview.gallery}
+              isOpen={isOpen}
+              openModal={openModal}
+              closeModal={closeModal}
+            />
+          )}
         </article>
         <Footer />
       </Layout>
