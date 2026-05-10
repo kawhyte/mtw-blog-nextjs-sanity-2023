@@ -29,7 +29,7 @@ export default function TopListItems({
             {/* --- LARGE RANK NUMBER --- */}
             {/* Positioned at the top of the container, centered horizontally */}
             <span
-              className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-16 sm:-translate-y-28 z-0 font-montserrat text-[9rem] font-black leading-none text-secondary/20 transition-all duration-300 group-hover:scale-110 group-hover:text-primary/40 sm:text-[14rem]"
+              className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-16 sm:-translate-y-28 z-0 font-epilogue text-[9rem] font-black leading-none text-secondary/20 transition-all duration-300 group-hover:scale-110 group-hover:text-primary/40 sm:text-[14rem]"
               aria-hidden="true" // Decorative element
             >
               {i + 1}

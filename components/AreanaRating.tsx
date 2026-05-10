@@ -22,7 +22,7 @@ function ArenaRating({ rating, text, icon }) {
         <div className="flex flex-row items-center justify-start">
           <div className="flex items-center justify-center px-2 ">
             {icon && <span className="mr-2">{icon}</span>}
-            <h2 className="font-montserrat text-sm font-normal text-gray-700">
+            <h2 className="text-sm font-normal text-muted-foreground">
               {text}
             </h2>
           </div>

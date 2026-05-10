@@ -158,7 +158,7 @@ export default function Navbar() {
                 />
               </span>
             </div>
-            <span className="hidden font-space-grotesk text-base font-medium 2xl:block">
+            <span className="hidden text-base font-medium 2xl:block">
               meet the whytes
             </span>
           </Link>

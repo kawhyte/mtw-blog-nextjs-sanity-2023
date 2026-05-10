@@ -24,7 +24,7 @@ const RatingBadge = ({
     >
       {/* Average Number */}
       <span
-        className="font-montserrat font-black leading-tight tracking-tighter text-sm sm:text-xl md:text-lg"
+        className="font-epilogue font-black leading-tight tracking-tighter text-sm sm:text-xl md:text-lg"
         style={{ color: textColor }}
         aria-hidden="true"
       >
@@ -47,7 +47,7 @@ const RatingBadge = ({
 
       {/* Text Rating */}
       <p
-        className="font-montserrat font-bold text-xs sm:text-sm truncate max-w-[60px] sm:max-w-none"
+        className="font-epilogue font-bold text-xs sm:text-sm truncate max-w-[60px] sm:max-w-none"
         style={{ color: textColor }}
         aria-hidden="true"
       >

@@ -1,4 +1,3 @@
-import { oswald } from 'app/fonts'
 import { twMerge } from 'tailwind-merge'
 
 export default function BlogSection({ children, className, ...props }) {

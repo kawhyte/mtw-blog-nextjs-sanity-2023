@@ -1,5 +1,4 @@
 // import { video } from '@cloudinary/url-gen/qualifiers/source'
-import { oswald } from 'app/fonts'
 import dynamic from 'next/dynamic'
 // import { InstagramEmbed } from 'react-social-media-embed'
 
@@ -43,7 +42,7 @@ const InstagramHighlights = ({ instagram }) => {
       <div className=" container mx-auto mb-10 flex w-full flex-wrap">
         <div className="mx-4 mb-6 w-full lg:mb-0 lg:w-1/2 ">
           <h1
-            className={`${oswald.variable}  title-font  mb-2 font-heading text-2xl font-medium text-gray-900 sm:text-3xl`}
+            className="title-font mb-2 text-2xl font-medium text-foreground sm:text-3xl"
           >
             Featured Instagram Posts
           </h1>

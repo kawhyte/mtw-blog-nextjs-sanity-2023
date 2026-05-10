@@ -1,6 +1,5 @@
 // src/components/DynamicPostCard.tsx
 
-import { inter } from 'app/fonts'
 import Date from 'components/PostDate'
 import type { FoodReview, Guide, HotelReview, Post } from 'lib/sanity.queries'
 import { ArrowRight, Calendar, MapPin, RefreshCw } from 'lucide-react'
@@ -150,11 +149,9 @@ const DynamicPostCard = ({
             </div>
           ) : null}
 
-          <span className={`${inter.variable} font-secondary`}>
-            <CardTitle className="font-montserrat line-clamp-1 pt-1 text-sm font-bold text-foreground no-underline decoration-primary decoration-dashed decoration-4 group-hover:underline sm:line-clamp-2 sm:h-8 sm:text-xl lg:text-xl xl:pt-1.5">
-              {title}
-            </CardTitle>
-          </span>
+          <CardTitle className="line-clamp-1 pt-1 text-sm font-bold text-foreground no-underline decoration-primary decoration-dashed decoration-4 group-hover:underline sm:line-clamp-2 sm:h-8 sm:text-xl lg:text-xl xl:pt-1.5">
+            {title}
+          </CardTitle>
 
           {/* Meta info */}
           <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-muted-foreground">

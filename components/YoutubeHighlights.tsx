@@ -1,4 +1,3 @@
-import { oswald } from 'app/fonts'
 import dynamic from 'next/dynamic'
 import React from 'react'
 
@@ -55,7 +54,7 @@ const YoutubeHighlights = () => {
             />
             {index === 0 && (
               <h3
-                className={`${oswald.variable} mt-4 text-xl font-medium text-gray-900`}
+                className="mt-4 text-xl font-medium text-foreground"
               >
                 Featured Highlight
               </h3>

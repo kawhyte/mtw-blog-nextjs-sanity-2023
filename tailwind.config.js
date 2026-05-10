@@ -11,17 +11,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        montserrat: ['var(--font-montserrat)', 'system-ui', 'sans-serif'],
-        raleway: ['var(--font-raleway)', 'system-ui', 'sans-serif'],
-        inter: ['var(--font-inter)', 'system-ui', 'sans-serif'],
-        'space-grotesk': [
-          'var(--font-space-grotesk)',
-          'system-ui',
-          'sans-serif',
-        ],
-        'roboto-mono': ['var(--font-roboto-mono)', 'Courier New', 'monospace'],
-        oswald: ['var(--font-oswald)', 'system-ui', 'sans-serif'],
-        // Neo-Brutalist design system fonts
+        // Neo-Brutalist design system fonts (only these two are loaded)
         epilogue: ['var(--font-heading)', 'system-ui', 'sans-serif'],
         'plus-jakarta-sans': ['var(--font-body)', 'system-ui', 'sans-serif'],
       },

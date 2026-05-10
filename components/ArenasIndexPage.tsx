@@ -1,4 +1,3 @@
-import { inter } from 'app/fonts'
 import { urlForImage } from 'lib/sanity.image'
 import dynamic from 'next/dynamic'
 import { LiaBasketballBallSolid } from 'react-icons/lia'
@@ -20,7 +19,7 @@ const ArenasIndexPage = ({ arenas }) => {
               description={`We're hitting the road (like, seriously hitting all the roads!) to check out and rank every single NBA and WNBA arena across the US and Canada. Buckle up and follow our adventure!`}
             />
             <p
-              className={` ${inter.variable} font-secondary mt-4 text-sm leading-relaxed md:text-base  lg:text-base `}
+              className="mt-4 text-sm leading-relaxed md:text-base lg:text-base"
             ></p>
             <div className="lg:mt-0 lg:shrink-0">
               <div className="mt-6 inline-flex ">

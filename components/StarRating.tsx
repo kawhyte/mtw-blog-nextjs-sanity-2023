@@ -1,4 +1,3 @@
-import { oswald } from 'app/fonts' // Assuming font import is needed
 import { calculateRating } from 'lib/calculateRating' // Assuming calculation function import
 import { FOOD_WEIGHTS, HOTEL_WEIGHTS } from 'lib/ratingWeights' // Import weight objects
 import type { FoodReview, HotelReview, Post } from 'lib/sanity.queries'
@@ -140,7 +139,7 @@ const StarRating: React.FC<StarRatingProps> = ({
         >
           {/* Numerical Rating */}
           <div className="text-gray-900">
-            <span className="ml-1 mr-1 font-montserrat text-5xl font-black leading-tight tracking-tighter sm:text-5xl md:text-left md:text-5xl md:leading-none lg:text-5xl">
+            <span className="ml-1 mr-1 font-epilogue text-5xl font-black leading-tight tracking-tighter sm:text-5xl md:text-left md:text-5xl md:leading-none lg:text-5xl">
               {displayRating}
             </span>
           </div>
@@ -155,11 +154,7 @@ const StarRating: React.FC<StarRatingProps> = ({
           </div>
         </div>
         <div className="ml-6 flex flex-col ">
-          <p
-            className={`mb-3 font-montserrat text-6xl font-bold text-gray-900 ${oswald.variable} font-heading`}
-          >
-            {' '}
-            {/* Added font styles */}
+          <p className="mb-3 font-epilogue text-6xl font-bold text-foreground">
             {textRating}
           </p>
 
@@ -208,7 +203,7 @@ const StarRating: React.FC<StarRatingProps> = ({
                     />
                   </span>
                   {/* Name and Availability Text */}
-                  <p className="font-inter text-sm leading-loose md:text-base">
+                  <p className="text-sm leading-loose md:text-base">
                     {itemInfo.name}{' '}
                     {Number(value) <= 0 && (
                       <span className="text-xs italic text-gray-500">

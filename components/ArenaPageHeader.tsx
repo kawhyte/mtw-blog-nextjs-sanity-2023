@@ -97,7 +97,7 @@ function ReviewHeader({ title, arenas, summary, animation }) {
             </div>
 
             <div className="flex max-w-4xl flex-col items-center justify-center pt-8 text-center align-middle md:items-start lg:grow">
-              <h1 className="font-oswald container mx-auto mb-1 font-heading text-4xl font-bold leading-tight tracking-tighter text-primary sm:px-0 md:text-[4.3rem]">
+              <h1 className="container mx-auto mb-1 text-4xl font-bold leading-tight tracking-tighter text-primary sm:px-0 md:text-[4.3rem]">
                 {title}
               </h1>
 

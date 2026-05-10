@@ -1,7 +1,6 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
-import { inter, space } from 'app/fonts'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -113,7 +112,7 @@ export default function Nav({ color = 'bg-black', bgColor }) {
     <Disclosure
       as="nav"
       className={
-        ` ${inter.variable} font-sans   blur-backdrop-filter firefox:bg-opacity-90 sticky top-0 z-50  h-[72px]  w-full   whitespace-nowrap bg-transparent bg-white   bg-opacity-50   bg-clip-padding pt-6 backdrop-blur-sm backdrop-filter transition-all  ` +
+        ` font-sans blur-backdrop-filter firefox:bg-opacity-90 sticky top-0 z-50 h-[72px] w-full whitespace-nowrap bg-transparent bg-white bg-opacity-50 bg-clip-padding pt-6 backdrop-blur-sm backdrop-filter transition-all ` +
         bg
       }
       style={{

@@ -1,4 +1,3 @@
-import { oswald } from 'app/fonts'
 import { Book } from 'lucide-react'
 import React from 'react'
 
@@ -14,7 +13,7 @@ interface InterestCardProps {
 function InterestCard({ interests }: InterestCardProps) {
   return (
     <div className="max-w-8xl w-full rounded-3xl bg-secondary-soft-background p-6">
-      <h2 className=" font-montserrat my-4  mb-6    text-xl font-bold text-gray-900 sm:text-2xl lg:text-3xl">
+      <h2 className="my-4 mb-6 text-xl font-bold text-foreground sm:text-2xl lg:text-3xl">
         BEYOND THE HARDWOOD
       </h2>
       <div className="flex flex-wrap gap-2">

@@ -1,4 +1,3 @@
-import { inter, montserrat, raleway } from 'app/fonts'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
@@ -34,7 +33,7 @@ function Hero() {
           <div className="relative z-10 flex flex-col items-center text-center md:items-start md:text-left">
             {/* Hero Headline */}
             <div
-              className={`${montserrat.variable} font-adventure-heading mb-8 flex flex-col uppercase leading-tight tracking-tight text-blog-heading space-y-0.5 text-adventure-subtitle py-2`}
+              className="font-adventure-heading mb-8 flex flex-col uppercase leading-tight tracking-tight text-blog-heading space-y-0.5 text-adventure-subtitle py-2"
             >
               <h1 className="text-5xl sm:text-6xl md:text-8xl lg:text-7xl xl:text-[5rem]">
                 Our Quest
@@ -52,7 +51,7 @@ function Hero() {
 
             {/* Hero Subtext */}
             <p
-              className={`${raleway.variable} mb-8 max-w-2xl text-lg leading-relaxed text-blog-text md:text-xl xl:text-2xl`}
+              className="mb-8 max-w-2xl text-lg leading-relaxed text-blog-text md:text-xl xl:text-2xl"
             >
               We&apos;re hitting the road (like, seriously hitting all the
               roads!) to check out and rank every single NBA and WNBA arena

@@ -133,7 +133,7 @@ const Arenas = React.memo(
               </div>
             ) : null}
 
-            <h2 className="font-heading line-clamp-1 pt-1 font-montserrat text-lg font-bold text-foreground decoration-primary decoration-dashed decoration-4 group-hover:underline sm:line-clamp-2 sm:h-8 sm:text-xl lg:text-xl xl:pt-1.5">
+            <h2 className="line-clamp-1 pt-1 text-lg font-bold text-foreground decoration-primary decoration-dashed decoration-4 group-hover:underline sm:line-clamp-2 sm:h-8 sm:text-xl lg:text-xl xl:pt-1.5">
               {arenaName}
             </h2>
 

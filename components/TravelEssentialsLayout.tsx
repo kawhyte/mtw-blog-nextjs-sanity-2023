@@ -82,7 +82,7 @@ const TravelEssentialLayout = ({ posts }: { posts: Essential[] }) => {
               {' '}
               {/* Added padding */}
               {/* Product Name */}
-              <h1 className=" text-base md:text-lg font-semibold text-gray-800 mb-2 font-montserrat line-clamp-2">
+              <h1 className="text-base md:text-lg font-semibold text-foreground mb-2 line-clamp-2">
                 {item.name}
               </h1>
               {/* Date and Price Info */}
