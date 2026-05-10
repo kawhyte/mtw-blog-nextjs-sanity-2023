@@ -39,6 +39,7 @@ import {
   CheckCircle,
   Handshake,
   MapPin,
+  Medal,
   Package,
   Presentation,
   ShoppingBag,
@@ -168,6 +169,14 @@ export default function FoodReviewPage(props: FoodReviewPageProps) {
         })
       : []
 
+  const bestDish = foodReview.individualFoodRating?.length
+    ? foodReview.individualFoodRating.reduce((top, item) =>
+        (item.rating?.Dish ?? 0) > (top.rating?.Dish ?? 0) ? item : top,
+        foodReview.individualFoodRating[0],
+      )
+    : null
+  const bestDishScore = bestDish ? ((bestDish.rating?.Dish ?? 0) / 2).toFixed(1) : null
+
   return (
     <div>
       <PostPageHead settings={settings} post={foodReview} contentType="food" />
@@ -261,12 +270,41 @@ export default function FoodReviewPage(props: FoodReviewPageProps) {
             />
           )}
 
+          {foodReview.tip && <HelpfulTip tip={foodReview.tip} />}
+
+          {/* Best Dish callout */}
+          {bestDish && (
+            <div className="my-6 flex items-start gap-4 rounded-xl border-2 border-primary/30 bg-primary/5 p-4 sm:p-5">
+              <div className="mt-0.5 flex-shrink-0 rounded-lg bg-primary/10 p-2">
+                <Medal className="h-5 w-5 text-primary" />
+              </div>
+              <div className="min-w-0">
+                <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-0.5">
+                  Must Order
+                </p>
+                <p className="text-lg font-bold text-foreground leading-tight">
+                  {bestDish.name}
+                </p>
+                <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground">
+                  <span className="font-semibold text-foreground">
+                    {bestDishScore} / 5
+                  </span>
+                  {bestDish.price != null && bestDish.price > 0 && (
+                    <span>${Number(bestDish.price).toFixed(2)}</span>
+                  )}
+                  {bestDish.review && (
+                    <span className="line-clamp-1 italic">"{bestDish.review}"</span>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Individual Food Ratings */}
           {foodReview.individualFoodRating?.length > 0 && (
             <FoodRatings food={foodReview.individualFoodRating} />
           )}
 
-          {foodReview.tip && <HelpfulTip tip={foodReview.tip} />}
           {/* Pros/Cons/Verdict */}
           <ProConList
             positives={foodReview.positives}

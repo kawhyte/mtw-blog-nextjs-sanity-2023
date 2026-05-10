@@ -1,7 +1,7 @@
 import React from 'react'
 
 function ProgressRating({ progress, color }) {
-  let progressPercentage = (Math.floor(progress) / 5) * 100
+  let progressPercentage = (progress / 5) * 100
 
   return (
     <>
