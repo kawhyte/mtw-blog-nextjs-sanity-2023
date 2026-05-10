@@ -34,9 +34,9 @@ export interface FoodReviewPageProps {
 import { usePhotoGallery } from 'hooks/usePhotoGallery'
 import { urlForImage } from 'lib/sanity.image'
 import {
+  Banknote,
   CalendarDays,
   CheckCircle,
-  DollarSign,
   Handshake,
   MapPin,
   Package,
@@ -227,7 +227,7 @@ export default function FoodReviewPage(props: FoodReviewPageProps) {
               )}
               {foodReview.priceTier && (
                 <div className="flex items-center text-base text-muted-foreground">
-                  <DollarSign className="mr-2 h-4 w-4" />
+                  <Banknote className="mr-2 h-4 w-4" />
                   {foodReview.priceTier}
                 </div>
               )}
