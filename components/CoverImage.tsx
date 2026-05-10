@@ -5,7 +5,7 @@ import cn from 'classnames'
 // Your existing imports
 import { calculateRating } from 'lib/calculateRating'
 import { FOOD_WEIGHTS, HOTEL_WEIGHTS, TAKEOUT_WEIGHTS } from 'lib/ratingWeights'
-import { Calendar, Hotel, MapPin } from 'lucide-react'
+import { Hotel, ShoppingBag, Utensils } from 'lucide-react'
 import Link from 'next/link'
 
 import { Badge } from '@/components/ui/badge'
@@ -123,11 +123,12 @@ export default function CoverImage(props: CoverImageProps) {
 
   const categoryType = categoryRating(category)
 
-  const badgeColorClasses = {
+  const badgeColorClasses: Record<string, string> = {
     blue: 'bg-badge-blue text-badge-blue-foreground',
     yellow: 'bg-badge-yellow text-badge-yellow-foreground',
     green: 'bg-badge-green text-badge-green-foreground',
     red: 'bg-badge-red text-badge-red-foreground',
+    gray: 'bg-badge-gray text-badge-gray-foreground',
   }
 
   const badgeClasses =
@@ -152,6 +153,25 @@ export default function CoverImage(props: CoverImageProps) {
               </Badge>
             )}
 
+            {linkType === 'food' && diningType && (
+              <Badge
+                className={`absolute top-3 left-3 z-30 border-transparent min-h-[32px] flex items-center ${
+                  diningType === 'dinein'
+                    ? 'bg-badge-rose text-badge-rose-foreground'
+                    : 'bg-badge-amber text-badge-amber-foreground'
+                }`}
+                role="status"
+                aria-label={`Dining type: ${diningType === 'dinein' ? 'Dine-In' : 'Takeout'}`}
+              >
+                {diningType === 'dinein' ? (
+                  <Utensils className="h-3 w-3 mr-1" aria-hidden="true" />
+                ) : (
+                  <ShoppingBag className="h-3 w-3 mr-1" aria-hidden="true" />
+                )}
+                <span>{diningType === 'dinein' ? 'Dine-In' : 'Takeout'}</span>
+              </Badge>
+            )}
+
             {showRating && linkType !== 'story' && (
               <div
                 className="absolute right-3 top-3 z-30"
@@ -161,6 +181,7 @@ export default function CoverImage(props: CoverImageProps) {
                   average={overallRating.displayRating}
                   textRating={overallRating.textRating}
                   color={overallRating.color}
+                  textColor={overallRating.textColor}
                 />
               </div>
             )}

@@ -4,44 +4,51 @@ interface RatingBadgeProps {
   average: string
   textRating: string
   color?: string
+  textColor?: string
 }
 
-const RatingBadge = ({ average, textRating, color }: RatingBadgeProps) => {
-  // Pre-calculate numeric rating for accessibility
+const RatingBadge = ({
+  average,
+  textRating,
+  color,
+  textColor = '#111827',
+}: RatingBadgeProps) => {
   const numericRating = (Math.round(Number(average) * 10) / 10).toFixed(1)
 
   return (
     <div
-      className="text-xs flex sm:flex-col items-center justify-center rounded-2xl bg-black px-1 py-0.5 sm:px-2 sm:py-2 space-x-1.5 sm:space-x-0 sm:space-y-1 min-h-[44px] sm:min-h-0"
+      className="text-xs flex sm:flex-col items-center justify-center rounded-2xl bg-black px-1 py-0.5 sm:px-2 sm:py-2 space-x-1.5 sm:space-x-0 sm:space-y-1 min-h-[44px] sm:min-h-0 min-w-[44px] sm:min-w-[56px]"
       style={{ backgroundColor: color, opacity: 0.85 }}
       role="img"
       aria-label={`Rating: ${numericRating} out of 5, ${textRating}`}
     >
       {/* Average Number */}
-      <div className="text-white">
-        <span
-          className="font-montserrat font-black leading-tight tracking-tighter text-gray-900 text-sm sm:text-xl md:text-lg"
-          aria-hidden="true"
-        >
-          {numericRating}
-        </span>
-      </div>
+      <span
+        className="font-montserrat font-black leading-tight tracking-tighter text-sm sm:text-xl md:text-lg"
+        style={{ color: textColor }}
+        aria-hidden="true"
+      >
+        {numericRating}
+      </span>
 
       {/* Vertical Separator (Mobile Only) */}
       <div
-        className="h-4 w-px bg-gray-900 block sm:hidden"
+        className="h-4 w-px block sm:hidden"
+        style={{ backgroundColor: textColor }}
         aria-hidden="true"
-      ></div>
+      />
 
       {/* Horizontal Separator (Desktop Only) */}
       <div
-        className="h-px w-full bg-gray-900 hidden sm:block"
+        className="h-px w-full hidden sm:block"
+        style={{ backgroundColor: textColor }}
         aria-hidden="true"
-      ></div>
+      />
 
       {/* Text Rating */}
       <p
-        className="font-montserrat font-bold text-gray-900 text-xs sm:text-sm truncate max-w-[60px] sm:max-w-none"
+        className="font-montserrat font-bold text-xs sm:text-sm truncate max-w-[60px] sm:max-w-none"
+        style={{ color: textColor }}
         aria-hidden="true"
       >
         {textRating}

@@ -31,10 +31,9 @@ export function categoryRating(category) {
     hotelCategoryObj = {
       name: 'NR',
       icon: '/icon/location.svg',
-      color: 'red',
+      color: 'gray',
       variant: 'light',
     }
-    // Fall through
   }
 
   return hotelCategoryObj

@@ -15,6 +15,7 @@ interface RatingResult {
   displayRating: string // 5-point formatted string, e.g. "4.3"
   textRating: string
   color?: string
+  textColor?: string
 }
 
 // Thresholds operate on the 10-point scale stored in the database
@@ -28,12 +29,22 @@ const defaultRatingThresholds: RatingThresholds = {
 }
 
 const ratingColorMap: { [threshold: number]: string } = {
-  9: '#34D319', // Excellent
-  8: '#4ADE99', // Great
-  7: '#FBBF24', // Good
-  5.5: '#F97316', // Fair
-  3: '#EF4444', // Poor
-  0: '#991B1B', // Horrible
+  9: '#16A34A',  // Excellent - dark green
+  8: '#22C55E',  // Great - medium green
+  7: '#84CC16',  // Good - lime green
+  5.5: '#F59E0B', // Fair - amber
+  3: '#F97316',  // Poor - orange
+  0: '#EF4444',  // Horrible - red
+}
+
+// White text for dark backgrounds (Excellent dark green, Horrible red)
+const ratingTextColorMap: { [threshold: number]: string } = {
+  9: '#ffffff',
+  8: '#111827',
+  7: '#111827',
+  5.5: '#111827',
+  3: '#111827',
+  0: '#ffffff',
 }
 
 // Pre-computed at module scope — avoids re-sorting on every call
@@ -42,6 +53,10 @@ const _sortedDefaultThresholds = Object.keys(defaultRatingThresholds)
   .sort((a, b) => b - a)
 
 const _sortedDefaultColors = Object.keys(ratingColorMap)
+  .map(Number)
+  .sort((a, b) => b - a)
+
+const _sortedDefaultTextColors = Object.keys(ratingTextColorMap)
   .map(Number)
   .sort((a, b) => b - a)
 
@@ -124,10 +139,19 @@ export function calculateRating(
     }
   }
 
+  let textColor: string | undefined
+  for (const threshold of _sortedDefaultTextColors) {
+    if (numericalRating >= threshold) {
+      textColor = ratingTextColorMap[threshold]
+      break
+    }
+  }
+
   return {
     numericalRating,
     displayRating,
     textRating,
     color,
+    textColor,
   }
 }

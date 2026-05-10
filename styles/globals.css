@@ -123,6 +123,12 @@
     --badge-green-foreground: 145 60% 25%; /* Dark green text -> USE FOR: Text on green badges (`text-badge-green-foreground`) */
     --badge-red: 0 100% 85%; /* Light pastel red -> USE FOR: Unrated hotel badges (`bg-badge-red`) */
     --badge-red-foreground: 0 100% 25%; /* Dark red text -> USE FOR: Text on red badges (`text-badge-red-foreground`) */
+    --badge-rose: 349 100% 88%; /* Light pastel rose -> USE FOR: Dine-in food badges (`bg-badge-rose`) */
+    --badge-rose-foreground: 349 80% 30%; /* Dark rose text -> USE FOR: Text on rose badges (`text-badge-rose-foreground`) */
+    --badge-amber: 38 100% 85%; /* Light pastel amber -> USE FOR: Takeout food badges (`bg-badge-amber`) */
+    --badge-amber-foreground: 38 90% 28%; /* Dark amber text -> USE FOR: Text on amber badges (`text-badge-amber-foreground`) */
+    --badge-gray: 220 14% 88%; /* Light gray -> USE FOR: Unrated/NR hotel badges (`bg-badge-gray`) */
+    --badge-gray-foreground: 220 14% 30%; /* Dark gray text -> USE FOR: Text on gray badges (`text-badge-gray-foreground`) */
 
     --ring: 330 81% 62%; /* Pink -> USE FOR: Focus rings on interactive elements (`ring-ring`) */
 
@@ -168,6 +174,12 @@
     --badge-green-foreground: 145 60% 85%;
     --badge-red: 0 50% 35%; /* Darker red for dark mode */
     --badge-red-foreground: 0 100% 85%;
+    --badge-rose: 349 40% 35%;
+    --badge-rose-foreground: 349 100% 85%;
+    --badge-amber: 38 40% 35%;
+    --badge-amber-foreground: 38 100% 85%;
+    --badge-gray: 220 14% 35%;
+    --badge-gray-foreground: 220 14% 80%;
 
     --ring: 330 81% 62%;
   }
@@ -211,6 +223,12 @@
   --color-badge-green-foreground: hsl(var(--badge-green-foreground));
   --color-badge-red: hsl(var(--badge-red));
   --color-badge-red-foreground: hsl(var(--badge-red-foreground));
+  --color-badge-rose: hsl(var(--badge-rose));
+  --color-badge-rose-foreground: hsl(var(--badge-rose-foreground));
+  --color-badge-amber: hsl(var(--badge-amber));
+  --color-badge-amber-foreground: hsl(var(--badge-amber-foreground));
+  --color-badge-gray: hsl(var(--badge-gray));
+  --color-badge-gray-foreground: hsl(var(--badge-gray-foreground));
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
