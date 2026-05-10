@@ -10,10 +10,10 @@
  * Scope:
  *   - hotelReview documents (hotelRating object)
  *   - foodReview documents (foodRating and takeoutRating objects)
+ *   - foodReview documents (individualFoodRating[].rating.Dish nested array)
  *
  * NOT migrated:
  *   - nbaArenas / arenaReview  — already on 1–10 scale
- *   - individualFoodRating     — per-dish stars, separate from weighted scores
  *
  * Usage:
  *   node scripts/migrateTo10Point.mjs          # dry run (default)
@@ -173,6 +173,59 @@ async function migrateFoodReviews() {
   return patched
 }
 
+async function migrateIndividualFoodRatings() {
+  const docs = await client.fetch(
+    `*[_type == "foodReview" && defined(individualFoodRating) && _dishRatingMigrated != true]{
+      _id, _rev, individualFoodRating
+    }`,
+  )
+
+  console.log(
+    `\nFound ${docs.length} foodReview document(s) with individual dish ratings to migrate.`,
+  )
+
+  let patched = 0
+  for (const doc of docs) {
+    const updatedArray = doc.individualFoodRating.map((item) => {
+      const current = item.rating?.Dish
+      if (typeof current !== 'number' || current > 5) return item
+      return {
+        ...item,
+        rating: { ...item.rating, Dish: current * 2 },
+      }
+    })
+
+    const hasChanges = updatedArray.some((item, i) => {
+      return item.rating?.Dish !== doc.individualFoodRating[i].rating?.Dish
+    })
+
+    if (!hasChanges) {
+      console.log(`  SKIP ${doc._id} — no dish ratings to migrate`)
+      continue
+    }
+
+    console.log(`  ${IS_LIVE ? 'PATCH' : 'DRY'} ${doc._id}`)
+    for (let i = 0; i < doc.individualFoodRating.length; i++) {
+      const oldDish = doc.individualFoodRating[i].rating?.Dish
+      const newDish = updatedArray[i].rating?.Dish
+      if (oldDish !== newDish) {
+        const name = doc.individualFoodRating[i].name || `item[${i}]`
+        console.log(`    ${name}: Dish ${oldDish} → ${newDish}`)
+      }
+    }
+
+    if (IS_LIVE) {
+      await client
+        .patch(doc._id)
+        .set({ individualFoodRating: updatedArray, _dishRatingMigrated: true })
+        .commit()
+    }
+    patched++
+  }
+
+  return patched
+}
+
 async function main() {
   if (!process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) {
     console.error('Missing NEXT_PUBLIC_SANITY_PROJECT_ID in .env.local')
@@ -192,10 +245,12 @@ async function main() {
 
   const hotelCount = await migrateHotelReviews()
   const foodCount = await migrateFoodReviews()
+  const dishCount = await migrateIndividualFoodRatings()
 
   console.log(`\n=== Summary ===`)
-  console.log(`Hotel reviews processed: ${hotelCount}`)
-  console.log(`Food reviews processed:  ${foodCount}`)
+  console.log(`Hotel reviews processed:       ${hotelCount}`)
+  console.log(`Food reviews processed:        ${foodCount}`)
+  console.log(`Individual dish ratings patched: ${dishCount}`)
   console.log(
     IS_LIVE
       ? 'Migration complete.'

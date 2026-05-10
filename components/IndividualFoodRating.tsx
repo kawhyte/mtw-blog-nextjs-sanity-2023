@@ -135,7 +135,7 @@ const IndividualFoodRating = ({ food }) => {
     }
   }
 
-  const maxScore = Math.max(...food.map((item) => item.rating?.Dish ?? 0))
+  const maxScore = Math.max(...food.map((item) => (item.rating?.Dish ?? 0) / 2))
 
   return (
     <section className="my-12">
@@ -143,7 +143,7 @@ const IndividualFoodRating = ({ food }) => {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
           {food.map((item, i) => {
-            const dishRating = item.rating?.Dish || 0
+            const dishRating = (item.rating?.Dish ?? 0) / 2
             const ratingTheme = getRatingTheme(dishRating)
             const isChefsKiss = dishRating >= 4.5
             const isTopPick = dishRating === maxScore && maxScore > 0
