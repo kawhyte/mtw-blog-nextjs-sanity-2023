@@ -4,6 +4,25 @@ import { ReactElement } from 'react'
 
 import ProgressRating from './ProgressRating'
 
+// Maps a text rating label to design-system Tailwind classes.
+// Three semantic bands: success (green) / warning (orange) / destructive (red).
+// Both text and bg variants returned so the same mapping drives text labels and the accent bar.
+function getRatingClasses(textScore: string): { text: string; bg: string } {
+  switch (textScore) {
+    case 'Excellent':
+    case 'Great':
+      return { text: 'text-success', bg: 'bg-success' }
+    case 'Good':
+    case 'Fair':
+      return { text: 'text-warning', bg: 'bg-warning' }
+    case 'Poor':
+    case 'Horrible':
+      return { text: 'text-destructive', bg: 'bg-destructive' }
+    default:
+      return { text: 'text-muted-foreground', bg: 'bg-muted' }
+  }
+}
+
 // Helper function to format snake_case and camelCase to Title Case
 const formatRatingName = (name: string): string => {
   // Handle camelCase (e.g., "foodValue" -> "Food Value", "tasteAndFlavor" -> "Taste And Flavor")
@@ -81,8 +100,9 @@ export default function ReviewRating({
     numericalRating: overallRating,
     displayRating,
     textRating: textScore,
-    color: ratingColor,
   } = calculateRating(ratings, weights)
+
+  const ratingClasses = getRatingClasses(textScore)
 
   const activeCategoryCount = ratingEntries.filter(([name, value]) => {
     if (['Pool', 'Gym', 'Internet_Speed'].includes(name) && value === 0) return false
@@ -106,17 +126,14 @@ export default function ReviewRating({
                 / 5.0
               </span>
             </div>
-            <p className="text-2xl font-bold" style={{ color: ratingColor }}>
+            <p className={`text-2xl font-bold ${ratingClasses.text}`}>
               {textScore}
             </p>
           </div>
 
           {/* Bottom anchor */}
           <div className="w-full mt-6">
-            <div
-              className="h-1 w-full rounded-full mb-1.5"
-              style={{ backgroundColor: ratingColor }}
-            />
+            <div className={`h-1 w-full rounded-full mb-1.5 ${ratingClasses.bg}`} />
             <p className="text-xs text-muted-foreground">
               Weighted across {activeCategoryCount}{' '}
               {activeCategoryCount === 1 ? 'category' : 'categories'}

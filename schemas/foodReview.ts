@@ -286,6 +286,21 @@ export default defineType({
     }),
 
     defineField({
+      name: 'priceTier',
+      title: 'Price Tier',
+      type: 'string',
+      description: 'Approximate price range per person (optional)',
+      options: {
+        list: [
+          { title: '$ (Under $15)', value: '$ (Under $15)' },
+          { title: '$$ ($15–$30)', value: '$$ ($15–$30)' },
+          { title: '$$$ ($30–$60)', value: '$$$ ($30–$60)' },
+          { title: '$$$$ ($60+)', value: '$$$$ ($60+)' },
+        ],
+      },
+    }),
+
+    defineField({
       name: 'publishedAt',
       title: 'Publish Date / Scheduled Time',
       description:

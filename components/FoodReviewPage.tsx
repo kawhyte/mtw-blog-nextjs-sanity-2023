@@ -34,9 +34,9 @@ export interface FoodReviewPageProps {
 import { usePhotoGallery } from 'hooks/usePhotoGallery'
 import { urlForImage } from 'lib/sanity.image'
 import {
-  BedDouble,
   CalendarDays,
   CheckCircle,
+  DollarSign,
   Handshake,
   MapPin,
   Package,
@@ -217,8 +217,18 @@ export default function FoodReviewPage(props: FoodReviewPageProps) {
               )}
               {foodReview.diningType && (
                 <div className="flex items-center text-base text-muted-foreground">
-                  <BedDouble className="mr-2 h-4 w-4" />
+                  {foodReview.diningType === 'dinein' ? (
+                    <Utensils className="mr-2 h-4 w-4" />
+                  ) : (
+                    <ShoppingBag className="mr-2 h-4 w-4" />
+                  )}
                   {foodReview.diningType === 'dinein' ? 'Dine-in' : 'Takeout'}
+                </div>
+              )}
+              {foodReview.priceTier && (
+                <div className="flex items-center text-base text-muted-foreground">
+                  <DollarSign className="mr-2 h-4 w-4" />
+                  {foodReview.priceTier}
                 </div>
               )}
               {foodReview.date && (
@@ -278,6 +288,7 @@ export default function FoodReviewPage(props: FoodReviewPageProps) {
             isOpen={isOpen}
             openModal={openModal}
             closeModal={closeModal}
+            showInlineGrid={false}
           />
         )}
 

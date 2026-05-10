@@ -110,6 +110,8 @@
     --destructive-foreground: 0 84% 98%; /* Light red -> USE FOR: Text on top of destructive color (`text-destructive-foreground`) */
     --success: 145 63% 49%; /* Green -> USE FOR: Success messages, confirmation indicators (`bg-success`, `text-success`) */
     --success-foreground: 145 63% 98%; /* Light green -> USE FOR: Text on top of success color (`text-success-foreground`) */
+    --warning: 25 95% 53%; /* Orange-500 -> USE FOR: Caution states, Fair/Good rating tiers (`bg-warning`, `text-warning`) */
+    --warning-foreground: 25 95% 98%; /* Very light orange -> USE FOR: Text on top of warning color (`text-warning-foreground`) */
 
     /* --- Badge Colors (Pastel) --- */
     /* USAGE: Hotel category badges with soft, pastel backgrounds */
@@ -154,6 +156,8 @@
     --destructive-foreground: 0 72% 98%;
     --success: 145 63% 49%;
     --success-foreground: 145 63% 98%;
+    --warning: 25 90% 60%; /* Lighter orange for dark backgrounds */
+    --warning-foreground: 25 95% 98%;
 
     /* --- Badge Colors (Dark Mode) --- */
     --badge-blue: 214 50% 35%; /* Darker blue for dark mode */
@@ -187,6 +191,10 @@
   --color-accent-foreground: hsl(var(--accent-foreground));
   --color-destructive: hsl(var(--destructive));
   --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-success: hsl(var(--success));
+  --color-success-foreground: hsl(var(--success-foreground));
+  --color-warning: hsl(var(--warning));
+  --color-warning-foreground: hsl(var(--warning-foreground));
   --color-border: hsl(var(--border));
   --color-border-bold: hsl(var(--border-bold));
   --color-input: hsl(var(--input));

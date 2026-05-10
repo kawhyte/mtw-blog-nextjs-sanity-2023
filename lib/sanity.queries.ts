@@ -425,6 +425,7 @@ export const independentFoodReviewFields = groq`
   verdict,
   content,
   tags,
+  priceTier,
   "slug": slug.current,
   "revisitCount": count(revisits),
   revisits[] {
@@ -581,6 +582,7 @@ export interface FoodReview {
   verdict?: any[]
   content?: any[]
   tags?: string[]
+  priceTier?: string | null
   revisitCount?: number
   revisits?: Array<{
     visitDate: string

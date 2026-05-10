@@ -1,5 +1,5 @@
 import { urlForImage } from 'lib/sanity.image'
-import { Medal } from 'lucide-react'
+import { Medal, Star } from 'lucide-react'
 import Image from 'next/image'
 import React from 'react'
 
@@ -135,6 +135,8 @@ const IndividualFoodRating = ({ food }) => {
     }
   }
 
+  const maxScore = Math.max(...food.map((item) => item.rating?.Dish ?? 0))
+
   return (
     <section className="my-12">
       <SectionTitle header={'Food & Drink We Tried'} />
@@ -144,6 +146,7 @@ const IndividualFoodRating = ({ food }) => {
             const dishRating = item.rating?.Dish || 0
             const ratingTheme = getRatingTheme(dishRating)
             const isChefsKiss = dishRating >= 4.5
+            const isTopPick = dishRating === maxScore && maxScore > 0
 
             return (
               <div
@@ -169,6 +172,15 @@ const IndividualFoodRating = ({ food }) => {
                       <Medal className="h-5 w-5 text-primary-foreground" />
                       <span className="font-semibold text-primary-foreground">
                         Chef&apos;s Kiss!
+                      </span>
+                    </div>
+                  )}
+                  {/* --- TOP PICK BADGE (only when not already a Chef's Kiss) --- */}
+                  {isTopPick && !isChefsKiss && (
+                    <div className="absolute top-0 right-0 flex items-center gap-x-2 rounded-bl-xl bg-accent p-2 shadow-md">
+                      <Star className="h-4 w-4 text-accent-foreground" />
+                      <span className="text-xs font-semibold text-accent-foreground md:text-sm">
+                        Top Pick
                       </span>
                     </div>
                   )}
