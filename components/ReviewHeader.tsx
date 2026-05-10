@@ -33,8 +33,8 @@ function ReviewHeader({ title, summary, img }: ReviewHeaderProps) {
           </p>
         </div>
 
-        <div className="hidden items-center justify-center h-60 lg:col-span-2 lg:flex">
-          <div className="w-full max-w-md h-60 flex items-center justify-center">
+        <div className="hidden items-center justify-center md:flex md:h-48 lg:col-span-2 lg:h-60">
+          <div className="w-full max-w-md h-full flex items-center justify-center">
             <PlayerWithNoSSR
               autoplay
               keepLastFrame

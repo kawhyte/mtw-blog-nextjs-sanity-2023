@@ -5,13 +5,11 @@ import CategoryPageHead from 'components/CategoryPageHead'
 import * as demo from 'lib/demo.data'
 import { getPaginatedHotelReviews } from 'lib/sanity.client'
 import type { HotelReview, Settings } from 'lib/sanity.queries'
-import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import useSWR, { mutate } from 'swr'
 
 import { CardSkeletonGrid } from '@/components/ui/card-skeleton'
 
-import { CMS_NAME } from '../lib/constants'
 import DynamicPostCard from './DynamicPostCard'
 import Footer from './Footer'
 import PaginationComponent from './PaginationComponent'
@@ -66,10 +64,6 @@ export default function HotelReviewsPage(props: HotelReviewsPageProps) {
     if (data) {
       setPosts(data)
       setIsTransitioning(false)
-      console.log(
-        `Page ${currentPage} loaded with ${data.length} posts:`,
-        data.map((p) => p.title),
-      )
     }
   }, [data, currentPage])
 

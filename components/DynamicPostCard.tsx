@@ -1,24 +1,16 @@
 // src/components/DynamicPostCard.tsx
 
-// Import shadcn/ui components
-// Your existing imports
 import { inter } from 'app/fonts'
 import Date from 'components/PostDate'
 import type { FoodReview, Guide, HotelReview, Post } from 'lib/sanity.queries'
-// Import Lucide icons
-import { Calendar, Hotel, MapPin, RefreshCw } from 'lucide-react'
+import { ArrowRight, Calendar, MapPin, RefreshCw } from 'lucide-react'
 import Link from 'next/link'
 
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
 import {
-  Card,
   CardContent,
   CardFooter,
-  CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { Separator } from '@/components/ui/separator'
 
 import CoverImage from './CoverImage'
 
@@ -125,10 +117,15 @@ const DynamicPostCard = ({
 
   return (
     <div
-      className={`group relative w-full overflow-hidden rounded-4xl border-4 border-border-bold bg-card text-foreground shadow-offsetIndigo transition-transform duration-500 ease-in-out group-hover:scale-105 group-hover:-translate-y-2 group-hover:shadow-lg ${
-        visited === false ? 'opacity-40 grayscale ' : 'grayscale-0'
+      className={`group relative w-full overflow-hidden rounded-4xl border-4 border-border-bold bg-card text-foreground shadow-offsetIndigo transition-all duration-300 ease-in-out hover:scale-105 hover:-translate-y-2 hover:shadow-lg ${
+        visited === false ? 'opacity-40 grayscale' : 'grayscale-0'
       }`}
     >
+      {/* Ghost link — makes the whole card clickable without nested <a> tags */}
+      <Link href={href} className="absolute inset-0 z-10">
+        <span className="sr-only">View {title}</span>
+      </Link>
+
       <div className="relative">
         <CoverImage
           slug={safeSlug}
@@ -153,52 +150,34 @@ const DynamicPostCard = ({
             </div>
           ) : null}
 
-          <Link
-            href={href}
-            className={`${inter.variable} font-secondary`}
-            aria-label={`Read more about ${title}`}
-          >
+          <span className={`${inter.variable} font-secondary`}>
             <CardTitle className="font-montserrat line-clamp-1 pt-1 text-sm font-bold text-foreground no-underline decoration-primary decoration-dashed decoration-4 group-hover:underline sm:line-clamp-2 sm:h-8 sm:text-xl lg:text-xl xl:pt-1.5">
               {title}
             </CardTitle>
-          </Link>
+          </span>
 
-          {/* Meta Info (Location, Date) */}
-          <div className="mt-2 flex flex-col gap-2 sm:flex-row sm:items-center md:flex-col md:items-start">
+          {/* Meta info */}
+          <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-muted-foreground">
             {location && (
-              <div className="flex items-center gap-x-2 text-muted-foreground">
-                <MapPin className="h-5 w-5 shrink-0 text-muted-foreground" />
+              <div className="flex items-center gap-x-2">
+                <MapPin className="h-4 w-4 shrink-0" />
                 <p className="text-sm">{location}</p>
               </div>
             )}
-
-            <div className="sm:ml-auto md:-ml-5">
-              <span className="flex items-center text-xs text-muted-foreground">
-                <Calendar className="mr-2 h-5 w-5 text-muted-foreground sm:ml-5" />
-
-                <>
-                  <span className="mr-1 hidden text-sm lg:block">
-                    Visited on
-                  </span>
-                  <Date dateString={date} />
-                </>
-              </span>
-            </div>
+            <span className="flex items-center gap-x-2 text-xs">
+              <Calendar className="h-4 w-4" />
+              <span className="hidden text-sm lg:block">Visited on</span>
+              <Date dateString={date} />
+            </span>
           </div>
         </div>
       </CardContent>
 
-      {/* <Separator className="mx-2 my-3" /> */}
-
       <CardFooter className="container mx-auto mt-auto flex items-center pt-1">
-        <Link href={href} className="w-full flex">
-          <Button
-            variant="secondary"
-            className="mx-auto mb-2 inline-block rounded-md bg-accent px-3 py-1 text-base font-semibold text-primary transition-colors duration-150 ease-in-out hover:bg-primary hover:text-primary-foreground"
-          >
-            View Details
-          </Button>
-        </Link>
+        <span className="mx-auto mb-2 flex items-center gap-1 font-semibold text-primary">
+          View Details
+          <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
+        </span>
       </CardFooter>
     </div>
   )

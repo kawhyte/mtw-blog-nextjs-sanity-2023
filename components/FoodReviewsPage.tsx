@@ -5,13 +5,11 @@ import CategoryPageHead from 'components/CategoryPageHead'
 import * as demo from 'lib/demo.data'
 import { getPaginatedFoodReviews } from 'lib/sanity.client'
 import type { FoodReview, Settings } from 'lib/sanity.queries'
-import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import useSWR, { mutate } from 'swr'
 
 import { CardSkeletonGrid } from '@/components/ui/card-skeleton'
 
-import { CMS_NAME } from '../lib/constants'
 import DynamicPostCard from './DynamicPostCard'
 import Footer from './Footer'
 import PaginationComponent from './PaginationComponent'
@@ -93,11 +91,11 @@ export default function FoodReviewsPage(props: FoodReviewsPageProps) {
         />
 
         <Container>
-          <div className="my-10">
+          <div className="my-10 w-full max-w-7xl mx-auto">
             {loading || isTransitioning ? (
               <CardSkeletonGrid count={12} layout="page" />
             ) : posts && posts.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
                 {posts.map((foodReview) => (
                   <DynamicPostCard
                     key={foodReview._id}
