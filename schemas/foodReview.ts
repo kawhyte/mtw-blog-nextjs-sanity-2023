@@ -125,6 +125,13 @@ export default defineType({
               title: 'Rating',
             },
             {
+              name: 'price',
+              type: 'number',
+              title: 'Price (USD)',
+              description:
+                'Optional: What did this specific dish cost? (Numbers only, e.g., 15.50)',
+            },
+            {
               name: 'review',
               type: 'string',
               title:

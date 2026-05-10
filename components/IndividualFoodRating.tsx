@@ -188,9 +188,16 @@ const IndividualFoodRating = ({ food }) => {
 
                 {/* --- CONTENT AREA --- */}
                 <div className="flex flex-grow flex-col p-4">
-                  <h3 className="text-xl font-bold text-foreground line-clamp-2">
-                    {item.name}
-                  </h3>
+                  <div className="flex items-baseline gap-2">
+                    <h3 className="text-xl font-bold text-foreground line-clamp-2">
+                      {item.name}
+                    </h3>
+                    {item.price != null && item.price > 0 && (
+                      <span className="shrink-0 text-sm font-normal text-muted-foreground">
+                        ${Number(item.price).toFixed(2)}
+                      </span>
+                    )}
+                  </div>
 
                   {/* Rating Section */}
                   <div className="my-3 flex flex-wrap items-center justify-between gap-2 border-y border-border py-2">
