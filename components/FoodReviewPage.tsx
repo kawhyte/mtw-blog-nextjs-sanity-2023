@@ -293,7 +293,7 @@ export default function FoodReviewPage(props: FoodReviewPageProps) {
                     <span>${Number(bestDish.price).toFixed(2)}</span>
                   )}
                   {bestDish.review && (
-                    <span className="line-clamp-1 italic">"{bestDish.review}"</span>
+                    <span className="line-clamp-1 italic">&ldquo;{bestDish.review}&rdquo;</span>
                   )}
                 </div>
               </div>
