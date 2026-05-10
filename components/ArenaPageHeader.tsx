@@ -72,25 +72,40 @@ function ReviewHeader({ title, arenas, summary, animation }) {
                 }
                 const lqip = imageObj?.asset?.metadata?.lqip
 
+                const imageEl = src ? (
+                  <Image
+                    width={64}
+                    height={64}
+                    loading={index < 6 ? 'eager' : 'lazy'}
+                    sizes="64px"
+                    placeholder={lqip ? 'blur' : 'empty'}
+                    blurDataURL={lqip}
+                    className="h-16 w-16 rounded-full object-cover object-center"
+                    alt={`${item.name} arena`}
+                    src={src}
+                  />
+                ) : (
+                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-muted text-xs font-medium text-muted-foreground">
+                    {item.name?.substring(0, 3) || 'NBA'}
+                  </div>
+                )
+
+                if (item.visited && item.slug) {
+                  return (
+                    <Link
+                      key={item._id || item.name}
+                      href={`/arena/${item.slug}`}
+                      title={item.name}
+                      className="block rounded-full transition-all hover:-translate-y-1 hover:ring-2 hover:ring-primary ring-offset-2"
+                    >
+                      {imageEl}
+                    </Link>
+                  )
+                }
+
                 return (
-                  <div key={item._id || item.name}>
-                    {src ? (
-                      <Image
-                        width={64}
-                        height={64}
-                        loading={index < 6 ? 'eager' : 'lazy'}
-                        sizes="64px"
-                        placeholder={lqip ? 'blur' : 'empty'}
-                        blurDataURL={lqip}
-                        className="h-16 w-16 rounded-full object-cover object-center"
-                        alt={`${item.name} arena`}
-                        src={src}
-                      />
-                    ) : (
-                      <div className="flex h-16 w-16 items-center justify-center rounded-full bg-muted text-xs font-medium text-muted-foreground">
-                        {item.name?.substring(0, 3) || 'NBA'}
-                      </div>
-                    )}
+                  <div key={item._id || item.name} className="opacity-60">
+                    {imageEl}
                   </div>
                 )
               })}
