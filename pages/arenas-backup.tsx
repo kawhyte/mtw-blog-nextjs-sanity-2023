@@ -362,14 +362,15 @@ export default function Page(props: PageProps) {
                     alt={`${item.name ?? 'Arena'} exterior`}
                     arenaReview={item.arenaReview || {}}
                     arenaName={item.name}
+                    slug={item.slug ?? ''}
                     gallery={item.gallery}
                     visited={item.visited}
                     dateVisited={item.date}
                     id={item._id}
-                    averageRating={average} // Display rating
-                    textRating={textRating} // Display rating text
-                    ratingColor={color} // Display rating color
-                    rank={rankNumber} // Pass the STABLE rating rank
+                    averageRating={average}
+                    textRating={textRating}
+                    ratingColor={color}
+                    rank={rankNumber}
                   />
                 </Link>
               )

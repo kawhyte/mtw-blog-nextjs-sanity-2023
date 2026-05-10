@@ -21,6 +21,8 @@ import {
   Pizza,
   Sofa,
   Ticket,
+  TrendingDown,
+  Trophy,
   Users,
   Users2,
   Video,
@@ -130,6 +132,23 @@ export default function ArenaPage({
 
   const overallRating = ratingResult ? ratingResult.average : 'N/A'
 
+  // Scouting Report: find best and weakest raw category scores (1-10 scale)
+  const scoutingData = effectiveArenaReview
+    ? Object.entries(effectiveArenaReview)
+        .filter(([_, v]) => typeof v === 'number')
+        .map(([k, v]) => ({
+          key: k,
+          label: ARENA_RATING_LABELS[k] ?? k,
+          score: v as number,
+        }))
+    : []
+  const bestFeature = scoutingData.length
+    ? scoutingData.reduce((a, b) => (a.score > b.score ? a : b))
+    : null
+  const weakestLink = scoutingData.length
+    ? scoutingData.reduce((a, b) => (a.score < b.score ? a : b))
+    : null
+
   // Compute original (base) rating for timeline baseline
   const originalRatingResult = arena.arenaReview
     ? calculateAverageRating(arena.arenaReview as any)
@@ -195,7 +214,7 @@ export default function ArenaPage({
                 </div>
                 <div className="flex items-center space-x-2">
                   <Users2 className="h-5 w-5" />
-                  <span>Capacity: {arena.capacity.toLocaleString()}</span>
+                  <span>Capacity: {arena.capacity?.toLocaleString() ?? 'N/A'}</span>
                 </div>
               </div>
 
@@ -242,6 +261,43 @@ export default function ArenaPage({
               </CardContent>
             </Card>
           </header>
+
+          {/* --- Scouting Report --- */}
+          {scoutingData.length > 0 && bestFeature && weakestLink && (
+            <Card className="mb-6">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-sm font-medium text-muted-foreground uppercase tracking-wide">
+                  Scouting Report
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="flex flex-col sm:flex-row gap-4">
+                <div className="flex items-center gap-3 flex-1">
+                  <Trophy className="h-5 w-5 text-yellow-500 shrink-0" />
+                  <div>
+                    <p className="text-xs text-muted-foreground">Best Feature</p>
+                    <p className="font-semibold">
+                      {bestFeature.label}{' '}
+                      <span className="text-muted-foreground font-normal">
+                        ({bestFeature.score}/10)
+                      </span>
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3 flex-1">
+                  <TrendingDown className="h-5 w-5 text-red-400 shrink-0" />
+                  <div>
+                    <p className="text-xs text-muted-foreground">Lowest Score</p>
+                    <p className="font-semibold">
+                      {weakestLink.label}{' '}
+                      <span className="text-muted-foreground font-normal">
+                        ({weakestLink.score}/10)
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          )}
 
           <Separator className="my-8" />
 

@@ -235,6 +235,7 @@ const SearchResults = ({ settings }: { settings: Settings }) => {
                       location={arenaResult.location}
                       dateVisited={arenaResult.date}
                       visited={arenaResult.visited}
+                      slug={arenaResult.slug ?? ''}
                       gallery={
                         arenaResult.firstGalleryImage
                           ? [arenaResult.firstGalleryImage]
