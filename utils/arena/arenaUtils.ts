@@ -1,6 +1,6 @@
 import calculateAverageRating from 'lib/calculateArenaRating'
 import { Arena } from 'lib/sanity.queries'
-import { FilterCriteriaType, ArenaWithRating } from './arenaConstants'
+import { FilterCriteriaType, ArenaWithRating, NOT_VISITED_SORT_OPTIONS } from './arenaConstants'
 import { getSorterFunction } from './arenaSorters'
 
 /**
@@ -119,7 +119,7 @@ export const isSortValidForFilter = (
   filterCriteria: FilterCriteriaType,
 ): boolean => {
   if (filterCriteria === 'notVisited') {
-    return sortCriteria === 'name_asc' || sortCriteria === 'name_desc'
+    return (NOT_VISITED_SORT_OPTIONS as readonly string[]).includes(sortCriteria)
   }
   return true
 }

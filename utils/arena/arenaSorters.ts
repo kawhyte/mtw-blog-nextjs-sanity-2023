@@ -1,6 +1,5 @@
-import calculateAverageRating from 'lib/calculateArenaRating'
 import { Arena } from 'lib/sanity.queries'
-import { SortCriteriaType, FilterCriteriaType } from './arenaConstants'
+import { SortCriteriaType, FilterCriteriaType, ArenaWithRating } from './arenaConstants'
 
 /**
  * Sort arenas by date (latest first)
@@ -72,11 +71,9 @@ export const sortByHighestRating = (a: Arena, b: Arena): number => {
   if (a.visited && !b.visited) return -1
   if (!a.visited && !b.visited) return nameA.localeCompare(nameB)
 
-  // Both are visited, compare ratings
-  const { average: scoreA } = calculateAverageRating(a.arenaReview || {})
-  const { average: scoreB } = calculateAverageRating(b.arenaReview || {})
-  const numScoreA = parseFloat(scoreA) || 0
-  const numScoreB = parseFloat(scoreB) || 0
+  // Use pre-computed displayRating set at build time in getStaticProps
+  const numScoreA = parseFloat((a as ArenaWithRating).displayRating?.average ?? '0') || 0
+  const numScoreB = parseFloat((b as ArenaWithRating).displayRating?.average ?? '0') || 0
 
   if (numScoreB !== numScoreA) {
     return numScoreB - numScoreA // Higher score first
@@ -96,11 +93,9 @@ export const sortByLowestRating = (a: Arena, b: Arena): number => {
   if (a.visited && !b.visited) return -1
   if (!a.visited && !b.visited) return nameA.localeCompare(nameB)
 
-  // Both are visited, compare ratings
-  const { average: scoreA } = calculateAverageRating(a.arenaReview || {})
-  const { average: scoreB } = calculateAverageRating(b.arenaReview || {})
-  const numScoreA = parseFloat(scoreA) || 0
-  const numScoreB = parseFloat(scoreB) || 0
+  // Use pre-computed displayRating set at build time in getStaticProps
+  const numScoreA = parseFloat((a as ArenaWithRating).displayRating?.average ?? '0') || 0
+  const numScoreB = parseFloat((b as ArenaWithRating).displayRating?.average ?? '0') || 0
 
   if (numScoreA !== numScoreB) {
     return numScoreA - numScoreB // Lower score first

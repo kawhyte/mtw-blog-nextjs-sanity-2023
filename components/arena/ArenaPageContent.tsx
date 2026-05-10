@@ -16,10 +16,8 @@ export default function ArenaPageContent({ arenas }: ArenaPageContentProps) {
     filterCriteria,
     handleSort,
     handleFilter,
-    isSortDisabled,
   } = useArenaFiltering()
 
-  // ✅ No more ranking calculations - data is pre-computed!
   const displayArenas = useArenaDisplay(arenas, filterCriteria, sortCriteria)
 
   return (
@@ -29,7 +27,6 @@ export default function ArenaPageContent({ arenas }: ArenaPageContentProps) {
         filterCriteria={filterCriteria}
         onSortChange={handleSort}
         onFilterChange={handleFilter}
-        isSortDisabled={isSortDisabled}
       />
 
       <ArenaGrid arenas={displayArenas} />

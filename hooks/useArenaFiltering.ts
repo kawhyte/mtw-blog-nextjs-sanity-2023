@@ -3,7 +3,6 @@ import {
   SortCriteriaType,
   FilterCriteriaType,
   DEFAULT_FILTERS,
-  NOT_VISITED_SORT_OPTIONS,
 } from 'utils/arena/arenaConstants'
 import { isSortValidForFilter } from 'utils/arena/arenaUtils'
 
@@ -18,12 +17,12 @@ export const useArenaFiltering = () => {
     DEFAULT_FILTERS.filterCriteria,
   )
 
-  // Effect to adjust sort criteria when filter changes to 'notVisited'
+  // When filter changes, reset sort to a valid option if current one is incompatible
   useEffect(() => {
     if (!isSortValidForFilter(sortCriteria, filterCriteria)) {
-      setSortCriteria('name_asc') // Default to A-Z for not visited
+      setSortCriteria('name_asc')
     }
-  }, [filterCriteria, sortCriteria])
+  }, [filterCriteria]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleSort = (criteria: SortCriteriaType) => {
     setSortCriteria(criteria)
@@ -33,13 +32,10 @@ export const useArenaFiltering = () => {
     setFilterCriteria(criteria)
   }
 
-  const isSortDisabled = filterCriteria === 'notVisited'
-
   return {
     sortCriteria,
     filterCriteria,
     handleSort,
     handleFilter,
-    isSortDisabled,
   }
 }

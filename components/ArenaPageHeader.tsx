@@ -1,7 +1,7 @@
 import { urlForImage } from 'lib/sanity.image'
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { FaRegCalendarAlt } from 'react-icons/fa'
 import { IoLocationOutline } from 'react-icons/io5'
 
@@ -33,7 +33,13 @@ function ReviewHeader({ title, arenas, summary, animation }) {
     [arenas],
   )
 
-  const displayArenas = useMemo(() => getRandomArenas(arenas, 12), [arenas])
+  // Start with first 12 (stable for SSR), shuffle client-side after hydration
+  const [displayArenas, setDisplayArenas] = useState<any[]>(() =>
+    arenas.slice(0, 12),
+  )
+  useEffect(() => {
+    setDisplayArenas(getRandomArenas(arenas, 12))
+  }, [arenas])
 
   const arenaLastVisited = useMemo(
     () =>
@@ -167,7 +173,7 @@ function ReviewHeader({ title, arenas, summary, animation }) {
                         </div>
 
                         <div className="flex items-center justify-center gap-x-2">
-                          <div className="h-4 w-full overflow-hidden rounded-full border-2 border-border-bold">
+                          <div className="h-4 w-full overflow-hidden rounded-full border-2 border-border-bold shadow-brutalist-sm">
                             <Progress
                               value={percentage}
                               className="h-4 rounded-none"

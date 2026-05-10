@@ -33,6 +33,7 @@ export const SORT_OPTIONS = [
   { value: 'highest' as const, label: 'Ranked: High to Low' },
   { value: 'lowest' as const, label: 'Ranked: Low to High' },
   { value: 'latest' as const, label: 'Date Visited: Most Recent' },
+  { value: 'oldest' as const, label: 'Date Visited: Oldest First' },
   { value: 'name_asc' as const, label: 'Arena Name (A-Z)' },
   { value: 'name_desc' as const, label: 'Arena Name (Z-A)' },
 ] as const
