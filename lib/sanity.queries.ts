@@ -143,6 +143,25 @@ const arenaFieldsDetailed = groq`
       visitDate,
       notes,
       ratingUpdates
+    },
+    arenaFoodItems[] {
+      ...,
+      asset->{ _id, metadata { lqip, dimensions { width, height } } }
+    },
+    hotelStay {
+      hotel-> {
+        title,
+        "slug": slug.current,
+        location,
+        category,
+        coverImage {
+          ...,
+          asset->{ _id, metadata { lqip, dimensions { width, height } } }
+        },
+        hotelRating
+      },
+      hotelName,
+      nightsStayed
     }
 `
 // Define Arena Type Name - PLEASE VERIFY THIS matches your Sanity Studio schema
@@ -838,6 +857,19 @@ export interface Arena {
       vibes: number
     }>
   }>
+  arenaFoodItems?: any[]
+  hotelStay?: {
+    hotel?: {
+      title?: string
+      slug?: string
+      location?: string
+      category?: string
+      coverImage?: any
+      hotelRating?: Record<string, number>
+    }
+    hotelName?: string
+    nightsStayed?: number
+  }
 }
 
 // Base interface for common Post fields

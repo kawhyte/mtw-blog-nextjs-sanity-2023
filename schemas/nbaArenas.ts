@@ -1,5 +1,5 @@
 // schemas/nbaArenas.ts
-import { StarIcon, ImagesIcon } from '@sanity/icons' // Added ImagesIcon
+import { ImagesIcon,StarIcon } from '@sanity/icons' // Added ImagesIcon
 import { defineField, defineType } from 'sanity'
 
 // --- Helper Function for Verdict Character Count ---
@@ -159,6 +159,14 @@ export default defineType({
               title: 'Did we see this team play?',
               name: 'played',
               type: 'boolean',
+            }),
+            defineField({
+              name: 'timesAttended',
+              title: 'Times We Saw This Team Play Here',
+              type: 'number',
+              description: 'How many games of this team have we attended at this arena? (default: 1)',
+              hidden: ({ parent }) => !parent?.played,
+              validation: (Rule) => Rule.min(1).integer(),
             }),
             defineField({
               title: 'League / Team Type',
@@ -334,6 +342,89 @@ export default defineType({
           return true
         }),
     }), // --- End Detailed Ratings ---
+
+    // --- Arena Food & Drink Items (optional) ---
+    defineField({
+      name: 'arenaFoodItems',
+      title: 'Arena Food & Drinks We Tried',
+      type: 'array',
+      description:
+        'Rate individual food/drink items tried at this arena (optional). Image: webp 40% quality, 40% resize.',
+      hidden: ({ document }) => !document?.visited,
+      of: [
+        {
+          type: 'image',
+          options: { hotspot: true },
+          fields: [
+            defineField({
+              name: 'name',
+              type: 'string',
+              title: 'Food/Drink Name',
+              description: 'The name should be 40 characters or less',
+              validation: (Rule) =>
+                Rule.max(40)
+                  .warning(`The name shouldn't be more than 40 characters.`)
+                  .required(),
+            }),
+            defineField({
+              name: 'rating',
+              type: 'individualFoodType',
+              title: 'Rating',
+            }),
+            defineField({
+              name: 'price',
+              type: 'number',
+              title: 'Price (USD)',
+              description: 'Optional: What did this item cost? (e.g., 12.50)',
+            }),
+            defineField({
+              name: 'review',
+              type: 'string',
+              title: 'Short Review (120 chars max)',
+              validation: (Rule) =>
+                Rule.max(120).warning(`Shouldn't be more than 120 characters.`),
+            }),
+          ],
+          preview: {
+            select: { title: 'name', subtitle: 'review', media: 'asset' },
+            prepare({ title, subtitle, media }) {
+              return { title: title || 'Unnamed item', subtitle, media }
+            },
+          },
+        },
+      ],
+    }),
+
+    // --- Hotel Stay (optional) ---
+    defineField({
+      name: 'hotelStay',
+      title: 'Hotel Stay During This Visit',
+      type: 'object',
+      description:
+        'Optional: link a hotel review OR just record the hotel name + nights stayed.',
+      hidden: ({ document }) => !document?.visited,
+      options: { collapsible: true, collapsed: true },
+      fields: [
+        defineField({
+          name: 'hotel',
+          type: 'reference',
+          title: 'Linked Hotel Review (optional)',
+          description: 'Link to an existing hotel review on this site.',
+          to: [{ type: 'hotelReview' }],
+        }),
+        defineField({
+          name: 'hotelName',
+          type: 'string',
+          title: 'Hotel Name (if no formal review)',
+          description: 'Only needed if there is no linked hotel review above.',
+        }),
+        defineField({
+          name: 'nightsStayed',
+          type: 'number',
+          title: 'Nights Stayed',
+        }),
+      ],
+    }),
 
     // --- Revisit History ---
     defineField({
