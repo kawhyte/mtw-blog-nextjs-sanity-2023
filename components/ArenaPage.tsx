@@ -10,13 +10,10 @@ import { urlForImage } from 'lib/sanity.image'
 import { Arena, Settings } from 'lib/sanity.queries'
 import {
   Award,
-  BadgeCheck,
   Building2,
   Calendar,
   Car,
-  CheckCircle2,
   Footprints,
-  Lightbulb,
   MapPin,
   Pizza,
   Sofa,
@@ -25,30 +22,27 @@ import {
   Trophy,
   Users,
   Users2,
-  Video,
-  XCircle,
 } from 'lucide-react'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
 
-// Dynamic imports for non-critical components
 const ImageGallery = dynamic(() => import('./ImageGallery'), {
   loading: () => (
     <div className="animate-pulse bg-gray-200 h-96 rounded-lg"></div>
   ),
 })
 
-// import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Progress } from '@/components/ui/progress'
-import { Separator } from '@/components/ui/separator'
 
 import BlogHeader from './BlogHeader'
+import BreadcrumbStructuredData from './BreadcrumbStructuredData'
 import HeroPhotoGallery from './HeroPhotoGallery'
-import PostBody from './PostBody'
+import ProConList from './ProConList'
 import RevisitTimeline from './RevisitTimeline'
-import { Section } from './ui/Section'
+import SectionTitle from './SectionTitle'
+import VideoPlayer from './Youtube'
 
 interface ArenaPageProps {
   arena: Arena
@@ -57,7 +51,7 @@ interface ArenaPageProps {
   loading?: boolean
 }
 
-const ratingIcons = {
+const ratingIcons: Record<string, React.ReactElement> = {
   food: <Pizza className="h-5 w-5 text-muted-foreground" />,
   seatComfort: <Sofa className="h-5 w-5 text-muted-foreground" />,
   transportation: <Car className="h-5 w-5 text-muted-foreground" />,
@@ -70,14 +64,9 @@ const ARENA_RATING_LABELS: Record<string, string> = {
   transportation: 'Transportation',
   walkability: 'Walkability',
   seatComfort: 'Seat Comfort',
-  food: 'Food',
-  view: 'View',
-  vibes: 'Vibes',
-}
-
-const formatCategoryName = (category: string) => {
-  const result = category.replace(/([A-Z])/g, ' $1')
-  return result.charAt(0).toUpperCase() + result.slice(1)
+  food: 'Food & Concessions',
+  view: 'Sightlines & View',
+  vibes: 'Atmosphere & Vibes',
 }
 
 export default function ArenaPage({
@@ -88,7 +77,7 @@ export default function ArenaPage({
 }: ArenaPageProps) {
   const { title = 'Arena Review' } = settings || {}
 
-  // Smart fallback: prioritize photoGallerySection, add imageGallery, fallback to arenaImage + gallery
+  // --- Gallery setup ---
   const photoGalleryImages = arena.photoGallerySection
     ? [
         arena.photoGallerySection.mainImage,
@@ -97,9 +86,7 @@ export default function ArenaPage({
     : []
 
   const imageGalleryImages = arena.imageGallery || []
-
   const allGalleryImages = [...photoGalleryImages, ...imageGalleryImages]
-
   const rawGalleryImages =
     allGalleryImages.length > 0
       ? allGalleryImages
@@ -107,15 +94,12 @@ export default function ArenaPage({
         ? [arena.arenaImage, ...(arena.gallery || [])].filter(Boolean)
         : []
 
-  // Use unified photo gallery hook for state management
-  const {
-    galleryImages,
-    isOpen,
-    openModal,
-    closeModal,
-  } = usePhotoGallery(rawGalleryImages[0], rawGalleryImages.slice(1))
+  const { galleryImages, isOpen, openModal, closeModal } = usePhotoGallery(
+    rawGalleryImages[0],
+    rawGalleryImages.slice(1),
+  )
 
-  // Compute effective arena review by accumulating all revisit updates
+  // --- Rating calculations ---
   const effectiveArenaReview = arena.arenaReview
     ? getEffectiveRating(
         arena.arenaReview as Record<string, number | undefined>,
@@ -130,12 +114,12 @@ export default function ArenaPage({
     ? calculateAverageRating(effectiveArenaReview as any)
     : null
 
-  const overallRating = ratingResult ? ratingResult.average : 'N/A'
+  const overallRating = ratingResult ? ratingResult.average : null
 
-  // Scouting Report: find best and weakest raw category scores (1-10 scale)
+  // --- Scouting data (best & worst on 0–5 scale) ---
   const scoutingData = effectiveArenaReview
     ? Object.entries(effectiveArenaReview)
-        .filter(([_, v]) => typeof v === 'number')
+        .filter(([, v]) => typeof v === 'number')
         .map(([k, v]) => ({
           key: k,
           label: ARENA_RATING_LABELS[k] ?? k,
@@ -149,12 +133,11 @@ export default function ArenaPage({
     ? scoutingData.reduce((a, b) => (a.score < b.score ? a : b))
     : null
 
-  // Compute original (base) rating for timeline baseline
+  // --- Revisit timeline ---
   const originalRatingResult = arena.arenaReview
     ? calculateAverageRating(arena.arenaReview as any)
     : null
 
-  // Compute timeline entries with per-revisit deltas
   const timelineEntries =
     arena.revisits?.length && arena.arenaReview
       ? computeTimelineEntries(
@@ -166,9 +149,7 @@ export default function ArenaPage({
           })),
           ARENA_RATING_LABELS,
         ).map((entry) => {
-          const result = calculateAverageRating(
-            entry.accumulatedState as any,
-          )
+          const result = calculateAverageRating(entry.accumulatedState as any)
           return {
             visitDate: entry.visitDate,
             notes: entry.notes,
@@ -180,210 +161,358 @@ export default function ArenaPage({
         })
       : []
 
+  // --- Teams split: attended vs others ---
+  const teamsGallery = (arena.gallery ?? []) as any[]
+  const attendedTeams = teamsGallery.filter((t) => t.played && t.name)
+  const otherTeams = teamsGallery.filter((t) => !t.played && t.name)
+  const leagueTypes = [
+    ...new Set(
+      teamsGallery.filter((t) => t.teamType).map((t) => t.teamType as string),
+    ),
+  ]
+
+  const visitCount = 1 + (arena.revisits?.length ?? 0)
+
   return (
     <div>
       <PostPageHead settings={settings} post={arena as any} />
+      <BreadcrumbStructuredData
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Arenas', url: '/arenas' },
+          { name: arena.name, url: `/arena/${arena.slug ?? ''}` },
+        ]}
+      />
 
       <Layout preview={preview} loading={loading}>
         <BlogHeader title={title} level={2} />
 
-        {/* Full-width Hero Photo Gallery */}
+        {/* 1. HERO PHOTO GALLERY */}
         {galleryImages.length > 0 && (
-          <HeroPhotoGallery
-            images={galleryImages}
-            onShowAllPhotos={openModal}
-          />
+          <HeroPhotoGallery images={galleryImages} onShowAllPhotos={openModal} />
         )}
 
-        <Section as="article" spacing="tight" className="container mx-auto px-4 md:px-6">
-          {/* --- Header & Teams --- */}
-          <header className="mb-12 flex flex-col md:flex-row md:items-center md:justify-between">
-            <div>
-              <h1 className="text-4xl font-bold tracking-tighter">
-                {arena.name}
-              </h1>
-              <div className="mt-1 flex items-center space-x-2 text-muted-foreground">
-                <MapPin className="h-5 w-5" />
-                <p className="text-lg">{arena.location}</p>
-              </div>
-
-              <div className="mt-4 flex items-center space-x-6 text-sm text-muted-foreground">
-                <div className="flex items-center space-x-2">
-                  <Building2 className="h-5 w-5" />
-                  <span>Built: {arena.buildDate}</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Users2 className="h-5 w-5" />
-                  <span>Capacity: {arena.capacity?.toLocaleString() ?? 'N/A'}</span>
-                </div>
-              </div>
-
-              <div className="mt-6 flex flex-wrap gap-2">
-                {arena.gallery?.map((team, index) => (
-                  <Badge
-                    key={team.name || index}
-                    variant="outline"
-                    className="uppercase flex items-center gap-2"
-                  >
-                    <Image
-                      src={urlForImage(team.asset)
-                        .width(25)
-                        .height(25)
-                        .fit('crop')
-                        .auto('format')
-                        .url()}
-                      alt={`${team.name || 'Team'} logo`}
-                      width={25}
-                      height={25}
-                      className="rounded-full"
-                      loading="lazy"
-                      sizes="25px"
-                    />
-                    {team.name} ({team.teamType})
-                  </Badge>
-                ))}
-              </div>
+        {/* 2+3. ARENA IDENTITY + SCORECARD — one section */}
+        <div className="container mx-auto px-4 md:px-6 py-8 md:py-12">
+          {!arena.visited && (
+            <div className="mb-4">
+              <Badge variant="outline" className="text-muted-foreground">
+                On Our Bucket List
+              </Badge>
             </div>
-            <Card className="mt-6 w-full md:mt-0 md:w-48">
-              <CardHeader className="items-center p-4">
-                <CardTitle className="text-sm font-medium text-muted-foreground">
-                  Overall Rating
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="flex flex-col items-center justify-center p-4 pt-0">
-                <span
-                  className="text-6xl font-bold text-secondary"
-                  aria-label={`Overall rating: ${overallRating} out of 5 stars`}
-                >
-                  {overallRating}
-                </span>
-                <span className="text-sm text-muted-foreground">out of 5</span>
-              </CardContent>
-            </Card>
-          </header>
-
-          {/* --- Scouting Report --- */}
-          {scoutingData.length > 0 && bestFeature && weakestLink && (
-            <Card className="mb-6">
-              <CardHeader className="pb-3">
-                <CardTitle className="text-sm font-medium text-muted-foreground uppercase tracking-wide">
-                  Scouting Report
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="flex flex-col sm:flex-row gap-4">
-                <div className="flex items-center gap-3 flex-1">
-                  <Trophy className="h-5 w-5 text-yellow-500 shrink-0" />
-                  <div>
-                    <p className="text-xs text-muted-foreground">Best Feature</p>
-                    <p className="font-semibold">
-                      {bestFeature.label}{' '}
-                      <span className="text-muted-foreground font-normal">
-                        ({bestFeature.score}/10)
-                      </span>
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3 flex-1">
-                  <TrendingDown className="h-5 w-5 text-red-400 shrink-0" />
-                  <div>
-                    <p className="text-xs text-muted-foreground">Lowest Score</p>
-                    <p className="font-semibold">
-                      {weakestLink.label}{' '}
-                      <span className="text-muted-foreground font-normal">
-                        ({weakestLink.score}/10)
-                      </span>
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
           )}
 
-          <Separator className="my-8" />
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tighter mb-2">
+            {arena.name}
+          </h1>
 
-          {/* --- Main Content Grid --- */}
-          <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-            {/* Left Column: Ratings */}
-            <div className="space-y-8 lg:col-span-2">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center space-x-2">
-                    {/* <Award className="h-6 w-6" /> */}
-                    <span>Arena Rating Breakdown</span>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  {effectiveArenaReview &&
-                    Object.entries(effectiveArenaReview).map(
-                      ([category, score]) =>
-                        typeof score === 'number' && (
-                          <div key={category}>
-                            <div className="mb-2 flex items-center justify-between">
-                              <div className="flex items-center space-x-3">
-                                {ratingIcons[category]}
+          <div className="flex items-center gap-2 text-muted-foreground mb-4">
+            <MapPin className="h-5 w-5 shrink-0" />
+            <span className="text-lg">{arena.location}</span>
+          </div>
+
+          <div className="flex flex-wrap gap-6 text-sm text-muted-foreground mb-5">
+            {arena.buildDate && (
+              <div className="flex items-center gap-2">
+                <Building2 className="h-4 w-4" />
+                <span>Built {formatDate(arena.buildDate)}</span>
+              </div>
+            )}
+            {arena.capacity && (
+              <div className="flex items-center gap-2">
+                <Users2 className="h-4 w-4" />
+                <span>{arena.capacity.toLocaleString()} seat capacity</span>
+              </div>
+            )}
+          </div>
+
+          {leagueTypes.length > 0 && (
+            <div className="flex flex-wrap gap-2">
+              {leagueTypes.map((league) => (
+                <Badge
+                  key={league}
+                  variant="secondary"
+                  className="uppercase text-xs tracking-wide"
+                >
+                  {league}
+                </Badge>
+              ))}
+            </div>
+          )}
+          {/* 3. SCORECARD — nested inside the identity section */}
+          {ratingResult && overallRating && (
+            <div className="mt-8">
+            <div className="rounded-2xl border-2 border-foreground shadow-brutalist bg-secondary/10 p-6 md:p-8">
+              <p className="text-xs font-bold uppercase tracking-widest text-secondary mb-6">
+                The Scorecard
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
+                {/* Overall rating */}
+                <div className="flex flex-col items-start">
+                  <div className="flex items-end gap-1 mb-1">
+                    <span
+                      className="text-7xl font-bold text-secondary leading-none"
+                      aria-label={`Overall rating: ${overallRating} out of 5`}
+                    >
+                      {overallRating}
+                    </span>
+                    <span className="text-2xl text-muted-foreground mb-1">/5</span>
+                  </div>
+                  <span
+                    className="text-sm font-bold uppercase tracking-wide"
+                    style={{ color: ratingResult.color }}
+                  >
+                    {ratingResult.textRating}
+                  </span>
+                </div>
+
+                {/* Best feature */}
+                {bestFeature && (
+                  <div className="flex items-start gap-3">
+                    <Trophy className="h-7 w-7 text-yellow-500 shrink-0 mt-0.5" />
+                    <div>
+                      <p className="text-xs text-muted-foreground uppercase tracking-wide mb-0.5">
+                        Best Feature
+                      </p>
+                      <p className="font-bold text-base">{bestFeature.label}</p>
+                      <p className="text-sm font-semibold text-secondary">
+                        {(bestFeature.score / 2).toFixed(1)} / 5
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {/* Weakest link */}
+                {weakestLink && (
+                  <div className="flex items-start gap-3">
+                    <TrendingDown className="h-7 w-7 text-destructive shrink-0 mt-0.5" />
+                    <div>
+                      <p className="text-xs text-muted-foreground uppercase tracking-wide mb-0.5">
+                        Lowest Score
+                      </p>
+                      <p className="font-bold text-base">{weakestLink.label}</p>
+                      <p className="text-sm font-semibold text-destructive">
+                        {(weakestLink.score / 2).toFixed(1)} / 5
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+        </div>{/* end identity + scorecard section */}
+
+        <article>
+          {/* 4. TEAMS AT THIS ARENA */}
+          {teamsGallery.length > 0 && (
+            <div className="py-8 md:py-12">
+              <SectionTitle header="Teams at This Arena" />
+              <div className="container mx-auto px-4 md:px-6 space-y-8">
+                {attendedTeams.length > 0 && (
+                  <div>
+                    <div className="flex items-center gap-2 mb-4">
+                      <Award className="h-4 w-4 text-primary" />
+                      <span className="text-sm font-bold uppercase tracking-widest text-primary">
+                        Games We Attended
+                      </span>
+                    </div>
+                    <div className="flex flex-wrap gap-4">
+                      {attendedTeams.map((team: any, i: number) => {
+                        const cardClasses =
+                          'flex flex-col items-center gap-2 p-4 rounded-xl border-2 border-primary ring-2 ring-primary/20 hover:ring-primary hover:shadow-brutalist-sm transition-all duration-200 bg-card'
+                        const inner = (
+                          <>
+                            {team.asset && (
+                              <Image
+                                src={urlForImage(team.asset)
+                                  .width(56)
+                                  .height(56)
+                                  .fit('crop')
+                                  .auto('format')
+                                  .url()}
+                                alt={`${team.name} logo`}
+                                width={56}
+                                height={56}
+                                className="rounded-full"
+                                loading="lazy"
+                                sizes="56px"
+                              />
+                            )}
+                            <span className="text-xs font-semibold text-center leading-tight max-w-[80px]">
+                              {team.name}
+                            </span>
+                            {team.teamType && (
+                              <Badge variant="secondary" className="text-xs uppercase">
+                                {team.teamType}
+                              </Badge>
+                            )}
+                          </>
+                        )
+                        return team.link ? (
+                          <a
+                            key={team.name || i}
+                            href={team.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={cardClasses}
+                          >
+                            {inner}
+                          </a>
+                        ) : (
+                          <div key={team.name || i} className={cardClasses}>
+                            {inner}
+                          </div>
+                        )
+                      })}
+                    </div>
+                  </div>
+                )}
+
+                {otherTeams.length > 0 && (
+                  <div>
+                    <span className="text-sm font-bold uppercase tracking-widest text-muted-foreground mb-4 block">
+                      Also at This Arena
+                    </span>
+                    <div className="flex flex-wrap gap-3">
+                      {otherTeams.map((team: any, i: number) => (
+                        <div
+                          key={team.name || i}
+                          className="flex items-center gap-2 px-3 py-2 rounded-lg border border-border bg-muted/40"
+                        >
+                          {team.asset && (
+                            <Image
+                              src={urlForImage(team.asset)
+                                .width(32)
+                                .height(32)
+                                .fit('crop')
+                                .auto('format')
+                                .url()}
+                              alt={`${team.name} logo`}
+                              width={32}
+                              height={32}
+                              className="rounded-full grayscale opacity-60"
+                              loading="lazy"
+                              sizes="32px"
+                            />
+                          )}
+                          <span className="text-xs text-muted-foreground">
+                            {team.name}
+                          </span>
+                          {team.teamType && (
+                            <span className="text-xs text-muted-foreground/60">
+                              · {team.teamType}
+                            </span>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* 5. RATING BREAKDOWN + VISIT DETAILS */}
+          <div className="container mx-auto px-4 md:px-6 py-8 md:py-12">
+            <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+              {/* Left: Rating Breakdown */}
+              <div className="lg:col-span-2">
+                {effectiveArenaReview && (
+                  <Card className="border-2 border-border shadow-brutalist-sm">
+                    <CardHeader>
+                      <CardTitle className="text-lg">
+                        Arena Rating Breakdown
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-6">
+                      {Object.entries(effectiveArenaReview).map(
+                        ([category, score]) =>
+                          typeof score === 'number' && (
+                            <div key={category}>
+                              <div className="mb-2 flex items-center justify-between">
+                                <div className="flex items-center space-x-3">
+                                  {ratingIcons[category]}
+                                  <span
+                                    className="font-medium"
+                                    id={`rating-label-${category}`}
+                                  >
+                                    {ARENA_RATING_LABELS[category] ?? category}
+                                  </span>
+                                </div>
                                 <span
-                                  className="font-medium"
-                                  id={`rating-label-${category}`}
+                                  className="font-semibold tabular-nums"
+                                  aria-labelledby={`rating-label-${category}`}
                                 >
-                                  {formatCategoryName(category)}
+                                  {(score / 2).toFixed(1)}
+                                  <span className="text-xs text-muted-foreground font-normal">
+                                    /5
+                                  </span>
                                 </span>
                               </div>
-                              <span
-                                className="font-semibold"
-                                aria-labelledby={`rating-label-${category}`}
-                              >
-                                {(score / 2).toFixed(1)}
-                              </span>
+                              <Progress
+                                value={(score / 10) * 100}
+                                className="h-2"
+                                aria-label={`${ARENA_RATING_LABELS[category] ?? category}: ${(score / 2).toFixed(1)} out of 5`}
+                              />
                             </div>
-                            <Progress
-                              value={(score / 10) * 100}
-                              className="h-2"
-                              aria-label={`${formatCategoryName(category)} rating: ${score.toFixed(1)} out of 10`}
-                            />
-                          </div>
-                        ),
-                    )}
-                </CardContent>
-              </Card>
-            </div>
-
-            {/* Right Column (Sidebar): Details & Tips */}
-            <div className="space-y-8">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center space-x-2">
-                    <Calendar className="h-6 w-6" />
-                    <span>Visit Details</span>
-                  </CardTitle>
-                </CardHeader>
-                {arena.date && (
-                  <CardContent className="text-sm">
-                    <p>
-                      <strong>Date of Visit:</strong>{' '}
-                      {formatDate(arena.date)}
-                    </p>
-                  </CardContent>
+                          ),
+                      )}
+                    </CardContent>
+                  </Card>
                 )}
-              </Card>
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center space-x-2">
-                    <Lightbulb className="h-6 w-6" />
-                    <span>Pro Tip</span>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm italic text-muted-foreground">
-                    {(arena as any)?.tip || 'No tip provided'}
-                  </p>
-                </CardContent>
-              </Card>
+              </div>
+
+              {/* Right: Visit Details */}
+              {arena.visited && (
+                <div className="space-y-4">
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="flex items-center space-x-2 text-base">
+                        <Calendar className="h-5 w-5" />
+                        <span>Our Visit</span>
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-4 text-sm">
+                      {arena.date && (
+                        <div>
+                          <p className="text-xs text-muted-foreground uppercase tracking-wide mb-0.5">
+                            First Visited
+                          </p>
+                          <p className="font-semibold">{formatDate(arena.date)}</p>
+                        </div>
+                      )}
+                      {visitCount > 1 && (
+                        <div>
+                          <p className="text-xs text-muted-foreground uppercase tracking-wide mb-0.5">
+                            Total Visits
+                          </p>
+                          <Badge variant="secondary" className="text-xs font-semibold">
+                            {visitCount} visits
+                          </Badge>
+                        </div>
+                      )}
+                      {attendedTeams.length > 0 && (
+                        <div>
+                          <p className="text-xs text-muted-foreground uppercase tracking-wide mb-0.5">
+                            Games Attended
+                          </p>
+                          <p className="font-semibold">
+                            {attendedTeams.length} team
+                            {attendedTeams.length !== 1 ? 's' : ''}
+                          </p>
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
+                </div>
+              )}
             </div>
           </div>
 
-          {/* Visit History Timeline */}
+          {/* 6. REVISIT TIMELINE */}
           {timelineEntries.length > 0 && originalRatingResult && arena.date && (
-            <div className="mt-8">
+            <div className="container mx-auto px-4 md:px-6 py-8 md:py-12">
               <RevisitTimeline
                 originalDate={arena.date}
                 originalDisplayRating={originalRatingResult.average}
@@ -394,97 +523,34 @@ export default function ArenaPage({
             </div>
           )}
 
-          {/* Pros, Cons, Verdict */}
-          {arena.prosConsVerdict && (
-            <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
-              {arena.prosConsVerdict.positives &&
-                arena.prosConsVerdict.positives.length > 0 && (
-                  <Card>
-                    <CardHeader>
-                      <CardTitle className="flex items-center text-green-600">
-                        <CheckCircle2 className="mr-2 h-5 w-5" />
-                        What We Loved
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <ul className="list-inside list-disc space-y-1 text-base">
-                        {(
-                          arena.prosConsVerdict.positives as unknown as any[]
-                        )?.map((pro, index) => (
-                          <li key={index}>{pro}</li>
-                        ))}
-                      </ul>
-                    </CardContent>
-                  </Card>
-                )}
-              {arena.prosConsVerdict.negatives &&
-                arena.prosConsVerdict.negatives.length > 0 && (
-                  <Card>
-                    <CardHeader>
-                      <CardTitle className="flex items-center text-red-600">
-                        <XCircle className="mr-2 h-5 w-5" />
-                        What We Didn&apos;t Like
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <ul className="list-inside list-disc space-y-1 text-base">
-                        {(
-                          arena.prosConsVerdict.negatives as unknown as any[]
-                        )?.map((con, index) => (
-                          <li key={index}>{con}</li>
-                        ))}
-                      </ul>
-                    </CardContent>
-                  </Card>
-                )}
-              {arena.prosConsVerdict.verdict && (
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="flex items-center text-blue-600">
-                      <BadgeCheck className="mr-2 h-5 w-5" />
-                      The Verdict
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <PostBody content={arena.prosConsVerdict.verdict} />
-                  </CardContent>
-                </Card>
-              )}
-            </div>
-          )}
-
-          {/* --- Optional Instagram Video --- */}
-          {(arena as any).instagramVideoEmbedUrl && (
-            <section className="mt-8">
-              <h2 className="mb-4 text-2xl font-bold tracking-tight flex items-center">
-                <Video className="mr-2 h-6 w-6" /> Our Experience
-              </h2>
-              <div className="overflow-hidden rounded-lg shadow-lg">
-                <iframe
-                  src={(arena as any).instagramVideoEmbedUrl}
-                  className="h-full w-full border-0"
-                  style={{ overflow: 'hidden' }}
-                  allowFullScreen
-                  title="Arena Video Experience"
-                  loading="lazy"
-                ></iframe>
-              </div>
-            </section>
-          )}
-
-          {/* --- Gallery --- */}
-          {galleryImages.length > 0 && (
-            <section className="mt-8">
-              <ImageGallery
-                images={galleryImages}
-                title="Photo Gallery"
-                isOpen={isOpen}
-                openModal={openModal}
-                closeModal={closeModal}
+          {/* 7. THE BOTTOM LINE (ProConList) */}
+          {arena.prosConsVerdict &&
+            (arena.prosConsVerdict.positives?.length ||
+              arena.prosConsVerdict.negatives?.length ||
+              arena.prosConsVerdict.verdict) && (
+              <ProConList
+                positives={arena.prosConsVerdict.positives}
+                negatives={arena.prosConsVerdict.negatives}
+                verdict2={arena.prosConsVerdict.verdict}
               />
-            </section>
+            )}
+
+          {/* 8. VIDEO (fixed: uses arena.videoUrl + VideoPlayer) */}
+          {arena.videoUrl && (
+            <VideoPlayer url={arena.videoUrl} title="Our Experience" />
           )}
-        </Section>
+
+          {/* 9. GALLERY MODAL — modal-only, no bottom grid (matches hotel page pattern) */}
+          {galleryImages.length > 0 && (
+            <ImageGallery
+              images={galleryImages}
+              isOpen={isOpen}
+              openModal={openModal}
+              closeModal={closeModal}
+              showInlineGrid={false}
+            />
+          )}
+        </article>
       </Layout>
     </div>
   )
