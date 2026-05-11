@@ -1,10 +1,9 @@
-// src/components/DynamicPostCard.tsx
-
 import Date from 'components/PostDate'
 import type { FoodReview, Guide, HotelReview, Post } from 'lib/sanity.queries'
 import { ArrowRight, Calendar, MapPin, RefreshCw } from 'lucide-react'
 import Link from 'next/link'
 
+import { Badge } from '@/components/ui/badge'
 import {
   CardContent,
   CardFooter,
@@ -13,7 +12,6 @@ import {
 
 import CoverImage from './CoverImage'
 
-// Define props for DynamicPostCard - no change here
 interface DynamicPostCardProps {
   title?: string
   coverImage?: any
@@ -31,9 +29,9 @@ interface DynamicPostCardProps {
   category?: string
   visited?: boolean
   revisitCount?: number
+  calculatedRating?: number
 }
 
-// Your existing helper functions - no change here
 const getLinkPrefix = (
   linkType?: 'hotel' | 'food' | 'story' | 'favorite',
 ): string => {
@@ -75,7 +73,6 @@ const getRating = (
   return undefined
 }
 
-// The DynamicPostCard Component with Shadcn/ui
 const DynamicPostCard = ({
   title,
   coverImage,
@@ -91,6 +88,7 @@ const DynamicPostCard = ({
   category,
   visited,
   revisitCount,
+  calculatedRating,
 }: DynamicPostCardProps) => {
   const safeSlug = slug ?? ''
   const href = `${getLinkPrefix(linkType)}/${safeSlug}`
@@ -106,17 +104,17 @@ const DynamicPostCard = ({
   if (!safeSlug || !title) {
     console.warn(
       'DynamicPostCard skipped rendering due to missing slug or title',
-      {
-        slug,
-        title,
-      },
+      { slug, title },
     )
     return null
   }
 
+  const scoreDisplay =
+    calculatedRating != null ? calculatedRating.toFixed(1) : null
+
   return (
     <div
-      className={`group relative w-full overflow-hidden rounded-4xl border-4 border-border-bold bg-card text-foreground shadow-offsetIndigo transition-all duration-300 ease-in-out hover:scale-105 hover:-translate-y-2 hover:shadow-lg ${
+      className={`group relative w-full overflow-hidden rounded-4xl border-4 border-border-bold bg-card text-foreground shadow-offsetIndigo transition-all duration-300 ease-in-out hover:scale-105 hover:-translate-y-2 hover:shadow-brutalist ${
         visited === false ? 'opacity-40 grayscale' : 'grayscale-0'
       }`}
     >
@@ -152,6 +150,18 @@ const DynamicPostCard = ({
           <CardTitle className="line-clamp-1 pt-1 text-sm font-bold text-foreground no-underline decoration-primary decoration-dashed decoration-4 group-hover:underline sm:line-clamp-2 sm:h-8 sm:text-xl lg:text-xl xl:pt-1.5">
             {title}
           </CardTitle>
+
+          {/* Score badge */}
+          {scoreDisplay && (
+            <div className="mt-2">
+              <Badge
+                variant="default"
+                className="bg-primary text-primary-foreground text-xs font-bold px-2 py-0.5"
+              >
+                {scoreDisplay}/10
+              </Badge>
+            </div>
+          )}
 
           {/* Meta info */}
           <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-muted-foreground">

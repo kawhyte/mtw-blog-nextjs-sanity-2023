@@ -559,6 +559,7 @@ export interface HotelReview {
       Pool: number
     }>
   }>
+  calculatedRating?: number
 }
 
 // Export FoodReview type
@@ -605,6 +606,7 @@ export interface FoodReview {
       accuracy: number
     }>
   }>
+  calculatedRating?: number
 }
 
 // Unified content type for independent schemas (no legacy posts)

@@ -533,8 +533,7 @@ export async function getTopWeightedHotelReviews(
       .sort((a: any, b: any) => b.calculatedRating - a.calculatedRating)
       .slice(0, limit)
 
-    // Remove the temporary calculatedRating property
-    return reviewsWithRatings.map(({ calculatedRating, ...review }) => review)
+    return reviewsWithRatings
   } catch (error) {
     console.error('Error fetching top weighted hotel reviews:', error)
     return []
@@ -596,8 +595,7 @@ export async function getTopWeightedFoodReviews(
       .sort((a: any, b: any) => b.calculatedRating - a.calculatedRating)
       .slice(0, limit)
 
-    // Remove the temporary calculatedRating property
-    return reviewsWithRatings.map(({ calculatedRating, ...review }) => review)
+    return reviewsWithRatings
   } catch (error) {
     console.error('Error fetching top weighted food reviews:', error)
     return []

@@ -112,3 +112,4 @@ Active migration from legacy post system to independent document types:
 3. **Image Handling:** Use Sanity's built-in image optimization and hotspot features
 4. **Content Structure:** Rich content uses Portable Text with custom serializers
 5. **Schema Validation:** All schemas include proper validation rules and preview configurations
+

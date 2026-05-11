@@ -56,6 +56,9 @@ export default function Page(props: PageProps) {
         'Our top 10 restaurants based on weighted average ratings using our new rating system. Discover the best culinary experiences for your next adventure.'
       }
       contentType="food"
+      pageTitle="Our Top Restaurant Picks | Meet The Whytes"
+      siblingLink="/top-hotel-picks"
+      siblingLabel="Need a place to stay? Check out our Top Hotel Picks"
     />
   )
 }

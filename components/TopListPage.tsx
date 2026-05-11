@@ -2,12 +2,11 @@ import BlogHeader from 'components/BlogHeader'
 import Layout from 'components/BlogLayout'
 import IndexPageHead from 'components/IndexPageHead'
 import * as demo from 'lib/demo.data'
-import { getSettings, getTopWeightedHotelReviews } from 'lib/sanity.client'
-import type { HotelReview, Settings } from 'lib/sanity.queries'
-import { GetStaticProps } from 'next'
+import type { Settings } from 'lib/sanity.queries'
+import { ArrowRight } from 'lucide-react'
 import Head from 'next/head'
+import Link from 'next/link'
 
-import { CMS_NAME } from '../lib/constants'
 import Footer from './Footer'
 import ReviewHeader from './ReviewHeader'
 import TopListItems from './TopListItems'
@@ -15,15 +14,16 @@ import TopListItems from './TopListItems'
 export interface IndexPageProps {
   preview?: boolean
   loading?: boolean
-  posts: any[] // Made generic to accept Post[] or HotelReview[]
+  posts: any[]
   settings: Settings
   postHeader: string
   img: string
   summary: string
-  contentType?: 'post' | 'hotel' | 'food' // Add contentType prop
+  contentType?: 'post' | 'hotel' | 'food'
+  pageTitle?: string
+  siblingLink?: string
+  siblingLabel?: string
 }
-
-let count = 2
 
 export default function IndexPage(props: IndexPageProps) {
   const {
@@ -35,23 +35,11 @@ export default function IndexPage(props: IndexPageProps) {
     img,
     summary,
     contentType = 'post',
+    pageTitle,
+    siblingLink,
+    siblingLabel,
   } = props
   const { title = demo.title, description = demo.description } = settings || {}
-
-  // Define a reusable function to filter and sort posts by linkType and rating.
-  // const getTopPostsByType = (posts, linkType) => {
-  //   return posts
-  //     .filter((post) => post?.linkType === linkType)
-  //     .sort((a, b) => {
-  //       const ratingA = a?.weightedAverageRating ?? 0
-  //       const ratingB = b?.weightedAverageRating ?? 0
-  //       return ratingB - ratingA // Sort descending by rating
-  //     })
-  // }
-
-  // Use the reusable function to get top hotels and restaurants.
-  // const topHotels = getTopPostsByType(posts, 'hotel')
-  // const topRestaurants = getTopPostsByType(posts, 'food')
 
   return (
     <>
@@ -59,7 +47,7 @@ export default function IndexPage(props: IndexPageProps) {
 
       <Layout preview={preview} loading={loading}>
         <Head>
-          <title>{CMS_NAME}</title>
+          <title>{pageTitle || postHeader || title}</title>
         </Head>
 
         <BlogHeader title={title} description={description} level={1} />
@@ -68,50 +56,29 @@ export default function IndexPage(props: IndexPageProps) {
           title={postHeader}
           summary={summary || 'Our top picks'}
           img={img}
+          contentType={contentType}
         />
 
         {posts.length > 0 && (
-          <>
-            <TopListItems posts={posts} contentType={contentType} />
-          </>
+          <TopListItems posts={posts} contentType={contentType} />
         )}
-        {/* {topHotels.length > 0 && (
-          <>
-            <TopListItems posts={topHotels} />
 
-            
-            {topRestaurants.length > 0 && (
-              <>
-                <TopListItems posts={topRestaurants} />
-                <section></section>
-              </>
-            )}
-          </>
-        )} */}
+        {/* Cross-link to sibling page */}
+        {siblingLink && siblingLabel && (
+          <div className="container mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
+            <Link
+              href={siblingLink}
+              className="flex items-center justify-between rounded-2xl border-4 border-border-bold bg-card p-6 shadow-brutalist transition-all duration-200 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-brutalist-pressed"
+            >
+              <p className="font-plus-jakarta-sans text-base font-semibold text-foreground">
+                {siblingLabel}
+              </p>
+              <ArrowRight className="h-5 w-5 shrink-0 text-primary transition-transform duration-200 group-hover:translate-x-1" />
+            </Link>
+          </div>
+        )}
       </Layout>
       <Footer />
     </>
   )
-}
-
-export const getStaticProps: GetStaticProps<IndexPageProps> = async (
-  context,
-) => {
-  const { preview = false } = context
-  const settings = await getSettings()
-  const topWeightedHotelPosts = await getTopWeightedHotelReviews() // Fetch the top weighted hotels
-
-  return {
-    props: {
-      preview,
-      loading: preview,
-      posts: topWeightedHotelPosts, // Pass the top weighted hotels as 'posts'
-      settings,
-      postHeader: 'Top Hotels and Restaurants', // Add the missing postHeader property
-      img: '/top2.json',
-      summary:
-        'Our top 10 hotels based on weighted average ratings, and our curated food guide. Discover the best experiences for your next adventure.',
-    },
-    revalidate: 10,
-  }
 }

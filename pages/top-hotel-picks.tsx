@@ -57,6 +57,9 @@ export default function Page(props: PageProps) {
         'Our top 10 hotels based on weighted average ratings using our new rating system. Discover the best hotel experiences for your next NBA arena adventure.'
       }
       contentType="hotel"
+      pageTitle="Our Top Hotel Picks | Meet The Whytes"
+      siblingLink="/top-restaurant-picks"
+      siblingLabel="Planning where to eat? Check out our Top Restaurant Picks"
     />
   )
 }
