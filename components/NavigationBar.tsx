@@ -3,6 +3,7 @@
 import cn from 'classnames'
 import {
   Award,
+  Backpack,
   Building,
   ChevronDown,
   ChevronUp,
@@ -11,7 +12,7 @@ import {
   Search,
   Utensils,
   X,
-} from 'lucide-react' // Added ChevronDown, ChevronUp
+} from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router' // Import useRouter
@@ -309,6 +310,11 @@ export default function Navbar() {
             text="Food Reviews"
           />
           <NavItem href="/guides" icon={<MapPin size={22} />} text="Guides" />
+          <NavItem
+            href="/essentials"
+            icon={<Backpack size={22} />}
+            text="Travel Gear"
+          />
         </div>
       </div>
 
@@ -422,6 +428,12 @@ export default function Navbar() {
             href="/guides"
             icon={<MapPin size={18} />}
             text="Guides"
+            onClick={toggleMenu}
+          />
+          <MobileNavItem
+            href="/essentials"
+            icon={<Backpack size={18} />}
+            text="Travel Gear"
             onClick={toggleMenu}
           />
         </div>

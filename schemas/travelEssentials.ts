@@ -51,8 +51,44 @@ export default defineType({
       validation: (Rule) => Rule.required(),
       description:
         'The name of product ( ex. Presto, Jordan 1, Rei Backpack etc. )',
+    }),
 
-      //validation: (rule) => rule.required(),
+    defineField({
+      name: 'tripType',
+      title: 'Trip Type',
+      description: 'Which trips do you pack this for? (Select all that apply)',
+      type: 'array',
+      of: [{ type: 'string' }],
+      options: {
+        list: [
+          { title: 'All Trips', value: 'all' },
+          { title: 'NBA Games', value: 'nba' },
+          { title: 'Cruises', value: 'cruise' },
+          { title: 'Day Trips', value: 'daytrip' },
+          { title: 'International', value: 'international' },
+        ],
+        layout: 'grid',
+      },
+    }),
+
+    defineField({
+      name: 'whyWePack',
+      title: 'Why We Pack This',
+      type: 'string',
+      description:
+        'First-person blurb — max 150 chars. e.g. "Never leave for an NBA game without this."',
+      validation: (Rule) =>
+        Rule.max(150).warning(
+          `Keep it short — 150 characters max.`,
+        ),
+    }),
+
+    defineField({
+      name: 'featured',
+      title: 'Featured Pick',
+      type: 'boolean',
+      description: 'Feature this item at the top of the page.',
+      initialValue: false,
     }),
 
     defineField({

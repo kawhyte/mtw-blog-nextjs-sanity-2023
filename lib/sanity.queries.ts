@@ -51,16 +51,17 @@ const travelEssentialFields = groq`
     _id,
     name,
     link,
-    background,
     date,
     description,
     recommend,
     price,
+    tripType,
+    whyWePack,
+    featured,
     productImage {
       ...,
       asset->{ _id, metadata { lqip, dimensions { width, height } } }
-    },
-    categoryName
+    }
 `
 
 // Optimized arenaFields for listing page - reduced payload
@@ -244,7 +245,8 @@ export const travelEssentialQuery = fetchDocuments(
   'essential',
   travelEssentialFields,
   {
-    order: 'date desc, _updatedAt desc',
+    order: 'coalesce(featured, false) desc, date desc',
+    slice: '[0...20]',
   },
 )
 
@@ -783,13 +785,14 @@ export interface Essential {
   _id: string
   name?: string
   link?: string
-  background?: string
-  description?: any // Consider PortableTextBlock
-  productImage?: any // SanityImageObject
-  categoryName?: string
+  date?: string
+  description?: any
+  productImage?: any
   recommend?: boolean
   price?: number
-  date?: string
+  tripType?: string[]
+  whyWePack?: string
+  featured?: boolean
 }
 
 // --- Image Gallery Item Interface ---

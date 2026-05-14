@@ -74,7 +74,7 @@ export default function IndexPage(props: IndexPageProps) {
             <div>
               <SectionTitle
                 header={'Travel Gear and Gadgets'}
-                description={`Speedy thumbs up/down ratings and bite-sized, Twitter-style reviews of travel gadgets. Discover what truly enhances your adventures with our concise assessments.`}
+                description={`Our tried-and-tested gear for NBA games, cruises, day trips, and beyond. ~20 curated picks — no fluff, just what actually makes it into our bags.`}
               />
               <div className="flex   pt-9 lg:mt-0 lg:shrink-0">
                 <div className="w-fit px-5">
@@ -82,7 +82,7 @@ export default function IndexPage(props: IndexPageProps) {
                     icon={<Plane className="text-pink-500" />}
                     link={'/essentials'}
                   >
-                    Gear and Gadgets Reviews
+                    See What We Pack
                   </Button>
                 </div>
               </div>

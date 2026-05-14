@@ -1,129 +1,148 @@
-// Removed Mantine Card, Group, Text, Image as we'll use divs and next/image primarily
-// import { oswald } from 'app/fonts' // Keep if used elsewhere, otherwise optional for this component
 import { urlForImage } from 'lib/sanity.image'
 import { Essential } from 'lib/sanity.queries'
-// import { CldImage } from 'next-cloudinary' // Removed as Sanity image is used
-// Removed Fa icons as lucide-react is used
-import { Calendar, CircleDollarSign, ThumbsDown, ThumbsUp } from 'lucide-react' // Keep lucide icons
-import Image from 'next/image' // Use Next.js Image for optimization
-import Link from 'next/link' // Keep if Button component doesn't handle Link internally
-import Button from 'ui/Button' // Keep your Button component
+import { CircleDollarSign } from 'lucide-react'
+import Image from 'next/image'
+import Button from 'ui/Button'
 
-import { Badge } from '@/components/ui/badge'
+import PostBody from './PostBody'
 
-import PostBody from './PostBody' // Keep your PostBody component
-import PostDate from './PostDate' // Keep your PostDate component
-// import StarRating from './StarRating' // Removed, wasn't in the provided code snippet
+const TRIP_TYPE_STYLES: Record<
+  string,
+  { bg: string; text: string; border: string; label: string }
+> = {
+  nba: {
+    bg: 'bg-indigo-100',
+    text: 'text-indigo-800',
+    border: 'border-indigo-300',
+    label: 'NBA Game',
+  },
+  cruise: {
+    bg: 'bg-teal-100',
+    text: 'text-teal-800',
+    border: 'border-teal-300',
+    label: 'Cruise',
+  },
+  daytrip: {
+    bg: 'bg-amber-100',
+    text: 'text-amber-800',
+    border: 'border-amber-300',
+    label: 'Day Trip',
+  },
+  international: {
+    bg: 'bg-pink-100',
+    text: 'text-pink-800',
+    border: 'border-pink-300',
+    label: 'International',
+  },
+  all: {
+    bg: 'bg-gray-100',
+    text: 'text-gray-700',
+    border: 'border-gray-300',
+    label: 'All Trips',
+  },
+}
+
+function TripBadge({ tripType }: { tripType?: string[] }) {
+  if (!tripType?.length) return null
+
+  const primary = tripType.find((t) => t !== 'all') ?? tripType[0]
+  const style = TRIP_TYPE_STYLES[primary] ?? TRIP_TYPE_STYLES['all']
+  const extras = tripType.filter((t) => t !== 'all' && t !== primary).length
+
+  return (
+    <div className="flex flex-wrap items-center gap-1">
+      <span
+        className={`inline-flex items-center rounded-full border px-2 py-0.5 text-xs font-semibold ${style.bg} ${style.text} ${style.border}`}
+      >
+        {style.label}
+      </span>
+      {extras > 0 && (
+        <span className="inline-flex items-center rounded-full border border-gray-300 bg-gray-100 px-2 py-0.5 text-xs font-semibold text-gray-700">
+          +{extras}
+        </span>
+      )}
+    </div>
+  )
+}
 
 const TravelEssentialLayout = ({ posts }: { posts: Essential[] }) => {
   return (
-    <>
-      {/* Responsive Grid Container - Your existing setup is good */}
-      <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 px-4 sm:px-6 lg:px-8 container mx-auto max-w-7xl">
-        {posts?.map((item) => (
-          // Card Container - Applying structure and styling
-          <div
-            key={item._id}
-            // Use Tailwind for background, border, shadow, rounded corners, flex layout, and full height
-            className="flex flex-col h-full bg-white border-4 border-black rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden"
-            // Removed bg-indigo-50 unless desired, using standard card bg-white
-          >
-            {/* Top Section: Image and Badge */}
-            <div className="relative">
-              {' '}
-              {/* Relative container for absolute badge */}
-              {/* Image Wrapper */}
-              <div className="relative w-full h-48 flex items-center justify-center bg-white">
-                {' '}
-                {/* Added bg for loading state */}
+    <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3 xl:grid-cols-4">
+        {posts?.map((item) => {
+          const imgSrc = item?.productImage?.asset?._ref
+            ? urlForImage(item.productImage.asset._ref)
+                .width(400)
+                .height(400)
+                .fit('max')
+                .auto('format')
+                .url()
+            : '/placeholder-image.png'
+
+          const lqip = item?.productImage?.asset?.metadata?.lqip
+
+          return (
+            <div
+              key={item._id}
+              className="group flex h-full flex-col overflow-hidden rounded-3xl border-4 border-foreground bg-card transition-all duration-300 hover:-translate-y-2 hover:shadow-brutalist"
+            >
+              {/* Image */}
+              <div className="relative h-44 w-full bg-muted md:h-48">
                 <Image
-                  // placeholder="blur" // Next.js Image handles placeholders automatically with fill/sizes or priority
-                  // blurDataURL="..." // Optional low-quality image placeholder
-                  alt={item.name || 'Product image'} // Provide alt text
-                  src={
-                    item?.productImage?.asset?._ref
-                      ? urlForImage(item.productImage.asset._ref)
-                          .width(300) // Request appropriate size
-                          .height(300)
-                          .fit('max') // 'max' scales down if needed, preserves aspect ratio
-                          .auto('format') // Auto-select format (webp, avif)
-                          .url()
-                      : '/placeholder-image.png' // Fallback placeholder in /public
-                  }
-                  fill // Fill the container
-                  style={{ objectFit: 'contain' }} // 'contain' shows the whole image, 'cover' fills space
-                  className="transition-transform duration-300 group-hover:scale-105 pt-4" // Optional zoom effect on hover
+                  alt={item.name ?? 'Travel gear item'}
+                  src={imgSrc}
+                  fill
+                  sizes="(max-width: 768px) 50vw, (max-width: 1280px) 33vw, 25vw"
+                  style={{ objectFit: 'contain' }}
+                  placeholder={lqip ? 'blur' : 'empty'}
+                  blurDataURL={lqip}
+                  className="p-3 transition-transform duration-300 group-hover:scale-105"
                 />
               </div>
-              {/* Recommendation Badge - Positioned absolutely */}
-              <div className="absolute top-3 left-3 z-10">
-                {item.recommend ? (
-                  <Badge
-                    variant="default"
-                    className="shadow-md bg-green-500 hover:bg-green-600 text-white border-green-500"
-                  >
-                    <ThumbsUp className="mr-1 h-3 w-3" />
-                    Loved it
-                  </Badge>
-                ) : (
-                  <Badge
-                    variant="default"
-                    className="shadow-md bg-red-500 hover:bg-red-600 text-white border-red-500"
-                  >
-                    <ThumbsDown className="mr-1 h-3 w-3" />
-                    Hated it
-                  </Badge>
-                )}
-              </div>
-            </div>
 
-            {/* Content Section - Takes remaining space */}
-            <div className="flex flex-col grow p-4 bg-gray-50">
-              {' '}
-              {/* Added padding */}
-              {/* Product Name */}
-              <h1 className="text-base md:text-lg font-semibold text-foreground mb-2 line-clamp-2">
-                {item.name}
-              </h1>
-              {/* Date and Price Info */}
-              <div className="flex items-center text-xs md:text-sm text-gray-500 mb-1">
-                <Calendar className="mr-1.5 h-4 w-4 text-pink-500 shrink-0" />
-                <span>
-                  {' '}
-                  {/* Wrap text for better alignment if it wraps */}
-                  Reviewed on <PostDate dateString={item.date} />
-                </span>
-              </div>
-              <div className="flex items-center  text-xs md:text-sm text-gray-500 mb-3">
-                <CircleDollarSign className="text-pink-500 mr-1.5 h-4 w-4 shrink-0" />
-                <span className="font-semibold">
-                  {' '}
-                  {/* Wrap text */}
-                  {item.price > 0 ? `${item.price.toFixed(2)}` : 'FREE'}
-                </span>
-              </div>
-              {/* Description - takes available space before button */}
-              <div className=" text-xs md:text-sm text-gray-600 mb-4 grow min-h-[40px]">
-                {' '}
-                {/* Added min-height */}
-                {/* Limit description lines */}
-                <div className="line-clamp-3">
-                  <PostBody content={item.description} />
+              {/* Content */}
+              <div className="flex flex-col grow p-4 gap-2">
+                {/* Trip type badge */}
+                <TripBadge tripType={item.tripType} />
+
+                {/* Name */}
+                <h2 className="font-epilogue line-clamp-2 text-base font-bold leading-tight text-foreground md:text-lg">
+                  {item.name}
+                </h2>
+
+                {/* Why we pack this */}
+                <div className="grow text-xs text-muted-foreground md:text-sm">
+                  {item.whyWePack ? (
+                    <p className="line-clamp-2 italic">{item.whyWePack}</p>
+                  ) : item.description ? (
+                    <div className="line-clamp-2 italic">
+                      <PostBody content={item.description} />
+                    </div>
+                  ) : null}
+                </div>
+
+                {/* Price */}
+                <div className="flex items-center gap-1 text-sm font-bold text-foreground">
+                  <CircleDollarSign className="h-4 w-4 shrink-0 text-primary" />
+                  <span>
+                    {item.price && item.price > 0
+                      ? `$${item.price.toFixed(2)}`
+                      : 'Free'}
+                  </span>
+                </div>
+
+                {/* CTA */}
+                <div className="mt-auto border-t border-border pt-3 text-center">
+                  <Button size="xs" link={item.link}>
+                    Get It
+                  </Button>
                 </div>
               </div>
-              {/* Action Button Area - Pushed to bottom */}
-              <div className="mt-auto pt-4 border-t border-gray-100 text-center sm:mx-7 lg:mx-10">
-                {' '}
-                {/* mt-auto pushes down, border adds separation */}
-                <Button size="xs" link={item.link}>
-                  Get Item
-                </Button>
-              </div>
             </div>
-          </div>
-        ))}
+          )
+        })}
       </div>
-    </>
+    </div>
   )
 }
 
