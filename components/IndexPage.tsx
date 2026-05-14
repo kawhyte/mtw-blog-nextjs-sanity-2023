@@ -41,6 +41,7 @@ export interface IndexPageProps {
   posts: (Guide | HotelReview | FoodReview)[]
   settings: Settings
   youtubeVideos?: YoutubeVideo[]
+  youtubeShorts?: YoutubeVideo[]
 }
 
 export default function IndexPage(props: IndexPageProps) {
@@ -50,6 +51,7 @@ export default function IndexPage(props: IndexPageProps) {
     posts,
     settings,
     youtubeVideos = [],
+    youtubeShorts = [],
   } = props
 
   // This hero logic might conflict if posts is empty, handle gracefully
@@ -156,6 +158,7 @@ export default function IndexPage(props: IndexPageProps) {
             <YoutubeHighlights
               videos={youtubeVideos}
               featuredVideo={settings?.featuredVideo}
+              shorts={youtubeShorts}
             />
           </BlogSection>
         </Container>

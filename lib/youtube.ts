@@ -32,6 +32,43 @@ function parseEntries(xml: string): string[] {
   return entries
 }
 
+export async function fetchChannelShorts(
+  channelId: string,
+  limit = 8,
+): Promise<YoutubeVideo[]> {
+  if (!channelId) return []
+
+  try {
+    const res = await fetch(
+      `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`,
+      { next: { revalidate: 3600 } },
+    )
+    if (!res.ok) return []
+
+    const xml = await res.text()
+    const entries = parseEntries(xml)
+
+    return entries
+      .map((entry) => {
+        const id = extractTag(entry, 'yt:videoId')
+        const title = extractTag(entry, 'title')
+        const publishedAt = extractTag(entry, 'published')
+        const description = extractAttr(entry, 'media:thumbnail', 'url')
+          ? extractTag(entry, 'media:description')
+          : ''
+        return { id, title, url: `https://www.youtube.com/watch?v=${id}`, thumbnail: `https://i.ytimg.com/vi/${id}/hqdefault.jpg`, publishedAt, description }
+      })
+      .filter((v) => {
+        if (!v.id) return false
+        const text = `${v.title} ${v.description}`.toLowerCase()
+        return text.includes('#shorts')
+      })
+      .slice(0, limit)
+  } catch {
+    return []
+  }
+}
+
 export async function fetchPlaylistVideos(playlistId: string): Promise<YoutubeVideo[]> {
   if (!playlistId) return []
 

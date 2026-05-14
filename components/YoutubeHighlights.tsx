@@ -1,7 +1,7 @@
 import { Badge } from 'components/ui/badge'
 import type { Settings } from 'lib/sanity.queries'
 import type { YoutubeVideo } from 'lib/youtube'
-import { ExternalLink, Play, Youtube } from 'lucide-react'
+import { ExternalLink, Play, Tv, Youtube, Zap } from 'lucide-react'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -96,11 +96,13 @@ interface DisplayVideo {
 interface YoutubeHighlightsProps {
   videos?: YoutubeVideo[]
   featuredVideo?: Settings['featuredVideo']
+  shorts?: YoutubeVideo[]
 }
 
 export default function YoutubeHighlights({
   videos = [],
   featuredVideo,
+  shorts = [],
 }: YoutubeHighlightsProps) {
   const allVideos = videos.length > 0 ? videos : FALLBACK_VIDEOS
 
@@ -137,10 +139,21 @@ export default function YoutubeHighlights({
         />
       </div>
 
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {displayVideos.map((video) => (
-          <VideoCard key={video.id} video={video} />
-        ))}
+      {shorts.length > 0 && <ShortsCarousel shorts={shorts.slice(0, 8)} />}
+
+      {/* Long-form videos label + grid */}
+      <div className={shorts.length > 0 ? 'mt-10 pt-8 border-t border-gray-200' : ''}>
+        <div className="mb-4 flex items-center gap-2 px-1">
+          <Tv size={14} className="text-pink-500" />
+          <h3 className="text-sm font-bold uppercase tracking-widest text-foreground">
+            Featured Videos
+          </h3>
+        </div>
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {displayVideos.map((video) => (
+            <VideoCard key={video.id} video={video} />
+          ))}
+        </div>
       </div>
 
       <div className="mt-8 flex justify-center">
@@ -155,6 +168,86 @@ export default function YoutubeHighlights({
           <ExternalLink size={12} />
         </Link>
       </div>
+    </div>
+  )
+}
+
+function ShortsCarousel({ shorts }: { shorts: YoutubeVideo[] }) {
+  return (
+    <div className="mt-10">
+      <div className="mb-4 flex items-center gap-2 px-1">
+        <Zap size={14} className="text-pink-500" />
+        <h3 className="text-sm font-bold uppercase tracking-widest text-foreground">
+          Latest Shorts
+        </h3>
+      </div>
+      <div className="flex gap-4 overflow-x-auto pb-3 [&::-webkit-scrollbar]:h-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-black/20 [&::-webkit-scrollbar-track]:bg-transparent">
+        {shorts.map((short) => (
+          <ShortCard key={short.id} video={short} />
+        ))}
+        {/* Spacer so the last card isn't clipped by the container edge */}
+        <div className="w-6 flex-shrink-0" aria-hidden="true" />
+      </div>
+    </div>
+  )
+}
+
+function ShortCard({ video }: { video: YoutubeVideo }) {
+  const [playing, setPlaying] = React.useState(false)
+  const date = formatDate(video.publishedAt)
+
+  return (
+    <div className="group flex-shrink-0 w-36 sm:w-40 overflow-hidden rounded-xl border-2 border-black shadow-brutalist-sm transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none">
+      {playing ? (
+        <div className="relative w-full bg-black" style={{ aspectRatio: '9/16' }}>
+          <ReactPlayer
+            url={video.url}
+            width="100%"
+            height="100%"
+            controls
+            playing
+            style={{ position: 'absolute', top: 0, left: 0 }}
+          />
+        </div>
+      ) : (
+        <button
+          onClick={() => setPlaying(true)}
+          className="relative block w-full overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500"
+          style={{ aspectRatio: '9/16' }}
+          aria-label={`Play short: ${video.title}`}
+        >
+          {video.thumbnail ? (
+            <Image
+              src={video.thumbnail}
+              alt={video.title || 'YouTube Short'}
+              fill
+              className="object-cover transition-transform duration-300 group-hover:scale-105"
+              sizes="160px"
+            />
+          ) : (
+            <div className="absolute inset-0 bg-gray-900" />
+          )}
+
+          {/* Play button */}
+          <div className="absolute inset-0 flex items-center justify-center bg-black/20 transition-colors group-hover:bg-black/35">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-white bg-white/90 shadow-md transition-transform duration-200 group-hover:scale-110">
+              <Play size={14} className="translate-x-[1px] text-pink-500" />
+            </div>
+          </div>
+
+          {/* Bottom overlay */}
+          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/85 via-black/50 to-transparent px-2 pb-2 pt-8">
+            {video.title && (
+              <p className="line-clamp-2 text-xs font-bold leading-snug text-white drop-shadow">
+                {video.title}
+              </p>
+            )}
+            {date && (
+              <p className="mt-0.5 text-[10px] text-white/70">{date}</p>
+            )}
+          </div>
+        </button>
+      )}
     </div>
   )
 }
