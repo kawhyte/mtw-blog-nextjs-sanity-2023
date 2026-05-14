@@ -16,6 +16,7 @@ import { useEffect, useState } from 'react'
 import { CardSkeletonGrid } from '@/components/ui/card-skeleton'
 import { PaginationWrapper as Pagination } from '@/components/ui/pagination-wrapper'
 
+import { useDebounce } from '../hooks/useDebounce'
 import { CMS_NAME } from '../lib/constants'
 import { globalSearchQuery } from '../lib/sanity.queries'
 import {
@@ -26,7 +27,6 @@ import {
   Settings,
 } from '../lib/sanity.queries'
 import { sanityClient } from '../lib/sanity.server'
-import { useDebounce } from '../hooks/useDebounce'
 
 // Dynamically import Lottie Player for the "not found" animation
 const PlayerWithNoSSR = dynamic(

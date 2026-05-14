@@ -1,11 +1,10 @@
-import { useState } from 'react'
-
 import cn from 'classnames'
 import Layout from 'components/BlogLayout'
 import IndexPageHead from 'components/IndexPageHead'
 import type { Essential, Settings } from 'lib/sanity.queries'
 import { PackageCheck } from 'lucide-react'
 import Head from 'next/head'
+import { useState } from 'react'
 
 import { CMS_NAME } from '../lib/constants'
 import BlogHeader from './BlogHeader'

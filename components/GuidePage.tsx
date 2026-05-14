@@ -1,8 +1,8 @@
 // components/GuidePage.tsx
 
 import Layout from 'components/BlogLayout'
-import { formatDate } from 'components/PostDate'
 import PostBody from 'components/PostBody'
+import { formatDate } from 'components/PostDate'
 import PostPageHead from 'components/PostPageHead'
 import { urlForImage } from 'lib/sanity.image'
 import { Guide, Settings } from 'lib/sanity.queries'

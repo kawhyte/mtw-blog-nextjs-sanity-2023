@@ -179,7 +179,7 @@ function VideoCard({ video }: { video: DisplayVideo }) {
       ) : (
         <button
           onClick={() => setPlaying(true)}
-          className="relative w-full aspect-video overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500"
+          className="relative block w-full aspect-video overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500"
           aria-label={`Play ${video.title}`}
         >
           {/* Thumbnail */}
