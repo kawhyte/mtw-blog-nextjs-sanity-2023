@@ -41,7 +41,7 @@ export default function TopListItems({
             >
               {/* Large rank number — top 3 get medal tones */}
               <span
-                className={`absolute left-1/2 top-1 z-0 -translate-x-1/2 font-epilogue text-[9rem] font-black leading-none transition-all duration-300 group-hover:scale-110 sm:text-[14rem] ${getRankColor(rank)}`}
+                className={`absolute left-1/2 top-1 sm:-top-1 z-0 -translate-x-1/2 font-epilogue text-[9rem] font-black leading-none transition-all duration-300 group-hover:scale-110 sm:text-[14rem] ${getRankColor(rank)}`}
                 aria-hidden="true"
               >
                 {rank}
