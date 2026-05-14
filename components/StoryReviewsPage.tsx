@@ -84,9 +84,10 @@ export default function StoryReviewsPage(props: StoryReviewsPageProps) {
         <ReviewHeader
           title={'Stories & Guides'}
           summary={
-            "Uncover insider tips, hidden gems, and unforgettable adventures. From budget backpacking to luxury escapes, We’ve got you covered. Let's explore together!"
+            "Uncover insider tips, hidden gems, and unforgettable adventures. From budget backpacking to luxury escapes, We've got you covered. Let's explore together!"
           }
           img={'/plane.json'}
+          contentType="post"
         />
 
         <Container>

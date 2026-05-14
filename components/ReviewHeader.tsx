@@ -1,53 +1,37 @@
-import dynamic from 'next/dynamic'
-import { LiaCrownSolid } from 'react-icons/lia'
-
-const PlayerWithNoSSR = dynamic(
-  () =>
-    import('@lottiefiles/react-lottie-player').then((module) => module.Player),
-  { ssr: false },
-)
-
 interface ReviewHeaderProps {
   title: string
   summary: string
-  img?: any
+  img?: any // kept for backward compat, no longer rendered
   contentType?: 'post' | 'hotel' | 'food'
 }
 
-function ReviewHeader({ title, summary, img, contentType }: ReviewHeaderProps) {
-  const showCrownLabel = contentType === 'hotel' || contentType === 'food'
+const EYEBROW_LABELS: Record<string, string> = {
+  hotel: 'Hotel Reviews',
+  food: 'Food Reviews',
+  post: 'Travel Guides',
+}
+
+function ReviewHeader({ title, summary, contentType }: ReviewHeaderProps) {
+  const eyebrow = contentType ? EYEBROW_LABELS[contentType] : null
 
   return (
-    <div className="container mx-auto max-w-7xl px-4 py-9 pb-8 sm:px-6 lg:px-8">
-      <div className="grid grid-cols-1 gap-5 lg:grid-cols-4">
-        <div className="flex flex-col items-center justify-center px-5 pt-8 align-middle md:items-start lg:col-span-2">
-          {showCrownLabel && (
-            <div className="mb-4 flex items-center gap-2 border-b-4 border-foreground pb-2">
-              <LiaCrownSolid className="h-4 w-4 text-primary" />
-              <span className="text-sm font-bold uppercase tracking-widest">
-                Our Curated List
-              </span>
-            </div>
-          )}
+    <section className="bg-primary-soft-background py-16 md:py-24">
+      <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {eyebrow && (
+          <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-primary">
+            {eyebrow}
+          </p>
+        )}
 
-          <h1 className="mb-1 font-epilogue text-5xl font-extrabold leading-tight tracking-tighter text-primary md:text-[4.3rem] lg:text-[4.7rem]">
-            {title}
-          </h1>
+        <h1 className="font-epilogue mb-4 text-4xl font-bold text-primary md:text-5xl lg:text-6xl">
+          {title}
+        </h1>
 
-          <p className="mb-4 mt-4 max-w-xl leading-relaxed">{summary}</p>
-        </div>
-
-        <div className="hidden items-center justify-center md:flex lg:col-span-2">
-          <PlayerWithNoSSR
-            autoplay
-            keepLastFrame
-            loop
-            src={img}
-            style={{ width: '100%', height: '240px', maxWidth: '360px' }}
-          />
-        </div>
+        <p className="mb-6 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">
+          {summary}
+        </p>
       </div>
-    </div>
+    </section>
   )
 }
 
