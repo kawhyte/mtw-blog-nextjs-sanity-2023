@@ -971,7 +971,12 @@ export interface Settings {
   ogImage?: {
     asset: any
     title?: string
-    // Add image asset reference if needed: image?: any
+  }
+  featuredVideo?: {
+    url?: string
+    title?: string
+    category?: string
+    description?: string
   }
 }
 

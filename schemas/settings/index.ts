@@ -73,5 +73,58 @@ export default defineType({
         }),
       ],
     }),
+    defineField({
+      name: 'featuredVideo',
+      title: 'Featured Video (Homepage Hero)',
+      description:
+        'Pin one video as the hero in the Featured Videos section. Paste any YouTube video URL.',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'url',
+          title: 'YouTube URL',
+          type: 'url',
+          description: 'e.g. https://youtu.be/xxxxx or https://www.youtube.com/watch?v=xxxxx',
+          validation: (rule) =>
+            rule.custom((value) => {
+              if (!value) return true
+              const isYoutube =
+                /^https?:\/\/(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/)/.test(
+                  value as string,
+                )
+              return isYoutube || 'Must be a valid YouTube URL'
+            }),
+        }),
+        defineField({
+          name: 'title',
+          title: 'Title Override (optional)',
+          type: 'string',
+          description: 'Overrides the video title. Leave blank to use the YouTube title.',
+        }),
+        defineField({
+          name: 'category',
+          title: 'Category Badge (optional)',
+          type: 'string',
+          description: 'e.g. Walking Tour, Arena Visit, Hotel Review',
+          options: {
+            list: [
+              { title: 'Walking Tour', value: 'Walking Tour' },
+              { title: 'Arena Visit', value: 'Arena Visit' },
+              { title: 'Hotel Review', value: 'Hotel Review' },
+              { title: 'Food Review', value: 'Food Review' },
+              { title: 'Travel Guide', value: 'Travel Guide' },
+              { title: 'Cruise', value: 'Cruise' },
+            ],
+          },
+        }),
+        defineField({
+          name: 'description',
+          title: 'Description Override (optional)',
+          type: 'text',
+          rows: 2,
+          description: 'Short teaser shown below the hero video. Leave blank to use the YouTube description.',
+        }),
+      ],
+    }),
   ],
 })

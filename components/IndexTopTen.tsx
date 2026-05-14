@@ -19,7 +19,7 @@ export default function IndexTopTen() {
       {/* Left side content: Takes half width on large screens */}
       <div className="flex w-full flex-col lg:w-1/2">
         <SectionTitle
-          header={'Our top Hotels & Restaurants recommendations.'}
+          header={'Our top Hotels & Restaurants recommendations'}
           description={
             'Eats & Sleeps: Our Recommendations! Take a peek at our curated list of awesome spots to hit up.'
           }

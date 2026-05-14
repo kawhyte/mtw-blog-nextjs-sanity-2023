@@ -21,6 +21,7 @@ const config = {
       { hostname: 'cdn.sanity.io' },
       { hostname: 'source.unsplash.com' },
       { hostname: 'fakeimg.pl' },
+      { hostname: 'i.ytimg.com' },
     ],
   },
 

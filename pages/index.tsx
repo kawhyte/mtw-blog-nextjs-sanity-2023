@@ -2,6 +2,7 @@ import { PreviewSuspense } from '@sanity/preview-kit'
 import IndexPage from 'components/IndexPage'
 import { getLatestIndependentContent, getSettings } from 'lib/sanity.client'
 import { FoodReview, Guide, HotelReview, Settings } from 'lib/sanity.queries'
+import { fetchPlaylistVideos, YoutubeVideo } from 'lib/youtube'
 import { GetStaticProps } from 'next'
 import { lazy } from 'react'
 
@@ -9,11 +10,8 @@ const PreviewIndexPage = lazy(() => import('components/PreviewIndexPage'))
 
 interface PageProps {
   posts: (Guide | HotelReview | FoodReview)[]
-  // legacyPosts: Post[] // Keep legacy posts as backup if needed
-  // Essentialposts: Essential[]
-  // arenaPosts:  Arena[]
   settings: Settings
-  // instagram: any
+  youtubeVideos: YoutubeVideo[]
   preview: boolean
   token: string | null
 }
@@ -27,14 +25,13 @@ interface PreviewData {
 }
 
 export default function Page(props: PageProps) {
-  const { posts, settings, preview, token } = props
+  const { posts, settings, youtubeVideos, preview, token } = props
 
   if (preview) {
     return (
       <PreviewSuspense
         fallback={
-          <IndexPage loading preview posts={posts} settings={settings} />
-          // <IndexPage loading preview posts={posts} settings={settings} instagram={instagram} Essentialposts={Essentialposts} arenaPosts={arenaPosts}  />
+          <IndexPage loading preview posts={posts} settings={settings} youtubeVideos={youtubeVideos} />
         }
       >
         <PreviewIndexPage token={token} />
@@ -42,8 +39,7 @@ export default function Page(props: PageProps) {
     )
   }
 
-  return <IndexPage posts={posts} settings={settings} />
-  // return <IndexPage posts={posts} settings={settings} instagram={instagram} Essentialposts={Essentialposts} arenaPosts={arenaPosts}/>
+  return <IndexPage posts={posts} settings={settings} youtubeVideos={youtubeVideos} />
 }
 
 export const getStaticProps: GetStaticProps<
@@ -53,24 +49,18 @@ export const getStaticProps: GetStaticProps<
 > = async (ctx) => {
   const { preview = false, previewData = {} } = ctx
 
-  const [settings, posts = []] = await Promise.all([
-    // const [settings, posts = [], instagram,Essentialposts = [], arenaPosts=[]] = await Promise.all([
+  const [settings, posts = [], youtubeVideos = []] = await Promise.all([
     getSettings(),
-    getLatestIndependentContent(), // Using new independent content instead of legacy posts
-    // getInstagramPosts(),
-    // getTravelEssentialPosts(),
-    // getArenaPosts(),
+    getLatestIndependentContent(),
+    fetchPlaylistVideos(process.env.YOUTUBE_PLAYLIST_ID ?? ''),
   ])
 
   return {
     props: {
       posts,
       settings,
-      // instagram,
-      // Essentialposts,
-      // arenaPosts,
+      youtubeVideos,
       preview,
-
       token: previewData.token ?? null,
     },
     revalidate: 10,

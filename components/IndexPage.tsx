@@ -12,10 +12,11 @@ import type {
   HotelReview,
   Settings,
 } from 'lib/sanity.queries'
+import type { YoutubeVideo } from 'lib/youtube'
 // Removed legacy import - pagination is disabled on index page
 import { BriefcaseConveyorBelt, Plane, Trophy } from 'lucide-react'
-import Head from 'next/head'
 import dynamic from 'next/dynamic'
+import Head from 'next/head'
 import Button from 'ui/Button'
 
 const GearLottie = dynamic(
@@ -37,19 +38,18 @@ import YoutubeHighlights from './YoutubeHighlights'
 export interface IndexPageProps {
   preview?: boolean
   loading?: boolean
-  posts: (Guide | HotelReview | FoodReview)[] // These are the initial posts for the index page (e.g., first 6)
+  posts: (Guide | HotelReview | FoodReview)[]
   settings: Settings
-  // Add other props if needed (like arenaPosts, etc.)
-  // arenaPosts?: Arena[]
+  youtubeVideos?: YoutubeVideo[]
 }
 
 export default function IndexPage(props: IndexPageProps) {
   const {
     preview,
     loading,
-    posts, // Contains the limited set of posts for the index page
+    posts,
     settings,
-    // arenaPosts,
+    youtubeVideos = [],
   } = props
 
   // This hero logic might conflict if posts is empty, handle gracefully
@@ -153,11 +153,10 @@ export default function IndexPage(props: IndexPageProps) {
           </BlogSection>
 
           <BlogSection className={undefined}>
-            {/* <SectionTitle
-              header={'Featured Videos'}
-              description={'Walking Tour from our trips'}
-            /> */}
-            <YoutubeHighlights />
+            <YoutubeHighlights
+              videos={youtubeVideos}
+              featuredVideo={settings?.featuredVideo}
+            />
           </BlogSection>
         </Container>
       </Layout>
