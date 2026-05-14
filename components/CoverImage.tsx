@@ -142,7 +142,7 @@ export default function CoverImage(props: CoverImageProps) {
             {image}
             {linkType === 'hotel' && category && (
               <Badge
-                className={`absolute top-3 left-3 z-30 ${badgeClasses} border-transparent min-h-[32px] flex items-center`}
+                className="absolute top-3 left-3 z-30 bg-zinc-900/65 text-white backdrop-blur-sm border-transparent min-h-[32px] flex items-center"
                 role="status"
                 aria-label={`Hotel category: ${categoryType.name}`}
               >
@@ -155,11 +155,7 @@ export default function CoverImage(props: CoverImageProps) {
 
             {linkType === 'food' && diningType && (
               <Badge
-                className={`absolute top-3 left-3 z-30 border-transparent min-h-[32px] flex items-center ${
-                  diningType === 'dinein'
-                    ? 'bg-badge-rose text-badge-rose-foreground'
-                    : 'bg-badge-amber text-badge-amber-foreground'
-                }`}
+                className="absolute top-3 left-3 z-30 bg-zinc-900/65 text-white backdrop-blur-sm border-transparent min-h-[32px] flex items-center"
                 role="status"
                 aria-label={`Dining type: ${diningType === 'dinein' ? 'Dine-In' : 'Takeout'}`}
               >
