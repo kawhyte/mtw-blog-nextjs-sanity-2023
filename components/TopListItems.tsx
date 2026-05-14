@@ -27,13 +27,13 @@ export default function TopListItems({
     <section className="my-12">
       {title && <SectionTitle header={title} />}
 
-      <div className="container mx-auto max-w-7xl grid grid-cols-1 gap-x-6 gap-y-24 px-4 sm:px-6 lg:px-8 md:grid-cols-2 lg:grid-cols-3">
+      <div className="container mx-auto max-w-7xl grid grid-cols-1 gap-x-6 gap-y-4 sm:gap-y-6 px-4 sm:px-6 lg:px-8 md:grid-cols-2 lg:grid-cols-3">
         {posts.map((post, i) => {
           const rank = i + 1
           return (
             <div
               key={post._id}
-              className={`group relative pt-16${
+              className={`group relative pt-[9rem] sm:pt-[14rem]${
                 i === posts.length - 1 && posts.length % 3 === 1
                   ? ' lg:col-start-2'
                   : ''
@@ -41,7 +41,7 @@ export default function TopListItems({
             >
               {/* Large rank number — top 3 get medal tones */}
               <span
-                className={`absolute left-1/2 top-0 z-0 -translate-x-1/2 -translate-y-12 font-epilogue text-[9rem] font-black leading-none transition-all duration-300 group-hover:scale-110 sm:-translate-y-24 sm:text-[14rem] ${getRankColor(rank)}`}
+                className={`absolute left-1/2 top-1 z-0 -translate-x-1/2 font-epilogue text-[9rem] font-black leading-none transition-all duration-300 group-hover:scale-110 sm:text-[14rem] ${getRankColor(rank)}`}
                 aria-hidden="true"
               >
                 {rank}
@@ -89,11 +89,6 @@ export default function TopListItems({
                   revisitCount={
                     'revisitCount' in post
                       ? (post as HotelReview | FoodReview).revisitCount
-                      : undefined
-                  }
-                  calculatedRating={
-                    'calculatedRating' in post
-                      ? (post as any).calculatedRating
                       : undefined
                   }
                 />
