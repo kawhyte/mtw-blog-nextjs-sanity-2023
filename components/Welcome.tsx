@@ -101,14 +101,14 @@ function Welcome(): JSX.Element {
     <Section as="div" spacing="tight" className="container mx-auto space-y-8">
       {/* Top row: text left, avatars right — mirrors Travel Gear / IndexTopTen layout */}
       <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-8">
-        <div className="w-full lg:w-1/2">
+        <div className="w-full lg:w-3/5">
           <SectionTitle
             header="A Little About Us"
             description={`We're Rene and Kenny, and we travel for basketball. We're on a mission to cross every single NBA and WNBA arena off our list. But tip-off is only half the trip. This space is our playbook for the culture around it—the hotels we crash in, the local food we hunt down, and the sneakers we pack. Welcome to our courtside lifestyle.`}
           />
         </div>
 
-        <div className="w-full lg:w-1/2 flex justify-center lg:justify-end items-start gap-10 pt-4 lg:pt-0">
+        <div className="w-full lg:w-2/5 flex justify-center items-start gap-10 pt-4 lg:pt-0">
           {duo.map((person) => (
             <div key={person.id} className="flex flex-col items-center gap-2">
               <div
