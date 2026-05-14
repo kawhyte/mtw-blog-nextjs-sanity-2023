@@ -15,7 +15,7 @@ export default function IndexTopTen() {
   return (
     // Outer container: Use flex, arrange in column on small, row on large.
     // Center items vertically on large screens.
-    <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center">
+    <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start">
       {/* Left side content: Takes half width on large screens */}
       <div className="flex w-full flex-col lg:w-1/2">
         <SectionTitle
@@ -50,7 +50,7 @@ export default function IndexTopTen() {
       <div className="mt-12 w-full hidden lg:flex lg:w-1/2 lg:justify-center lg:items-center lg:mt-0">
         {/* Lottie Animation Wrapper - Controls the size constraint */}
         {/* - Takes full width up to max-w-md. Centered by the parent flex container. */}
-        <div className="w-full max-w-sm">
+        <div className="w-full max-w-[220px]">
           {' '}
           {/* Use max-width to constrain animation size */}
           <PlayerWithNoSSR

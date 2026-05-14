@@ -15,7 +15,14 @@ import type {
 // Removed legacy import - pagination is disabled on index page
 import { BriefcaseConveyorBelt, Plane, Trophy } from 'lucide-react'
 import Head from 'next/head'
+import dynamic from 'next/dynamic'
 import Button from 'ui/Button'
+
+const GearLottie = dynamic(
+  () =>
+    import('@lottiefiles/react-lottie-player').then((module) => module.Player),
+  { ssr: false },
+)
 
 import { CMS_NAME } from '../lib/constants'
 import BlogHeader from './BlogHeader'
@@ -70,20 +77,35 @@ export default function IndexPage(props: IndexPageProps) {
             <Welcome />
           </BlogSection>
 
-          <BlogSection className="bg-pink-100">
-            <div>
-              <SectionTitle
-                header={'Travel Gear and Gadgets'}
-                description={`Our tried-and-tested gear for NBA games, cruises, day trips, and beyond. ~20 curated picks — no fluff, just what actually makes it into our bags.`}
-              />
-              <div className="flex   pt-9 lg:mt-0 lg:shrink-0">
-                <div className="w-fit px-5">
-                  <Button
-                    icon={<Plane className="text-pink-500" />}
-                    link={'/essentials'}
-                  >
-                    See What We Pack
-                  </Button>
+          <BlogSection className="bg-pink-100 py-10 md:py-14">
+            <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start">
+              {/* Left: text + button */}
+              <div className="flex w-full flex-col lg:w-1/2">
+                <SectionTitle
+                  header={'Travel Gear and Gadgets'}
+                  description={`Our tried-and-tested gear we pack  for NBA games, cruises, day trips, and beyond.`}
+                />
+                <div className="flex pt-9 lg:mt-0 lg:shrink-0">
+                  <div className="flex flex-col gap-3 md:flex-row md:gap-6 px-6 w-full">
+                    <Button
+                      icon={<Plane className="text-pink-500" />}
+                      link={'/essentials'}
+                    >
+                      See What We Pack
+                    </Button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right: Lottie animation — mirrors IndexTopTen layout */}
+              <div className="mt-12 w-full hidden lg:flex lg:w-1/2 lg:justify-center lg:items-center lg:mt-0">
+                <div className="w-full max-w-[220px]">
+                  <GearLottie
+                    autoplay
+                    loop
+                    src={'/plane.json'}
+                    className="w-full h-auto"
+                  />
                 </div>
               </div>
             </div>
@@ -124,7 +146,7 @@ export default function IndexPage(props: IndexPageProps) {
 
           <BlogSection
             className={
-              'bg-linear-to-r from-indigo-200 via-pink-200 to-yellow-50'
+              'bg-linear-to-r from-indigo-200 via-pink-200 to-yellow-50 py-10 md:py-14'
             }
           >
             <IndexTopTen />
