@@ -31,7 +31,14 @@ export default function TopListItems({
         {posts.map((post, i) => {
           const rank = i + 1
           return (
-            <div key={post._id} className="group relative pt-16">
+            <div
+              key={post._id}
+              className={`group relative pt-16${
+                i === posts.length - 1 && posts.length % 3 === 1
+                  ? ' lg:col-start-2'
+                  : ''
+              }`}
+            >
               {/* Large rank number — top 3 get medal tones */}
               <span
                 className={`absolute left-1/2 top-0 z-0 -translate-x-1/2 -translate-y-12 font-epilogue text-[9rem] font-black leading-none transition-all duration-300 group-hover:scale-110 sm:-translate-y-24 sm:text-[14rem] ${getRankColor(rank)}`}
@@ -51,7 +58,7 @@ export default function TopListItems({
                   excerpt2={post.excerpt2}
                   location={post.location}
                   category={'category' in post ? post.category : undefined}
-                  showRating={false}
+                  showRating={true}
                   linkType={
                     contentType === 'hotel'
                       ? 'hotel'
