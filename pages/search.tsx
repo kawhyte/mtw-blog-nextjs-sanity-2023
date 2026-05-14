@@ -37,6 +37,7 @@ const PlayerWithNoSSR = dynamic(
 
 // --- Reusable UI Components for this page ---
 
+
 // NEW: A styled loading state with card skeletons to prevent UI shifting
 const LoadingState = ({ searchQuery }: { searchQuery?: string | string[] }) => (
   <>
