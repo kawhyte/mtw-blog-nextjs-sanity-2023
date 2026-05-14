@@ -29,7 +29,7 @@ const defaultRatingThresholds: RatingThresholds = {
 }
 
 const ratingColorMap: { [threshold: number]: string } = {
-  9: '#16A34A',  // Excellent - dark green
+  9: '#4ADE80',  // Excellent - light green (contrast-safe with dark text)
   8: '#22C55E',  // Great - medium green
   7: '#84CC16',  // Good - lime green
   5.5: '#F59E0B', // Fair - amber
@@ -37,9 +37,9 @@ const ratingColorMap: { [threshold: number]: string } = {
   0: '#EF4444',  // Horrible - red
 }
 
-// White text for dark backgrounds (Excellent dark green, Horrible red)
+// White text only for Horrible red (dark background); all others use dark text
 const ratingTextColorMap: { [threshold: number]: string } = {
-  9: '#ffffff',
+  9: '#111827',
   8: '#111827',
   7: '#111827',
   5.5: '#111827',
