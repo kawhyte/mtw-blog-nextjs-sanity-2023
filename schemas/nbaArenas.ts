@@ -51,6 +51,15 @@ export default defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: 'excerpt',
+      title: 'SEO Excerpt',
+      type: 'string',
+      description:
+        'A 1–2 sentence description that appears in Google search results. Keep it under 155 characters. Example: "Our full review of Barclays Center in Brooklyn — food, parking, sightlines, and tips for first-time visitors."',
+      validation: (Rule) =>
+        Rule.max(155).warning('Keep under 155 characters for best SEO results.'),
+    }),
+    defineField({
       name: 'capacity',
       title: 'Arena Capacity',
       type: 'number',

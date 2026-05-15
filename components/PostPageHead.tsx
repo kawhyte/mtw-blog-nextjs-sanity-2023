@@ -63,9 +63,16 @@ export default function PostPageHead({
     pageDescription = (post as any).summary
   } else if (
     contentType === 'arena' &&
+    typeof (post as any).excerpt === 'string' &&
+    (post as any).excerpt.trim()
+  ) {
+    // 2a. Use editor-written excerpt from Sanity (highest quality)
+    pageDescription = (post as any).excerpt.trim()
+  } else if (
+    contentType === 'arena' &&
     (post as any).location
   ) {
-    // 2. Generate arena description from structured fields
+    // 2b. Auto-generate from structured fields as fallback
     const loc = (post as any).location as string
     const capacity = (post as any).capacity as number | undefined
     pageDescription = `Our honest tips and review of ${post.title} in ${loc}${capacity ? ` (${capacity.toLocaleString()} seats)` : ''}. Food, parking, sightlines, atmosphere and more from basketball fans who've been there.`

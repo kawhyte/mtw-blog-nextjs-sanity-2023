@@ -107,6 +107,7 @@ const arenaFieldsDetailed = groq`
       asset->{ _id, metadata { lqip, dimensions { width, height } } }
     },
     location,
+    excerpt,
     buildDate,
     capacity,
     photoGallerySection {
@@ -874,6 +875,7 @@ export interface Arena {
     otherImages?: any[] // SanityImageObject[]
   }
   location?: string
+  excerpt?: string
   buildDate?: string
   capacity?: number
   videoUrl?: string
