@@ -34,7 +34,7 @@ function parseEntries(xml: string): string[] {
 
 export async function fetchChannelShorts(
   channelId: string,
-  limit = 8,
+  limit = 6,
 ): Promise<YoutubeVideo[]> {
   if (!channelId) return []
 

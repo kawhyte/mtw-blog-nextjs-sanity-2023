@@ -69,9 +69,9 @@ export default function HeroPhotoGallery({
         </div>
 
         {/* Other Images */}
-        <div className="grid grid-cols-2 gap-2">
+        <div className="h-[550px] grid grid-cols-2 gap-2">
           {otherImages.map((image, index) => (
-            <div key={index} className="relative h-[273px]">
+            <div key={index} className="relative">
               <FadeImage
                 image={image}
                 src={urlForImage(image)?.width(600).height(400).fit('crop').url() || ''}

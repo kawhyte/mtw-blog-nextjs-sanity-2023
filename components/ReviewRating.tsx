@@ -134,7 +134,7 @@ export default function ReviewRating({
           {/* Bottom anchor */}
           <div className="w-full mt-6">
             <div className={`h-1 w-full rounded-full mb-1.5 ${ratingClasses.bg}`} />
-            <p className="text-xs text-muted-foreground">
+            <p className="text-xs text-muted-foreground mt-5">
               Weighted across {activeCategoryCount}{' '}
               {activeCategoryCount === 1 ? 'category' : 'categories'}
             </p>

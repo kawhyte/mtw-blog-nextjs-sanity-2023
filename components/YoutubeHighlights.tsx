@@ -139,7 +139,7 @@ export default function YoutubeHighlights({
         />
       </div>
 
-      {shorts.length > 0 && <ShortsCarousel shorts={shorts.slice(0, 8)} />}
+      {shorts.length > 0 && <ShortsCarousel shorts={shorts.slice(0, 6)} />}
 
       {/* Long-form videos label + grid */}
       <div className={shorts.length > 0 ? 'mt-10 pt-8 border-t border-gray-200' : ''}>
