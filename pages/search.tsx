@@ -37,7 +37,6 @@ const PlayerWithNoSSR = dynamic(
 
 // --- Reusable UI Components for this page ---
 
-
 // NEW: A styled loading state with card skeletons to prevent UI shifting
 const LoadingState = ({ searchQuery }: { searchQuery?: string | string[] }) => (
   <>
@@ -259,11 +258,25 @@ const SearchResults = ({ settings }: { settings: Settings }) => {
                   title={reviewResult.title}
                   coverImage={reviewResult.coverImage}
                   date={reviewResult.date}
-                  author={'author' in reviewResult ? reviewResult.author : undefined}
+                  author={
+                    'author' in reviewResult ? reviewResult.author : undefined
+                  }
                   slug={reviewResult.slug}
-                  excerpt2={reviewResult.excerpt2}
-                  location={'location' in reviewResult ? reviewResult.location : undefined}
-                  category={'category' in reviewResult ? reviewResult.category : undefined}
+                  excerpt2={
+                    'excerpt2' in reviewResult
+                      ? (reviewResult as any).excerpt2
+                      : undefined
+                  }
+                  location={
+                    'location' in reviewResult
+                      ? reviewResult.location
+                      : undefined
+                  }
+                  category={
+                    'category' in reviewResult
+                      ? reviewResult.category
+                      : undefined
+                  }
                   linkType={result._contentType as any}
                   showRating={true}
                   hotelRating={

@@ -4,13 +4,20 @@ import { ArrowRight, Calendar, MapPin, RefreshCw } from 'lucide-react'
 import Link from 'next/link'
 
 import { Badge } from '@/components/ui/badge'
-import {
-  CardContent,
-  CardFooter,
-  CardTitle,
-} from '@/components/ui/card'
+import { CardContent, CardFooter, CardTitle } from '@/components/ui/card'
 
 import CoverImage from './CoverImage'
+
+const GUIDE_CATEGORY_LABELS: Record<string, string> = {
+  city: 'City Guide',
+  tips: 'Travel Tips',
+  transport: 'Transportation',
+  culture: 'Culture & History',
+  adventure: 'Adventure',
+  family: 'Family Travel',
+  budget: 'Budget Travel',
+  luxury: 'Luxury Travel',
+}
 
 interface DynamicPostCardProps {
   title?: string
@@ -26,6 +33,7 @@ interface DynamicPostCardProps {
   location?: string
   author?: any
   excerpt2?: any
+  summary?: string
   category?: string
   visited?: boolean
   revisitCount?: number
@@ -85,6 +93,7 @@ const DynamicPostCard = ({
   showRating,
   slug,
   location,
+  summary,
   category,
   visited,
   revisitCount,
@@ -142,14 +151,35 @@ const DynamicPostCard = ({
             <div className="flex items-center gap-1 text-[11px] font-medium text-muted-foreground">
               <RefreshCw className="h-3 w-3" />
               <span>
-                {revisitCount === 1 ? 'Revisited' : `${revisitCount + 1} visits`}
+                {revisitCount === 1
+                  ? 'Revisited'
+                  : `${revisitCount + 1} visits`}
               </span>
             </div>
           ) : null}
 
+          {/* Guide category badge */}
+          {linkType === 'story' &&
+            category &&
+            GUIDE_CATEGORY_LABELS[category] && (
+              <Badge
+                variant="secondary"
+                className="w-fit text-[10px] uppercase tracking-wider font-semibold mb-1"
+              >
+                {GUIDE_CATEGORY_LABELS[category]}
+              </Badge>
+            )}
+
           <CardTitle className="line-clamp-1 pt-1 text-sm font-bold text-foreground no-underline decoration-primary decoration-dashed decoration-4 group-hover:underline sm:line-clamp-2 sm:h-8 sm:text-xl lg:text-xl xl:pt-1.5">
             {title}
           </CardTitle>
+
+          {/* Guide summary excerpt */}
+          {linkType === 'story' && summary && (
+            <p className="line-clamp-2 text-xs text-muted-foreground mt-1 leading-relaxed">
+              {summary}
+            </p>
+          )}
 
           {/* Score badge */}
           {scoreDisplay && (

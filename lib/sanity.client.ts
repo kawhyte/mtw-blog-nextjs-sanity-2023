@@ -24,11 +24,13 @@ import {
   hotelReviewsByCategoryQuery,
   hotelReviewSlugsQuery,
   independentFoodReviewFields,
+  guideCardFields,
   independentGuideFields,
   independentHotelReviewFields,
   type Instagram,
   latestIndependentContentQuery,
   recommendationQuery,
+  relatedGuidesQuery,
   type Settings,
   settingsQuery,
   topFoodReviewsQuery,
@@ -173,7 +175,7 @@ export async function getPaginatedGuides(
     const results = await client.fetch<
       Guide[]
     >(`*[_type == "guide"] | order(date desc) [${start}...${end}] {
-      ${independentGuideFields}
+      ${guideCardFields}
     }`)
     return results ?? []
   } catch (error) {
@@ -344,6 +346,26 @@ export async function getAllGuideSlugs(): Promise<string[]> {
     return slugs || []
   } catch (error) {
     console.error('Error fetching guide slugs:', error)
+    return []
+  }
+}
+
+/**
+ * Fetches up to 3 related guides from the same category (excludes current slug).
+ */
+export async function getRelatedGuides(
+  category: string,
+  slug: string,
+): Promise<Guide[]> {
+  if (!client) return []
+  try {
+    const results = await client.fetch<Guide[]>(relatedGuidesQuery, {
+      category,
+      slug,
+    })
+    return results ?? []
+  } catch (error) {
+    console.error(`Error fetching related guides:`, error)
     return []
   }
 }

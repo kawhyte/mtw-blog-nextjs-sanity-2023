@@ -275,6 +275,7 @@ export const arenaBySlugQuery = fetchDocumentBySlug(
 export const independentGuideFields = groq`
   _id,
   title,
+  summary,
   date,
   coverImage {
     ...,
@@ -286,6 +287,20 @@ export const independentGuideFields = groq`
     _type == "image" => {
       ...,
       asset->{ _id, metadata { lqip, dimensions { width, height } } }
+    },
+    _type == "imageGroup" => {
+      ...,
+      images[] {
+        ...,
+        asset->{ _id, metadata { lqip, dimensions { width, height } } }
+      }
+    },
+    _type == "mediaWithText" => {
+      ...,
+      image {
+        ...,
+        asset->{ _id, metadata { lqip, dimensions { width, height } } }
+      }
     }
   },
   gallery[] {
@@ -294,6 +309,21 @@ export const independentGuideFields = groq`
   },
   tags,
   "slug": slug.current
+`
+
+// Lightweight fields for listing/card pages (no content body, no gallery)
+export const guideCardFields = groq`
+  _id,
+  title,
+  summary,
+  date,
+  category,
+  tags,
+  "slug": slug.current,
+  coverImage {
+    ...,
+    asset->{ _id, metadata { lqip, dimensions { width, height } } }
+  }
 `
 
 // Guide slugs query
@@ -316,17 +346,35 @@ export const guideBySlugPreviewQuery = groq`
   }
 `
 
-// All guides query
+// All guides query (card fields only — used on listing page)
 export const allGuidesQuery = groq`
   *[_type == "guide" && (!defined(publishedAt) || publishedAt <= now())] | order(date desc) {
-    ${independentGuideFields}
+    ${guideCardFields}
   }
 `
 
-// Guides by category
+// Guides by category (card fields only — used for filter tabs)
 export const guidesByCategoryQuery = groq`
   *[_type == "guide" && category == $category && (!defined(publishedAt) || publishedAt <= now())] | order(date desc) {
-    ${independentGuideFields}
+    ${guideCardFields}
+  }
+`
+
+// Related guides — same category, different slug, max 3
+export const relatedGuidesQuery = groq`
+  *[_type == "guide" && category == $category && slug.current != $slug
+    && (!defined(publishedAt) || publishedAt <= now())]
+  | order(date desc)[0...3] {
+    _id,
+    title,
+    summary,
+    "slug": slug.current,
+    coverImage {
+      ...,
+      asset->{ _id, metadata { lqip, dimensions { width, height } } }
+    },
+    date,
+    category
   }
 `
 // --- End Independent Guide Document Queries ---
@@ -505,13 +553,12 @@ export interface Guide {
   _id: string
   title?: string
   slug?: string
-  excerpt2?: any[] // Changed to array for PortableText
+  summary?: string
   coverImage?: any
   date?: string
   category?: string
   content?: any[]
-  gallery?: any[] // Changed to array for standard gallery
-  tip?: any[]
+  gallery?: any[]
   tags?: string[]
 }
 

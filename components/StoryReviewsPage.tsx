@@ -3,7 +3,7 @@ import BlogHeader from 'components/BlogHeader'
 import Layout from 'components/BlogLayout'
 import CategoryPageHead from 'components/CategoryPageHead'
 import * as demo from 'lib/demo.data'
-import { getPaginatedGuides } from 'lib/sanity.client'
+import { getGuidesByCategory, getPaginatedGuides } from 'lib/sanity.client'
 import type { Guide, Settings } from 'lib/sanity.queries'
 import { useEffect, useState } from 'react'
 import useSWR, { mutate } from 'swr'
@@ -14,6 +14,18 @@ import DynamicPostCard from './DynamicPostCard'
 import Footer from './Footer'
 import PaginationComponent from './PaginationComponent'
 import ReviewHeader from './ReviewHeader'
+
+const CATEGORIES = [
+  { label: 'All', value: '' },
+  { label: 'City Guide', value: 'city' },
+  { label: 'Travel Tips', value: 'tips' },
+  { label: 'Transportation', value: 'transport' },
+  { label: 'Culture', value: 'culture' },
+  { label: 'Adventure', value: 'adventure' },
+  { label: 'Family', value: 'family' },
+  { label: 'Budget', value: 'budget' },
+  { label: 'Luxury', value: 'luxury' },
+]
 
 export interface StoryReviewsPageProps {
   preview?: boolean
@@ -37,11 +49,14 @@ export default function StoryReviewsPage(props: StoryReviewsPageProps) {
   const [currentPage, setCurrentPage] = useState(1)
   const [posts, setPosts] = useState(initialPosts)
   const [isTransitioning, setIsTransitioning] = useState(false)
+  const [activeCategory, setActiveCategory] = useState('')
+  const [filteredPosts, setFilteredPosts] = useState<Guide[] | null>(null)
+  const [isFiltering, setIsFiltering] = useState(false)
 
   const { title = demo.title, description = demo.description } = settings || {}
 
   const { data, error } = useSWR(
-    [currentPage, itemsPerPage],
+    activeCategory ? null : [currentPage, itemsPerPage],
     ([page, limit]) => getPaginatedGuides((page - 1) * limit, page * limit),
     {
       fallbackData: currentPage === 1 ? initialPosts : undefined,
@@ -53,22 +68,47 @@ export default function StoryReviewsPage(props: StoryReviewsPageProps) {
     setIsTransitioning(true)
     setPosts(initialPosts)
     setCurrentPage(1)
-    // Clear SWR cache to prevent stale data
+    setActiveCategory('')
+    setFilteredPosts(null)
     mutate(() => true, undefined, { revalidate: false })
     const timer = setTimeout(() => setIsTransitioning(false), 100)
     return () => clearTimeout(timer)
   }, [initialPosts])
 
   useEffect(() => {
-    if (data) {
+    if (data && !activeCategory) {
       setPosts(data as Guide[])
       setIsTransitioning(false)
     }
-  }, [data])
+  }, [data, activeCategory])
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page)
   }
+
+  const handleCategoryFilter = async (category: string) => {
+    setActiveCategory(category)
+    setCurrentPage(1)
+
+    if (!category) {
+      setFilteredPosts(null)
+      setIsFiltering(false)
+      return
+    }
+
+    setIsFiltering(true)
+    try {
+      const results = await getGuidesByCategory(category)
+      setFilteredPosts(results)
+    } catch {
+      setFilteredPosts([])
+    } finally {
+      setIsFiltering(false)
+    }
+  }
+
+  const displayedPosts = activeCategory ? (filteredPosts ?? []) : posts
+  const isLoading = loading || isTransitioning || isFiltering
 
   return (
     <>
@@ -92,15 +132,38 @@ export default function StoryReviewsPage(props: StoryReviewsPageProps) {
 
         <Container>
           <div className="my-10 w-full max-w-7xl mx-auto">
-            {loading || isTransitioning ? (
+            {/* ── Category Filter Tabs ── */}
+            <div
+              className="flex items-center gap-2 mb-8 overflow-x-auto pb-2 scrollbar-hide"
+              role="tablist"
+              aria-label="Filter guides by category"
+            >
+              {CATEGORIES.map(({ label, value }) => (
+                <button
+                  key={value}
+                  role="tab"
+                  aria-selected={activeCategory === value}
+                  onClick={() => handleCategoryFilter(value)}
+                  className={`shrink-0 rounded-full px-4 py-1.5 text-sm font-medium transition-all duration-200 border-2 ${
+                    activeCategory === value
+                      ? 'bg-primary text-primary-foreground border-primary shadow-brutalist-sm'
+                      : 'bg-card text-foreground border-border hover:border-primary/50 hover:text-primary'
+                  }`}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+
+            {isLoading ? (
               <CardSkeletonGrid count={12} layout="page" />
-            ) : posts && posts.length > 0 ? (
+            ) : displayedPosts && displayedPosts.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
-                {posts.map((guide) => (
+                {displayedPosts.map((guide) => (
                   <DynamicPostCard
                     key={guide._id}
                     title={guide.title}
-                    excerpt2={guide.excerpt2}
+                    summary={guide.summary}
                     coverImage={guide.coverImage}
                     linkType="story"
                     date={guide.date}
@@ -112,16 +175,22 @@ export default function StoryReviewsPage(props: StoryReviewsPageProps) {
               </div>
             ) : (
               <p className="text-center my-10 text-muted-foreground">
-                No stories or guides found.
+                {activeCategory
+                  ? 'No guides found in this category.'
+                  : 'No stories or guides found.'}
               </p>
             )}
           </div>
-          <PaginationComponent
-            totalItems={totalPostsCount}
-            itemsPerPage={itemsPerPage}
-            currentPage={currentPage}
-            onPageChange={handlePageChange}
-          />
+
+          {/* Only show pagination when not filtering by category */}
+          {!activeCategory && (
+            <PaginationComponent
+              totalItems={totalPostsCount}
+              itemsPerPage={itemsPerPage}
+              currentPage={currentPage}
+              onPageChange={handlePageChange}
+            />
+          )}
         </Container>
       </Layout>
       <Footer />

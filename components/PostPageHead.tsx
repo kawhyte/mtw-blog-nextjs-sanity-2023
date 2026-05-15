@@ -43,7 +43,7 @@ export default function PostPageHead({
     } else if (contentType === 'food') {
       pageTitle = `${post.title} Review | Arena Food Guide - Meet the Whytes`
     } else if (contentType === 'guide') {
-      pageTitle = `${post.title} | NBA Arena Travel Guide - Meet the Whytes`
+      pageTitle = `${post.title} | Travel Guide - Meet the Whytes`
     } else {
       pageTitle = `${post.title} | NBA & WNBA Arena Travel - Meet the Whytes`
     }
@@ -53,12 +53,19 @@ export default function PostPageHead({
   let pageDescription: string // Explicitly type as string
 
   if (
-    post?.excerpt2 &&
-    Array.isArray(post.excerpt2) &&
-    post.excerpt2.length > 0
+    'summary' in post &&
+    typeof (post as any).summary === 'string' &&
+    (post as any).summary.trim()
   ) {
-    // 1. Use post excerpt if available and looks like Portable Text
-    pageDescription = toPlainText(post.excerpt2)
+    // 1. Use guide summary field (plain string, SEO-optimized)
+    pageDescription = (post as any).summary
+  } else if (
+    'excerpt2' in post &&
+    Array.isArray((post as any).excerpt2) &&
+    (post as any).excerpt2.length > 0
+  ) {
+    // 2. Use post excerpt if available and looks like Portable Text
+    pageDescription = toPlainText((post as any).excerpt2)
   } else if (
     settings?.description &&
     Array.isArray(settings.description) &&
@@ -148,6 +155,11 @@ export default function PostPageHead({
       {post?.date && (
         <meta property="article:published_time" content={post.date} />
       )}
+      {'tags' in post &&
+        Array.isArray((post as any).tags) &&
+        (post as any).tags.map((tag: string) => (
+          <meta key={tag} property="article:tag" content={tag} />
+        ))}
       {/* {post?.author?.name && <meta property="article:author" content={post.author.name} />} */}
       {/* --- Twitter Card Overrides --- */}
       <meta name="twitter:card" content="summary_large_image" />

@@ -1,21 +1,21 @@
-@reference 'tailwindcss';
+@reference '../styles/globals.css';
 
 .portableText {
   @apply text-base md:text-lg font-normal md:leading-relaxed;
 }
 
 .portableText ul {
-  @apply my-6 list-disc list-inside; /* Removed font-normal */
+  @apply my-6 list-disc list-inside;
   padding-left: 3.5rem;
 }
 
 .portableText ol {
-  @apply my-6 list-decimal list-inside; /* Removed font-normal */
+  @apply my-6 list-decimal list-inside;
   padding-left: 3.5rem;
 }
 
 .portableText li {
-  @apply my-2; /* Removed font-normal */
+  @apply my-2;
 }
 
 .portableText h1 {
@@ -24,12 +24,12 @@
 }
 
 .portableText h2 {
-  @apply mb-4 mt-2 text-xl leading-snug;
+  @apply mb-4 mt-8 text-xl font-bold leading-snug;
   padding-left: 1.5rem;
 }
 
 .portableText h3 {
-  @apply mb-4 mt-2 mx-6 text-lg leading-snug;
+  @apply mb-3 mt-6 mx-6 text-lg font-semibold leading-snug;
 }
 
 .portableText h5 {
@@ -37,23 +37,18 @@
 }
 
 .portableText a {
-  @apply text-blue-500 underline;
+  @apply text-primary underline underline-offset-2 transition-opacity;
 }
 
 .portableText a:hover {
-  @apply text-blue-800;
+  @apply opacity-75;
 }
 
-.portableText image {
-  @apply py-2 pl-6 lg:max-w-3xl w-full h-auto object-cover min-w-[320px] mx-auto block lg:mx-0;
-  max-width: 70%;
-  height: auto;
-  object-fit: cover;
-}
-
+/* Fix: was 40%, which was too narrow */
+.portableText image,
 .portableText img {
-  @apply py-2 pl-6 lg:max-w-3xl w-full h-auto object-cover min-w-[320px] mx-auto block lg:mx-0;
-  max-width: 40%;
+  @apply py-2 w-full h-auto object-cover mx-auto block;
+  max-width: 100%;
   height: auto;
   object-fit: cover;
 }
@@ -67,8 +62,8 @@
 }
 
 .portableText blockquote {
-  @apply my-6 p-4 border-l-4 border-blue-500 dark:border-gray-400 bg-blue-50 dark:bg-gray-100 text-gray-800 dark:text-gray-800 italic;
-  quotes: '“' '”' '‘' '’';
+  @apply my-6 p-4 border-l-4 border-secondary dark:border-gray-400 bg-secondary/10 dark:bg-gray-100 text-gray-800 dark:text-gray-800 italic rounded-r-xl;
+  quotes: '\201C' '\201D' '\2018' '\2019';
 }
 
 .portableText blockquote::before {
@@ -93,19 +88,29 @@
 
 /* Image Caption and Grid Styles */
 .image-container {
-  @apply text-center mb-4 lg:text-left;
+  @apply text-center mb-4 lg:text-left w-full;
 }
 
 .image-caption {
-  @apply text-xs text-gray-400 my-2;
+  @apply text-xs text-muted-foreground my-2 text-center;
 }
 
 .image-grid {
-  @apply grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-4;
+  @apply grid grid-cols-1 sm:grid-cols-2 gap-4;
 }
 
 .portableText figcaption {
-  @apply text-xs lg:ml-6 text-gray-400 my-2 text-center lg:text-left;
+  @apply text-xs text-muted-foreground my-2 text-center;
+}
+
+/* Paragraphs nested inside callout/mediaWithText blocks — no side padding */
+.calloutBody p {
+  @apply px-0 max-w-none;
+}
+
+/* Single image: full-width inside content column */
+.portableText .single-image {
+  @apply w-full rounded-lg;
 }
 
 /* Center Images and Captions on Mobile */

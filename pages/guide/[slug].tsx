@@ -5,6 +5,7 @@ import GuidePage from 'components/GuidePage'
 import {
   getAllGuideSlugs,
   getGuideBySlug,
+  getRelatedGuides,
   getSettings,
 } from 'lib/sanity.client'
 import { Guide, Settings } from 'lib/sanity.queries'
@@ -25,8 +26,10 @@ export const getStaticProps: GetStaticProps<
   const token = previewData.token
 
   const slug = params?.slug as string
-  const guide = await getGuideBySlug(slug)
-  const settings = await getSettings()
+  const [guide, settings] = await Promise.all([
+    getGuideBySlug(slug),
+    getSettings(),
+  ])
 
   if (!guide) {
     return {
@@ -34,14 +37,19 @@ export const getStaticProps: GetStaticProps<
     }
   }
 
+  const relatedGuides = guide.category
+    ? await getRelatedGuides(guide.category, slug)
+    : []
+
   return {
     props: {
       guide,
       settings,
+      relatedGuides,
       preview,
       token: previewData.token ?? null,
     },
-    revalidate: 60, // Revalidate every minute
+    revalidate: 60,
   }
 }
 
@@ -57,6 +65,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 interface PageProps {
   guide: Guide
   settings?: Settings
+  relatedGuides: Guide[]
   preview: boolean
   token: string | null
 }
@@ -70,13 +79,19 @@ interface PreviewData {
 }
 
 export default function GuideSlugRoute(props: PageProps) {
-  const { settings, guide, preview, token } = props
+  const { settings, guide, relatedGuides, preview, token } = props
 
   if (preview) {
     return (
       <PreviewSuspense
         fallback={
-          <GuidePage loading preview guide={guide} settings={settings} />
+          <GuidePage
+            loading
+            preview
+            guide={guide}
+            settings={settings}
+            relatedGuides={[]}
+          />
         }
       >
         <PreviewGuidePage
@@ -89,5 +104,11 @@ export default function GuideSlugRoute(props: PageProps) {
     )
   }
 
-  return <GuidePage guide={guide} settings={settings} />
+  return (
+    <GuidePage
+      guide={guide}
+      settings={settings}
+      relatedGuides={relatedGuides}
+    />
+  )
 }

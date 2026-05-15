@@ -75,6 +75,16 @@ export default defineType({
     }),
 
     defineField({
+      name: 'summary',
+      title: 'Summary / Meta Description',
+      type: 'text',
+      rows: 3,
+      description:
+        'Short summary shown on listing cards and used as the SEO meta description (max 160 chars).',
+      validation: (rule) => rule.max(160),
+    }),
+
+    defineField({
       name: 'content',
       title: 'Content',
       type: 'array',
@@ -111,14 +121,155 @@ export default defineType({
         },
         {
           type: 'image',
-          options: {
-            hotspot: true,
-          },
+          options: { hotspot: true },
           fields: [
             {
               name: 'caption',
               type: 'string',
               title: 'Caption',
+            },
+            {
+              name: 'alt',
+              type: 'string',
+              title: 'Alt Text (important for SEO)',
+            },
+          ],
+        },
+        {
+          type: 'object',
+          name: 'imageGroup',
+          title: 'Image Grid (2–4 side-by-side)',
+          fields: [
+            {
+              name: 'layout',
+              type: 'string',
+              title: 'Grid Layout',
+              options: {
+                list: [
+                  { title: '2 Columns', value: '2-col' },
+                  { title: '3 Columns', value: '3-col' },
+                  { title: '4 Columns', value: '4-col' },
+                ],
+                layout: 'radio',
+              },
+              initialValue: '2-col',
+              validation: (rule) => rule.required(),
+            },
+            {
+              name: 'images',
+              type: 'array',
+              title: 'Images',
+              of: [
+                {
+                  type: 'image',
+                  options: { hotspot: true },
+                  fields: [
+                    {
+                      name: 'alt',
+                      type: 'string',
+                      title: 'Alt Text (required for SEO)',
+                      validation: (rule) => rule.required(),
+                    },
+                    {
+                      name: 'caption',
+                      type: 'string',
+                      title: 'Caption',
+                    },
+                  ],
+                },
+              ],
+              validation: (rule) => rule.min(2).max(4),
+            },
+          ],
+        },
+        {
+          type: 'object',
+          name: 'videoEmbed',
+          title: 'Video Embed (YouTube)',
+          fields: [
+            {
+              name: 'url',
+              type: 'url',
+              title: 'YouTube URL',
+              validation: (rule) => rule.required(),
+            },
+            {
+              name: 'title',
+              type: 'string',
+              title: 'Video Title (used for SEO structured data)',
+            },
+            {
+              name: 'caption',
+              type: 'string',
+              title: 'Caption (shown below the video)',
+            },
+          ],
+        },
+        {
+          type: 'object',
+          name: 'mediaWithText',
+          title: 'Image + Text Side by Side',
+          fields: [
+            {
+              name: 'image',
+              type: 'image',
+              title: 'Image',
+              options: { hotspot: true },
+              fields: [
+                {
+                  name: 'alt',
+                  type: 'string',
+                  title: 'Alt Text (required for SEO)',
+                  validation: (rule) => rule.required(),
+                },
+              ],
+            },
+            {
+              name: 'text',
+              type: 'array',
+              title: 'Text Content',
+              of: [{ type: 'block' }],
+            },
+            {
+              name: 'imagePosition',
+              type: 'string',
+              title: 'Image Position',
+              options: {
+                list: [
+                  { title: 'Image on Left', value: 'left' },
+                  { title: 'Image on Right', value: 'right' },
+                ],
+                layout: 'radio',
+              },
+              initialValue: 'left',
+            },
+          ],
+        },
+        {
+          type: 'object',
+          name: 'callout',
+          title: 'Callout Box (Tip / Warning / Info)',
+          fields: [
+            {
+              name: 'type',
+              type: 'string',
+              title: 'Box Type',
+              options: {
+                list: [
+                  { title: 'Tip', value: 'tip' },
+                  { title: 'Warning', value: 'warning' },
+                  { title: 'Info', value: 'info' },
+                  { title: 'Highlight', value: 'highlight' },
+                ],
+                layout: 'radio',
+              },
+              initialValue: 'tip',
+            },
+            {
+              name: 'text',
+              type: 'array',
+              title: 'Content',
+              of: [{ type: 'block' }],
             },
           ],
         },
