@@ -22,6 +22,7 @@ import {
   BedDouble,
   BrushCleaning,
   CalendarDays,
+  ChevronRight,
   Dumbbell,
   Handshake,
   Hotel,
@@ -33,6 +34,7 @@ import {
   WavesLadder,
   Wifi,
 } from 'lucide-react'
+import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
 import BreadcrumbStructuredData from './BreadcrumbStructuredData'
@@ -197,14 +199,27 @@ function HotelReviewPageContent(props: HotelReviewPageProps) {
       <Layout preview={preview} loading={loading}>
         <BlogHeader title={title} level={2} />
 
-        {galleryImages.length > 0 && (
-          <HeroPhotoGallery
-            images={galleryImages}
-            onShowAllPhotos={openModal}
-          />
-        )}
+        <article className="container mx-auto px-4 py-8 md:px-6 md:py-12">
+          <nav
+            aria-label="Breadcrumb"
+            className="flex items-center gap-1.5 text-sm text-muted-foreground mb-6 flex-wrap"
+          >
+            <Link href="/" className="hover:text-foreground transition-colors">
+              Home
+            </Link>
+            <ChevronRight className="h-3.5 w-3.5 shrink-0" />
+            <Link
+              href="/hotels"
+              className="hover:text-foreground transition-colors"
+            >
+              Hotel Reviews
+            </Link>
+            <ChevronRight className="h-3.5 w-3.5 shrink-0" />
+            <span className="text-foreground line-clamp-1">
+              {hotelReview.title}
+            </span>
+          </nav>
 
-        <article className="container mx-auto px-4 md:px-6">
           <Section spacing="tight" as="div">
             <header>
               <h1 className="mb-4 text-4xl font-bold">{hotelReview.title}</h1>
@@ -285,6 +300,13 @@ function HotelReviewPageContent(props: HotelReviewPageProps) {
               />
             )}
           </Section>
+
+          {galleryImages.length > 0 && (
+            <HeroPhotoGallery
+              images={galleryImages}
+              onShowAllPhotos={openModal}
+            />
+          )}
 
           {effectiveHotelRating && (
             <Section spacing="tight" as="div">

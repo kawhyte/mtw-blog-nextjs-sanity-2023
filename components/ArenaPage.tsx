@@ -13,6 +13,7 @@ import {
   Building2,
   CalendarDays,
   Car,
+  ChevronRight,
   Footprints,
   MapPin,
   Pizza,
@@ -26,6 +27,7 @@ import {
 } from 'lucide-react'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
+import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
 const ImageGallery = dynamic(() => import('./ImageGallery'), {
@@ -202,15 +204,25 @@ export default function ArenaPage({
       <Layout preview={preview} loading={loading}>
         <BlogHeader title={title} level={2} />
 
-        {/* 1. HERO PHOTO GALLERY */}
-        {galleryImages.length > 0 && (
-          <HeroPhotoGallery
-            images={galleryImages}
-            onShowAllPhotos={openModal}
-          />
-        )}
+        <article className="container mx-auto px-4 py-8 md:px-6 md:py-12">
+          <nav
+            aria-label="Breadcrumb"
+            className="flex items-center gap-1.5 text-sm text-muted-foreground mb-6 flex-wrap"
+          >
+            <Link href="/" className="hover:text-foreground transition-colors">
+              Home
+            </Link>
+            <ChevronRight className="h-3.5 w-3.5 shrink-0" />
+            <Link
+              href="/arenas"
+              className="hover:text-foreground transition-colors"
+            >
+              NBA Arenas
+            </Link>
+            <ChevronRight className="h-3.5 w-3.5 shrink-0" />
+            <span className="text-foreground line-clamp-1">{arena.name}</span>
+          </nav>
 
-        <article className="container mx-auto px-4 md:px-6">
           {/* 2. ARENA IDENTITY */}
           <div className="py-8 md:py-12">
             {!arena.visited && (
@@ -279,6 +291,14 @@ export default function ArenaPage({
               </div>
             )}
           </div>
+
+          {/* 1. HERO PHOTO GALLERY */}
+          {galleryImages.length > 0 && (
+            <HeroPhotoGallery
+              images={galleryImages}
+              onShowAllPhotos={openModal}
+            />
+          )}
 
           {/* 3. ARENA RATING CARD — score left, breakdown right */}
           {effectiveArenaReview && (

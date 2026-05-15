@@ -37,6 +37,7 @@ import {
   Banknote,
   CalendarDays,
   CheckCircle,
+  ChevronRight,
   Handshake,
   MapPin,
   Medal,
@@ -48,6 +49,7 @@ import {
   Star,
   Utensils,
 } from 'lucide-react'
+import Link from 'next/link'
 
 import ReviewRating from './ReviewRating'
 
@@ -208,14 +210,27 @@ export default function FoodReviewPage(props: FoodReviewPageProps) {
       <Layout preview={preview} loading={loading}>
         <BlogHeader title={title} level={2} />
 
-        {galleryImages.length > 0 && (
-          <HeroPhotoGallery
-            images={galleryImages}
-            onShowAllPhotos={openModal}
-          />
-        )}
-
         <article className="container mx-auto px-4 py-8 md:px-6 md:py-12">
+          <nav
+            aria-label="Breadcrumb"
+            className="flex items-center gap-1.5 text-sm text-muted-foreground mb-6 flex-wrap"
+          >
+            <Link href="/" className="hover:text-foreground transition-colors">
+              Home
+            </Link>
+            <ChevronRight className="h-3.5 w-3.5 shrink-0" />
+            <Link
+              href="/food"
+              className="hover:text-foreground transition-colors"
+            >
+              Restaurant Reviews
+            </Link>
+            <ChevronRight className="h-3.5 w-3.5 shrink-0" />
+            <span className="text-foreground line-clamp-1">
+              {foodReview.title}
+            </span>
+          </nav>
+
           {/* Food Review Header - will create dedicated component later */}
           <header className="mb-12">
             <h1 className="mb-4 text-4xl font-bold">{foodReview.title}</h1>
@@ -250,6 +265,13 @@ export default function FoodReviewPage(props: FoodReviewPageProps) {
               )}
             </div>
           </header>
+
+          {galleryImages.length > 0 && (
+            <HeroPhotoGallery
+              images={galleryImages}
+              onShowAllPhotos={openModal}
+            />
+          )}
 
           {foodReview.excerpt2 && <ReviewBlurb content={foodReview.excerpt2} />}
 

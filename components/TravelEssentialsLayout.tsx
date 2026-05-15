@@ -1,8 +1,7 @@
 import { urlForImage } from 'lib/sanity.image'
 import { Essential } from 'lib/sanity.queries'
-import { CircleDollarSign } from 'lucide-react'
+import { ArrowRight, CircleDollarSign } from 'lucide-react'
 import Image from 'next/image'
-import Button from 'ui/Button'
 
 import PostBody from './PostBody'
 
@@ -132,11 +131,19 @@ const TravelEssentialLayout = ({ posts }: { posts: Essential[] }) => {
                 </div>
 
                 {/* CTA */}
-                <div className="mt-auto border-t border-border pt-3 text-center">
-                  <Button size="xs" link={item.link}>
-                    Get It
-                  </Button>
-                </div>
+                {item.link && (
+                  <div className="mt-auto border-t border-border pt-3">
+                    <a
+                      href={item.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mx-auto flex items-center justify-center gap-1 font-semibold text-primary group"
+                    >
+                      Get It
+                      <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
+                    </a>
+                  </div>
+                )}
               </div>
             </div>
           )
