@@ -40,6 +40,7 @@ import { notFound } from 'next/navigation'
 import BreadcrumbStructuredData from './BreadcrumbStructuredData'
 import HelpfulTip from './HelpfulTip'
 import HeroPhotoGallery from './HeroPhotoGallery'
+import NearestArenaLink from './NearestArenaLink'
 import ResortFeeCard from './ResortFeeCard'
 import ReviewBlurb from './ReviewBlurb'
 import ReviewRating from './ReviewRating'
@@ -382,6 +383,8 @@ function HotelReviewPageContent(props: HotelReviewPageProps) {
               </div>
             </Section>
           )}
+
+          <NearestArenaLink arena={hotelReview.nearestArena} />
 
           {hotelReview.youtube && (
             <Section spacing="tight" as="div">

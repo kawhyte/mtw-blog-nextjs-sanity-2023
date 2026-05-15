@@ -20,6 +20,7 @@ import { useCallback, useEffect, useState } from 'react'
 
 import BreadcrumbStructuredData from './BreadcrumbStructuredData'
 import HelpfulTip from './HelpfulTip'
+import NearestArenaLink from './NearestArenaLink'
 import ReviewBlurb from './ReviewBlurb'
 import ReviewStructuredData from './ReviewStructuredData'
 import RevisitTimeline from './RevisitTimeline'
@@ -340,6 +341,8 @@ export default function FoodReviewPage(props: FoodReviewPageProps) {
             verdict2={foodReview.verdict}
           />
         </article>
+
+        <NearestArenaLink arena={foodReview.nearestArena} />
 
         <div className="container mx-auto">
           <PostBody content={foodReview.content} />

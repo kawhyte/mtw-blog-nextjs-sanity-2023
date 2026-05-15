@@ -423,6 +423,15 @@ export const independentHotelReviewFields = groq`
     visitDate,
     notes,
     ratingUpdates
+  },
+  nearestArena-> {
+    name,
+    "slug": slug.current,
+    location,
+    arenaImage {
+      ...,
+      asset->{ _id, metadata { lqip, dimensions { width, height } } }
+    }
   }
 `
 
@@ -503,6 +512,15 @@ export const independentFoodReviewFields = groq`
     notes,
     foodRatingUpdates,
     takeoutRatingUpdates
+  },
+  nearestArena-> {
+    name,
+    "slug": slug.current,
+    location,
+    arenaImage {
+      ...,
+      asset->{ _id, metadata { lqip, dimensions { width, height } } }
+    }
   }
 `
 
@@ -629,6 +647,12 @@ export interface HotelReview {
     }>
   }>
   calculatedRating?: number
+  nearestArena?: {
+    name?: string
+    slug?: string
+    location?: string
+    arenaImage?: any
+  }
 }
 
 // Export FoodReview type
@@ -676,6 +700,12 @@ export interface FoodReview {
     }>
   }>
   calculatedRating?: number
+  nearestArena?: {
+    name?: string
+    slug?: string
+    location?: string
+    arenaImage?: any
+  }
 }
 
 // Unified content type for independent schemas (no legacy posts)

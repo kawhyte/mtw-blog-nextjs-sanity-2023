@@ -416,6 +416,15 @@ export default defineType({
     }),
 
     defineField({
+      name: 'nearestArena',
+      title: 'Nearest NBA Arena',
+      type: 'reference',
+      to: [{ type: 'arenas' }],
+      description:
+        'Optional: Link to the nearest NBA/WNBA arena for internal SEO linking.',
+    }),
+
+    defineField({
       name: 'publishedAt',
       title: 'Publish Date / Scheduled Time',
       description:
