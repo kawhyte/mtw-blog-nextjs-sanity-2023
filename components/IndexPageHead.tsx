@@ -90,7 +90,8 @@ export default function IndexPageHead({ settings }: IndexPageHeadProps) {
             url: SITE_URL,
             logo: `${SITE_URL}/MeettheWhytes.jpg`,
             sameAs: [
-              // Add social media profiles when available
+              'https://www.youtube.com/@meetthewhytes',
+              'https://www.instagram.com/meetthewhytes',
             ],
             contactPoint: {
               '@type': 'ContactPoint',

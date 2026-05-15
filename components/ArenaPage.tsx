@@ -42,6 +42,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import ArenaFoodItems from './ArenaFoodItems'
 import ArenaHotelStay from './ArenaHotelStay'
 import ArenaRatingCard from './ArenaRatingCard'
+import ArenaStructuredData from './ArenaStructuredData'
 import BlogHeader from './BlogHeader'
 import BreadcrumbStructuredData from './BreadcrumbStructuredData'
 import HeroPhotoGallery from './HeroPhotoGallery'
@@ -192,7 +193,12 @@ export default function ArenaPage({
 
   return (
     <div>
-      <PostPageHead settings={settings} post={arena as any} />
+      <PostPageHead
+        settings={settings}
+        post={{ ...arena, title: arena.name, coverImage: arena.arenaImage } as any}
+        contentType="arena"
+      />
+      <ArenaStructuredData arena={arena} />
       <BreadcrumbStructuredData
         items={[
           { name: 'Home', url: '/' },

@@ -3,18 +3,17 @@ import ArenaPageContent from 'components/arena/ArenaPageContent'
 import ArenaPageHeader from 'components/ArenaPageHeader'
 import BlogHeader from 'components/BlogHeader'
 import Layout from 'components/BlogLayout'
+import CategoryPageHead from 'components/CategoryPageHead'
 import Footer from 'components/Footer'
 import { getArenaPosts, getSettings } from 'lib/sanity.client'
 import { Arena, Settings } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
-import Head from 'next/head'
 import { lazy } from 'react'
 import {
   calculateArenaRanks,
   enrichArenasWithDisplayData,
 } from 'utils/arena/arenaUtils'
 
-import { CMS_NAME } from '../lib/constants'
 
 const PreviewIndexPage = lazy(() => import('components/PreviewIndexPage'))
 
@@ -48,14 +47,12 @@ export default function ArenasPage(props: PageProps) {
   // Standard Page Rendering
   return (
     <>
+      <CategoryPageHead
+        settings={settings}
+        categoryType="arenas"
+        totalCount={arenaPosts.length}
+      />
       <Layout preview={preview} loading={false}>
-        <Head>
-          <title>{`NBA/WNBA Arena Reviews - ${settings.title ?? CMS_NAME}`}</title>
-          <meta
-            name="description"
-            content="We're on a journey to visit and rank every NBA and WNBA arena! Explore our reviews, photos, and experiences from arenas across the US and Canada."
-          />
-        </Head>
 
         {/* Header components */}
         <BlogHeader

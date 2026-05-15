@@ -24,7 +24,7 @@ interface SEOContent {
 export interface PostPageHeadProps {
   settings: Settings
   post: Post | Guide | HotelReview | FoodReview | SEOContent
-  contentType?: 'post' | 'guide' | 'hotel' | 'food' // Explicit content type for URL generation
+  contentType?: 'post' | 'guide' | 'hotel' | 'food' | 'arena'
 }
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || ''
 
@@ -44,6 +44,8 @@ export default function PostPageHead({
       pageTitle = `${post.title} Review | Arena Food Guide - Meet the Whytes`
     } else if (contentType === 'guide') {
       pageTitle = `${post.title} | Travel Guide - Meet the Whytes`
+    } else if (contentType === 'arena') {
+      pageTitle = `${post.title} Arena Tips & Review | NBA/WNBA Experience - Meet the Whytes`
     } else {
       pageTitle = `${post.title} | NBA & WNBA Arena Travel - Meet the Whytes`
     }
@@ -59,6 +61,14 @@ export default function PostPageHead({
   ) {
     // 1. Use guide summary field (plain string, SEO-optimized)
     pageDescription = (post as any).summary
+  } else if (
+    contentType === 'arena' &&
+    (post as any).location
+  ) {
+    // 2. Generate arena description from structured fields
+    const loc = (post as any).location as string
+    const capacity = (post as any).capacity as number | undefined
+    pageDescription = `Our honest tips and review of ${post.title} in ${loc}${capacity ? ` (${capacity.toLocaleString()} seats)` : ''}. Food, parking, sightlines, atmosphere and more from basketball fans who've been there.`
   } else if (
     'excerpt2' in post &&
     Array.isArray((post as any).excerpt2) &&
@@ -117,6 +127,9 @@ export default function PostPageHead({
         break
       case 'guide':
         pathPrefix = '/guide'
+        break
+      case 'arena':
+        pathPrefix = '/arena'
         break
       case 'post':
       default:
@@ -177,7 +190,7 @@ export default function PostPageHead({
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             '@context': 'https://schema.org',
-            '@type': contentType === 'guide' ? 'TravelGuide' : 'BlogPosting',
+            '@type': contentType === 'guide' ? 'TravelGuide' : contentType === 'arena' ? 'LocalBusiness' : 'BlogPosting',
             headline: post?.title,
             description: pageDescription,
             image: ogImageUrl,
