@@ -69,7 +69,10 @@ const HOTEL_RATING_LABELS: Record<string, string> = {
 
 const WOULD_RETURN_CONFIG = {
   yes: { label: 'Would Return', className: 'text-green-600' },
-  if_prices_drop: { label: 'Would Return If Cheaper', className: 'text-amber-500' },
+  if_prices_drop: {
+    label: 'Would Return If Cheaper',
+    className: 'text-amber-500',
+  },
   maybe: { label: 'Maybe Return', className: 'text-amber-500' },
   no: { label: "Wouldn't Return", className: 'text-destructive' },
 } as const
@@ -119,13 +122,12 @@ function HotelReviewPageContent(props: HotelReviewPageProps) {
     : hotelReview.hotelRating
 
   // Compute original rating for the timeline baseline
-  const originalRatingResult =
-    hotelReview.hotelRating
-      ? calculateRating(
-          hotelReview.hotelRating as Record<string, number>,
-          HOTEL_WEIGHTS,
-        )
-      : null
+  const originalRatingResult = hotelReview.hotelRating
+    ? calculateRating(
+        hotelReview.hotelRating as Record<string, number>,
+        HOTEL_WEIGHTS,
+      )
+    : null
 
   // Compute timeline entries with per-revisit deltas
   const timelineEntries =
@@ -135,7 +137,10 @@ function HotelReviewPageContent(props: HotelReviewPageProps) {
           (hotelReview.revisits ?? []).map((r) => ({
             visitDate: r.visitDate,
             notes: r.notes,
-            ratingUpdates: r.ratingUpdates as Record<string, number | undefined>,
+            ratingUpdates: r.ratingUpdates as Record<
+              string,
+              number | undefined
+            >,
           })),
           HOTEL_RATING_LABELS,
         ).map((entry) => {
@@ -154,12 +159,10 @@ function HotelReviewPageContent(props: HotelReviewPageProps) {
         })
       : []
 
-  const {
-    galleryImages,
-    isOpen,
-    openModal,
-    closeModal,
-  } = usePhotoGallery(hotelReview.coverImage, hotelReview.gallery)
+  const { galleryImages, isOpen, openModal, closeModal } = usePhotoGallery(
+    hotelReview.coverImage,
+    hotelReview.gallery,
+  )
 
   return (
     <div>
@@ -230,16 +233,19 @@ function HotelReviewPageContent(props: HotelReviewPageProps) {
                     {formatDate(hotelReview.date)}
                   </div>
                 )}
-                {hotelReview.lounge && hotelReview.lounge.toLowerCase() !== 'no' && (
-                  <div className="flex items-center text-base text-muted-foreground">
-                    <Armchair className="mr-2 h-4 w-4" />
-                    {hotelReview.lounge.toLowerCase().includes('free')
-                      ? 'Lounge: Free Access'
-                      : 'Lounge: Member/Paid'}
-                  </div>
-                )}
+                {hotelReview.lounge &&
+                  hotelReview.lounge.toLowerCase() !== 'no' && (
+                    <div className="flex items-center text-base text-muted-foreground">
+                      <Armchair className="mr-2 h-4 w-4" />
+                      {hotelReview.lounge.toLowerCase().includes('free')
+                        ? 'Lounge: Free Access'
+                        : 'Lounge: Member/Paid'}
+                    </div>
+                  )}
                 {hotelReview.wouldReturn && (
-                  <div className={`flex items-center text-base font-medium ${WOULD_RETURN_CONFIG[hotelReview.wouldReturn].className}`}>
+                  <div
+                    className={`flex items-center text-base font-medium ${WOULD_RETURN_CONFIG[hotelReview.wouldReturn].className}`}
+                  >
                     <RefreshCw className="mr-2 h-4 w-4 shrink-0" />
                     {WOULD_RETURN_CONFIG[hotelReview.wouldReturn].label}
                   </div>
@@ -247,7 +253,8 @@ function HotelReviewPageContent(props: HotelReviewPageProps) {
                 {hotelReview.priceTier && (
                   <div className="flex items-center text-base text-muted-foreground">
                     <Banknote className="mr-2 h-4 w-4 shrink-0" />
-                    {PRICE_TIER_LABELS[hotelReview.priceTier] ?? hotelReview.priceTier}
+                    {PRICE_TIER_LABELS[hotelReview.priceTier] ??
+                      hotelReview.priceTier}
                   </div>
                 )}
               </div>
@@ -290,17 +297,19 @@ function HotelReviewPageContent(props: HotelReviewPageProps) {
             </Section>
           )}
 
-          {timelineEntries.length > 0 && originalRatingResult && hotelReview.date && (
-            <Section spacing="tight" as="div">
-              <RevisitTimeline
-                originalDate={hotelReview.date}
-                originalDisplayRating={originalRatingResult.displayRating}
-                originalTextRating={originalRatingResult.textRating}
-                originalColor={originalRatingResult.color ?? '#6B7280'}
-                entries={timelineEntries}
-              />
-            </Section>
-          )}
+          {timelineEntries.length > 0 &&
+            originalRatingResult &&
+            hotelReview.date && (
+              <Section spacing="tight" as="div">
+                <RevisitTimeline
+                  originalDate={hotelReview.date}
+                  originalDisplayRating={originalRatingResult.displayRating}
+                  originalTextRating={originalRatingResult.textRating}
+                  originalColor={originalRatingResult.color ?? '#6B7280'}
+                  entries={timelineEntries}
+                />
+              </Section>
+            )}
 
           <Section spacing="tight" as="div">
             <ProConList

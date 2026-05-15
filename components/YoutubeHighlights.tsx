@@ -142,7 +142,11 @@ export default function YoutubeHighlights({
       {shorts.length > 0 && <ShortsCarousel shorts={shorts.slice(0, 6)} />}
 
       {/* Long-form videos label + grid */}
-      <div className={shorts.length > 0 ? 'mt-10 pt-8 border-t border-gray-200' : ''}>
+      <div
+        className={
+          shorts.length > 0 ? 'mt-10 pt-8 border-t border-gray-200' : ''
+        }
+      >
         <div className="mb-4 flex items-center gap-2 px-1">
           <Tv size={14} className="text-pink-500" />
           <h3 className="text-sm font-bold uppercase tracking-widest text-foreground">
@@ -199,7 +203,10 @@ function ShortCard({ video }: { video: YoutubeVideo }) {
   return (
     <div className="group flex-shrink-0 w-36 sm:w-40 overflow-hidden rounded-xl border-2 border-black shadow-brutalist-sm transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none">
       {playing ? (
-        <div className="relative w-full bg-black" style={{ aspectRatio: '9/16' }}>
+        <div
+          className="relative w-full bg-black"
+          style={{ aspectRatio: '9/16' }}
+        >
           <ReactPlayer
             url={video.url}
             width="100%"
@@ -242,9 +249,7 @@ function ShortCard({ video }: { video: YoutubeVideo }) {
                 {video.title}
               </p>
             )}
-            {date && (
-              <p className="mt-0.5 text-[10px] text-white/70">{date}</p>
-            )}
+            {date && <p className="mt-0.5 text-[10px] text-white/70">{date}</p>}
           </div>
         </button>
       )}
@@ -320,9 +325,7 @@ function VideoCard({ video }: { video: DisplayVideo }) {
                 {video.title}
               </p>
             )}
-            {date && (
-              <p className="mt-0.5 text-xs text-white/70">{date}</p>
-            )}
+            {date && <p className="mt-0.5 text-xs text-white/70">{date}</p>}
           </div>
         </button>
       )}

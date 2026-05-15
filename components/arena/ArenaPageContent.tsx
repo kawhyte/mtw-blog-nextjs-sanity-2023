@@ -11,12 +11,8 @@ interface ArenaPageContentProps {
 
 export default function ArenaPageContent({ arenas }: ArenaPageContentProps) {
   // Custom hooks for managing state and data processing
-  const {
-    sortCriteria,
-    filterCriteria,
-    handleSort,
-    handleFilter,
-  } = useArenaFiltering()
+  const { sortCriteria, filterCriteria, handleSort, handleFilter } =
+    useArenaFiltering()
 
   const displayArenas = useArenaDisplay(arenas, filterCriteria, sortCriteria)
 

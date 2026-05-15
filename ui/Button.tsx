@@ -113,7 +113,11 @@ export default function Button({
 
   const buttonContent = (
     <div className="w-full flex items-center">
-      {iconElement && <span className="mr-2 flex items-center justify-center shrink-0">{iconElement}</span>}
+      {iconElement && (
+        <span className="mr-2 flex items-center justify-center shrink-0">
+          {iconElement}
+        </span>
+      )}
       <div
         className={cn('w-full flex items-center', {
           'justify-start': align === 'left',
@@ -121,7 +125,12 @@ export default function Button({
           'justify-end': align === 'right',
         })}
       >
-        <div className={cn(alignTextClasses[align], 'mt-[1px] text-balance whitespace-normal break-words min-w-0 leading-tight')}>
+        <div
+          className={cn(
+            alignTextClasses[align],
+            'mt-[1px] text-balance whitespace-normal break-words min-w-0 leading-tight',
+          )}
+        >
           {text}
           {children}
         </div>

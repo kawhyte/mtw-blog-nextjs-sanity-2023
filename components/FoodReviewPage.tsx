@@ -93,12 +93,10 @@ export default function FoodReviewPage(props: FoodReviewPageProps) {
   const { preview, loading, foodReview, settings } = props
   const { title = demo.title } = settings || {}
 
-  const {
-    galleryImages,
-    isOpen,
-    openModal,
-    closeModal,
-  } = usePhotoGallery(foodReview.coverImage, foodReview.gallery)
+  const { galleryImages, isOpen, openModal, closeModal } = usePhotoGallery(
+    foodReview.coverImage,
+    foodReview.gallery,
+  )
 
   if (!foodReview?.slug && !preview) {
     notFound()
@@ -119,15 +117,17 @@ export default function FoodReviewPage(props: FoodReviewPageProps) {
   const weights = isTakeout ? TAKEOUT_WEIGHTS : FOOD_WEIGHTS
   const labelMap = isTakeout ? TAKEOUT_RATING_LABELS : FOOD_RATING_LABELS
 
-  const baseRating = isTakeout ? foodReview.takeoutRating : foodReview.foodRating
+  const baseRating = isTakeout
+    ? foodReview.takeoutRating
+    : foodReview.foodRating
 
   // Build revisit updates using the appropriate rating field
   const revisitsForMerge = (foodReview.revisits ?? []).map((r) => ({
     visitDate: r.visitDate,
     notes: r.notes,
-    ratingUpdates: (isTakeout ? r.takeoutRatingUpdates : r.foodRatingUpdates) as
-      | Record<string, number | undefined>
-      | undefined,
+    ratingUpdates: (isTakeout
+      ? r.takeoutRatingUpdates
+      : r.foodRatingUpdates) as Record<string, number | undefined> | undefined,
   }))
 
   // Compute effective rating by accumulating all revisit updates
@@ -138,8 +138,7 @@ export default function FoodReviewPage(props: FoodReviewPageProps) {
       )
     : baseRating
 
-  const currentRatingIcons =
-    isTakeout ? takeoutRatingIcons : foodRatingIcons
+  const currentRatingIcons = isTakeout ? takeoutRatingIcons : foodRatingIcons
 
   // Compute original rating for the timeline baseline
   const originalRatingResult = baseRating
@@ -170,12 +169,15 @@ export default function FoodReviewPage(props: FoodReviewPageProps) {
       : []
 
   const bestDish = foodReview.individualFoodRating?.length
-    ? foodReview.individualFoodRating.reduce((top, item) =>
-        (item.rating?.Dish ?? 0) > (top.rating?.Dish ?? 0) ? item : top,
+    ? foodReview.individualFoodRating.reduce(
+        (top, item) =>
+          (item.rating?.Dish ?? 0) > (top.rating?.Dish ?? 0) ? item : top,
         foodReview.individualFoodRating[0],
       )
     : null
-  const bestDishScore = bestDish ? ((bestDish.rating?.Dish ?? 0) / 2).toFixed(1) : null
+  const bestDishScore = bestDish
+    ? ((bestDish.rating?.Dish ?? 0) / 2).toFixed(1)
+    : null
 
   return (
     <div>
@@ -260,15 +262,17 @@ export default function FoodReviewPage(props: FoodReviewPageProps) {
             />
           )}
 
-          {timelineEntries.length > 0 && originalRatingResult && foodReview.date && (
-            <RevisitTimeline
-              originalDate={foodReview.date}
-              originalDisplayRating={originalRatingResult.displayRating}
-              originalTextRating={originalRatingResult.textRating}
-              originalColor={originalRatingResult.color ?? '#6B7280'}
-              entries={timelineEntries}
-            />
-          )}
+          {timelineEntries.length > 0 &&
+            originalRatingResult &&
+            foodReview.date && (
+              <RevisitTimeline
+                originalDate={foodReview.date}
+                originalDisplayRating={originalRatingResult.displayRating}
+                originalTextRating={originalRatingResult.textRating}
+                originalColor={originalRatingResult.color ?? '#6B7280'}
+                entries={timelineEntries}
+              />
+            )}
 
           {foodReview.tip && <HelpfulTip tip={foodReview.tip} />}
 
@@ -293,7 +297,9 @@ export default function FoodReviewPage(props: FoodReviewPageProps) {
                     <span>${Number(bestDish.price).toFixed(2)}</span>
                   )}
                   {bestDish.review && (
-                    <span className="line-clamp-1 italic">&ldquo;{bestDish.review}&rdquo;</span>
+                    <span className="line-clamp-1 italic">
+                      &ldquo;{bestDish.review}&rdquo;
+                    </span>
                   )}
                 </div>
               </div>

@@ -18,9 +18,7 @@ const ArenasIndexPage = ({ arenas }) => {
               header={'Our Quest to Visit Every NBA & WNBA Arenas'}
               description={`We're hitting the road (like, seriously hitting all the roads!) to check out and rank every single NBA and WNBA arena across the US and Canada. Buckle up and follow our adventure!`}
             />
-            <p
-              className="mt-4 text-sm leading-relaxed md:text-base lg:text-base"
-            ></p>
+            <p className="mt-4 text-sm leading-relaxed md:text-base lg:text-base"></p>
             <div className="lg:mt-0 lg:shrink-0">
               <div className="mt-6 inline-flex ">
                 <Button

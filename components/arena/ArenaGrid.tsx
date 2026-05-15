@@ -33,7 +33,9 @@ function ArenaCardGrid({
             arenaName={arena.name}
             slug={arena.slug}
             gallery={
-              arena.firstGalleryImage ? [arena.firstGalleryImage] : arena.gallery
+              arena.firstGalleryImage
+                ? [arena.firstGalleryImage]
+                : arena.gallery
             }
             visited={arena.visited}
             dateVisited={arena.date}

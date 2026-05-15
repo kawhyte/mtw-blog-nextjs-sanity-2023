@@ -1,5 +1,5 @@
 // schemas/nbaArenas.ts
-import { ImagesIcon,StarIcon } from '@sanity/icons' // Added ImagesIcon
+import { ImagesIcon, StarIcon } from '@sanity/icons' // Added ImagesIcon
 import { defineField, defineType } from 'sanity'
 
 // --- Helper Function for Verdict Character Count ---
@@ -152,7 +152,8 @@ export default defineType({
               name: 'name',
               type: 'string',
               title: 'Team Name',
-              description: 'Full team name — e.g., "Houston Rockets", not just "Rockets"',
+              description:
+                'Full team name — e.g., "Houston Rockets", not just "Rockets"',
               validation: (Rule) => Rule.required(),
             }),
             defineField({
@@ -164,7 +165,8 @@ export default defineType({
               name: 'timesAttended',
               title: 'Times We Saw This Team Play Here',
               type: 'number',
-              description: 'How many games of this team have we attended at this arena? (default: 1)',
+              description:
+                'How many games of this team have we attended at this arena? (default: 1)',
               hidden: ({ parent }) => !parent?.played,
               validation: (Rule) => Rule.min(1).integer(),
             }),

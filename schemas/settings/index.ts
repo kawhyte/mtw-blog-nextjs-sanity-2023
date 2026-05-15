@@ -84,7 +84,8 @@ export default defineType({
           name: 'url',
           title: 'YouTube URL',
           type: 'url',
-          description: 'e.g. https://youtu.be/xxxxx or https://www.youtube.com/watch?v=xxxxx',
+          description:
+            'e.g. https://youtu.be/xxxxx or https://www.youtube.com/watch?v=xxxxx',
           validation: (rule) =>
             rule.custom((value) => {
               if (!value) return true
@@ -99,7 +100,8 @@ export default defineType({
           name: 'title',
           title: 'Title Override (optional)',
           type: 'string',
-          description: 'Overrides the video title. Leave blank to use the YouTube title.',
+          description:
+            'Overrides the video title. Leave blank to use the YouTube title.',
         }),
         defineField({
           name: 'category',
@@ -122,7 +124,8 @@ export default defineType({
           title: 'Description Override (optional)',
           type: 'text',
           rows: 2,
-          description: 'Short teaser shown below the hero video. Leave blank to use the YouTube description.',
+          description:
+            'Short teaser shown below the hero video. Leave blank to use the YouTube description.',
         }),
       ],
     }),

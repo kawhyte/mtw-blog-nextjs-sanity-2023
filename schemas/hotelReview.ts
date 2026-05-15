@@ -287,7 +287,8 @@ export default defineType({
       name: 'priceTier',
       title: 'Approximate Nightly Rate (at time of visit)',
       type: 'string',
-      description: 'Approximate cash rate per night — not points value (optional)',
+      description:
+        'Approximate cash rate per night — not points value (optional)',
       options: {
         list: [
           { title: 'Under $100/night', value: 'under_100' },
@@ -349,7 +350,8 @@ export default defineType({
           name: 'covers',
           title: 'What does it cover?',
           type: 'array',
-          description: 'Add each item the fee covers (e.g. WiFi, Parking, Beach Chairs)',
+          description:
+            'Add each item the fee covers (e.g. WiFi, Parking, Beach Chairs)',
           of: [{ type: 'string' }],
           options: { layout: 'tags' },
         }),

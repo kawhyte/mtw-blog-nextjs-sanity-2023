@@ -18,14 +18,10 @@ const SneakersIndexPage = ({ arenas }) => {
 
         <div className="  container mx-auto mb-20   mt-44  flex rounded-xl  bg-linear-to-r from-indigo-200 via-pink-200 to-yellow-50 md:mt-52">
           <div className="z-20 w-full px-4  py-12 text-start sm:px-6 lg:w-3/5 lg:px-8 lg:py-16">
-            <h1
-              className="title-font mb-3 text-3xl font-medium text-foreground sm:text-4xl"
-            >
+            <h1 className="title-font mb-3 text-3xl font-medium text-foreground sm:text-4xl">
               Our Sneaker Collection
             </h1>
-            <p
-              className="mt-4 text-sm leading-relaxed md:text-base lg:text-base"
-            >
+            <p className="mt-4 text-sm leading-relaxed md:text-base lg:text-base">
               We are traveling near and far to every state/country to visit and
               rank all the NBA and WNBA arenas across the US and Canada. Follow
               us on this journey.

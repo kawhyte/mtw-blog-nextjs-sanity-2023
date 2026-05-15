@@ -82,10 +82,17 @@ const TEAM_NAME_MAP = {
 }
 
 async function run() {
-  console.log(`\n🏀 Arena Team Name Fix — ${isDryRun ? 'DRY RUN' : 'LIVE RUN'}\n`)
+  console.log(
+    `\n🏀 Arena Team Name Fix — ${isDryRun ? 'DRY RUN' : 'LIVE RUN'}\n`,
+  )
 
-  if (!process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || !process.env.NEXT_PUBLIC_SANITY_DATASET) {
-    console.error('❌ Missing NEXT_PUBLIC_SANITY_PROJECT_ID or NEXT_PUBLIC_SANITY_DATASET in .env.local')
+  if (
+    !process.env.NEXT_PUBLIC_SANITY_PROJECT_ID ||
+    !process.env.NEXT_PUBLIC_SANITY_DATASET
+  ) {
+    console.error(
+      '❌ Missing NEXT_PUBLIC_SANITY_PROJECT_ID or NEXT_PUBLIC_SANITY_DATASET in .env.local',
+    )
     process.exit(1)
   }
 
@@ -95,7 +102,7 @@ async function run() {
   }
 
   const arenas = await client.fetch(
-    `*[_type == "arenas"] { _id, name, gallery[] { _key, name, teamType, played, link, alt, asset } }`
+    `*[_type == "arenas"] { _id, name, gallery[] { _key, name, teamType, played, link, alt, asset } }`,
   )
 
   console.log(`Found ${arenas.length} arena document(s)\n`)
@@ -121,7 +128,7 @@ async function run() {
     })
 
     const hasChanges = updatedGallery.some(
-      (entry, i) => entry.name !== arena.gallery[i].name
+      (entry, i) => entry.name !== arena.gallery[i].name,
     )
 
     if (!hasChanges) {
@@ -132,10 +139,7 @@ async function run() {
     console.log(`🔄 ${arena.name} (${arena._id})`)
 
     if (!isDryRun) {
-      await client
-        .patch(arena._id)
-        .set({ gallery: updatedGallery })
-        .commit()
+      await client.patch(arena._id).set({ gallery: updatedGallery }).commit()
       console.log(`   ✅ Saved`)
     } else {
       console.log(`   [dry run — no changes written]`)
@@ -144,10 +148,14 @@ async function run() {
     updatedCount++
   }
 
-  console.log(`\n${isDryRun ? 'Dry run complete' : 'Done'} — ${updatedCount} arena(s) ${isDryRun ? 'would be' : 'were'} updated.`)
+  console.log(
+    `\n${isDryRun ? 'Dry run complete' : 'Done'} — ${updatedCount} arena(s) ${isDryRun ? 'would be' : 'were'} updated.`,
+  )
 
   if (isDryRun && updatedCount > 0) {
-    console.log(`\nRun with --no-dry-run to apply changes:\n  npm run fix-arena-teams:live\n`)
+    console.log(
+      `\nRun with --no-dry-run to apply changes:\n  npm run fix-arena-teams:live\n`,
+    )
   }
 }
 

@@ -41,9 +41,7 @@ const InstagramHighlights = ({ instagram }) => {
     <div className="container mx-auto my-12 rounded-xl bg-yellow-50 px-10 py-12 ">
       <div className=" container mx-auto mb-10 flex w-full flex-wrap">
         <div className="mx-4 mb-6 w-full lg:mb-0 lg:w-1/2 ">
-          <h1
-            className="title-font mb-2 text-2xl font-medium text-foreground sm:text-3xl"
-          >
+          <h1 className="title-font mb-2 text-2xl font-medium text-foreground sm:text-3xl">
             Featured Instagram Posts
           </h1>
           <div className="h-1 w-20 rounded bg-pink-500"></div>

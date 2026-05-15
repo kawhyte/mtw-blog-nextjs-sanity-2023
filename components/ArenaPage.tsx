@@ -152,7 +152,10 @@ export default function ArenaPage({
           (arena.revisits ?? []).map((r) => ({
             visitDate: r.visitDate,
             notes: r.notes,
-            ratingUpdates: r.ratingUpdates as Record<string, number | undefined>,
+            ratingUpdates: r.ratingUpdates as Record<
+              string,
+              number | undefined
+            >,
           })),
           ARENA_RATING_LABELS,
         ).map((entry) => {
@@ -201,7 +204,10 @@ export default function ArenaPage({
 
         {/* 1. HERO PHOTO GALLERY */}
         {galleryImages.length > 0 && (
-          <HeroPhotoGallery images={galleryImages} onShowAllPhotos={openModal} />
+          <HeroPhotoGallery
+            images={galleryImages}
+            onShowAllPhotos={openModal}
+          />
         )}
 
         <article className="container mx-auto px-4 md:px-6">
@@ -252,7 +258,8 @@ export default function ArenaPage({
               {totalGamesAttended > 0 && (
                 <div className="flex items-center text-base text-muted-foreground">
                   <Award className="mr-2 h-4 w-4 shrink-0" />
-                  {totalGamesAttended} game{totalGamesAttended !== 1 ? 's' : ''} attended
+                  {totalGamesAttended} game{totalGamesAttended !== 1 ? 's' : ''}{' '}
+                  attended
                 </div>
               )}
             </div>
@@ -276,7 +283,9 @@ export default function ArenaPage({
           {/* 3. ARENA RATING CARD — score left, breakdown right */}
           {effectiveArenaReview && (
             <ArenaRatingCard
-              effectiveArenaReview={effectiveArenaReview as Record<string, number | undefined>}
+              effectiveArenaReview={
+                effectiveArenaReview as Record<string, number | undefined>
+              }
               ratingIcons={ratingIcons}
               ratingLabels={ARENA_RATING_LABELS}
             />
@@ -360,12 +369,18 @@ export default function ArenaPage({
                             {team.name}
                           </span>
                           {team.teamType && (
-                            <Badge variant="secondary" className="text-xs uppercase">
+                            <Badge
+                              variant="secondary"
+                              className="text-xs uppercase"
+                            >
                               {team.teamType}
                             </Badge>
                           )}
                           {(team.timesAttended ?? 1) > 1 && (
-                            <Badge variant="outline" className="text-xs text-primary border-primary font-bold">
+                            <Badge
+                              variant="outline"
+                              className="text-xs text-primary border-primary font-bold"
+                            >
                               ×{team.timesAttended} games
                             </Badge>
                           )}
@@ -418,7 +433,9 @@ export default function ArenaPage({
                             sizes="32px"
                           />
                         )}
-                        <span className="text-xs text-muted-foreground">{team.name}</span>
+                        <span className="text-xs text-muted-foreground">
+                          {team.name}
+                        </span>
                         {team.teamType && (
                           <span className="text-xs text-muted-foreground/60">
                             · {team.teamType}
@@ -447,9 +464,10 @@ export default function ArenaPage({
         )}
 
         {/* 7. WHERE WE STAYED (optional) */}
-        {arena.hotelStay && (arena.hotelStay.hotel || arena.hotelStay.hotelName) && (
-          <ArenaHotelStay hotelStay={arena.hotelStay} />
-        )}
+        {arena.hotelStay &&
+          (arena.hotelStay.hotel || arena.hotelStay.hotelName) && (
+            <ArenaHotelStay hotelStay={arena.hotelStay} />
+          )}
 
         {/* 8. FOOD & DRINKS WE TRIED (optional) */}
         {(arena.arenaFoodItems?.length ?? 0) > 0 && (

@@ -78,9 +78,7 @@ export default defineType({
       description:
         'First-person blurb — max 150 chars. e.g. "Never leave for an NBA game without this."',
       validation: (Rule) =>
-        Rule.max(150).warning(
-          `Keep it short — 150 characters max.`,
-        ),
+        Rule.max(150).warning(`Keep it short — 150 characters max.`),
     }),
 
     defineField({

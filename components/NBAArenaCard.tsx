@@ -77,7 +77,9 @@ const Arenas = React.memo(
             <div
               className={`absolute left-3 top-3 z-30 rounded-full px-2 py-1 text-xs font-bold min-h-[32px] flex items-center gap-1 ${getRankBadgeStyle(rank)}`}
               role="status"
-              aria-label={rank === 1 ? 'Best Arena ranking' : `Arena rank: ${rank}`}
+              aria-label={
+                rank === 1 ? 'Best Arena ranking' : `Arena rank: ${rank}`
+              }
             >
               {rank === 1 && <Trophy className="h-3.5 w-3.5" />}
               {rank === 1 ? 'Best Arena' : `#${rank}`}
@@ -128,7 +130,9 @@ const Arenas = React.memo(
               <div className="flex items-center gap-1 text-[11px] font-medium text-muted-foreground">
                 <RefreshCw className="h-3 w-3" />
                 <span>
-                  {revisitCount === 1 ? 'Revisited' : `${revisitCount + 1} visits`}
+                  {revisitCount === 1
+                    ? 'Revisited'
+                    : `${revisitCount + 1} visits`}
                 </span>
               </div>
             ) : null}

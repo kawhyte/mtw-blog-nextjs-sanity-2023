@@ -38,7 +38,9 @@ export default function ResortFeeCard({ data }: { data: ResortFeeData }) {
         {data.amount != null && (
           <span className="ml-auto text-2xl font-bold text-foreground leading-none">
             ${data.amount}
-            <span className="text-sm font-normal text-muted-foreground">/night</span>
+            <span className="text-sm font-normal text-muted-foreground">
+              /night
+            </span>
           </span>
         )}
       </div>

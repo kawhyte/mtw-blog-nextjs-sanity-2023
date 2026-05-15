@@ -105,7 +105,8 @@ export default function ReviewRating({
   const ratingClasses = getRatingClasses(textScore)
 
   const activeCategoryCount = ratingEntries.filter(([name, value]) => {
-    if (['Pool', 'Gym', 'Internet_Speed'].includes(name) && value === 0) return false
+    if (['Pool', 'Gym', 'Internet_Speed'].includes(name) && value === 0)
+      return false
     return true
   }).length
 
@@ -133,7 +134,9 @@ export default function ReviewRating({
 
           {/* Bottom anchor */}
           <div className="w-full mt-6">
-            <div className={`h-1 w-full rounded-full mb-1.5 ${ratingClasses.bg}`} />
+            <div
+              className={`h-1 w-full rounded-full mb-1.5 ${ratingClasses.bg}`}
+            />
             <p className="text-xs text-muted-foreground mt-5">
               Weighted across {activeCategoryCount}{' '}
               {activeCategoryCount === 1 ? 'category' : 'categories'}

@@ -1,4 +1,16 @@
-import { Car, CheckCircle2, ConciergeBell, Laptop, Mail, MonitorPlay, Tv, UtensilsCrossed, Video, Wifi, XCircle } from 'lucide-react'
+import {
+  Car,
+  CheckCircle2,
+  ConciergeBell,
+  Laptop,
+  Mail,
+  MonitorPlay,
+  Tv,
+  UtensilsCrossed,
+  Video,
+  Wifi,
+  XCircle,
+} from 'lucide-react'
 import React from 'react'
 
 import SectionTitle from './SectionTitle'
@@ -34,10 +46,26 @@ const amenityConfig = [
 ]
 
 const wifiCapabilities = [
-  { label: 'Check Email & Browse', minSpeed: 2, icon: <Mail className="h-4 w-4 mr-2 shrink-0" /> },
-  { label: 'Video Call (Zoom, FaceTime)', minSpeed: 5, icon: <Video className="h-4 w-4 mr-2 shrink-0" /> },
-  { label: 'Watch Netflix / HD Streaming', minSpeed: 8, icon: <Tv className="h-4 w-4 mr-2 shrink-0" /> },
-  { label: 'Stream in 4K', minSpeed: 25, icon: <MonitorPlay className="h-4 w-4 mr-2 shrink-0" /> },
+  {
+    label: 'Check Email & Browse',
+    minSpeed: 2,
+    icon: <Mail className="h-4 w-4 mr-2 shrink-0" />,
+  },
+  {
+    label: 'Video Call (Zoom, FaceTime)',
+    minSpeed: 5,
+    icon: <Video className="h-4 w-4 mr-2 shrink-0" />,
+  },
+  {
+    label: 'Watch Netflix / HD Streaming',
+    minSpeed: 8,
+    icon: <Tv className="h-4 w-4 mr-2 shrink-0" />,
+  },
+  {
+    label: 'Stream in 4K',
+    minSpeed: 25,
+    icon: <MonitorPlay className="h-4 w-4 mr-2 shrink-0" />,
+  },
 ]
 
 // --- Reusable Sub-Components ---

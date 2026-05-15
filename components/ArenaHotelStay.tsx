@@ -35,10 +35,12 @@ export default function ArenaHotelStay({ hotelStay }: ArenaHotelStayProps) {
   const displayName = hotel?.title ?? hotelName
   if (!displayName) return null
 
-  const ratingResult =
-    hotel?.hotelRating
-      ? calculateRating(hotel.hotelRating as Record<string, number>, HOTEL_WEIGHTS)
-      : null
+  const ratingResult = hotel?.hotelRating
+    ? calculateRating(
+        hotel.hotelRating as Record<string, number>,
+        HOTEL_WEIGHTS,
+      )
+    : null
 
   const nightsLabel = nightsStayed
     ? `${nightsStayed} night${nightsStayed !== 1 ? 's' : ''}`
@@ -55,7 +57,11 @@ export default function ArenaHotelStay({ hotelStay }: ArenaHotelStayProps) {
               {hasReview && hotel?.coverImage && (
                 <div className="relative h-20 w-28 shrink-0 overflow-hidden rounded-lg">
                   <Image
-                    src={urlForImage(hotel.coverImage).width(224).height(160).fit('crop').url()}
+                    src={urlForImage(hotel.coverImage)
+                      .width(224)
+                      .height(160)
+                      .fit('crop')
+                      .url()}
                     alt={`${displayName} hotel`}
                     fill
                     className="object-cover"
@@ -95,7 +101,8 @@ export default function ArenaHotelStay({ hotelStay }: ArenaHotelStayProps) {
                       className="font-bold text-sm"
                       style={{ color: ratingResult.color }}
                     >
-                      {ratingResult.displayRating} / 5 &bull; {ratingResult.textRating}
+                      {ratingResult.displayRating} / 5 &bull;{' '}
+                      {ratingResult.textRating}
                     </Badge>
                   )}
                   {hasReview && hotel?.slug && (

@@ -90,9 +90,7 @@ interface QuickTipProps {
 const QuickTip: React.FC<QuickTipProps> = ({ tip }) =>
   tip && (
     <div className="max-w-4xl rounded-lg border-l-4 border-green-500 bg-green-100 p-4 text-gray-600">
-      <p
-        className="font-epilogue mb-2 text-2xl font-bold md:text-left md:leading-none lg:text-2xl"
-      >
+      <p className="font-epilogue mb-2 text-2xl font-bold md:text-left md:leading-none lg:text-2xl">
         Quick Tip
       </p>
       <PostBody content={tip} />
@@ -224,9 +222,7 @@ export default function PostHeader({
 
         {excerpt2 && (
           <>
-            <div
-              className="my-8 flex max-w-6xl flex-col items-center justify-center align-middle lg:text-lg"
-            >
+            <div className="my-8 flex max-w-6xl flex-col items-center justify-center align-middle lg:text-lg">
               <div className="text-sm text-gray-600">
                 <svg
                   className="size-20 text-purple-500"

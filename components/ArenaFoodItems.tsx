@@ -13,7 +13,10 @@ const FoodieCookie = ({ type = 'full' }) => {
 
   const FullCookieContent = () => (
     <>
-      <path d="M12 2a10 10 0 1 0 10 10 10 10 0 0 0-10-10Z" fill={cookieBaseColor} />
+      <path
+        d="M12 2a10 10 0 1 0 10 10 10 10 0 0 0-10-10Z"
+        fill={cookieBaseColor}
+      />
       <circle cx="8" cy="9" r="1.5" fill={chipColor} />
       <circle cx="15" cy="15" r="1.5" fill={chipColor} />
       <circle cx="16" cy="8" r="1" fill={chipColor} />
@@ -32,7 +35,11 @@ const FoodieCookie = ({ type = 'full' }) => {
 
   if (type === 'empty') {
     return (
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="h-5 w-5 text-muted-foreground/40">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        className="h-5 w-5 text-muted-foreground/40"
+      >
         <EmptyCookieOutline />
       </svg>
     )
@@ -40,7 +47,11 @@ const FoodieCookie = ({ type = 'full' }) => {
 
   if (type === 'full') {
     return (
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="h-5 w-5">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        className="h-5 w-5"
+      >
         <FullCookieContent />
       </svg>
     )
@@ -48,7 +59,11 @@ const FoodieCookie = ({ type = 'full' }) => {
 
   if (type === 'half') {
     return (
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="h-5 w-5">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        className="h-5 w-5"
+      >
         <defs>
           <clipPath id="clip-left-half-arena-cookie">
             <rect x="0" y="0" width="12" height="24" />
@@ -86,10 +101,25 @@ const ThemedCookieRating = ({ rating }: { rating: number }) => {
 }
 
 const getRatingTheme = (rating: number) => {
-  if (rating >= 4.5) return { text: 'Excellent!', badgeClass: 'bg-success text-success-foreground border-success' }
-  if (rating >= 3.5) return { text: 'Good', badgeClass: 'bg-accent text-accent-foreground border-accent-foreground' }
-  if (rating >= 2.5) return { text: 'Average', badgeClass: 'bg-muted text-muted-foreground border-border' }
-  return { text: 'Could Be Better', badgeClass: 'bg-destructive text-destructive-foreground border-destructive' }
+  if (rating >= 4.5)
+    return {
+      text: 'Excellent!',
+      badgeClass: 'bg-success text-success-foreground border-success',
+    }
+  if (rating >= 3.5)
+    return {
+      text: 'Good',
+      badgeClass: 'bg-accent text-accent-foreground border-accent-foreground',
+    }
+  if (rating >= 2.5)
+    return {
+      text: 'Average',
+      badgeClass: 'bg-muted text-muted-foreground border-border',
+    }
+  return {
+    text: 'Could Be Better',
+    badgeClass: 'bg-destructive text-destructive-foreground border-destructive',
+  }
 }
 
 interface ArenaFoodItemsProps {
@@ -134,20 +164,26 @@ const ArenaFoodItems = ({ food }: ArenaFoodItemsProps) => {
                   {isChefsKiss && (
                     <div className="absolute top-0 right-0 flex items-center gap-x-2 rounded-bl-xl bg-primary p-2 shadow-md">
                       <Medal className="h-5 w-5 text-primary-foreground" />
-                      <span className="font-semibold text-primary-foreground">Chef&apos;s Kiss!</span>
+                      <span className="font-semibold text-primary-foreground">
+                        Chef&apos;s Kiss!
+                      </span>
                     </div>
                   )}
                   {isTopPick && !isChefsKiss && (
                     <div className="absolute top-0 right-0 flex items-center gap-x-2 rounded-bl-xl bg-accent p-2 shadow-md">
                       <Star className="h-4 w-4 text-accent-foreground" />
-                      <span className="text-xs font-semibold text-accent-foreground md:text-sm">Top Pick</span>
+                      <span className="text-xs font-semibold text-accent-foreground md:text-sm">
+                        Top Pick
+                      </span>
                     </div>
                   )}
                 </div>
 
                 <div className="flex flex-grow flex-col p-4">
                   <div className="flex items-baseline gap-2">
-                    <h3 className="text-xl font-bold text-foreground line-clamp-2">{item.name}</h3>
+                    <h3 className="text-xl font-bold text-foreground line-clamp-2">
+                      {item.name}
+                    </h3>
                     {item.price != null && item.price > 0 && (
                       <span className="shrink-0 text-sm font-normal text-muted-foreground">
                         ${Number(item.price).toFixed(2)}
@@ -162,12 +198,17 @@ const ArenaFoodItems = ({ food }: ArenaFoodItemsProps) => {
                       </span>
                       <ThemedCookieRating rating={dishRating} />
                     </div>
-                    <Badge variant="outline" className={`font-semibold ${ratingTheme.badgeClass}`}>
+                    <Badge
+                      variant="outline"
+                      className={`font-semibold ${ratingTheme.badgeClass}`}
+                    >
                       {ratingTheme.text}
                     </Badge>
                   </div>
 
-                  <p className="flex-grow text-sm text-muted-foreground line-clamp-3">{item?.review}</p>
+                  <p className="flex-grow text-sm text-muted-foreground line-clamp-3">
+                    {item?.review}
+                  </p>
                 </div>
               </div>
             )

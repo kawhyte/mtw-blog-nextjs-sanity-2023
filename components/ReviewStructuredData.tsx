@@ -2,7 +2,11 @@ import { FoodReview, HotelReview } from 'lib/sanity.queries'
 import Head from 'next/head'
 
 import { calculateRating } from '../lib/calculateRating'
-import { FOOD_WEIGHTS, HOTEL_WEIGHTS, TAKEOUT_WEIGHTS } from '../lib/ratingWeights'
+import {
+  FOOD_WEIGHTS,
+  HOTEL_WEIGHTS,
+  TAKEOUT_WEIGHTS,
+} from '../lib/ratingWeights'
 
 interface ReviewStructuredDataProps {
   review: HotelReview | FoodReview

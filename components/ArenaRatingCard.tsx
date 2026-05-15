@@ -36,9 +36,11 @@ export default function ArenaRatingCard({
 
   if (ratingEntries.length === 0) return null
 
-  const { average: displayRating, textRating, color } = calculateAverageRating(
-    effectiveArenaReview as any,
-  )
+  const {
+    average: displayRating,
+    textRating,
+    color,
+  } = calculateAverageRating(effectiveArenaReview as any)
 
   const ratingClasses = getRatingClasses(textRating)
 
@@ -47,7 +49,9 @@ export default function ArenaRatingCard({
       <div className="grid grid-cols-1 md:grid-cols-12 md:gap-x-12">
         {/* LEFT — overall score */}
         <div className="md:col-span-4 flex flex-col items-center text-center border-b-2 md:border-b-0 md:border-r-2 border-border pb-6 md:pb-0 md:pr-8 mb-6 md:mb-0">
-          <h2 className="text-2xl font-bold text-foreground mb-6">Arena Rating</h2>
+          <h2 className="text-2xl font-bold text-foreground mb-6">
+            Arena Rating
+          </h2>
 
           <div className="flex flex-col items-center gap-2 flex-1 justify-center">
             <div className="flex items-baseline gap-1">
@@ -58,11 +62,15 @@ export default function ArenaRatingCard({
                 / 5.0
               </span>
             </div>
-            <p className={`text-2xl font-bold ${ratingClasses.text}`}>{textRating}</p>
+            <p className={`text-2xl font-bold ${ratingClasses.text}`}>
+              {textRating}
+            </p>
           </div>
 
           <div className="w-full mt-6">
-            <div className={`h-1 w-full rounded-full mb-1.5 ${ratingClasses.bg}`} />
+            <div
+              className={`h-1 w-full rounded-full mb-1.5 ${ratingClasses.bg}`}
+            />
             <p className="text-xs text-muted-foreground mt-5">
               Weighted across {ratingEntries.length}{' '}
               {ratingEntries.length === 1 ? 'category' : 'categories'}

@@ -8,7 +8,11 @@ export interface YoutubeVideo {
 }
 
 function extractTag(xml: string, tag: string): string {
-  const match = xml.match(new RegExp(`<${tag}[^>]*><!\\[CDATA\\[([\\s\\S]*?)\\]\\]></${tag}>|<${tag}[^>]*>([\\s\\S]*?)</${tag}>`))
+  const match = xml.match(
+    new RegExp(
+      `<${tag}[^>]*><!\\[CDATA\\[([\\s\\S]*?)\\]\\]></${tag}>|<${tag}[^>]*>([\\s\\S]*?)</${tag}>`,
+    ),
+  )
   if (!match) return ''
   return (match[1] ?? match[2] ?? '').trim()
 }
@@ -56,7 +60,14 @@ export async function fetchChannelShorts(
         const description = extractAttr(entry, 'media:thumbnail', 'url')
           ? extractTag(entry, 'media:description')
           : ''
-        return { id, title, url: `https://www.youtube.com/watch?v=${id}`, thumbnail: `https://i.ytimg.com/vi/${id}/hqdefault.jpg`, publishedAt, description }
+        return {
+          id,
+          title,
+          url: `https://www.youtube.com/watch?v=${id}`,
+          thumbnail: `https://i.ytimg.com/vi/${id}/hqdefault.jpg`,
+          publishedAt,
+          description,
+        }
       })
       .filter((v) => {
         if (!v.id) return false
@@ -69,7 +80,9 @@ export async function fetchChannelShorts(
   }
 }
 
-export async function fetchPlaylistVideos(playlistId: string): Promise<YoutubeVideo[]> {
+export async function fetchPlaylistVideos(
+  playlistId: string,
+): Promise<YoutubeVideo[]> {
   if (!playlistId) return []
 
   try {
@@ -82,23 +95,26 @@ export async function fetchPlaylistVideos(playlistId: string): Promise<YoutubeVi
     const xml = await res.text()
     const entries = parseEntries(xml)
 
-    return entries.slice(0, 6).map((entry) => {
-      const id = extractTag(entry, 'yt:videoId')
-      const title = extractTag(entry, 'title')
-      const publishedAt = extractTag(entry, 'published')
-      const description = extractAttr(entry, 'media:thumbnail', 'url')
-        ? extractTag(entry, 'media:description')
-        : ''
+    return entries
+      .slice(0, 6)
+      .map((entry) => {
+        const id = extractTag(entry, 'yt:videoId')
+        const title = extractTag(entry, 'title')
+        const publishedAt = extractTag(entry, 'published')
+        const description = extractAttr(entry, 'media:thumbnail', 'url')
+          ? extractTag(entry, 'media:description')
+          : ''
 
-      return {
-        id,
-        title,
-        url: `https://www.youtube.com/watch?v=${id}`,
-        thumbnail: `https://i.ytimg.com/vi/${id}/hqdefault.jpg`,
-        publishedAt,
-        description,
-      }
-    }).filter((v) => v.id)
+        return {
+          id,
+          title,
+          url: `https://www.youtube.com/watch?v=${id}`,
+          thumbnail: `https://i.ytimg.com/vi/${id}/hqdefault.jpg`,
+          publishedAt,
+          description,
+        }
+      })
+      .filter((v) => v.id)
   } catch {
     return []
   }

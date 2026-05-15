@@ -17,15 +17,17 @@ function InterestCard({ interests }: InterestCardProps) {
         BEYOND THE HARDWOOD
       </h2>
       <div className="flex flex-wrap gap-2">
-        {interests.sort((a, b)=> a.label.localeCompare(b.label)).map((item, index) => (
-          <div
-            key={index}
-            className="flex items-center gap-2 border-4 border-foreground shadow-brutalist rounded-lg font-bold uppercase transition-transform hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_#1F2937] bg-white px-3 py-1.5"
-          >
-            <item.icon className="h-6 w-6 text-violet-500" />
-            <span className="text-nowrap text-sm">{item.label}</span>
-          </div>
-        ))}
+        {interests
+          .sort((a, b) => a.label.localeCompare(b.label))
+          .map((item, index) => (
+            <div
+              key={index}
+              className="flex items-center gap-2 border-4 border-foreground shadow-brutalist rounded-lg font-bold uppercase transition-transform hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_#1F2937] bg-white px-3 py-1.5"
+            >
+              <item.icon className="h-6 w-6 text-violet-500" />
+              <span className="text-nowrap text-sm">{item.label}</span>
+            </div>
+          ))}
       </div>
     </div>
   )

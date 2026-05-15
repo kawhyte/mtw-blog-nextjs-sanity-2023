@@ -20,9 +20,7 @@ export default function Footer() {
 									/>
 								</div> */}
 
-              <p
-                className="lg:block hidden text-base leading-relaxed md:inline-block mr-4 py-2 whitespace-nowrap text-foreground"
-              >
+              <p className="lg:block hidden text-base leading-relaxed md:inline-block mr-4 py-2 whitespace-nowrap text-foreground">
                 meet the whytes
               </p>
             </div>

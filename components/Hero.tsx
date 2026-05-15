@@ -32,9 +32,7 @@ function Hero() {
           {/* Text Content Container */}
           <div className="relative z-10 flex flex-col items-center text-center md:items-start md:text-left">
             {/* Hero Headline */}
-            <div
-              className="font-adventure-heading mb-8 flex flex-col uppercase leading-tight tracking-tight text-blog-heading space-y-0.5 text-adventure-subtitle py-2"
-            >
+            <div className="font-adventure-heading mb-8 flex flex-col uppercase leading-tight tracking-tight text-blog-heading space-y-0.5 text-adventure-subtitle py-2">
               <h1 className="text-5xl sm:text-6xl md:text-8xl lg:text-7xl xl:text-[5rem]">
                 Our Quest
               </h1>
@@ -50,9 +48,7 @@ function Hero() {
             </div>
 
             {/* Hero Subtext */}
-            <p
-              className="mb-8 max-w-2xl text-lg leading-relaxed text-blog-text md:text-xl xl:text-2xl"
-            >
+            <p className="mb-8 max-w-2xl text-lg leading-relaxed text-blog-text md:text-xl xl:text-2xl">
               We&apos;re hitting the road (like, seriously hitting all the
               roads!) to check out and rank every single NBA and WNBA arena
               across the US and Canada. Buckle up and follow our adventure!

@@ -6,7 +6,9 @@
  * downgrade a category. Only undefined/null/NaN are skipped (meaning "no change").
  * Returns a new object — does NOT mutate base.
  */
-export function getEffectiveRating<T extends Record<string, number | undefined>>(
+export function getEffectiveRating<
+  T extends Record<string, number | undefined>,
+>(
   base: T,
   revisits?: Array<{ visitDate: string; ratingUpdates?: Partial<T> }>,
 ): T {
@@ -14,8 +16,7 @@ export function getEffectiveRating<T extends Record<string, number | undefined>>
 
   // Sort oldest → newest so each revisit layers on top of the previous
   const sorted = [...revisits].sort(
-    (a, b) =>
-      new Date(a.visitDate).getTime() - new Date(b.visitDate).getTime(),
+    (a, b) => new Date(a.visitDate).getTime() - new Date(b.visitDate).getTime(),
   )
 
   return sorted.reduce<T>(
@@ -44,8 +45,7 @@ export function getSortedRevisits<T extends { visitDate: string }>(
 ): T[] {
   if (!revisits?.length) return []
   return [...revisits].sort(
-    (a, b) =>
-      new Date(b.visitDate).getTime() - new Date(a.visitDate).getTime(),
+    (a, b) => new Date(b.visitDate).getTime() - new Date(a.visitDate).getTime(),
   )
 }
 
@@ -80,8 +80,7 @@ export function computeTimelineEntries(
   if (!revisits?.length) return []
 
   const sorted = [...revisits].sort(
-    (a, b) =>
-      new Date(a.visitDate).getTime() - new Date(b.visitDate).getTime(),
+    (a, b) => new Date(a.visitDate).getTime() - new Date(b.visitDate).getTime(),
   )
 
   let currentState: Record<string, number | undefined> = { ...base }

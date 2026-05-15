@@ -35,7 +35,9 @@ function formatVisitDate(dateString: string): string {
 const portableTextComponents = {
   block: {
     normal: ({ children }: any) => (
-      <p className="text-sm leading-relaxed text-muted-foreground">{children}</p>
+      <p className="text-sm leading-relaxed text-muted-foreground">
+        {children}
+      </p>
     ),
   },
   marks: {

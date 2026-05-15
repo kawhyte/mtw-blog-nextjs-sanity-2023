@@ -10,7 +10,19 @@ interface HeroPhotoGalleryProps {
   onShowAllPhotos: () => void
 }
 
-const FadeImage = ({ image, className, src, alt, ...props }: { image: any; className?: string; src: string; alt: string; [key: string]: any }) => {
+const FadeImage = ({
+  image,
+  className,
+  src,
+  alt,
+  ...props
+}: {
+  image: any
+  className?: string
+  src: string
+  alt: string
+  [key: string]: any
+}) => {
   const [isLoaded, setIsLoaded] = useState(false)
   const lqip = image?.asset?.metadata?.lqip
 
@@ -44,7 +56,10 @@ export default function HeroPhotoGallery({
       <div className="relative h-96 md:hidden">
         <FadeImage
           image={mainImage}
-          src={urlForImage(mainImage)?.width(800).height(600).fit('crop').url() || ''}
+          src={
+            urlForImage(mainImage)?.width(800).height(600).fit('crop').url() ||
+            ''
+          }
           alt={mainImage.alt || 'Main hotel image'}
           fill
           sizes="100vw"
@@ -59,7 +74,13 @@ export default function HeroPhotoGallery({
         <div className="relative h-[550px]">
           <FadeImage
             image={mainImage}
-            src={urlForImage(mainImage)?.width(1200).height(800).fit('crop').url() || ''}
+            src={
+              urlForImage(mainImage)
+                ?.width(1200)
+                .height(800)
+                .fit('crop')
+                .url() || ''
+            }
             alt={mainImage.alt || 'Main hotel image'}
             fill
             sizes="(min-width: 768px) 50vw, 100vw"
@@ -74,7 +95,13 @@ export default function HeroPhotoGallery({
             <div key={index} className="relative">
               <FadeImage
                 image={image}
-                src={urlForImage(image)?.width(600).height(400).fit('crop').url() || ''}
+                src={
+                  urlForImage(image)
+                    ?.width(600)
+                    .height(400)
+                    .fit('crop')
+                    .url() || ''
+                }
                 alt={image.alt || `Hotel image ${index + 2}`}
                 fill
                 sizes="(min-width: 768px) 25vw, 100vw"
