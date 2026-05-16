@@ -120,14 +120,14 @@ export default function ReviewRating({
           {/* Score — centered, fills remaining space */}
           <div className="flex flex-col items-center gap-2 flex-1 justify-center">
             <div className="flex items-baseline gap-1">
-              <span className="text-9xl font-bold text-secondary leading-none">
+              <span className="text-7xl font-bold text-secondary leading-none">
                 {displayRating}
               </span>
               <span className="text-2xl font-normal text-muted-foreground">
                 / 5.0
               </span>
             </div>
-            <p className={`text-2xl font-bold ${ratingClasses.text}`}>
+            <p className={`text-xl font-bold ${ratingClasses.text}`}>
               {textScore}
             </p>
           </div>

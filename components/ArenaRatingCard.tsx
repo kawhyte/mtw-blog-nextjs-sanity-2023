@@ -55,10 +55,10 @@ export default function ArenaRatingCard({
 
           <div className="flex flex-col items-center gap-2 flex-1 justify-center">
             <div className="flex items-baseline gap-1">
-              <span className="text-9xl font-bold text-secondary leading-none">
+              <span className="text-7xl font-bold text-secondary leading-none">
                 {displayRating}
               </span>
-              <span className="text-2xl font-normal text-muted-foreground">
+              <span className="text-xl font-normal text-muted-foreground">
                 / 5.0
               </span>
             </div>
