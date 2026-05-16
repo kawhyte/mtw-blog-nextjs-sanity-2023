@@ -1,6 +1,7 @@
 import '../styles/globals.css'
 import '../styles/nprogress.css'
 
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import { AppProps } from 'next/app'
 import Script from 'next/script'
 
@@ -29,6 +30,7 @@ export default function App({ Component, pageProps }: AppProps) {
         </>
       )}
       <NProgressBar />
+      <SpeedInsights />
       <main>
         <Component {...pageProps} />
       </main>

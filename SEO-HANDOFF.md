@@ -52,13 +52,9 @@ npm run generate-alt-text:live
 
 ---
 
-## 🔴 STILL NEEDS CODE WORK
+## ✅ FULLY COMPLETED (Session 3)
 
-### Vercel Speed Insights
-**Priority: MEDIUM**
-One component added to `pages/_app.tsx`. Gives real-user Core Web Vitals (LCP, CLS, FID) on the Vercel dashboard. Tells you exactly which pages load slowly on mobile.
-
-Tell Claude: *"Add Vercel Speed Insights to `pages/_app.tsx` — no new npm packages, use the `@vercel/speed-insights/next` package which is already available on Vercel."*
+- **Vercel Speed Insights** — `@vercel/speed-insights` installed, `<SpeedInsights />` component added to `pages/_app.tsx`. Real-user Core Web Vitals now visible in the Vercel dashboard after deploy.
 
 ---
 
