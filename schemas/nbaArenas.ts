@@ -2,6 +2,7 @@
 import { ImagesIcon, StarIcon } from '@sanity/icons' // Added ImagesIcon
 import { defineField, defineType } from 'sanity'
 import { AltTextGeneratorInput } from '../plugins/AltTextGeneratorInput'
+import { VerdictGeneratorInput } from '../plugins/VerdictGeneratorInput'
 
 // --- Helper Function for Verdict Character Count ---
 const getPortableTextLength = (blocks) => {
@@ -313,6 +314,7 @@ export default defineType({
               }
               return true
             }).error(),
+          components: { input: VerdictGeneratorInput },
         }), // --- End Verdict ---
       ], // --- End of fields INSIDE the group ---
     }), // --- End of the GROUPING Fieldset ---

@@ -3,6 +3,7 @@ import { format, parseISO } from 'date-fns'
 import { IceCream } from 'lucide-react'
 import { defineField, defineType } from 'sanity'
 import { AltTextGeneratorInput } from '../plugins/AltTextGeneratorInput'
+import { VerdictGeneratorInput } from '../plugins/VerdictGeneratorInput'
 
 /**
  * This is the schema definition for a food/restaurant review.
@@ -263,6 +264,7 @@ export default defineType({
       type: 'array',
       of: [{ type: 'block' }],
       validation: (Rule) => Rule.required(),
+      components: { input: VerdictGeneratorInput },
     }),
 
     defineField({

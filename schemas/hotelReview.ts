@@ -2,6 +2,7 @@ import { HomeIcon } from '@sanity/icons'
 import { format, parseISO } from 'date-fns'
 import { defineField, defineType } from 'sanity'
 import { AltTextGeneratorInput } from '../plugins/AltTextGeneratorInput'
+import { VerdictGeneratorInput } from '../plugins/VerdictGeneratorInput'
 
 /**
  * This is the schema definition for a hotel review.
@@ -243,6 +244,7 @@ export default defineType({
       type: 'array',
       of: [{ type: 'block' }],
       validation: (Rule) => Rule.required(),
+      components: { input: VerdictGeneratorInput },
     }),
 
     defineField({
