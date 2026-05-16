@@ -302,7 +302,7 @@ export default function FoodReviewPage(props: FoodReviewPageProps) {
           {/* Best Dish callout */}
           {bestDish && (
             <div className="my-6 flex items-start gap-4 rounded-xl border-2 border-primary/30 bg-primary/5 p-4 sm:p-5">
-              <div className="mt-0.5 flex-shrink-0 rounded-lg bg-primary/10 p-2">
+              <div className="mt-0.5 shrink-0 rounded-lg bg-primary/10 p-2">
                 <Medal className="h-5 w-5 text-primary" />
               </div>
               <div className="min-w-0">

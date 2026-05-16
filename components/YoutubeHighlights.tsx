@@ -190,7 +190,7 @@ function ShortsCarousel({ shorts }: { shorts: YoutubeVideo[] }) {
           <ShortCard key={short.id} video={short} />
         ))}
         {/* Spacer so the last card isn't clipped by the container edge */}
-        <div className="w-6 flex-shrink-0" aria-hidden="true" />
+        <div className="w-6 shrink-0" aria-hidden="true" />
       </div>
     </div>
   )
@@ -201,7 +201,7 @@ function ShortCard({ video }: { video: YoutubeVideo }) {
   const date = formatDate(video.publishedAt)
 
   return (
-    <div className="group flex-shrink-0 w-36 sm:w-40 overflow-hidden rounded-xl border-2 border-black shadow-brutalist-sm transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none">
+    <div className="group shrink-0 w-36 sm:w-40 overflow-hidden rounded-xl border-2 border-black shadow-brutalist-sm transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none">
       {playing ? (
         <div
           className="relative w-full bg-black"
@@ -238,12 +238,12 @@ function ShortCard({ video }: { video: YoutubeVideo }) {
           {/* Play button */}
           <div className="absolute inset-0 flex items-center justify-center bg-black/20 transition-colors group-hover:bg-black/35">
             <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-white bg-white/90 shadow-md transition-transform duration-200 group-hover:scale-110">
-              <Play size={14} className="translate-x-[1px] text-pink-500" />
+              <Play size={14} className="translate-x-px text-pink-500" />
             </div>
           </div>
 
           {/* Bottom overlay */}
-          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/85 via-black/50 to-transparent px-2 pb-2 pt-8">
+          <div className="absolute bottom-0 left-0 right-0 bg-linear-to-t from-black/85 via-black/50 to-transparent px-2 pb-2 pt-8">
             {video.title && (
               <p className="line-clamp-2 text-xs font-bold leading-snug text-white drop-shadow">
                 {video.title}
@@ -296,12 +296,12 @@ function VideoCard({ video }: { video: DisplayVideo }) {
           {/* Play button */}
           <div className="absolute inset-0 flex items-center justify-center bg-black/20 transition-colors group-hover:bg-black/35">
             <div className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-white bg-white/90 shadow-md transition-transform duration-200 group-hover:scale-110">
-              <Play size={18} className="translate-x-[1px] text-pink-500" />
+              <Play size={18} className="translate-x-px text-pink-500" />
             </div>
           </div>
 
           {/* Bottom gradient overlay */}
-          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/85 via-black/50 to-transparent px-3 pb-3 pt-10">
+          <div className="absolute bottom-0 left-0 right-0 bg-linear-to-t from-black/85 via-black/50 to-transparent px-3 pb-3 pt-10">
             {(video.isFeatured || video.category) && (
               <div className="mb-1 flex flex-wrap items-center gap-1.5">
                 {video.isFeatured && (
