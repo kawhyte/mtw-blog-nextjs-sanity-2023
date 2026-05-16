@@ -151,7 +151,7 @@ async function processImage(label, assetRef, existingAlt, patchFn, contentType, 
   } catch (err) {
     console.error(`  ❌  ${label} — ${err.message}`)
     totalErrors++
-    await sleep(2000)
+    await sleep(8000)
   }
 }
 
@@ -217,7 +217,7 @@ async function processArenas() {
         } catch (err) {
           console.error(`  ❌  imageGallery[${i}].alt — ${err.message}`)
           totalErrors++
-          await sleep(2000)
+          await sleep(8000)
         }
       }
 
@@ -289,7 +289,7 @@ async function processHotelReviews() {
         } catch (err) {
           console.error(`  ❌  gallery[${i}].alt — ${err.message}`)
           totalErrors++
-          await sleep(2000)
+          await sleep(8000)
         }
       }
 
@@ -361,7 +361,7 @@ async function processFoodReviews() {
         } catch (err) {
           console.error(`  ❌  gallery[${i}].alt — ${err.message}`)
           totalErrors++
-          await sleep(2000)
+          await sleep(8000)
         }
       }
 

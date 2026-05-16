@@ -159,6 +159,13 @@ export default defineType({
               validation: (Rule) =>
                 Rule.max(120).warning(`shouldn't be more than 120 characters.`),
             },
+            defineField({
+              name: 'alt',
+              type: 'string',
+              title: 'Alternative Text',
+              description: 'Describe the dish/drink for accessibility and SEO.',
+              components: { input: AltTextGeneratorInput },
+            }),
           ],
         },
       ],

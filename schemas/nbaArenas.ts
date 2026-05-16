@@ -211,7 +211,7 @@ export default defineType({
               type: 'string',
               description: 'REQUIRED: e.g., "Los Angeles Lakers Logo"',
               // validation: Rule => Rule.required().error('Alt text for the logo is required.'),
-              // options: { isHighlighted: true } // Removed previously
+              components: { input: AltTextGeneratorInput },
             }),
           ],
           preview: {
@@ -397,6 +397,13 @@ export default defineType({
               title: 'Short Review (120 chars max)',
               validation: (Rule) =>
                 Rule.max(120).warning(`Shouldn't be more than 120 characters.`),
+            }),
+            defineField({
+              name: 'alt',
+              type: 'string',
+              title: 'Alternative Text',
+              description: 'Describe the food/drink item for SEO.',
+              components: { input: AltTextGeneratorInput },
             }),
           ],
           preview: {

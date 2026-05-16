@@ -1,6 +1,7 @@
 // schemas/objects/photoGallery.js
-import { defineField, defineType } from 'sanity'
 import { ImageIcon } from '@sanity/icons' // Optional: for a nice icon
+import { defineField, defineType } from 'sanity'
+import { AltTextGeneratorInput } from '../plugins/AltTextGeneratorInput'
 
 export default defineType({
   name: 'photoGallery',
@@ -25,10 +26,7 @@ export default defineType({
           description:
             'REQUIRED: Describe the image for accessibility and SEO.',
           // validation: (Rule) => Rule.required().error('Alt text is required.'),
-
-          // options: {
-          //   isHighlighted: true,
-          // },
+          components: { input: AltTextGeneratorInput },
         }),
       ],
       // validation: Rule => Rule.required().error('The main gallery image is required.') // Keep if main image is mandatory for the section
@@ -55,9 +53,7 @@ export default defineType({
               description:
                 'REQUIRED: Describe the image for accessibility and SEO.',
               // validation: (Rule) => Rule.required().error('Alt text is required for each image.'),
-              // options: {
-              //   isHighlighted: true,
-              // },
+              components: { input: AltTextGeneratorInput },
             }),
           ],
         },
