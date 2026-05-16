@@ -24,7 +24,13 @@
     "fix-arena-teams": "node scripts/fix-arena-team-names.mjs",
     "fix-arena-teams:live": "node scripts/fix-arena-team-names.mjs --no-dry-run",
     "add-arena-excerpts": "node scripts/add-arena-excerpts.mjs",
-    "add-arena-excerpts:live": "node scripts/add-arena-excerpts.mjs --no-dry-run"
+    "add-arena-excerpts:live": "node scripts/add-arena-excerpts.mjs --no-dry-run",
+    "generate-alt-text": "node scripts/generate-alt-text.mjs",
+    "generate-alt-text:live": "node scripts/generate-alt-text.mjs --no-dry-run",
+    "generate-seo-excerpts": "node scripts/generate-seo-excerpts.mjs",
+    "generate-seo-excerpts:live": "node scripts/generate-seo-excerpts.mjs --no-dry-run",
+    "fix-null-fields": "node scripts/fix-null-fields.mjs",
+    "fix-null-fields:live": "node scripts/fix-null-fields.mjs --no-dry-run"
   },
   "prettier": {
     "semi": false,

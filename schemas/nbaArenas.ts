@@ -1,6 +1,7 @@
 // schemas/nbaArenas.ts
 import { ImagesIcon, StarIcon } from '@sanity/icons' // Added ImagesIcon
 import { defineField, defineType } from 'sanity'
+import { AltTextGeneratorInput } from '../plugins/AltTextGeneratorInput'
 
 // --- Helper Function for Verdict Character Count ---
 const getPortableTextLength = (blocks) => {
@@ -86,6 +87,7 @@ export default defineType({
           description: 'REQUIRED: Describe the image.',
           // validation: (Rule) => Rule.required().error('Alt text is required.'),
           // options: { isHighlighted: true } // Removed previously
+          components: { input: AltTextGeneratorInput },
         }),
       ],
       // validation: (Rule) => Rule.required(), // Consider if required
@@ -123,6 +125,7 @@ export default defineType({
               description:
                 'REQUIRED: Describe the image for accessibility and SEO.',
               // validation: Rule => Rule.required().error('Alt text is required for every gallery image.'),
+              components: { input: AltTextGeneratorInput },
             }),
             // Optional Caption
             defineField({

@@ -1,6 +1,7 @@
 import { HomeIcon } from '@sanity/icons'
 import { format, parseISO } from 'date-fns'
 import { defineField, defineType } from 'sanity'
+import { AltTextGeneratorInput } from '../plugins/AltTextGeneratorInput'
 
 /**
  * This is the schema definition for a hotel review.
@@ -103,6 +104,15 @@ export default defineType({
       options: {
         hotspot: true,
       },
+      fields: [
+        defineField({
+          name: 'alt',
+          type: 'string',
+          title: 'Alternative text',
+          description: 'Describe the image for SEO and accessibility.',
+          components: { input: AltTextGeneratorInput },
+        }),
+      ],
     }),
 
     defineField({
@@ -112,6 +122,16 @@ export default defineType({
       description: 'Add a short summary of your hotel experience',
       of: [{ type: 'block' }],
       validation: (rule) => rule.required(),
+    }),
+
+    defineField({
+      name: 'seoExcerpt',
+      title: 'SEO Excerpt / Meta Description',
+      type: 'string',
+      description:
+        'Plain text shown in Google search results and social shares. 120–155 characters ideal. Leave blank to fall back to the Hotel Summary above.',
+      validation: (Rule) =>
+        Rule.max(155).warning('Keep under 155 characters for Google search results'),
     }),
 
     defineField({
@@ -154,6 +174,7 @@ export default defineType({
               name: 'alt',
               type: 'string',
               title: 'Alternative text',
+              components: { input: AltTextGeneratorInput },
             },
           ],
         },
@@ -246,6 +267,7 @@ export default defineType({
               type: 'string',
               title: 'Alternative Text',
               description: 'Important for SEO and accessibility',
+              components: { input: AltTextGeneratorInput },
             },
           ],
         },

@@ -77,11 +77,18 @@ export default function PostPageHead({
     const capacity = (post as any).capacity as number | undefined
     pageDescription = `Our honest tips and review of ${post.title} in ${loc}${capacity ? ` (${capacity.toLocaleString()} seats)` : ''}. Food, parking, sightlines, atmosphere and more from basketball fans who've been there.`
   } else if (
+    'seoExcerpt' in post &&
+    typeof (post as any).seoExcerpt === 'string' &&
+    (post as any).seoExcerpt.trim()
+  ) {
+    // 3. Plain-text SEO excerpt for hotel/food reviews
+    pageDescription = (post as any).seoExcerpt.trim()
+  } else if (
     'excerpt2' in post &&
     Array.isArray((post as any).excerpt2) &&
     (post as any).excerpt2.length > 0
   ) {
-    // 2. Use post excerpt if available and looks like Portable Text
+    // 4. Fall back to hotel/food summary block (stripped to plain text)
     pageDescription = toPlainText((post as any).excerpt2)
   } else if (
     settings?.description &&

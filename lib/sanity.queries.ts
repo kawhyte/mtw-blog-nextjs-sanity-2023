@@ -394,6 +394,7 @@ export const independentHotelReviewFields = groq`
     asset->{ _id, metadata { lqip, dimensions { width, height } } }
   },
   excerpt2,
+  seoExcerpt,
   blurbSource,
   blurbUrl,
   tip,
@@ -490,6 +491,7 @@ export const independentFoodReviewFields = groq`
     asset->{ _id, metadata { lqip, dimensions { width, height } } }
   },
   excerpt2,
+  seoExcerpt,
   tip,
   individualFoodRating,
   gallery[] {
@@ -593,6 +595,7 @@ export interface HotelReview {
   lounge?: string
   coverImage?: any
   excerpt2?: any[]
+  seoExcerpt?: string
   blurbSource?: string
   blurbUrl?: string
   tip?: any[]
@@ -665,6 +668,7 @@ export interface FoodReview {
   diningType?: 'dinein' | 'takeout'
   coverImage?: any
   excerpt2?: any[]
+  seoExcerpt?: string
   tip?: any[]
   individualFoodRating?: any[]
   gallery?: any[]
@@ -795,7 +799,7 @@ export const globalSearchQuery = groq`
   "guides": *[_type == "guide" && (!defined(publishedAt) || publishedAt <= now()) && (
     title match $searchTerm ||
     location match $searchTerm ||
-    excerpt2 match $searchTerm ||
+    summary match $searchTerm ||
     guideType match $searchTerm
   )] {
     ${independentGuideFields},
