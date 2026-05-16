@@ -122,7 +122,7 @@ export default defineType({
       type: 'array',
       description: 'Add a short summary of your hotel experience',
       of: [{ type: 'block' }],
-      validation: (rule) => rule.required(),
+      hidden: true,
     }),
 
     defineField({

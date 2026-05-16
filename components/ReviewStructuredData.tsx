@@ -82,16 +82,16 @@ export default function ReviewStructuredData({
       description: rating.textRating,
     },
     headline: `${review.title} Review - NBA Arena ${reviewType === 'hotel' ? 'Hotel' : 'Food'} Guide`,
-    reviewBody: review.excerpt2
-      ? Array.isArray(review.excerpt2)
-        ? review.excerpt2
+    reviewBody: review.verdict
+      ? Array.isArray(review.verdict)
+        ? review.verdict
             .map((block: any) =>
               block._type === 'block'
                 ? block.children?.map((child: any) => child.text).join('')
                 : '',
             )
             .join(' ')
-        : review.excerpt2
+        : review.verdict
       : `Detailed review of ${review.title} for NBA arena travelers.`,
     url: pageUrl,
     image: imageUrl,

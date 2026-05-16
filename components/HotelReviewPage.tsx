@@ -293,13 +293,7 @@ function HotelReviewPageContent(props: HotelReviewPageProps) {
               )}
             </header>
 
-            {hotelReview.excerpt2 && (
-              <ReviewBlurb
-                content={hotelReview.excerpt2}
-                source={hotelReview.blurbSource}
-                url={hotelReview.blurbUrl}
-              />
-            )}
+            {/* Hotel Summary hidden — excerpt2 not rendered to avoid duplicate content SEO issues */}
           </Section>
 
           {galleryImages.length > 0 && (

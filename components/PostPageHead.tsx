@@ -84,13 +84,6 @@ export default function PostPageHead({
     // 3. Plain-text SEO excerpt for hotel/food reviews
     pageDescription = (post as any).seoExcerpt.trim()
   } else if (
-    'excerpt2' in post &&
-    Array.isArray((post as any).excerpt2) &&
-    (post as any).excerpt2.length > 0
-  ) {
-    // 4. Fall back to hotel/food summary block (stripped to plain text)
-    pageDescription = toPlainText((post as any).excerpt2)
-  } else if (
     settings?.description &&
     Array.isArray(settings.description) &&
     settings.description.length > 0

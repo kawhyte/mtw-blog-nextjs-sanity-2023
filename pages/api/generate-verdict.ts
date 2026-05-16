@@ -175,7 +175,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         signal: AbortSignal.timeout(25000),
         body: JSON.stringify({
           contents: [{ parts: [{ text: prompt }] }],
-          generationConfig: { maxOutputTokens: 200, temperature: 0.75 },
+          generationConfig: { maxOutputTokens: 1024, temperature: 0.75 },
         }),
       },
     )

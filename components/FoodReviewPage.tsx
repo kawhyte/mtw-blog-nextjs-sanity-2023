@@ -274,7 +274,7 @@ export default function FoodReviewPage(props: FoodReviewPageProps) {
             />
           )}
 
-          {foodReview.excerpt2 && <ReviewBlurb content={foodReview.excerpt2} />}
+          {/* Restaurant Summary hidden — excerpt2 not rendered to avoid duplicate content SEO issues */}
 
           {effectiveRating && (
             <ReviewRating
