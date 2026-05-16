@@ -3,6 +3,7 @@ import { format, parseISO } from 'date-fns'
 import { IceCream } from 'lucide-react'
 import { defineField, defineType } from 'sanity'
 import { AltTextGeneratorInput } from '../plugins/AltTextGeneratorInput'
+import { SeoExcerptGeneratorInput } from '../plugins/SeoExcerptGeneratorInput'
 import { VerdictGeneratorInput } from '../plugins/VerdictGeneratorInput'
 
 /**
@@ -107,6 +108,7 @@ export default defineType({
         'Plain text shown in Google search results and social shares. 120–155 characters ideal. Leave blank to fall back to the Restaurant Summary above.',
       validation: (Rule) =>
         Rule.max(155).warning('Keep under 155 characters for Google search results'),
+      components: { input: SeoExcerptGeneratorInput },
     }),
 
     defineField({

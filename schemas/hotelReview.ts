@@ -2,6 +2,7 @@ import { HomeIcon } from '@sanity/icons'
 import { format, parseISO } from 'date-fns'
 import { defineField, defineType } from 'sanity'
 import { AltTextGeneratorInput } from '../plugins/AltTextGeneratorInput'
+import { SeoExcerptGeneratorInput } from '../plugins/SeoExcerptGeneratorInput'
 import { VerdictGeneratorInput } from '../plugins/VerdictGeneratorInput'
 
 /**
@@ -133,6 +134,7 @@ export default defineType({
         'Plain text shown in Google search results and social shares. 120–155 characters ideal. Leave blank to fall back to the Hotel Summary above.',
       validation: (Rule) =>
         Rule.max(155).warning('Keep under 155 characters for Google search results'),
+      components: { input: SeoExcerptGeneratorInput },
     }),
 
     defineField({
@@ -141,6 +143,7 @@ export default defineType({
       type: 'string',
       description:
         'The source of the blurb (e.g., Hyatt Regency Boston Harbor).',
+      hidden: true,
     }),
 
     defineField({
@@ -148,6 +151,7 @@ export default defineType({
       title: 'Blurb Source URL',
       type: 'url',
       description: 'The URL to the source of the blurb.',
+      hidden: true,
     }),
 
     defineField({

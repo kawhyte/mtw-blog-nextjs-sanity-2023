@@ -2,6 +2,7 @@
 import { ImagesIcon, StarIcon } from '@sanity/icons' // Added ImagesIcon
 import { defineField, defineType } from 'sanity'
 import { AltTextGeneratorInput } from '../plugins/AltTextGeneratorInput'
+import { SeoExcerptGeneratorInput } from '../plugins/SeoExcerptGeneratorInput'
 import { VerdictGeneratorInput } from '../plugins/VerdictGeneratorInput'
 
 // --- Helper Function for Verdict Character Count ---
@@ -60,6 +61,7 @@ export default defineType({
         'A 1–2 sentence description that appears in Google search results. Keep it under 155 characters. Example: "Our full review of Barclays Center in Brooklyn — food, parking, sightlines, and tips for first-time visitors."',
       validation: (Rule) =>
         Rule.max(155).warning('Keep under 155 characters for best SEO results.'),
+      components: { input: SeoExcerptGeneratorInput },
     }),
     defineField({
       name: 'capacity',
