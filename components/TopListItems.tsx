@@ -33,15 +33,15 @@ export default function TopListItems({
           return (
             <div
               key={post._id}
-              className={`group relative pt-[9rem] sm:pt-[14rem]${
+              className={`group relative pt-0 sm:pt-[14rem]${
                 i === posts.length - 1 && posts.length % 3 === 1
                   ? ' lg:col-start-2'
                   : ''
               }`}
             >
-              {/* Large rank number — top 3 get medal tones */}
+              {/* Large rank number — visible on sm+ only; hidden on mobile */}
               <span
-                className={`absolute left-1/2 top-1 sm:-top-1 z-0 -translate-x-1/2 font-epilogue text-[9rem] font-black leading-none transition-all duration-300 group-hover:scale-110 sm:text-[14rem] ${getRankColor(rank)}`}
+                className={`hidden sm:block absolute left-1/2 sm:-top-1 z-0 -translate-x-1/2 font-epilogue font-black leading-none transition-all duration-300 group-hover:scale-110 sm:text-[14rem] ${getRankColor(rank)}`}
                 aria-hidden="true"
               >
                 {rank}
@@ -59,6 +59,7 @@ export default function TopListItems({
                   location={post.location}
                   category={'category' in post ? post.category : undefined}
                   showRating={true}
+                  rank={rank}
                   linkType={
                     contentType === 'hotel'
                       ? 'hotel'

@@ -7,51 +7,73 @@ interface CardSkeletonProps {
 
 export function CardSkeleton({ className }: CardSkeletonProps) {
   return (
-    <div
-      className={`group relative w-full overflow-hidden rounded-4xl border-4 border-border-bold bg-card text-foreground shadow-offsetIndigo ${className}`}
-    >
-      {/* Cover Image Skeleton */}
-      <div className="relative">
-        <Skeleton className="aspect-[4/3] w-full rounded-none" />
-        {/* Rating Badge Skeleton */}
-        <div className="absolute top-3 right-3">
-          <Skeleton className="h-8 w-16 rounded-full" />
+    <>
+      {/* ── MOBILE SKELETON (< 640px) ───────────────────────────────────── */}
+      <div
+        className={`sm:hidden flex w-full flex-row overflow-hidden rounded-3xl border-2 border-border-bold bg-card ${className ?? ''}`}
+      >
+        {/* Thumbnail placeholder */}
+        <Skeleton className="self-stretch w-[96px] shrink-0 rounded-l-[22px] rounded-r-none" />
+
+        {/* Content placeholders */}
+        <div className="flex flex-1 flex-col justify-center gap-2 px-3 py-2.5">
+          <Skeleton className="h-3.5 w-16 rounded-full" />
+          <Skeleton className="h-4 w-4/5" />
+          <Skeleton className="h-3.5 w-3/5" />
+          <div className="flex gap-2">
+            <Skeleton className="h-3 w-16" />
+            <Skeleton className="h-3 w-14" />
+          </div>
         </div>
       </div>
 
-      <CardContent className="flex grow flex-col justify-between p-4">
-        <div className="flex flex-col sm:mb-2 sm:ml-2 sm:gap-y-2">
-          {/* Title Skeleton */}
-          <div className="pt-1">
-            <Skeleton className="h-5 w-4/5 sm:h-6" />
-            <Skeleton className="mt-2 h-5 w-3/5 sm:h-6" />
+      {/* ── DESKTOP / TABLET SKELETON (≥ 640px) — unchanged ──────────────── */}
+      <div
+        className={`hidden sm:block group relative w-full overflow-hidden rounded-4xl border-4 border-border-bold bg-card text-foreground shadow-offsetIndigo ${className ?? ''}`}
+      >
+        {/* Cover Image Skeleton */}
+        <div className="relative">
+          <Skeleton className="aspect-[4/3] w-full rounded-none" />
+          {/* Rating Badge Skeleton */}
+          <div className="absolute top-3 right-3">
+            <Skeleton className="h-8 w-16 rounded-full" />
           </div>
+        </div>
 
-          {/* Meta Info Skeleton */}
-          <div className="mt-4 flex flex-col gap-2 sm:flex-row sm:items-center md:flex-col md:items-start">
-            {/* Location Skeleton */}
-            <div className="flex items-center gap-x-2">
-              <Skeleton className="h-5 w-5 rounded-full" />
-              <Skeleton className="h-4 w-24" />
+        <CardContent className="flex grow flex-col justify-between p-4">
+          <div className="flex flex-col sm:mb-2 sm:ml-2 sm:gap-y-2">
+            {/* Title Skeleton */}
+            <div className="pt-1">
+              <Skeleton className="h-5 w-4/5 sm:h-6" />
+              <Skeleton className="mt-2 h-5 w-3/5 sm:h-6" />
             </div>
 
-            {/* Date Skeleton */}
-            <div className="sm:ml-auto md:-ml-5">
-              <div className="flex items-center">
-                <Skeleton className="mr-2 h-5 w-5 rounded-full sm:ml-5" />
-                <Skeleton className="h-4 w-20" />
+            {/* Meta Info Skeleton */}
+            <div className="mt-4 flex flex-col gap-2 sm:flex-row sm:items-center md:flex-col md:items-start">
+              {/* Location Skeleton */}
+              <div className="flex items-center gap-x-2">
+                <Skeleton className="h-5 w-5 rounded-full" />
+                <Skeleton className="h-4 w-24" />
+              </div>
+
+              {/* Date Skeleton */}
+              <div className="sm:ml-auto md:-ml-5">
+                <div className="flex items-center">
+                  <Skeleton className="mr-2 h-5 w-5 rounded-full sm:ml-5" />
+                  <Skeleton className="h-4 w-20" />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </CardContent>
+        </CardContent>
 
-      <CardFooter className="container mx-auto mt-auto flex items-center pt-1">
-        <div className="w-full flex">
-          <Skeleton className="mx-auto mb-2 h-9 w-32 rounded-md" />
-        </div>
-      </CardFooter>
-    </div>
+        <CardFooter className="container mx-auto mt-auto flex items-center pt-1">
+          <div className="w-full flex">
+            <Skeleton className="mx-auto mb-2 h-9 w-32 rounded-md" />
+          </div>
+        </CardFooter>
+      </div>
+    </>
   )
 }
 

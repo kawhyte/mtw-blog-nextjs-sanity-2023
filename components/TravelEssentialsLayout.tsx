@@ -73,7 +73,106 @@ function extractPlainText(blocks: any[]): string {
 const TravelEssentialLayout = ({ posts }: { posts: Essential[] }) => {
   return (
     <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div className="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3 xl:grid-cols-4">
+      {/* ── MOBILE LIST (< 640px) ───────────────────────────────────────── */}
+      <div className="sm:hidden flex flex-col gap-3">
+        {posts?.map((item, index) => {
+          const imgSrc = item?.productImage?.asset?._id
+            ? urlForImage(item.productImage)
+                .width(160)
+                .height(160)
+                .fit('max')
+                .auto('format')
+                .url()
+            : null
+
+          const lqip = item?.productImage?.asset?.metadata?.lqip
+
+          const blurb =
+            item.whyWePack ||
+            (item.description ? extractPlainText(item.description) : null)
+
+          return (
+            <div
+              key={item._id}
+              className="group relative flex flex-row overflow-hidden rounded-2xl border-2 border-foreground bg-card transition-all duration-200 active:scale-95 active:shadow-none"
+            >
+              {/* Image */}
+              <div className="relative h-[80px] w-[80px] shrink-0 overflow-hidden rounded-l-[14px] bg-muted">
+                {imgSrc ? (
+                  <Image
+                    alt={item.name ?? 'Travel gear item'}
+                    src={imgSrc}
+                    fill
+                    sizes="80px"
+                    style={{ objectFit: 'contain' }}
+                    placeholder={lqip ? 'blur' : 'empty'}
+                    blurDataURL={lqip}
+                    priority={index < 4}
+                    className="p-2 transition-transform duration-300 group-hover:scale-105"
+                  />
+                ) : (
+                  <div className="flex h-full w-full items-center justify-center text-[10px] text-muted-foreground">
+                    No image
+                  </div>
+                )}
+              </div>
+
+              {/* Content */}
+              <div className="flex min-w-0 flex-1 flex-col justify-center gap-1 px-3 py-2">
+                {/* Badges row */}
+                <div className="flex flex-wrap items-center gap-1">
+                  <TripBadge tripType={item.tripType} />
+                  {item.featured && (
+                    <span className="inline-flex items-center gap-0.5 rounded-full bg-yellow-400 px-2 py-0.5 text-[10px] font-bold text-yellow-900">
+                      <Star className="h-2.5 w-2.5 fill-yellow-900" />
+                      Featured
+                    </span>
+                  )}
+                </div>
+
+                {/* Name */}
+                <p className="line-clamp-2 text-sm font-bold leading-snug text-foreground">
+                  {item.name}
+                </p>
+
+                {/* Why we pack */}
+                {blurb && (
+                  <p className="line-clamp-1 text-[11px] italic text-muted-foreground">
+                    {blurb}
+                  </p>
+                )}
+
+                {/* Price + CTA */}
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-1 text-sm font-bold text-foreground">
+                    <CircleDollarSign className="h-3.5 w-3.5 shrink-0 text-primary" />
+                    <span>
+                      {item.price && item.price > 0
+                        ? `$${item.price.toFixed(2)}`
+                        : 'Free'}
+                    </span>
+                  </div>
+
+                  {item.link && (
+                    <a
+                      href={item.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="relative z-20 flex items-center gap-0.5 text-xs font-semibold text-primary"
+                    >
+                      Get It
+                      <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-1" />
+                    </a>
+                  )}
+                </div>
+              </div>
+            </div>
+          )
+        })}
+      </div>
+
+      {/* ── DESKTOP / TABLET GRID (≥ 640px) — unchanged ────────────────── */}
+      <div className="hidden sm:grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3 xl:grid-cols-4">
         {posts?.map((item, index) => {
           const imgSrc = item?.productImage?.asset?._id
             ? urlForImage(item.productImage)
