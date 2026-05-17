@@ -102,7 +102,7 @@ export default defineType({
       title: 'Main Image',
       type: 'image',
       description:
-        'For best results: Image size should be 850 x 405, webp quality 80%, 60% image resize.',
+        'Main image — used on listing cards and the hero gallery. Upload at 1200 × 800 px (3:2 landscape). WebP 80% or JPEG 85% quality.',
       options: {
         hotspot: true,
       },
@@ -167,7 +167,7 @@ export default defineType({
       title: 'Photo Gallery',
       type: 'array',
       description:
-        'For best results: Image size should be 566 x 525, webp quality 80%, 80% image resize.',
+        'Photo gallery — upload each photo at its natural crop, max 1600 px on the longest edge. WebP 80% or JPEG 85% quality. Any aspect ratio is fine.',
       of: [
         {
           type: 'image',

@@ -157,8 +157,8 @@ const IndividualFoodRating = ({ food }) => {
                 <div className="relative h-64 w-full">
                   <Image
                     src={urlForImage(item.asset._ref)
-                      .width(400)
-                      .height(300)
+                      .width(900)
+                      .height(600)
                       .fit('crop')
                       .url()}
                     alt={item?.name || 'Food item'}

@@ -80,7 +80,7 @@ export default defineType({
       name: 'arenaImage', // Main image for cards/lists
       title: 'Arena Image (Card/List View)',
       type: 'image',
-      description: 'Image used for previews. Size suggestion: 350x205.',
+      description: 'Main arena image — used on listing cards and as the hero. Upload at 1200 × 800 px (3:2 landscape). WebP 80% or JPEG 85% quality.',
       options: { hotspot: true },
       fields: [
         defineField({
@@ -100,7 +100,7 @@ export default defineType({
       title: 'Arena Photo Gallery (1 Main + 4 Others)',
       type: 'photoGallery', // References 'photoGallery' object schema
       description:
-        'Add the main photo and exactly four supporting photos for the detailed arena page gallery.',
+        'Add the main photo and exactly four supporting photos for the detailed arena page gallery. Upload each at 1600 × 1067 px (3:2 landscape). WebP 80% or JPEG 85% quality.',
       // validation: Rule => Rule.required() // Uncomment if required
     }),
 
@@ -109,7 +109,7 @@ export default defineType({
       name: 'imageGallery', // New field name
       title: 'Image Gallery',
       description:
-        'Upload multiple photos of the arena (interior, exterior, food, views, etc.). Add descriptive alt text for each.',
+        'Upload multiple arena photos (interior, exterior, food, views, etc.). Max 1600 px on longest edge, any aspect ratio. WebP 80% or JPEG 85% quality. Add alt text for each.',
       type: 'array',
       icon: ImagesIcon, // Add a relevant icon
       hidden: ({ document }) => !document?.visited, // Hide if not visited
@@ -156,7 +156,7 @@ export default defineType({
       name: 'gallery', // Renamed field for Teams / Logos
       title: 'Teams / Logos',
       description:
-        'Logos/info for teams associated with the arena. Logo size suggestion: 96x96.',
+        'Logos/info for teams associated with the arena. Logo size: 200 × 200 px (square). PNG with transparent background preferred.',
       type: 'array',
       of: [
         {
@@ -367,7 +367,7 @@ export default defineType({
       title: 'Arena Food & Drinks We Tried',
       type: 'array',
       description:
-        'Rate individual food/drink items tried at this arena (optional). Image: webp 40% quality, 40% resize.',
+        'Rate individual food/drink items tried at this arena (optional). Photo for each item: 900 × 600 px (3:2 landscape). WebP 75% or JPEG 80% quality.',
       hidden: ({ document }) => !document?.visited,
       of: [
         {

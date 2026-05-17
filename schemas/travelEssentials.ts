@@ -175,7 +175,7 @@ export default defineType({
       type: 'image',
       validation: (Rule) => Rule.required(),
       description:
-        'For best results: Transparent background, Image size should be 850 x 405, webp quality 80%, 60% image resize.',
+        'Product image — displayed in a square card. Upload at 800 × 800 px (square). PNG with transparent background preferred; WebP 80% or JPEG 85% otherwise.',
       options: {
         hotspot: true,
       },

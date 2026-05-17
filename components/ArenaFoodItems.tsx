@@ -151,8 +151,8 @@ const ArenaFoodItems = ({ food }: ArenaFoodItemsProps) => {
                   {item.asset?._ref && (
                     <Image
                       src={urlForImage(item.asset._ref)
-                        .width(400)
-                        .height(300)
+                        .width(900)
+                        .height(600)
                         .fit('crop')
                         .url()}
                       alt={item?.name || 'Arena food item'}
