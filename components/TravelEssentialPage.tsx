@@ -90,7 +90,7 @@ export default function TravelEssentialPage({
             <div className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-3 py-1.5 text-xs text-muted-foreground">
               <PackageCheck className="h-3.5 w-3.5 text-primary" />
               <span>
-                ~{posts?.length ?? 0} curated picks · Updated {updatedLabel}
+                ~ Last Updated: {updatedLabel}
               </span>
             </div>
           </div>
