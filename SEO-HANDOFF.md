@@ -28,27 +28,16 @@ Next.js 13 (Pages Router) + Sanity CMS travel blog. Primary SEO goal: rank for *
 
 ---
 
-## ⚠️ SCRIPTS READY — NOT YET RUN LIVE
+## ✅ ALL SCRIPTS COMPLETE (Session 3)
 
-These scripts are written, dry-run verified, and ready to execute. Run them in order.
+### 1. Fix null fields — ✅ DONE
+166 documents cleaned (123 hotel reviews + 43 food reviews). Zero content deleted.
 
-### 1. Fix null fields + orphaned Robes data (run first, fast)
-```
-npm run fix-null-fields:live
-```
-**What it does:** Cleans 163 hotel/food review documents that have optional array fields stored as `null` (causes Studio warnings). Also removes the orphaned `roomAmenities.Robes` field from 2 hotel documents (Grand Hyatt Washington, Hyatt Regency Dulles). **Zero content is deleted** — only null placeholders are removed.
+### 2. Bulk SEO excerpt generator — ✅ DONE
+164 already filled from previous session, 1 remaining (Conrad Las Vegas) generated. All 165 hotel/food reviews now have `seoExcerpt`.
 
-### 2. Bulk SEO excerpt generator (run second, ~26 min total)
-```
-npm run generate-seo-excerpts:live
-```
-**What it does:** Uses Gemini to write a 120–155 char, human-sounding `seoExcerpt` for every published hotel and food review. Dry run showed 150 generated, 13 Gemini rate-limit errors. **Run it twice** — second pass auto-catches the 13 that errored (script skips docs that already have seoExcerpt).
-
-### 3. Bulk alt text generator (optional, ~17 min)
-```
-npm run generate-alt-text:live
-```
-**What it does:** Uses Gemini vision to generate alt text for every published arena/hotel/food image that has no alt text. Covers `arenaImage`, `imageGallery[]`, `coverImage`, `gallery[]`. Does NOT cover `content[]` embedded images (do those manually in Studio).
+### 3. Bulk alt text generator — ⏭ SKIPPED (manual preferred)
+Alt text will be done manually in Studio using the "Generate with AI" button on each image. Start with visited arenas. The script (`npm run generate-alt-text:live`) still works if you change your mind.
 
 ---
 

@@ -1,9 +1,7 @@
 import { urlForImage } from 'lib/sanity.image'
 import { Essential } from 'lib/sanity.queries'
-import { ArrowRight, CircleDollarSign } from 'lucide-react'
+import { ArrowRight, CircleDollarSign, Star, ThumbsUp } from 'lucide-react'
 import Image from 'next/image'
-
-import PostBody from './PostBody'
 
 const TRIP_TYPE_STYLES: Record<
   string,
@@ -64,21 +62,33 @@ function TripBadge({ tripType }: { tripType?: string[] }) {
   )
 }
 
+function extractPlainText(blocks: any[]): string {
+  if (!Array.isArray(blocks)) return ''
+  return blocks
+    .map((b) => b.children?.map((c: any) => c.text ?? '').join('') ?? '')
+    .join(' ')
+    .trim()
+}
+
 const TravelEssentialLayout = ({ posts }: { posts: Essential[] }) => {
   return (
     <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div className="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3 xl:grid-cols-4">
         {posts?.map((item) => {
-          const imgSrc = item?.productImage?.asset?._ref
-            ? urlForImage(item.productImage.asset._ref)
+          const imgSrc = item?.productImage?.asset?._id
+            ? urlForImage(item.productImage)
                 .width(400)
                 .height(400)
                 .fit('max')
                 .auto('format')
                 .url()
-            : '/placeholder-image.png'
+            : null
 
           const lqip = item?.productImage?.asset?.metadata?.lqip
+
+          const blurb =
+            item.whyWePack ||
+            (item.description ? extractPlainText(item.description) : null)
 
           return (
             <div
@@ -87,22 +97,44 @@ const TravelEssentialLayout = ({ posts }: { posts: Essential[] }) => {
             >
               {/* Image */}
               <div className="relative h-44 w-full bg-muted md:h-48">
-                <Image
-                  alt={item.name ?? 'Travel gear item'}
-                  src={imgSrc}
-                  fill
-                  sizes="(max-width: 768px) 50vw, (max-width: 1280px) 33vw, 25vw"
-                  style={{ objectFit: 'contain' }}
-                  placeholder={lqip ? 'blur' : 'empty'}
-                  blurDataURL={lqip}
-                  className="p-3 transition-transform duration-300 group-hover:scale-105"
-                />
+                {imgSrc ? (
+                  <Image
+                    alt={item.name ?? 'Travel gear item'}
+                    src={imgSrc}
+                    fill
+                    sizes="(max-width: 768px) 50vw, (max-width: 1280px) 33vw, 25vw"
+                    style={{ objectFit: 'contain' }}
+                    placeholder={lqip ? 'blur' : 'empty'}
+                    blurDataURL={lqip}
+                    className="p-3 transition-transform duration-300 group-hover:scale-105"
+                  />
+                ) : (
+                  <div className="flex h-full w-full items-center justify-center text-xs text-muted-foreground">
+                    No image
+                  </div>
+                )}
+
+                {/* Featured badge — top-right corner of image */}
+                {item.featured && (
+                  <span className="absolute right-2 top-2 inline-flex items-center gap-1 rounded-full bg-yellow-400 px-2 py-0.5 text-xs font-bold text-yellow-900 shadow">
+                    <Star className="h-3 w-3 fill-yellow-900" />
+                    Featured
+                  </span>
+                )}
               </div>
 
               {/* Content */}
               <div className="flex flex-col grow p-4 gap-2">
-                {/* Trip type badge */}
-                <TripBadge tripType={item.tripType} />
+                {/* Trip type badge + recommend badge */}
+                <div className="flex flex-wrap items-center gap-1">
+                  <TripBadge tripType={item.tripType} />
+                  {item.recommend && (
+                    <span className="inline-flex items-center gap-1 rounded-full border border-green-300 bg-green-100 px-2 py-0.5 text-xs font-semibold text-green-800">
+                      <ThumbsUp className="h-3 w-3" />
+                      We Recommend
+                    </span>
+                  )}
+                </div>
 
                 {/* Name */}
                 <h2 className="font-epilogue line-clamp-2 text-base font-bold leading-tight text-foreground md:text-lg">
@@ -110,15 +142,11 @@ const TravelEssentialLayout = ({ posts }: { posts: Essential[] }) => {
                 </h2>
 
                 {/* Why we pack this */}
-                <div className="grow text-xs text-muted-foreground md:text-sm">
-                  {item.whyWePack ? (
-                    <p className="line-clamp-2 italic">{item.whyWePack}</p>
-                  ) : item.description ? (
-                    <div className="line-clamp-2 italic">
-                      <PostBody content={item.description} />
-                    </div>
-                  ) : null}
-                </div>
+                {blurb && (
+                  <p className="grow line-clamp-2 text-xs italic text-muted-foreground md:text-sm">
+                    {blurb}
+                  </p>
+                )}
 
                 {/* Price */}
                 <div className="flex items-center gap-1 text-sm font-bold text-foreground">

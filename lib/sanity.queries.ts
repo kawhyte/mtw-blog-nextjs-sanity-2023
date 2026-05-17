@@ -869,7 +869,18 @@ export interface Essential {
   link?: string
   date?: string
   description?: any
-  productImage?: any
+  productImage?: {
+    _type: 'image'
+    hotspot?: any
+    crop?: any
+    asset?: {
+      _id: string
+      metadata?: {
+        lqip?: string
+        dimensions?: { width: number; height: number }
+      }
+    }
+  }
   recommend?: boolean
   price?: number
   tripType?: string[]
