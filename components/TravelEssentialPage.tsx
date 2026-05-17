@@ -4,7 +4,7 @@ import IndexPageHead from 'components/IndexPageHead'
 import type { Essential, Settings } from 'lib/sanity.queries'
 import { PackageCheck } from 'lucide-react'
 import Head from 'next/head'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 
 import { CMS_NAME } from '../lib/constants'
 import BlogHeader from './BlogHeader'
@@ -37,7 +37,21 @@ export default function TravelEssentialPage({
   const filteredPosts =
     activeFilter === 'all'
       ? posts
-      : posts.filter((post) => post.tripType?.includes(activeFilter))
+      : posts.filter(
+          (post) =>
+            post.tripType?.includes(activeFilter) ||
+            post.tripType?.includes('all'),
+        )
+
+  const filterCounts = useMemo(() => {
+    const counts: Record<string, number> = { all: posts.length }
+    for (const f of TRIP_FILTERS.filter((f) => f.value !== 'all')) {
+      counts[f.value] = posts.filter(
+        (p) => p.tripType?.includes(f.value) || p.tripType?.includes('all'),
+      ).length
+    }
+    return counts
+  }, [posts])
 
   const now = new Date()
   const updatedLabel = now.toLocaleString('default', {
@@ -99,6 +113,11 @@ export default function TravelEssentialPage({
                   )}
                 >
                   {filter.label}
+                  {(filterCounts[filter.value] ?? 0) > 0 && (
+                    <span className="ml-1 text-xs opacity-60">
+                      ({filterCounts[filter.value]})
+                    </span>
+                  )}
                 </button>
               ))}
             </div>

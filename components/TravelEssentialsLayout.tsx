@@ -1,6 +1,6 @@
 import { urlForImage } from 'lib/sanity.image'
 import { Essential } from 'lib/sanity.queries'
-import { ArrowRight, CircleDollarSign, Star, ThumbsUp } from 'lucide-react'
+import { ArrowRight, CircleDollarSign, Star } from 'lucide-react'
 import Image from 'next/image'
 
 const TRIP_TYPE_STYLES: Record<
@@ -74,7 +74,7 @@ const TravelEssentialLayout = ({ posts }: { posts: Essential[] }) => {
   return (
     <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div className="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3 xl:grid-cols-4">
-        {posts?.map((item) => {
+        {posts?.map((item, index) => {
           const imgSrc = item?.productImage?.asset?._id
             ? urlForImage(item.productImage)
                 .width(400)
@@ -96,7 +96,7 @@ const TravelEssentialLayout = ({ posts }: { posts: Essential[] }) => {
               className="group flex h-full flex-col overflow-hidden rounded-3xl border-4 border-foreground bg-card transition-all duration-300 hover:-translate-y-2 hover:shadow-brutalist"
             >
               {/* Image */}
-              <div className="relative h-44 w-full bg-muted md:h-48">
+              <div className="relative aspect-square w-full overflow-hidden rounded-t-3xl bg-muted">
                 {imgSrc ? (
                   <Image
                     alt={item.name ?? 'Travel gear item'}
@@ -106,6 +106,7 @@ const TravelEssentialLayout = ({ posts }: { posts: Essential[] }) => {
                     style={{ objectFit: 'contain' }}
                     placeholder={lqip ? 'blur' : 'empty'}
                     blurDataURL={lqip}
+                    priority={index < 4}
                     className="p-3 transition-transform duration-300 group-hover:scale-105"
                   />
                 ) : (
@@ -125,16 +126,7 @@ const TravelEssentialLayout = ({ posts }: { posts: Essential[] }) => {
 
               {/* Content */}
               <div className="flex flex-col grow p-4 gap-2">
-                {/* Trip type badge + recommend badge */}
-                <div className="flex flex-wrap items-center gap-1">
-                  <TripBadge tripType={item.tripType} />
-                  {item.recommend && (
-                    <span className="inline-flex items-center gap-1 rounded-full border border-green-300 bg-green-100 px-2 py-0.5 text-xs font-semibold text-green-800">
-                      <ThumbsUp className="h-3 w-3" />
-                      We Recommend
-                    </span>
-                  )}
-                </div>
+                <TripBadge tripType={item.tripType} />
 
                 {/* Name */}
                 <h2 className="font-epilogue line-clamp-2 text-base font-bold leading-tight text-foreground md:text-lg">
