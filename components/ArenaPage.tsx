@@ -20,8 +20,6 @@ import {
   RefreshCw,
   Sofa,
   Ticket,
-  TrendingDown,
-  Trophy,
   Users,
   Users2,
 } from 'lucide-react'
@@ -37,11 +35,11 @@ const ImageGallery = dynamic(() => import('./ImageGallery'), {
 })
 
 import { Badge } from '@/components/ui/badge'
-import { Card, CardContent } from '@/components/ui/card'
 
 import ArenaFoodItems from './ArenaFoodItems'
 import ArenaHotelStay from './ArenaHotelStay'
 import ArenaRatingCard from './ArenaRatingCard'
+import ArenaViewFromSeat from './ArenaViewFromSeat'
 import ArenaStructuredData from './ArenaStructuredData'
 import BlogHeader from './BlogHeader'
 import BreadcrumbStructuredData from './BreadcrumbStructuredData'
@@ -124,23 +122,6 @@ export default function ArenaPage({
 
   const ratingResult = effectiveArenaReview
     ? calculateAverageRating(effectiveArenaReview as any)
-    : null
-
-  // --- Best feature / weakest link (raw 1–10 scores; display as /5) ---
-  const scoutingData = effectiveArenaReview
-    ? Object.entries(effectiveArenaReview)
-        .filter(([, v]) => typeof v === 'number')
-        .map(([k, v]) => ({
-          key: k,
-          label: ARENA_RATING_LABELS[k] ?? k,
-          score: v as number,
-        }))
-    : []
-  const bestFeature = scoutingData.length
-    ? scoutingData.reduce((a, b) => (a.score > b.score ? a : b))
-    : null
-  const weakestLink = scoutingData.length
-    ? scoutingData.reduce((a, b) => (a.score < b.score ? a : b))
     : null
 
   // --- Revisit timeline ---
@@ -317,43 +298,6 @@ export default function ArenaPage({
             />
           )}
 
-          {/* 4. BEST FEATURE / LOWEST SCORE highlights row */}
-          {(bestFeature || weakestLink) && ratingResult && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-              {bestFeature && (
-                <Card className="border-border shadow-sm">
-                  <CardContent className="p-4 flex items-start gap-3">
-                    <Trophy className="h-6 w-6 text-yellow-500 shrink-0 mt-0.5" />
-                    <div>
-                      <p className="text-xs text-muted-foreground uppercase tracking-wide mb-0.5">
-                        Best Feature
-                      </p>
-                      <p className="font-bold text-base">{bestFeature.label}</p>
-                      <p className="text-sm font-semibold text-success">
-                        {(bestFeature.score / 2).toFixed(1)} / 5
-                      </p>
-                    </div>
-                  </CardContent>
-                </Card>
-              )}
-              {weakestLink && (
-                <Card className="border-border shadow-sm">
-                  <CardContent className="p-4 flex items-start gap-3">
-                    <TrendingDown className="h-6 w-6 text-destructive shrink-0 mt-0.5" />
-                    <div>
-                      <p className="text-xs text-muted-foreground uppercase tracking-wide mb-0.5">
-                        Lowest Score
-                      </p>
-                      <p className="font-bold text-base">{weakestLink.label}</p>
-                      <p className="text-sm font-semibold text-destructive">
-                        {(weakestLink.score / 2).toFixed(1)} / 5
-                      </p>
-                    </div>
-                  </CardContent>
-                </Card>
-              )}
-            </div>
-          )}
         </article>
 
         {/* 5. TEAMS AT THIS ARENA */}
@@ -512,12 +456,20 @@ export default function ArenaPage({
             />
           )}
 
-        {/* 10. VIDEO */}
+        {/* 10. VIEW FROM MY SEAT */}
+        {(arena.viewFromSeat?.length ?? 0) > 0 && (
+          <ArenaViewFromSeat
+            viewFromSeat={arena.viewFromSeat!}
+            viewScore={effectiveArenaReview?.view as number | undefined}
+          />
+        )}
+
+        {/* 11. OUR EXPERIENCE (Video) */}
         {arena.videoUrl && (
           <VideoPlayer url={arena.videoUrl} title="Our Experience" />
         )}
 
-        {/* 11. GALLERY MODAL */}
+        {/* 12. GALLERY MODAL */}
         {galleryImages.length > 0 && (
           <ImageGallery
             images={galleryImages}

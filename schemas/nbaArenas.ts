@@ -420,6 +420,114 @@ export default defineType({
       ],
     }),
 
+    // --- View From My Seat ---
+    defineField({
+      name: 'viewFromSeat',
+      title: 'View From My Seat',
+      type: 'array',
+      description:
+        'Photos and optional video from your actual seats. Add one entry per visit or section.',
+      hidden: ({ document }) => !document?.visited,
+      of: [
+        {
+          type: 'object',
+          name: 'seatViewEntry',
+          title: 'Seat View Entry',
+          options: { collapsible: true, collapsed: false },
+          preview: {
+            select: { title: 'seatInfo', subtitle: 'seatType' },
+            prepare({ title, subtitle }) {
+              const labels: Record<string, string> = {
+                lower_bowl: 'Lower Bowl',
+                upper_bowl: 'Upper Bowl',
+                club: 'Club Level',
+                courtside: 'Courtside / Floor',
+                suite: 'Suite / Box',
+                standing_room: 'Standing Room',
+              }
+              return {
+                title: title || 'Seat View Entry',
+                subtitle: subtitle ? labels[subtitle] || subtitle : undefined,
+              }
+            },
+          },
+          fields: [
+            defineField({
+              name: 'seatInfo',
+              title: 'Seat Location',
+              type: 'string',
+              description:
+                'e.g., "Section 210, Row L, Seats 1–2" or "Club Level, Corner"',
+              validation: (Rule) => Rule.max(80),
+            }),
+            defineField({
+              name: 'seatType',
+              title: 'Seat Category',
+              type: 'string',
+              options: {
+                list: [
+                  { title: 'Lower Bowl', value: 'lower_bowl' },
+                  { title: 'Upper Bowl', value: 'upper_bowl' },
+                  { title: 'Club Level', value: 'club' },
+                  { title: 'Courtside / Floor', value: 'courtside' },
+                  { title: 'Suite / Box', value: 'suite' },
+                  { title: 'Standing Room', value: 'standing_room' },
+                ],
+                layout: 'radio',
+              },
+            }),
+            defineField({
+              name: 'photos',
+              title: 'Seat View Photos',
+              type: 'array',
+              description:
+                'Photos from your actual seat. Max 1600px longest edge. WebP/JPEG.',
+              of: [
+                {
+                  type: 'image',
+                  options: { hotspot: true },
+                  fields: [
+                    defineField({
+                      name: 'alt',
+                      type: 'string',
+                      title: 'Alt Text',
+                      components: { input: AltTextGeneratorInput },
+                    }),
+                    defineField({
+                      name: 'caption',
+                      type: 'string',
+                      title: 'Caption',
+                      description:
+                        'Optional: e.g., "Halftime view, second deck"',
+                    }),
+                  ],
+                },
+              ],
+            }),
+            defineField({
+              name: 'seatVideoUrl',
+              title: 'Seat View Video (optional)',
+              type: 'url',
+              description:
+                'YouTube or Instagram video filmed from this seat (separate from the main experience video above).',
+              validation: (Rule) =>
+                Rule.custom((value) => {
+                  if (!value) return true
+                  if (
+                    typeof value === 'string' &&
+                    videoUrlPattern.test(value)
+                  ) {
+                    return true
+                  }
+                  return 'Please enter a valid YouTube or Instagram URL.'
+                }),
+            }),
+          ],
+        },
+      ],
+    }),
+    // --- End View From My Seat ---
+
     // --- Hotel Stay (optional) ---
     defineField({
       name: 'hotelStay',

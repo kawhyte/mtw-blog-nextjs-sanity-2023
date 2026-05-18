@@ -2,6 +2,9 @@
 const config = {
   //  staticPageGenerationTimeout: 140000,
 
+  // Transpile ESM-only packages so webpack can handle their CJS/ESM interop correctly
+  transpilePackages: ['@heroicons/react', '@vercel/speed-insights'],
+
   // 1. ADDED: Tell Next.js we are using the experimental App Router
   experimental: {
     appDir: true,

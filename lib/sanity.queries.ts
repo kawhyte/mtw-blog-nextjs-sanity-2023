@@ -164,6 +164,16 @@ const arenaFieldsDetailed = groq`
       },
       hotelName,
       nightsStayed
+    },
+    viewFromSeat[] {
+      _key,
+      seatInfo,
+      seatType,
+      seatVideoUrl,
+      photos[] {
+        ...,
+        asset->{ _id, metadata { lqip, dimensions { width, height } } }
+      }
     }
 `
 // Define Arena Type Name - PLEASE VERIFY THIS matches your Sanity Studio schema
@@ -967,6 +977,13 @@ export interface Arena {
     hotelName?: string
     nightsStayed?: number
   }
+  viewFromSeat?: Array<{
+    _key?: string
+    seatInfo?: string
+    seatType?: string
+    seatVideoUrl?: string
+    photos?: GalleryImageItem[]
+  }>
 }
 
 // Base interface for common Post fields
