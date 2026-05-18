@@ -162,8 +162,10 @@ export default function PostPageHead({
       {/* Use the guaranteed string description */}
       <meta key="description" name="description" content={pageDescription} />
       {/* --- Open Graph Overrides --- */}
-      <meta property="og:type" content="article" />{' '}
-      {/* Specific type for posts */}
+      <meta
+        property="og:type"
+        content={contentType === 'arena' ? 'website' : 'article'}
+      />
       <meta property="og:title" content={pageTitle} />
       {/* Use the guaranteed string description */}
       <meta property="og:description" content={pageDescription} />
@@ -171,9 +173,11 @@ export default function PostPageHead({
       <meta property="og:image" content={ogImageUrl} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
-      {/* Optional: Add author, published time etc. if available in 'post' */}
       {post?.date && (
         <meta property="article:published_time" content={post.date} />
+      )}
+      {post?.date && (
+        <meta property="article:modified_time" content={post.date} />
       )}
       {'tags' in post &&
         Array.isArray((post as any).tags) &&

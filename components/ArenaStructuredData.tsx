@@ -31,6 +31,7 @@ export default function ArenaStructuredData({ arena }: ArenaStructuredDataProps)
       address: {
         '@type': 'PostalAddress',
         addressLocality: arena.location,
+        addressCountry: 'US',
       },
     }),
     ...(arena.capacity && { numberOfSeats: arena.capacity }),
@@ -50,6 +51,7 @@ export default function ArenaStructuredData({ arena }: ArenaStructuredDataProps)
               address: {
                 '@type': 'PostalAddress',
                 addressLocality: arena.location,
+                addressCountry: 'US',
               },
             }),
           },
