@@ -326,7 +326,7 @@ export default defineType({
       name: 'videoUrl',
       title: 'Video URL (YouTube / Instagram)',
       description:
-        'Optional: Add a link to a relevant YouTube video or Instagram post/reel.',
+        'OUR EXPERIENCE video — your full visit vlog or highlights reel. YouTube or Instagram both work here. Use the "Seat View Video" field inside each View From My Seat entry for short clips filmed from your actual seat.',
       type: 'url',
       validation: (Rule) =>
         Rule.custom((value) => {
@@ -481,7 +481,7 @@ export default defineType({
               title: 'Seat View Photos',
               type: 'array',
               description:
-                'Photos from your actual seat. Max 1600px longest edge. WebP/JPEG.',
+                'Ideal: 1600 × 1200 px (4:3 landscape), WebP or JPEG 80–85%. The page crops every photo to 4:3 — landscape shots fill the frame perfectly. Portrait photos (phone held vertically) will lose the top and bottom; use the hotspot tool to anchor the court/key area.',
               of: [
                 {
                   type: 'image',
@@ -509,7 +509,7 @@ export default defineType({
               title: 'Seat View Video (optional)',
               type: 'url',
               description:
-                'YouTube or Instagram video filmed from this seat (separate from the main experience video above).',
+                'A short clip filmed from this specific seat. YouTube (landscape 1920×1080) looks best on desktop. Instagram Reels (1080×1920 vertical) also work but render narrower. Keep it under 60 seconds — this is a seat preview, not a full game highlight.',
               validation: (Rule) =>
                 Rule.custom((value) => {
                   if (!value) return true
