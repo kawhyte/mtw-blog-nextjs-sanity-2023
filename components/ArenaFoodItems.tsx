@@ -148,9 +148,9 @@ const ArenaFoodItems = ({ food }: ArenaFoodItemsProps) => {
                 className="flex h-full flex-col overflow-hidden rounded-2xl border-4 border-border-bold bg-card shadow-lg"
               >
                 <div className="relative h-64 w-full">
-                  {item.asset?._ref && (
+                  {item.asset && (
                     <Image
-                      src={urlForImage(item.asset._ref)
+                      src={urlForImage(item)
                         .width(900)
                         .height(600)
                         .fit('crop')

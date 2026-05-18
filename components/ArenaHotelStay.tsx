@@ -97,9 +97,8 @@ export default function ArenaHotelStay({ hotelStay }: ArenaHotelStayProps) {
                 <div className="mt-3 flex flex-wrap items-center gap-3">
                   {ratingResult && (
                     <Badge
-                      variant="secondary"
                       className="font-bold text-sm"
-                      style={{ color: ratingResult.color }}
+                      style={{ backgroundColor: ratingResult.color, color: ratingResult.textColor }}
                     >
                       {ratingResult.displayRating} / 5 &bull;{' '}
                       {ratingResult.textRating}
