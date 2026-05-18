@@ -67,6 +67,7 @@ export function VerdictGeneratorInput(props: ArrayOfObjectsInputProps) {
           wouldReturn: doc?.wouldReturn,
           priceTier: doc?.priceTier,
           bestFor: doc?.bestFor ?? [],
+          hotelRatings: doc?.hotelRating ?? {},
         }
       } else if (docType === 'foodReview') {
         payload = {
@@ -82,6 +83,8 @@ export function VerdictGeneratorInput(props: ArrayOfObjectsInputProps) {
             rating: item?.rating?.Dish,
             review: item?.review,
           })),
+          foodRatings: doc?.foodRating ?? {},
+          takeoutRatings: doc?.takeoutRating ?? {},
         }
       } else if (docType === 'arenas') {
         payload = {
@@ -95,6 +98,7 @@ export function VerdictGeneratorInput(props: ArrayOfObjectsInputProps) {
             rating: item?.rating?.Dish,
             review: item?.review,
           })),
+          arenaRatings: doc?.arenaReview ?? {},
         }
       }
 
