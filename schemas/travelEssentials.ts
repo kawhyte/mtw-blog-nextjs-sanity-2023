@@ -1,6 +1,7 @@
 import { HeartFilledIcon } from '@sanity/icons'
 // import { format, parseISO } from 'date-fns'
 import { defineField, defineType } from 'sanity'
+import { getPortableTextLength } from './utils'
 
 export default defineType({
   name: 'essential',
@@ -124,12 +125,17 @@ export default defineType({
     defineField({
       name: 'description',
       title: 'Production description and rating ',
-      description: '(Optional) Add a short summary. (use Heading 5 formatting)',
-      //validation: (Rule) => Rule.required(),
+      description:
+        '(Optional) Add a short summary — aim for 120 characters max. (Use Heading 5 formatting)',
       validation: (Rule) =>
-        Rule.max(120).warning(
-          `The description/rating shouldn't be more than 120 characters.`,
-        ),
+        Rule.custom((portableTextValue) => {
+          const textLength = getPortableTextLength(portableTextValue as any[])
+          const limit = 120
+          if (textLength > limit) {
+            return `Description exceeds ${limit} characters (${textLength}/${limit})`
+          }
+          return true
+        }).warning(),
 
       type: 'array',
       of: [

@@ -4,17 +4,7 @@ import { defineField, defineType } from 'sanity'
 import { AltTextGeneratorInput } from '../plugins/AltTextGeneratorInput'
 import { SeoExcerptGeneratorInput } from '../plugins/SeoExcerptGeneratorInput'
 import { VerdictGeneratorInput } from '../plugins/VerdictGeneratorInput'
-
-// --- Helper Function for Verdict Character Count ---
-const getPortableTextLength = (blocks) => {
-  if (!Array.isArray(blocks)) {
-    return 0
-  }
-  return blocks
-    .filter((block) => block._type === 'block' && Array.isArray(block.children))
-    .map((block) => block.children.map((span) => span.text || '').join(''))
-    .join('\n').length
-}
+import { getPortableTextLength } from './utils'
 
 // Regex to validate common YouTube or Instagram video/reel/post URLs
 const videoUrlPattern =
@@ -261,7 +251,7 @@ export default defineType({
           title: 'Pros (Positives)',
           name: 'positives',
           description:
-            'Add multiple positive points about the arena experience.',
+            "Add the arena's standout positives. Keep each point to 1–2 short sentences (aim for 100–150 chars each).",
           type: 'array',
           of: [
             {
@@ -276,7 +266,7 @@ export default defineType({
           title: 'Cons (Negatives)',
           name: 'negatives',
           description:
-            'Add multiple negative points about the arena experience.',
+            "Add the arena's main drawbacks. Keep each point to 1–2 short sentences (aim for 100–150 chars each).",
           type: 'array',
           of: [
             {

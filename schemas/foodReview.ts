@@ -5,6 +5,7 @@ import { defineField, defineType } from 'sanity'
 import { AltTextGeneratorInput } from '../plugins/AltTextGeneratorInput'
 import { SeoExcerptGeneratorInput } from '../plugins/SeoExcerptGeneratorInput'
 import { VerdictGeneratorInput } from '../plugins/VerdictGeneratorInput'
+import { getPortableTextLength } from './utils'
 
 /**
  * This is the schema definition for a food/restaurant review.
@@ -115,7 +116,8 @@ export default defineType({
       name: 'tip',
       title: 'Restaurant Quick Tip',
       type: 'array',
-      description: 'Add a helpful tip for this restaurant (optional)',
+      description:
+        'Add a helpful tip for this restaurant — aim for 1–2 sentences (under 200 characters is ideal). Optional.',
       of: [{ type: 'block' }],
     }),
 
@@ -244,7 +246,8 @@ export default defineType({
     defineField({
       title: 'Positives',
       name: 'positives',
-      description: 'Add multiple positive points about this restaurant',
+      description:
+        'Add multiple positive points about this restaurant. Aim for 1–2 short sentences per point (under 150 chars each).',
       type: 'array',
       of: [{ type: 'text' }],
       validation: (Rule) =>
@@ -254,7 +257,8 @@ export default defineType({
     defineField({
       title: 'Negatives',
       name: 'negatives',
-      description: 'Add multiple negative points about this restaurant',
+      description:
+        'Add multiple negative points about this restaurant. Aim for 1–2 short sentences per point (under 150 chars each).',
       type: 'array',
       of: [{ type: 'text' }],
     }),
@@ -262,10 +266,22 @@ export default defineType({
     defineField({
       name: 'verdict',
       title: 'Verdict',
-      description: 'Add your overall verdict about this restaurant',
+      description:
+        'Your overall verdict on this restaurant — max 600 characters. Basic formatting allowed.',
       type: 'array',
       of: [{ type: 'block' }],
-      validation: (Rule) => Rule.required(),
+      validation: (Rule) =>
+        Rule.custom((portableTextValue) => {
+          if (!portableTextValue || (portableTextValue as any[]).length === 0) {
+            return 'Verdict is required'
+          }
+          const textLength = getPortableTextLength(portableTextValue as any[])
+          const limit = 600
+          if (textLength > limit) {
+            return `Verdict exceeds ${limit} characters (${textLength}/${limit})`
+          }
+          return true
+        }).error(),
       components: { input: VerdictGeneratorInput },
     }),
 
