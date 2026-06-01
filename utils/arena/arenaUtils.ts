@@ -26,35 +26,37 @@ export const filterArenas = (
 }
 
 /**
- * Calculate stable ranking for visited arenas based on ratings
+ * Calculate competition-style (Olympic) ranking for visited arenas.
+ * Tied arenas (same displayed score) receive the same rank number.
+ * The next unique score skips positions equal to the number of ties.
  */
 export const calculateArenaRanks = (arenas: Arena[]): Map<string, number> => {
   const ranks = new Map<string, number>()
 
-  // Filter for visited arenas only
   const visitedArenas = arenas.filter((arena) => arena.visited)
 
-  // Sort by rating (highest first) with stable tie-breaking
+  // Sort by rating descending — no alphabetical tie-breaker so equal scores stay equal
   const sortedForRanking = [...visitedArenas].sort((a, b) => {
-    const nameA = a.name ?? ''
-    const nameB = b.name ?? ''
     const { average: scoreA } = calculateAverageRating(a.arenaReview || {})
     const { average: scoreB } = calculateAverageRating(b.arenaReview || {})
-
-    const numScoreA = parseFloat(scoreA) || 0
-    const numScoreB = parseFloat(scoreB) || 0
-
-    // Primary sort: Higher score first
-    if (numScoreB !== numScoreA) {
-      return numScoreB - numScoreA
-    }
-    // Tie-breaker: Alphabetical name (A-Z)
-    return nameA.localeCompare(nameB)
+    return (parseFloat(scoreB) || 0) - (parseFloat(scoreA) || 0)
   })
 
-  // Assign ranks based on sorted order
   sortedForRanking.forEach((arena, index) => {
-    ranks.set(arena._id, index + 1)
+    if (index === 0) {
+      ranks.set(arena._id, 1)
+      return
+    }
+    const prev = sortedForRanking[index - 1]
+    const { average: scorePrev } = calculateAverageRating(prev.arenaReview || {})
+    const { average: scoreCurr } = calculateAverageRating(arena.arenaReview || {})
+    const prevRank = ranks.get(prev._id)!
+
+    if (parseFloat(scoreCurr) === parseFloat(scorePrev)) {
+      ranks.set(arena._id, prevRank) // Same score → same rank
+    } else {
+      ranks.set(arena._id, index + 1) // Different score → skip tied positions
+    }
   })
 
   return ranks

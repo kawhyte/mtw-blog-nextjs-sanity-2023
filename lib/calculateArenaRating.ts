@@ -47,7 +47,7 @@ export default function calculateAverageRating(
 
   const averageRaw = totalWeight > 0 ? weightedSum / totalWeight / 2 : 0
   const average = (Math.round(averageRaw * 10) / 10).toFixed(1)
-  const averageScore = averageRaw
+  const averageScore = parseFloat(average)
 
   // Find the first matching threshold efficiently
   const matchingThreshold = ratingThresholds.find(

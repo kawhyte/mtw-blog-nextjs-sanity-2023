@@ -258,7 +258,7 @@ export default defineType({
             return 'Verdict is required'
           }
           const textLength = getPortableTextLength(portableTextValue as any[])
-          const limit = 600
+          const limit = 1200
           if (textLength > limit) {
             return `Verdict exceeds ${limit} characters (${textLength}/${limit})`
           }
