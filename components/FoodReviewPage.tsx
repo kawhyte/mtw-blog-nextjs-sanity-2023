@@ -15,7 +15,6 @@ import * as demo from 'lib/demo.data'
 import { computeTimelineEntries, getEffectiveRating } from 'lib/mergeRatings'
 import { FOOD_WEIGHTS, TAKEOUT_WEIGHTS } from 'lib/ratingWeights'
 import type { FoodReview, Settings } from 'lib/sanity.queries'
-import { notFound } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 
 import BreadcrumbStructuredData from './BreadcrumbStructuredData'
@@ -101,19 +100,12 @@ export default function FoodReviewPage(props: FoodReviewPageProps) {
     foodReview.gallery,
   )
 
-  if (!foodReview?.slug && !preview) {
-    notFound()
-  }
-
-  // Early return if food review is not found
   if (!foodReview) {
     return preview ? (
       <Layout preview={preview} loading={loading}>
         <PostTitle>Loading…</PostTitle>
       </Layout>
-    ) : (
-      notFound()
-    )
+    ) : null
   }
 
   const isTakeout = foodReview.diningType === 'takeout'

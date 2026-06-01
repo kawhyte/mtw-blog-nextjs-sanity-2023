@@ -26,7 +26,6 @@ import {
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import Link from 'next/link'
-import { notFound } from 'next/navigation'
 
 const ImageGallery = dynamic(() => import('./ImageGallery'), {
   loading: () => (
@@ -80,10 +79,6 @@ export default function ArenaPage({
   preview,
   loading,
 }: ArenaPageProps) {
-  if (!arena?.slug && !preview) {
-    notFound()
-  }
-
   const { title = 'Arena Review' } = settings || {}
 
   // --- Gallery setup ---

@@ -13,6 +13,8 @@ import Link from 'next/link'
 import { Badge } from '@/components/ui/badge'
 import { CardContent, CardFooter, CardTitle } from '@/components/ui/card'
 
+import { getRankBadgeStyle } from 'utils/arena/rankBadgeStyles'
+
 import CoverImage from './CoverImage'
 import SanityImage from './SanityImage'
 
@@ -120,12 +122,6 @@ const getMobileTypeBadge = (
   return null
 }
 
-const getMobileRankStyle = (rank: number): string => {
-  if (rank === 1) return 'bg-yellow-400 text-yellow-900'
-  if (rank === 2) return 'bg-slate-300 text-slate-800'
-  if (rank === 3) return 'bg-amber-600 text-amber-50'
-  return 'bg-black/70 text-white'
-}
 
 const DynamicPostCard = ({
   title,
@@ -202,7 +198,7 @@ const DynamicPostCard = ({
           {/* Compact rank badge */}
           {rank != null && (
             <span
-              className={`absolute left-1.5 top-1.5 z-20 flex items-center gap-0.5 rounded-full px-1.5 py-0.5 text-[10px] font-black ${getMobileRankStyle(rank)}`}
+              className={`absolute left-1.5 top-1.5 z-20 flex items-center gap-0.5 rounded-full px-1.5 py-0.5 text-[10px] font-black ${getRankBadgeStyle(rank)}`}
             >
               {rank === 1 && <Trophy className="h-2.5 w-2.5" />}
               {rank === 1 ? 'Best' : `#${rank}`}

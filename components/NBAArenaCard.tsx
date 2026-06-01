@@ -5,6 +5,8 @@ import React from 'react'
 import { CardFooter } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 
+import { getRankBadgeStyle } from 'utils/arena/rankBadgeStyles'
+
 import PostDate from './PostDate'
 import RatingBadge from './RatingBadge'
 import SanityImage from './SanityImage'
@@ -30,12 +32,6 @@ interface NBAArenaCardProps {
   revisitCount?: number
 }
 
-const getRankBadgeStyle = (rank: number) => {
-  if (rank === 1) return 'bg-yellow-400 text-yellow-900'
-  if (rank === 2) return 'bg-slate-300 text-slate-800'
-  if (rank === 3) return 'bg-amber-600 text-amber-50'
-  return 'bg-black/70 text-white'
-}
 
 /**
  * NBA Arena Card Component - Optimized with React.memo

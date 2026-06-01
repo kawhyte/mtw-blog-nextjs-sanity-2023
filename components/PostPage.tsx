@@ -7,7 +7,6 @@ import PostPageHead from 'components/PostPageHead'
 import PostTitle from 'components/PostTitle'
 import * as demo from 'lib/demo.data'
 import type { Post, Settings } from 'lib/sanity.queries'
-import { notFound } from 'next/navigation'
 
 import FoodReviewPage from './FoodReviewPage'
 import Footer from './Footer'
@@ -28,19 +27,12 @@ export interface PostPageProps {
 export default function PostPage(props: PostPageProps) {
   const { preview, loading, morePosts, post, settings } = props
 
-  if (!post?.slug && !preview) {
-    notFound()
-  }
-
-  // Early return if post is not found
   if (!post) {
     return preview ? (
       <Layout preview={preview} loading={loading}>
         <PostTitle>Loading…</PostTitle>
       </Layout>
-    ) : (
-      notFound()
-    )
+    ) : null
   }
 
   // Route to appropriate dedicated page component based on linkType

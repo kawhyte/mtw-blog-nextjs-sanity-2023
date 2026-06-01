@@ -35,7 +35,6 @@ import {
   Wifi,
 } from 'lucide-react'
 import Link from 'next/link'
-import { notFound } from 'next/navigation'
 
 import BreadcrumbStructuredData from './BreadcrumbStructuredData'
 import HelpfulTip from './HelpfulTip'
@@ -405,19 +404,12 @@ function HotelReviewPageContent(props: HotelReviewPageProps) {
 export default function HotelReviewPage(props: HotelReviewPageProps) {
   const { preview, loading, hotelReview } = props
 
-  if (!hotelReview?.slug && !preview) {
-    notFound()
-  }
-
-  // Early return if hotel review is not found
   if (!hotelReview) {
     return preview ? (
       <Layout preview={preview} loading={loading}>
         <PostTitle>Loading…</PostTitle>
       </Layout>
-    ) : (
-      notFound()
-    )
+    ) : null
   }
 
   return <HotelReviewPageContent {...props} />

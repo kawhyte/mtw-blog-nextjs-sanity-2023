@@ -44,12 +44,6 @@ export default function ArenaRatingCard({
 
   const ratingClasses = getRatingClasses(textRating)
 
-  const sortedByScore = [...ratingEntries].sort(([, a], [, b]) => b - a)
-  const bestKey = sortedByScore[0]?.[0]
-  const worstKey = sortedByScore[sortedByScore.length - 1]?.[0]
-  const allSameScore =
-    ratingEntries.length <= 1 || sortedByScore[0][1] === sortedByScore[sortedByScore.length - 1][1]
-
   return (
     <section className="bg-secondary-soft-background rounded-2xl p-6 sm:p-8 my-8">
       <div className="grid grid-cols-1 md:grid-cols-12 md:gap-x-12">
@@ -88,34 +82,13 @@ export default function ArenaRatingCard({
         <div className="md:col-span-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3">
             {ratingEntries.map(([key, value]) => {
-              const isBest = !allSameScore && key === bestKey
-              const isWorst = !allSameScore && key === worstKey
               return (
-                <div
-                  key={key}
-                  className={`rounded-lg px-2 py-1.5 transition-colors ${
-                    isBest
-                      ? 'bg-success/5 ring-1 ring-success/30'
-                      : isWorst
-                        ? 'bg-destructive/5 ring-1 ring-destructive/20'
-                        : ''
-                  }`}
-                >
+                <div key={key} className="rounded-lg px-2 py-1.5">
                   <div className="flex justify-between items-center mb-1">
                     <span className="font-semibold text-foreground flex items-center">
                       {ratingIcons[key]}
                       {ratingLabels[key] ?? key}
                     </span>
-                    {isBest && (
-                      <span className="text-xs font-semibold text-success uppercase tracking-wide">
-                        Best
-                      </span>
-                    )}
-                    {isWorst && (
-                      <span className="text-xs font-semibold text-destructive uppercase tracking-wide">
-                        Lowest
-                      </span>
-                    )}
                   </div>
                   <div className="flex items-center">
                     <ProgressRating progress={value / 2} color="secondary" />
