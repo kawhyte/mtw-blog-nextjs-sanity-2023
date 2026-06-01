@@ -20,6 +20,7 @@ import {
   RefreshCw,
   Sofa,
   Ticket,
+  Trophy,
   Users,
   Users2,
 } from 'lucide-react'
@@ -53,6 +54,9 @@ interface ArenaPageProps {
   settings: Settings
   preview?: boolean
   loading?: boolean
+  rank?: number | null
+  totalVisited?: number
+  isTied?: boolean
 }
 
 const ratingIcons: Record<string, React.ReactElement> = {
@@ -78,6 +82,9 @@ export default function ArenaPage({
   settings,
   preview,
   loading,
+  rank,
+  totalVisited,
+  isTied,
 }: ArenaPageProps) {
   const { title = 'Arena Review' } = settings || {}
 
@@ -114,10 +121,6 @@ export default function ArenaPage({
         })),
       )
     : arena.arenaReview
-
-  const ratingResult = effectiveArenaReview
-    ? calculateAverageRating(effectiveArenaReview as any)
-    : null
 
   // --- Revisit timeline ---
   const originalRatingResult = arena.arenaReview
@@ -254,6 +257,19 @@ export default function ArenaPage({
                   <Award className="mr-2 h-4 w-4 shrink-0" />
                   {totalGamesAttended} game{totalGamesAttended !== 1 ? 's' : ''}{' '}
                   attended
+                </div>
+              )}
+              {rank != null && totalVisited != null && totalVisited > 0 && (
+                <div className="flex items-center text-base text-muted-foreground">
+                  <Trophy className="mr-2 h-4 w-4 shrink-0" />
+                  Ranked{' '}
+                  <span className="mx-1 font-bold text-foreground">
+                    #{rank}
+                  </span>{' '}
+                  of {totalVisited} arenas
+                  {isTied && (
+                    <span className="ml-1.5 text-sm">(tied)</span>
+                  )}
                 </div>
               )}
             </div>

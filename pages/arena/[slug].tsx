@@ -5,6 +5,7 @@ import ArenaPage from 'components/ArenaPage'
 import {
   getAllArenaSlugs,
   getArenaBySlug,
+  getArenaPosts,
   getSettings,
 } from 'lib/sanity.client'
 import { urlForImage } from 'lib/sanity.image'
@@ -12,6 +13,7 @@ import { Arena, Settings } from 'lib/sanity.queries'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import { lazy } from 'react'
+import { calculateArenaRanks } from 'utils/arena/arenaUtils'
 
 const PreviewArenaPage = lazy(() => import('components/PreviewArenaPage'))
 
@@ -26,8 +28,11 @@ export const getStaticProps: GetStaticProps<
   const token = previewData.token
 
   const slug = params?.slug as string
-  const arena = await getArenaBySlug(slug)
-  const settings = await getSettings()
+  const [arena, settings, arenaPosts] = await Promise.all([
+    getArenaBySlug(slug),
+    getSettings(),
+    getArenaPosts(),
+  ])
 
   if (!arena) {
     return {
@@ -35,12 +40,23 @@ export const getStaticProps: GetStaticProps<
     }
   }
 
+  const rankMap = calculateArenaRanks(arenaPosts ?? [])
+  const rank = arena.visited ? (rankMap.get(arena._id) ?? null) : null
+  const totalVisited = (arenaPosts ?? []).filter((a) => a.visited).length
+  const isTied =
+    rank !== null
+      ? [...rankMap.values()].filter((r) => r === rank).length > 1
+      : false
+
   return {
     props: {
       arena,
       settings,
       preview,
       token: previewData.token ?? null,
+      rank,
+      totalVisited,
+      isTied,
     },
     revalidate: 60, // Revalidate every minute
   }
@@ -60,6 +76,9 @@ interface PageProps {
   settings?: Settings
   preview: boolean
   token: string | null
+  rank: number | null
+  totalVisited: number
+  isTied: boolean
 }
 
 interface Query {
@@ -71,7 +90,7 @@ interface PreviewData {
 }
 
 export default function ArenaSlugRoute(props: PageProps) {
-  const { settings, arena, preview, token } = props
+  const { settings, arena, preview, token, rank, totalVisited, isTied } = props
 
   if (preview) {
     return (
@@ -100,7 +119,13 @@ export default function ArenaSlugRoute(props: PageProps) {
           />
         )}
       </Head>
-      <ArenaPage arena={arena} settings={settings} />
+      <ArenaPage
+        arena={arena}
+        settings={settings}
+        rank={rank}
+        totalVisited={totalVisited}
+        isTied={isTied}
+      />
     </>
   )
 }
