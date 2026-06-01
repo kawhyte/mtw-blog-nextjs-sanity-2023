@@ -169,6 +169,7 @@ const arenaFieldsDetailed = groq`
       _key,
       seatInfo,
       seatType,
+      ticketPrice,
       seatVideoUrl,
       photos[] {
         ...,
@@ -981,6 +982,7 @@ export interface Arena {
     _key?: string
     seatInfo?: string
     seatType?: string
+    ticketPrice?: number
     seatVideoUrl?: string
     photos?: GalleryImageItem[]
   }>

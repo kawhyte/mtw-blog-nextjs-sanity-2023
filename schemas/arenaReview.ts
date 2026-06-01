@@ -45,7 +45,7 @@ export default {
       name: 'comments',
       title: 'Comments',
       type: 'text',
-      validation: (Rule) => Rule.max(37), // Limit to 37 characters
+      validation: (Rule) => Rule.max(370),
     },
   ],
 }

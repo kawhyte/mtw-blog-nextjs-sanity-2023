@@ -477,6 +477,13 @@ export default defineType({
               },
             }),
             defineField({
+              name: 'ticketPrice',
+              title: 'Ticket Price Paid (per ticket, USD)',
+              type: 'number',
+              description: 'What you paid per ticket. Optional.',
+              validation: (Rule) => Rule.min(0).precision(2),
+            }),
+            defineField({
               name: 'photos',
               title: 'Seat View Photos',
               type: 'array',

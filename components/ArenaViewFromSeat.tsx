@@ -2,7 +2,7 @@
 
 import { GalleryImageItem } from 'lib/sanity.queries'
 import { urlForImage } from 'lib/sanity.image'
-import { Camera, MapPin, Ticket } from 'lucide-react'
+import { Camera, DollarSign, MapPin, Ticket } from 'lucide-react'
 import Image from 'next/image'
 import dynamic from 'next/dynamic'
 import { useState } from 'react'
@@ -30,6 +30,7 @@ interface SeatViewEntry {
   _key?: string
   seatInfo?: string
   seatType?: string
+  ticketPrice?: number
   seatVideoUrl?: string
   photos?: GalleryImageItem[]
 }
@@ -131,6 +132,15 @@ export default function ArenaViewFromSeat({
             <Badge variant="outline" className="text-xs">
               {SEAT_TYPE_LABELS[activeEntry.seatType] || activeEntry.seatType}
             </Badge>
+          )}
+          {activeEntry.ticketPrice != null && (
+            <div className="flex items-center gap-1.5 text-sm">
+              <DollarSign className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
+              <span className="text-muted-foreground">
+                ${activeEntry.ticketPrice.toFixed(2)}
+                <span className="text-xs ml-0.5">/ ticket</span>
+              </span>
+            </div>
           )}
           {displayScore && (
             <div className="flex items-center gap-1 sm:ml-auto">
