@@ -2,6 +2,7 @@
 import { ImagesIcon, StarIcon } from '@sanity/icons' // Added ImagesIcon
 import { defineField, defineType } from 'sanity'
 import { AltTextGeneratorInput } from '../plugins/AltTextGeneratorInput'
+import { GameDataFetcherInput } from '../plugins/GameDataFetcherInput'
 import { SeoExcerptGeneratorInput } from '../plugins/SeoExcerptGeneratorInput'
 import { VerdictGeneratorInput } from '../plugins/VerdictGeneratorInput'
 import { getPortableTextLength } from './utils'
@@ -180,8 +181,9 @@ export default defineType({
               title: 'Games We Attended',
               type: 'array',
               description:
-                'Individual games attended for this team at this arena. Use BallDontLie to look up the game data.',
+                'Use the "Fetch Game" button above to auto-populate game data from BallDontLie.',
               hidden: ({ parent }) => !parent?.played,
+              components: { input: GameDataFetcherInput },
               of: [
                 {
                   type: 'object',
@@ -220,13 +222,6 @@ export default defineType({
                       type: 'date',
                       options: { dateFormat: 'YYYY-MM-DD' },
                       validation: (Rule) => Rule.required(),
-                    }),
-                    defineField({
-                      name: 'isHomeGame',
-                      title: 'Home Game?',
-                      type: 'boolean',
-                      description: 'Was the tracked team playing at home?',
-                      initialValue: true,
                     }),
                     defineField({
                       name: 'opponent',
@@ -330,12 +325,6 @@ export default defineType({
                 list: [
                   { title: 'NBA', value: 'nba' },
                   { title: 'WNBA', value: 'wnba' },
-                  { title: 'NHL', value: 'nhl' },
-                  { title: 'MLB', value: 'mlb' },
-                  { title: 'MLS', value: 'mls' },
-                  { title: 'G League', value: 'gleague' },
-                  { title: 'NWSL', value: 'nwsl' },
-                  { title: 'NFL', value: 'nfl' },
                   { title: 'Other', value: 'other' },
                 ],
               },

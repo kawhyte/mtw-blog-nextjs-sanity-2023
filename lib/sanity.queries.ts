@@ -107,7 +107,6 @@ const arenaFieldsDetailed = groq`
       asset->{ _id, metadata { lqip, dimensions { width, height } } },
       attendedGames[] {
         gameDate,
-        isHomeGame,
         opponent,
         homeScore,
         awayScore,

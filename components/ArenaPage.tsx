@@ -377,92 +377,141 @@ export default function ArenaPage({
                             </div>
                           </div>
 
-                          {/* Game rows */}
+                          {/* Game scorecards */}
                           {games.length > 0 && (
-                            <div className="border-t border-border">
+                            <div className="border-t border-border px-3 pb-3 pt-2 space-y-2">
                               {games.map((game: any, gi: number) => {
-                                const trackedScore = game.isHomeGame
-                                  ? game.homeScore
-                                  : game.awayScore
-                                const opponentScore = game.isHomeGame
-                                  ? game.awayScore
-                                  : game.homeScore
+                                const trackedScore = game.homeScore
+                                const opponentScore = game.awayScore
                                 const hasScore =
                                   trackedScore != null && opponentScore != null
-                                const isWin = hasScore && trackedScore > opponentScore
-                                const isLoss = hasScore && trackedScore < opponentScore
+                                const isWin =
+                                  hasScore && trackedScore > opponentScore
+                                const isLoss =
+                                  hasScore && trackedScore < opponentScore
 
                                 return (
                                   <div
                                     key={gi}
-                                    className={`px-4 py-3${gi > 0 ? ' border-t border-border' : ''}`}
+                                    className="rounded-lg border border-border bg-muted/30 overflow-hidden"
                                   >
-                                    {/* Date + labels */}
-                                    <div className="flex items-center flex-wrap gap-1.5 mb-1.5">
-                                      {game.gameDate && (
-                                        <span className="text-xs text-muted-foreground">
-                                          {new Date(
-                                            game.gameDate + 'T12:00:00',
-                                          ).toLocaleDateString('en-US', {
-                                            month: 'short',
-                                            day: 'numeric',
-                                            year: 'numeric',
-                                          })}
+                                    {/* Card header: Final + date + badges */}
+                                    <div className="flex items-center justify-between px-3 py-2 border-b border-border/50">
+                                      <div className="flex items-center gap-1.5">
+                                        <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+                                          Final
                                         </span>
-                                      )}
-                                      {game.seasonType &&
-                                        game.seasonType !== 'Regular Season' && (
+                                        {game.gameDate && (
+                                          <span className="text-[10px] text-muted-foreground">
+                                            ·{' '}
+                                            {new Date(
+                                              game.gameDate + 'T12:00:00',
+                                            ).toLocaleDateString('en-US', {
+                                              month: 'short',
+                                              day: 'numeric',
+                                              year: 'numeric',
+                                            })}
+                                          </span>
+                                        )}
+                                      </div>
+                                      <div className="flex items-center gap-1">
+                                        {game.seasonType &&
+                                          game.seasonType !==
+                                            'Regular Season' && (
+                                            <Badge
+                                              variant="secondary"
+                                              className="text-[10px] px-1.5 py-0"
+                                            >
+                                              {game.seasonType}
+                                            </Badge>
+                                          )}
+                                        {game.overtimePeriods > 0 && (
                                           <Badge
-                                            variant="secondary"
-                                            className="text-xs"
+                                            variant="outline"
+                                            className="text-[10px] px-1.5 py-0 text-amber-600 border-amber-600/50"
                                           >
-                                            {game.seasonType}
+                                            {game.overtimePeriods === 1
+                                              ? 'OT'
+                                              : `${game.overtimePeriods}OT`}
                                           </Badge>
                                         )}
-                                      {game.overtimePeriods > 0 && (
-                                        <Badge
-                                          variant="outline"
-                                          className="text-xs text-amber-600 border-amber-600/50"
-                                        >
-                                          {game.overtimePeriods === 1
-                                            ? 'OT'
-                                            : `${game.overtimePeriods}OT`}
-                                        </Badge>
-                                      )}
-                                      {hasScore && (
-                                        <Badge
-                                          variant="outline"
-                                          className={`text-xs ml-auto font-bold ${
-                                            isWin
-                                              ? 'text-green-600 border-green-500/40'
-                                              : isLoss
-                                                ? 'text-red-600 border-red-500/40'
-                                                : 'text-muted-foreground'
-                                          }`}
-                                        >
-                                          {isWin ? 'W' : isLoss ? 'L' : 'T'}
-                                        </Badge>
-                                      )}
+                                      </div>
                                     </div>
 
-                                    {/* Score line */}
-                                    {hasScore && (
-                                      <p className="text-sm font-semibold">
-                                        {team.name} {trackedScore} –{' '}
-                                        {opponentScore} {game.opponent}
-                                      </p>
-                                    )}
+                                    {/* Matchup rows */}
+                                    <div className="px-3 py-2.5 space-y-1.5">
+                                      {/* Tracked team (home) */}
+                                      <div className="flex items-center gap-2">
+                                        {team.asset ? (
+                                          <Image
+                                            src={urlForImage(team.asset)
+                                              .width(22)
+                                              .height(22)
+                                              .fit('crop')
+                                              .auto('format')
+                                              .url()}
+                                            alt={`${team.name} logo`}
+                                            width={22}
+                                            height={22}
+                                            className="rounded-full shrink-0"
+                                            loading="lazy"
+                                            sizes="22px"
+                                          />
+                                        ) : (
+                                          <div className="w-[22px] shrink-0" />
+                                        )}
+                                        <span
+                                          className={`text-xs flex-1 leading-tight truncate ${isWin ? 'font-bold text-foreground' : 'text-muted-foreground'}`}
+                                        >
+                                          {team.name}
+                                        </span>
+                                        {hasScore && (
+                                          <>
+                                            <span
+                                              className={`text-xs font-mono tabular-nums font-bold min-w-[24px] text-right ${isWin ? 'text-foreground' : 'text-muted-foreground'}`}
+                                            >
+                                              {trackedScore}
+                                            </span>
+                                            <span className="w-3 text-[10px] text-green-500 font-bold text-center">
+                                              {isWin ? '◀' : ''}
+                                            </span>
+                                          </>
+                                        )}
+                                      </div>
+
+                                      {/* Opponent (away) */}
+                                      <div className="flex items-center gap-2">
+                                        <div className="w-[22px] shrink-0" />
+                                        <span
+                                          className={`text-xs flex-1 leading-tight truncate ${isLoss ? 'font-bold text-foreground' : 'text-muted-foreground'}`}
+                                        >
+                                          {game.opponent ?? '–'}
+                                        </span>
+                                        {hasScore && (
+                                          <>
+                                            <span
+                                              className={`text-xs font-mono tabular-nums font-bold min-w-[24px] text-right ${isLoss ? 'text-foreground' : 'text-muted-foreground'}`}
+                                            >
+                                              {opponentScore}
+                                            </span>
+                                            <span className="w-3 text-[10px] text-green-500 font-bold text-center">
+                                              {isLoss ? '◀' : ''}
+                                            </span>
+                                          </>
+                                        )}
+                                      </div>
+                                    </div>
 
                                     {/* Player of game */}
                                     {game.playerOfGame?.playerName && (
-                                      <div className="flex items-center gap-2 mt-2">
+                                      <div className="flex items-center gap-2 px-3 py-2 border-t border-border/50 bg-muted/20">
                                         {game.playerOfGame.nbaPlayerId && (
                                           // eslint-disable-next-line @next/next/no-img-element
                                           <img
                                             src={`https://cdn.nba.com/headshots/nba/latest/1040x760/${game.playerOfGame.nbaPlayerId}.png`}
                                             alt={game.playerOfGame.playerName}
-                                            width={28}
-                                            height={28}
+                                            width={32}
+                                            height={32}
                                             className="rounded-full object-cover bg-muted shrink-0"
                                             onError={(e) => {
                                               ;(
@@ -471,23 +520,22 @@ export default function ArenaPage({
                                             }}
                                           />
                                         )}
-                                        <span className="text-xs text-muted-foreground">
-                                          ⭐{' '}
-                                          <span className="font-medium text-foreground">
+                                        <div className="min-w-0">
+                                          <p className="text-xs font-semibold truncate">
                                             {game.playerOfGame.playerName}
-                                          </span>
+                                          </p>
                                           {game.playerOfGame.points != null && (
-                                            <span className="ml-1">
+                                            <p className="text-[10px] text-muted-foreground">
                                               {game.playerOfGame.points} pts
                                               {game.playerOfGame.rebounds !=
                                                 null &&
-                                                ` / ${game.playerOfGame.rebounds} reb`}
+                                                ` · ${game.playerOfGame.rebounds} reb`}
                                               {game.playerOfGame.assists !=
                                                 null &&
-                                                ` / ${game.playerOfGame.assists} ast`}
-                                            </span>
+                                                ` · ${game.playerOfGame.assists} ast`}
+                                            </p>
                                           )}
-                                        </span>
+                                        </div>
                                       </div>
                                     )}
                                   </div>
