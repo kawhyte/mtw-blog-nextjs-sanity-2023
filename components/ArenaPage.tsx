@@ -508,7 +508,7 @@ export default function ArenaPage({
                                         {game.playerOfGame.nbaPlayerId && (
                                           // eslint-disable-next-line @next/next/no-img-element
                                           <img
-                                            src={`https://cdn.nba.com/headshots/nba/latest/1040x760/${game.playerOfGame.nbaPlayerId}.png`}
+                                            src={`https://a.espncdn.com/i/headshots/${team.teamType === 'wnba' ? 'wnba' : 'nba'}/players/full/${game.playerOfGame.nbaPlayerId}.png`}
                                             alt={game.playerOfGame.playerName}
                                             width={32}
                                             height={32}

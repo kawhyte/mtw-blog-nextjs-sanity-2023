@@ -1,6 +1,100 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 const BALLDONTLIE_BASE = 'https://api.balldontlie.io'
+const ESPN_BASE = 'https://site.api.espn.com/apis/site/v2/sports/basketball'
+
+async function getEspnPlayerOfGame(
+  gameDate: string,
+  teamName: string,
+  sport: 'nba' | 'wnba',
+): Promise<{
+  playerName: string
+  teamName: string
+  points: number
+  rebounds: number
+  assists: number
+  nbaPlayerId: number | null
+} | null> {
+  try {
+    const dateParam = gameDate.replace(/-/g, '') // YYYYMMDD
+
+    // 1. Find the ESPN event ID for this date + team
+    const scoreboardRes = await fetch(
+      `${ESPN_BASE}/${sport}/scoreboard?dates=${dateParam}`,
+      { cache: 'no-store' },
+    )
+    if (!scoreboardRes.ok) return null
+    const scoreboard = await scoreboardRes.json()
+
+    const lower = teamName.toLowerCase().trim()
+    const event = (scoreboard.events ?? []).find((e: any) =>
+      (e.competitions?.[0]?.competitors ?? []).some((c: any) => {
+        const t = c.team ?? {}
+        return (
+          t.displayName?.toLowerCase() === lower ||
+          `${t.location ?? ''} ${t.name ?? ''}`.toLowerCase().trim() === lower
+        )
+      }),
+    )
+    if (!event) return null
+
+    // 2. Fetch full box score for this event
+    const summaryRes = await fetch(
+      `${ESPN_BASE}/${sport}/summary?event=${event.id}`,
+      { cache: 'no-store' },
+    )
+    if (!summaryRes.ok) return null
+    const summary = await summaryRes.json()
+
+    // 3. Find the top scorer across all players in the box score
+    type PlayerEntry = {
+      athlete: any
+      pts: number
+      reb: number
+      ast: number
+      teamDisplayName: string
+    }
+    const allPlayers: PlayerEntry[] = []
+
+    for (const teamBlock of summary.boxscore?.players ?? []) {
+      const teamDisplayName: string = teamBlock.team?.displayName ?? ''
+      for (const statGroup of teamBlock.statistics ?? []) {
+        const names: string[] = statGroup.names ?? statGroup.keys ?? []
+        const idx = (label: string) =>
+          names.findIndex((n: string) => n.toLowerCase().includes(label))
+        const ptsIdx = idx('pts') !== -1 ? idx('pts') : idx('point')
+        const rebIdx = idx('reb') !== -1 ? idx('reb') : idx('rebound')
+        const astIdx = idx('ast') !== -1 ? idx('ast') : idx('assist')
+
+        for (const entry of statGroup.athletes ?? []) {
+          if (entry.didNotPlay) continue
+          const stats: string[] = entry.stats ?? []
+          allPlayers.push({
+            athlete: entry.athlete,
+            pts: ptsIdx >= 0 ? parseInt(stats[ptsIdx]) || 0 : 0,
+            reb: rebIdx >= 0 ? parseInt(stats[rebIdx]) || 0 : 0,
+            ast: astIdx >= 0 ? parseInt(stats[astIdx]) || 0 : 0,
+            teamDisplayName,
+          })
+        }
+      }
+    }
+
+    const top = allPlayers.sort((a, b) => b.pts - a.pts)[0]
+    if (!top) return null
+
+    return {
+      playerName: top.athlete?.displayName ?? '',
+      teamName: top.teamDisplayName,
+      points: top.pts,
+      rebounds: top.reb,
+      assists: top.ast,
+      nbaPlayerId: top.athlete?.id ? parseInt(top.athlete.id) : null,
+    }
+  } catch {
+    return null
+  }
+}
 
 async function bdlFetch(url: string) {
   const apiKey = process.env.BALLDONTLIE_API_KEY?.trim()
@@ -84,32 +178,8 @@ export default async function handler(
       })
     }
 
-    // 3. Get player stats for this game — requires a paid BallDontLie subscription.
-    // If the plan doesn't include stats, skip gracefully and return game data without playerOfGame.
-    let topPlayer: any = null
-    try {
-      const statsData = await bdlFetch(
-        `${BALLDONTLIE_BASE}/${sport}/v1/stats?game_ids[]=${game.id}&per_page=100`,
-      )
-      const allStats: any[] = statsData.data ?? []
-
-      // Find highest scorer (exclude 0:00 DNPs)
-      const activePlayers = allStats.filter((s) => {
-        const min = s.min ?? ''
-        return (
-          min !== '0:00' &&
-          min !== '00:00' &&
-          min !== '0' &&
-          min !== '' &&
-          s.pts != null
-        )
-      })
-      topPlayer = activePlayers.sort(
-        (a, b) => (b.pts ?? 0) - (a.pts ?? 0),
-      )[0] ?? null
-    } catch {
-      // Stats endpoint requires a paid plan — game data is still returned without playerOfGame
-    }
+    // 3. Get player of game from ESPN (free, no API key needed)
+    const topPlayer = await getEspnPlayerOfGame(gameDate, teamName, sport)
 
     // 4. Determine opponent and scores
     const trackedTeamIsHome = game.home_team.id === teamId
@@ -140,12 +210,12 @@ export default async function handler(
         overtimePeriods,
         playerOfGame: topPlayer
           ? {
-              playerName: `${topPlayer.player?.first_name ?? ''} ${topPlayer.player?.last_name ?? ''}`.trim(),
-              teamName: topPlayer.team?.full_name ?? '',
-              points: topPlayer.pts ?? 0,
-              rebounds: topPlayer.reb ?? 0,
-              assists: topPlayer.ast ?? 0,
-              nbaPlayerId: topPlayer.player?.id ?? null,
+              playerName: topPlayer.playerName,
+              teamName: topPlayer.teamName,
+              points: topPlayer.points,
+              rebounds: topPlayer.rebounds,
+              assists: topPlayer.assists,
+              nbaPlayerId: topPlayer.nbaPlayerId,
             }
           : null,
       },

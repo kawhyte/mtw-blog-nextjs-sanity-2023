@@ -10,7 +10,12 @@ function randomKey(): string {
 
 function toDateString(isoDatetime: string | undefined): string | null {
   if (!isoDatetime) return null
-  return isoDatetime.slice(0, 10) // "YYYY-MM-DD" from datetime
+  const d = new Date(isoDatetime)
+  if (isNaN(d.getTime())) return null
+  const year = d.getFullYear()
+  const month = String(d.getMonth() + 1).padStart(2, '0')
+  const day = String(d.getDate()).padStart(2, '0')
+  return `${year}-${month}-${day}`
 }
 
 function formatChipLabel(dateStr: string): string {
