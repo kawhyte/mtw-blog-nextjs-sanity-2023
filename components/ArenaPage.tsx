@@ -502,40 +502,45 @@ export default function ArenaPage({
                                       </div>
                                     </div>
 
-                                    {/* Player of game */}
-                                    {game.playerOfGame?.playerName && (
-                                      <div className="flex items-center gap-2 px-3 py-2 border-t border-border/50 bg-muted/20">
-                                        {game.playerOfGame.nbaPlayerId && (
-                                          // eslint-disable-next-line @next/next/no-img-element
-                                          <img
-                                            src={`https://a.espncdn.com/i/headshots/${team.teamType === 'wnba' ? 'wnba' : 'nba'}/players/full/${game.playerOfGame.nbaPlayerId}.png`}
-                                            alt={game.playerOfGame.playerName}
-                                            width={32}
-                                            height={32}
-                                            className="rounded-full object-cover bg-muted shrink-0"
-                                            onError={(e) => {
-                                              ;(
-                                                e.target as HTMLImageElement
-                                              ).style.display = 'none'
-                                            }}
-                                          />
-                                        )}
-                                        <div className="min-w-0">
-                                          <p className="text-xs font-semibold truncate">
-                                            {game.playerOfGame.playerName}
-                                          </p>
-                                          {game.playerOfGame.points != null && (
-                                            <p className="text-[10px] text-muted-foreground">
-                                              {game.playerOfGame.points} pts
-                                              {game.playerOfGame.rebounds !=
-                                                null &&
-                                                ` · ${game.playerOfGame.rebounds} reb`}
-                                              {game.playerOfGame.assists !=
-                                                null &&
-                                                ` · ${game.playerOfGame.assists} ast`}
-                                            </p>
-                                          )}
-                                        </div>
+                                    {/* Key players — top scorer from each team */}
+                                    {game.playerOfGame?.length > 0 && (
+                                      <div className="flex flex-col divide-y divide-border/30 border-t border-border/50 bg-muted/20">
+                                        {game.playerOfGame.map((player: any) => (
+                                          <div
+                                            key={player._key}
+                                            className="flex items-center gap-2 px-3 py-1.5"
+                                          >
+                                            {player.nbaPlayerId && (
+                                              // eslint-disable-next-line @next/next/no-img-element
+                                              <img
+                                                src={`https://a.espncdn.com/i/headshots/${team.teamType === 'wnba' ? 'wnba' : 'nba'}/players/full/${player.nbaPlayerId}.png`}
+                                                alt={player.playerName}
+                                                width={32}
+                                                height={32}
+                                                className="rounded-full object-cover bg-muted shrink-0"
+                                                onError={(e) => {
+                                                  ;(
+                                                    e.target as HTMLImageElement
+                                                  ).style.display = 'none'
+                                                }}
+                                              />
+                                            )}
+                                            <div className="min-w-0 flex-1">
+                                              <p className="text-xs font-semibold truncate">
+                                                {player.playerName}
+                                              </p>
+                                              <p className="text-[10px] text-muted-foreground truncate">
+                                                {player.teamName}
+                                                {player.points != null &&
+                                                  ` · ${player.points} pts`}
+                                                {player.rebounds != null &&
+                                                  ` · ${player.rebounds} reb`}
+                                                {player.assists != null &&
+                                                  ` · ${player.assists} ast`}
+                                              </p>
+                                            </div>
+                                          </div>
+                                        ))}
                                       </div>
                                     )}
                                   </div>

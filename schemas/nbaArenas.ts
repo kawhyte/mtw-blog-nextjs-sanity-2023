@@ -271,46 +271,53 @@ export default defineType({
                     }),
                     defineField({
                       name: 'playerOfGame',
-                      title: 'Player of the Game',
-                      type: 'object',
-                      description: 'Highest scorer (or standout performer) from this game.',
-                      options: { collapsible: true, collapsed: false },
-                      fields: [
-                        defineField({
-                          name: 'playerName',
-                          title: 'Player Name',
-                          type: 'string',
-                        }),
-                        defineField({
-                          name: 'teamName',
-                          title: "Player's Team",
-                          type: 'string',
-                        }),
-                        defineField({
-                          name: 'points',
-                          title: 'Points',
-                          type: 'number',
-                          validation: (Rule) => Rule.integer().min(0),
-                        }),
-                        defineField({
-                          name: 'rebounds',
-                          title: 'Rebounds',
-                          type: 'number',
-                          validation: (Rule) => Rule.integer().min(0),
-                        }),
-                        defineField({
-                          name: 'assists',
-                          title: 'Assists',
-                          type: 'number',
-                          validation: (Rule) => Rule.integer().min(0),
-                        }),
-                        defineField({
-                          name: 'nbaPlayerId',
-                          title: 'NBA Player ID',
-                          type: 'number',
-                          description:
-                            'From BallDontLie API — used to load the player headshot from NBA CDN.',
-                        }),
+                      title: 'Key Players',
+                      type: 'array',
+                      description: 'Top performer from each team, auto-fetched from ESPN.',
+                      of: [
+                        {
+                          type: 'object',
+                          preview: {
+                            select: { title: 'playerName', subtitle: 'teamName' },
+                          },
+                          fields: [
+                            defineField({
+                              name: 'playerName',
+                              title: 'Player Name',
+                              type: 'string',
+                            }),
+                            defineField({
+                              name: 'teamName',
+                              title: "Player's Team",
+                              type: 'string',
+                            }),
+                            defineField({
+                              name: 'points',
+                              title: 'Points',
+                              type: 'number',
+                              validation: (Rule) => Rule.integer().min(0),
+                            }),
+                            defineField({
+                              name: 'rebounds',
+                              title: 'Rebounds',
+                              type: 'number',
+                              validation: (Rule) => Rule.integer().min(0),
+                            }),
+                            defineField({
+                              name: 'assists',
+                              title: 'Assists',
+                              type: 'number',
+                              validation: (Rule) => Rule.integer().min(0),
+                            }),
+                            defineField({
+                              name: 'nbaPlayerId',
+                              title: 'ESPN Athlete ID',
+                              type: 'number',
+                              description:
+                                'ESPN athlete ID — used to load the player headshot.',
+                            }),
+                          ],
+                        },
                       ],
                     }),
                   ],

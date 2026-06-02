@@ -112,7 +112,8 @@ const arenaFieldsDetailed = groq`
         awayScore,
         seasonType,
         overtimePeriods,
-        playerOfGame {
+        playerOfGame[] {
+          _key,
           playerName,
           teamName,
           points,
