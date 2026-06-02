@@ -176,6 +176,153 @@ export default defineType({
               validation: (Rule) => Rule.min(1).integer(),
             }),
             defineField({
+              name: 'attendedGames',
+              title: 'Games We Attended',
+              type: 'array',
+              description:
+                'Individual games attended for this team at this arena. Use BallDontLie to look up the game data.',
+              hidden: ({ parent }) => !parent?.played,
+              of: [
+                {
+                  type: 'object',
+                  name: 'gameEntry',
+                  title: 'Game',
+                  options: { collapsible: true, collapsed: false },
+                  preview: {
+                    select: {
+                      gameDate: 'gameDate',
+                      opponent: 'opponent',
+                      homeScore: 'homeScore',
+                      awayScore: 'awayScore',
+                    },
+                    prepare({ gameDate, opponent, homeScore, awayScore }) {
+                      const date = gameDate
+                        ? new Date(gameDate + 'T12:00:00').toLocaleDateString('en-US', {
+                            month: 'short',
+                            day: 'numeric',
+                            year: 'numeric',
+                          })
+                        : 'No date'
+                      const score =
+                        homeScore != null && awayScore != null
+                          ? ` · ${homeScore}–${awayScore}`
+                          : ''
+                      return {
+                        title: opponent ? `vs. ${opponent}${score}` : 'Game entry',
+                        subtitle: date,
+                      }
+                    },
+                  },
+                  fields: [
+                    defineField({
+                      name: 'gameDate',
+                      title: 'Game Date',
+                      type: 'date',
+                      options: { dateFormat: 'YYYY-MM-DD' },
+                      validation: (Rule) => Rule.required(),
+                    }),
+                    defineField({
+                      name: 'isHomeGame',
+                      title: 'Home Game?',
+                      type: 'boolean',
+                      description: 'Was the tracked team playing at home?',
+                      initialValue: true,
+                    }),
+                    defineField({
+                      name: 'opponent',
+                      title: 'Opponent',
+                      type: 'string',
+                      description: 'Full team name, e.g. "San Antonio Spurs"',
+                      validation: (Rule) => Rule.required(),
+                    }),
+                    defineField({
+                      name: 'homeScore',
+                      title: 'Home Team Score',
+                      type: 'number',
+                      validation: (Rule) => Rule.integer().min(0),
+                    }),
+                    defineField({
+                      name: 'awayScore',
+                      title: 'Away Team Score',
+                      type: 'number',
+                      validation: (Rule) => Rule.integer().min(0),
+                    }),
+                    defineField({
+                      name: 'seasonType',
+                      title: 'Season Type',
+                      type: 'string',
+                      initialValue: 'Regular Season',
+                      options: {
+                        list: [
+                          { title: 'Regular Season', value: 'Regular Season' },
+                          { title: 'Playoffs', value: 'Playoffs' },
+                          { title: 'Play-In', value: 'Play-In' },
+                          {
+                            title: 'In-Season Tournament',
+                            value: 'In-Season Tournament',
+                          },
+                          { title: 'Pre-Season', value: 'Pre-Season' },
+                        ],
+                        layout: 'radio',
+                      },
+                    }),
+                    defineField({
+                      name: 'overtimePeriods',
+                      title: 'Overtime Periods',
+                      type: 'number',
+                      description: '0 = regulation, 1 = one OT, etc.',
+                      initialValue: 0,
+                      validation: (Rule) => Rule.integer().min(0),
+                    }),
+                    defineField({
+                      name: 'playerOfGame',
+                      title: 'Player of the Game',
+                      type: 'object',
+                      description: 'Highest scorer (or standout performer) from this game.',
+                      options: { collapsible: true, collapsed: false },
+                      fields: [
+                        defineField({
+                          name: 'playerName',
+                          title: 'Player Name',
+                          type: 'string',
+                        }),
+                        defineField({
+                          name: 'teamName',
+                          title: "Player's Team",
+                          type: 'string',
+                        }),
+                        defineField({
+                          name: 'points',
+                          title: 'Points',
+                          type: 'number',
+                          validation: (Rule) => Rule.integer().min(0),
+                        }),
+                        defineField({
+                          name: 'rebounds',
+                          title: 'Rebounds',
+                          type: 'number',
+                          validation: (Rule) => Rule.integer().min(0),
+                        }),
+                        defineField({
+                          name: 'assists',
+                          title: 'Assists',
+                          type: 'number',
+                          validation: (Rule) => Rule.integer().min(0),
+                        }),
+                        defineField({
+                          name: 'nbaPlayerId',
+                          title: 'NBA Player ID',
+                          type: 'number',
+                          description:
+                            'From BallDontLie API — used to load the player headshot from NBA CDN.',
+                        }),
+                      ],
+                    }),
+                  ],
+                },
+              ],
+            }),
+            defineField({
               title: 'League / Team Type',
               name: 'teamType',
               type: 'string',

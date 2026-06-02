@@ -164,9 +164,11 @@ export default function ArenaPage({
   ]
 
   const visitCount = 1 + (arena.revisits?.length ?? 0)
-  // Sum timesAttended across all attended teams (default 1 per team if field not set)
+  // Prefer attendedGames.length when games are entered; fall back to timesAttended
   const totalGamesAttended = attendedTeams.reduce(
-    (sum: number, t: any) => sum + (t.timesAttended ?? 1),
+    (sum: number, t: any) =>
+      sum +
+      (t.attendedGames?.length > 0 ? t.attendedGames.length : (t.timesAttended ?? 1)),
     0,
   )
 
@@ -324,49 +326,178 @@ export default function ArenaPage({
                       Games We Attended
                     </span>
                   </div>
-                  <div className="flex flex-wrap gap-4">
+                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     {attendedTeams.map((team: any, i: number) => {
+                      const games: any[] = team.attendedGames ?? []
+                      const gameCount =
+                        games.length > 0 ? games.length : (team.timesAttended ?? 1)
                       const cardClasses =
-                        'flex flex-col items-center gap-2 p-4 rounded-xl border-2 border-primary ring-2 ring-primary/20 hover:ring-primary hover:shadow-brutalist-sm transition-all duration-200 bg-card'
+                        'rounded-xl border-2 border-primary ring-2 ring-primary/20 hover:ring-primary hover:shadow-brutalist-sm transition-all duration-200 bg-card overflow-hidden'
+
                       const inner = (
                         <>
-                          {team.asset && (
-                            <Image
-                              src={urlForImage(team.asset)
-                                .width(56)
-                                .height(56)
-                                .fit('crop')
-                                .auto('format')
-                                .url()}
-                              alt={`${team.name} logo`}
-                              width={56}
-                              height={56}
-                              className="rounded-full"
-                              loading="lazy"
-                              sizes="56px"
-                            />
-                          )}
-                          <span className="text-xs font-semibold text-center leading-tight max-w-20">
-                            {team.name}
-                          </span>
-                          {team.teamType && (
-                            <Badge
-                              variant="secondary"
-                              className="text-xs uppercase"
-                            >
-                              {team.teamType}
-                            </Badge>
-                          )}
-                          {(team.timesAttended ?? 1) > 1 && (
-                            <Badge
-                              variant="outline"
-                              className="text-xs text-primary border-primary font-bold"
-                            >
-                              ×{team.timesAttended} games
-                            </Badge>
+                          {/* Team identity row */}
+                          <div className="flex items-center gap-3 p-4">
+                            {team.asset && (
+                              <Image
+                                src={urlForImage(team.asset)
+                                  .width(48)
+                                  .height(48)
+                                  .fit('crop')
+                                  .auto('format')
+                                  .url()}
+                                alt={`${team.name} logo`}
+                                width={48}
+                                height={48}
+                                className="rounded-full shrink-0"
+                                loading="lazy"
+                                sizes="48px"
+                              />
+                            )}
+                            <div className="flex-1 min-w-0">
+                              <p className="text-sm font-semibold leading-tight truncate">
+                                {team.name}
+                              </p>
+                              <div className="flex flex-wrap items-center gap-1.5 mt-1">
+                                {team.teamType && (
+                                  <Badge
+                                    variant="secondary"
+                                    className="text-xs uppercase"
+                                  >
+                                    {team.teamType}
+                                  </Badge>
+                                )}
+                                <Badge
+                                  variant="outline"
+                                  className="text-xs text-primary border-primary font-bold"
+                                >
+                                  {gameCount} {gameCount === 1 ? 'game' : 'games'}
+                                </Badge>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Game rows */}
+                          {games.length > 0 && (
+                            <div className="border-t border-border">
+                              {games.map((game: any, gi: number) => {
+                                const trackedScore = game.isHomeGame
+                                  ? game.homeScore
+                                  : game.awayScore
+                                const opponentScore = game.isHomeGame
+                                  ? game.awayScore
+                                  : game.homeScore
+                                const hasScore =
+                                  trackedScore != null && opponentScore != null
+                                const isWin = hasScore && trackedScore > opponentScore
+                                const isLoss = hasScore && trackedScore < opponentScore
+
+                                return (
+                                  <div
+                                    key={gi}
+                                    className={`px-4 py-3${gi > 0 ? ' border-t border-border' : ''}`}
+                                  >
+                                    {/* Date + labels */}
+                                    <div className="flex items-center flex-wrap gap-1.5 mb-1.5">
+                                      {game.gameDate && (
+                                        <span className="text-xs text-muted-foreground">
+                                          {new Date(
+                                            game.gameDate + 'T12:00:00',
+                                          ).toLocaleDateString('en-US', {
+                                            month: 'short',
+                                            day: 'numeric',
+                                            year: 'numeric',
+                                          })}
+                                        </span>
+                                      )}
+                                      {game.seasonType &&
+                                        game.seasonType !== 'Regular Season' && (
+                                          <Badge
+                                            variant="secondary"
+                                            className="text-xs"
+                                          >
+                                            {game.seasonType}
+                                          </Badge>
+                                        )}
+                                      {game.overtimePeriods > 0 && (
+                                        <Badge
+                                          variant="outline"
+                                          className="text-xs text-amber-600 border-amber-600/50"
+                                        >
+                                          {game.overtimePeriods === 1
+                                            ? 'OT'
+                                            : `${game.overtimePeriods}OT`}
+                                        </Badge>
+                                      )}
+                                      {hasScore && (
+                                        <Badge
+                                          variant="outline"
+                                          className={`text-xs ml-auto font-bold ${
+                                            isWin
+                                              ? 'text-green-600 border-green-500/40'
+                                              : isLoss
+                                                ? 'text-red-600 border-red-500/40'
+                                                : 'text-muted-foreground'
+                                          }`}
+                                        >
+                                          {isWin ? 'W' : isLoss ? 'L' : 'T'}
+                                        </Badge>
+                                      )}
+                                    </div>
+
+                                    {/* Score line */}
+                                    {hasScore && (
+                                      <p className="text-sm font-semibold">
+                                        {team.name} {trackedScore} –{' '}
+                                        {opponentScore} {game.opponent}
+                                      </p>
+                                    )}
+
+                                    {/* Player of game */}
+                                    {game.playerOfGame?.playerName && (
+                                      <div className="flex items-center gap-2 mt-2">
+                                        {game.playerOfGame.nbaPlayerId && (
+                                          // eslint-disable-next-line @next/next/no-img-element
+                                          <img
+                                            src={`https://cdn.nba.com/headshots/nba/latest/1040x760/${game.playerOfGame.nbaPlayerId}.png`}
+                                            alt={game.playerOfGame.playerName}
+                                            width={28}
+                                            height={28}
+                                            className="rounded-full object-cover bg-muted shrink-0"
+                                            onError={(e) => {
+                                              ;(
+                                                e.target as HTMLImageElement
+                                              ).style.display = 'none'
+                                            }}
+                                          />
+                                        )}
+                                        <span className="text-xs text-muted-foreground">
+                                          ⭐{' '}
+                                          <span className="font-medium text-foreground">
+                                            {game.playerOfGame.playerName}
+                                          </span>
+                                          {game.playerOfGame.points != null && (
+                                            <span className="ml-1">
+                                              {game.playerOfGame.points} pts
+                                              {game.playerOfGame.rebounds !=
+                                                null &&
+                                                ` / ${game.playerOfGame.rebounds} reb`}
+                                              {game.playerOfGame.assists !=
+                                                null &&
+                                                ` / ${game.playerOfGame.assists} ast`}
+                                            </span>
+                                          )}
+                                        </span>
+                                      </div>
+                                    )}
+                                  </div>
+                                )
+                              })}
+                            </div>
                           )}
                         </>
                       )
+
                       return team.link ? (
                         <a
                           key={team.name || i}

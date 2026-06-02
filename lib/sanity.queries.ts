@@ -104,7 +104,24 @@ const arenaFieldsDetailed = groq`
     },
     gallery[] {
       ...,
-      asset->{ _id, metadata { lqip, dimensions { width, height } } }
+      asset->{ _id, metadata { lqip, dimensions { width, height } } },
+      attendedGames[] {
+        gameDate,
+        isHomeGame,
+        opponent,
+        homeScore,
+        awayScore,
+        seasonType,
+        overtimePeriods,
+        playerOfGame {
+          playerName,
+          teamName,
+          points,
+          rebounds,
+          assists,
+          nbaPlayerId
+        }
+      }
     },
     location,
     excerpt,
