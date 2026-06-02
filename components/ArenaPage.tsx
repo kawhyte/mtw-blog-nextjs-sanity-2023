@@ -84,7 +84,7 @@ const ARENA_RATING_LABELS: Record<string, string> = {
   vibes: 'Atmosphere & Vibes',
 }
 
-const GAMES_PREVIEW_COUNT = 3
+const GAMES_PREVIEW_COUNT = 4
 
 function GameCard({ game, team }: { game: any; team: any }) {
   const trackedScore = game.homeScore
@@ -112,10 +112,16 @@ function GameCard({ game, team }: { game: any; team: any }) {
           )}
         </div>
         <div className="flex items-center gap-1">
-          {game.seasonType && game.seasonType !== 'Regular Season' && (
-            <Badge variant="secondary" className="text-[10px] px-1.5 py-0">
-              {game.seasonType}
+          {game.eventName ? (
+            <Badge variant="default" className="text-[10px] px-1.5 py-0">
+              {game.eventName}
             </Badge>
+          ) : (
+            game.seasonType && game.seasonType !== 'Regular Season' && (
+              <Badge variant="secondary" className="text-[10px] px-1.5 py-0">
+                {game.seasonType}
+              </Badge>
+            )
           )}
           {game.overtimePeriods > 0 && (
             <Badge
@@ -380,6 +386,12 @@ export default function ArenaPage({
             )}
 
             <h1 className="mb-4 text-4xl font-bold">{arena.name}</h1>
+
+            {arena.venueNote && (
+              <p className="text-sm text-muted-foreground mb-4 italic">
+                {arena.venueNote}
+              </p>
+            )}
 
             {/* Hotel-style inline meta row */}
             <div className="mb-4 flex flex-wrap items-center justify-start gap-x-6 gap-y-2">

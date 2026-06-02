@@ -107,7 +107,7 @@ export function GameDataFetcherInput(props: ArrayOfObjectsInputProps) {
         <Stack space={3}>
           <Text size={1} weight="semibold">
             {isSupported
-              ? `Fetch Game from BallDontLie${teamName ? ` · ${teamName}` : ''}`
+              ? `Fetch Game from ESPN${teamName ? ` · ${teamName}` : ''}`
               : 'Auto-fetch is only available for NBA and WNBA teams'}
           </Text>
 

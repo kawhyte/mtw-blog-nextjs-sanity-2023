@@ -65,6 +65,13 @@ export default defineType({
       type: 'date',
       options: { dateFormat: 'YYYY-MM-DD' },
     }),
+    defineField({
+      name: 'venueNote',
+      title: 'Venue Note (Optional)',
+      type: 'string',
+      description:
+        'Short context for multi-use or neutral-site venues. e.g. "Multi-purpose venue; hosts Las Vegas Aces home games and NBA special events."',
+    }),
 
     // --- Images & Galleries ---
     defineField({
@@ -181,7 +188,7 @@ export default defineType({
               title: 'Games We Attended',
               type: 'array',
               description:
-                'Use the "Fetch Game" button above to auto-populate game data from BallDontLie.',
+                'Use the "Fetch Game" button above to auto-populate game data from ESPN.',
               hidden: ({ parent }) => !parent?.played,
               components: { input: GameDataFetcherInput },
               of: [
@@ -268,6 +275,13 @@ export default defineType({
                       description: '0 = regulation, 1 = one OT, etc.',
                       initialValue: 0,
                       validation: (Rule) => Rule.integer().min(0),
+                    }),
+                    defineField({
+                      name: 'eventName',
+                      title: 'Event / Tournament Name (Optional)',
+                      type: 'string',
+                      description:
+                        'e.g. "Emirates NBA Cup 2024", "NBA Paris Game". Leave blank for regular season games.',
                     }),
                     defineField({
                       name: 'playerOfGame',

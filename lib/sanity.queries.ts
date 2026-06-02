@@ -79,6 +79,7 @@ const arenaFields = groq`
     },
     location,
     buildDate,
+    venueNote,
     capacity,
     visited,
     arenaReview {
@@ -112,6 +113,7 @@ const arenaFieldsDetailed = groq`
         awayScore,
         seasonType,
         overtimePeriods,
+        eventName,
         playerOfGame[] {
           _key,
           playerName,
@@ -126,6 +128,7 @@ const arenaFieldsDetailed = groq`
     location,
     excerpt,
     buildDate,
+    venueNote,
     capacity,
     photoGallerySection {
       mainImage {
@@ -950,6 +953,7 @@ export interface Arena {
   location?: string
   excerpt?: string
   buildDate?: string
+  venueNote?: string
   capacity?: number
   videoUrl?: string
   prosConsVerdict?: {
