@@ -1,5 +1,6 @@
 // components/ArenaPage.tsx
 
+import { useState } from 'react'
 import Layout from 'components/BlogLayout'
 import { formatDate } from 'components/PostDate'
 import PostPageHead from 'components/PostPageHead'
@@ -35,6 +36,12 @@ const ImageGallery = dynamic(() => import('./ImageGallery'), {
 })
 
 import { Badge } from '@/components/ui/badge'
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog'
 
 import ArenaFoodItems from './ArenaFoodItems'
 import ArenaHotelStay from './ArenaHotelStay'
@@ -75,6 +82,156 @@ const ARENA_RATING_LABELS: Record<string, string> = {
   food: 'Food & Concessions',
   view: 'Sightlines & View',
   vibes: 'Atmosphere & Vibes',
+}
+
+const GAMES_PREVIEW_COUNT = 3
+
+function GameCard({ game, team }: { game: any; team: any }) {
+  const trackedScore = game.homeScore
+  const opponentScore = game.awayScore
+  const hasScore = trackedScore != null && opponentScore != null
+  const isWin = hasScore && trackedScore > opponentScore
+  const isLoss = hasScore && trackedScore < opponentScore
+
+  return (
+    <div className="rounded-lg border border-border bg-muted/30 overflow-hidden">
+      {/* Card header: Final + date + badges */}
+      <div className="flex items-center justify-between px-3 py-2 border-b border-border/50">
+        <div className="flex items-center gap-1.5">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+            Final
+          </span>
+          {game.gameDate && (
+            <span className="text-[10px] text-muted-foreground">
+              ·{' '}
+              {new Date(game.gameDate + 'T12:00:00').toLocaleDateString(
+                'en-US',
+                { month: 'short', day: 'numeric', year: 'numeric' },
+              )}
+            </span>
+          )}
+        </div>
+        <div className="flex items-center gap-1">
+          {game.seasonType && game.seasonType !== 'Regular Season' && (
+            <Badge variant="secondary" className="text-[10px] px-1.5 py-0">
+              {game.seasonType}
+            </Badge>
+          )}
+          {game.overtimePeriods > 0 && (
+            <Badge
+              variant="outline"
+              className="text-[10px] px-1.5 py-0 text-amber-600 border-amber-600/50"
+            >
+              {game.overtimePeriods === 1
+                ? 'OT'
+                : `${game.overtimePeriods}OT`}
+            </Badge>
+          )}
+        </div>
+      </div>
+
+      {/* Matchup rows */}
+      <div className="px-3 py-2.5 space-y-1.5">
+        {/* Tracked team (home) */}
+        <div className="flex items-center gap-2">
+          {team.asset ? (
+            <Image
+              src={urlForImage(team.asset)
+                .width(22)
+                .height(22)
+                .fit('crop')
+                .auto('format')
+                .url()}
+              alt={`${team.name} logo`}
+              width={22}
+              height={22}
+              className="rounded-full shrink-0"
+              loading="lazy"
+              sizes="22px"
+            />
+          ) : (
+            <div className="w-[22px] shrink-0" />
+          )}
+          <span
+            className={`text-xs flex-1 leading-tight truncate ${isWin ? 'font-bold text-foreground' : 'text-muted-foreground'}`}
+          >
+            {team.name}
+          </span>
+          {hasScore && (
+            <>
+              <span
+                className={`text-xs font-mono tabular-nums font-bold min-w-[24px] text-right ${isWin ? 'text-foreground' : 'text-muted-foreground'}`}
+              >
+                {trackedScore}
+              </span>
+              <span className="w-3 text-[10px] text-green-500 font-bold text-center">
+                {isWin ? '◀' : ''}
+              </span>
+            </>
+          )}
+        </div>
+
+        {/* Opponent (away) */}
+        <div className="flex items-center gap-2">
+          <div className="w-[22px] shrink-0" />
+          <span
+            className={`text-xs flex-1 leading-tight truncate ${isLoss ? 'font-bold text-foreground' : 'text-muted-foreground'}`}
+          >
+            {game.opponent ?? '–'}
+          </span>
+          {hasScore && (
+            <>
+              <span
+                className={`text-xs font-mono tabular-nums font-bold min-w-[24px] text-right ${isLoss ? 'text-foreground' : 'text-muted-foreground'}`}
+              >
+                {opponentScore}
+              </span>
+              <span className="w-3 text-[10px] text-green-500 font-bold text-center">
+                {isLoss ? '◀' : ''}
+              </span>
+            </>
+          )}
+        </div>
+      </div>
+
+      {/* Key players — top scorer from each team */}
+      {game.playerOfGame?.length > 0 && (
+        <div className="flex flex-col divide-y divide-border/30 border-t border-border/50 bg-muted/20">
+          {game.playerOfGame.map((player: any) => (
+            <div
+              key={player._key}
+              className="flex items-center gap-2 px-3 py-1.5"
+            >
+              {player.nbaPlayerId && (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={`https://a.espncdn.com/i/headshots/${team.teamType === 'wnba' ? 'wnba' : 'nba'}/players/full/${player.nbaPlayerId}.png`}
+                  alt={player.playerName}
+                  width={32}
+                  height={32}
+                  className="rounded-full object-cover bg-muted shrink-0"
+                  onError={(e) => {
+                    ;(e.target as HTMLImageElement).style.display = 'none'
+                  }}
+                />
+              )}
+              <div className="min-w-0 flex-1">
+                <p className="text-xs font-semibold truncate">
+                  {player.playerName}
+                </p>
+                <p className="text-[10px] text-muted-foreground truncate">
+                  {player.teamName}
+                  {player.points != null && ` · ${player.points} pts`}
+                  {player.rebounds != null && ` · ${player.rebounds} reb`}
+                  {player.assists != null && ` · ${player.assists} ast`}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  )
 }
 
 export default function ArenaPage({
@@ -171,6 +328,8 @@ export default function ArenaPage({
       (t.attendedGames?.length > 0 ? t.attendedGames.length : (t.timesAttended ?? 1)),
     0,
   )
+
+  const [showAllGamesTeamKey, setShowAllGamesTeamKey] = useState<string | null>(null)
 
   return (
     <div>
@@ -326,11 +485,11 @@ export default function ArenaPage({
                       Games We Attended
                     </span>
                   </div>
-                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <div className={`grid grid-cols-1 gap-4 ${attendedTeams.length > 1 ? 'sm:grid-cols-2' : ''}`}>
                     {attendedTeams.map((team: any, i: number) => {
                       const games: any[] = team.attendedGames ?? []
-                      const gameCount =
-                        games.length > 0 ? games.length : (team.timesAttended ?? 1)
+                      const visibleGames = games.slice(0, GAMES_PREVIEW_COUNT)
+                      const extraCount = games.length - GAMES_PREVIEW_COUNT
                       const cardClasses =
                         'rounded-xl border-2 border-primary ring-2 ring-primary/20 hover:ring-primary hover:shadow-brutalist-sm transition-all duration-200 bg-card overflow-hidden'
 
@@ -367,185 +526,49 @@ export default function ArenaPage({
                                     {team.teamType}
                                   </Badge>
                                 )}
-                                <Badge
-                                  variant="outline"
-                                  className="text-xs text-primary border-primary font-bold"
-                                >
-                                  {gameCount} {gameCount === 1 ? 'game' : 'games'}
-                                </Badge>
+                                {games.length > 0 && (
+                                  <Badge
+                                    variant="outline"
+                                    className="text-xs text-primary border-primary font-bold"
+                                  >
+                                    {games.length}{' '}
+                                    {games.length === 1 ? 'game' : 'games'}
+                                  </Badge>
+                                )}
                               </div>
                             </div>
                           </div>
 
-                          {/* Game scorecards */}
+                          {/* Game scorecards — horizontal scroll */}
                           {games.length > 0 && (
-                            <div className="border-t border-border px-3 pb-3 pt-2 space-y-2">
-                              {games.map((game: any, gi: number) => {
-                                const trackedScore = game.homeScore
-                                const opponentScore = game.awayScore
-                                const hasScore =
-                                  trackedScore != null && opponentScore != null
-                                const isWin =
-                                  hasScore && trackedScore > opponentScore
-                                const isLoss =
-                                  hasScore && trackedScore < opponentScore
-
-                                return (
+                            <div className="border-t border-border px-3 pb-3 pt-2">
+                              <div className="flex gap-3 overflow-x-auto pb-1">
+                                {visibleGames.map((game: any, gi: number) => (
                                   <div
                                     key={gi}
-                                    className="rounded-lg border border-border bg-muted/30 overflow-hidden"
+                                    className="w-[260px] min-w-[260px] shrink-0"
                                   >
-                                    {/* Card header: Final + date + badges */}
-                                    <div className="flex items-center justify-between px-3 py-2 border-b border-border/50">
-                                      <div className="flex items-center gap-1.5">
-                                        <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
-                                          Final
-                                        </span>
-                                        {game.gameDate && (
-                                          <span className="text-[10px] text-muted-foreground">
-                                            ·{' '}
-                                            {new Date(
-                                              game.gameDate + 'T12:00:00',
-                                            ).toLocaleDateString('en-US', {
-                                              month: 'short',
-                                              day: 'numeric',
-                                              year: 'numeric',
-                                            })}
-                                          </span>
-                                        )}
-                                      </div>
-                                      <div className="flex items-center gap-1">
-                                        {game.seasonType &&
-                                          game.seasonType !==
-                                            'Regular Season' && (
-                                            <Badge
-                                              variant="secondary"
-                                              className="text-[10px] px-1.5 py-0"
-                                            >
-                                              {game.seasonType}
-                                            </Badge>
-                                          )}
-                                        {game.overtimePeriods > 0 && (
-                                          <Badge
-                                            variant="outline"
-                                            className="text-[10px] px-1.5 py-0 text-amber-600 border-amber-600/50"
-                                          >
-                                            {game.overtimePeriods === 1
-                                              ? 'OT'
-                                              : `${game.overtimePeriods}OT`}
-                                          </Badge>
-                                        )}
-                                      </div>
-                                    </div>
-
-                                    {/* Matchup rows */}
-                                    <div className="px-3 py-2.5 space-y-1.5">
-                                      {/* Tracked team (home) */}
-                                      <div className="flex items-center gap-2">
-                                        {team.asset ? (
-                                          <Image
-                                            src={urlForImage(team.asset)
-                                              .width(22)
-                                              .height(22)
-                                              .fit('crop')
-                                              .auto('format')
-                                              .url()}
-                                            alt={`${team.name} logo`}
-                                            width={22}
-                                            height={22}
-                                            className="rounded-full shrink-0"
-                                            loading="lazy"
-                                            sizes="22px"
-                                          />
-                                        ) : (
-                                          <div className="w-[22px] shrink-0" />
-                                        )}
-                                        <span
-                                          className={`text-xs flex-1 leading-tight truncate ${isWin ? 'font-bold text-foreground' : 'text-muted-foreground'}`}
-                                        >
-                                          {team.name}
-                                        </span>
-                                        {hasScore && (
-                                          <>
-                                            <span
-                                              className={`text-xs font-mono tabular-nums font-bold min-w-[24px] text-right ${isWin ? 'text-foreground' : 'text-muted-foreground'}`}
-                                            >
-                                              {trackedScore}
-                                            </span>
-                                            <span className="w-3 text-[10px] text-green-500 font-bold text-center">
-                                              {isWin ? '◀' : ''}
-                                            </span>
-                                          </>
-                                        )}
-                                      </div>
-
-                                      {/* Opponent (away) */}
-                                      <div className="flex items-center gap-2">
-                                        <div className="w-[22px] shrink-0" />
-                                        <span
-                                          className={`text-xs flex-1 leading-tight truncate ${isLoss ? 'font-bold text-foreground' : 'text-muted-foreground'}`}
-                                        >
-                                          {game.opponent ?? '–'}
-                                        </span>
-                                        {hasScore && (
-                                          <>
-                                            <span
-                                              className={`text-xs font-mono tabular-nums font-bold min-w-[24px] text-right ${isLoss ? 'text-foreground' : 'text-muted-foreground'}`}
-                                            >
-                                              {opponentScore}
-                                            </span>
-                                            <span className="w-3 text-[10px] text-green-500 font-bold text-center">
-                                              {isLoss ? '◀' : ''}
-                                            </span>
-                                          </>
-                                        )}
-                                      </div>
-                                    </div>
-
-                                    {/* Key players — top scorer from each team */}
-                                    {game.playerOfGame?.length > 0 && (
-                                      <div className="flex flex-col divide-y divide-border/30 border-t border-border/50 bg-muted/20">
-                                        {game.playerOfGame.map((player: any) => (
-                                          <div
-                                            key={player._key}
-                                            className="flex items-center gap-2 px-3 py-1.5"
-                                          >
-                                            {player.nbaPlayerId && (
-                                              // eslint-disable-next-line @next/next/no-img-element
-                                              <img
-                                                src={`https://a.espncdn.com/i/headshots/${team.teamType === 'wnba' ? 'wnba' : 'nba'}/players/full/${player.nbaPlayerId}.png`}
-                                                alt={player.playerName}
-                                                width={32}
-                                                height={32}
-                                                className="rounded-full object-cover bg-muted shrink-0"
-                                                onError={(e) => {
-                                                  ;(
-                                                    e.target as HTMLImageElement
-                                                  ).style.display = 'none'
-                                                }}
-                                              />
-                                            )}
-                                            <div className="min-w-0 flex-1">
-                                              <p className="text-xs font-semibold truncate">
-                                                {player.playerName}
-                                              </p>
-                                              <p className="text-[10px] text-muted-foreground truncate">
-                                                {player.teamName}
-                                                {player.points != null &&
-                                                  ` · ${player.points} pts`}
-                                                {player.rebounds != null &&
-                                                  ` · ${player.rebounds} reb`}
-                                                {player.assists != null &&
-                                                  ` · ${player.assists} ast`}
-                                              </p>
-                                            </div>
-                                          </div>
-                                        ))}
-                                      </div>
-                                    )}
+                                    <GameCard game={game} team={team} />
                                   </div>
-                                )
-                              })}
+                                ))}
+                                {extraCount > 0 && (
+                                  <button
+                                    onClick={(e) => {
+                                      e.preventDefault()
+                                      e.stopPropagation()
+                                      setShowAllGamesTeamKey(team.name)
+                                    }}
+                                    className="w-[100px] min-w-[100px] shrink-0 rounded-lg border-2 border-dashed border-border bg-muted/10 flex flex-col items-center justify-center gap-1 text-muted-foreground hover:border-primary hover:text-primary transition-colors cursor-pointer"
+                                  >
+                                    <span className="text-2xl font-bold">
+                                      +{extraCount}
+                                    </span>
+                                    <span className="text-xs text-center leading-tight">
+                                      more games
+                                    </span>
+                                  </button>
+                                )}
+                              </div>
                             </div>
                           )}
                         </>
@@ -614,6 +637,32 @@ export default function ArenaPage({
             </div>
           </div>
         )}
+
+        {/* "See all games" dialog — opens when +N chip is clicked */}
+        {showAllGamesTeamKey && (() => {
+          const dialogTeam = attendedTeams.find(
+            (t: any) => t.name === showAllGamesTeamKey,
+          )
+          if (!dialogTeam) return null
+          const allGames: any[] = dialogTeam.attendedGames ?? []
+          return (
+            <Dialog
+              open={true}
+              onOpenChange={() => setShowAllGamesTeamKey(null)}
+            >
+              <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+                <DialogHeader>
+                  <DialogTitle>All Games — {dialogTeam.name}</DialogTitle>
+                </DialogHeader>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-2">
+                  {allGames.map((game: any, gi: number) => (
+                    <GameCard key={gi} game={game} team={dialogTeam} />
+                  ))}
+                </div>
+              </DialogContent>
+            </Dialog>
+          )
+        })()}
 
         {/* 6. REVISIT TIMELINE */}
         {timelineEntries.length > 0 && originalRatingResult && arena.date && (
