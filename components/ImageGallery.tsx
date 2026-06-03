@@ -50,7 +50,6 @@ const CATEGORY_LABELS: Record<string, string> = {
   'food-drinks': 'Food & Drinks',
   interior: 'Interior & Atmosphere',
   exterior: 'Exterior',
-  'bar-area': 'Bar Area',
   menu: 'Menu',
   // Arenas
   court: 'Seating & Game Floor',

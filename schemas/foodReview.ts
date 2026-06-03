@@ -206,13 +206,12 @@ export default defineType({
               type: 'string',
               title: 'Photo Category',
               description:
-                'Choose a category — Food & Drinks: dishes, cocktails, desserts. Interior & Atmosphere: dining room, tables, décor. Exterior: outside the building, signage, patio. Bar Area: bar counter, bottles, bartender. Menu: printed or digital menu shots. Additional Photos: anything that doesn\'t fit above.',
+                'Choose a category — Food & Drinks: dishes, cocktails, desserts. Interior & Atmosphere: dining room, tables, décor. Exterior: outside the building, signage, patio. Menu: printed or digital menu shots. Additional Photos: anything that doesn\'t fit above.',
               options: {
                 list: [
                   { title: 'Food & Drinks', value: 'food-drinks' },
                   { title: 'Interior & Atmosphere', value: 'interior' },
                   { title: 'Exterior', value: 'exterior' },
-                  { title: 'Bar Area', value: 'bar-area' },
                   { title: 'Menu', value: 'menu' },
                   { title: 'Additional Photos', value: 'other' },
                 ],
