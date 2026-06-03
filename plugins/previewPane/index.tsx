@@ -10,14 +10,12 @@ import guideType from 'schemas/guide'
 import hotelReviewType from 'schemas/hotelReview'
 import foodReviewType from 'schemas/foodReview'
 import areanasType from 'schemas/nbaArenas'
-import postType from 'schemas/post'
 
 import ArenaPreviewPane from './ArenaPreviewPane'
 import AuthorAvatarPreviewPane from './AuthorAvatarPreviewPane'
 import GuidePreviewPane from './GuidePreviewPane'
 import HotelReviewPreviewPane from './HotelReviewPreviewPane'
 import FoodReviewPreviewPane from './FoodReviewPreviewPane'
-import PostPreviewPane from './PostPreviewPane'
 
 export const previewDocumentNode = ({
   apiVersion,
@@ -36,20 +34,6 @@ export const previewDocumentNode = ({
               <AuthorAvatarPreviewPane
                 name={document.displayed.name as any}
                 picture={document.displayed.picture as any}
-              />
-            ))
-            .title('Preview'),
-        ])
-
-      case postType.name:
-        return S.document().views([
-          S.view.form(),
-          S.view
-            .component(({ document }) => (
-              <PostPreviewPane
-                slug={document.displayed.slug?.current}
-                apiVersion={apiVersion}
-                previewSecretId={previewSecretId}
               />
             ))
             .title('Preview'),

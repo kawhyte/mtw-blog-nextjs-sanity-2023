@@ -28,25 +28,6 @@ import { groq } from 'next-sanity'
 // 5. Specialized Field Sets
 // ------------------------------
 
-const recommendationFields = groq`
-    _id,
-    title,
-    listType,
-    recommendations[] {
-        post->{
-            _id,
-            title,
-            "slug": slug.current,
-            coverImage {
-              ...,
-              asset->{ _id, metadata { lqip, dimensions { width, height } } }
-            },
-            location,
-            linkType
-        }
-    }
-`
-
 const travelEssentialFields = groq`
     _id,
     name,
@@ -264,14 +245,6 @@ const fetchDocumentBySlug = (
 // ------------------------------
 // 7. Exported Queries (General, Slugs, By Slug, Fetch All Type)
 // ------------------------------
-
-export const recommendationQuery = fetchDocuments(
-  'recommendationList',
-  recommendationFields,
-  {
-    order: 'date desc, _updatedAt desc',
-  },
-)
 
 export const travelEssentialQuery = fetchDocuments(
   'essential',

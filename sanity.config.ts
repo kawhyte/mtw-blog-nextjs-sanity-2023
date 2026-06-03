@@ -27,7 +27,6 @@ import hotelReviewType from 'schemas/hotelReview'
 import individualFoodType from 'schemas/individualFoodRating'
 import areanasType from 'schemas/nbaArenas'
 import photoGallery from 'schemas/photoGallery'
-import postType from 'schemas/post'
 // import {recommendationListType} from 'schemas/recommendationListType'
 // import {recommendationType} from 'schemas/recommendationType'
 import roomAmenitiesType from 'schemas/roomAmenities'
@@ -75,7 +74,6 @@ export default defineConfig({
       arenaReviewType,
       travelEssentialType,
       galleryType2,
-      postType,
       settingsType,
     ],
   },
@@ -93,7 +91,6 @@ export default defineConfig({
       previewSecretId,
       types: [
         guideType.name,
-        postType.name,
         hotelReviewType.name,
         foodReviewType.name,
         settingsType.name,

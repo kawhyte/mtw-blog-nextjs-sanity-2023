@@ -29,7 +29,6 @@ import {
   independentHotelReviewFields,
   type Instagram,
   latestIndependentContentQuery,
-  recommendationQuery,
   relatedGuidesQuery,
   type Settings,
   settingsQuery,
@@ -204,19 +203,6 @@ export async function getGuidesTotalCount(): Promise<number> {
 // - getAllStoryPosts() -> getAllGuides()
 // - getPaginatedGuidePosts() -> getPaginatedGuides()
 // - getGuidePostsTotalCount() -> getGuidesTotalCount()
-
-// --- Recommendations ---
-export async function getRecommendationPosts(): Promise<any[]> {
-  // TODO: Define Recommendation List type
-  if (!client) return []
-  try {
-    const results = await client.fetch<any[]>(recommendationQuery)
-    return results ?? []
-  } catch (error) {
-    console.error(`Error fetching recommendation posts:`, error)
-    return []
-  }
-}
 
 // --- Travel Essentials ---
 export async function getTravelEssentialPosts(): Promise<Essential[]> {
