@@ -135,14 +135,47 @@ export default defineType({
               type: 'string',
               description: 'Optional: Add a brief caption for the image.',
             }),
+            defineField({
+              name: 'category',
+              title: 'Photo Category',
+              type: 'string',
+              description:
+                "Choose a category — Court & Game Floor: court, baskets, scorers table. Seating & Views: view from your specific seat or section. Concessions & Food: food stalls, menu boards, food shots. Exterior: outside the building, signage, plaza. Entrances & Lobby: inside entrance, hallways, common areas. Game Atmosphere: crowd, jumbotron, mascot, pre-game energy. Additional Photos: anything that doesn't fit above.",
+              options: {
+                list: [
+                  { title: 'Court & Game Floor', value: 'court' },
+                  { title: 'Seating & Views', value: 'seating' },
+                  { title: 'Concessions & Food', value: 'concessions' },
+                  { title: 'Exterior', value: 'exterior' },
+                  { title: 'Entrances & Lobby', value: 'lobby' },
+                  { title: 'Game Atmosphere', value: 'game-atmosphere' },
+                  { title: 'Additional Photos', value: 'other' },
+                ],
+              },
+            }),
           ],
 
-          // Optional: Preview configuration for images within the array
           preview: {
             select: {
-              imageUrl: 'asset.url',
-              title: 'caption',
-              subtitle: 'alt',
+              media: 'asset',
+              title: 'alt',
+              category: 'category',
+            },
+            prepare({ media, title, category }: { media: any; title?: string; category?: string }) {
+              const labels: Record<string, string> = {
+                court: 'Court & Game Floor',
+                seating: 'Seating & Views',
+                concessions: 'Concessions & Food',
+                exterior: 'Exterior',
+                lobby: 'Entrances & Lobby',
+                'game-atmosphere': 'Game Atmosphere',
+                other: 'Additional Photos',
+              }
+              return {
+                media,
+                title: title || 'No alt text',
+                subtitle: category ? `✓  ${labels[category] ?? category}` : '⚠  No category set',
+              }
             },
           },
         },

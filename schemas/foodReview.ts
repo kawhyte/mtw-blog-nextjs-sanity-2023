@@ -195,7 +195,52 @@ export default defineType({
               title: 'Alternative text',
               components: { input: AltTextGeneratorInput },
             },
+            {
+              name: 'caption',
+              type: 'string',
+              title: 'Caption',
+              description: 'Optional: add a brief caption shown below the photo in the gallery.',
+            },
+            {
+              name: 'category',
+              type: 'string',
+              title: 'Photo Category',
+              description:
+                'Choose a category — Food & Drinks: dishes, cocktails, desserts. Interior & Atmosphere: dining room, tables, décor. Exterior: outside the building, signage, patio. Bar Area: bar counter, bottles, bartender. Menu: printed or digital menu shots. Additional Photos: anything that doesn\'t fit above.',
+              options: {
+                list: [
+                  { title: 'Food & Drinks', value: 'food-drinks' },
+                  { title: 'Interior & Atmosphere', value: 'interior' },
+                  { title: 'Exterior', value: 'exterior' },
+                  { title: 'Bar Area', value: 'bar-area' },
+                  { title: 'Menu', value: 'menu' },
+                  { title: 'Additional Photos', value: 'other' },
+                ],
+              },
+            },
           ],
+          preview: {
+            select: {
+              media: 'asset',
+              title: 'alt',
+              category: 'category',
+            },
+            prepare({ media, title, category }: { media: any; title?: string; category?: string }) {
+              const labels: Record<string, string> = {
+                'food-drinks': 'Food & Drinks',
+                interior: 'Interior & Atmosphere',
+                exterior: 'Exterior',
+                'bar-area': 'Bar Area',
+                menu: 'Menu',
+                other: 'Additional Photos',
+              }
+              return {
+                media,
+                title: title || 'No alt text',
+                subtitle: category ? `✓  ${labels[category] ?? category}` : '⚠  No category set',
+              }
+            },
+          },
         },
       ],
     }),

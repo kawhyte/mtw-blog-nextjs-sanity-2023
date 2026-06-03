@@ -183,7 +183,54 @@ export default defineType({
               title: 'Alternative text',
               components: { input: AltTextGeneratorInput },
             },
+            {
+              name: 'caption',
+              type: 'string',
+              title: 'Caption',
+              description: 'Optional: add a brief caption shown below the photo in the gallery.',
+            },
+            {
+              name: 'category',
+              type: 'string',
+              title: 'Photo Category',
+              description:
+                'Choose a category — Bedroom: bed, pillows, sleeping area. Bathroom: shower, tub, vanity. Living Area: sofa, desk, sitting space. Kitchen / Coffee Station: coffee maker, mini fridge, kitchenette. View: cityscape or scenery from the window/balcony. Pool & Fitness: gym equipment, pool area. Additional Photos: anything that doesn\'t fit above.',
+              options: {
+                list: [
+                  { title: 'Bedroom', value: 'bedroom' },
+                  { title: 'Bathroom', value: 'bathroom' },
+                  { title: 'Living Area', value: 'living-area' },
+                  { title: 'Kitchen / Coffee Station', value: 'kitchen-coffee' },
+                  { title: 'View', value: 'view' },
+                  { title: 'Pool & Fitness', value: 'pool-fitness' },
+                  { title: 'Additional Photos', value: 'other' },
+                ],
+              },
+            },
           ],
+          preview: {
+            select: {
+              media: 'asset',
+              title: 'alt',
+              category: 'category',
+            },
+            prepare({ media, title, category }: { media: any; title?: string; category?: string }) {
+              const labels: Record<string, string> = {
+                bedroom: 'Bedroom',
+                bathroom: 'Bathroom',
+                'living-area': 'Living Area',
+                'kitchen-coffee': 'Kitchen / Coffee Station',
+                view: 'View',
+                'pool-fitness': 'Pool & Fitness',
+                other: 'Additional Photos',
+              }
+              return {
+                media,
+                title: title || 'No alt text',
+                subtitle: category ? `✓  ${labels[category] ?? category}` : '⚠  No category set',
+              }
+            },
+          },
         },
       ],
     }),

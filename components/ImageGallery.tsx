@@ -3,7 +3,7 @@
 import { urlForImage } from 'lib/sanity.image'
 import { X } from 'lucide-react'
 import Image from 'next/image'
-import React from 'react'
+import React, { useRef } from 'react'
 
 import SanityImage from './SanityImage'
 import SectionTitle from './SectionTitle'
@@ -13,6 +13,7 @@ export interface GalleryImage {
   _key?: string
   alt?: string
   caption?: string
+  category?: string
   asset?: {
     _ref: string
     _type: 'reference'
@@ -36,6 +37,35 @@ export interface ImageGalleryProps {
   showInlineGrid?: boolean
 }
 
+// --- Category label map (value → display name) ---
+const CATEGORY_LABELS: Record<string, string> = {
+  // Hotels
+  bedroom: 'Bedroom',
+  bathroom: 'Bathroom',
+  'living-area': 'Living Area',
+  'kitchen-coffee': 'Kitchen / Coffee Station',
+  view: 'View',
+  'pool-fitness': 'Pool & Fitness',
+  // Food
+  'food-drinks': 'Food & Drinks',
+  interior: 'Interior & Atmosphere',
+  exterior: 'Exterior',
+  'bar-area': 'Bar Area',
+  menu: 'Menu',
+  // Arenas
+  court: 'Court & Game Floor',
+  seating: 'Seating & Views',
+  concessions: 'Concessions & Food',
+  lobby: 'Entrances & Lobby',
+  'game-atmosphere': 'Game Atmosphere',
+  // Shared
+  other: 'Additional Photos',
+}
+
+function getCategoryLabel(value: string): string {
+  return CATEGORY_LABELS[value] ?? value
+}
+
 // --- Main Exported Component ---
 export default function ImageGallery({
   images,
@@ -47,6 +77,52 @@ export default function ImageGallery({
   showInlineGrid = true,
 }: ImageGalleryProps) {
   const hasImages = images && images.length > 0
+
+  // Determine if any images have a category set
+  const hasCategories = hasImages && images.some((img) => !!img.category)
+
+  // Build ordered category sections when Photo Tour mode is active
+  const categorySections = React.useMemo(() => {
+    if (!hasCategories || !images) return []
+
+    // Collect categories in the order they first appear
+    const seen = new Set<string>()
+    const order: string[] = []
+    images.forEach((img) => {
+      const cat = img.category || 'other'
+      if (!seen.has(cat)) {
+        seen.add(cat)
+        order.push(cat)
+      }
+    })
+    // Always put 'other' / uncategorised last
+    if (seen.has('other')) {
+      const idx = order.indexOf('other')
+      order.splice(idx, 1)
+      order.push('other')
+    }
+    // Check for uncategorised images and add an 'other' bucket if needed
+    const hasUncategorised = images.some((img) => !img.category)
+    if (hasUncategorised && !seen.has('other')) {
+      order.push('other')
+    }
+
+    return order.map((cat) => ({
+      key: cat,
+      label: getCategoryLabel(cat),
+      photos: images.filter((img) => (img.category || 'other') === cat),
+    }))
+  }, [hasCategories, images])
+
+  // Refs for each category section so we can scroll to them
+  const sectionRefs = useRef<Record<string, HTMLDivElement | null>>({})
+
+  function scrollToSection(key: string) {
+    const el = sectionRefs.current[key]
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }
 
   return (
     <section className={`w-full my-6 ${className || ''}`}>
@@ -107,50 +183,115 @@ export default function ImageGallery({
         </div>
       )}
 
-      {/* --- Airbnb-style Full-Screen Gallery Modal --- */}
+      {/* --- Full-Screen Gallery Modal --- */}
       {isOpen && hasImages && (
         <div className="fixed inset-0 z-50 bg-background overflow-y-auto">
           {/* Sticky header */}
-          <div className="sticky top-0 z-10 flex items-center justify-between border-b border-border bg-background/90 p-4 backdrop-blur">
-            <span className="font-semibold text-foreground">
-              All photos ({images.length})
-            </span>
-            <button
-              onClick={closeModal}
-              className="rounded-full p-2 transition-colors hover:bg-muted"
-              aria-label="Close gallery"
-            >
-              <X className="h-6 w-6" />
-            </button>
+          <div className="sticky top-0 z-10 bg-background/95 backdrop-blur border-b border-border">
+            <div className="flex items-center justify-between p-4">
+              <span className="font-semibold text-foreground">
+                {hasCategories ? 'Photo Tour' : `All photos (${images.length})`}
+              </span>
+              <button
+                onClick={closeModal}
+                className="rounded-full p-2 transition-colors hover:bg-muted"
+                aria-label="Close gallery"
+              >
+                <X className="h-6 w-6" />
+              </button>
+            </div>
+
+            {/* Category tabs — only shown when categories are present */}
+            {hasCategories && (
+              <div className="flex gap-2 overflow-x-auto px-4 pb-3 scrollbar-hide">
+                {categorySections.map((section) => (
+                  <button
+                    key={section.key}
+                    onClick={() => scrollToSection(section.key)}
+                    className="flex-shrink-0 rounded-full border border-border px-4 py-1.5 text-sm font-medium transition-colors hover:bg-muted hover:border-foreground/30 whitespace-nowrap"
+                  >
+                    {section.label}
+                    <span className="ml-1.5 text-muted-foreground text-xs">
+                      ({section.photos.length})
+                    </span>
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
-          {/* Scrollable image grid */}
-          <div className="mx-auto max-w-6xl columns-1 space-y-4 p-4 md:columns-2 md:p-8">
-            {images.map((item, i) => {
-              if (!item?.asset) return null
-              const imageAlt = item.alt || `Gallery image ${i + 1}`
-              const hasCaption = item.caption && item.caption.trim().length > 0
-
-              return (
+          {/* Scrollable content */}
+          <div className="mx-auto max-w-6xl p-4 md:p-8 space-y-10">
+            {hasCategories ? (
+              // Photo Tour mode — sections with headings
+              categorySections.map((section) => (
                 <div
-                  key={item._key || `modal-${i}`}
-                  className="break-inside-avoid flex flex-col gap-2"
+                  key={section.key}
+                  ref={(el) => { sectionRefs.current[section.key] = el }}
+                  className="scroll-mt-32"
                 >
-                  <SanityImage
-                    image={item as any}
-                    width={1200}
-                    className="h-auto w-full rounded-lg object-cover"
-                    alt={imageAlt}
-                    loading={i < 2 ? 'eager' : 'lazy'}
-                  />
-                  {hasCaption && (
-                    <p className="px-1 text-sm text-muted-foreground">
-                      {item.caption}
-                    </p>
-                  )}
+                  <h2 className="mb-4 text-xl font-semibold text-foreground">
+                    {section.label}
+                  </h2>
+                  <div className="columns-1 md:columns-2 space-y-4">
+                    {section.photos.map((item, i) => {
+                      if (!item?.asset) return null
+                      const imageAlt = item.alt || `${section.label} photo ${i + 1}`
+                      const hasCaption = item.caption && item.caption.trim().length > 0
+
+                      return (
+                        <div
+                          key={item._key || `${section.key}-${i}`}
+                          className="break-inside-avoid flex flex-col gap-2"
+                        >
+                          <SanityImage
+                            image={item as any}
+                            width={1200}
+                            className="h-auto w-full rounded-lg object-cover"
+                            alt={imageAlt}
+                            loading={i < 2 ? 'eager' : 'lazy'}
+                          />
+                          {hasCaption && (
+                            <p className="px-1 text-sm text-muted-foreground">
+                              {item.caption}
+                            </p>
+                          )}
+                        </div>
+                      )
+                    })}
+                  </div>
                 </div>
-              )
-            })}
+              ))
+            ) : (
+              // Flat mode — existing behaviour
+              <div className="columns-1 md:columns-2 space-y-4">
+                {images.map((item, i) => {
+                  if (!item?.asset) return null
+                  const imageAlt = item.alt || `Gallery image ${i + 1}`
+                  const hasCaption = item.caption && item.caption.trim().length > 0
+
+                  return (
+                    <div
+                      key={item._key || `modal-${i}`}
+                      className="break-inside-avoid flex flex-col gap-2"
+                    >
+                      <SanityImage
+                        image={item as any}
+                        width={1200}
+                        className="h-auto w-full rounded-lg object-cover"
+                        alt={imageAlt}
+                        loading={i < 2 ? 'eager' : 'lazy'}
+                      />
+                      {hasCaption && (
+                        <p className="px-1 text-sm text-muted-foreground">
+                          {item.caption}
+                        </p>
+                      )}
+                    </div>
+                  )
+                })}
+              </div>
+            )}
           </div>
         </div>
       )}

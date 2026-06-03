@@ -114,15 +114,19 @@ const arenaFieldsDetailed = groq`
     photoGallerySection {
       mainImage {
         ...,
+        category,
         asset->{ _id, metadata { lqip, dimensions { width, height } } }
       },
       otherImages[] {
         ...,
+        category,
         asset->{ _id, metadata { lqip, dimensions { width, height } } }
       }
     },
     imageGallery[] {
       ...,
+      caption,
+      category,
       asset->{ _id, metadata { lqip, dimensions { width, height } } }
     },
     visited,
@@ -404,6 +408,8 @@ export const independentHotelReviewFields = groq`
   tip,
   gallery[] {
     ...,
+    caption,
+    category,
     asset->{ _id, metadata { lqip, dimensions { width, height } } }
   },
   youtube,
@@ -500,6 +506,8 @@ export const independentFoodReviewFields = groq`
   individualFoodRating,
   gallery[] {
     ...,
+    caption,
+    category,
     asset->{ _id, metadata { lqip, dimensions { width, height } } }
   },
   youtube,
