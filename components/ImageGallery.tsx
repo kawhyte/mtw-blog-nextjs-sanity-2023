@@ -53,11 +53,9 @@ const CATEGORY_LABELS: Record<string, string> = {
   'bar-area': 'Bar Area',
   menu: 'Menu',
   // Arenas
-  court: 'Court & Game Floor',
-  seating: 'Seating & Views',
+  court: 'Seating & Game Floor',
   concessions: 'Concessions & Food',
   lobby: 'Entrances & Lobby',
-  'game-atmosphere': 'Game Atmosphere',
   // Shared
   other: 'Additional Photos',
 }

@@ -4,27 +4,23 @@ import { defineField, defineType } from 'sanity'
 import { AltTextGeneratorInput } from '../plugins/AltTextGeneratorInput'
 
 const ARENA_CATEGORY_LABELS: Record<string, string> = {
-  court: 'Court & Game Floor',
-  seating: 'Seating & Views',
+  court: 'Seating & Game Floor',
   concessions: 'Concessions & Food',
   exterior: 'Exterior',
   lobby: 'Entrances & Lobby',
-  'game-atmosphere': 'Game Atmosphere',
   other: 'Additional Photos',
 }
 
 const ARENA_CATEGORY_LIST = [
-  { title: 'Court & Game Floor', value: 'court' },
-  { title: 'Seating & Views', value: 'seating' },
+  { title: 'Seating & Game Floor', value: 'court' },
   { title: 'Concessions & Food', value: 'concessions' },
   { title: 'Exterior', value: 'exterior' },
   { title: 'Entrances & Lobby', value: 'lobby' },
-  { title: 'Game Atmosphere', value: 'game-atmosphere' },
   { title: 'Additional Photos', value: 'other' },
 ]
 
 const ARENA_CATEGORY_DESCRIPTION =
-  "Choose a category — Court & Game Floor: court, baskets, scorers table. Seating & Views: view from your specific seat or section. Concessions & Food: food stalls, menu boards, food shots. Exterior: outside the building, signage, plaza. Entrances & Lobby: inside entrance, hallways, common areas. Game Atmosphere: crowd, jumbotron, mascot, pre-game energy. Additional Photos: anything that doesn't fit above."
+  "Choose a category — Seating & Game Floor: court, baskets, view from your seat. Concessions & Food: food stalls, menu boards, food shots. Exterior: outside the building, signage, plaza. Entrances & Lobby: inside entrance, hallways, common areas. Additional Photos: anything that doesn't fit above."
 
 export default defineType({
   name: 'photoGallery',

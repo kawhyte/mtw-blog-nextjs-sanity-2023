@@ -140,15 +140,13 @@ export default defineType({
               title: 'Photo Category',
               type: 'string',
               description:
-                "Choose a category — Court & Game Floor: court, baskets, scorers table. Seating & Views: view from your specific seat or section. Concessions & Food: food stalls, menu boards, food shots. Exterior: outside the building, signage, plaza. Entrances & Lobby: inside entrance, hallways, common areas. Game Atmosphere: crowd, jumbotron, mascot, pre-game energy. Additional Photos: anything that doesn't fit above.",
+                "Choose a category — Seating & Game Floor: court, baskets, view from your seat. Concessions & Food: food stalls, menu boards, food shots. Exterior: outside the building, signage, plaza. Entrances & Lobby: inside entrance, hallways, common areas. Additional Photos: anything that doesn't fit above.",
               options: {
                 list: [
-                  { title: 'Court & Game Floor', value: 'court' },
-                  { title: 'Seating & Views', value: 'seating' },
+                  { title: 'Seating & Game Floor', value: 'court' },
                   { title: 'Concessions & Food', value: 'concessions' },
                   { title: 'Exterior', value: 'exterior' },
                   { title: 'Entrances & Lobby', value: 'lobby' },
-                  { title: 'Game Atmosphere', value: 'game-atmosphere' },
                   { title: 'Additional Photos', value: 'other' },
                 ],
               },
