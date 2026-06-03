@@ -194,14 +194,14 @@ export default defineType({
               type: 'string',
               title: 'Photo Category',
               description:
-                'Choose a category — Bedroom: bed, pillows, sleeping area. Bathroom: shower, tub, vanity. Living Area: sofa, desk, sitting space. Kitchen / Coffee Station: coffee maker, mini fridge, kitchenette. View: cityscape or scenery from the window/balcony. Pool & Fitness: gym equipment, pool area. Additional Photos: anything that doesn\'t fit above.',
+                'Choose a category — Bedroom: bed, pillows, sleeping area. Bathroom: shower, tub, vanity. Living Area: sofa, desk, sitting space. Kitchen / Coffee Station: coffee maker, mini fridge, kitchenette. View from the Room: cityscape, scenery, or balcony shot as seen from inside the room. Pool & Fitness: gym equipment, pool area. Additional Photos: anything that doesn\'t fit above.',
               options: {
                 list: [
                   { title: 'Bedroom', value: 'bedroom' },
                   { title: 'Bathroom', value: 'bathroom' },
                   { title: 'Living Area', value: 'living-area' },
                   { title: 'Kitchen / Coffee Station', value: 'kitchen-coffee' },
-                  { title: 'View', value: 'view' },
+                  { title: 'View from the Room', value: 'view' },
                   { title: 'Pool & Fitness', value: 'pool-fitness' },
                   { title: 'Additional Photos', value: 'other' },
                 ],

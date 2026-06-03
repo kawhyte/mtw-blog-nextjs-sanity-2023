@@ -44,7 +44,7 @@ const CATEGORY_LABELS: Record<string, string> = {
   bathroom: 'Bathroom',
   'living-area': 'Living Area',
   'kitchen-coffee': 'Kitchen / Coffee Station',
-  view: 'View',
+  view: 'View from the Room',
   'pool-fitness': 'Pool & Fitness',
   // Food
   'food-drinks': 'Food & Drinks',
