@@ -690,10 +690,9 @@ export default function ArenaPage({
         )}
 
         {/* 7. WHERE WE STAYED (optional) */}
-        {arena.hotelStay &&
-          (arena.hotelStay.hotel || arena.hotelStay.hotelName) && (
-            <ArenaHotelStay hotelStay={arena.hotelStay} />
-          )}
+        {(arena.hotelStays?.length ?? 0) > 0 && (
+          <ArenaHotelStay hotelStays={arena.hotelStays!} arenaDate={arena.date} />
+        )}
 
         {/* 8. FOOD & DRINKS WE TRIED (optional) */}
         {(arena.arenaFoodItems?.length ?? 0) > 0 && (

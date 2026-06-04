@@ -713,34 +713,64 @@ export default defineType({
     }),
     // --- End View From My Seat ---
 
-    // --- Hotel Stay (optional) ---
+    // --- Hotel Stays (optional, supports multiple visits) ---
     defineField({
-      name: 'hotelStay',
-      title: 'Hotel Stay During This Visit',
-      type: 'object',
+      name: 'hotelStays',
+      title: 'Hotel Stays',
       description:
-        'Optional: link a hotel review OR just record the hotel name + nights stayed.',
+        'Add one entry per visit where you stayed overnight. Leave empty for day trips.',
+      type: 'array',
       hidden: ({ document }) => !document?.visited,
-      options: { collapsible: true, collapsed: true },
-      fields: [
-        defineField({
-          name: 'hotel',
-          type: 'reference',
-          title: 'Linked Hotel Review (optional)',
-          description: 'Link to an existing hotel review on this site.',
-          to: [{ type: 'hotelReview' }],
-        }),
-        defineField({
-          name: 'hotelName',
-          type: 'string',
-          title: 'Hotel Name (if no formal review)',
-          description: 'Only needed if there is no linked hotel review above.',
-        }),
-        defineField({
-          name: 'nightsStayed',
-          type: 'number',
-          title: 'Nights Stayed',
-        }),
+      of: [
+        {
+          type: 'object',
+          title: 'Hotel Stay',
+          options: { collapsible: true, collapsed: false },
+          fields: [
+            defineField({
+              name: 'visitDate',
+              title: 'Visit Date (optional)',
+              type: 'datetime',
+              description:
+                'Which visit was this hotel for? Shown as a label when you have multiple stays.',
+            }),
+            defineField({
+              name: 'hotel',
+              type: 'reference',
+              title: 'Linked Hotel Review (optional)',
+              description: 'Link to an existing hotel review on this site.',
+              to: [{ type: 'hotelReview' }],
+            }),
+            defineField({
+              name: 'hotelName',
+              type: 'string',
+              title: 'Hotel Name (if no formal review)',
+              description: 'Only needed if there is no linked hotel review above.',
+            }),
+            defineField({
+              name: 'nightsStayed',
+              type: 'number',
+              title: 'Nights Stayed',
+            }),
+          ],
+          preview: {
+            select: {
+              hotelTitle: 'hotel.title',
+              hotelName: 'hotelName',
+              date: 'visitDate',
+            },
+            prepare({ hotelTitle, hotelName, date }: { hotelTitle?: string; hotelName?: string; date?: string }) {
+              const name = hotelTitle ?? hotelName ?? 'Unnamed hotel'
+              const dateStr = date
+                ? new Date(date).toLocaleDateString('en-US', {
+                    month: 'short',
+                    year: 'numeric',
+                  })
+                : 'No date'
+              return { title: `${name} · ${dateStr}` }
+            },
+          },
+        },
       ],
     }),
 

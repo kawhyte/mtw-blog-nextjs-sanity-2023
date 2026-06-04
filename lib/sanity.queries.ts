@@ -155,7 +155,8 @@ const arenaFieldsDetailed = groq`
       ...,
       asset->{ _id, metadata { lqip, dimensions { width, height } } }
     },
-    hotelStay {
+    hotelStays[] {
+      visitDate,
       hotel-> {
         title,
         "slug": slug.current,
@@ -968,7 +969,8 @@ export interface Arena {
     }>
   }>
   arenaFoodItems?: any[]
-  hotelStay?: {
+  hotelStays?: Array<{
+    visitDate?: string
     hotel?: {
       title?: string
       slug?: string
@@ -979,7 +981,7 @@ export interface Arena {
     }
     hotelName?: string
     nightsStayed?: number
-  }
+  }>
   viewFromSeat?: Array<{
     _key?: string
     seatInfo?: string
