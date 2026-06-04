@@ -137,6 +137,7 @@ export default function ImageGallery({
                 if (!item?.asset) return null
                 const imageUrl = urlForImage(item)
                   .width(800)
+                  .quality(85)
                   .auto('format')
                   .url()
                 const imageAlt = item.alt || `Gallery image ${i + 1}`

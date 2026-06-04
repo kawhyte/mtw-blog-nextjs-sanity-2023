@@ -81,7 +81,7 @@ export default function GuidePage({
   const hasRelated = relatedGuides && relatedGuides.length > 0
 
   const coverImageUrl = guide.coverImage
-    ? urlForImage(guide.coverImage).width(1200).height(630).fit('crop').url()
+    ? urlForImage(guide.coverImage).width(1200).height(630).quality(85).fit('crop').url()
     : null
 
   const slugString =

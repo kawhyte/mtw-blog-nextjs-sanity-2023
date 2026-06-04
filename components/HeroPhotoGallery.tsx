@@ -57,7 +57,7 @@ export default function HeroPhotoGallery({
         <FadeImage
           image={mainImage}
           src={
-            urlForImage(mainImage)?.width(800).height(600).fit('crop').url() ||
+            urlForImage(mainImage)?.width(800).height(600).quality(85).fit('crop').url() ||
             ''
           }
           alt={mainImage.alt || 'Main hotel image'}
@@ -78,6 +78,7 @@ export default function HeroPhotoGallery({
               urlForImage(mainImage)
                 ?.width(1200)
                 .height(800)
+                .quality(85)
                 .fit('crop')
                 .url() || ''
             }
@@ -99,6 +100,7 @@ export default function HeroPhotoGallery({
                   urlForImage(image)
                     ?.width(600)
                     .height(400)
+                    .quality(85)
                     .fit('crop')
                     .url() || ''
                 }

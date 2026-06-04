@@ -70,12 +70,9 @@ function Gallery({ posts, heading }: GalleryProps) {
               // Generate image URL - adjust width/height as needed or remove if using fill/sizes
               const imageUrl = item?.asset // Check if item and asset exist before calling urlForImage
                 ? urlForImage(item)
-                    // Consider removing fixed width/height or adjusting based on column count
-                    // For true masonry with variable heights, often better to only set width constraint
-                    // or use next/image 'fill' prop with aspect ratio.
-                    // Let's keep width for now as it was in original code.
-                    .width(800) // Reduced width slightly, 1240 might be too large for smaller columns
-                    .auto('format') // Use auto format (webp, avif, etc.)
+                    .width(800)
+                    .quality(85)
+                    .auto('format')
                     .url()
                 : '/placeholder.png' // Fallback image URL
 

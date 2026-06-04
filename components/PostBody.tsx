@@ -16,7 +16,7 @@ const SampleImageComponent = ({ value }) => {
   return (
     <figure className="image-container">
       <Image
-        src={urlForImage(value).height(height).width(width).url()}
+        src={urlForImage(value).height(height).width(width).quality(85).url()}
         alt={value.alt || value.caption || ' '}
         width={width}
         height={height}
