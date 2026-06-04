@@ -117,17 +117,27 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           'Content-Type': 'application/json',
           'x-goog-api-key': apiKey,
         },
-        signal: AbortSignal.timeout(25000),
+        signal: AbortSignal.timeout(9000),
         body: JSON.stringify({
           contents: [{ parts: [{ text: prompt }] }],
           generationConfig: { maxOutputTokens: 1024, temperature: 0.5 },
+          thinkingConfig: { thinkingBudget: 0 },
         }),
       },
     )
 
     if (!geminiRes.ok) {
       const err = await geminiRes.json()
-      throw new Error(err?.error?.message ?? `Gemini error ${geminiRes.status}`)
+      const msg: string = err?.error?.message ?? `Gemini error ${geminiRes.status}`
+      if (geminiRes.status === 429) {
+        const retryMatch = msg.match(/retry in ([\d.]+)s/i)
+        const seconds = retryMatch ? Math.ceil(Number(retryMatch[1])) : null
+        const friendly = seconds
+          ? `Gemini rate limit hit — try again in ${seconds}s.`
+          : 'Gemini rate limit hit — wait a minute then try again.'
+        return res.status(429).json({ error: friendly })
+      }
+      throw new Error(msg)
     }
 
     const data = await geminiRes.json()

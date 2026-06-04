@@ -435,10 +435,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           'Content-Type': 'application/json',
           'x-goog-api-key': apiKey,
         },
-        signal: AbortSignal.timeout(25000),
+        // 9s — exits cleanly before Vercel Hobby's 10s hard kill
+        signal: AbortSignal.timeout(9000),
         body: JSON.stringify({
           contents: [{ parts: [{ text: prompt }] }],
           generationConfig: { maxOutputTokens: 8192, temperature: 0.75 },
+          // Disable thinking — gemini-2.5-flash thinks by default, adding 15–30s.
+          // For descriptive writing tasks it adds no quality benefit.
+          thinkingConfig: { thinkingBudget: 0 },
         }),
       },
     )

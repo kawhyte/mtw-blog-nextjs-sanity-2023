@@ -3,15 +3,7 @@ import { Box, Button, Card, Inline, Stack, Text, useToast } from '@sanity/ui'
 import { useState } from 'react'
 import type { ArrayOfObjectsInputProps } from 'sanity'
 import { set, useFormValue } from 'sanity'
-
-function extractPlainText(blocks: any[]): string {
-  if (!Array.isArray(blocks)) return ''
-  return blocks
-    .filter((b) => b._type === 'block' && Array.isArray(b.children))
-    .map((b) => b.children.map((span: any) => span.text || '').join(''))
-    .join(' ')
-    .trim()
-}
+import { extractPlainText } from './utils'
 
 function textToBlocks(text: string) {
   return text
@@ -106,7 +98,7 @@ export function VerdictGeneratorInput(props: ArrayOfObjectsInputProps) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
-        signal: AbortSignal.timeout(30000),
+        signal: AbortSignal.timeout(12000),
       })
 
       const data = await res.json()
