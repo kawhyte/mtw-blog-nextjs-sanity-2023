@@ -340,7 +340,11 @@ export default function FoodReviewPage(props: FoodReviewPageProps) {
           <PostBody content={foodReview.content} />
         </div>
 
-        <VideoPlayer url={foodReview.youtube} />
+        <VideoPlayer
+          url={foodReview.youtube}
+          documentDate={foodReview.date}
+          videoDescription={foodReview.seoExcerpt || `Our review of ${foodReview.title} in ${foodReview.location}.`}
+        />
 
         {galleryImages.length > 0 && (
           <ImageGallery

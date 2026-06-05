@@ -116,6 +116,10 @@ export default function StoryReviewsPage(props: StoryReviewsPageProps) {
         settings={settings}
         categoryType="guides"
         totalCount={totalPostsCount}
+        topItems={initialPosts
+          .filter((p) => p.title && p.slug)
+          .slice(0, 10)
+          .map((p) => ({ name: p.title!, url: `/guide/${p.slug}` }))}
       />
 
       <Layout preview={preview} loading={loading}>

@@ -75,6 +75,15 @@ export default defineType({
     }),
 
     defineField({
+      name: 'location',
+      title: 'Location (City / Region)',
+      type: 'string',
+      description:
+        'City or region this guide covers, e.g. "Dallas, TX" or "Miami, FL". Used for local SEO signals — helps Google understand the geographic focus.',
+      placeholder: 'e.g. Dallas, TX',
+    }),
+
+    defineField({
       name: 'summary',
       title: 'Summary / Meta Description',
       type: 'text',

@@ -77,6 +77,10 @@ export default function FoodReviewsPage(props: FoodReviewsPageProps) {
         settings={settings}
         categoryType="food"
         totalCount={totalPostsCount}
+        topItems={initialPosts
+          .filter((p) => p.title && p.slug)
+          .slice(0, 10)
+          .map((p) => ({ name: p.title!, url: `/food/${p.slug}` }))}
       />
 
       <Layout preview={preview} loading={loading}>

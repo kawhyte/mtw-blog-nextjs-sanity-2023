@@ -47,10 +47,58 @@ Alt text will be done manually in Studio using the "Generate with AI" button on 
 
 ---
 
+## ✅ FULLY COMPLETED (Session 4 — Deep SEO Audit)
+
+### Batch 1 — Bug Fixes
+- **Arena `og:type` fixed** — was `"website"`, now `"article"` for all content pages (`PostPageHead.tsx`)
+- **Duplicate JSON-LD on arena pages eliminated** — `PostPageHead` now skips its JSON-LD block when `contentType="arena"`, leaving `ArenaStructuredData` as the sole structured data source
+- **`og:image:alt` added** — to `PostPageHead`, `CategoryPageHead`, and `IndexPageHead`
+- **`og:locale` added** — `en_US` declared on all pages
+- **Wrong YouTube `sameAs` URL fixed** — `@meetthewhytes` → `@mtwtravel` in the Organization schema in `IndexPageHead.tsx`
+
+### Batch 2 — Schema Improvements
+- **`dateModified` now reflects actual edits** — `"updatedAt": _updatedAt` added to all 5 GROQ field sets (arenas, hotels, food, guides); `PostPageHead` uses `updatedAt` for `dateModified` with fallback to `date`
+- **`ItemList` schema now includes actual items** — `CategoryPageHead` accepts `topItems` prop; up to 10 content items with name + URL passed from all four listing pages/components
+
+### Batch 3 — New Features
+- **Arenas now appear on the homepage** — new `ArenaHighlights` component shows 6 most recently visited arenas in a grid, prominently placed after the Welcome section. New `getTopArenas()` query.
+- **Arena → Food review links** — new `ArenaFoodReviews` component shows food reviews linked to each arena (via `nearestArena` reverse query). Appears on arena pages after "Where We Stayed". New `getFoodReviewsByArena(arenaId)` query.
+- **FAQ schema on arena pages** — new `faqs` array field in `schemas/nbaArenas.ts` (add in Studio). `FAQStructuredData` emits `FAQPage` JSON-LD for Google rich results. FAQ accordion also displayed on the page using existing `FAQSection` UI component.
+
+### Batch 4 — Guide Improvements
+- **Location field added to guides** — `location` string field added to `schemas/guide.ts` (e.g. "Dallas, TX"). Added to GROQ queries and `Guide` TypeScript interface.
+- **TravelGuide JSON-LD significantly strengthened** — now includes: `name`, `inLanguage: "en-US"`, `touristType` as array, `destination: { @type: City }` when location is set, `keywords` from guide tags, `sameAs` YouTube link in author. Separated from `BlogPosting` schema into its own clean branch. Empty `itinerary: ItemList` removed.
+
+### Batch 5 — VideoObject Schema + City Hub Pages
+- **VideoObject JSON-LD** — `VideoPlayer.tsx` now automatically emits `VideoObject` structured data for every YouTube video embedded on hotel, food, and arena pages. Enables video rich results (thumbnail shown next to search result). New props: `documentDate` and `videoDescription`. `extractYouTubeId()` utility handles all YouTube URL formats.
+- **City hub pages** — new `/city/[slug]` route (e.g. `/city/dallas-tx`). Each page aggregates all content for that city: arena, hotels, food, guides. Generated statically from all unique arena locations. Auto-included in sitemap. Arena pages now link to their city hub page ("Dallas, TX — see all our Dallas content"). City pages use `CollectionPage` + `City` JSON-LD schema.
+  - Utility: `utils/locationSlug.ts` — `locationToSlug()` converts "Dallas, TX" → "dallas-tx"
+  - Client functions: `getAllArenaLocations()`, `getCityPageData(location)`
+  - Note: City matching is exact on location string — ensure hotels/food/guides use the same format as the arena's location (e.g. "Dallas, TX")
+
+---
+
 ## 🟡 YOU DO THESE (No Code Needed)
 
 ### HIGH
-**1. Request GSC re-indexing for arena pages**
+**0. Request GSC re-indexing after deploy**
+- Homepage, all arena pages, all guide pages changed — re-index them all
+- Go to search.google.com/search-console → URL Inspection → "Request Indexing"
+- Priority: homepage → visited arenas → published guides
+
+**1. Add FAQs to visited arena pages in Studio**
+- Studio → Arenas → [any visited arena] → scroll to new "FAQs" section
+- Add 3–5 Q&A pairs per arena (e.g. "Is Chase Center loud?", "Where do I park near Chase Center?", "What's the best food at Chase Center?")
+- These appear as expandable answers in Google search results (rich results)
+- ~10 min per arena
+
+**2. Add location to guides in Studio**
+- Studio → Travel Guides → each guide → fill in the new "Location (City / Region)" field
+- Format: "Dallas, TX" or "Miami, FL"
+- Strengthens TravelGuide JSON-LD destination field for local SEO
+- ~1 min per guide
+
+**3. Request GSC re-indexing for arena pages**
 - Go to search.google.com/search-console → URL Inspection
 - Paste each arena URL → "Request Indexing"
 - Priority: arenas you've already visited first

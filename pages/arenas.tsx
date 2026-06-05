@@ -51,6 +51,10 @@ export default function ArenasPage(props: PageProps) {
         settings={settings}
         categoryType="arenas"
         totalCount={arenaPosts.length}
+        topItems={arenaPosts
+          .filter((a) => a.name && a.slug)
+          .slice(0, 10)
+          .map((a) => ({ name: a.name!, url: `/arena/${a.slug}` }))}
       />
       <Layout preview={preview} loading={false}>
 

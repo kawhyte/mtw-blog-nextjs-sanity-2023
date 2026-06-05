@@ -1,18 +1,24 @@
 import { apiVersion, dataset, projectId, useCdn } from 'lib/sanity.api'
 // Import queries and types from the updated queries file
 import {
+  allArenaLocationsQuery,
   allFoodReviewsQuery,
   allGuidesQuery,
   allHotelReviewsQuery,
   // Independent schema types and queries
   type Arena,
+  type ArenaFoodReviewCard,
+  type ArenaHighlightCard,
   arenaBySlugQuery,
   arenaQuery,
   arenaSlugsQuery,
+  cityPageQuery,
+  type CityPageData,
   // Other types
   type Essential,
   type FoodReview,
   foodReviewBySlugQuery,
+  foodReviewsByArenaQuery,
   foodReviewsByDiningTypeQuery,
   foodReviewSlugsQuery,
   type Guide,
@@ -35,6 +41,7 @@ import {
   topFoodReviewsQuery,
   topHotelReviewsQuery,
   travelEssentialQuery,
+  visitedArenasHighlightQuery,
 } from 'lib/sanity.queries'
 import { createClient, type SanityClient } from 'next-sanity'
 
@@ -254,6 +261,51 @@ export async function getArenaBySlug(slug: string): Promise<Arena | null> {
     return null // Return null on error
   }
 }
+export async function getAllArenaLocations(): Promise<string[]> {
+  if (!client) return []
+  try {
+    const locations = await client.fetch<string[]>(allArenaLocationsQuery)
+    return (locations ?? []).filter(Boolean)
+  } catch (error) {
+    console.error('Error fetching arena locations:', error)
+    return []
+  }
+}
+
+export async function getCityPageData(location: string): Promise<CityPageData> {
+  const empty: CityPageData = { arenas: [], hotels: [], food: [], guides: [] }
+  if (!client) return empty
+  try {
+    const data = await client.fetch<CityPageData>(cityPageQuery, { location })
+    return data ?? empty
+  } catch (error) {
+    console.error(`Error fetching city page data for "${location}":`, error)
+    return empty
+  }
+}
+
+export async function getTopArenas(): Promise<ArenaHighlightCard[]> {
+  if (!client) return []
+  try {
+    const results = await client.fetch<ArenaHighlightCard[]>(visitedArenasHighlightQuery)
+    return results ?? []
+  } catch (error) {
+    console.error('Error fetching top arenas:', error)
+    return []
+  }
+}
+
+export async function getFoodReviewsByArena(arenaId: string): Promise<ArenaFoodReviewCard[]> {
+  if (!client) return []
+  try {
+    const results = await client.fetch<ArenaFoodReviewCard[]>(foodReviewsByArenaQuery, { arenaId })
+    return results ?? []
+  } catch (error) {
+    console.error(`Error fetching food reviews for arena "${arenaId}":`, error)
+    return []
+  }
+}
+
 // --- End Arenas Section ---
 
 // ============================================

@@ -60,12 +60,14 @@ export default function IndexPageHead({ settings }: IndexPageHeadProps) {
       <title>{pageTitle}</title>
       <meta key="description" name="description" content={pageDescription} />
       <meta property="og:type" content="website" />
+      <meta property="og:locale" content="en_US" />
       <meta property="og:title" content={pageTitle} />
       <meta property="og:description" content={pageDescription} />
       <meta property="og:url" content={pageUrl} />
       <meta property="og:image" content={ogImageUrl} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
+      <meta property="og:image:alt" content={pageTitle} />
 
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:site" content="@meetthewhytes" />
@@ -90,7 +92,7 @@ export default function IndexPageHead({ settings }: IndexPageHeadProps) {
             url: SITE_URL,
             logo: `${SITE_URL}/MeettheWhytes.jpg`,
             sameAs: [
-              'https://www.youtube.com/@meetthewhytes',
+              'https://www.youtube.com/@mtwtravel',
               'https://www.instagram.com/meetthewhytes',
             ],
             contactPoint: {

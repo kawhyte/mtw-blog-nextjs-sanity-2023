@@ -14,6 +14,24 @@ interface VideoPlayerProps {
   url: string
   /** Optional title to display above the video */
   title?: string
+  /** ISO date string of the parent document — used as VideoObject uploadDate */
+  documentDate?: string
+  /** Short description of the video content */
+  videoDescription?: string
+}
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || ''
+
+function extractYouTubeId(url: string): string | null {
+  const patterns = [
+    /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/shorts\/)([a-zA-Z0-9_-]{11})/,
+    /youtube\.com\/embed\/([a-zA-Z0-9_-]{11})/,
+  ]
+  for (const pattern of patterns) {
+    const match = url.match(pattern)
+    if (match?.[1]) return match[1]
+  }
+  return null
 }
 
 // Declare the global instgrm object type for TypeScript
@@ -31,7 +49,7 @@ declare global {
  * A component to display a single YouTube video responsively using ReactPlayer
  * or an Instagram post/reel using the official embed code (without caption).
  */
-const VideoPlayer: React.FC<VideoPlayerProps> = ({ url, title }) => {
+const VideoPlayer: React.FC<VideoPlayerProps> = ({ url, title, documentDate, videoDescription }) => {
   // --- Validate URL and Determine Type ---
   const isValidUrl = useMemo(() => {
     if (!url) return false
@@ -87,8 +105,35 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ url, title }) => {
     return null
   }
 
+  const youtubeId = !isInstagram ? extractYouTubeId(url) : null
+
   // --- Render Component ---
   return (
+    <>
+      {youtubeId && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'VideoObject',
+              name: title || 'Meet the Whytes Video',
+              description:
+                videoDescription ||
+                `${title ? title + ' — ' : ''}Video from Meet the Whytes NBA & WNBA arena travel blog.`,
+              thumbnailUrl: `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`,
+              uploadDate: documentDate || new Date().toISOString(),
+              contentUrl: url,
+              embedUrl: `https://www.youtube.com/embed/${youtubeId}`,
+              publisher: {
+                '@type': 'Organization',
+                name: 'Meet the Whytes',
+                url: SITE_URL,
+              },
+            }),
+          }}
+        />
+      )}
     <section className="py-8 md:py-1">
       {' '}
       {/* Adjusted padding */}
@@ -174,6 +219,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ url, title }) => {
         )}
       </div>
     </section>
+    </>
   )
 }
 

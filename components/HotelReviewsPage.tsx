@@ -77,6 +77,10 @@ export default function HotelReviewsPage(props: HotelReviewsPageProps) {
         settings={settings}
         categoryType="hotels"
         totalCount={totalPostsCount}
+        topItems={initialPosts
+          .filter((p) => p.title && p.slug)
+          .slice(0, 10)
+          .map((p) => ({ name: p.title!, url: `/hotel/${p.slug}` }))}
       />
 
       <Layout preview={preview} loading={loading}>

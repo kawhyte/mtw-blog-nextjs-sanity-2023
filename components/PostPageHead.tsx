@@ -177,10 +177,8 @@ export default function PostPageHead({
       {/* Use the guaranteed string description */}
       <meta key="description" name="description" content={pageDescription} />
       {/* --- Open Graph Overrides --- */}
-      <meta
-        property="og:type"
-        content={contentType === 'arena' ? 'website' : 'article'}
-      />
+      <meta property="og:type" content="article" />
+      <meta property="og:locale" content="en_US" />
       <meta property="og:title" content={pageTitle} />
       {/* Use the guaranteed string description */}
       <meta property="og:description" content={pageDescription} />
@@ -188,6 +186,7 @@ export default function PostPageHead({
       <meta property="og:image" content={ogImageUrl} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
+      <meta property="og:image:alt" content={pageTitle} />
       {post?.date && (
         <meta property="article:published_time" content={post.date} />
       )}
@@ -210,47 +209,92 @@ export default function PostPageHead({
       <meta name="twitter:url" content={pageUrl} />
       {/* Canonical URL */}
       <link rel="canonical" href={pageUrl} />
-      {/* Article Structured Data */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': contentType === 'guide' ? 'TravelGuide' : contentType === 'arena' ? 'LocalBusiness' : 'BlogPosting',
-            headline: post?.title,
-            description: pageDescription,
-            image: ogImageUrl,
-            url: pageUrl,
-            datePublished: post?.date,
-            dateModified: post?.date,
-            author: {
-              '@type': 'Organization',
-              name: 'Meet the Whytes',
-              url: SITE_URL,
-            },
-            publisher: {
-              '@type': 'Organization',
-              name: 'Meet the Whytes',
-              url: SITE_URL,
-              logo: {
-                '@type': 'ImageObject',
-                url: `${SITE_URL}/MeettheWhytes.jpg`,
-              },
-            },
-            mainEntityOfPage: {
-              '@type': 'WebPage',
-              '@id': pageUrl,
-            },
-            ...(contentType === 'guide' && {
-              touristType: 'Basketball fans, Sports travelers, NBA enthusiasts',
-              itinerary: {
-                '@type': 'ItemList',
-                name: `${post?.title} Guide`,
-              },
-            }),
-          }),
-        }}
-      />
+      {/* Article / Guide Structured Data — arena pages use ArenaStructuredData instead */}
+      {contentType !== 'arena' && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(
+              contentType === 'guide'
+                ? {
+                    '@context': 'https://schema.org',
+                    '@type': 'TravelGuide',
+                    name: post?.title,
+                    headline: post?.title,
+                    description: pageDescription,
+                    image: ogImageUrl,
+                    url: pageUrl,
+                    datePublished: post?.date,
+                    dateModified: (post as any).updatedAt || post?.date,
+                    inLanguage: 'en-US',
+                    author: {
+                      '@type': 'Organization',
+                      name: 'Meet the Whytes',
+                      url: SITE_URL,
+                      sameAs: ['https://www.youtube.com/@mtwtravel'],
+                    },
+                    publisher: {
+                      '@type': 'Organization',
+                      name: 'Meet the Whytes',
+                      url: SITE_URL,
+                      logo: {
+                        '@type': 'ImageObject',
+                        url: `${SITE_URL}/MeettheWhytes.jpg`,
+                      },
+                    },
+                    mainEntityOfPage: {
+                      '@type': 'WebPage',
+                      '@id': pageUrl,
+                    },
+                    touristType: [
+                      'Basketball fans',
+                      'Sports travelers',
+                      'NBA enthusiasts',
+                    ],
+                    ...((post as any).location && {
+                      destination: {
+                        '@type': 'City',
+                        name: (post as any).location,
+                      },
+                    }),
+                    ...(Array.isArray((post as any).tags) &&
+                      (post as any).tags.length > 0 && {
+                        keywords: (post as any).tags.join(', '),
+                      }),
+                  }
+                : {
+                    '@context': 'https://schema.org',
+                    '@type': 'BlogPosting',
+                    headline: post?.title,
+                    description: pageDescription,
+                    image: ogImageUrl,
+                    url: pageUrl,
+                    datePublished: post?.date,
+                    dateModified: (post as any).updatedAt || post?.date,
+                    inLanguage: 'en-US',
+                    author: {
+                      '@type': 'Organization',
+                      name: 'Meet the Whytes',
+                      url: SITE_URL,
+                    },
+                    publisher: {
+                      '@type': 'Organization',
+                      name: 'Meet the Whytes',
+                      url: SITE_URL,
+                      logo: {
+                        '@type': 'ImageObject',
+                        url: `${SITE_URL}/MeettheWhytes.jpg`,
+                      },
+                    },
+                    mainEntityOfPage: {
+                      '@type': 'WebPage',
+                      '@id': pageUrl,
+                    },
+                  },
+            ),
+          }}
+        />
+      )}
       {/* Optional: Add Twitter creator handle if available */}
       {/* {post?.author?.twitterHandle && <meta name="twitter:creator" content={`@${post.author.twitterHandle}`} />} */}
     </Head>

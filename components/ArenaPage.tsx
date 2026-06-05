@@ -8,7 +8,8 @@ import { usePhotoGallery } from 'hooks/usePhotoGallery'
 import calculateAverageRating from 'lib/calculateArenaRating'
 import { computeTimelineEntries, getEffectiveRating } from 'lib/mergeRatings'
 import { urlForImage } from 'lib/sanity.image'
-import { Arena, Settings } from 'lib/sanity.queries'
+import { Arena, ArenaFoodReviewCard, Settings } from 'lib/sanity.queries'
+import { locationToSlug } from 'utils/locationSlug'
 import {
   Award,
   Building2,
@@ -36,6 +37,7 @@ const ImageGallery = dynamic(() => import('./ImageGallery'), {
 })
 
 import { Badge } from '@/components/ui/badge'
+import { FAQSection } from '@/components/ui/faq-section'
 import {
   Dialog,
   DialogContent,
@@ -44,10 +46,12 @@ import {
 } from '@/components/ui/dialog'
 
 import ArenaFoodItems from './ArenaFoodItems'
+import ArenaFoodReviews from './ArenaFoodReviews'
 import ArenaHotelStay from './ArenaHotelStay'
 import ArenaRatingCard from './ArenaRatingCard'
 import ArenaViewFromSeat from './ArenaViewFromSeat'
 import ArenaStructuredData from './ArenaStructuredData'
+import FAQStructuredData from './FAQStructuredData'
 import BlogHeader from './BlogHeader'
 import BreadcrumbStructuredData from './BreadcrumbStructuredData'
 import HeroPhotoGallery from './HeroPhotoGallery'
@@ -64,6 +68,7 @@ interface ArenaPageProps {
   rank?: number | null
   totalVisited?: number
   isTied?: boolean
+  foodReviews?: ArenaFoodReviewCard[]
 }
 
 const ratingIcons: Record<string, React.ReactElement> = {
@@ -248,6 +253,7 @@ export default function ArenaPage({
   rank,
   totalVisited,
   isTied,
+  foodReviews = [],
 }: ArenaPageProps) {
   const { title = 'Arena Review' } = settings || {}
 
@@ -352,6 +358,9 @@ export default function ArenaPage({
           { name: arena.name, url: `/arena/${arena.slug ?? ''}` },
         ]}
       />
+      {(arena.faqs?.length ?? 0) > 0 && (
+        <FAQStructuredData faqs={arena.faqs!} />
+      )}
 
       <Layout preview={preview} loading={loading}>
         <BlogHeader title={title} level={2} />
@@ -386,6 +395,17 @@ export default function ArenaPage({
             )}
 
             <h1 className="mb-4 text-4xl font-bold">{arena.name}</h1>
+            {arena.location && (
+              <p className="mb-4 text-sm text-muted-foreground">
+                <Link
+                  href={`/city/${locationToSlug(arena.location)}`}
+                  className="hover:text-foreground hover:underline transition-colors"
+                >
+                  <MapPin className="inline h-3.5 w-3.5 mr-1" />
+                  {arena.location} — see all our {arena.location.split(',')[0]} content
+                </Link>
+              </p>
+            )}
 
             {arena.venueNote && (
               <p className="text-sm text-muted-foreground mb-4 italic">
@@ -694,6 +714,11 @@ export default function ArenaPage({
           <ArenaHotelStay hotelStays={arena.hotelStays!} arenaDate={arena.date} />
         )}
 
+        {/* 7b. FOOD REVIEWS NEARBY (optional — from NearestArena links) */}
+        {foodReviews.length > 0 && (
+          <ArenaFoodReviews foodReviews={foodReviews} />
+        )}
+
         {/* 8. FOOD & DRINKS WE TRIED (optional) */}
         {(arena.arenaFoodItems?.length ?? 0) > 0 && (
           <ArenaFoodItems food={arena.arenaFoodItems!} />
@@ -719,9 +744,23 @@ export default function ArenaPage({
           />
         )}
 
-        {/* 11. OUR EXPERIENCE (Video) */}
+        {/* 11. FAQs (optional — accordion for Google rich results) */}
+        {(arena.faqs?.length ?? 0) > 0 && (
+          <FAQSection
+            title={`${arena.name} — Frequently Asked Questions`}
+            items={arena.faqs!}
+            className="py-8 md:py-12"
+          />
+        )}
+
+        {/* 12. OUR EXPERIENCE (Video) */}
         {arena.videoUrl && (
-          <VideoPlayer url={arena.videoUrl} title="Our Experience" />
+          <VideoPlayer
+            url={arena.videoUrl}
+            title="Our Experience"
+            documentDate={arena.date}
+            videoDescription={arena.excerpt || `Our experience visiting ${arena.name} — tips, food, seating, and atmosphere.`}
+          />
         )}
 
         {/* 12. GALLERY MODAL */}

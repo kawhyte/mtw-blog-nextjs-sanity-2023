@@ -6,10 +6,11 @@ import {
   getAllArenaSlugs,
   getArenaBySlug,
   getArenaPosts,
+  getFoodReviewsByArena,
   getSettings,
 } from 'lib/sanity.client'
 import { urlForImage } from 'lib/sanity.image'
-import { Arena, Settings } from 'lib/sanity.queries'
+import { Arena, ArenaFoodReviewCard, Settings } from 'lib/sanity.queries'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import { lazy } from 'react'
@@ -40,6 +41,8 @@ export const getStaticProps: GetStaticProps<
     }
   }
 
+  const foodReviews = await getFoodReviewsByArena(arena._id)
+
   const rankMap = calculateArenaRanks(arenaPosts ?? [])
   const rank = arena.visited ? (rankMap.get(arena._id) ?? null) : null
   const totalVisited = (arenaPosts ?? []).filter((a) => a.visited).length
@@ -57,6 +60,7 @@ export const getStaticProps: GetStaticProps<
       rank,
       totalVisited,
       isTied,
+      foodReviews: foodReviews ?? [],
     },
     revalidate: 60, // Revalidate every minute
   }
@@ -79,6 +83,7 @@ interface PageProps {
   rank: number | null
   totalVisited: number
   isTied: boolean
+  foodReviews: ArenaFoodReviewCard[]
 }
 
 interface Query {
@@ -90,7 +95,7 @@ interface PreviewData {
 }
 
 export default function ArenaSlugRoute(props: PageProps) {
-  const { settings, arena, preview, token, rank, totalVisited, isTied } = props
+  const { settings, arena, preview, token, rank, totalVisited, isTied, foodReviews } = props
 
   if (preview) {
     return (
@@ -125,6 +130,7 @@ export default function ArenaSlugRoute(props: PageProps) {
         rank={rank}
         totalVisited={totalVisited}
         isTied={isTied}
+        foodReviews={foodReviews}
       />
     </>
   )

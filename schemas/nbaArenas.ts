@@ -863,6 +863,40 @@ export default defineType({
         },
       ],
     }), // --- End Revisit History ---
+
+    // --- FAQs for SEO rich results ---
+    defineField({
+      name: 'faqs',
+      title: 'FAQs (for Google rich results)',
+      type: 'array',
+      description: 'Add 3–5 Q&A pairs that fans commonly ask about this arena. These appear as expandable answers in Google search results.',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'question',
+              title: 'Question',
+              type: 'string',
+              validation: (rule) => rule.required(),
+            }),
+            defineField({
+              name: 'answer',
+              title: 'Answer',
+              type: 'text',
+              rows: 3,
+              validation: (rule) => rule.required(),
+            }),
+          ],
+          preview: {
+            select: { title: 'question' },
+            prepare({ title }) {
+              return { title: title || 'FAQ item' }
+            },
+          },
+        },
+      ],
+    }),
   ], // --- End Main Fields Array ---
 
   // --- Document Preview Configuration ---

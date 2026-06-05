@@ -72,6 +72,7 @@ const arenaFields = groq`
       food
     },
     date,
+    "updatedAt": _updatedAt,
     "revisitCount": count(revisits)
 `
 
@@ -145,6 +146,7 @@ const arenaFieldsDetailed = groq`
       food
     },
     date,
+    "updatedAt": _updatedAt,
     "revisitCount": count(revisits),
     revisits[] {
       visitDate,
@@ -181,6 +183,10 @@ const arenaFieldsDetailed = groq`
         ...,
         asset->{ _id, metadata { lqip, dimensions { width, height } } }
       }
+    },
+    faqs[] {
+      question,
+      answer
     }
 `
 // Define Arena Type Name - PLEASE VERIFY THIS matches your Sanity Studio schema
@@ -287,6 +293,7 @@ export const independentGuideFields = groq`
   title,
   summary,
   date,
+  location,
   coverImage {
     ...,
     asset->{ _id, metadata { lqip, dimensions { width, height } } }
@@ -318,7 +325,8 @@ export const independentGuideFields = groq`
     asset->{ _id, metadata { lqip, dimensions { width, height } } }
   },
   tags,
-  "slug": slug.current
+  "slug": slug.current,
+  "updatedAt": _updatedAt
 `
 
 // Lightweight fields for listing/card pages (no content body, no gallery)
@@ -327,6 +335,7 @@ export const guideCardFields = groq`
   title,
   summary,
   date,
+  location,
   category,
   tags,
   "slug": slug.current,
@@ -430,6 +439,7 @@ export const independentHotelReviewFields = groq`
   parking,
   breakfast,
   "slug": slug.current,
+  "updatedAt": _updatedAt,
   "revisitCount": count(revisits),
   revisits[] {
     visitDate,
@@ -521,6 +531,7 @@ export const independentFoodReviewFields = groq`
   tags,
   priceTier,
   "slug": slug.current,
+  "updatedAt": _updatedAt,
   "revisitCount": count(revisits),
   revisits[] {
     visitDate,
@@ -590,6 +601,8 @@ export interface Guide {
   summary?: string
   coverImage?: any
   date?: string
+  updatedAt?: string
+  location?: string
   category?: string
   content?: any[]
   gallery?: any[]
@@ -602,6 +615,7 @@ export interface HotelReview {
   title?: string
   slug?: string
   date?: string
+  updatedAt?: string
   location?: string
   category?: string
   room?: string
@@ -677,6 +691,7 @@ export interface FoodReview {
   title?: string
   slug?: string
   date?: string
+  updatedAt?: string
   location?: string
   diningType?: 'dinein' | 'takeout'
   coverImage?: any
@@ -938,6 +953,8 @@ export interface Arena {
   venueNote?: string
   capacity?: number
   videoUrl?: string
+  updatedAt?: string
+  faqs?: { question: string; answer: string }[]
   prosConsVerdict?: {
     positives?: any
     negatives?: any
@@ -1110,6 +1127,166 @@ export interface Instagram {
   username?: string
   // Add children field if handling CAROUSEL_ALBUM
   // children?: { data: { id: string; media_url: string; media_type: string }[] }
+}
+
+// --- City hub pages ---
+export const allArenaLocationsQuery = groq`
+  array::unique(*[_type == "arenas" && defined(location) && location != ""][].location)
+`
+
+export const cityPageQuery = groq`{
+  "arenas": *[_type == "arenas" && location == $location] | order(visited desc, name asc) {
+    _id,
+    name,
+    "slug": slug.current,
+    location,
+    visited,
+    excerpt,
+    arenaImage {
+      ...,
+      asset->{ _id, metadata { lqip, dimensions { width, height } } }
+    },
+    arenaReview { transportation, walkability, vibes, view, seatComfort, food }
+  },
+  "hotels": *[_type == "hotelReview" && location == $location
+    && (!defined(publishedAt) || publishedAt <= now())] | order(date desc) [0...6] {
+    _id,
+    title,
+    "slug": slug.current,
+    location,
+    category,
+    seoExcerpt,
+    coverImage {
+      ...,
+      asset->{ _id, metadata { lqip, dimensions { width, height } } }
+    },
+    hotelRating
+  },
+  "food": *[_type == "foodReview" && location == $location
+    && (!defined(publishedAt) || publishedAt <= now())] | order(date desc) [0...6] {
+    _id,
+    title,
+    "slug": slug.current,
+    location,
+    diningType,
+    seoExcerpt,
+    coverImage {
+      ...,
+      asset->{ _id, metadata { lqip, dimensions { width, height } } }
+    }
+  },
+  "guides": *[_type == "guide" && location == $location
+    && (!defined(publishedAt) || publishedAt <= now())] | order(date desc) [0...3] {
+    _id,
+    title,
+    "slug": slug.current,
+    location,
+    category,
+    summary,
+    coverImage {
+      ...,
+      asset->{ _id, metadata { lqip, dimensions { width, height } } }
+    }
+  }
+}`
+
+export interface CityPageData {
+  arenas: Array<{
+    _id: string
+    name?: string
+    slug?: string
+    location?: string
+    visited?: boolean
+    excerpt?: string
+    arenaImage?: any
+    arenaReview?: {
+      transportation?: number
+      walkability?: number
+      vibes?: number
+      view?: number
+      seatComfort?: number
+      food?: number
+    }
+  }>
+  hotels: Array<{
+    _id: string
+    title?: string
+    slug?: string
+    location?: string
+    category?: string
+    seoExcerpt?: string
+    coverImage?: any
+    hotelRating?: Record<string, number>
+  }>
+  food: Array<{
+    _id: string
+    title?: string
+    slug?: string
+    location?: string
+    diningType?: 'dinein' | 'takeout'
+    seoExcerpt?: string
+    coverImage?: any
+  }>
+  guides: Array<{
+    _id: string
+    title?: string
+    slug?: string
+    location?: string
+    category?: string
+    summary?: string
+    coverImage?: any
+  }>
+}
+
+// --- Homepage arena highlights (visited only, max 6, newest first) ---
+export const visitedArenasHighlightQuery = groq`
+  *[_type == "arenas" && visited == true] | order(date desc) [0...6] {
+    _id,
+    name,
+    "slug": slug.current,
+    location,
+    date,
+    arenaImage {
+      ...,
+      asset->{ _id, metadata { lqip, dimensions { width, height } } }
+    }
+  }
+`
+
+export interface ArenaHighlightCard {
+  _id: string
+  name?: string
+  slug?: string
+  location?: string
+  date?: string
+  arenaImage?: any
+}
+
+// --- Lightweight food reviews linked to a specific arena (for arena pages) ---
+export const foodReviewsByArenaQuery = groq`
+  *[_type == "foodReview" && nearestArena._ref == $arenaId
+    && (!defined(publishedAt) || publishedAt <= now())] | order(date desc) [0...4] {
+    _id,
+    title,
+    "slug": slug.current,
+    location,
+    diningType,
+    seoExcerpt,
+    coverImage {
+      ...,
+      asset->{ _id, metadata { lqip, dimensions { width, height } } }
+    }
+  }
+`
+
+export interface ArenaFoodReviewCard {
+  _id: string
+  title?: string
+  slug?: string
+  location?: string
+  diningType?: 'dinein' | 'takeout'
+  seoExcerpt?: string
+  coverImage?: any
 }
 
 // --- IMPORTANT ---

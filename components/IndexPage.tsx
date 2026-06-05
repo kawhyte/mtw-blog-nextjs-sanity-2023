@@ -25,7 +25,10 @@ const GearLottie = dynamic(
   { ssr: false },
 )
 
+import type { ArenaHighlightCard } from 'lib/sanity.queries'
+
 import { CMS_NAME } from '../lib/constants'
+import ArenaHighlights from './ArenaHighlights'
 import BlogHeader from './BlogHeader'
 import BlogSection from './BlogSection'
 import Footer from './Footer'
@@ -42,6 +45,7 @@ export interface IndexPageProps {
   settings: Settings
   youtubeVideos?: YoutubeVideo[]
   youtubeShorts?: YoutubeVideo[]
+  arenas?: ArenaHighlightCard[]
 }
 
 export default function IndexPage(props: IndexPageProps) {
@@ -52,6 +56,7 @@ export default function IndexPage(props: IndexPageProps) {
     settings,
     youtubeVideos = [],
     youtubeShorts = [],
+    arenas = [],
   } = props
 
   // This hero logic might conflict if posts is empty, handle gracefully
@@ -78,6 +83,12 @@ export default function IndexPage(props: IndexPageProps) {
           <BlogSection className=" mt-24 ">
             <Welcome />
           </BlogSection>
+
+          {arenas.length > 0 && (
+            <BlogSection className="bg-indigo-50 py-10 md:py-14 mb-10 md:mb-14">
+              <ArenaHighlights arenas={arenas} />
+            </BlogSection>
+          )}
 
           <BlogSection className="bg-pink-100 py-10 md:py-14">
             <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start">

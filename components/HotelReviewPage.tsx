@@ -381,7 +381,11 @@ function HotelReviewPageContent(props: HotelReviewPageProps) {
 
           {hotelReview.youtube && (
             <Section spacing="tight" as="div">
-              <VideoPlayer url={hotelReview.youtube} />
+              <VideoPlayer
+                url={hotelReview.youtube}
+                documentDate={hotelReview.date}
+                videoDescription={hotelReview.seoExcerpt || `Our review of ${hotelReview.title} in ${hotelReview.location}.`}
+              />
             </Section>
           )}
 

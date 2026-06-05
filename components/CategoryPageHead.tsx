@@ -8,6 +8,7 @@ export interface CategoryPageHeadProps {
   settings: Settings
   categoryType: 'hotels' | 'food' | 'guides' | 'arenas'
   totalCount?: number
+  topItems?: { name: string; url: string }[]
 }
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || ''
@@ -16,6 +17,7 @@ export default function CategoryPageHead({
   settings,
   categoryType,
   totalCount = 0,
+  topItems = [],
 }: CategoryPageHeadProps) {
   const { ogImage } = settings || {}
 
@@ -64,12 +66,14 @@ export default function CategoryPageHead({
 
       {/* Open Graph tags */}
       <meta property="og:type" content="website" />
+      <meta property="og:locale" content="en_US" />
       <meta property="og:title" content={pageTitle} />
       <meta property="og:description" content={pageDescription} />
       <meta property="og:url" content={pageUrl} />
       <meta property="og:image" content={ogImageUrl} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
+      <meta property="og:image:alt" content={pageTitle} />
 
       {/* Twitter Card tags */}
       <meta name="twitter:card" content="summary_large_image" />
@@ -132,6 +136,14 @@ export default function CategoryPageHead({
             description: pageDescription,
             url: pageUrl,
             numberOfItems: totalCount,
+            ...(topItems.length > 0 && {
+              itemListElement: topItems.slice(0, 10).map((item, index) => ({
+                '@type': 'ListItem',
+                position: index + 1,
+                name: item.name,
+                url: item.url.startsWith('http') ? item.url : `${SITE_URL}${item.url}`,
+              })),
+            }),
           }),
         }}
       />

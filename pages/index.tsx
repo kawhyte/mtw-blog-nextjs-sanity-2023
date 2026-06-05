@@ -1,7 +1,7 @@
 import { PreviewSuspense } from '@sanity/preview-kit'
 import IndexPage from 'components/IndexPage'
-import { getLatestIndependentContent, getSettings } from 'lib/sanity.client'
-import { FoodReview, Guide, HotelReview, Settings } from 'lib/sanity.queries'
+import { getLatestIndependentContent, getSettings, getTopArenas } from 'lib/sanity.client'
+import { ArenaHighlightCard, FoodReview, Guide, HotelReview, Settings } from 'lib/sanity.queries'
 import {
   fetchChannelShorts,
   fetchPlaylistVideos,
@@ -17,6 +17,7 @@ interface PageProps {
   settings: Settings
   youtubeVideos: YoutubeVideo[]
   youtubeShorts: YoutubeVideo[]
+  arenas: ArenaHighlightCard[]
   preview: boolean
   token: string | null
 }
@@ -30,7 +31,7 @@ interface PreviewData {
 }
 
 export default function Page(props: PageProps) {
-  const { posts, settings, youtubeVideos, youtubeShorts, preview, token } =
+  const { posts, settings, youtubeVideos, youtubeShorts, arenas, preview, token } =
     props
 
   if (preview) {
@@ -44,6 +45,7 @@ export default function Page(props: PageProps) {
             settings={settings}
             youtubeVideos={youtubeVideos}
             youtubeShorts={youtubeShorts}
+            arenas={arenas}
           />
         }
       >
@@ -58,6 +60,7 @@ export default function Page(props: PageProps) {
       settings={settings}
       youtubeVideos={youtubeVideos}
       youtubeShorts={youtubeShorts}
+      arenas={arenas}
     />
   )
 }
@@ -69,12 +72,13 @@ export const getStaticProps: GetStaticProps<
 > = async (ctx) => {
   const { preview = false, previewData = {} } = ctx
 
-  const [settings, posts = [], youtubeVideos = [], youtubeShorts = []] =
+  const [settings, posts = [], youtubeVideos = [], youtubeShorts = [], arenas = []] =
     await Promise.all([
       getSettings(),
       getLatestIndependentContent(),
       fetchPlaylistVideos(process.env.YOUTUBE_PLAYLIST_ID ?? ''),
       fetchChannelShorts(process.env.YOUTUBE_CHANNEL_ID ?? ''),
+      getTopArenas(),
     ])
 
   return {
@@ -83,6 +87,7 @@ export const getStaticProps: GetStaticProps<
       settings,
       youtubeVideos,
       youtubeShorts,
+      arenas,
       preview,
       token: previewData.token ?? null,
     },
