@@ -2,6 +2,7 @@ import { HomeIcon } from '@sanity/icons'
 import { format, parseISO } from 'date-fns'
 import { defineField, defineType } from 'sanity'
 import { AltTextGeneratorInput } from '../plugins/AltTextGeneratorInput'
+import { CaptionGeneratorInput } from '../plugins/CaptionGeneratorInput'
 import { SeoExcerptGeneratorInput } from '../plugins/SeoExcerptGeneratorInput'
 import { VerdictGeneratorInput } from '../plugins/VerdictGeneratorInput'
 import { getPortableTextLength } from './utils'
@@ -190,6 +191,7 @@ export default defineType({
               type: 'string',
               title: 'Caption',
               description: 'Optional: add a brief caption shown below the photo in the gallery.',
+              components: { input: CaptionGeneratorInput },
             },
             {
               name: 'category',

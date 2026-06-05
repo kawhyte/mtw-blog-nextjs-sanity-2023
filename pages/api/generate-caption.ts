@@ -10,29 +10,30 @@ function assetRefToUrl(ref: string): string {
 }
 
 function buildPrompt(contentType?: string, docTitle?: string): string {
-  const base = `You are writing alt text for "Meet the Whytes," a travel blog about NBA/WNBA arena visits, hotel stays, and food experiences.`
+  const base = `You are writing a photo caption for "Meet the Whytes," a travel blog about NBA/WNBA arena visits, hotel stays, food experiences, and cruise travel.`
 
   const context =
     {
-      arenas: `This image is from an NBA/WNBA arena visit${docTitle ? ` — ${docTitle}` : ''}.`,
-      hotelReview: `This image is from a hotel stay${docTitle ? ` at ${docTitle}` : ''}.`,
-      foodReview: `This image is from a meal or restaurant${docTitle ? ` — ${docTitle}` : ''}.`,
-      guide: `This image is from a travel guide${docTitle ? ` — "${docTitle}"` : ''}.`,
-    }[contentType ?? ''] ?? ''
+      arenas: `This photo is from an NBA/WNBA arena visit${docTitle ? ` — ${docTitle}` : ''}. Write from a basketball fan's perspective.`,
+      hotelReview: `This photo is from a hotel stay${docTitle ? ` at ${docTitle}` : ''}. Write from a traveler's perspective.`,
+      foodReview: `This photo is from a meal or restaurant${docTitle ? ` — ${docTitle}` : ''}. Write from a food lover's perspective.`,
+      guide: `This photo is from a travel guide${docTitle ? ` — "${docTitle}"` : ''}. Write from a traveler's perspective.`,
+    }[contentType ?? ''] ?? `This photo is from the Meet the Whytes travel blog${docTitle ? ` — ${docTitle}` : ''}.`
 
   return `${base} ${context}
 
-Write alt text the way a travel writer would naturally caption a photo — specific, direct, and real. It must sound like a human wrote it, not an AI.
+Write a photo caption the way a travel blogger would — specific, real, and in the first person plural ("we"). It should sound like someone who was actually there describing what you see.
 
 Rules:
-- Describe exactly what is shown (the court, the seats, the dish, the room, the view, etc.)
-- Include specific details: arena name, city, hotel name, dish name — only if clearly visible or inferable
-- 50–120 characters total
-- Do NOT use these AI/marketing words: "showcasing", "featuring", "stunning", "vibrant", "modern", "iconic", "offering", "boasting", "nestled", "beautiful views of", "world-class", "state-of-the-art"
-- Do NOT start with "image of", "photo of", or "picture of"
-- Write like you're texting a friend what the photo shows
+- Describe what is shown and add just enough context to make it interesting
+- 80–160 characters total
+- First person plural ("we", "our") when natural — e.g. "Our view from the upper deck at Fiserv Forum"
+- Include specific details: arena name, city, dish name, hotel name, location — only when clearly visible or inferable
+- Do NOT use these words: "showcasing", "featuring", "stunning", "vibrant", "modern", "iconic", "offering", "boasting", "nestled", "world-class", "state-of-the-art"
+- Do NOT start with "A photo of", "An image of", or "This is"
+- Write like a caption in a travel magazine, not an ad
 
-Return ONLY the alt text. No quotes. No explanation.`
+Return ONLY the caption. No quotes. No explanation.`
 }
 
 export default async function handler(
@@ -87,27 +88,24 @@ export default async function handler(
               ],
             },
           ],
-          generationConfig: { maxOutputTokens: 80, temperature: 0.4 },
+          generationConfig: { maxOutputTokens: 120, temperature: 0.5 },
         }),
       },
     )
 
     if (!geminiRes.ok) {
       const err = await geminiRes.json()
-      throw new Error(
-        err?.error?.message ?? `Gemini error ${geminiRes.status}`,
-      )
+      throw new Error(err?.error?.message ?? `Gemini error ${geminiRes.status}`)
     }
 
     const data = await geminiRes.json()
-    const altText =
-      data.candidates?.[0]?.content?.parts?.[0]?.text?.trim()
+    const caption = data.candidates?.[0]?.content?.parts?.[0]?.text?.trim()
 
-    if (!altText) throw new Error('No alt text returned from Gemini')
+    if (!caption) throw new Error('No caption returned from Gemini')
 
-    res.status(200).json({ altText })
+    res.status(200).json({ caption })
   } catch (err: any) {
-    console.error('[generate-alt-text]', err)
-    res.status(500).json({ error: err.message ?? 'Failed to generate alt text' })
+    console.error('[generate-caption]', err)
+    res.status(500).json({ error: err.message ?? 'Failed to generate caption' })
   }
 }

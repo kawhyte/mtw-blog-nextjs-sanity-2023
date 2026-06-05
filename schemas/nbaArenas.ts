@@ -2,6 +2,7 @@
 import { ImagesIcon, StarIcon } from '@sanity/icons' // Added ImagesIcon
 import { defineField, defineType } from 'sanity'
 import { AltTextGeneratorInput } from '../plugins/AltTextGeneratorInput'
+import { CaptionGeneratorInput } from '../plugins/CaptionGeneratorInput'
 import { GameDataFetcherInput } from '../plugins/GameDataFetcherInput'
 import { SeoExcerptGeneratorInput } from '../plugins/SeoExcerptGeneratorInput'
 import { VerdictGeneratorInput } from '../plugins/VerdictGeneratorInput'
@@ -134,6 +135,7 @@ export default defineType({
               title: 'Caption',
               type: 'string',
               description: 'Optional: Add a brief caption for the image.',
+              components: { input: CaptionGeneratorInput },
             }),
             defineField({
               name: 'category',

@@ -1,6 +1,8 @@
 import { BoltIcon } from '@sanity/icons'
 import { format, parseISO } from 'date-fns'
 import { defineField, defineType } from 'sanity'
+import { AltTextGeneratorInput } from '../plugins/AltTextGeneratorInput'
+import { CaptionGeneratorInput } from '../plugins/CaptionGeneratorInput'
 
 /**
  * This is the schema definition for a travel guide.
@@ -52,6 +54,15 @@ export default defineType({
       options: {
         hotspot: true,
       },
+      fields: [
+        defineField({
+          name: 'alt',
+          type: 'string',
+          title: 'Alt Text (important for SEO)',
+          description: 'Describe the image for accessibility and SEO.',
+          components: { input: AltTextGeneratorInput },
+        }),
+      ],
     }),
 
     defineField({
@@ -136,11 +147,13 @@ export default defineType({
               name: 'caption',
               type: 'string',
               title: 'Caption',
+              components: { input: CaptionGeneratorInput },
             },
             {
               name: 'alt',
               type: 'string',
               title: 'Alt Text (important for SEO)',
+              components: { input: AltTextGeneratorInput },
             },
           ],
         },
@@ -178,11 +191,13 @@ export default defineType({
                       type: 'string',
                       title: 'Alt Text (required for SEO)',
                       validation: (rule) => rule.required(),
+                      components: { input: AltTextGeneratorInput },
                     },
                     {
                       name: 'caption',
                       type: 'string',
                       title: 'Caption',
+                      components: { input: CaptionGeneratorInput },
                     },
                   ],
                 },
@@ -230,6 +245,7 @@ export default defineType({
                   type: 'string',
                   title: 'Alt Text (required for SEO)',
                   validation: (rule) => rule.required(),
+                  components: { input: AltTextGeneratorInput },
                 },
               ],
             },
@@ -303,6 +319,7 @@ export default defineType({
               name: 'alt',
               type: 'string',
               title: 'Alternative text',
+              components: { input: AltTextGeneratorInput },
             },
           ],
         },
