@@ -3,6 +3,7 @@ import { format, parseISO } from 'date-fns'
 import { defineField, defineType } from 'sanity'
 import { AltTextGeneratorInput } from '../plugins/AltTextGeneratorInput'
 import { CaptionGeneratorInput } from '../plugins/CaptionGeneratorInput'
+import { GuideSummaryGeneratorInput } from '../plugins/GuideSummaryGeneratorInput'
 
 /**
  * This is the schema definition for a travel guide.
@@ -100,8 +101,9 @@ export default defineType({
       type: 'text',
       rows: 3,
       description:
-        'Short summary shown on listing cards and used as the SEO meta description (max 160 chars).',
+        'Short summary shown on listing cards and used as the SEO meta description (max 160 chars). Ideal: 120–155 chars.',
       validation: (rule) => rule.max(160),
+      components: { input: GuideSummaryGeneratorInput },
     }),
 
     defineField({
