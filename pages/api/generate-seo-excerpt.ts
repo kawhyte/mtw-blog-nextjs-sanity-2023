@@ -121,7 +121,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         body: JSON.stringify({
           contents: [{ parts: [{ text: prompt }] }],
           generationConfig: { maxOutputTokens: 1024, temperature: 0.5 },
-          thinkingConfig: { thinkingBudget: 0 },
         }),
       },
     )
