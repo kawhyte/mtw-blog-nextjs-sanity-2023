@@ -439,7 +439,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         signal: AbortSignal.timeout(9000),
         body: JSON.stringify({
           contents: [{ parts: [{ text: prompt }] }],
-          generationConfig: { maxOutputTokens: 8192, temperature: 0.75 },
+          generationConfig: {
+            maxOutputTokens: 8192,
+            temperature: 0.75,
+            thinkingConfig: { thinkingBudget: 0 },
+          },
         }),
       },
     )
