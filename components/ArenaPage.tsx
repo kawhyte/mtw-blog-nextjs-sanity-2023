@@ -89,6 +89,9 @@ const ARENA_RATING_LABELS: Record<string, string> = {
   vibes: 'Atmosphere & Vibes',
 }
 
+// Display order matches weight importance: highest weight first
+const ARENA_RATING_ORDER = ['vibes', 'view', 'seatComfort', 'food', 'transportation', 'walkability']
+
 const GAMES_PREVIEW_COUNT = 4
 
 function GameCard({ game, team }: { game: any; team: any }) {
@@ -499,6 +502,7 @@ export default function ArenaPage({
               }
               ratingIcons={ratingIcons}
               ratingLabels={ARENA_RATING_LABELS}
+              categoryOrder={ARENA_RATING_ORDER}
             />
           )}
 

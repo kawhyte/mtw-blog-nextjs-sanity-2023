@@ -5,7 +5,7 @@ import Layout from 'components/BlogLayout'
 import DynamicPostCard from 'components/DynamicPostCard'
 import Footer from 'components/Footer'
 import NBAArenaCard from 'components/NBAArenaCard'
-import calculateAverageRating from 'lib/calculateArenaRating'
+import { getArenaDisplayRating } from 'utils/arena/arenaUtils'
 import * as demo from 'lib/demo.data'
 import dynamic from 'next/dynamic'
 import Head from 'next/head'
@@ -217,9 +217,7 @@ const SearchResults = ({ settings }: { settings: Settings }) => {
             {displayedResults.map((result) => {
               if (result._contentType === 'arena') {
                 const arenaResult = result as Arena
-                const { average, textRating, color } = calculateAverageRating(
-                  arenaResult.arenaReview || {},
-                )
+                const { average, textRating, color } = getArenaDisplayRating(arenaResult)
                 return (
                   <Link
                     key={arenaResult._id}

@@ -20,10 +20,10 @@ const ratingThresholds: RatingThreshold[] = [
 ]
 
 const defaultWeights: { [key: string]: number } = {
-  vibes: 0.1,
-  food: 0.2,
+  vibes: 0.25,
+  food: 0.15,
   transportation: 0.1,
-  walkability: 0.2,
+  walkability: 0.1,
   view: 0.2,
   seatComfort: 0.2,
 }

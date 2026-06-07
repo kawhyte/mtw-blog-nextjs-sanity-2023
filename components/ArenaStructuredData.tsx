@@ -1,4 +1,4 @@
-import calculateAverageRating from 'lib/calculateArenaRating'
+import { getArenaDisplayRating } from 'utils/arena/arenaUtils'
 import { urlForImage } from 'lib/sanity.image'
 import { Arena } from 'lib/sanity.queries'
 import Head from 'next/head'
@@ -18,7 +18,7 @@ export default function ArenaStructuredData({ arena }: ArenaStructuredDataProps)
     : `${SITE_URL}/MeettheWhytes.jpg`
 
   const ratingResult = arena.arenaReview
-    ? calculateAverageRating(arena.arenaReview as any)
+    ? getArenaDisplayRating(arena)
     : null
 
   const sportsLocationData = {

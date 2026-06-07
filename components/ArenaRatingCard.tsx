@@ -23,16 +23,26 @@ interface ArenaRatingCardProps {
   effectiveArenaReview: Record<string, number | undefined>
   ratingIcons: Record<string, ReactElement>
   ratingLabels: Record<string, string>
+  categoryOrder?: string[]
 }
 
 export default function ArenaRatingCard({
   effectiveArenaReview,
   ratingIcons,
   ratingLabels,
+  categoryOrder,
 }: ArenaRatingCardProps) {
-  const ratingEntries = Object.entries(effectiveArenaReview).filter(
+  const allEntries = Object.entries(effectiveArenaReview).filter(
     ([, v]) => typeof v === 'number',
   ) as [string, number][]
+
+  const ratingEntries = categoryOrder
+    ? [...allEntries].sort(
+        (a, b) =>
+          (categoryOrder.indexOf(a[0]) + 1 || categoryOrder.length + 1) -
+          (categoryOrder.indexOf(b[0]) + 1 || categoryOrder.length + 1),
+      )
+    : allEntries
 
   if (ratingEntries.length === 0) return null
 

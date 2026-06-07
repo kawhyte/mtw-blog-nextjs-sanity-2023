@@ -73,7 +73,18 @@ const arenaFields = groq`
     },
     date,
     "updatedAt": _updatedAt,
-    "revisitCount": count(revisits)
+    "revisitCount": count(revisits),
+    revisits[] {
+      visitDate,
+      ratingUpdates {
+        transportation,
+        walkability,
+        vibes,
+        view,
+        seatComfort,
+        food
+      }
+    }
 `
 
 // Full arenaFields for individual arena pages

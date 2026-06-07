@@ -1,4 +1,5 @@
 import calculateAverageRating from 'lib/calculateArenaRating'
+import { getEffectiveRating } from 'lib/mergeRatings'
 import { Arena } from 'lib/sanity.queries'
 import {
   FilterCriteriaType,
@@ -6,6 +7,19 @@ import {
   NOT_VISITED_SORT_OPTIONS,
 } from './arenaConstants'
 import { getSorterFunction } from './arenaSorters'
+
+/**
+ * Single source of truth for arena rating display.
+ * Always applies revisit updates before calculating — call this everywhere
+ * a rating needs to be shown, never chain getEffectiveRating + calculateAverageRating manually.
+ */
+export const getArenaDisplayRating = (
+  arena: Pick<Arena, 'arenaReview' | 'revisits'>,
+) => {
+  return calculateAverageRating(
+    getEffectiveRating(arena.arenaReview || {}, arena.revisits),
+  )
+}
 
 /**
  * Filter arenas based on criteria
@@ -37,8 +51,8 @@ export const calculateArenaRanks = (arenas: Arena[]): Map<string, number> => {
 
   // Sort by rating descending — no alphabetical tie-breaker so equal scores stay equal
   const sortedForRanking = [...visitedArenas].sort((a, b) => {
-    const { average: scoreA } = calculateAverageRating(a.arenaReview || {})
-    const { average: scoreB } = calculateAverageRating(b.arenaReview || {})
+    const { average: scoreA } = getArenaDisplayRating(a)
+    const { average: scoreB } = getArenaDisplayRating(b)
     return (parseFloat(scoreB) || 0) - (parseFloat(scoreA) || 0)
   })
 
@@ -48,8 +62,8 @@ export const calculateArenaRanks = (arenas: Arena[]): Map<string, number> => {
       return
     }
     const prev = sortedForRanking[index - 1]
-    const { average: scorePrev } = calculateAverageRating(prev.arenaReview || {})
-    const { average: scoreCurr } = calculateAverageRating(arena.arenaReview || {})
+    const { average: scorePrev } = getArenaDisplayRating(prev)
+    const { average: scoreCurr } = getArenaDisplayRating(arena)
     const prevRank = ranks.get(prev._id)!
 
     if (parseFloat(scoreCurr) === parseFloat(scorePrev)) {
@@ -70,9 +84,7 @@ export const enrichArenasWithDisplayData = (
   rankMap: Map<string, number>,
 ): ArenaWithRating[] => {
   return arenas.map((arena) => {
-    const { average, textRating, color } = calculateAverageRating(
-      arena.arenaReview || {},
-    )
+    const { average, textRating, color } = getArenaDisplayRating(arena)
 
     return {
       ...arena,
