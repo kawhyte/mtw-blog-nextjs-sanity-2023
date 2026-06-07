@@ -99,7 +99,7 @@ export function computeTimelineEntries(
               label: labelMap[key] || key,
               before,
               after: val,
-              diff: val - before,
+              diff: Math.round((val - before) * 100) / 100,
             })
           }
           currentState = { ...currentState, [key]: val }
