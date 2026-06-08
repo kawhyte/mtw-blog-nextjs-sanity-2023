@@ -294,18 +294,6 @@ const DynamicPostCard = ({
               </div>
             ) : null}
 
-            {/* Guide category badge */}
-            {linkType === 'story' &&
-              category &&
-              GUIDE_CATEGORY_LABELS[category] && (
-                <Badge
-                  variant="secondary"
-                  className="w-fit text-[10px] uppercase tracking-wider font-semibold mb-1"
-                >
-                  {GUIDE_CATEGORY_LABELS[category]}
-                </Badge>
-              )}
-
             <CardTitle className="line-clamp-1 pt-1 text-sm font-bold text-foreground no-underline decoration-primary decoration-dashed decoration-4 group-hover:underline sm:line-clamp-2 sm:h-8 sm:text-xl lg:text-xl xl:pt-1.5">
               {title}
             </CardTitle>

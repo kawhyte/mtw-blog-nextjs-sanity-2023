@@ -3,6 +3,7 @@ import { MapPin, Trophy } from 'lucide-react'
 import Link from 'next/link'
 import Button from 'ui/Button'
 
+import RatingBadge from './RatingBadge'
 import SanityImage from './SanityImage'
 import SectionTitle from './SectionTitle'
 
@@ -23,6 +24,8 @@ export default function ArenaHighlights({ arenas }: ArenaHighlightsProps) {
       <div className="mt-8 grid grid-cols-1 gap-4 px-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3 md:px-6">
         {arenas.map((arena, index) => {
           const hasImage = arena.arenaImage?.asset?._ref || arena.arenaImage?.asset?._id
+          const rating = arena.displayRating
+          const hasRating = rating && Number(rating.average) > 0
 
           return (
             <Link
@@ -57,6 +60,16 @@ export default function ArenaHighlights({ arenas }: ArenaHighlightsProps) {
                   <p className="line-clamp-2 text-sm font-bold leading-snug text-foreground decoration-primary decoration-dashed decoration-2 group-hover:underline">
                     {arena.name}
                   </p>
+                  {hasRating && (
+                    <span
+                      className="inline-flex w-fit items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold"
+                      style={{ backgroundColor: rating.color, opacity: 0.9 }}
+                    >
+                      <span className="text-foreground">{Number(rating.average).toFixed(1)}</span>
+                      <span className="h-3 w-px bg-black/25" />
+                      <span className="text-foreground truncate max-w-[60px]">{rating.textRating}</span>
+                    </span>
+                  )}
                   {arena.location && (
                     <span className="flex items-center gap-1 text-[11px] text-muted-foreground">
                       <MapPin className="h-3 w-3 shrink-0" />
@@ -66,7 +79,7 @@ export default function ArenaHighlights({ arenas }: ArenaHighlightsProps) {
                 </div>
               </div>
 
-              {/* Desktop: existing vertical card */}
+              {/* Desktop: vertical card with rating badge */}
               <div className="hidden sm:block relative overflow-hidden rounded-3xl border-4 border-black bg-card text-foreground shadow-offsetIndigo transition-all duration-300 hover:scale-105 hover:-translate-y-2 hover:shadow-lg">
                 <div className="relative h-48 w-full overflow-hidden bg-muted">
                   {hasImage ? (
@@ -83,6 +96,15 @@ export default function ArenaHighlights({ arenas }: ArenaHighlightsProps) {
                   ) : (
                     <div className="flex h-full w-full items-center justify-center text-sm text-muted-foreground">
                       Coming soon
+                    </div>
+                  )}
+                  {hasRating && (
+                    <div className="absolute right-3 top-3 z-30" style={{ maxWidth: 'calc(100% - 24px)' }}>
+                      <RatingBadge
+                        average={rating.average}
+                        textRating={rating.textRating}
+                        color={rating.color}
+                      />
                     </div>
                   )}
                 </div>

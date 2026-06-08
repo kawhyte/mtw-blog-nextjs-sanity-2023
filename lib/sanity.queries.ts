@@ -1262,6 +1262,25 @@ export const visitedArenasHighlightQuery = groq`
     arenaImage {
       ...,
       asset->{ _id, metadata { lqip, dimensions { width, height } } }
+    },
+    arenaReview {
+      transportation,
+      walkability,
+      vibes,
+      view,
+      seatComfort,
+      food
+    },
+    revisits[] {
+      visitDate,
+      ratingUpdates {
+        transportation,
+        walkability,
+        vibes,
+        view,
+        seatComfort,
+        food
+      }
     }
   }
 `
@@ -1273,6 +1292,20 @@ export interface ArenaHighlightCard {
   location?: string
   date?: string
   arenaImage?: any
+  arenaReview?: {
+    transportation?: number
+    walkability?: number
+    vibes?: number
+    view?: number
+    seatComfort?: number
+    food?: number
+  }
+  revisits?: any[]
+  displayRating?: {
+    average: string
+    textRating: string
+    color: string
+  }
 }
 
 // --- Lightweight food reviews linked to a specific arena (for arena pages) ---

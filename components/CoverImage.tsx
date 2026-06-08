@@ -1,11 +1,22 @@
 // src/components/CoverImage.tsx
 
+const GUIDE_CATEGORY_LABELS: Record<string, string> = {
+  city: 'City Guide',
+  tips: 'Travel Tips',
+  transport: 'Transportation',
+  culture: 'Culture & History',
+  adventure: 'Adventure',
+  family: 'Family Travel',
+  budget: 'Budget Travel',
+  luxury: 'Luxury Travel',
+}
+
 // Import shadcn/ui components
 import cn from 'classnames'
 // Your existing imports
 import { calculateRating } from 'lib/calculateRating'
 import { FOOD_WEIGHTS, HOTEL_WEIGHTS, TAKEOUT_WEIGHTS } from 'lib/ratingWeights'
-import { Hotel, ShoppingBag, Utensils } from 'lucide-react'
+import { BookOpen, Hotel, ShoppingBag, Utensils } from 'lucide-react'
 import Link from 'next/link'
 
 import { Badge } from '@/components/ui/badge'
@@ -165,6 +176,17 @@ export default function CoverImage(props: CoverImageProps) {
                   <ShoppingBag className="h-3 w-3 mr-1" aria-hidden="true" />
                 )}
                 <span>{diningType === 'dinein' ? 'Dine-In' : 'Takeout'}</span>
+              </Badge>
+            )}
+
+            {linkType === 'story' && category && GUIDE_CATEGORY_LABELS[category] && (
+              <Badge
+                className="absolute top-3 left-3 z-30 bg-zinc-900/65 text-white backdrop-blur-sm border-transparent min-h-[32px] flex items-center"
+                role="status"
+                aria-label={`Guide category: ${GUIDE_CATEGORY_LABELS[category]}`}
+              >
+                <BookOpen className="h-3 w-3 mr-1" aria-hidden="true" />
+                <span>{GUIDE_CATEGORY_LABELS[category]}</span>
               </Badge>
             )}
 

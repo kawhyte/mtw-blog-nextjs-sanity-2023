@@ -288,7 +288,12 @@ export async function getTopArenas(): Promise<ArenaHighlightCard[]> {
   if (!client) return []
   try {
     const results = await client.fetch<ArenaHighlightCard[]>(visitedArenasHighlightQuery)
-    return results ?? []
+    if (!results) return []
+    const { getArenaDisplayRating } = await import('utils/arena/arenaUtils')
+    return results.map((arena) => {
+      const { average, textRating, color } = getArenaDisplayRating(arena as any)
+      return { ...arena, displayRating: { average, textRating, color } }
+    })
   } catch (error) {
     console.error('Error fetching top arenas:', error)
     return []
