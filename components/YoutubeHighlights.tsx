@@ -6,6 +6,7 @@ import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
+import Button from 'ui/Button'
 
 import SectionTitle from './SectionTitle'
 
@@ -161,16 +162,17 @@ export default function YoutubeHighlights({
       </div>
 
       <div className="mt-8 flex justify-center">
-        <Link
-          href="https://www.youtube.com/@mtwtravel"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 rounded-lg border-2 border-black bg-pink-500 px-6 py-3 text-sm font-bold text-white shadow-brutalist-sm transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none"
+        <Button
+          variant="primary"
+          link="https://www.youtube.com/@mtwtravel"
+          newTab
+          icon={<Youtube size={16} className="text-white" />}
         >
-          <Youtube size={16} />
-          Watch More on YouTube
-          <ExternalLink size={12} />
-        </Link>
+          <span className="flex items-center gap-2">
+            Watch More on YouTube
+            <ExternalLink size={12} />
+          </span>
+        </Button>
       </div>
     </div>
   )

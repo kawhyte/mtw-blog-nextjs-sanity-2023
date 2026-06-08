@@ -7,31 +7,31 @@ import * as React from 'react'
 
 import { cn } from '@/lib/utils'
 
-// Custom button variants matching the original design exactly
 const buttonVariants = cva(
   [
-    // Base styles - exactly matching the original
-    'relative z-10 flex w-full items-center overflow-hidden whitespace-normal',
-    'rounded-[36px] bg-white font-medium uppercase leading-tight tracking-tight',
-    'text-gray-700 transition-transform duration-300 scale-95',
-    // Pseudo elements for the original shine and gradient effects
+    'relative z-10 inline-flex items-center overflow-hidden whitespace-normal',
+    'rounded-[36px] font-medium uppercase leading-tight tracking-tight',
+    'transition-transform duration-300 scale-95',
+    // Pseudo elements for shine/gradient effects
     'before:absolute before:inset-0 before:-z-10 before:rounded-[36px]',
     'before:bg-gradient-btn before:opacity-0 before:transition-opacity before:duration-500',
     'after:absolute after:inset-0 after:rounded-[36px] after:bg-shine',
     'after:bg-position-[-3em] after:bg-no-repeat after:bg-size-[auto_100%]',
-    // Hover states - exactly matching original
     'hover:scale-100 hover:before:opacity-100',
     'after:hover:animate-shine after:hover:[animation-fill-mode:forwards]',
-    // Focus states
     'focus:scale-100 focus:before:opacity-100 focus-visible:outline-none',
-    // Motion reduce accessibility
     'motion-reduce:hover:scale-95 motion-reduce:after:hover:animate-none',
     'motion-reduce:focus:scale-95',
-    // Original custom classes
     'text-shade-90 text-t4',
   ],
   {
     variants: {
+      variant: {
+        // Outlined white — default for secondary CTAs
+        secondary: 'bg-white text-gray-700',
+        // Filled pink — for primary/highlight CTAs
+        primary: 'bg-primary text-white',
+      },
       size: {
         xs: 'text-xs py-1 px-2 md:px-3',
         sm: 'text-sm py-1 px-3 md:px-4',
@@ -52,12 +52,18 @@ const buttonVariants = cva(
         true: 'border-4 border-[#1f1f1f] shadow-[4px_4px_#1f1f1f]',
         false: '',
       },
+      fullWidth: {
+        true: 'w-full',
+        false: 'w-fit',
+      },
     },
     defaultVariants: {
+      variant: 'secondary',
       size: 'md',
       fontSize: 'md',
       align: 'center',
       bordered: true,
+      fullWidth: false,
     },
   },
 )
@@ -71,6 +77,7 @@ interface ButtonProps
   iconSize?: number
   hoverColor?: string
   noBorder?: boolean
+  newTab?: boolean
   asChild?: boolean
 }
 
@@ -87,15 +94,17 @@ export default function Button({
   link,
   icon,
   iconSize = 16,
+  variant,
   size,
   fontSize,
   align = 'center',
   hoverColor = 'pink-200',
   noBorder = false,
+  fullWidth = false,
+  newTab = false,
   asChild = false,
   ...props
 }: ButtonProps) {
-  // Handle both string icon names and React elements
   let iconElement: React.ReactNode = null
   if (icon) {
     if (typeof icon === 'string' && LucideReact[icon]) {
@@ -108,18 +117,17 @@ export default function Button({
     }
   }
 
-  // Create hover color class
   const hoverColorClass = `hover:bg-${hoverColor}`
 
   const buttonContent = (
-    <div className="w-full flex items-center">
+    <div className="flex items-center">
       {iconElement && (
         <span className="mr-2 flex items-center justify-center shrink-0">
           {iconElement}
         </span>
       )}
       <div
-        className={cn('w-full flex items-center', {
+        className={cn('flex items-center', {
           'justify-start': align === 'left',
           'justify-center': align === 'center',
           'justify-end': align === 'right',
@@ -127,7 +135,7 @@ export default function Button({
       >
         <div
           className={cn(
-            alignTextClasses[align],
+            alignTextClasses[align ?? 'center'],
             'mt-[1px] text-balance whitespace-normal break-words min-w-0 leading-tight',
           )}
         >
@@ -140,12 +148,15 @@ export default function Button({
 
   const baseClasses = cn(
     buttonVariants({
+      variant,
       size,
       fontSize,
       align,
       bordered: !noBorder,
+      fullWidth,
     }),
-    hoverColorClass,
+    // Only apply hover color on secondary variant (primary has its own bg)
+    variant !== 'primary' && hoverColorClass,
     className,
   )
 
@@ -159,6 +170,8 @@ export default function Button({
         className={cn(baseClasses, 'block')}
         role="button"
         tabIndex={0}
+        target={newTab ? '_blank' : undefined}
+        rel={newTab ? 'noopener noreferrer' : undefined}
       >
         {buttonContent}
       </Link>
