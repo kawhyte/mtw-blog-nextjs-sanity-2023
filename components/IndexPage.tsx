@@ -1,6 +1,4 @@
 import Container from 'components/BlogContainer'
-// BlogHeader might be redundant if Hero covers the top section well
-// import BlogHeader from 'components/BlogHeader'
 import Layout from 'components/BlogLayout'
 import IndexPageHead from 'components/IndexPageHead'
 import MoreStoriesIndex from 'components/MoreStories' // Your generic, paginated component

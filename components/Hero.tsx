@@ -55,7 +55,7 @@ function Hero() {
             </p>
 
             {/* CTA Button */}
-            <div className="relative z-20 flex w-full max-w-xs pt-4 lg:mt-0 lg:shrink-0">
+            <div className="relative z-20 flex justify-center md:justify-start w-full max-w-xs pt-4 lg:mt-0 lg:shrink-0">
               <Button
                 icon={
                   <LiaBasketballBallSolid className="h-7 w-8 text-pink-500" />

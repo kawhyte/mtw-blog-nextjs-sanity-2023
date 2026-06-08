@@ -1,105 +1,35 @@
-import {
-  Bed,
-  Book,
-  Clapperboard,
-  Code,
-  Coffee,
-  Dumbbell,
-  Footprints,
-  Gamepad,
-  Luggage,
-  Music,
-  Pizza,
-  Ship,
-  ToyBrick,
-} from 'lucide-react'
+import { Globe, Heart } from 'lucide-react'
 import React from 'react'
 
-import CountriesCard from './CountriesCard'
-import InterestCard from './InterestCard'
 import SectionTitle from './SectionTitle'
 import { Section } from './ui/Section'
 
-// Interfaces for the data
 interface Duo {
   id: number
   color: string
   name: string
   image: string
-  quoteBy: string
-  quote: string
 }
 
-interface Interest {
-  icon: React.ComponentType<React.ComponentProps<typeof Book>>
-  label: string
-}
-
-interface Country {
-  code: string
-  name: string
-}
+const duo: Duo[] = [
+  {
+    id: 1,
+    color: 'indigo',
+    name: 'Mr. Whyte',
+    image: '/avatar_mr.png',
+  },
+  {
+    id: 2,
+    color: 'pink',
+    name: 'Mrs. Whyte',
+    image: '/avatar_mrs.png',
+  },
+]
 
 function Welcome(): JSX.Element {
-  const duo: Duo[] = [
-    {
-      id: 1,
-      color: 'indigo',
-      name: 'Mr. Whyte',
-      image: '/avatar_mr.png',
-      quoteBy: '- Oscar Wilde',
-      quote: 'Be yourself; everyone else is already taken.',
-    },
-    {
-      id: 2,
-      color: 'pink',
-      name: 'Mrs. Whyte',
-      image: '/avatar_mrs.png',
-      quoteBy: '- Frank Zappa',
-      quote: 'So many books, so little time',
-    },
-  ]
-
-  const interests: Interest[] = [
-    { icon: Pizza, label: 'Pizza' },
-    { icon: Book, label: 'Reading' },
-    { icon: Luggage, label: 'Traveling' },
-    { icon: Code, label: 'Coding' },
-    { icon: Gamepad, label: 'Retro Games' },
-    { icon: Coffee, label: 'Coffee' },
-    { icon: Footprints, label: 'Sneakers' },
-    { icon: Dumbbell, label: 'Weightlifting' },
-    { icon: Bed, label: 'Sleep' },
-    { icon: Music, label: 'Music' },
-    { icon: ToyBrick, label: 'Legos' },
-    { icon: Clapperboard, label: 'Movies' },
-    { icon: Ship, label: 'Cruise' },
-  ]
-
-  const countries: Country[] = [
-    { code: 'HK', name: 'Hong Kong' },
-    { code: 'TW', name: 'Taiwan' },
-    { code: 'VN', name: 'Vietnam' },
-    { code: 'SG', name: 'Singapore' },
-    { code: 'CA', name: 'Canada' },
-    { code: 'DK', name: 'Denmark' },
-    { code: 'FI', name: 'Finland' },
-    { code: 'FR', name: 'France' },
-    { code: 'ID', name: 'Indonesia' },
-    { code: 'JM', name: 'Jamaica' },
-    { code: 'JP', name: 'Japan' },
-    { code: 'MX', name: 'Mexico' },
-    { code: 'NL', name: 'Netherlands' },
-    { code: 'PR', name: 'Puerto Rico' },
-    { code: 'SE', name: 'Sweden' },
-    { code: 'BS', name: 'The Bahamas' },
-    { code: 'GB', name: 'United Kingdom' },
-    { code: 'US', name: 'United States' },
-  ]
-
   return (
-    <Section as="div" spacing="tight" className="container mx-auto space-y-8">
-      {/* Top row: text left, avatars right — mirrors Travel Gear / IndexTopTen layout */}
+    <Section as="div" spacing="tight" className="container mx-auto space-y-6">
+      {/* Bio: text left, avatars right */}
       <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-8">
         <div className="w-full lg:w-3/5">
           <SectionTitle
@@ -134,10 +64,17 @@ function Welcome(): JSX.Element {
         </div>
       </div>
 
-      {/* Interests and Countries — unchanged */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 px-5">
-        <InterestCard interests={interests} />
-        <CountriesCard countries={countries} />
+      {/* Compact stats strip */}
+      <div className="flex flex-wrap items-center justify-center lg:justify-start gap-x-4 gap-y-2 px-6 text-sm text-muted-foreground">
+        <span className="flex items-center gap-1.5">
+          <Globe className="h-4 w-4 text-indigo-500" />
+          <strong className="text-foreground">18</strong> countries visited
+        </span>
+        <span className="text-foreground/30">·</span>
+        <span className="flex items-center gap-1.5">
+          <Heart className="h-4 w-4 text-pink-500" />
+          <strong className="text-foreground">13+</strong> interests
+        </span>
       </div>
     </Section>
   )
