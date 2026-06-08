@@ -2,6 +2,7 @@ import { FoodReview, HotelReview } from 'lib/sanity.queries'
 import Head from 'next/head'
 
 import { calculateRating } from '../lib/calculateRating'
+import { withInternetRating } from '../lib/mbpsToRating'
 import {
   FOOD_WEIGHTS,
   HOTEL_WEIGHTS,
@@ -26,7 +27,13 @@ export default function ReviewStructuredData({
   // Calculate overall rating
   const rating =
     reviewType === 'hotel'
-      ? calculateRating((review as HotelReview).hotelRating, HOTEL_WEIGHTS)
+      ? calculateRating(
+          withInternetRating(
+            (review as HotelReview).hotelRating as Record<string, number | undefined>,
+            (review as HotelReview).internetSpeed,
+          ),
+          HOTEL_WEIGHTS,
+        )
       : calculateRating(
           (review as FoodReview).diningType === 'takeout'
             ? (review as FoodReview).takeoutRating

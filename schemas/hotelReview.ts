@@ -257,9 +257,10 @@ export default defineType({
 
     defineField({
       name: 'internetSpeed',
-      title: 'Internet Speed',
+      title: 'Internet Speed (legacy)',
       type: 'number',
-      description: 'Internet speed in Mbps (must be a number)',
+      description: 'Legacy field — now stored inside hotelRating.internetSpeed. Kept for GROQ fallback.',
+      hidden: true,
     }),
 
     defineField({

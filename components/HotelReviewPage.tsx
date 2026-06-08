@@ -12,6 +12,7 @@ import VideoPlayer from 'components/Youtube'
 import { calculateRating } from 'lib/calculateRating'
 import * as demo from 'lib/demo.data'
 import { computeTimelineEntries, getEffectiveRating } from 'lib/mergeRatings'
+import { withInternetRating } from 'lib/mbpsToRating'
 import { HOTEL_WEIGHTS } from 'lib/ratingWeights'
 import type { HotelReview, Settings } from 'lib/sanity.queries'
 import {
@@ -112,10 +113,19 @@ function HotelReviewPageContent(props: HotelReviewPageProps) {
   const { preview, loading, hotelReview, settings } = props
   const { title = demo.title } = settings || {}
 
-  // Compute effective rating by accumulating all revisit updates
-  const effectiveHotelRating = hotelReview.hotelRating
-    ? getEffectiveRating(
+  // Enrich the base rating: auto-compute Internet_Speed from the Mbps value when present.
+  // Falls back to the stored Internet_Speed for docs that have no Mbps field (backward compat).
+  const baseRatingWithInternet = hotelReview.hotelRating
+    ? withInternetRating(
         hotelReview.hotelRating as Record<string, number | undefined>,
+        hotelReview.internetSpeed,
+      )
+    : undefined
+
+  // Compute effective rating by accumulating all revisit updates
+  const effectiveHotelRating = baseRatingWithInternet
+    ? getEffectiveRating(
+        baseRatingWithInternet,
         (hotelReview.revisits ?? []).map((r) => ({
           visitDate: r.visitDate,
           ratingUpdates: r.ratingUpdates as Record<string, number | undefined>,
@@ -124,18 +134,18 @@ function HotelReviewPageContent(props: HotelReviewPageProps) {
     : hotelReview.hotelRating
 
   // Compute original rating for the timeline baseline
-  const originalRatingResult = hotelReview.hotelRating
+  const originalRatingResult = baseRatingWithInternet
     ? calculateRating(
-        hotelReview.hotelRating as Record<string, number>,
+        baseRatingWithInternet as Record<string, number>,
         HOTEL_WEIGHTS,
       )
     : null
 
   // Compute timeline entries with per-revisit deltas
   const timelineEntries =
-    hotelReview.revisits?.length && hotelReview.hotelRating
+    hotelReview.revisits?.length && baseRatingWithInternet
       ? computeTimelineEntries(
-          hotelReview.hotelRating as Record<string, number | undefined>,
+          baseRatingWithInternet,
           (hotelReview.revisits ?? []).map((r) => ({
             visitDate: r.visitDate,
             notes: r.notes,

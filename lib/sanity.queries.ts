@@ -435,7 +435,7 @@ export const independentHotelReviewFields = groq`
   },
   youtube,
   hotelRating,
-  internetSpeed,
+  "internetSpeed": coalesce(hotelRating.internetSpeed, internetSpeed),
   roomAmenities,
   techRating,
   positives,
@@ -640,9 +640,10 @@ export interface HotelReview {
   gallery?: any[]
   youtube?: string
   hotelRating?: {
+    internetSpeed?: number
+    Internet_Speed?: number
     Value?: number
     Gym?: number
-    Internet_Speed?: number
     Service?: number
     Room_Cleanliness?: number
     Bed_Comfort?: number
@@ -1052,9 +1053,10 @@ export interface Post extends BasePost {
   techRating?: any
   roomAmenities?: any
   hotelRating?: {
+    internetSpeed?: number
+    Internet_Speed?: number
     Value?: number
     Gym?: number
-    Internet_Speed?: number
     Service?: number
     Room_Cleanliness?: number
     Bed_Comfort?: number

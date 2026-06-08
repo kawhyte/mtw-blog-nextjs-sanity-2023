@@ -1,5 +1,7 @@
 import { defineField, defineType } from 'sanity'
 
+import { MbpsInternetInput } from '../plugins/MbpsInternetInput'
+
 export default defineType({
   name: 'hotelRating',
   type: 'object',
@@ -24,6 +26,22 @@ export default defineType({
     Value: 6,
   },
   fields: [
+    defineField({
+      name: 'internetSpeed',
+      title: 'Internet Speed (Mbps)',
+      description: 'Measured speed in Mbps — set to 0 for no internet.',
+      type: 'number',
+      validation: (Rule) => Rule.min(0),
+      components: { input: MbpsInternetInput },
+    }),
+    defineField({
+      title: 'Internet Speed Rating',
+      name: 'Internet_Speed',
+      type: 'number',
+      hidden: true,
+      validation: (Rule) => Rule.min(0).max(10),
+      initialValue: 0,
+    }),
     defineField({
       title: 'Location of Hotel',
       name: 'Location',
@@ -51,14 +69,6 @@ export default defineType({
       type: 'number',
       validation: (Rule) => Rule.required().min(0).max(10),
       initialValue: 6,
-    }),
-    defineField({
-      title: 'Internet Speed',
-      description: 'Set to 0 if there is no internet',
-      name: 'Internet_Speed',
-      type: 'number',
-      validation: (Rule) => Rule.required().min(0).max(10),
-      initialValue: 0,
     }),
     defineField({
       title: 'Room Amenities (TV, Coffee machine etc.)',
