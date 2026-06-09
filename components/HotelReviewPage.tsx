@@ -337,13 +337,11 @@ function HotelReviewPageContent(props: HotelReviewPageProps) {
               </Section>
             )}
 
-          <Section spacing="tight" as="div">
-            <ProConList
-              positives={hotelReview.positives}
-              negatives={hotelReview.negatives}
-              verdict2={hotelReview.verdict}
-            />
-          </Section>
+          <ProConList
+            positives={hotelReview.positives}
+            negatives={hotelReview.negatives}
+            verdict2={hotelReview.verdict}
+          />
 
           {hotelReview.resortFee && (
             <Section spacing="tight" as="div">

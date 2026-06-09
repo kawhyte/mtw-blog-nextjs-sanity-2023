@@ -1,6 +1,6 @@
+import { PortableText, PortableTextMarkComponent } from '@portabletext/react'
 import {
   CheckCircle2,
-  CircleCheckBig,
   Scale,
   ThumbsDown,
   ThumbsUp,
@@ -10,8 +10,41 @@ import React from 'react'
 
 import { Spoiler } from '@/components/ui/spoiler'
 
-import PostBody from '../components/PostBody'
 import SectionTitle from './SectionTitle'
+
+const VerdictText = ({ content }: { content: any }) => (
+  <PortableText
+    value={content}
+    components={{
+      block: {
+        normal: ({ children }) => (
+          <p className="mt-2 first:mt-0 text-sm md:text-base leading-relaxed text-foreground">
+            {children}
+          </p>
+        ),
+      },
+      marks: {
+        link: (({ children, value }) => (
+          <a
+            href={value?.href}
+            className="text-primary underline decoration-primary decoration-2 underline-offset-2 hover:opacity-75 transition-opacity"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {children}
+          </a>
+        )) as PortableTextMarkComponent,
+        strong: (({ children }) => (
+          <strong className="font-bold">{children}</strong>
+        )) as PortableTextMarkComponent,
+        em: (({ children }) => <em className="italic">{children}</em>) as PortableTextMarkComponent,
+        underline: (({ children }) => (
+          <span className="underline underline-offset-2">{children}</span>
+        )) as PortableTextMarkComponent,
+      },
+    }}
+  />
+)
 
 const boxHeight = 390 // Max height for spoiler content before collapsing
 
@@ -94,8 +127,8 @@ const InfoBox = ({
             </ul>
           )}
           {content && (
-            <div className="prose prose-sm md:prose-base pt-2 max-w-none">
-              <PostBody content={content} />
+            <div className="pt-2">
+              <VerdictText content={content} />
             </div>
           )}
         </Spoiler>
