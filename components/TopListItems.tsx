@@ -27,7 +27,7 @@ export default function TopListItems({
     <section className="my-12">
       {title && <SectionTitle header={title} />}
 
-      <div className="container mx-auto max-w-7xl grid grid-cols-1 gap-x-6 gap-y-4 sm:gap-y-6 px-4 sm:px-6 lg:px-8 md:grid-cols-2 lg:grid-cols-3">
+      <div className="container mx-auto max-w-7xl grid grid-cols-1 gap-x-6 gap-y-4 sm:gap-y-6 px-4 sm:px-6 lg:px-8 sm:grid-cols-2 lg:grid-cols-3">
         {posts.map((post, i) => {
           const rank = i + 1
           return (

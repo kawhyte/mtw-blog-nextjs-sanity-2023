@@ -99,7 +99,7 @@ export default function HotelReviewsPage(props: HotelReviewsPageProps) {
             {loading || isTransitioning ? (
               <CardSkeletonGrid count={12} layout="page" />
             ) : posts && posts.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
                 {posts.map((hotelReview) => (
                   <DynamicPostCard
                     key={hotelReview._id}
