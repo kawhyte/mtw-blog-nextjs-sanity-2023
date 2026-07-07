@@ -101,6 +101,7 @@ export default function ArenaRatingCard({
                     </span>
                   </div>
                   <div className="flex items-center">
+ 
                     <ProgressRating progress={value / 2} color="secondary" />
                   </div>
                 </div>

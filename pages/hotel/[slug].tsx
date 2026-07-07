@@ -9,8 +9,9 @@ import { HotelReview, Settings } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
 import { lazy } from 'react'
 
-// TODO: Create PreviewHotelReviewPage component
-const PreviewHotelReviewPage = lazy(() => import('components/PreviewPostPage'))
+const PreviewHotelReviewPage = lazy(
+  () => import('components/PreviewHotelReviewPage'),
+)
 
 interface PageProps {
   hotelReview: HotelReview
@@ -44,9 +45,8 @@ export default function HotelSlugRoute(props: PageProps) {
       >
         <PreviewHotelReviewPage
           token={token}
-          post={hotelReview}
+          hotelReview={hotelReview}
           settings={settings}
-          contentType="hotelReview"
         />
       </PreviewSuspense>
     )

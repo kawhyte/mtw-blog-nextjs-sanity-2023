@@ -18,7 +18,9 @@ export const usePreview = definePreview({
   // As your dataset grows you might hit the default limit of 3000.
   // However you can increase this limit however you like and audit how it performs.
   // Or even set it to `Infinity` if you want to disable the limit.
-  // documentLimit: 10000,
+  // Dataset was at ~3,866 docs (3,652 image assets) in July 2026 when the
+  // default limit of 3000 started throwing in preview mode.
+  documentLimit: 20000,
 
   // Another way to get around the `documentLimit` is to set `includeTypes` to just the document types that are used in preview mode.
   // You can run the `array::unique(*._type)` GROQ query in `Vision` in your Studio to see how many types are in your dataset.
@@ -29,7 +31,6 @@ export const usePreview = definePreview({
     'guide',
     'arenas',
     'essential',
-    'post',
     'settings',
     'sanity.imageAsset',
   ],

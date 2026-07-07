@@ -9,8 +9,9 @@ import { FoodReview, Settings } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
 import { lazy } from 'react'
 
-// TODO: Create PreviewFoodReviewPage component
-const PreviewFoodReviewPage = lazy(() => import('components/PreviewPostPage'))
+const PreviewFoodReviewPage = lazy(
+  () => import('components/PreviewFoodReviewPage'),
+)
 
 interface PageProps {
   foodReview: FoodReview
@@ -44,9 +45,8 @@ export default function FoodSlugRoute(props: PageProps) {
       >
         <PreviewFoodReviewPage
           token={token}
-          post={foodReview}
+          foodReview={foodReview}
           settings={settings}
-          contentType="foodReview"
         />
       </PreviewSuspense>
     )

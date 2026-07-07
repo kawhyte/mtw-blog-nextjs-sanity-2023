@@ -12,8 +12,7 @@ import { Guide, Settings } from 'lib/sanity.queries'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { lazy } from 'react'
 
-// TODO: Create PreviewGuidePage component
-const PreviewGuidePage = lazy(() => import('components/PreviewPostPage'))
+const PreviewGuidePage = lazy(() => import('components/PreviewGuidePage'))
 
 // Props Interface & Query
 export const getStaticProps: GetStaticProps<
@@ -94,12 +93,7 @@ export default function GuideSlugRoute(props: PageProps) {
           />
         }
       >
-        <PreviewGuidePage
-          token={token}
-          post={guide}
-          settings={settings}
-          contentType="guide"
-        />
+        <PreviewGuidePage token={token} guide={guide} settings={settings} />
       </PreviewSuspense>
     )
   }

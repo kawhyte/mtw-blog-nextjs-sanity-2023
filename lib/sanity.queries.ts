@@ -366,16 +366,6 @@ export const guideBySlugQuery = fetchDocumentBySlug(
   'slug.current',
 )
 
-// Minimal guide query for preview API
-export const guideBySlugPreviewQuery = groq`
-  *[_type == "guide" && slug.current == $slug][0] {
-    _id,
-    title,
-    "slug": slug.current,
-    category
-  }
-`
-
 // All guides query (card fields only — used on listing page)
 export const allGuidesQuery = groq`
   *[_type == "guide" && (!defined(publishedAt) || publishedAt <= now())] | order(date desc) {
@@ -478,17 +468,6 @@ export const hotelReviewBySlugQuery = fetchDocumentBySlug(
   'slug.current',
 )
 
-// Minimal hotel review query for preview API
-export const hotelReviewBySlugPreviewQuery = groq`
-  *[_type == "hotelReview" && slug.current == $slug][0] {
-    _id,
-    title,
-    "slug": slug.current,
-    category,
-    location
-  }
-`
-
 // All hotel reviews query
 export const allHotelReviewsQuery = groq`
   *[_type == "hotelReview" && (!defined(publishedAt) || publishedAt <= now())] | order(date desc) {
@@ -577,17 +556,6 @@ export const foodReviewBySlugQuery = fetchDocumentBySlug(
   independentFoodReviewFields,
   'slug.current',
 )
-
-// Minimal food review query for preview API
-export const foodReviewBySlugPreviewQuery = groq`
-  *[_type == "foodReview" && slug.current == $slug][0] {
-    _id,
-    title,
-    "slug": slug.current,
-    diningType,
-    location
-  }
-`
 
 // All food reviews query
 export const allFoodReviewsQuery = groq`
