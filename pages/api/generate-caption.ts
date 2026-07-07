@@ -1,5 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
+import {
+  BANNED_PHRASES,
+  BANNED_WORDS,
+  BRAND_VOICE,
+  trimToSentence,
+} from '../../lib/gemini-voice'
+
 // "image-{hexid}-{WxH}-{format}" → Sanity CDN URL
 function assetRefToUrl(ref: string): string {
   const withoutPrefix = ref.replace(/^image-/, '')
@@ -10,7 +17,7 @@ function assetRefToUrl(ref: string): string {
 }
 
 function buildPrompt(contentType?: string, docTitle?: string): string {
-  const base = `You are writing a photo caption for "Meet the Whytes," a travel blog about NBA/WNBA arena visits, hotel stays, food experiences, and cruise travel.`
+  const base = `${BRAND_VOICE} We also cover the occasional cruise. You are writing a photo caption for the blog.`
 
   const context =
     {
@@ -29,9 +36,10 @@ Rules:
 - 80–160 characters total
 - First person plural ("we", "our") when natural — e.g. "Our view from the upper deck at Fiserv Forum"
 - Include specific details: arena name, city, dish name, hotel name, location — only when clearly visible or inferable
-- Do NOT use these words: "showcasing", "featuring", "stunning", "vibrant", "modern", "iconic", "offering", "boasting", "nestled", "world-class", "state-of-the-art"
+- Do NOT use any of these words: ${BANNED_WORDS}, modern
+- Do NOT use these phrases or close variants: ${BANNED_PHRASES}
 - Do NOT start with "A photo of", "An image of", or "This is"
-- Write like a caption in a travel magazine, not an ad
+- Contractions are good (we're, it's, don't) — write like a person, not an ad
 
 Return ONLY the caption. No quotes. No explanation.`
 }
@@ -99,9 +107,12 @@ export default async function handler(
     }
 
     const data = await geminiRes.json()
-    const caption = data.candidates?.[0]?.content?.parts?.[0]?.text?.trim()
+    const raw = data.candidates?.[0]?.content?.parts?.[0]?.text?.trim()
 
-    if (!caption) throw new Error('No caption returned from Gemini')
+    if (!raw) throw new Error('No caption returned from Gemini')
+
+    // Prompt asks for 80–160 chars; only intervene on a bad overshoot
+    const caption = raw.length > 200 ? trimToSentence(raw, 160) : raw
 
     res.status(200).json({ caption })
   } catch (err: any) {
