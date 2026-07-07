@@ -1,5 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
+import {
+  BANNED_PHRASES,
+  BANNED_WORDS,
+  BRAND_VOICE,
+  trimToSentence,
+} from '../../lib/gemini-voice'
+
 // "image-{hexid}-{WxH}-{format}" → Sanity CDN URL
 function assetRefToUrl(ref: string): string {
   const withoutPrefix = ref.replace(/^image-/, '')
@@ -10,7 +17,7 @@ function assetRefToUrl(ref: string): string {
 }
 
 function buildPrompt(contentType?: string, docTitle?: string): string {
-  const base = `You are writing alt text for "Meet the Whytes," a travel blog about NBA/WNBA arena visits, hotel stays, and food experiences.`
+  const base = `${BRAND_VOICE} You are writing alt text for a photo on the blog. Accessibility comes first: a screen-reader user must get an accurate picture of what's shown.`
 
   const context =
     {
@@ -26,9 +33,10 @@ Write alt text the way a travel writer would naturally caption a photo — speci
 
 Rules:
 - Describe exactly what is shown (the court, the seats, the dish, the room, the view, etc.)
-- Include specific details: arena name, city, hotel name, dish name — only if clearly visible or inferable
+- Include specific details: arena name, city, hotel name, dish name — only if clearly visible or inferable. A real name (like the arena or dish) doubles as a search keyword, but never force one in
 - 50–120 characters total
-- Do NOT use these AI/marketing words: "showcasing", "featuring", "stunning", "vibrant", "modern", "iconic", "offering", "boasting", "nestled", "beautiful views of", "world-class", "state-of-the-art"
+- Do NOT use any of these words: ${BANNED_WORDS}, modern, "beautiful views of"
+- Do NOT use these phrases or close variants: ${BANNED_PHRASES}
 - Do NOT start with "image of", "photo of", or "picture of"
 - Write like you're texting a friend what the photo shows
 
@@ -100,10 +108,12 @@ export default async function handler(
     }
 
     const data = await geminiRes.json()
-    const altText =
-      data.candidates?.[0]?.content?.parts?.[0]?.text?.trim()
+    const raw = data.candidates?.[0]?.content?.parts?.[0]?.text?.trim()
 
-    if (!altText) throw new Error('No alt text returned from Gemini')
+    if (!raw) throw new Error('No alt text returned from Gemini')
+
+    // Prompt asks for 50–120 chars; only intervene on a bad overshoot
+    const altText = raw.length > 150 ? trimToSentence(raw, 120) : raw
 
     res.status(200).json({ altText })
   } catch (err: any) {
