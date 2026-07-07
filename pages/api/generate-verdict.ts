@@ -1,5 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
+import { ANTI_AI_RULES, BRAND_VOICE, trimToSentence } from '../../lib/gemini-voice'
+
 // --- Weight configs (mirrors lib/ratingWeights.ts + lib/calculateArenaRating.ts) ---
 
 const ARENA_WEIGHTS: Record<string, number> = {
@@ -196,19 +198,21 @@ function toneGuidance(score: number, label: string): string {
 
 // --- Shared voice rules ---
 
-const VOICE_RULES = `You write verdicts for "Meet the Whytes," a travel couple's blog covering NBA arenas, hotel stays, and dining experiences.
+const VOICE_RULES = `${BRAND_VOICE} You are writing the final verdict of a review.
 
 VOICE RULES — follow every one:
-- Write as "we" (a couple traveling together), warm, direct, and confident
+- Write as "we" (a couple traveling together), warm, direct, and confident — an enthusiastic sports fan & traveler, not a machine
 - Use "&" instead of "and" in casual phrasing — not every sentence, just naturally
 - State opinions directly: "top-notch", "divine", "exactly what we needed", "worth every penny"
 - Be honest about negatives — name them plainly but fairly, don't sugarcoat or bury them
 - Use sensory detail for food: textures, flavors, temperatures, reference specific dish names
 - End with a clear, forward-looking close that matches the tone set by the WEIGHTED SCORE
 - Write like a trusted friend giving real advice, not a press release
-- FORBIDDEN WORDS — never use any of these: showcasing, stunning, vibrant, world-class, nestled, boasting, iconic, offering, featuring, seamlessly, elevate, state-of-the-art, modern amenities, culinary, experience (as a noun), impeccable, overall
 - Do NOT mention specific score numbers in the verdict text — let the language carry the weight ("the food was the clear weak link" not "the food scored 5/10")
-- TONE IS NON-NEGOTIABLE: The weighted score sets the emotional ceiling. Even if the positives list is glowing, a score below 6 cannot produce a warm or enthusiastic verdict.`
+- TONE IS NON-NEGOTIABLE: The weighted score sets the emotional ceiling. Even if the positives list is glowing, a score below 6 cannot produce a warm or enthusiastic verdict.
+- Never use "experience" as a noun, and never use "overall"
+
+${ANTI_AI_RULES}`
 
 // --- Prompt builders ---
 
@@ -251,6 +255,7 @@ SEO RULES:
 - Use "${name}" naturally 2–3 times
 - Include "${location}" at least once
 - Weave 2–3 key differentiators from the positives into natural sentences
+- If it fits naturally, one casual nod to our quest to visit every NBA & WNBA arena ("another stop on our arena quest") — skip it if it feels forced
 - HARD LIMIT: Stay under 600 characters total (roughly 85–95 words). Count carefully — do not exceed this.
 - Plain paragraphs only — no headers, no bullet points
 
@@ -464,9 +469,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     const data = await geminiRes.json()
-    const verdict = data.candidates?.[0]?.content?.parts?.[0]?.text?.trim()
+    const raw = data.candidates?.[0]?.content?.parts?.[0]?.text?.trim()
 
-    if (!verdict) throw new Error('No verdict returned from Gemini')
+    if (!raw) throw new Error('No verdict returned from Gemini')
+
+    // Prompt asks for <600 chars; only intervene when the model badly overshoots
+    const verdict = raw.length > 700 ? trimToSentence(raw, 600) : raw
 
     res.status(200).json({ verdict })
   } catch (err: any) {

@@ -1,7 +1,13 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-const FORBIDDEN =
-  'stunning, vibrant, nestled, boasting, offering, showcasing, modern, iconic, world-class, state-of-the-art, perfect for, ideal for, luxurious, mouthwatering, delightful, exquisite, seamlessly, impeccable'
+import {
+  BANNED_PHRASES,
+  BANNED_WORDS,
+  BRAND_VOICE,
+  trimToSentence,
+} from '../../lib/gemini-voice'
+
+const FORBIDDEN = `${BANNED_WORDS}, modern`
 
 function buildHotelPrompt(body: any): string {
   const { title, location, category, positives, wouldReturn, verdict } = body
@@ -16,7 +22,7 @@ function buildHotelPrompt(body: any): string {
     no: 'No',
   }
 
-  return `You write SEO meta descriptions for "Meet the Whytes," a travel couple's blog covering hotel stays near NBA arenas.
+  return `${BRAND_VOICE} You write SEO meta descriptions for our hotel reviews — the places we stay on our NBA & WNBA arena trips.
 
 Hotel: ${title}
 Location: ${location ?? 'Unknown'}
@@ -32,6 +38,8 @@ Write ONE meta description for Google search results. Hard rules:
 - Sound like a real traveler wrote it — not marketing copy, not AI
 - End with something that makes a reader want to click through
 - NEVER use: ${FORBIDDEN}
+- NEVER use these phrases or close variants: ${BANNED_PHRASES}
+- Use a contraction where it fits naturally (we're, it's, don't) — real people use them
 
 Return ONLY the meta description. No quotes. No label. No explanation.`
 }
@@ -44,7 +52,7 @@ function buildFoodPrompt(body: any): string {
     .join(' | ')
   const diningLabel = diningType === 'takeout' ? 'Takeout' : 'Dine-in'
 
-  return `You write SEO meta descriptions for "Meet the Whytes," a travel couple's blog covering restaurants near NBA arenas.
+  return `${BRAND_VOICE} You write SEO meta descriptions for our restaurant reviews — the food we hunt down on our NBA & WNBA arena trips.
 
 Restaurant: ${title}
 Location: ${location ?? 'Unknown'}
@@ -59,6 +67,8 @@ Write ONE meta description for Google search results. Hard rules:
 - Sound like a real person wrote it — not a food critic or AI
 - End with something that makes a reader want to click through
 - NEVER use: ${FORBIDDEN}
+- NEVER use these phrases or close variants: ${BANNED_PHRASES}
+- Use a contraction where it fits naturally (we're, it's, don't) — real people use them
 
 Return ONLY the meta description. No quotes. No label. No explanation.`
 }
@@ -70,7 +80,7 @@ function buildArenaPrompt(body: any): string {
     .slice(0, 3)
     .join(' | ')
 
-  return `You write SEO meta descriptions for "Meet the Whytes," a travel couple's blog reviewing NBA arenas.
+  return `${BRAND_VOICE} You write SEO meta descriptions for our arena reviews.
 
 Arena: ${name}
 Location: ${location ?? 'Unknown'}
@@ -84,6 +94,8 @@ Write ONE meta description for Google search results. Hard rules:
 - Sound like a real fan who attended a game wrote it — not a tourism board
 - End with something that makes a reader want to click through
 - NEVER use: ${FORBIDDEN}
+- NEVER use these phrases or close variants: ${BANNED_PHRASES}
+- Use a contraction where it fits naturally (we're, it's, don't) — real people use them
 
 Return ONLY the meta description. No quotes. No label. No explanation.`
 }
@@ -148,8 +160,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     if (!raw) throw new Error('No response from Gemini')
 
-    // Strip any surrounding quotes Gemini sometimes adds
-    const seoExcerpt = raw.replace(/^["']|["']$/g, '').trim()
+    // Strip any surrounding quotes Gemini sometimes adds, then enforce the
+    // 155-char meta description ceiling at a word boundary (schema only warns)
+    const cleaned = raw.replace(/^["']|["']$/g, '').trim()
+    const seoExcerpt = trimToSentence(cleaned, 155)
 
     res.status(200).json({ seoExcerpt })
   } catch (err: any) {

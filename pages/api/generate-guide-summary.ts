@@ -1,7 +1,13 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-const FORBIDDEN =
-  'stunning, vibrant, nestled, boasting, offering, showcasing, modern, iconic, world-class, state-of-the-art, perfect for, ideal for, luxurious, comprehensive, ultimate, must-read, must-visit, essential guide'
+import {
+  BANNED_PHRASES,
+  BANNED_WORDS,
+  BRAND_VOICE,
+  trimToSentence,
+} from '../../lib/gemini-voice'
+
+const FORBIDDEN = `${BANNED_WORDS}, modern, comprehensive, ultimate, must-read, must-visit, essential guide`
 
 const CATEGORY_LABELS: Record<string, string> = {
   city: 'city guide',
@@ -19,7 +25,7 @@ function buildPrompt(body: any): string {
   const categoryLabel = CATEGORY_LABELS[category as string] ?? 'travel guide'
   const tagList = (tags as string[]).filter(Boolean).slice(0, 6).join(', ')
 
-  return `You write SEO meta descriptions for "Meet the Whytes," a travel couple's blog about NBA/WNBA arena visits, hotel stays, food, and travel guides.
+  return `${BRAND_VOICE} You write SEO meta descriptions for our travel guides.
 
 Guide title: ${title}
 Type: ${categoryLabel}
@@ -36,6 +42,8 @@ Write ONE meta description for Google search results. Hard rules:
 - Be specific — pull one concrete detail from the content excerpt
 - End with a reason to click — a question, a payoff, or a specific promise
 - NEVER use: ${FORBIDDEN}
+- NEVER use these phrases or close variants: ${BANNED_PHRASES}
+- Use a contraction where it fits naturally (we're, it's, don't) — real people use them
 
 Return ONLY the meta description. No quotes. No label. No explanation.`
 }
@@ -91,8 +99,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     if (!raw) throw new Error('No response from Gemini')
 
-    // Strip surrounding quotes and enforce hard 160-char limit
-    const summary = raw.replace(/^["']|["']$/g, '').trim().slice(0, 160)
+    // Strip surrounding quotes, then enforce the 155-char ceiling the prompt
+    // asks for at a word boundary (schema errors at 160)
+    const cleaned = raw.replace(/^["']|["']$/g, '').trim()
+    const summary = trimToSentence(cleaned, 155)
 
     res.status(200).json({ summary })
   } catch (err: any) {
