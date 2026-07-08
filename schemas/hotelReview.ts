@@ -2,10 +2,13 @@ import { HomeIcon } from '@sanity/icons'
 import { format, parseISO } from 'date-fns'
 import { defineField, defineType } from 'sanity'
 import { AltTextGeneratorInput } from '../plugins/AltTextGeneratorInput'
-import { CaptionGeneratorInput } from '../plugins/CaptionGeneratorInput'
 import { SeoExcerptGeneratorInput } from '../plugins/SeoExcerptGeneratorInput'
-import { VerdictGeneratorInput } from '../plugins/VerdictGeneratorInput'
-import { getPortableTextLength } from './utils'
+import {
+  galleryField,
+  negativesField,
+  positivesField,
+  verdictField,
+} from './sharedReviewFields'
 
 /**
  * This is the schema definition for a hotel review.
@@ -167,77 +170,27 @@ export default defineType({
       of: [{ type: 'block' }],
     }),
 
-    defineField({
-      name: 'gallery',
-      title: 'Photo Gallery',
-      type: 'array',
-      description:
-        'Photo gallery — upload each photo at its natural crop, max 1600 px on the longest edge. WebP 80% or JPEG 85% quality. Any aspect ratio is fine.',
-      of: [
-        {
-          type: 'image',
-          options: {
-            hotspot: true,
-          },
-          fields: [
-            {
-              name: 'alt',
-              type: 'string',
-              title: 'Alternative text',
-              components: { input: AltTextGeneratorInput },
-            },
-            {
-              name: 'caption',
-              type: 'string',
-              title: 'Caption',
-              description: 'Optional: add a brief caption shown below the photo in the gallery.',
-              components: { input: CaptionGeneratorInput },
-            },
-            {
-              name: 'category',
-              type: 'string',
-              title: 'Photo Category',
-              description:
-                'Choose a category — Bedroom: bed, pillows, sleeping area. Bathroom: shower, tub, vanity. Living Area: sofa, desk, sitting space. Kitchen / Coffee Station: coffee maker, mini fridge, kitchenette. View from the Room: cityscape, scenery, or balcony shot as seen from inside the room. Pool & Fitness: gym equipment, pool area. Additional Photos: anything that doesn\'t fit above.',
-              options: {
-                list: [
-                  { title: 'Bedroom', value: 'bedroom' },
-                  { title: 'Bathroom', value: 'bathroom' },
-                  { title: 'Living Area', value: 'living-area' },
-                  { title: 'Kitchen / Coffee Station', value: 'kitchen-coffee' },
-                  { title: 'View from the Room', value: 'view' },
-                  { title: 'Pool & Fitness', value: 'pool-fitness' },
-                  { title: 'Additional Photos', value: 'other' },
-                ],
-              },
-            },
-          ],
-          preview: {
-            select: {
-              media: 'asset',
-              title: 'alt',
-              category: 'category',
-            },
-            prepare({ media, title, category }: { media: any; title?: string; category?: string }) {
-              const labels: Record<string, string> = {
-                bedroom: 'Bedroom',
-                bathroom: 'Bathroom',
-                'living-area': 'Living Area',
-                'kitchen-coffee': 'Kitchen / Coffee Station',
-                view: 'View',
-                'pool-fitness': 'Pool & Fitness',
-                other: 'Additional Photos',
-              }
-              return {
-                media,
-                title: title || 'No alt text',
-                subtitle: category ? `✓  ${labels[category] ?? category}` : '⚠  No category set',
-              }
-            },
-          },
-        },
+    galleryField(
+      "Choose a category — Bedroom: bed, pillows, sleeping area. Bathroom: shower, tub, vanity. Living Area: sofa, desk, sitting space. Kitchen / Coffee Station: coffee maker, mini fridge, kitchenette. View from the Room: cityscape, scenery, or balcony shot as seen from inside the room. Pool & Fitness: gym equipment, pool area. Additional Photos: anything that doesn't fit above.",
+      [
+        { title: 'Bedroom', value: 'bedroom' },
+        { title: 'Bathroom', value: 'bathroom' },
+        { title: 'Living Area', value: 'living-area' },
+        { title: 'Kitchen / Coffee Station', value: 'kitchen-coffee' },
+        { title: 'View from the Room', value: 'view' },
+        { title: 'Pool & Fitness', value: 'pool-fitness' },
+        { title: 'Additional Photos', value: 'other' },
       ],
-    }),
+      {
+        bedroom: 'Bedroom',
+        bathroom: 'Bathroom',
+        'living-area': 'Living Area',
+        'kitchen-coffee': 'Kitchen / Coffee Station',
+        view: 'View',
+        'pool-fitness': 'Pool & Fitness',
+        other: 'Additional Photos',
+      },
+    ),
 
     defineField({
       name: 'youtube',
@@ -277,47 +230,11 @@ export default defineType({
       type: 'techRating',
     }),
 
-    defineField({
-      title: 'Positives',
-      name: 'positives',
-      description:
-        'Add multiple positive points about this hotel. Aim for 1–2 short sentences per point (under 150 chars each).',
-      type: 'array',
-      of: [{ type: 'text' }],
-      validation: (Rule) =>
-        Rule.min(1).error('Please add at least one positive point'),
-    }),
+    positivesField('hotel'),
 
-    defineField({
-      title: 'Negatives',
-      name: 'negatives',
-      description:
-        'Add multiple negative points about this hotel. Aim for 1–2 short sentences per point (under 150 chars each).',
-      type: 'array',
-      of: [{ type: 'text' }],
-    }),
+    negativesField('hotel'),
 
-    defineField({
-      name: 'verdict',
-      title: 'Verdict',
-      description:
-        'Your overall verdict on this hotel — max 600 characters. Basic formatting allowed.',
-      type: 'array',
-      of: [{ type: 'block' }],
-      validation: (Rule) =>
-        Rule.custom((portableTextValue) => {
-          if (!portableTextValue || (portableTextValue as any[]).length === 0) {
-            return 'Verdict is required'
-          }
-          const textLength = getPortableTextLength(portableTextValue as any[])
-          const limit = 1200
-          if (textLength > limit) {
-            return `Verdict exceeds ${limit} characters (${textLength}/${limit})`
-          }
-          return true
-        }).error(),
-      components: { input: VerdictGeneratorInput },
-    }),
+    verdictField('hotel', 1200),
 
     defineField({
       name: 'content',

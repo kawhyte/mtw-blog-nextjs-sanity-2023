@@ -17,7 +17,7 @@ export default function ArenaHighlights({ arenas }: ArenaHighlightsProps) {
   return (
     <section className="py-10 md:py-14">
       <SectionTitle
-        header="The Arena Quest"
+        header="Latest Arena Visits"
         description="We're visiting every NBA & WNBA arena in North America — here are our latest reviews."
       />
 

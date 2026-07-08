@@ -3,10 +3,13 @@ import { format, parseISO } from 'date-fns'
 import { IceCream } from 'lucide-react'
 import { defineField, defineType } from 'sanity'
 import { AltTextGeneratorInput } from '../plugins/AltTextGeneratorInput'
-import { CaptionGeneratorInput } from '../plugins/CaptionGeneratorInput'
 import { SeoExcerptGeneratorInput } from '../plugins/SeoExcerptGeneratorInput'
-import { VerdictGeneratorInput } from '../plugins/VerdictGeneratorInput'
-import { getPortableTextLength } from './utils'
+import {
+  galleryField,
+  negativesField,
+  positivesField,
+  verdictField,
+} from './sharedReviewFields'
 
 /**
  * This is the schema definition for a food/restaurant review.
@@ -179,74 +182,24 @@ export default defineType({
       ],
     }),
 
-    defineField({
-      name: 'gallery',
-      title: 'Photo Gallery',
-      type: 'array',
-      description:
-        'Photo gallery — upload each photo at its natural crop, max 1600 px on the longest edge. WebP 80% or JPEG 85% quality. Any aspect ratio is fine.',
-      of: [
-        {
-          type: 'image',
-          options: {
-            hotspot: true,
-          },
-          fields: [
-            {
-              name: 'alt',
-              type: 'string',
-              title: 'Alternative text',
-              components: { input: AltTextGeneratorInput },
-            },
-            {
-              name: 'caption',
-              type: 'string',
-              title: 'Caption',
-              description: 'Optional: add a brief caption shown below the photo in the gallery.',
-              components: { input: CaptionGeneratorInput },
-            },
-            {
-              name: 'category',
-              type: 'string',
-              title: 'Photo Category',
-              description:
-                'Choose a category — Food & Drinks: dishes, cocktails, desserts. Interior & Atmosphere: dining room, tables, décor. Exterior: outside the building, signage, patio. Menu: printed or digital menu shots. Additional Photos: anything that doesn\'t fit above.',
-              options: {
-                list: [
-                  { title: 'Food & Drinks', value: 'food-drinks' },
-                  { title: 'Interior & Atmosphere', value: 'interior' },
-                  { title: 'Exterior', value: 'exterior' },
-                  { title: 'Menu', value: 'menu' },
-                  { title: 'Additional Photos', value: 'other' },
-                ],
-              },
-            },
-          ],
-          preview: {
-            select: {
-              media: 'asset',
-              title: 'alt',
-              category: 'category',
-            },
-            prepare({ media, title, category }: { media: any; title?: string; category?: string }) {
-              const labels: Record<string, string> = {
-                'food-drinks': 'Food & Drinks',
-                interior: 'Interior & Atmosphere',
-                exterior: 'Exterior',
-                'bar-area': 'Bar Area',
-                menu: 'Menu',
-                other: 'Additional Photos',
-              }
-              return {
-                media,
-                title: title || 'No alt text',
-                subtitle: category ? `✓  ${labels[category] ?? category}` : '⚠  No category set',
-              }
-            },
-          },
-        },
+    galleryField(
+      "Choose a category — Food & Drinks: dishes, cocktails, desserts. Interior & Atmosphere: dining room, tables, décor. Exterior: outside the building, signage, patio. Menu: printed or digital menu shots. Additional Photos: anything that doesn't fit above.",
+      [
+        { title: 'Food & Drinks', value: 'food-drinks' },
+        { title: 'Interior & Atmosphere', value: 'interior' },
+        { title: 'Exterior', value: 'exterior' },
+        { title: 'Menu', value: 'menu' },
+        { title: 'Additional Photos', value: 'other' },
       ],
-    }),
+      {
+        'food-drinks': 'Food & Drinks',
+        interior: 'Interior & Atmosphere',
+        exterior: 'Exterior',
+        'bar-area': 'Bar Area',
+        menu: 'Menu',
+        other: 'Additional Photos',
+      },
+    ),
 
     defineField({
       name: 'youtube',
@@ -291,47 +244,11 @@ export default defineType({
         }),
     }),
 
-    defineField({
-      title: 'Positives',
-      name: 'positives',
-      description:
-        'Add multiple positive points about this restaurant. Aim for 1–2 short sentences per point (under 150 chars each).',
-      type: 'array',
-      of: [{ type: 'text' }],
-      validation: (Rule) =>
-        Rule.min(1).error('Please add at least one positive point'),
-    }),
+    positivesField('restaurant'),
 
-    defineField({
-      title: 'Negatives',
-      name: 'negatives',
-      description:
-        'Add multiple negative points about this restaurant. Aim for 1–2 short sentences per point (under 150 chars each).',
-      type: 'array',
-      of: [{ type: 'text' }],
-    }),
+    negativesField('restaurant'),
 
-    defineField({
-      name: 'verdict',
-      title: 'Verdict',
-      description:
-        'Your overall verdict on this restaurant — max 600 characters. Basic formatting allowed.',
-      type: 'array',
-      of: [{ type: 'block' }],
-      validation: (Rule) =>
-        Rule.custom((portableTextValue) => {
-          if (!portableTextValue || (portableTextValue as any[]).length === 0) {
-            return 'Verdict is required'
-          }
-          const textLength = getPortableTextLength(portableTextValue as any[])
-          const limit = 600
-          if (textLength > limit) {
-            return `Verdict exceeds ${limit} characters (${textLength}/${limit})`
-          }
-          return true
-        }).error(),
-      components: { input: VerdictGeneratorInput },
-    }),
+    verdictField('restaurant', 600),
 
     defineField({
       name: 'content',
