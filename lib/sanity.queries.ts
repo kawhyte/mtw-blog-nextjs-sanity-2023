@@ -356,6 +356,60 @@ export const guideCardFields = groq`
   }
 `
 
+// Lightweight hotel fields for listing/card pages.
+// Excludes heavy detail-only fields: content, gallery, verdict, positives,
+// negatives, revisits[], roomAmenities, techRating, tip, youtube,
+// blurbSource, blurbUrl, nearestArena, resortFee, parking, breakfast.
+export const hotelCardFields = groq`
+  _id,
+  title,
+  date,
+  location,
+  category,
+  room,
+  lounge,
+  coverImage {
+    ...,
+    asset->{ _id, metadata { lqip, dimensions { width, height } } }
+  },
+  excerpt2,
+  seoExcerpt,
+  hotelRating,
+  "internetSpeed": coalesce(hotelRating.internetSpeed, internetSpeed),
+  tags,
+  wouldReturn,
+  priceTier,
+  bestFor,
+  "slug": slug.current,
+  "updatedAt": _updatedAt,
+  "revisitCount": count(revisits)
+`
+
+// Lightweight food fields for listing/card pages.
+// Excludes heavy detail-only fields: content, gallery, verdict, positives,
+// negatives, revisits[], tip, youtube, nearestArena.
+export const foodCardFields = groq`
+  _id,
+  title,
+  date,
+  location,
+  diningType,
+  coverImage {
+    ...,
+    asset->{ _id, metadata { lqip, dimensions { width, height } } }
+  },
+  excerpt2,
+  seoExcerpt,
+  individualFoodRating,
+  foodRating,
+  takeoutRating,
+  tags,
+  priceTier,
+  "slug": slug.current,
+  "updatedAt": _updatedAt,
+  "revisitCount": count(revisits)
+`
+
 // Guide slugs query
 export const guideSlugsQuery = fetchSlugs('guide')
 
@@ -471,21 +525,21 @@ export const hotelReviewBySlugQuery = fetchDocumentBySlug(
 // All hotel reviews query
 export const allHotelReviewsQuery = groq`
   *[_type == "hotelReview" && (!defined(publishedAt) || publishedAt <= now())] | order(date desc) {
-    ${independentHotelReviewFields}
+    ${hotelCardFields}
   }
 `
 
 // Top hotel reviews for rankings/top lists
 export const topHotelReviewsQuery = groq`
   *[_type == "hotelReview" && defined(hotelRating) && (!defined(publishedAt) || publishedAt <= now())] {
-    ${independentHotelReviewFields}
+    ${hotelCardFields}
   }
 `
 
 // Hotel reviews by category
 export const hotelReviewsByCategoryQuery = groq`
   *[_type == "hotelReview" && category == $category && (!defined(publishedAt) || publishedAt <= now())] | order(date desc) {
-    ${independentHotelReviewFields}
+    ${hotelCardFields}
   }
 `
 // --- End Independent Hotel Review Document Queries ---
@@ -543,7 +597,7 @@ export const independentFoodReviewFields = groq`
 // Top food reviews for rankings/top lists
 export const topFoodReviewsQuery = groq`
   *[_type == "foodReview" && (defined(foodRating) || defined(takeoutRating)) && (!defined(publishedAt) || publishedAt <= now())] {
-    ${independentFoodReviewFields}
+    ${foodCardFields}
   }
 `
 
@@ -560,14 +614,14 @@ export const foodReviewBySlugQuery = fetchDocumentBySlug(
 // All food reviews query
 export const allFoodReviewsQuery = groq`
   *[_type == "foodReview" && (!defined(publishedAt) || publishedAt <= now())] | order(date desc) {
-    ${independentFoodReviewFields}
+    ${foodCardFields}
   }
 `
 
 // Food reviews by dining type
 export const foodReviewsByDiningTypeQuery = groq`
   *[_type == "foodReview" && diningType == $diningType && (!defined(publishedAt) || publishedAt <= now())] | order(date desc) {
-    ${independentFoodReviewFields}
+    ${foodCardFields}
   }
 `
 // --- End Independent Food Review Document Queries ---
@@ -747,15 +801,15 @@ export const latestIndependentContentQuery = groq`
 {
   "allContent": [
     ...*[_type == "guide" && (!defined(publishedAt) || publishedAt <= now())] | order(date desc) [0...10] {
-      ${independentGuideFields},
+      ${guideCardFields},
       _type
     },
     ...*[_type == "hotelReview" && (!defined(publishedAt) || publishedAt <= now())] | order(date desc) [0...10] {
-      ${independentHotelReviewFields},
+      ${hotelCardFields},
       _type
     },
     ...*[_type == "foodReview" && (!defined(publishedAt) || publishedAt <= now())] | order(date desc) [0...10] {
-      ${independentFoodReviewFields},
+      ${foodCardFields},
       _type
     }
   ] | order(date desc) [0...6]
@@ -792,7 +846,7 @@ export const globalSearchQuery = groq`
     excerpt2 match $searchTerm ||
     category match $searchTerm
   )] {
-    ${independentHotelReviewFields},
+    ${hotelCardFields},
     "_contentType": "hotel"
   },
   "food": *[_type == "foodReview" && (!defined(publishedAt) || publishedAt <= now()) && (
@@ -801,7 +855,7 @@ export const globalSearchQuery = groq`
     excerpt2 match $searchTerm ||
     diningType match $searchTerm
   )] {
-    ${independentFoodReviewFields},
+    ${foodCardFields},
     "_contentType": "food"
   },
   "guides": *[_type == "guide" && (!defined(publishedAt) || publishedAt <= now()) && (
@@ -810,7 +864,7 @@ export const globalSearchQuery = groq`
     summary match $searchTerm ||
     guideType match $searchTerm
   )] {
-    ${independentGuideFields},
+    ${guideCardFields},
     "_contentType": "guide"
   },
   "arenas": *[_type == "arenas" && visited == true && (

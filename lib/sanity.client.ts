@@ -16,6 +16,7 @@ import {
   type CityPageData,
   // Other types
   type Essential,
+  foodCardFields,
   type FoodReview,
   foodReviewBySlugQuery,
   foodReviewsByArenaQuery,
@@ -26,13 +27,12 @@ import {
   guideCardFields,
   guidesByCategoryQuery,
   guideSlugsQuery,
+  hotelCardFields,
   type HotelReview,
   hotelReviewBySlugQuery,
   hotelReviewsByCategoryQuery,
   hotelReviewSlugsQuery,
-  independentFoodReviewFields,
   independentGuideFields,
-  independentHotelReviewFields,
   type Instagram,
   latestIndependentContentQuery,
   relatedGuidesQuery,
@@ -163,7 +163,7 @@ export async function getPaginatedFoodReviews(
     const results = await client.fetch<
       FoodReview[]
     >(`*[_type == "foodReview"] | order(date desc) [${start}...${end}] {
-      ${independentFoodReviewFields}
+      ${foodCardFields}
     }`)
     return results ?? []
   } catch (error) {
@@ -731,7 +731,7 @@ export async function getPaginatedHotelReviews(
     const results = await client.fetch<
       HotelReview[]
     >(`*[_type == "hotelReview"] | order(date desc) [${start}...${end}] {
-      ${independentHotelReviewFields}
+      ${hotelCardFields}
     }`)
     return results || []
   } catch (error) {
