@@ -42,3 +42,19 @@ yarn-error.log*
 # Env files created by scripts for working locally
 .env
 studio/.env.development
+
+# Internal planning docs (not pushed)
+/ARENA_PAGE_IDEAS.md
+/FONT_SYSTEM_GUIDE.md
+/FOOD_REVIEW_MIGRATION.md
+/HOTEL_REVIEW_MIGRATION.md
+/IMAGE-ROCKET-CLAUDE-PROMPT.md
+/IMAGE-ROCKET-SPEC.md
+/IMAGE-UPLOAD-GUIDE.md
+/MIGRATION_MAPPING.md
+/MIGRATION_SUMMARY.md
+/SEO-HANDOFF.md
+/SEO-TODO.md
+/TRAVEL_GUIDE_MIGRATION.md
+/docs/DESIGN_SYSTEM.md
+/docs/guide-field-mapping.md
