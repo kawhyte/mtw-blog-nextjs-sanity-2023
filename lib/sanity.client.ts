@@ -52,6 +52,22 @@ export const client: SanityClient | null = projectId
   ? createClient({ projectId, dataset, apiVersion, useCdn })
   : null
 
+/**
+ * Returns a draft-aware client for Preview Mode. Only used server-side in
+ * getStaticProps when a preview token is present; never bundled to the browser.
+ * `previewDrafts` overlays draft content on top of published documents, so
+ * unpublished drafts resolve to exactly one result.
+ */
+export function getPreviewClient(token: string): SanityClient | null {
+  if (!client) return null
+  return client.withConfig({
+    token,
+    useCdn: false,
+    perspective: 'previewDrafts',
+    ignoreBrowserTokenWarning: true,
+  })
+}
+
 // --- Helper Function for Fetching is REMOVED ---
 
 // --- Settings ---
@@ -246,13 +262,17 @@ export async function getArenaPosts(): Promise<Arena[]> {
  * @param slug The slug of the arena to fetch.
  * @returns The Arena object or null if not found or on error.
  */
-export async function getArenaBySlug(slug: string): Promise<Arena | null> {
-  if (!client) {
+export async function getArenaBySlug(
+  slug: string,
+  token?: string,
+): Promise<Arena | null> {
+  const c = token ? getPreviewClient(token) : client
+  if (!c) {
     console.warn('Sanity client is not initialized.')
     return null
   }
   try {
-    const arena = await client.fetch<Arena | undefined>(arenaBySlugQuery, {
+    const arena = await c.fetch<Arena | undefined>(arenaBySlugQuery, {
       slug,
     })
     return arena ?? null // Return the arena or null
@@ -361,13 +381,17 @@ export async function getAllArenaSlugs(): Promise<string[]> {
  * @param slug The slug of the guide to fetch.
  * @returns The Guide object or null if not found or on error.
  */
-export async function getGuideBySlug(slug: string): Promise<Guide | null> {
-  if (!client) {
+export async function getGuideBySlug(
+  slug: string,
+  token?: string,
+): Promise<Guide | null> {
+  const c = token ? getPreviewClient(token) : client
+  if (!c) {
     console.warn('Sanity client is not initialized.')
     return null
   }
   try {
-    const guide = await client.fetch(guideBySlugQuery, { slug })
+    const guide = await c.fetch(guideBySlugQuery, { slug })
     return guide || null
   } catch (error) {
     console.error(`Error fetching guide with slug "${slug}":`, error)
@@ -424,13 +448,15 @@ export async function getRelatedGuides(
  */
 export async function getHotelReviewBySlug(
   slug: string,
+  token?: string,
 ): Promise<HotelReview | null> {
-  if (!client) {
+  const c = token ? getPreviewClient(token) : client
+  if (!c) {
     console.warn('Sanity client is not initialized.')
     return null
   }
   try {
-    const hotelReview = await client.fetch(hotelReviewBySlugQuery, { slug })
+    const hotelReview = await c.fetch(hotelReviewBySlugQuery, { slug })
     return hotelReview || null
   } catch (error) {
     console.error(`Error fetching hotel review with slug "${slug}":`, error)
@@ -467,13 +493,15 @@ export async function getAllHotelReviewSlugs(): Promise<string[]> {
  */
 export async function getFoodReviewBySlug(
   slug: string,
+  token?: string,
 ): Promise<FoodReview | null> {
-  if (!client) {
+  const c = token ? getPreviewClient(token) : client
+  if (!c) {
     console.warn('Sanity client is not initialized.')
     return null
   }
   try {
-    const foodReview = await client.fetch(foodReviewBySlugQuery, { slug })
+    const foodReview = await c.fetch(foodReviewBySlugQuery, { slug })
     return foodReview || null
   } catch (error) {
     console.error(`Error fetching food review with slug "${slug}":`, error)

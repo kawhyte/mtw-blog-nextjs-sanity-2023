@@ -62,11 +62,11 @@ export const getStaticProps: GetStaticProps<
 > = async (ctx) => {
   const { preview = false, previewData = {}, params = {} } = ctx
 
-  const token = previewData.token
+  const token = preview ? (previewData.token ?? null) : null
 
   const [settings, hotelReview] = await Promise.all([
     getSettings(),
-    getHotelReviewBySlug(params.slug as string),
+    getHotelReviewBySlug(params.slug as string, token ?? undefined),
   ])
 
   if (!hotelReview) {
@@ -80,7 +80,7 @@ export const getStaticProps: GetStaticProps<
       hotelReview,
       settings,
       preview,
-      token: previewData.token ?? null,
+      token,
     },
     // Revalidate every 60 seconds when page is requested
     // Only rebuilds if content actually changed in Sanity

@@ -22,11 +22,11 @@ export const getStaticProps: GetStaticProps<
 > = async (ctx) => {
   const { preview = false, previewData = {}, params = {} } = ctx
 
-  const token = previewData.token
+  const token = preview ? (previewData.token ?? null) : null
 
   const slug = params?.slug as string
   const [guide, settings] = await Promise.all([
-    getGuideBySlug(slug),
+    getGuideBySlug(slug, token ?? undefined),
     getSettings(),
   ])
 
@@ -46,7 +46,7 @@ export const getStaticProps: GetStaticProps<
       settings,
       relatedGuides,
       preview,
-      token: previewData.token ?? null,
+      token,
     },
     revalidate: 60,
   }

@@ -26,11 +26,11 @@ export const getStaticProps: GetStaticProps<
 > = async (ctx) => {
   const { preview = false, previewData = {}, params = {} } = ctx
 
-  const token = previewData.token
+  const token = preview ? (previewData.token ?? null) : null
 
   const slug = params?.slug as string
   const [arena, settings, arenaPosts] = await Promise.all([
-    getArenaBySlug(slug),
+    getArenaBySlug(slug, token ?? undefined),
     getSettings(),
     getArenaPosts(),
   ])
@@ -56,7 +56,7 @@ export const getStaticProps: GetStaticProps<
       arena,
       settings,
       preview,
-      token: previewData.token ?? null,
+      token,
       rank,
       totalVisited,
       isTied,

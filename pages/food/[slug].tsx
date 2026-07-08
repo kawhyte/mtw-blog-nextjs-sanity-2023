@@ -62,11 +62,11 @@ export const getStaticProps: GetStaticProps<
 > = async (ctx) => {
   const { preview = false, previewData = {}, params = {} } = ctx
 
-  const token = previewData.token
+  const token = preview ? (previewData.token ?? null) : null
 
   const [settings, foodReview] = await Promise.all([
     getSettings(),
-    getFoodReviewBySlug(params.slug as string),
+    getFoodReviewBySlug(params.slug as string, token ?? undefined),
   ])
 
   if (!foodReview) {
@@ -80,7 +80,7 @@ export const getStaticProps: GetStaticProps<
       foodReview,
       settings,
       preview,
-      token: previewData.token ?? null,
+      token,
     },
     // Revalidate every 60 seconds when page is requested
     revalidate: 60,
