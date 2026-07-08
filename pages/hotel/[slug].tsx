@@ -15,7 +15,7 @@ const PreviewHotelReviewPage = lazy(
 
 interface PageProps {
   hotelReview: HotelReview
-  settings?: Settings
+  settings: Settings
   preview: boolean
   token: string | null
 }

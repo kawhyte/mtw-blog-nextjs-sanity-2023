@@ -25,25 +25,25 @@ function ArenaCardGrid({
           <NBAArenaCard
             key={arena._id}
             arenaImageSrc={arena.arenaImage}
-            location={arena.location}
-            constructionDate={arena.buildDate}
-            capacity={arena.capacity}
+            location={arena.location ?? ''}
+            constructionDate={arena.buildDate ?? ''}
+            capacity={arena.capacity ?? 0}
             alt={`${arena.name ?? 'Arena'} exterior`}
             arenaReview={arena.arenaReview || {}}
-            arenaName={arena.name}
-            slug={arena.slug}
+            arenaName={arena.name ?? 'Arena'}
+            slug={arena.slug ?? ''}
             gallery={
               arena.firstGalleryImage
                 ? [arena.firstGalleryImage]
                 : arena.gallery
             }
-            visited={arena.visited}
-            dateVisited={arena.date}
+            visited={arena.visited ?? false}
+            dateVisited={arena.date ?? ''}
             id={arena._id}
             averageRating={displayRating.average}
             textRating={displayRating.textRating}
             ratingColor={displayRating.color}
-            rank={arena.rank}
+            rank={arena.rank ?? undefined}
             priority={isPriority}
             revisitCount={arena.revisitCount}
           />

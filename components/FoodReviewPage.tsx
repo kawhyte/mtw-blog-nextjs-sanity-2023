@@ -322,7 +322,7 @@ export default function FoodReviewPage(props: FoodReviewPageProps) {
           )}
 
           {/* Individual Food Ratings */}
-          {foodReview.individualFoodRating?.length > 0 && (
+          {(foodReview.individualFoodRating?.length ?? 0) > 0 && (
             <FoodRatings food={foodReview.individualFoodRating} />
           )}
 
@@ -341,7 +341,7 @@ export default function FoodReviewPage(props: FoodReviewPageProps) {
         </div>
 
         <VideoPlayer
-          url={foodReview.youtube}
+          url={foodReview.youtube ?? ''}
           documentDate={foodReview.date}
           videoDescription={foodReview.seoExcerpt || `Our review of ${foodReview.title} in ${foodReview.location}.`}
         />

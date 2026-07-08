@@ -358,7 +358,7 @@ export default function ArenaPage({
         items={[
           { name: 'Home', url: '/' },
           { name: 'Arenas', url: '/arenas' },
-          { name: arena.name, url: `/arena/${arena.slug ?? ''}` },
+          { name: arena.name ?? 'Arena', url: `/arena/${arena.slug ?? ''}` },
         ]}
       />
       {(arena.faqs?.length ?? 0) > 0 && (

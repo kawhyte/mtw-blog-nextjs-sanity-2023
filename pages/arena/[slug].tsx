@@ -77,7 +77,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 interface PageProps {
   arena: Arena
-  settings?: Settings
+  settings: Settings
   preview: boolean
   token: string | null
   rank: number | null

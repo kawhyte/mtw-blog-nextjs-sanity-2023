@@ -25,7 +25,7 @@ export default async function og(req: NextRequest, res: NextResponse) {
       useCdn: false,
     })
     const settings = (await client.fetch<Settings>(settingsQuery)) || {}
-    title = settings?.ogImage?.title
+    title = settings?.ogImage?.title ?? null
   }
 
   return new ImageResponse(

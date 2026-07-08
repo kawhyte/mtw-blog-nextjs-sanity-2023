@@ -489,7 +489,7 @@ export default defineType({
           ],
           validation: (Rule) =>
             Rule.custom((portableTextValue) => {
-              const textLength = getPortableTextLength(portableTextValue)
+              const textLength = getPortableTextLength(portableTextValue ?? [])
               const limit = 600
               if (textLength > limit) {
                 return `Verdict exceeds ${limit} characters (${textLength}/${limit})`

@@ -99,7 +99,7 @@ export default function PostPage(props: PostPageProps) {
 
         <VideoPlayer url={post.youtube} />
 
-        {post.gallery?.length > 0 && (
+        {(post.gallery?.length ?? 0) > 0 && (
           <ImageGallery
             title="Photo Gallery"
             images={post.gallery}

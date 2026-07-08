@@ -1,5 +1,5 @@
 interface RatingObject {
-  [key: string]: number
+  [key: string]: number | undefined
 }
 
 interface RatingWeights {

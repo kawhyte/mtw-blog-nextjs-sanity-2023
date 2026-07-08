@@ -88,14 +88,14 @@ interface QuickTipProps {
 
 // Component for displaying the quick tip section
 const QuickTip: React.FC<QuickTipProps> = ({ tip }) =>
-  tip && (
+  tip ? (
     <div className="max-w-4xl rounded-lg border-l-4 border-green-500 bg-green-100 p-4 text-gray-600">
       <p className="font-epilogue mb-2 text-2xl font-bold md:text-left md:leading-none lg:text-2xl">
         Quick Tip
       </p>
       <PostBody content={tip} />
     </div>
-  )
+  ) : null
 
 // Type for the main PostHeader component props
 type PostHeaderProps = Pick<
@@ -134,7 +134,7 @@ export default function PostHeader({
   category,
   tip,
 }: PostHeaderProps) {
-  const headerItems = []
+  const headerItems: { icon: JSX.Element; text: React.ReactNode }[] = []
   const iconClasses = 'mr-2 h-4 w-4 shrink-0 text-purple-500' // Define common icon style
 
   if (location) {
@@ -214,7 +214,7 @@ export default function PostHeader({
 
       <div className="mb-8 sm:mx-0 md:mb-16 ">
         <CoverImagePost
-          title={title}
+          title={title ?? 'Unnamed Place'}
           image={coverImage}
           slug={slug}
           gallery={gallery}

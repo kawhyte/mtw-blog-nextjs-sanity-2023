@@ -35,8 +35,8 @@ export function PaginationWrapper({
   // Calculate which pages to show
   const getVisiblePages = () => {
     const delta = 2 // Number of pages to show on each side of current page
-    const range = []
-    const rangeWithDots = []
+    const range: number[] = []
+    const rangeWithDots: (number | string)[] = []
 
     for (
       let i = Math.max(2, currentPage - delta);

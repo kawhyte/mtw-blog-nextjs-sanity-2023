@@ -147,22 +147,18 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
 
     // Generate the XML sitemap
     const sitemap = generateSiteMap(
-      hotels.map((h) => ({
-        slug: h.slug?.current || h.slug,
-        date: h.date || h._createdAt,
-      })),
-      foods.map((f) => ({
-        slug: f.slug?.current || f.slug,
-        date: f.date || f._createdAt,
-      })),
-      guides.map((g) => ({
-        slug: g.slug?.current || g.slug,
-        date: g.date || g._createdAt,
-      })),
-      arenas.map((a) => ({
-        slug: a.slug?.current || a.slug,
-        date: a.date || a._createdAt,
-      })),
+      hotels
+        .filter((h) => h.slug)
+        .map((h) => ({ slug: h.slug, date: h.date })),
+      foods
+        .filter((f) => f.slug)
+        .map((f) => ({ slug: f.slug, date: f.date })),
+      guides
+        .filter((g) => g.slug)
+        .map((g) => ({ slug: g.slug, date: g.date })),
+      arenas
+        .filter((a) => a.slug)
+        .map((a) => ({ slug: a.slug, date: a.date })),
       cityLocations,
     )
 

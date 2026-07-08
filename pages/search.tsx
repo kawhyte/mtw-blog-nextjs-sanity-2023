@@ -228,11 +228,11 @@ const SearchResults = ({ settings }: { settings: Settings }) => {
                       arenaImageSrc={arenaResult.arenaImage}
                       arenaName={arenaResult.name ?? ''}
                       alt={`${arenaResult.name ?? 'Arena'} exterior`}
-                      constructionDate={arenaResult.buildDate}
-                      capacity={arenaResult.capacity}
-                      location={arenaResult.location}
-                      dateVisited={arenaResult.date}
-                      visited={arenaResult.visited}
+                      constructionDate={arenaResult.buildDate ?? ''}
+                      capacity={arenaResult.capacity ?? 0}
+                      location={arenaResult.location ?? ''}
+                      dateVisited={arenaResult.date ?? ''}
+                      visited={arenaResult.visited ?? false}
                       slug={arenaResult.slug ?? ''}
                       gallery={
                         arenaResult.firstGalleryImage

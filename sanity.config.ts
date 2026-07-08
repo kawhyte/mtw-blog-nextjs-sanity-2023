@@ -42,8 +42,8 @@ const SCHEDULED_SCHEMA_TYPES = ['guide', 'hotelReview', 'foodReview']
 
 export default defineConfig({
   basePath: '/studio',
-  projectId,
-  dataset,
+  projectId: projectId ?? '',
+  dataset: dataset ?? '',
 
   icon: PlusCircleIcon,
   title,

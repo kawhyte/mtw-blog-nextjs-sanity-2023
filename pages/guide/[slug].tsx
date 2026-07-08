@@ -63,7 +63,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 interface PageProps {
   guide: Guide
-  settings?: Settings
+  settings: Settings
   relatedGuides: Guide[]
   preview: boolean
   token: string | null

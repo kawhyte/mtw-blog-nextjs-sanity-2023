@@ -21,7 +21,7 @@ interface MoreStoriesProps {
   itemsPerPage: number
   showPagination: boolean
   showRating: boolean
-  paginatedQuery: string // Query string for fetching specific paginated post types
+  paginatedQuery: string | null // Query string for fetching specific paginated post types; null when pagination is disabled
   emptyStateMessage?: string // Optional custom message for no posts
 }
 
@@ -52,6 +52,11 @@ export default function MoreStories({
     async (page: number) => {
       // Avoid fetching page 1 again if we already have initialPosts
       if (page === 1 && initialPosts?.length > 0) {
+        setIsLoading(false)
+        return
+      }
+
+      if (!paginatedQuery || !client) {
         setIsLoading(false)
         return
       }

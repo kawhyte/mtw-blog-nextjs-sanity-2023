@@ -95,7 +95,7 @@ const StarRating: React.FC<StarRatingProps> = ({
 
   // --- Helper Function to Render Stars ---
   const renderStars = (ratingValue: number) => {
-    const stars = []
+    const stars: React.ReactElement[] = []
     // Ensure ratingValue is within a reasonable range (e.g., 0-5)
     const clampedRating = Math.max(0, Math.min(5, ratingValue))
     const fullStars = Math.floor(clampedRating)

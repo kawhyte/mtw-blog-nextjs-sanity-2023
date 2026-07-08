@@ -274,7 +274,7 @@ const DynamicPostCard = ({
             title={title}
             image={coverImage}
             rating={currentRating}
-            showRating={showRating}
+            showRating={showRating ?? false}
             linkType={linkType}
             diningType={diningType}
             category={category}
@@ -325,10 +325,12 @@ const DynamicPostCard = ({
                   <p className="text-sm">{location}</p>
                 </div>
               )}
-              <span className="flex items-center gap-x-2 text-xs">
-                <Calendar className="h-4 w-4" />
-                <Date dateString={date} />
-              </span>
+              {date && (
+                <span className="flex items-center gap-x-2 text-xs">
+                  <Calendar className="h-4 w-4" />
+                  <Date dateString={date} />
+                </span>
+              )}
             </div>
           </div>
         </CardContent>

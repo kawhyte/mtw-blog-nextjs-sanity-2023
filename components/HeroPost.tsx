@@ -48,7 +48,7 @@ export default function HeroPost(
             <CoverImage
               slug={slug}
               image={coverImage}
-              title={title}
+              title={title ?? 'Unnamed Place'}
               date={date}
               location={location}
               excerpt2={excerpt2}

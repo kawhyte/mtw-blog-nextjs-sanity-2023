@@ -53,7 +53,7 @@ const getUnavailableText = (name: string): string => {
 }
 
 interface ReviewRatingProps {
-  ratings: { [key: string]: number }
+  ratings: { [key: string]: number | undefined }
   ratingIcons: { [key: string]: ReactElement }
   title: string
   reviewType?: 'food' | 'hotel' // Add review type to determine weights
@@ -160,7 +160,10 @@ export default function ReviewRating({
                       {getUnavailableText(name)}
                     </span>
                   ) : (
-                    <ProgressRating progress={value / 2} color="secondary" />
+                    <ProgressRating
+                      progress={(value ?? 0) / 2}
+                      color="secondary"
+                    />
                   )}
                 </div>
               </div>

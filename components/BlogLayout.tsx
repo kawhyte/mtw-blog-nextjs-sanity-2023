@@ -11,7 +11,7 @@ export default function BlogLayout({
   loading,
   children,
 }: {
-  preview: boolean
+  preview?: boolean
   loading?: boolean
   children: React.ReactNode
 }) {

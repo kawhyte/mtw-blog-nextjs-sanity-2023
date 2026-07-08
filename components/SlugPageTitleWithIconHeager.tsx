@@ -4,7 +4,7 @@ import React from 'react'
 // Define the structure for each info item
 interface HeaderItem {
   icon: React.ReactNode // Allows passing JSX elements like <MapPin />
-  text: string | number // Can be text or a number (like capacity)
+  text: React.ReactNode // Can be text, a number (like capacity), or JSX (like <Date />)
   label?: string // Optional label like "Built", "Capacity"
   // Optional: Add a unique key if needed, though index might suffice for static lists
 }

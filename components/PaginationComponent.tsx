@@ -44,7 +44,7 @@ const PaginationComponent: React.FC<PaginationComponentProps> = ({
   }
 
   const getPageNumbers = () => {
-    const pageNumbers = []
+    const pageNumbers: (number | string)[] = []
     const half = Math.floor(maxPageNumbersToShow / 2)
 
     if (totalPages <= maxPageNumbersToShow) {
