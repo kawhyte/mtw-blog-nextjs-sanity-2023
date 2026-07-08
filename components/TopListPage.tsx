@@ -1,10 +1,9 @@
 import BlogHeader from 'components/BlogHeader'
 import Layout from 'components/BlogLayout'
-import IndexPageHead from 'components/IndexPageHead'
+import StaticPageHead from 'components/StaticPageHead'
 import * as demo from 'lib/demo.data'
 import type { Settings } from 'lib/sanity.queries'
 import { ArrowRight } from 'lucide-react'
-import Head from 'next/head'
 import Link from 'next/link'
 
 import Footer from './Footer'
@@ -21,6 +20,8 @@ export interface IndexPageProps {
   summary: string
   contentType?: 'post' | 'hotel' | 'food'
   pageTitle?: string
+  pageDescription?: string
+  pagePath?: string
   siblingLink?: string
   siblingLabel?: string
 }
@@ -36,6 +37,8 @@ export default function IndexPage(props: IndexPageProps) {
     summary,
     contentType = 'post',
     pageTitle,
+    pageDescription,
+    pagePath,
     siblingLink,
     siblingLabel,
   } = props
@@ -43,12 +46,14 @@ export default function IndexPage(props: IndexPageProps) {
 
   return (
     <>
-      <IndexPageHead settings={settings} />
+      <StaticPageHead
+        settings={settings}
+        title={pageTitle || postHeader || title}
+        description={pageDescription || summary || 'Our top picks'}
+        path={pagePath || '/'}
+      />
 
       <Layout preview={preview} loading={loading}>
-        <Head>
-          <title>{pageTitle || postHeader || title}</title>
-        </Head>
 
         <BlogHeader title={title} description={description} level={1} />
 

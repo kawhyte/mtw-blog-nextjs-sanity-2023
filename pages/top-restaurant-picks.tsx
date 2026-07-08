@@ -57,6 +57,8 @@ export default function Page(props: PageProps) {
       }
       contentType="food"
       pageTitle="Our Top Restaurant Picks | Meet The Whytes"
+      pagePath="/top-restaurant-picks"
+      pageDescription="Our top 10 restaurants ranked by weighted ratings — the best meals we've found near NBA & WNBA arenas and beyond."
       siblingLink="/top-hotel-picks"
       siblingLabel="Need a place to stay? Check out our Top Hotel Picks"
     />

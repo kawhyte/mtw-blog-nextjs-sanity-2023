@@ -22,6 +22,3 @@ Disallow: /preview/
 
 # Point to sitemap (we'll create this next)
 Sitemap: https://www.meetthewhytes.com/sitemap.xml
-
-# Additional crawl optimization
-Crawl-delay: 1

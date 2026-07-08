@@ -3,7 +3,6 @@ import TopListPage from 'components/TopListPage'
 import { getSettings, getTopWeightedHotelReviews } from 'lib/sanity.client'
 import { HotelReview, Settings } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
-import Head from 'next/head'
 import { lazy } from 'react'
 
 const PreviewIndexPage = lazy(() => import('components/PreviewIndexPage'))
@@ -58,6 +57,8 @@ export default function Page(props: PageProps) {
       }
       contentType="hotel"
       pageTitle="Our Top Hotel Picks | Meet The Whytes"
+      pagePath="/top-hotel-picks"
+      pageDescription="Our top 10 hotels ranked by weighted ratings from our NBA & WNBA arena travels — the best places we've actually stayed."
       siblingLink="/top-restaurant-picks"
       siblingLabel="Planning where to eat? Check out our Top Restaurant Picks"
     />

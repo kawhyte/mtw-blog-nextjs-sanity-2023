@@ -1,9 +1,8 @@
 import cn from 'classnames'
 import Layout from 'components/BlogLayout'
-import IndexPageHead from 'components/IndexPageHead'
+import StaticPageHead from 'components/StaticPageHead'
 import type { Essential, Settings } from 'lib/sanity.queries'
 import { PackageCheck } from 'lucide-react'
-import Head from 'next/head'
 import { useMemo, useState } from 'react'
 
 import { CMS_NAME } from '../lib/constants'
@@ -61,16 +60,14 @@ export default function TravelEssentialPage({
 
   return (
     <>
-      <IndexPageHead settings={settings} />
+      <StaticPageHead
+        settings={settings}
+        title={`What We Pack — Travel Gear | ${CMS_NAME}`}
+        description="Our tried-and-tested gear for NBA games, cruises, day trips, and beyond. ~20 curated picks, no fluff."
+        path="/essentials"
+      />
 
       <Layout preview={preview} loading={loading}>
-        <Head>
-          <title>{`What We Pack — Travel Gear | ${CMS_NAME}`}</title>
-          <meta
-            name="description"
-            content="Our tried-and-tested gear for NBA games, cruises, day trips, and beyond. ~20 curated picks, no fluff."
-          />
-        </Head>
 
         <BlogHeader title="" description={[]} level={1} />
 

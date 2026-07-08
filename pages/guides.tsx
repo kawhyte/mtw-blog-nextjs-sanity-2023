@@ -7,7 +7,6 @@ import {
 } from 'lib/sanity.client'
 import { Guide, Settings } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
-import Head from 'next/head' // Keep Head if needed within StoryReviewsPage or here
 import { lazy } from 'react'
 
 const PreviewIndexPage = lazy(() => import('components/PreviewIndexPage'))

@@ -10,7 +10,6 @@ import {
 // Import HotelReview type for independent schema
 import { HotelReview, Settings } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
-import Head from 'next/head'
 import { lazy } from 'react'
 
 const PreviewIndexPage = lazy(() => import('components/PreviewIndexPage'))

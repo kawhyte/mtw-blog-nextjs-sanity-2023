@@ -7,7 +7,6 @@ import {
 } from 'lib/sanity.client'
 import { FoodReview, Settings } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
-import Head from 'next/head' // Keep if used
 import { lazy } from 'react'
 
 const PreviewIndexPage = lazy(() => import('components/PreviewIndexPage'))
