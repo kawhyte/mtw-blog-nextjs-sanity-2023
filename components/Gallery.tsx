@@ -70,8 +70,8 @@ function Gallery({ posts, heading }: GalleryProps) {
               // Generate image URL - adjust width/height as needed or remove if using fill/sizes
               const imageUrl = item?.asset // Check if item and asset exist before calling urlForImage
                 ? urlForImage(item)
-                    .width(800)
-                    .quality(85)
+                    .width(1600)
+                    .quality(75)
                     .auto('format')
                     .url()
                 : '/placeholder.png' // Fallback image URL

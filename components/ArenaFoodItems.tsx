@@ -147,13 +147,13 @@ const ArenaFoodItems = ({ food }: ArenaFoodItemsProps) => {
                 key={i}
                 className="flex h-full flex-col overflow-hidden rounded-2xl border-4 border-border-bold bg-card shadow-lg"
               >
-                <div className="relative h-64 w-full">
+                <div className="relative aspect-[3/2] w-full">
                   {item.asset && (
                     <Image
                       src={urlForImage(item)
-                        .width(900)
-                        .height(600)
-                        .quality(85)
+                        .width(1800)
+                        .height(1200)
+                        .quality(75)
                         .fit('crop')
                         .url()}
                       alt={item?.name || 'Arena food item'}

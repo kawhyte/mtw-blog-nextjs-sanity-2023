@@ -93,8 +93,9 @@ export default function CoverImage(props: CoverImageProps) {
               ' relative z-20 transition-all ': slug,
             },
           )}
-          width={900}
-          height={560}
+          width={1800}
+          height={1120}
+          quality={75}
           alt={altText}
           style={{ objectFit: 'cover' }}
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"

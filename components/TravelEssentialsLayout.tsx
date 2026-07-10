@@ -78,8 +78,8 @@ const TravelEssentialLayout = ({ posts }: { posts: Essential[] }) => {
         {posts?.map((item, index) => {
           const imgSrc = item?.productImage?.asset?._id
             ? urlForImage(item.productImage)
-                .width(160)
-                .height(160)
+                .width(320)
+                .height(320)
                 .fit('max')
                 .auto('format')
                 .url()

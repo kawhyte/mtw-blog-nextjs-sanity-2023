@@ -151,8 +151,8 @@ function GameCard({ game, team }: { game: any; team: any }) {
           {team.asset ? (
             <Image
               src={urlForImage(team.asset)
-                .width(22)
-                .height(22)
+                .width(44)
+                .height(44)
                 .fit('crop')
                 .auto('format')
                 .url()}
@@ -536,8 +536,8 @@ export default function ArenaPage({
                             {team.asset && (
                               <Image
                                 src={urlForImage(team.asset)
-                                  .width(48)
-                                  .height(48)
+                                  .width(96)
+                                  .height(96)
                                   .fit('crop')
                                   .auto('format')
                                   .url()}
@@ -644,8 +644,8 @@ export default function ArenaPage({
                         {team.asset && (
                           <Image
                             src={urlForImage(team.asset)
-                              .width(32)
-                              .height(32)
+                              .width(64)
+                              .height(64)
                               .fit('crop')
                               .auto('format')
                               .url()}

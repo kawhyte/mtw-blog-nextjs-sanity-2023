@@ -174,9 +174,9 @@ export default function ArenaViewFromSeat({
                       image={photo}
                       src={
                         urlForImage(photo)
-                          ?.width(600)
-                          .height(450)
-                          .quality(85)
+                          ?.width(1200)
+                          .height(900)
+                          .quality(75)
                           .fit('crop')
                           .url() || ''
                       }

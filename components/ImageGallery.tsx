@@ -136,8 +136,8 @@ export default function ImageGallery({
               {images.map((item, i) => {
                 if (!item?.asset) return null
                 const imageUrl = urlForImage(item)
-                  .width(800)
-                  .quality(85)
+                  .width(1600)
+                  .quality(75)
                   .auto('format')
                   .url()
                 const imageAlt = item.alt || `Gallery image ${i + 1}`
@@ -244,7 +244,8 @@ export default function ImageGallery({
                         >
                           <SanityImage
                             image={item as any}
-                            width={1200}
+                            width={2400}
+                            quality={75}
                             className="h-auto w-full rounded-lg object-cover"
                             alt={imageAlt}
                             loading={i < 2 ? 'eager' : 'lazy'}

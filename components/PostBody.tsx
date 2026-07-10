@@ -12,11 +12,17 @@ const SampleImageComponent = ({ value }) => {
   if (!value?.asset) return null
   const { width, height } = getImageDimensions(value)
   const lqip = value.asset?.metadata?.lqip
+  const targetWidth = Math.min(width, 1600)
+  const targetHeight = Math.round(targetWidth * (height / width))
 
   return (
     <figure className="image-container">
       <Image
-        src={urlForImage(value).height(height).width(width).quality(85).url()}
+        src={urlForImage(value)
+          .width(targetWidth)
+          .height(targetHeight)
+          .quality(75)
+          .url()}
         alt={value.alt || value.caption || ' '}
         width={width}
         height={height}
