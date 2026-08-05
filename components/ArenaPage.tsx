@@ -1,6 +1,5 @@
 // components/ArenaPage.tsx
 
-import { useState } from 'react'
 import Layout from 'components/BlogLayout'
 import { formatDate } from 'components/PostDate'
 import PostPageHead from 'components/PostPageHead'
@@ -9,7 +8,6 @@ import calculateAverageRating from 'lib/calculateArenaRating'
 import { computeTimelineEntries, getEffectiveRating } from 'lib/mergeRatings'
 import { urlForImage } from 'lib/sanity.image'
 import { Arena, ArenaFoodReviewCard, Settings } from 'lib/sanity.queries'
-import { locationToSlug } from 'utils/locationSlug'
 import {
   Award,
   Building2,
@@ -29,6 +27,8 @@ import {
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useState } from 'react'
+import { locationToSlug } from 'utils/locationSlug'
 
 const ImageGallery = dynamic(() => import('./ImageGallery'), {
   loading: () => (
@@ -37,23 +37,23 @@ const ImageGallery = dynamic(() => import('./ImageGallery'), {
 })
 
 import { Badge } from '@/components/ui/badge'
-import { FAQSection } from '@/components/ui/faq-section'
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
+import { FAQSection } from '@/components/ui/faq-section'
 
 import ArenaFoodItems from './ArenaFoodItems'
 import ArenaFoodReviews from './ArenaFoodReviews'
 import ArenaHotelStay from './ArenaHotelStay'
 import ArenaRatingCard from './ArenaRatingCard'
-import ArenaViewFromSeat from './ArenaViewFromSeat'
 import ArenaStructuredData from './ArenaStructuredData'
-import FAQStructuredData from './FAQStructuredData'
+import ArenaViewFromSeat from './ArenaViewFromSeat'
 import BlogHeader from './BlogHeader'
 import BreadcrumbStructuredData from './BreadcrumbStructuredData'
+import FAQStructuredData from './FAQStructuredData'
 import HeroPhotoGallery from './HeroPhotoGallery'
 import ProConList from './ProConList'
 import RevisitTimeline from './RevisitTimeline'

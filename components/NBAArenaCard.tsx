@@ -1,11 +1,10 @@
 import { ArrowRight, Calendar, MapPin, RefreshCw, Trophy } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
+import { getRankBadgeStyle } from 'utils/arena/rankBadgeStyles'
 
 import { CardFooter } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
-
-import { getRankBadgeStyle } from 'utils/arena/rankBadgeStyles'
 
 import PostDate from './PostDate'
 import RatingBadge from './RatingBadge'

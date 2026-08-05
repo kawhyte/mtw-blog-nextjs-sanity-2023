@@ -9,11 +9,10 @@ import {
   Trophy,
 } from 'lucide-react'
 import Link from 'next/link'
+import { getRankBadgeStyle } from 'utils/arena/rankBadgeStyles'
 
 import { Badge } from '@/components/ui/badge'
 import { CardContent, CardFooter, CardTitle } from '@/components/ui/card'
-
-import { getRankBadgeStyle } from 'utils/arena/rankBadgeStyles'
 
 import CoverImage from './CoverImage'
 import SanityImage from './SanityImage'

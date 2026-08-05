@@ -1,0 +1,35 @@
+version: 2
+updates:
+  - package-ecosystem: 'npm'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+    # 0 = no scheduled version-bump PRs; security-update PRs are unaffected
+    # by this limit and will still be opened (grouped below).
+    open-pull-requests-limit: 0
+    groups:
+      npm-security:
+        applies-to: security-updates
+        patterns:
+          - '*'
+    # Guardrails: versions above these lines require React 19 / Sanity v5+ /
+    # Next 16 and would break the app (see PLAN-next-15-upgrade.md and the
+    # chore/next-15-upgrade commit for why). Alerts still appear; Dependabot
+    # just won't open auto-PRs crossing these boundaries.
+    ignore:
+      - dependency-name: 'next'
+        versions: ['>=16']
+      - dependency-name: 'next-sanity'
+        versions: ['>=9.11']
+      - dependency-name: 'sanity'
+        versions: ['>=4']
+      - dependency-name: '@sanity/vision'
+        versions: ['>=4']
+      - dependency-name: 'sanity-plugin-media'
+        versions: ['>=5']
+      - dependency-name: 'sanity-plugin-asset-source-unsplash'
+        versions: ['>=4']
+      - dependency-name: 'react'
+        versions: ['>=19']
+      - dependency-name: 'react-dom'
+        versions: ['>=19']

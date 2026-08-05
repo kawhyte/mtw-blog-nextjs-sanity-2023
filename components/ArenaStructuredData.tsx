@@ -1,7 +1,7 @@
-import { getArenaDisplayRating } from 'utils/arena/arenaUtils'
 import { urlForImage } from 'lib/sanity.image'
 import { Arena } from 'lib/sanity.queries'
 import Head from 'next/head'
+import { getArenaDisplayRating } from 'utils/arena/arenaUtils'
 
 interface ArenaStructuredDataProps {
   arena: Arena

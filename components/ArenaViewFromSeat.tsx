@@ -1,13 +1,14 @@
 // components/ArenaViewFromSeat.tsx
 
-import { GalleryImageItem } from 'lib/sanity.queries'
 import { urlForImage } from 'lib/sanity.image'
+import { GalleryImageItem } from 'lib/sanity.queries'
 import { Camera, DollarSign, MapPin, Ticket } from 'lucide-react'
-import Image from 'next/image'
 import dynamic from 'next/dynamic'
+import Image from 'next/image'
 import { useState } from 'react'
 
 import { Badge } from '@/components/ui/badge'
+
 import SectionTitle from './SectionTitle'
 import VideoPlayer from './Youtube'
 

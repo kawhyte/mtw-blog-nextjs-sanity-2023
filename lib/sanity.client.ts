@@ -7,13 +7,13 @@ import {
   allHotelReviewsQuery,
   // Independent schema types and queries
   type Arena,
+  arenaBySlugQuery,
   type ArenaFoodReviewCard,
   type ArenaHighlightCard,
-  arenaBySlugQuery,
   arenaQuery,
   arenaSlugsQuery,
-  cityPageQuery,
   type CityPageData,
+  cityPageQuery,
   // Other types
   type Essential,
   foodCardFields,

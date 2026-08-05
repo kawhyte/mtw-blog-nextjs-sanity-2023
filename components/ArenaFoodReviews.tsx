@@ -1,6 +1,6 @@
 import { urlForImage } from 'lib/sanity.image'
 import type { ArenaFoodReviewCard } from 'lib/sanity.queries'
-import { MapPin, Utensils, ShoppingBag } from 'lucide-react'
+import { MapPin, ShoppingBag,Utensils } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 

@@ -1,8 +1,8 @@
 import CityPage from 'components/CityPage'
 import { getAllArenaLocations, getCityPageData, getSettings } from 'lib/sanity.client'
 import type { CityPageData, Settings } from 'lib/sanity.queries'
-import { locationToSlug } from 'utils/locationSlug'
 import type { GetStaticPaths, GetStaticProps } from 'next'
+import { locationToSlug } from 'utils/locationSlug'
 
 interface PageProps {
   location: string
