@@ -1,7 +1,7 @@
 // pages/arena/[slug].tsx
 
-import { PreviewSuspense } from '@sanity/preview-kit'
 import ArenaPage from 'components/ArenaPage'
+import PreviewArenaPage from 'components/PreviewArenaPage'
 import {
   getAllArenaSlugs,
   getArenaBySlug,
@@ -10,13 +10,11 @@ import {
   getSettings,
 } from 'lib/sanity.client'
 import { urlForImage } from 'lib/sanity.image'
+import PreviewProvider from 'lib/sanity.preview'
 import { Arena, ArenaFoodReviewCard, Settings } from 'lib/sanity.queries'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
-import { lazy } from 'react'
 import { calculateArenaRanks } from 'utils/arena/arenaUtils'
-
-const PreviewArenaPage = lazy(() => import('components/PreviewArenaPage'))
 
 // Props Interface & Query
 export const getStaticProps: GetStaticProps<
@@ -95,17 +93,22 @@ interface PreviewData {
 }
 
 export default function ArenaSlugRoute(props: PageProps) {
-  const { settings, arena, preview, token, rank, totalVisited, isTied, foodReviews } = props
+  const {
+    settings,
+    arena,
+    preview,
+    token,
+    rank,
+    totalVisited,
+    isTied,
+    foodReviews,
+  } = props
 
   if (preview) {
     return (
-      <PreviewSuspense
-        fallback={
-          <ArenaPage loading preview arena={arena} settings={settings} />
-        }
-      >
-        <PreviewArenaPage token={token} arena={arena} settings={settings} />
-      </PreviewSuspense>
+      <PreviewProvider token={token}>
+        <PreviewArenaPage arena={arena} settings={settings} />
+      </PreviewProvider>
     )
   }
 

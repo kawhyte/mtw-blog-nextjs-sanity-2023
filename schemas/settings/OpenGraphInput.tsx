@@ -6,9 +6,9 @@ import styled from 'styled-components'
 
 const OpenGraphPreview = lazy(() => import('./OpenGraphPreview'))
 
+// @sanity/ui v2 Skeleton no longer supports the `shadow` prop
 const RatioSkeleton = styled(Skeleton).attrs({
   radius: 3,
-  shadow: 1,
   overflow: 'hidden',
 })`
   aspect-ratio: ${width} / ${height};

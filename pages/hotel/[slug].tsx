@@ -1,17 +1,13 @@
-import { PreviewSuspense } from '@sanity/preview-kit'
 import HotelReviewPage from 'components/HotelReviewPage'
+import PreviewHotelReviewPage from 'components/PreviewHotelReviewPage'
 import {
   getAllHotelReviewSlugs,
   getHotelReviewBySlug,
   getSettings,
 } from 'lib/sanity.client'
+import PreviewProvider from 'lib/sanity.preview'
 import { HotelReview, Settings } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
-import { lazy } from 'react'
-
-const PreviewHotelReviewPage = lazy(
-  () => import('components/PreviewHotelReviewPage'),
-)
 
 interface PageProps {
   hotelReview: HotelReview
@@ -33,22 +29,9 @@ export default function HotelSlugRoute(props: PageProps) {
 
   if (preview) {
     return (
-      <PreviewSuspense
-        fallback={
-          <HotelReviewPage
-            loading
-            preview
-            hotelReview={hotelReview}
-            settings={settings}
-          />
-        }
-      >
-        <PreviewHotelReviewPage
-          token={token}
-          hotelReview={hotelReview}
-          settings={settings}
-        />
-      </PreviewSuspense>
+      <PreviewProvider token={token}>
+        <PreviewHotelReviewPage hotelReview={hotelReview} settings={settings} />
+      </PreviewProvider>
     )
   }
 

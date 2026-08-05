@@ -1,13 +1,11 @@
-import { PreviewSuspense } from '@sanity/preview-kit'
+import PreviewIndexPage from 'components/PreviewIndexPage'
 import TopListPage from 'components/TopListPage'
 import TravelEssentialPage from 'components/TravelEssentialPage'
 import { getSettings, getTravelEssentialPosts } from 'lib/sanity.client'
+import PreviewProvider from 'lib/sanity.preview'
 import { Essential, Post, Settings } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
-import { lazy } from 'react'
-
-const PreviewIndexPage = lazy(() => import('components/PreviewIndexPage'))
 
 interface PageProps {
   TravelEssentialposts: any
@@ -29,21 +27,9 @@ export default function Page(props: PageProps) {
 
   if (preview) {
     return (
-      <PreviewSuspense
-        fallback={
-          <TopListPage
-            loading
-            preview
-            posts={TravelEssentialposts}
-            settings={settings}
-            postHeader={''}
-            img={''}
-            summary={''}
-          />
-        }
-      >
-        <PreviewIndexPage token={token} />
-      </PreviewSuspense>
+      <PreviewProvider token={token}>
+        <PreviewIndexPage />
+      </PreviewProvider>
     )
   }
 

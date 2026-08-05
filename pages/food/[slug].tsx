@@ -1,17 +1,13 @@
-import { PreviewSuspense } from '@sanity/preview-kit'
 import FoodReviewPage from 'components/FoodReviewPage'
+import PreviewFoodReviewPage from 'components/PreviewFoodReviewPage'
 import {
   getAllFoodReviewSlugs,
   getFoodReviewBySlug,
   getSettings,
 } from 'lib/sanity.client'
+import PreviewProvider from 'lib/sanity.preview'
 import { FoodReview, Settings } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
-import { lazy } from 'react'
-
-const PreviewFoodReviewPage = lazy(
-  () => import('components/PreviewFoodReviewPage'),
-)
 
 interface PageProps {
   foodReview: FoodReview
@@ -33,22 +29,9 @@ export default function FoodSlugRoute(props: PageProps) {
 
   if (preview) {
     return (
-      <PreviewSuspense
-        fallback={
-          <FoodReviewPage
-            loading
-            preview
-            foodReview={foodReview}
-            settings={settings}
-          />
-        }
-      >
-        <PreviewFoodReviewPage
-          token={token}
-          foodReview={foodReview}
-          settings={settings}
-        />
-      </PreviewSuspense>
+      <PreviewProvider token={token}>
+        <PreviewFoodReviewPage foodReview={foodReview} settings={settings} />
+      </PreviewProvider>
     )
   }
 

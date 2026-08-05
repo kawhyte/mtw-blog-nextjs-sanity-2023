@@ -1,9 +1,9 @@
-import { type DocumentBadgeComponent } from 'sanity'
+import { type DocumentBadgeComponent, type DocumentBadgeProps } from 'sanity'
 
-export const ScheduledBadge: DocumentBadgeComponent = ({
-  draft,
-  published,
-}) => {
+export const ScheduledBadge: DocumentBadgeComponent = (
+  props: DocumentBadgeProps,
+) => {
+  const { draft, published } = props
   const doc = draft ?? published
   const publishedAt = doc?.publishedAt as string | undefined
 
@@ -12,7 +12,7 @@ export const ScheduledBadge: DocumentBadgeComponent = ({
 
   return {
     label: 'Scheduled',
-    color: 'warning',
+    color: 'warning' as const,
     title: `Publishes on ${new Date(publishedAt).toLocaleDateString('en-US', { dateStyle: 'medium' })}`,
   }
 }

@@ -1,21 +1,18 @@
-import { PreviewSuspense } from '@sanity/preview-kit'
 import ArenaPageContent from 'components/arena/ArenaPageContent'
 import ArenaPageHeader from 'components/ArenaPageHeader'
 import BlogHeader from 'components/BlogHeader'
 import Layout from 'components/BlogLayout'
 import CategoryPageHead from 'components/CategoryPageHead'
 import Footer from 'components/Footer'
+import PreviewIndexPage from 'components/PreviewIndexPage'
 import { getArenaPosts, getSettings } from 'lib/sanity.client'
+import PreviewProvider from 'lib/sanity.preview'
 import { Arena, Settings } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
-import { lazy } from 'react'
 import {
   calculateArenaRanks,
   enrichArenasWithDisplayData,
 } from 'utils/arena/arenaUtils'
-
-
-const PreviewIndexPage = lazy(() => import('components/PreviewIndexPage'))
 
 interface PageProps {
   arenaPosts: Arena[]
@@ -38,9 +35,9 @@ export default function ArenasPage(props: PageProps) {
   // Preview Mode Rendering
   if (preview) {
     return (
-      <PreviewSuspense fallback={<div>Loading preview...</div>}>
-        <PreviewIndexPage token={token} />
-      </PreviewSuspense>
+      <PreviewProvider token={token}>
+        <PreviewIndexPage />
+      </PreviewProvider>
     )
   }
 
@@ -57,7 +54,6 @@ export default function ArenasPage(props: PageProps) {
           .map((a) => ({ name: a.name!, url: `/arena/${a.slug}` }))}
       />
       <Layout preview={preview} loading={false}>
-
         {/* Header components */}
         <BlogHeader
           title={'Visiting and Ranking Every NBA/WNBA Arena'}

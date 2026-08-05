@@ -55,15 +55,15 @@ export const client: SanityClient | null = projectId
 /**
  * Returns a draft-aware client for Preview Mode. Only used server-side in
  * getStaticProps when a preview token is present; never bundled to the browser.
- * `previewDrafts` overlays draft content on top of published documents, so
- * unpublished drafts resolve to exactly one result.
+ * The `drafts` perspective overlays draft content on top of published documents,
+ * so unpublished drafts resolve to exactly one result.
  */
 export function getPreviewClient(token: string): SanityClient | null {
   if (!client) return null
   return client.withConfig({
     token,
     useCdn: false,
-    perspective: 'previewDrafts',
+    perspective: 'drafts',
     ignoreBrowserTokenWarning: true,
   })
 }

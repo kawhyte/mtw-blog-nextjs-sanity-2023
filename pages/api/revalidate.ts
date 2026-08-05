@@ -20,35 +20,58 @@
  * 14. Redeploy with `npx vercel --prod` to apply the new environment variable
  */
 
+import { isValidSignature, SIGNATURE_HEADER_NAME } from '@sanity/webhook'
 import { apiVersion, dataset, projectId } from 'lib/sanity.api'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { createClient, groq, type SanityClient } from 'next-sanity'
-import { type ParseBody, parseBody } from 'next-sanity/webhook'
 
-export { config } from 'next-sanity/webhook'
+// Signature validation needs the raw request body — disable Next's JSON parser.
+// (next-sanity v9's parseBody only accepts App Router NextRequest, so this route
+// validates the Sanity webhook signature directly via @sanity/webhook, which is
+// exactly what the old next-sanity/webhook parseBody wrapped.)
+export const config = { api: { bodyParser: false } }
+
+type WebhookBody = {
+  _type: string
+  _id: string
+  date?: string
+  slug?: { current?: string }
+}
+
+async function readRawBody(req: NextApiRequest): Promise<string> {
+  const chunks: Buffer[] = []
+  for await (const chunk of req) {
+    chunks.push(typeof chunk === 'string' ? Buffer.from(chunk) : chunk)
+  }
+  return Buffer.concat(chunks).toString('utf8')
+}
 
 export default async function revalidate(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
   try {
-    const { body, isValidSignature } = await parseBody(
-      req,
-      process.env.SANITY_REVALIDATE_SECRET,
-    )
-    if (isValidSignature === false) {
+    const signature = req.headers[SIGNATURE_HEADER_NAME]
+    const rawBody = await readRawBody(req)
+    const secret = process.env.SANITY_REVALIDATE_SECRET
+    const validSignature = secret
+      ? typeof signature === 'string' &&
+        (await isValidSignature(rawBody, signature, secret))
+      : null
+    if (validSignature === false) {
       const message = 'Invalid signature'
       console.log(message)
       return res.status(401).send(message)
     }
+    const body: WebhookBody | null = rawBody ? JSON.parse(rawBody) : null
 
-    if (typeof body._id !== 'string' || !body._id) {
+    if (!body || typeof body._id !== 'string' || !body._id) {
       const invalidId = 'Invalid _id'
       console.error(invalidId, { body })
       return res.status(400).send(invalidId)
     }
 
-    const staleRoutes = await queryStaleRoutes(body as any)
+    const staleRoutes = await queryStaleRoutes(body)
     await Promise.all(staleRoutes.map((route) => res.revalidate(route)))
 
     const updatedRoutes = `Updated routes: ${staleRoutes.join(', ')}`
@@ -71,7 +94,7 @@ type StaleRoute =
   | '/guides'
 
 async function queryStaleRoutes(
-  body: Pick<ParseBody['body'], '_type' | '_id' | 'date' | 'slug'>,
+  body: WebhookBody,
 ): Promise<StaleRoute[]> {
   const client = createClient({ projectId, dataset, apiVersion, useCdn: false })
   console.log('BODY')

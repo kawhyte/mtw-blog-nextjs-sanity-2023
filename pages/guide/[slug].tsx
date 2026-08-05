@@ -1,18 +1,16 @@
 // pages/guide/[slug].tsx
 
-import { PreviewSuspense } from '@sanity/preview-kit'
 import GuidePage from 'components/GuidePage'
+import PreviewGuidePage from 'components/PreviewGuidePage'
 import {
   getAllGuideSlugs,
   getGuideBySlug,
   getRelatedGuides,
   getSettings,
 } from 'lib/sanity.client'
+import PreviewProvider from 'lib/sanity.preview'
 import { Guide, Settings } from 'lib/sanity.queries'
 import { GetStaticPaths, GetStaticProps } from 'next'
-import { lazy } from 'react'
-
-const PreviewGuidePage = lazy(() => import('components/PreviewGuidePage'))
 
 // Props Interface & Query
 export const getStaticProps: GetStaticProps<
@@ -82,19 +80,9 @@ export default function GuideSlugRoute(props: PageProps) {
 
   if (preview) {
     return (
-      <PreviewSuspense
-        fallback={
-          <GuidePage
-            loading
-            preview
-            guide={guide}
-            settings={settings}
-            relatedGuides={[]}
-          />
-        }
-      >
-        <PreviewGuidePage token={token} guide={guide} settings={settings} />
-      </PreviewSuspense>
+      <PreviewProvider token={token}>
+        <PreviewGuidePage guide={guide} settings={settings} />
+      </PreviewProvider>
     )
   }
 

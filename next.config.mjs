@@ -2,15 +2,17 @@
 const config = {
   //  staticPageGenerationTimeout: 140000,
 
-  // Transpile ESM-only packages so webpack can handle their CJS/ESM interop correctly
-  transpilePackages: ['@heroicons/react', '@vercel/speed-insights'],
+  // Transpile ESM-only packages so webpack can handle their CJS/ESM interop correctly.
+  // sanity-plugin-media: its ESM build does a named import from CJS react-dropzone,
+  // which Node rejects when the package is externalized — bundling it through
+  // webpack resolves the interop.
+  transpilePackages: [
+    '@heroicons/react',
+    '@vercel/speed-insights',
+    'sanity-plugin-media',
+  ],
 
-  // 1. ADDED: Tell Next.js we are using the experimental App Router
-  experimental: {
-    appDir: true,
-  },
-
-  // 2. ADDED: Enable the SWC compiler for styled-components (Fixes the Sanity Media Plugin error)
+  // Enable the SWC compiler for styled-components (Fixes the Sanity Media Plugin error)
   compiler: {
     styledComponents: true,
   },

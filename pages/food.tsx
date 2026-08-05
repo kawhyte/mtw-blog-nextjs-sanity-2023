@@ -1,15 +1,13 @@
-import { PreviewSuspense } from '@sanity/preview-kit'
 import FoodReviewsPage from 'components/FoodReviewsPage' // Component to display food reviews
+import PreviewIndexPage from 'components/PreviewIndexPage'
 import {
   getFoodReviewsTotalCount, // Independent food review count function
   getPaginatedFoodReviews, // Independent food review pagination function
   getSettings,
 } from 'lib/sanity.client'
+import PreviewProvider from 'lib/sanity.preview'
 import { FoodReview, Settings } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
-import { lazy } from 'react'
-
-const PreviewIndexPage = lazy(() => import('components/PreviewIndexPage'))
 
 // Define how many items to show per page
 const ITEMS_PER_PAGE = 12
@@ -35,20 +33,9 @@ export default function Page(props: PageProps) {
 
   if (preview) {
     return (
-      <PreviewSuspense
-        fallback={
-          <FoodReviewsPage
-            loading
-            preview
-            initialPosts={initialPosts}
-            totalPostsCount={totalPostsCount}
-            itemsPerPage={ITEMS_PER_PAGE}
-            settings={settings}
-          />
-        }
-      >
-        <PreviewIndexPage token={token} />
-      </PreviewSuspense>
+      <PreviewProvider token={token}>
+        <PreviewIndexPage />
+      </PreviewProvider>
     )
   }
 
