@@ -1,4 +1,4 @@
-import { PreviewSuspense } from '@sanity/preview-kit'
+import PreviewProvider from 'lib/sanity.preview'
 import StoryReviewsPage from 'components/StoryReviewsPage' // Component to display stories
 import {
   getGuidesTotalCount,
@@ -7,9 +7,8 @@ import {
 } from 'lib/sanity.client'
 import { Guide, Settings } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
-import { lazy } from 'react'
 
-const PreviewIndexPage = lazy(() => import('components/PreviewIndexPage'))
+import PreviewIndexPage from 'components/PreviewIndexPage'
 
 // Define how many items to show per page
 const ITEMS_PER_PAGE = 12
@@ -35,20 +34,9 @@ export default function Page(props: PageProps) {
 
   if (preview) {
     return (
-      <PreviewSuspense
-        fallback={
-          <StoryReviewsPage
-            loading
-            preview
-            initialPosts={initialPosts}
-            totalPostsCount={totalPostsCount}
-            itemsPerPage={ITEMS_PER_PAGE}
-            settings={settings}
-          />
-        }
-      >
-        <PreviewIndexPage token={token} />
-      </PreviewSuspense>
+      <PreviewProvider token={token}>
+        <PreviewIndexPage />
+      </PreviewProvider>
     )
   }
 

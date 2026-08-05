@@ -1,11 +1,10 @@
-import { PreviewSuspense } from '@sanity/preview-kit'
+import PreviewProvider from 'lib/sanity.preview'
 import TopListPage from 'components/TopListPage'
 import { getSettings, getTopWeightedFoodReviews } from 'lib/sanity.client'
 import { FoodReview, Settings } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
-import { lazy } from 'react'
 
-const PreviewIndexPage = lazy(() => import('components/PreviewIndexPage'))
+import PreviewIndexPage from 'components/PreviewIndexPage'
 
 interface PageProps {
   foodReviews: FoodReview[]
@@ -27,22 +26,9 @@ export default function Page(props: PageProps) {
 
   if (preview) {
     return (
-      <PreviewSuspense
-        fallback={
-          <TopListPage
-            loading
-            preview
-            posts={foodReviews}
-            settings={settings}
-            postHeader={''}
-            img={''}
-            summary={''}
-            contentType="food"
-          />
-        }
-      >
-        <PreviewIndexPage token={token} />
-      </PreviewSuspense>
+      <PreviewProvider token={token}>
+        <PreviewIndexPage />
+      </PreviewProvider>
     )
   }
 

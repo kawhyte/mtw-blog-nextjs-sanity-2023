@@ -1,6 +1,6 @@
 // components/PreviewHotelReviewPage.tsx
 import HotelReviewPage from 'components/HotelReviewPage'
-import { usePreview } from 'lib/sanity.preview'
+import { useLiveQuery } from 'lib/sanity.preview'
 import {
   type HotelReview,
   hotelReviewBySlugQuery,
@@ -8,24 +8,24 @@ import {
 } from 'lib/sanity.queries'
 
 interface PreviewHotelReviewPageProps {
-  token: null | string
   hotelReview: HotelReview
   settings: Settings
 }
 
 export default function PreviewHotelReviewPage({
-  token,
   hotelReview: initialHotelReview,
   settings,
 }: PreviewHotelReviewPageProps) {
-  const params = { slug: initialHotelReview.slug }
-  const previewHotelReview: HotelReview =
-    usePreview(token, hotelReviewBySlugQuery, params) || initialHotelReview
+  const [previewHotelReview] = useLiveQuery<HotelReview>(
+    initialHotelReview,
+    hotelReviewBySlugQuery,
+    { slug: initialHotelReview.slug },
+  )
 
   return (
     <HotelReviewPage
       preview
-      hotelReview={previewHotelReview}
+      hotelReview={previewHotelReview ?? initialHotelReview}
       settings={settings}
     />
   )
