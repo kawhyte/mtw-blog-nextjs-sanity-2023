@@ -1,5 +1,5 @@
-import PreviewProvider from 'lib/sanity.preview'
 import HotelReviewsPage from 'components/HotelReviewsPage' // The component that will eventually display posts + pagination logic
+import PreviewIndexPage from 'components/PreviewIndexPage'
 // --- Import the actual functions from your updated sanity client ---
 import {
   getAllHotelReviews, // Independent hotel review function
@@ -7,11 +7,10 @@ import {
   getPaginatedHotelReviews, // Independent hotel review pagination function
   getSettings,
 } from 'lib/sanity.client'
+import PreviewProvider from 'lib/sanity.preview'
 // Import HotelReview type for independent schema
 import { HotelReview, Settings } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
-
-import PreviewIndexPage from 'components/PreviewIndexPage'
 
 // Define how many items to show per page
 const ITEMS_PER_PAGE = 12 // Or your desired number

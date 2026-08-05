@@ -1,12 +1,11 @@
-import PreviewProvider from 'lib/sanity.preview'
+import PreviewIndexPage from 'components/PreviewIndexPage'
 import TopListPage from 'components/TopListPage'
 import TravelEssentialPage from 'components/TravelEssentialPage'
 import { getSettings, getTravelEssentialPosts } from 'lib/sanity.client'
+import PreviewProvider from 'lib/sanity.preview'
 import { Essential, Post, Settings } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
-
-import PreviewIndexPage from 'components/PreviewIndexPage'
 
 interface PageProps {
   TravelEssentialposts: any

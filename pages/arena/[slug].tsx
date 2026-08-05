@@ -1,7 +1,7 @@
 // pages/arena/[slug].tsx
 
-import PreviewProvider from 'lib/sanity.preview'
 import ArenaPage from 'components/ArenaPage'
+import PreviewArenaPage from 'components/PreviewArenaPage'
 import {
   getAllArenaSlugs,
   getArenaBySlug,
@@ -10,12 +10,11 @@ import {
   getSettings,
 } from 'lib/sanity.client'
 import { urlForImage } from 'lib/sanity.image'
+import PreviewProvider from 'lib/sanity.preview'
 import { Arena, ArenaFoodReviewCard, Settings } from 'lib/sanity.queries'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import { calculateArenaRanks } from 'utils/arena/arenaUtils'
-
-import PreviewArenaPage from 'components/PreviewArenaPage'
 
 // Props Interface & Query
 export const getStaticProps: GetStaticProps<

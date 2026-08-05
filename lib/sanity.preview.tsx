@@ -1,7 +1,7 @@
 import { apiVersion, dataset, projectId } from 'lib/sanity.api'
-import { useMemo } from 'react'
 import { createClient } from 'next-sanity'
 import { LiveQueryProvider } from 'next-sanity/preview'
+import { useMemo } from 'react'
 
 // Re-export so preview components have a single import point for live queries.
 // useLiveQuery(initialData, query, params) returns [data, loading, enabled] and

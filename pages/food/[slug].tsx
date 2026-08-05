@@ -1,14 +1,13 @@
-import PreviewProvider from 'lib/sanity.preview'
 import FoodReviewPage from 'components/FoodReviewPage'
+import PreviewFoodReviewPage from 'components/PreviewFoodReviewPage'
 import {
   getAllFoodReviewSlugs,
   getFoodReviewBySlug,
   getSettings,
 } from 'lib/sanity.client'
+import PreviewProvider from 'lib/sanity.preview'
 import { FoodReview, Settings } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
-
-import PreviewFoodReviewPage from 'components/PreviewFoodReviewPage'
 
 interface PageProps {
   foodReview: FoodReview

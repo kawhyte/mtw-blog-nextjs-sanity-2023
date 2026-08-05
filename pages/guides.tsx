@@ -1,14 +1,13 @@
-import PreviewProvider from 'lib/sanity.preview'
+import PreviewIndexPage from 'components/PreviewIndexPage'
 import StoryReviewsPage from 'components/StoryReviewsPage' // Component to display stories
 import {
   getGuidesTotalCount,
   getPaginatedGuides,
   getSettings,
 } from 'lib/sanity.client'
+import PreviewProvider from 'lib/sanity.preview'
 import { Guide, Settings } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
-
-import PreviewIndexPage from 'components/PreviewIndexPage'
 
 // Define how many items to show per page
 const ITEMS_PER_PAGE = 12

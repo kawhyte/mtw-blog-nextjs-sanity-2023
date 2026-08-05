@@ -1,14 +1,13 @@
-import PreviewProvider from 'lib/sanity.preview'
 import HotelReviewPage from 'components/HotelReviewPage'
+import PreviewHotelReviewPage from 'components/PreviewHotelReviewPage'
 import {
   getAllHotelReviewSlugs,
   getHotelReviewBySlug,
   getSettings,
 } from 'lib/sanity.client'
+import PreviewProvider from 'lib/sanity.preview'
 import { HotelReview, Settings } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
-
-import PreviewHotelReviewPage from 'components/PreviewHotelReviewPage'
 
 interface PageProps {
   hotelReview: HotelReview

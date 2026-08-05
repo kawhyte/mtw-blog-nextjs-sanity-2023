@@ -1,17 +1,16 @@
 // pages/guide/[slug].tsx
 
-import PreviewProvider from 'lib/sanity.preview'
 import GuidePage from 'components/GuidePage'
+import PreviewGuidePage from 'components/PreviewGuidePage'
 import {
   getAllGuideSlugs,
   getGuideBySlug,
   getRelatedGuides,
   getSettings,
 } from 'lib/sanity.client'
+import PreviewProvider from 'lib/sanity.preview'
 import { Guide, Settings } from 'lib/sanity.queries'
 import { GetStaticPaths, GetStaticProps } from 'next'
-
-import PreviewGuidePage from 'components/PreviewGuidePage'
 
 // Props Interface & Query
 export const getStaticProps: GetStaticProps<

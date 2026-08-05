@@ -1,14 +1,13 @@
-import PreviewProvider from 'lib/sanity.preview'
 import FoodReviewsPage from 'components/FoodReviewsPage' // Component to display food reviews
+import PreviewIndexPage from 'components/PreviewIndexPage'
 import {
   getFoodReviewsTotalCount, // Independent food review count function
   getPaginatedFoodReviews, // Independent food review pagination function
   getSettings,
 } from 'lib/sanity.client'
+import PreviewProvider from 'lib/sanity.preview'
 import { FoodReview, Settings } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
-
-import PreviewIndexPage from 'components/PreviewIndexPage'
 
 // Define how many items to show per page
 const ITEMS_PER_PAGE = 12

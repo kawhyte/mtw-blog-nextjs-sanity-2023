@@ -1,10 +1,9 @@
-import PreviewProvider from 'lib/sanity.preview'
+import PreviewIndexPage from 'components/PreviewIndexPage'
 import TopListPage from 'components/TopListPage'
 import { getSettings, getTopWeightedFoodReviews } from 'lib/sanity.client'
+import PreviewProvider from 'lib/sanity.preview'
 import { FoodReview, Settings } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
-
-import PreviewIndexPage from 'components/PreviewIndexPage'
 
 interface PageProps {
   foodReviews: FoodReview[]

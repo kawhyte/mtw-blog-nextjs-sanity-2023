@@ -1,19 +1,18 @@
-import PreviewProvider from 'lib/sanity.preview'
 import ArenaPageContent from 'components/arena/ArenaPageContent'
 import ArenaPageHeader from 'components/ArenaPageHeader'
 import BlogHeader from 'components/BlogHeader'
 import Layout from 'components/BlogLayout'
 import CategoryPageHead from 'components/CategoryPageHead'
 import Footer from 'components/Footer'
+import PreviewIndexPage from 'components/PreviewIndexPage'
 import { getArenaPosts, getSettings } from 'lib/sanity.client'
+import PreviewProvider from 'lib/sanity.preview'
 import { Arena, Settings } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
 import {
   calculateArenaRanks,
   enrichArenasWithDisplayData,
 } from 'utils/arena/arenaUtils'
-
-import PreviewIndexPage from 'components/PreviewIndexPage'
 
 interface PageProps {
   arenaPosts: Arena[]

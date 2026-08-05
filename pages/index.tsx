@@ -1,10 +1,11 @@
-import PreviewProvider from 'lib/sanity.preview'
 import IndexPage from 'components/IndexPage'
+import PreviewIndexPage from 'components/PreviewIndexPage'
 import {
   getLatestIndependentContent,
   getSettings,
   getTopArenas,
 } from 'lib/sanity.client'
+import PreviewProvider from 'lib/sanity.preview'
 import {
   ArenaHighlightCard,
   FoodReview,
@@ -18,8 +19,6 @@ import {
   YoutubeVideo,
 } from 'lib/youtube'
 import { GetStaticProps } from 'next'
-
-import PreviewIndexPage from 'components/PreviewIndexPage'
 
 interface PageProps {
   posts: (Guide | HotelReview | FoodReview)[]
