@@ -9,11 +9,9 @@ import {
   getFoodReviewsByArena,
   getSettings,
 } from 'lib/sanity.client'
-import { urlForImage } from 'lib/sanity.image'
 import PreviewProvider from 'lib/sanity.preview'
 import { Arena, ArenaFoodReviewCard, Settings } from 'lib/sanity.queries'
 import { GetStaticPaths, GetStaticProps } from 'next'
-import Head from 'next/head'
 import { calculateArenaRanks } from 'utils/arena/arenaUtils'
 
 // Props Interface & Query
@@ -114,19 +112,9 @@ export default function ArenaSlugRoute(props: PageProps) {
 
   return (
     <>
-      <Head>
-        {arena.arenaImage && (
-          <link
-            rel="preload"
-            as="image"
-            href={urlForImage(arena.arenaImage)
-              .width(1200)
-              .height(630)
-              .quality(85)
-              .url()}
-          />
-        )}
-      </Head>
+      {/* No manual image preload: the hero's next/image `priority` already preloads the real
+          responsive LCP image. A hand-written 1200×630 arenaImage preload matched no rendered
+          image and competed with the hero for bandwidth. */}
       <ArenaPage
         arena={arena}
         settings={settings}
