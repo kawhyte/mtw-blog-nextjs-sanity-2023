@@ -309,7 +309,7 @@ export default defineType({
       title: 'Photo Gallery',
       type: 'array',
       description:
-        'Photo gallery — upload each photo at its natural crop, max 1600 px on the longest edge. WebP 80% or JPEG 85% quality. Any aspect ratio is fine.',
+        'Photo gallery — upload each photo at its natural crop, max 1600 px on the longest edge. WebP 85% or JPEG 88% quality. Any aspect ratio is fine.',
       of: [
         {
           type: 'image',
