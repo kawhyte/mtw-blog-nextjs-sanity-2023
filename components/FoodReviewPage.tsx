@@ -95,10 +95,11 @@ export default function FoodReviewPage(props: FoodReviewPageProps) {
   const { preview, loading, foodReview, settings } = props
   const { title = demo.title } = settings || {}
 
-  const { galleryImages, isOpen, openModal, closeModal } = usePhotoGallery(
-    foodReview.coverImage,
-    foodReview.gallery,
-  )
+  const { heroImages, galleryImages, isOpen, openModal, closeModal } =
+    usePhotoGallery(foodReview.heroPhotos, [
+      foodReview.coverImage,
+      ...(foodReview.gallery || []),
+    ])
 
   if (!foodReview) {
     return preview ? (
@@ -261,7 +262,7 @@ export default function FoodReviewPage(props: FoodReviewPageProps) {
 
           {galleryImages.length > 0 && (
             <HeroPhotoGallery
-              images={galleryImages}
+              images={heroImages}
               onShowAllPhotos={openModal}
             />
           )}

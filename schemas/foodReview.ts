@@ -6,6 +6,7 @@ import { AltTextGeneratorInput } from '../plugins/AltTextGeneratorInput'
 import { SeoExcerptGeneratorInput } from '../plugins/SeoExcerptGeneratorInput'
 import {
   galleryField,
+  heroPhotosField,
   negativesField,
   positivesField,
   verdictField,
@@ -16,6 +17,26 @@ import {
  * Independent from the complex post document type.
  * Includes dedicated dine-in/takeout logic and individual food ratings.
  */
+
+// Shared by heroPhotos and gallery so both offer the same photo categories
+const GALLERY_ARGS: Parameters<typeof galleryField> = [
+  "Choose a category — Food & Drinks: dishes, cocktails, desserts. Interior & Atmosphere: dining room, tables, décor. Exterior: outside the building, signage, patio. Menu: printed or digital menu shots. Additional Photos: anything that doesn't fit above.",
+  [
+    { title: 'Food & Drinks', value: 'food-drinks' },
+    { title: 'Interior & Atmosphere', value: 'interior' },
+    { title: 'Exterior', value: 'exterior' },
+    { title: 'Menu', value: 'menu' },
+    { title: 'Additional Photos', value: 'other' },
+  ],
+  {
+    'food-drinks': 'Food & Drinks',
+    interior: 'Interior & Atmosphere',
+    exterior: 'Exterior',
+    'bar-area': 'Bar Area',
+    menu: 'Menu',
+    other: 'Additional Photos',
+  },
+]
 
 export default defineType({
   name: 'foodReview',
@@ -78,10 +99,10 @@ export default defineType({
 
     defineField({
       name: 'coverImage',
-      title: 'Main Image',
+      title: 'Card & Share Image',
       type: 'image',
       description:
-        'Main image — used on listing cards and the hero gallery. Upload at 1200 × 800 px (3:2 landscape). WebP 80% or JPEG 85% quality.',
+        'Used on listing cards and when the page is shared. Optional — leave empty to use Hero Photo #1. Upload at 2400 × 1600 px (3:2 landscape), WebP 85% or JPEG 88%.',
       options: {
         hotspot: true,
       },
@@ -95,6 +116,8 @@ export default defineType({
         }),
       ],
     }),
+
+    heroPhotosField(...GALLERY_ARGS),
 
     defineField({
       name: 'excerpt2',
@@ -132,7 +155,7 @@ export default defineType({
       title: 'Individual Food Rating',
       type: 'array',
       description:
-        'Rate individual dishes/drinks. Photo for each dish: 900 × 600 px (3:2 landscape). WebP 75% or JPEG 80% quality.',
+        'Rate individual dishes/drinks. Photo for each dish: 1200 × 800 px (3:2 landscape). WebP 85% or JPEG 88% quality.',
       of: [
         {
           type: 'image',
@@ -182,24 +205,7 @@ export default defineType({
       ],
     }),
 
-    galleryField(
-      "Choose a category — Food & Drinks: dishes, cocktails, desserts. Interior & Atmosphere: dining room, tables, décor. Exterior: outside the building, signage, patio. Menu: printed or digital menu shots. Additional Photos: anything that doesn't fit above.",
-      [
-        { title: 'Food & Drinks', value: 'food-drinks' },
-        { title: 'Interior & Atmosphere', value: 'interior' },
-        { title: 'Exterior', value: 'exterior' },
-        { title: 'Menu', value: 'menu' },
-        { title: 'Additional Photos', value: 'other' },
-      ],
-      {
-        'food-drinks': 'Food & Drinks',
-        interior: 'Interior & Atmosphere',
-        exterior: 'Exterior',
-        'bar-area': 'Bar Area',
-        menu: 'Menu',
-        other: 'Additional Photos',
-      },
-    ),
+    galleryField(...GALLERY_ARGS),
 
     defineField({
       name: 'youtube',
@@ -515,17 +521,18 @@ export default defineType({
       title: 'title',
       date: 'date',
       media: 'coverImage',
+      heroMedia: 'heroPhotos.0',
       location: 'location',
       diningType: 'diningType',
     },
-    prepare({ title, media, date, location, diningType }) {
+    prepare({ title, media, heroMedia, date, location, diningType }) {
       const subtitles = [
         location && `📍 ${location}`,
         diningType && `🍽️ ${diningType === 'dinein' ? 'Dine-in' : 'Takeout'}`,
         date && `📅 ${format(parseISO(date), 'LLL d, yyyy')}`,
       ].filter(Boolean)
 
-      return { title, media, subtitle: subtitles.join(' • ') }
+      return { title, media: media || heroMedia, subtitle: subtitles.join(' • ') }
     },
   },
 

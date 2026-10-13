@@ -153,6 +153,7 @@ export default function Navbar() {
                 <Image
                   className="rounded-xl"
                   src="/icon/icon.jpg" // Ensure this path is correct in your public folder
+                  unoptimized
                   alt="Meet the Whytes - NBA & WNBA Arena Travel Blog Logo"
                   width={45}
                   height={45}

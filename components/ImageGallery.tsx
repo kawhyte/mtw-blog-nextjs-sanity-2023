@@ -157,7 +157,7 @@ export default function ImageGallery({
                       alt={imageAlt}
                       width={item.asset.metadata?.dimensions?.width || 800}
                       height={item.asset.metadata?.dimensions?.height || 600}
-                      sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 30vw"
+                      sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                       placeholder={blurData ? 'blur' : 'empty'}
                       blurDataURL={blurData}
                     />
@@ -244,7 +244,8 @@ export default function ImageGallery({
                         >
                           <SanityImage
                             image={item as any}
-                            width={2400}
+                            width={1600}
+                            sizes="(max-width: 768px) 100vw, 560px"
                             quality={75}
                             className="h-auto w-full rounded-lg object-cover"
                             alt={imageAlt}
@@ -276,7 +277,8 @@ export default function ImageGallery({
                     >
                       <SanityImage
                         image={item as any}
-                        width={1200}
+                        width={1600}
+                        sizes="(max-width: 768px) 100vw, 560px"
                         className="h-auto w-full rounded-lg object-cover"
                         alt={imageAlt}
                         loading={i < 2 ? 'eager' : 'lazy'}

@@ -19,9 +19,12 @@ const config = {
 
   images: {
     // Bypass Vercel's image optimization pipeline (Hobby plan: 1,000/month limit).
-    // All resizing, format negotiation (WebP/AVIF), and quality is handled by Sanity CDN
-    // via urlForImage() transformation params in lib/sanity.image.ts.
-    unoptimized: true,
+    // The custom loader builds each srcset width as a Sanity CDN URL, so resizing,
+    // format negotiation (WebP/AVIF) and quality are all handled by Sanity — and
+    // every `sizes` prop now actually picks the right width per device.
+    // Non-Sanity images (local icons, YouTube thumbnails) use `unoptimized` per image.
+    loader: 'custom',
+    loaderFile: './lib/sanityImageLoader.ts',
     remotePatterns: [
       { hostname: 'cdn.sanity.io' },
       { hostname: 'source.unsplash.com' },

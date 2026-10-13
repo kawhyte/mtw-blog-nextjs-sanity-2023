@@ -171,10 +171,11 @@ function HotelReviewPageContent(props: HotelReviewPageProps) {
         })
       : []
 
-  const { galleryImages, isOpen, openModal, closeModal } = usePhotoGallery(
-    hotelReview.coverImage,
-    hotelReview.gallery,
-  )
+  const { heroImages, galleryImages, isOpen, openModal, closeModal } =
+    usePhotoGallery(hotelReview.heroPhotos, [
+      hotelReview.coverImage,
+      ...(hotelReview.gallery || []),
+    ])
 
   return (
     <div>
@@ -307,7 +308,7 @@ function HotelReviewPageContent(props: HotelReviewPageProps) {
 
           {galleryImages.length > 0 && (
             <HeroPhotoGallery
-              images={galleryImages}
+              images={heroImages}
               onShowAllPhotos={openModal}
             />
           )}

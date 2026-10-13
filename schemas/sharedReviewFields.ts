@@ -53,6 +53,100 @@ export interface GalleryCategoryOption {
   value: string
 }
 
+/** One gallery photo: image + alt, caption and category. Shared by heroPhotos and gallery. */
+export const galleryImageItem = (
+  categoryDescription: string,
+  categories: GalleryCategoryOption[],
+  previewLabels: Record<string, string>,
+) => ({
+  type: 'image',
+  options: {
+    hotspot: true,
+  },
+  fields: [
+    {
+      name: 'alt',
+      type: 'string',
+      title: 'Alternative text',
+      components: { input: AltTextGeneratorInput },
+    },
+    {
+      name: 'caption',
+      type: 'string',
+      title: 'Caption',
+      description:
+        'Optional: add a brief caption shown below the photo in the gallery.',
+      components: { input: CaptionGeneratorInput },
+    },
+    {
+      name: 'category',
+      type: 'string',
+      title: 'Photo Category',
+      description: categoryDescription,
+      options: {
+        list: categories,
+      },
+    },
+  ],
+  preview: {
+    select: {
+      media: 'asset',
+      title: 'alt',
+      category: 'category',
+    },
+    prepare({
+      media,
+      title,
+      category,
+    }: {
+      media: any
+      title?: string
+      category?: string
+    }) {
+      return {
+        media,
+        title: title || 'No alt text',
+        subtitle: category
+          ? `✓  ${previewLabels[category] ?? category}`
+          : '⚠  No category set',
+      }
+    },
+  },
+})
+
+export const HERO_PHOTOS_MAX = 5
+
+/**
+ * The 1 large + 4 small photo block at the top of review/arena pages.
+ * Drag to reorder — photo #1 is the large one and the card/share image fallback.
+ */
+export const heroPhotosField = (
+  categoryDescription: string,
+  categories: GalleryCategoryOption[],
+  previewLabels: Record<string, string>,
+) =>
+  defineField({
+    name: 'heroPhotos',
+    title: 'Hero Photos (up to 5)',
+    type: 'array',
+    description:
+      'The photo block at the top of the page. Drag to reorder — the FIRST photo is the large one, the next four fill the small tiles. Upload all at 2400 × 1600 px (3:2 landscape), WebP 85% or JPEG 88%. Fewer than 5 is fine; the layout adapts.',
+    options: { layout: 'grid' },
+    of: [galleryImageItem(categoryDescription, categories, previewLabels)],
+    validation: (Rule) => [
+      Rule.max(HERO_PHOTOS_MAX).error(
+        `Hero shows at most ${HERO_PHOTOS_MAX} photos — move extras to the Photo Gallery.`,
+      ),
+      Rule.custom((photos) =>
+        !photos || (photos as any[]).length === 0
+          ? 'Add at least one hero photo (the first one is shown large).'
+          : (photos as any[]).length < HERO_PHOTOS_MAX
+            ? `${(photos as any[]).length} of ${HERO_PHOTOS_MAX} hero photos — the layout adapts, but 5 looks best.`
+            : true,
+      ).warning(),
+    ],
+  })
+
 export const galleryField = (
   categoryDescription: string,
   categories: GalleryCategoryOption[],
@@ -63,54 +157,6 @@ export const galleryField = (
     title: 'Photo Gallery',
     type: 'array',
     description:
-      'Photo gallery — upload each photo at its natural crop, max 1600 px on the longest edge. WebP 80% or JPEG 85% quality. Any aspect ratio is fine.',
-    of: [
-      {
-        type: 'image',
-        options: {
-          hotspot: true,
-        },
-        fields: [
-          {
-            name: 'alt',
-            type: 'string',
-            title: 'Alternative text',
-            components: { input: AltTextGeneratorInput },
-          },
-          {
-            name: 'caption',
-            type: 'string',
-            title: 'Caption',
-            description:
-              'Optional: add a brief caption shown below the photo in the gallery.',
-            components: { input: CaptionGeneratorInput },
-          },
-          {
-            name: 'category',
-            type: 'string',
-            title: 'Photo Category',
-            description: categoryDescription,
-            options: {
-              list: categories,
-            },
-          },
-        ],
-        preview: {
-          select: {
-            media: 'asset',
-            title: 'alt',
-            category: 'category',
-          },
-          prepare({ media, title, category }: { media: any; title?: string; category?: string }) {
-            return {
-              media,
-              title: title || 'No alt text',
-              subtitle: category
-                ? `✓  ${previewLabels[category] ?? category}`
-                : '⚠  No category set',
-            }
-          },
-        },
-      },
-    ],
+      'All other photos, shown in "Show all photos" after the hero photos. Natural crop, max 1600 px on the longest edge, WebP 85% or JPEG 88%. Any aspect ratio is fine.',
+    of: [galleryImageItem(categoryDescription, categories, previewLabels)],
   })

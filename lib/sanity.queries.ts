@@ -50,7 +50,7 @@ const arenaFields = groq`
     _id,
     name,
     "slug": slug.current,
-    arenaImage {
+    "arenaImage": coalesce(arenaImage, heroPhotos[0]) {
       ...,
       asset->{ _id, metadata { lqip, dimensions { width, height } } }
     },
@@ -92,7 +92,7 @@ const arenaFieldsDetailed = groq`
     _id,
     name,
     "slug": slug.current,
-    arenaImage {
+    "arenaImage": coalesce(arenaImage, heroPhotos[0]) {
       ...,
       asset->{ _id, metadata { lqip, dimensions { width, height } } }
     },
@@ -123,6 +123,12 @@ const arenaFieldsDetailed = groq`
     buildDate,
     venueNote,
     capacity,
+    heroPhotos[] {
+      ...,
+      caption,
+      category,
+      asset->{ _id, metadata { lqip, dimensions { width, height } } }
+    },
     photoGallerySection {
       mainImage {
         ...,
@@ -175,7 +181,7 @@ const arenaFieldsDetailed = groq`
         "slug": slug.current,
         location,
         category,
-        coverImage {
+        "coverImage": coalesce(coverImage, heroPhotos[0]) {
           ...,
           asset->{ _id, metadata { lqip, dimensions { width, height } } }
         },
@@ -305,7 +311,7 @@ export const independentGuideFields = groq`
   summary,
   date,
   location,
-  coverImage {
+  "coverImage": coalesce(coverImage, heroPhotos[0]) {
     ...,
     asset->{ _id, metadata { lqip, dimensions { width, height } } }
   },
@@ -350,7 +356,7 @@ export const guideCardFields = groq`
   category,
   tags,
   "slug": slug.current,
-  coverImage {
+  "coverImage": coalesce(coverImage, heroPhotos[0]) {
     ...,
     asset->{ _id, metadata { lqip, dimensions { width, height } } }
   }
@@ -368,7 +374,7 @@ export const hotelCardFields = groq`
   category,
   room,
   lounge,
-  coverImage {
+  "coverImage": coalesce(coverImage, heroPhotos[0]) {
     ...,
     asset->{ _id, metadata { lqip, dimensions { width, height } } }
   },
@@ -394,7 +400,7 @@ export const foodCardFields = groq`
   date,
   location,
   diningType,
-  coverImage {
+  "coverImage": coalesce(coverImage, heroPhotos[0]) {
     ...,
     asset->{ _id, metadata { lqip, dimensions { width, height } } }
   },
@@ -443,7 +449,7 @@ export const relatedGuidesQuery = groq`
     title,
     summary,
     "slug": slug.current,
-    coverImage {
+    "coverImage": coalesce(coverImage, heroPhotos[0]) {
       ...,
       asset->{ _id, metadata { lqip, dimensions { width, height } } }
     },
@@ -462,7 +468,7 @@ export const independentHotelReviewFields = groq`
   category,
   room,
   lounge,
-  coverImage {
+  "coverImage": coalesce(coverImage, heroPhotos[0]) {
     ...,
     asset->{ _id, metadata { lqip, dimensions { width, height } } }
   },
@@ -471,6 +477,12 @@ export const independentHotelReviewFields = groq`
   blurbSource,
   blurbUrl,
   tip,
+  heroPhotos[] {
+    ...,
+    caption,
+    category,
+    asset->{ _id, metadata { lqip, dimensions { width, height } } }
+  },
   gallery[] {
     ...,
     caption,
@@ -505,7 +517,7 @@ export const independentHotelReviewFields = groq`
     name,
     "slug": slug.current,
     location,
-    arenaImage {
+    "arenaImage": coalesce(arenaImage, heroPhotos[0]) {
       ...,
       asset->{ _id, metadata { lqip, dimensions { width, height } } }
     }
@@ -551,7 +563,7 @@ export const independentFoodReviewFields = groq`
   date,
   location,
   diningType,
-  coverImage {
+  "coverImage": coalesce(coverImage, heroPhotos[0]) {
     ...,
     asset->{ _id, metadata { lqip, dimensions { width, height } } }
   },
@@ -559,6 +571,12 @@ export const independentFoodReviewFields = groq`
   seoExcerpt,
   tip,
   individualFoodRating,
+  heroPhotos[] {
+    ...,
+    caption,
+    category,
+    asset->{ _id, metadata { lqip, dimensions { width, height } } }
+  },
   gallery[] {
     ...,
     caption,
@@ -587,7 +605,7 @@ export const independentFoodReviewFields = groq`
     name,
     "slug": slug.current,
     location,
-    arenaImage {
+    "arenaImage": coalesce(arenaImage, heroPhotos[0]) {
       ...,
       asset->{ _id, metadata { lqip, dimensions { width, height } } }
     }
@@ -659,6 +677,7 @@ export interface HotelReview {
   blurbSource?: string
   blurbUrl?: string
   tip?: any[]
+  heroPhotos?: GalleryImageItem[] // Hero block (first = large), max 5
   gallery?: any[]
   youtube?: string
   hotelRating?: {
@@ -733,6 +752,7 @@ export interface FoodReview {
   seoExcerpt?: string
   tip?: any[]
   individualFoodRating?: any[]
+  heroPhotos?: GalleryImageItem[] // Hero block (first = large), max 5
   gallery?: any[]
   youtube?: string
   foodRating?: any
@@ -975,6 +995,7 @@ export interface Arena {
   slug?: string
   arenaImage?: any // SanityImageObject
   firstGalleryImage?: any // Single gallery image for listing
+  heroPhotos?: GalleryImageItem[] // Hero block (first = large), max 5
   gallery?: any[] // Full gallery for detailed pages (teams/logos)
   imageGallery?: GalleryImageItem[] // New flexible image gallery with captions
   photoGallerySection?: {
@@ -1177,7 +1198,7 @@ export const cityPageQuery = groq`{
     location,
     visited,
     excerpt,
-    arenaImage {
+    "arenaImage": coalesce(arenaImage, heroPhotos[0]) {
       ...,
       asset->{ _id, metadata { lqip, dimensions { width, height } } }
     },
@@ -1191,7 +1212,7 @@ export const cityPageQuery = groq`{
     location,
     category,
     seoExcerpt,
-    coverImage {
+    "coverImage": coalesce(coverImage, heroPhotos[0]) {
       ...,
       asset->{ _id, metadata { lqip, dimensions { width, height } } }
     },
@@ -1205,7 +1226,7 @@ export const cityPageQuery = groq`{
     location,
     diningType,
     seoExcerpt,
-    coverImage {
+    "coverImage": coalesce(coverImage, heroPhotos[0]) {
       ...,
       asset->{ _id, metadata { lqip, dimensions { width, height } } }
     }
@@ -1218,7 +1239,7 @@ export const cityPageQuery = groq`{
     location,
     category,
     summary,
-    coverImage {
+    "coverImage": coalesce(coverImage, heroPhotos[0]) {
       ...,
       asset->{ _id, metadata { lqip, dimensions { width, height } } }
     }
@@ -1281,7 +1302,7 @@ export const visitedArenasHighlightQuery = groq`
     "slug": slug.current,
     location,
     date,
-    arenaImage {
+    "arenaImage": coalesce(arenaImage, heroPhotos[0]) {
       ...,
       asset->{ _id, metadata { lqip, dimensions { width, height } } }
     },
@@ -1340,7 +1361,7 @@ export const foodReviewsByArenaQuery = groq`
     location,
     diningType,
     seoExcerpt,
-    coverImage {
+    "coverImage": coalesce(coverImage, heroPhotos[0]) {
       ...,
       asset->{ _id, metadata { lqip, dimensions { width, height } } }
     }

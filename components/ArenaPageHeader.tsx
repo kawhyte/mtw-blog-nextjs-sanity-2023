@@ -66,8 +66,8 @@ function ReviewHeader({ title, arenas, summary, animation }) {
                 if (imageObj?.asset?._id) {
                   try {
                     src = urlForImage(imageObj)
-                      .height(64)
-                      .width(64)
+                      .height(128)
+                      .width(128)
                       .fit('crop')
                       .format('webp')
                       .quality(85)
