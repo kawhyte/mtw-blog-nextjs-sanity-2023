@@ -130,7 +130,7 @@ export const heroPhotosField = (
     title: 'Hero Photos (up to 5)',
     type: 'array',
     description:
-      'The photo block at the top of the page. Drag to reorder — the FIRST photo is the large one, the next four fill the small tiles. Upload all at 2400 × 1600 px (3:2 landscape), WebP 85% or JPEG 88%. Fewer than 5 is fine; the layout adapts.',
+      'The photo block at the top of the page. Drag to reorder — the FIRST photo is the large one (and the only one shown on phones); the rest fill the tiles beside it. Photo #1 is also used for cards and share previews unless a Card & Share Image is set. Upload all at 2400 × 1600 px (3:2 landscape), WebP 85% or JPEG 88%. Up to 5; fewer is fine — the layout adapts.',
     options: { layout: 'grid' },
     of: [galleryImageItem(categoryDescription, categories, previewLabels)],
     validation: (Rule) => [
