@@ -165,7 +165,7 @@ export default defineType({
       title: 'Individual Food Rating',
       type: 'array',
       description:
-        'Rate individual dishes/drinks. Photo for each dish: 1200 × 800 px (3:2 landscape). WebP 85% or JPEG 88% quality.',
+        'Rate individual dishes/drinks. Photo for each dish: max 1600 px on the longest edge, natural shape. Cards crop to 3:2, so landscape shots fill them best (portrait loses the top and bottom — set the hotspot). WebP 85% or JPEG 88%.',
       of: [
         {
           type: 'image',

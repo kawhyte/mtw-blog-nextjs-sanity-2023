@@ -583,7 +583,7 @@ export default defineType({
       title: 'Arena Food & Drinks We Tried',
       type: 'array',
       description:
-        'Rate individual food/drink items tried at this arena (optional). Photo for each item: 1200 × 800 px (3:2 landscape). WebP 85% or JPEG 88% quality.',
+        'Rate individual food/drink items tried at this arena (optional). Photo for each item: max 1600 px on the longest edge, natural shape. Cards crop to 3:2, so landscape shots fill them best (portrait loses the top and bottom — set the hotspot). WebP 85% or JPEG 88%.',
       hidden: ({ document }) => !document?.visited,
       of: [
         {
@@ -704,7 +704,7 @@ export default defineType({
               title: 'Seat View Photos',
               type: 'array',
               description:
-                'Ideal: 1600 × 1200 px (4:3 landscape), WebP or JPEG 80–85%. The page crops every photo to 4:3 — landscape shots fill the frame perfectly. Portrait photos (phone held vertically) will lose the top and bottom; use the hotspot tool to anchor the court/key area.',
+                'Max 1600 px on the longest edge, natural shape. WebP 85% or JPEG 88%. The page crops every photo to 4:3 — landscape shots fill the frame perfectly. Portrait photos (phone held vertically) will lose the top and bottom; use the hotspot tool to anchor the court/key area.',
               of: [
                 {
                   type: 'image',
