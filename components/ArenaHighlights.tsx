@@ -39,8 +39,8 @@ export default function ArenaHighlights({ arenas }: ArenaHighlightsProps) {
                   {hasImage ? (
                     <SanityImage
                       image={arena.arenaImage}
-                      width={96}
-                      height={96}
+                      width={240}
+                      height={320}
                       alt={arena.name || 'NBA Arena'}
                       className="h-full w-full object-cover object-center brightness-[0.9]"
                       sizes="96px"
@@ -85,8 +85,8 @@ export default function ArenaHighlights({ arenas }: ArenaHighlightsProps) {
                   {hasImage ? (
                     <SanityImage
                       image={arena.arenaImage}
-                      width={400}
-                      height={192}
+                      width={800}
+                      height={420}
                       alt={arena.name || 'NBA Arena'}
                       className="h-48 w-full object-cover object-center brightness-[0.85]"
                       sizes="(max-width: 1024px) 50vw, 33vw"

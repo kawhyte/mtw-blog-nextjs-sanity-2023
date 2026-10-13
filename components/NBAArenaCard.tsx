@@ -77,8 +77,8 @@ const Arenas = React.memo(
             {hasImage ? (
               <SanityImage
                 image={arenaImageSrc}
-                width={96}
-                height={96}
+                width={240}
+                height={320}
                 alt={alt}
                 className="h-full w-full object-cover object-center brightness-[0.9]"
                 sizes="96px"
@@ -200,8 +200,8 @@ const Arenas = React.memo(
             {hasImage ? (
               <SanityImage
                 image={arenaImageSrc}
-                width={320}
-                height={200}
+                width={800}
+                height={500}
                 className="w-full object-cover object-center brightness-[0.85]"
                 alt={alt}
                 loading={priority ? 'eager' : 'lazy'}

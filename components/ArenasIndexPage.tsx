@@ -49,8 +49,8 @@ const ArenasIndexPage = ({ arenas }) => {
                           src={
                             item.gallery[0]?.asset?._ref
                               ? urlForImage(item.gallery[0])
-                                  .height(90)
-                                  .width(90)
+                                  .height(112)
+                                  .width(112)
                                   .fit('crop')
                                   .url()
                               : ''

@@ -5,6 +5,7 @@ import { AltTextGeneratorInput } from '../plugins/AltTextGeneratorInput'
 import { SeoExcerptGeneratorInput } from '../plugins/SeoExcerptGeneratorInput'
 import {
   galleryField,
+  heroPhotosField,
   negativesField,
   positivesField,
   verdictField,
@@ -14,6 +15,29 @@ import {
  * This is the schema definition for a hotel review.
  * Independent from the complex post document type.
  */
+
+// Shared by heroPhotos and gallery so both offer the same photo categories
+const GALLERY_ARGS: Parameters<typeof galleryField> = [
+  "Choose a category — Bedroom: bed, pillows, sleeping area. Bathroom: shower, tub, vanity. Living Area: sofa, desk, sitting space. Kitchen / Coffee Station: coffee maker, mini fridge, kitchenette. View from the Room: cityscape, scenery, or balcony shot as seen from inside the room. Pool & Fitness: gym equipment, pool area. Additional Photos: anything that doesn't fit above.",
+  [
+    { title: 'Bedroom', value: 'bedroom' },
+    { title: 'Bathroom', value: 'bathroom' },
+    { title: 'Living Area', value: 'living-area' },
+    { title: 'Kitchen / Coffee Station', value: 'kitchen-coffee' },
+    { title: 'View from the Room', value: 'view' },
+    { title: 'Pool & Fitness', value: 'pool-fitness' },
+    { title: 'Additional Photos', value: 'other' },
+  ],
+  {
+    bedroom: 'Bedroom',
+    bathroom: 'Bathroom',
+    'living-area': 'Living Area',
+    'kitchen-coffee': 'Kitchen / Coffee Station',
+    view: 'View',
+    'pool-fitness': 'Pool & Fitness',
+    other: 'Additional Photos',
+  },
+]
 
 export default defineType({
   name: 'hotelReview',
@@ -104,10 +128,10 @@ export default defineType({
 
     defineField({
       name: 'coverImage',
-      title: 'Main Image',
+      title: 'Card & Share Image',
       type: 'image',
       description:
-        'Main image — used on listing cards and the hero gallery. Upload at 1200 × 800 px (3:2 landscape). WebP 80% or JPEG 85% quality.',
+        'Used on listing cards and when the page is shared. Optional — leave empty to use Hero Photo #1. Upload at 2400 × 1600 px (3:2 landscape), WebP 85% or JPEG 88%.',
       options: {
         hotspot: true,
       },
@@ -121,6 +145,8 @@ export default defineType({
         }),
       ],
     }),
+
+    heroPhotosField(...GALLERY_ARGS),
 
     defineField({
       name: 'excerpt2',
@@ -170,27 +196,7 @@ export default defineType({
       of: [{ type: 'block' }],
     }),
 
-    galleryField(
-      "Choose a category — Bedroom: bed, pillows, sleeping area. Bathroom: shower, tub, vanity. Living Area: sofa, desk, sitting space. Kitchen / Coffee Station: coffee maker, mini fridge, kitchenette. View from the Room: cityscape, scenery, or balcony shot as seen from inside the room. Pool & Fitness: gym equipment, pool area. Additional Photos: anything that doesn't fit above.",
-      [
-        { title: 'Bedroom', value: 'bedroom' },
-        { title: 'Bathroom', value: 'bathroom' },
-        { title: 'Living Area', value: 'living-area' },
-        { title: 'Kitchen / Coffee Station', value: 'kitchen-coffee' },
-        { title: 'View from the Room', value: 'view' },
-        { title: 'Pool & Fitness', value: 'pool-fitness' },
-        { title: 'Additional Photos', value: 'other' },
-      ],
-      {
-        bedroom: 'Bedroom',
-        bathroom: 'Bathroom',
-        'living-area': 'Living Area',
-        'kitchen-coffee': 'Kitchen / Coffee Station',
-        view: 'View',
-        'pool-fitness': 'Pool & Fitness',
-        other: 'Additional Photos',
-      },
-    ),
+    galleryField(...GALLERY_ARGS),
 
     defineField({
       name: 'youtube',
@@ -581,17 +587,18 @@ export default defineType({
       title: 'title',
       date: 'date',
       media: 'coverImage',
+      heroMedia: 'heroPhotos.0',
       location: 'location',
       category: 'category',
     },
-    prepare({ title, media, date, location, category }) {
+    prepare({ title, media, heroMedia, date, location, category }) {
       const subtitles = [
         location && `📍 ${location}`,
         category && `🏨 ${category}`,
         date && `📅 ${format(parseISO(date), 'LLL d, yyyy')}`,
       ].filter(Boolean)
 
-      return { title, media, subtitle: subtitles.join(' • ') }
+      return { title, media: media || heroMedia, subtitle: subtitles.join(' • ') }
     },
   },
 

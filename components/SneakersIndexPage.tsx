@@ -47,8 +47,8 @@ const SneakersIndexPage = ({ arenas }) => {
                       src={
                         item.gallery[0]?.asset?._ref
                           ? urlForImage(item.gallery[0])
-                              .height(96)
-                              .width(96)
+                              .height(128)
+                              .width(128)
                               .fit('crop')
                               .url()
                           : ''

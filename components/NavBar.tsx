@@ -145,6 +145,7 @@ export default function Nav({ color = 'bg-black', bgColor }) {
                       <Image
                         className="rounded-xl"
                         src="/icon/icon.jpg"
+                        unoptimized
                         alt="MTW icon"
                         width={45}
                         height={45}

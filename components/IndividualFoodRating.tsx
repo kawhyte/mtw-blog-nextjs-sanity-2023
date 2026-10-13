@@ -157,8 +157,8 @@ const IndividualFoodRating = ({ food }) => {
                 <div className="relative aspect-[3/2] w-full">
                   <Image
                     src={urlForImage(item)
-                      .width(1800)
-                      .height(1200)
+                      .width(1200)
+                      .height(800)
                       .quality(75)
                       .fit('crop')
                       .url()}

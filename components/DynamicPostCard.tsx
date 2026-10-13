@@ -184,8 +184,8 @@ const DynamicPostCard = ({
           {hasImage ? (
             <SanityImage
               image={coverImage}
-              width={96}
-              height={96}
+              width={240}
+              height={320}
               alt={title}
               className="h-full w-full object-cover"
               sizes="96px"

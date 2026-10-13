@@ -23,7 +23,9 @@ interface SanityImageProps extends Omit<
   'src' | 'blurDataURL' | 'placeholder'
 > {
   image: SanityImageObject
+  /** Max width for this slot — the loader serves smaller srcset widths per `sizes`. */
   width?: number
+  /** With `width`, crops to width:height (respecting the Studio hotspot). */
   height?: number
   quality?: number
 }
@@ -47,10 +49,18 @@ export default function SanityImage({
   let builder = urlForImage(image).quality(quality)
   if (width) builder = builder.width(width)
   if (height) builder = builder.height(height)
+  // Both dimensions = a fixed-shape slot: crop to fill it instead of fitting
+  // inside the box (fit=max), which left landscape photos too short and blurry
+  // once object-cover stretched them.
+  if (width && height) builder = builder.fit('crop')
 
   const src = builder.url()
   const intrinsicW = width ?? dims?.width ?? 800
-  const intrinsicH = height ?? dims?.height ?? 600
+  const intrinsicH =
+    height ??
+    (width && dims ? Math.round((width * dims.height) / dims.width) : undefined) ??
+    dims?.height ??
+    600
 
   return (
     <Image

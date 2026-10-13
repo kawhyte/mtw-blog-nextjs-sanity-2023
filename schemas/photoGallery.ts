@@ -33,7 +33,7 @@ export default defineType({
       title: 'Main Gallery Image',
       type: 'image',
       description:
-        'The primary, large image for the gallery display. Recommended size: 732x480 pixels.',
+        'The primary, large image for the gallery display. Upload at 2400 × 1600 px (3:2 landscape).',
       options: {
         hotspot: true,
       },
@@ -61,12 +61,12 @@ export default defineType({
       title: 'Other Gallery Images (Exactly 4)',
       type: 'array',
       description:
-        'REQUIRED: The four smaller images for the gallery display. Add exactly four. Recommended size for each: 362x236 pixels.',
+        'REQUIRED: The four smaller images for the gallery display. Add exactly four. Upload each at 2400 × 1600 px (3:2 landscape).',
       of: [
         {
           type: 'image',
           title: 'Gallery Image',
-          description: 'Recommended size: 362x236 pixels.',
+          description: 'Upload at 2400 × 1600 px (3:2 landscape).',
           options: {
             hotspot: true,
           },

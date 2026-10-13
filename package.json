@@ -2,7 +2,8 @@
   "private": true,
   "scripts": {
     "build": "next build",
-    "dev": "next",
+    "dev": "next dev --turbopack",
+    "dev:webpack": "next dev",
     "format": "npx prettier --write . --ignore-path .gitignore --cache",
     "lint": "next lint",
     "lint:fix": "npm run format && npm run lint",
@@ -19,6 +20,8 @@
     "backup-food": "node scripts/backupFoodReviews.mjs",
     "migrate-food": "node scripts/migrateFoodReviewsToNewSchema.mjs",
     "migrate-food:live": "node scripts/migrateFoodReviewsToNewSchema.mjs --no-dry-run",
+    "migrate-hero-photos": "node scripts/migrateHeroPhotos.mjs",
+    "migrate-hero-photos:live": "node scripts/migrateHeroPhotos.mjs --live",
     "check-doc-size": "node scripts/checkDocumentSize.mjs",
     "check-andaz": "node scripts/checkAndazSingaporeHotel.mjs",
     "fix-arena-teams": "node scripts/fix-arena-team-names.mjs",

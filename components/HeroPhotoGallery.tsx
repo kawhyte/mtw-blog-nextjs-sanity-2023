@@ -39,6 +39,24 @@ const FadeImage = ({
   )
 }
 
+/**
+ * Shape of each small tile in the right half (550px tall), by how many there are:
+ * 1 → one tall tile · 2 → two wide rows · 3 → wide top + two below · 4 → 2×2.
+ */
+const smallTileSpec = (count: number, index: number) => {
+  if (count === 1)
+    return { className: '', width: 2000, height: 1500, sizes: '50vw' }
+  const wide = count === 2 || (count === 3 && index === 0)
+  return wide
+    ? {
+        className: count === 3 ? 'col-span-2' : '',
+        width: 1600,
+        height: 730,
+        sizes: '50vw',
+      }
+    : { className: '', width: 1200, height: 900, sizes: '25vw' }
+}
+
 export default function HeroPhotoGallery({
   images,
   onShowAllPhotos,
@@ -57,10 +75,14 @@ export default function HeroPhotoGallery({
         <FadeImage
           image={mainImage}
           src={
-            urlForImage(mainImage)?.width(1600).height(1200).quality(75).fit('crop').url() ||
-            ''
+            urlForImage(mainImage)
+              ?.width(1600)
+              .height(1200)
+              .quality(75)
+              .fit('crop')
+              .url() || ''
           }
-          alt={mainImage.alt || 'Main hotel image'}
+          alt={mainImage.alt || 'Main photo'}
           fill
           sizes="100vw"
           className="rounded-xl object-cover"
@@ -68,50 +90,60 @@ export default function HeroPhotoGallery({
         />
       </div>
 
-      {/* Desktop: Grid layout */}
-      <div className="hidden md:grid grid-cols-2 gap-2">
-        {/* Main Image */}
-        <div className="relative h-[550px]">
+      {/* Desktop: 1 large photo + up to 4 small tiles; layout adapts to how many there are */}
+      <div
+        className={`hidden md:grid h-[550px] gap-2 overflow-hidden rounded-xl ${otherImages.length > 0 ? 'grid-cols-2' : 'grid-cols-1'}`}
+      >
+        <div className="relative">
           <FadeImage
             image={mainImage}
             src={
               urlForImage(mainImage)
-                ?.width(2400)
-                .height(1600)
+                ?.width(otherImages.length > 0 ? 2000 : 2400)
+                .height(otherImages.length > 0 ? 1500 : 1100)
                 .quality(75)
                 .fit('crop')
                 .url() || ''
             }
-            alt={mainImage.alt || 'Main hotel image'}
+            alt={mainImage.alt || 'Main photo'}
             fill
-            sizes="(min-width: 768px) 50vw, 100vw"
-            className="rounded-l-xl object-cover"
+            sizes={otherImages.length > 0 ? '50vw' : '100vw'}
+            className="object-cover"
             priority={true}
           />
         </div>
 
-        {/* Other Images */}
-        <div className="h-[550px] grid grid-cols-2 gap-2">
-          {otherImages.map((image, index) => (
-            <div key={index} className="relative">
-              <FadeImage
-                image={image}
-                src={
-                  urlForImage(image)
-                    ?.width(1200)
-                    .height(800)
-                    .quality(75)
-                    .fit('crop')
-                    .url() || ''
-                }
-                alt={image.alt || `Hotel image ${index + 2}`}
-                fill
-                sizes="(min-width: 768px) 25vw, 100vw"
-                className={`${index === 1 ? 'rounded-tr-xl' : ''} ${index === 3 ? 'rounded-br-xl' : ''} object-cover`}
-              />
-            </div>
-          ))}
-        </div>
+        {otherImages.length > 0 && (
+          <div
+            className={`grid gap-2 ${otherImages.length >= 3 ? 'grid-cols-2' : 'grid-cols-1'} ${otherImages.length >= 2 ? 'grid-rows-2' : ''}`}
+          >
+            {otherImages.map((image, index) => {
+              const tile = smallTileSpec(otherImages.length, index)
+              return (
+                <div
+                  key={image._key ?? index}
+                  className={`relative ${tile.className}`}
+                >
+                  <FadeImage
+                    image={image}
+                    src={
+                      urlForImage(image)
+                        ?.width(tile.width)
+                        .height(tile.height)
+                        .quality(75)
+                        .fit('crop')
+                        .url() || ''
+                    }
+                    alt={image.alt || `Photo ${index + 2}`}
+                    fill
+                    sizes={tile.sizes}
+                    className="object-cover"
+                  />
+                </div>
+              )
+            })}
+          </div>
+        )}
       </div>
 
       {/* Show all photos button */}

@@ -198,6 +198,7 @@ export default function GuidePage({
                 alt={`${guide.title} - Travel Guide cover image`}
                 width={1200}
                 height={630}
+                sizes="(max-width: 1100px) 100vw, 1040px"
                 priority
                 placeholder={coverLqip ? 'blur' : 'empty'}
                 blurDataURL={coverLqip}

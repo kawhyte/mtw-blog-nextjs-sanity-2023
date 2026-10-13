@@ -19,7 +19,7 @@ export default async function handler(
             _type,
             title,
             slug,
-            coverImage,
+            "coverImage": coalesce(coverImage, heroPhotos[0]),
             date,
             location,
             category,
@@ -35,7 +35,7 @@ export default async function handler(
             _type,
             title,
             slug,
-            coverImage,
+            "coverImage": coalesce(coverImage, heroPhotos[0]),
             date,
             location,
             diningType,
@@ -52,7 +52,7 @@ export default async function handler(
             _type,
             title,
             slug,
-            coverImage,
+            "coverImage": coalesce(coverImage, heroPhotos[0]),
             date,
             category
           }
@@ -70,13 +70,13 @@ export default async function handler(
         // Fetch all content types together (excluding legacy posts)
         const [hotelReviews, foodReviews, guides] = await Promise.all([
           sanityClient.fetch(`*[_type == "hotelReview"] | order(_createdAt desc) [${start}...${+start + +limit}] {
-            _id, _type, title, slug, coverImage, date, location, category, hotelRating
+            _id, _type, title, slug, "coverImage": coalesce(coverImage, heroPhotos[0]), date, location, category, hotelRating
           }`),
           sanityClient.fetch(`*[_type == "foodReview"] | order(_createdAt desc) [${start}...${+start + +limit}] {
-            _id, _type, title, slug, coverImage, date, location, diningType, foodRating, takeoutRating
+            _id, _type, title, slug, "coverImage": coalesce(coverImage, heroPhotos[0]), date, location, diningType, foodRating, takeoutRating
           }`),
           sanityClient.fetch(`*[_type == "guide"] | order(_createdAt desc) [${start}...${+start + +limit}] {
-            _id, _type, title, slug, coverImage, date, category
+            _id, _type, title, slug, "coverImage": coalesce(coverImage, heroPhotos[0]), date, category
           }`),
         ])
 

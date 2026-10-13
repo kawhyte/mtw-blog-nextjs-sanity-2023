@@ -6,6 +6,7 @@ import { CaptionGeneratorInput } from '../plugins/CaptionGeneratorInput'
 import { GameDataFetcherInput } from '../plugins/GameDataFetcherInput'
 import { SeoExcerptGeneratorInput } from '../plugins/SeoExcerptGeneratorInput'
 import { VerdictGeneratorInput } from '../plugins/VerdictGeneratorInput'
+import { heroPhotosField } from './sharedReviewFields'
 import { getPortableTextLength } from './utils'
 
 // Regex to validate common YouTube or Instagram video/reel/post URLs
@@ -77,9 +78,9 @@ export default defineType({
     // --- Images & Galleries ---
     defineField({
       name: 'arenaImage', // Main image for cards/lists
-      title: 'Arena Image (Card/List View)',
+      title: 'Card & Share Image',
       type: 'image',
-      description: 'Main arena image — used on listing cards and as the hero. Upload at 1200 × 800 px (3:2 landscape). WebP 80% or JPEG 85% quality.',
+      description: 'Used on arena cards and when the page is shared. Optional — leave empty to use Hero Photo #1. Upload at 2400 × 1600 px (3:2 landscape), WebP 85% or JPEG 88%.',
       options: { hotspot: true },
       fields: [
         defineField({
@@ -94,13 +95,36 @@ export default defineType({
       ],
       // validation: (Rule) => Rule.required(), // Consider if required
     }),
+    heroPhotosField(
+      "Choose a category — Seating & Game Floor: court, baskets, view from your seat. Concessions & Food: food stalls, menu boards, food shots. Exterior: outside the building, signage, plaza. Entrances & Lobby: inside entrance, hallways, common areas. Additional Photos: anything that doesn't fit above.",
+      [
+        { title: 'Seating & Game Floor', value: 'court' },
+        { title: 'Concessions & Food', value: 'concessions' },
+        { title: 'Exterior', value: 'exterior' },
+        { title: 'Entrances & Lobby', value: 'lobby' },
+        { title: 'Additional Photos', value: 'other' },
+      ],
+      {
+        court: 'Court & Game Floor',
+        seating: 'Seating & Views',
+        concessions: 'Concessions & Food',
+        exterior: 'Exterior',
+        lobby: 'Entrances & Lobby',
+        'game-atmosphere': 'Game Atmosphere',
+        other: 'Additional Photos',
+      },
+    ),
+    // Legacy 1+4 block, superseded by heroPhotos. Kept read-only so existing
+    // photos stay in the dataset and visible until heroPhotos is filled in.
     defineField({
-      name: 'photoGallerySection', // Main Photo Gallery (1+4 layout)
-      title: 'Arena Photo Gallery (1 Main + 4 Others)',
+      name: 'photoGallerySection',
+      title: 'Legacy Hero Gallery (replaced by Hero Photos)',
       type: 'photoGallery', // References 'photoGallery' object schema
       description:
-        'Add the main photo and exactly four supporting photos for the detailed arena page gallery. Upload each at 1600 × 1067 px (3:2 landscape). WebP 80% or JPEG 85% quality.',
-      // validation: Rule => Rule.required() // Uncomment if required
+        'Read-only backup of the old 1 main + 4 layout. Its photos were copied into Hero Photos above — edit those instead.',
+      readOnly: true,
+      hidden: ({ document }) =>
+        Array.isArray(document?.heroPhotos) && document.heroPhotos.length > 0,
     }),
 
     // --- NEW Image Gallery Field ---
@@ -108,7 +132,7 @@ export default defineType({
       name: 'imageGallery', // New field name
       title: 'Image Gallery',
       description:
-        'Upload multiple arena photos (interior, exterior, food, views, etc.). Max 1600 px on longest edge, any aspect ratio. WebP 80% or JPEG 85% quality. Add alt text for each.',
+        'All other arena photos, shown in "Show all photos" after the hero photos. Upload multiple arena photos (interior, exterior, food, views, etc.). Max 1600 px on the longest edge, any aspect ratio. WebP 85% or JPEG 88% quality. Add alt text for each.',
       type: 'array',
       icon: ImagesIcon, // Add a relevant icon
       hidden: ({ document }) => !document?.visited, // Hide if not visited
@@ -547,7 +571,7 @@ export default defineType({
       title: 'Arena Food & Drinks We Tried',
       type: 'array',
       description:
-        'Rate individual food/drink items tried at this arena (optional). Photo for each item: 900 × 600 px (3:2 landscape). WebP 75% or JPEG 80% quality.',
+        'Rate individual food/drink items tried at this arena (optional). Photo for each item: 1200 × 800 px (3:2 landscape). WebP 85% or JPEG 88% quality.',
       hidden: ({ document }) => !document?.visited,
       of: [
         {
@@ -907,16 +931,18 @@ export default defineType({
       title: 'name',
       location: 'location',
       visited: 'visited',
-      media: 'photoGallerySection.mainImage', // Use the specific gallery main image
-      fallbackMedia: 'arenaImage', // Fallback to the card image
+      media: 'arenaImage', // Card image
+      heroMedia: 'heroPhotos.0', // Falls back to hero photo #1
+      fallbackMedia: 'photoGallerySection.mainImage', // Legacy hero
     },
     prepare(selection) {
-      const { title, location, visited, media, fallbackMedia } = selection
+      const { title, location, visited, media, heroMedia, fallbackMedia } =
+        selection
       const status = visited ? '✅ Visited' : '❌ Not Visited'
       return {
         title: title,
         subtitle: `${location} (${status})`,
-        media: media || fallbackMedia,
+        media: media || heroMedia || fallbackMedia,
       }
     },
   }, // --- End Preview ---

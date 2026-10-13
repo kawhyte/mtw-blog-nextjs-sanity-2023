@@ -269,18 +269,19 @@ export default function ArenaPage({
     : []
 
   const imageGalleryImages = arena.imageGallery || []
-  const allGalleryImages = [...photoGalleryImages, ...imageGalleryImages]
+  const hasHeroPhotos = (arena.heroPhotos?.length ?? 0) > 0
+  // heroPhotos replaces the legacy photoGallerySection; without it, keep the old
+  // layout. `arena.gallery` is team logos, so it's never used as photos.
+  const allGalleryImages = hasHeroPhotos
+    ? imageGalleryImages
+    : [...photoGalleryImages, ...imageGalleryImages]
   const rawGalleryImages =
-    allGalleryImages.length > 0
+    allGalleryImages.length > 0 || hasHeroPhotos
       ? allGalleryImages
-      : arena.arenaImage
-        ? [arena.arenaImage, ...(arena.gallery || [])].filter(Boolean)
-        : []
+      : [arena.arenaImage].filter(Boolean)
 
-  const { galleryImages, isOpen, openModal, closeModal } = usePhotoGallery(
-    rawGalleryImages[0],
-    rawGalleryImages.slice(1),
-  )
+  const { heroImages, galleryImages, isOpen, openModal, closeModal } =
+    usePhotoGallery(arena.heroPhotos, rawGalleryImages)
 
   // --- Rating calculations ---
   // Accumulate all revisit updates on top of the base rating
@@ -489,7 +490,7 @@ export default function ArenaPage({
           {/* 1. HERO PHOTO GALLERY */}
           {galleryImages.length > 0 && (
             <HeroPhotoGallery
-              images={galleryImages}
+              images={heroImages}
               onShowAllPhotos={openModal}
             />
           )}

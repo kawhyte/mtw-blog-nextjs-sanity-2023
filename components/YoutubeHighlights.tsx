@@ -228,6 +228,7 @@ function ShortCard({ video }: { video: YoutubeVideo }) {
           {video.thumbnail ? (
             <Image
               src={video.thumbnail}
+              unoptimized
               alt={video.title || 'YouTube Short'}
               fill
               className="object-cover transition-transform duration-300 group-hover:scale-105"
@@ -286,6 +287,7 @@ function VideoCard({ video }: { video: DisplayVideo }) {
           {video.thumbnail ? (
             <Image
               src={video.thumbnail}
+              unoptimized
               alt={video.title || 'YouTube video'}
               fill
               className="object-cover transition-transform duration-300 group-hover:scale-105"
