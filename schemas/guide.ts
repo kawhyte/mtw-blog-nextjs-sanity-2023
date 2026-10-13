@@ -51,7 +51,7 @@ export default defineType({
       title: 'Main Image',
       type: 'image',
       description:
-        'Main image — used on listing cards and the guide hero. Upload at 2400 × 1260 px (~1.9:1 landscape). WebP 85% or JPEG 88% quality.',
+        'Main image — used on listing cards and the guide hero. Upload at 2400 × 1600 px (3:2 landscape) — keep the subject centred, the guide banner trims a little off the top and bottom. WebP 85% or JPEG 88% quality.',
       options: {
         hotspot: true,
       },
