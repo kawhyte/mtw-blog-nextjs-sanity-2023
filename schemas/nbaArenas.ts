@@ -23,6 +23,15 @@ export default defineType({
     visited: false,
   },
 
+  // Optional override, collapsed by default — cards and share previews use
+  // Hero Photo #1 when it's empty.
+  fieldsets: [
+    {
+      name: 'cardImage',
+      title: 'Card & Share Image (optional)',
+      options: { collapsible: true, collapsed: true },
+    },
+  ],
   fields: [
     // --- Basic Info ---
     defineField({
@@ -76,25 +85,6 @@ export default defineType({
     }),
 
     // --- Images & Galleries ---
-    defineField({
-      name: 'arenaImage', // Main image for cards/lists
-      title: 'Card & Share Image',
-      type: 'image',
-      description: 'Used on arena cards and when the page is shared. Optional — leave empty to use Hero Photo #1. Upload at 2400 × 1600 px (3:2 landscape), WebP 85% or JPEG 88%.',
-      options: { hotspot: true },
-      fields: [
-        defineField({
-          name: 'alt',
-          title: 'Alternative Text',
-          type: 'string',
-          description: 'REQUIRED: Describe the image.',
-          // validation: (Rule) => Rule.required().error('Alt text is required.'),
-          // options: { isHighlighted: true } // Removed previously
-          components: { input: AltTextGeneratorInput },
-        }),
-      ],
-      // validation: (Rule) => Rule.required(), // Consider if required
-    }),
     heroPhotosField(
       "Choose a category — Seating & Game Floor: court, baskets, view from your seat. Concessions & Food: food stalls, menu boards, food shots. Exterior: outside the building, signage, plaza. Entrances & Lobby: inside entrance, hallways, common areas. Additional Photos: anything that doesn't fit above.",
       [
@@ -114,6 +104,28 @@ export default defineType({
         other: 'Additional Photos',
       },
     ),
+
+    defineField({
+      name: 'arenaImage', // Card & share image (falls back to heroPhotos[0])
+      fieldset: 'cardImage',
+      title: 'Card & Share Image',
+      type: 'image',
+      description: 'Used on arena cards and when the page is shared. Optional — leave empty to use Hero Photo #1. Upload at 2400 × 1600 px (3:2 landscape), WebP 85% or JPEG 88%.',
+      options: { hotspot: true },
+      fields: [
+        defineField({
+          name: 'alt',
+          title: 'Alternative Text',
+          type: 'string',
+          description: 'REQUIRED: Describe the image.',
+          // validation: (Rule) => Rule.required().error('Alt text is required.'),
+          // options: { isHighlighted: true } // Removed previously
+          components: { input: AltTextGeneratorInput },
+        }),
+      ],
+      // validation: (Rule) => Rule.required(), // Consider if required
+    }),
+
     // Legacy 1+4 block, superseded by heroPhotos. Kept read-only so existing
     // photos stay in the dataset and visible until heroPhotos is filled in.
     defineField({

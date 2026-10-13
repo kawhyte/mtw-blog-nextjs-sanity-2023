@@ -45,6 +45,15 @@ export default defineType({
   icon: HomeIcon,
   type: 'document',
 
+  // Optional override, collapsed by default — cards and share previews use
+  // Hero Photo #1 when it's empty.
+  fieldsets: [
+    {
+      name: 'cardImage',
+      title: 'Card & Share Image (optional)',
+      options: { collapsible: true, collapsed: true },
+    },
+  ],
   fields: [
     defineField({
       name: 'title',
@@ -126,8 +135,11 @@ export default defineType({
       initialValue: 'No',
     }),
 
+    heroPhotosField(...GALLERY_ARGS),
+
     defineField({
       name: 'coverImage',
+      fieldset: 'cardImage',
       title: 'Card & Share Image',
       type: 'image',
       description:
@@ -145,8 +157,6 @@ export default defineType({
         }),
       ],
     }),
-
-    heroPhotosField(...GALLERY_ARGS),
 
     defineField({
       name: 'excerpt2',
