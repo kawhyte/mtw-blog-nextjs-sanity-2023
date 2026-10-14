@@ -150,7 +150,7 @@ function GameCard({ game, team }: { game: any; team: any }) {
         <div className="flex items-center gap-2">
           {team.asset ? (
             <Image
-              src={urlForImage(team.asset)
+              src={urlForImage(team)
                 .width(44)
                 .height(44)
                 .fit('crop')
@@ -536,7 +536,7 @@ export default function ArenaPage({
                           <div className="flex items-center gap-3 p-4">
                             {team.asset && (
                               <Image
-                                src={urlForImage(team.asset)
+                                src={urlForImage(team)
                                   .width(96)
                                   .height(96)
                                   .fit('crop')
@@ -644,7 +644,7 @@ export default function ArenaPage({
                       >
                         {team.asset && (
                           <Image
-                            src={urlForImage(team.asset)
+                            src={urlForImage(team)
                               .width(64)
                               .height(64)
                               .fit('crop')
