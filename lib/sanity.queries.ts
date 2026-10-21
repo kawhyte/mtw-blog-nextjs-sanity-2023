@@ -1229,6 +1229,23 @@ export interface Instagram {
 }
 
 // --- City hub pages ---
+// Lean list of every published hotel for the /hotels page (cards only; the
+// score is computed at build time in lib/hotelListing.ts). No LQIP blobs.
+export const hotelListingQuery = groq`
+  *[_type == "hotelReview" && (!defined(publishedAt) || publishedAt <= now())] | order(date desc) {
+    _id,
+    title,
+    "slug": slug.current,
+    location,
+    category,
+    date,
+    "coverImage": coalesce(coverImage, heroPhotos[0]) { asset, hotspot, crop },
+    hotelRating,
+    internetSpeed,
+    revisits[] { visitDate, ratingUpdates }
+  }
+`
+
 // Arenas whose location matches a review's city (e.g. "Las Vegas, NV"),
 // for the "Going to a game?" box on review pages
 export const arenasInLocationQuery = groq`

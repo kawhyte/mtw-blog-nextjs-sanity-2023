@@ -329,6 +329,14 @@
   font-family: var(--font-heading);
 }
 
+/* Horizontal scrollers (swipe rows, tab strips) without a visible scrollbar */
+@utility scrollbar-hide {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 /* Arena quest hero: count-up number + progress bar fill on page load.
    Pure CSS (a registered integer + counter, and a transform), so there's no
    JS, no hydration flicker and no layout work — cheap on phones. Browsers

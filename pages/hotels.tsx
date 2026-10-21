@@ -1,25 +1,17 @@
-import HotelReviewsPage from 'components/HotelReviewsPage' // The component that will eventually display posts + pagination logic
+import BlogHeader from 'components/BlogHeader'
+import Layout from 'components/BlogLayout'
+import CategoryPageHead from 'components/CategoryPageHead'
+import Footer from 'components/Footer'
+import HotelsBrowse from 'components/hotels/HotelsBrowse'
 import PreviewIndexPage from 'components/PreviewIndexPage'
-// --- Import the actual functions from your updated sanity client ---
-import {
-  getAllHotelReviews, // Independent hotel review function
-  getHotelReviewsTotalCount, // Independent hotel review count function
-  getPaginatedHotelReviews, // Independent hotel review pagination function
-  getSettings,
-} from 'lib/sanity.client'
+import type { HotelListingItem } from 'lib/hotelListing'
+import { getHotelListing, getSettings } from 'lib/sanity.client'
 import PreviewProvider from 'lib/sanity.preview'
-// Import HotelReview type for independent schema
-import { HotelReview, Settings } from 'lib/sanity.queries'
+import { Settings } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
 
-// Define how many items to show per page
-const ITEMS_PER_PAGE = 12 // Or your desired number
-
-// --- Updated PageProps ---
-// Use HotelReview[] for independent schema
 interface PageProps {
-  initialPosts: HotelReview[] // Use HotelReview type for independent schema
-  totalPostsCount: number
+  hotels: HotelListingItem[]
   settings: Settings
   preview: boolean
   token: string | null
@@ -34,7 +26,7 @@ interface PreviewData {
 }
 
 export default function Page(props: PageProps) {
-  const { initialPosts, totalPostsCount, settings, preview, token } = props
+  const { hotels, settings, preview, token } = props
 
   if (preview) {
     return (
@@ -44,20 +36,25 @@ export default function Page(props: PageProps) {
     )
   }
 
-  // --- Render the standard page ---
-  // Pass props down - Ensure HotelReviewsPage accepts Hotel[]
   return (
-    <HotelReviewsPage
-      key="hotels-page"
-      initialPosts={initialPosts}
-      totalPostsCount={totalPostsCount}
-      itemsPerPage={ITEMS_PER_PAGE}
-      settings={settings}
-    />
+    <>
+      <CategoryPageHead
+        settings={settings}
+        categoryType="hotels"
+        totalCount={hotels.length}
+        topItems={hotels
+          .slice(0, 10)
+          .map((h) => ({ name: h.title, url: `/hotel/${h.slug}` }))}
+      />
+      <Layout preview={false} loading={false}>
+        <BlogHeader level={1} />
+        <HotelsBrowse hotels={hotels} />
+        <Footer />
+      </Layout>
+    </>
   )
 }
 
-// --- Updated getStaticProps ---
 export const getStaticProps: GetStaticProps<
   PageProps,
   Query,
@@ -65,39 +62,20 @@ export const getStaticProps: GetStaticProps<
 > = async (ctx) => {
   const { preview = false, previewData = {} } = ctx
 
-  // Fetch settings concurrently
-  const settingsPromise = getSettings()
-
-  // Update type hint to match return type of fetch functions
-  let postsPromise: Promise<HotelReview[]>
-  let totalCountPromise: Promise<number>
-
-  if (preview) {
-    // Preview mode: fetch all hotel reviews
-    postsPromise = getAllHotelReviews() // Use independent function
-    totalCountPromise = getHotelReviewsTotalCount() // Use independent function
-  } else {
-    // Production mode: fetch first page and total count
-    totalCountPromise = getHotelReviewsTotalCount() // Use independent function
-    postsPromise = getPaginatedHotelReviews(0, ITEMS_PER_PAGE) // Use independent function
-  }
-
-  // Resolve all promises
-  // Add type assertion or ensure compatibility if needed, default values handle null/undefined fetch results
-  const [settings, initialPosts = [], totalPostsCount = 0] = await Promise.all([
-    settingsPromise,
-    postsPromise,
-    totalCountPromise,
+  // Every hotel as a lean card (scores computed at build time), so the rows,
+  // tabs and grid all filter on the client with no further requests.
+  const [settings, hotels] = await Promise.all([
+    getSettings(),
+    getHotelListing(),
   ])
 
   return {
     props: {
-      initialPosts, // Pass the first page (or all in preview)
-      totalPostsCount, // Pass the total count
+      hotels,
       settings,
       preview,
       token: previewData.token ?? null,
     },
-    revalidate: 60, // Or your desired revalidation time
+    revalidate: 60,
   }
 }
