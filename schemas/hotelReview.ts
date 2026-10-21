@@ -4,6 +4,7 @@ import { defineField, defineType } from 'sanity'
 
 import { AltTextGeneratorInput } from '../plugins/AltTextGeneratorInput'
 import { SeoExcerptGeneratorInput } from '../plugins/SeoExcerptGeneratorInput'
+import { VerdictHeadlineGeneratorInput } from '../plugins/VerdictHeadlineGeneratorInput'
 import {
   galleryField,
   heroPhotosField,
@@ -191,6 +192,7 @@ export default defineType({
         'One punchy sentence shown under the photos as "Our take", e.g. "A 5-star stay at a 5-star brand — and we\'ll definitely be back." If left blank, the SEO excerpt is shown there instead.',
       validation: (Rule) =>
         Rule.max(120).warning('Keep it to one short sentence (under 120 characters)'),
+      components: { input: VerdictHeadlineGeneratorInput },
     }),
 
     defineField({
