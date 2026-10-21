@@ -374,37 +374,43 @@ function HotelReviewPageContent(props: HotelReviewPageProps) {
                 </Section>
               )}
 
-              <Section spacing="tight" as="div">
-                <RoomTech
-                  techAvailable={hotelReview.techRating}
-                  speed={hotelReview.internetSpeed}
-                  roomAmenitiesAvailiable={hotelReview.roomAmenities}
-                  parking={hotelReview.parking}
-                  breakfast={hotelReview.breakfast}
-                />
-              </Section>
+              {/* RoomTech has its own vertical margins — no extra wrapper */}
+              <RoomTech
+                techAvailable={hotelReview.techRating}
+                speed={hotelReview.internetSpeed}
+                roomAmenitiesAvailiable={hotelReview.roomAmenities}
+                parking={hotelReview.parking}
+                breakfast={hotelReview.breakfast}
+              />
 
-              <Section spacing="tight" as="div">
-                <PostBody content={hotelReview.content} />
-              </Section>
-
-              {hotelReview.tags && hotelReview.tags.length > 0 && (
+              {/* Skip the article block when there's no write-up, so it
+                  doesn't leave an empty gap */}
+              {hotelReview.content && hotelReview.content.length > 0 && (
                 <Section spacing="tight" as="div">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <Tag className="h-4 w-4 text-muted-foreground shrink-0" />
-                    {hotelReview.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-full border border-border bg-muted px-3 py-1 text-sm text-muted-foreground"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
+                  <PostBody content={hotelReview.content} />
                 </Section>
               )}
 
-              <NearestArenaLink arena={hotelReview.nearestArena} />
+              {hotelReview.tags && hotelReview.tags.length > 0 && (
+                <div className="mt-2 flex flex-wrap items-center gap-2 border-t-2 border-border pt-5">
+                  <span className="mr-1 flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.12em] text-muted-foreground">
+                    <Tag className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+                    Tagged
+                  </span>
+                  {/* Each tag opens search results for it (search matches tags) */}
+                  {hotelReview.tags.map((tag) => (
+                    <Link
+                      key={tag}
+                      href={`/search?q=${encodeURIComponent(tag)}`}
+                      className="inline-flex min-h-9 items-center rounded-full border-2 border-border bg-card px-3 text-sm font-medium capitalize text-foreground transition-colors hover:border-primary hover:text-primary"
+                    >
+                      {tag}
+                    </Link>
+                  ))}
+                </div>
+              )}
+
+              <NearestArenaLink arena={hotelReview.nearestArena} flush />
 
               {hotelReview.youtube && (
                 <Section spacing="tight" as="div">

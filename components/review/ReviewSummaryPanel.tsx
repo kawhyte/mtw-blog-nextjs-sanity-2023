@@ -60,7 +60,7 @@ export default function ReviewSummaryPanel({
   cityGuideHref,
 }: ReviewSummaryPanelProps) {
   return (
-    <div className="flex flex-col gap-4 xl:rounded-[1.75rem] xl:border-4 xl:border-border-bold xl:bg-card xl:p-6 xl:shadow-brutalist">
+    <div className="flex flex-col gap-6 xl:rounded-[1.75rem] xl:border-4 xl:border-border-bold xl:bg-card xl:p-6 xl:shadow-brutalist">
       {/* One title, placed by the grid: beside the score on phones, below
           it (full width) on large screens */}
       <div className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-x-4 gap-y-1 xl:gap-y-4">
