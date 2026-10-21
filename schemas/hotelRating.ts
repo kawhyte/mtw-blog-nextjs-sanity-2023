@@ -5,7 +5,7 @@ import { MbpsInternetInput } from '../plugins/MbpsInternetInput'
 export default defineType({
   name: 'hotelRating',
   type: 'object',
-  title: 'hotelRating',
+  title: 'Hotel Ratings',
   description:
     'Rating for HOTEL (0–10 scale; 0 = Not available for Gym, Pool, Internet)',
   fieldsets: [{ name: 'social', title: 'Give a rating 0–10 for each item' }],

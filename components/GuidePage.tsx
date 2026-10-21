@@ -252,7 +252,7 @@ export default function GuidePage({
                     key={related._id}
                     title={related.title}
                     coverImage={related.coverImage}
-                    linkType="story"
+                    contentType="guide"
                     date={related.date}
                     showRating={false}
                     slug={related.slug as string}

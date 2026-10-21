@@ -378,7 +378,6 @@ export const hotelCardFields = groq`
     ...,
     asset->{ _id, metadata { lqip, dimensions { width, height } } }
   },
-  excerpt2,
   seoExcerpt,
   hotelRating,
   "internetSpeed": coalesce(hotelRating.internetSpeed, internetSpeed),
@@ -404,7 +403,6 @@ export const foodCardFields = groq`
     ...,
     asset->{ _id, metadata { lqip, dimensions { width, height } } }
   },
-  excerpt2,
   seoExcerpt,
   individualFoodRating,
   foodRating,
@@ -472,7 +470,6 @@ export const independentHotelReviewFields = groq`
     ...,
     asset->{ _id, metadata { lqip, dimensions { width, height } } }
   },
-  excerpt2,
   seoExcerpt,
   blurbSource,
   blurbUrl,
@@ -567,7 +564,6 @@ export const independentFoodReviewFields = groq`
     ...,
     asset->{ _id, metadata { lqip, dimensions { width, height } } }
   },
-  excerpt2,
   seoExcerpt,
   tip,
   individualFoodRating,
@@ -672,7 +668,6 @@ export interface HotelReview {
   room?: string
   lounge?: string
   coverImage?: any
-  excerpt2?: any[]
   seoExcerpt?: string
   blurbSource?: string
   blurbUrl?: string
@@ -748,7 +743,6 @@ export interface FoodReview {
   location?: string
   diningType?: 'dinein' | 'takeout'
   coverImage?: any
-  excerpt2?: any[]
   seoExcerpt?: string
   tip?: any[]
   individualFoodRating?: any[]
@@ -858,6 +852,8 @@ export const latestIndependentContentQuery = groq`
 // allStoriesQuery -> allGuidesQuery
 
 // Global Search Query - Searches across all independent schemas.
+// `excerpt2` is the old hidden "summary" field on hotels and food (rich text,
+// not shown on the site); it's searched via pt::text() but never fetched.
 // $terms is one prefix pattern per word (e.g. ["las*", "vegas*"]); `match`
 // requires every term, and matching against an array of fields lets the words
 // be spread across them ("conrad luxury" = title + category). score() ranks

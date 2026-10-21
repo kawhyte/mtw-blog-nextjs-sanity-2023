@@ -17,6 +17,7 @@ import { CardSkeletonGrid } from '@/components/ui/card-skeleton'
 import { PaginationWrapper as Pagination } from '@/components/ui/pagination-wrapper'
 
 import { useDebounce } from '../hooks/useDebounce'
+import type { CardContentType } from '../lib/cardContentType'
 import { CMS_NAME } from '../lib/constants'
 import { globalSearchQuery, toSearchTerms } from '../lib/sanity.queries'
 import {
@@ -262,7 +263,6 @@ const SearchResults = ({ settings }: { settings: Settings }) => {
               }
 
               const reviewResult = result as HotelReview | FoodReview | Guide
-              // Search tags guides as 'guide'; the card expects 'story'
               const isGuide = result._contentType === 'guide'
               return (
                 <DynamicPostCard
@@ -274,11 +274,6 @@ const SearchResults = ({ settings }: { settings: Settings }) => {
                     'author' in reviewResult ? reviewResult.author : undefined
                   }
                   slug={reviewResult.slug}
-                  excerpt2={
-                    'excerpt2' in reviewResult
-                      ? (reviewResult as any).excerpt2
-                      : undefined
-                  }
                   location={
                     'location' in reviewResult
                       ? reviewResult.location
@@ -292,7 +287,7 @@ const SearchResults = ({ settings }: { settings: Settings }) => {
                   summary={
                     isGuide ? (reviewResult as Guide).summary : undefined
                   }
-                  linkType={isGuide ? 'story' : (result._contentType as any)}
+                  contentType={result._contentType as CardContentType}
                   showRating={!isGuide}
                   hotelRating={
                     result._contentType === 'hotel'

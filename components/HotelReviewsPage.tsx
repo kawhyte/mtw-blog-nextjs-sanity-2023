@@ -106,7 +106,7 @@ export default function HotelReviewsPage(props: HotelReviewsPageProps) {
                     title={hotelReview.title}
                     coverImage={hotelReview.coverImage}
                     hotelRating={hotelReview.hotelRating}
-                    linkType="hotel"
+                    contentType="hotel"
                     date={hotelReview.date}
                     showRating={true}
                     slug={hotelReview.slug}

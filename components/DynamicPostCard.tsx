@@ -1,4 +1,5 @@
 import Date from 'components/PostDate'
+import type { CardContentType } from 'lib/cardContentType'
 import { categoryRating } from 'lib/getHotelCategory'
 import type { FoodReview, HotelReview } from 'lib/sanity.queries'
 import {
@@ -34,13 +35,12 @@ interface DynamicPostCardProps {
   hotelRating?: HotelReview['hotelRating']
   foodRating?: FoodReview['foodRating']
   takeoutRating?: FoodReview['takeoutRating']
-  linkType?: 'hotel' | 'food' | 'story' | 'favorite'
+  contentType?: CardContentType
   diningType?: FoodReview['diningType']
   date?: string
   showRating?: boolean
   slug?: string
   location?: string
-  excerpt2?: any
   author?: any
   summary?: string
   category?: string
@@ -51,12 +51,12 @@ interface DynamicPostCardProps {
 }
 
 const getLinkPrefix = (
-  linkType?: 'hotel' | 'food' | 'story' | 'favorite',
+  contentType?: CardContentType,
 ): string => {
-  switch (linkType) {
+  switch (contentType) {
     case 'hotel':
       return '/hotel'
-    case 'story':
+    case 'guide':
       return '/guide'
     case 'food':
       return '/food'
@@ -67,7 +67,7 @@ const getLinkPrefix = (
 }
 
 const getRating = (
-  linkType?: 'hotel' | 'food' | 'story' | 'favorite',
+  contentType?: CardContentType,
   diningType?: FoodReview['diningType'],
   hotelRating?: HotelReview['hotelRating'],
   foodRating?: FoodReview['foodRating'],
@@ -77,10 +77,10 @@ const getRating = (
   | FoodReview['foodRating']
   | FoodReview['takeoutRating']
   | undefined => {
-  if (linkType === 'hotel' && hotelRating) {
+  if (contentType === 'hotel' && hotelRating) {
     return hotelRating
   }
-  if (linkType === 'food') {
+  if (contentType === 'food') {
     if (diningType === 'takeout' && takeoutRating) {
       return takeoutRating
     }
@@ -92,16 +92,16 @@ const getRating = (
 }
 
 const getMobileTypeBadge = (
-  linkType?: string,
+  contentType?: string,
   diningType?: string,
   category?: string,
 ): { label: string; className: string } | null => {
-  if (linkType === 'hotel') {
+  if (contentType === 'hotel') {
     const cat = category ? categoryRating(category) : null
     const name = cat?.name ?? 'Hotel'
     return { label: name, className: 'bg-zinc-800 text-white' }
   }
-  if (linkType === 'food') {
+  if (contentType === 'food') {
     return diningType === 'takeout'
       ? {
           label: 'Takeout',
@@ -112,7 +112,7 @@ const getMobileTypeBadge = (
           className: 'bg-rose-100 text-rose-800 border border-rose-300',
         }
   }
-  if (linkType === 'story' && category && GUIDE_CATEGORY_LABELS[category]) {
+  if (contentType === 'guide' && category && GUIDE_CATEGORY_LABELS[category]) {
     return {
       label: GUIDE_CATEGORY_LABELS[category],
       className: 'bg-secondary/10 text-secondary border border-secondary/20',
@@ -128,7 +128,7 @@ const DynamicPostCard = ({
   hotelRating,
   foodRating,
   takeoutRating,
-  linkType,
+  contentType,
   diningType,
   date,
   showRating,
@@ -142,10 +142,10 @@ const DynamicPostCard = ({
   rank,
 }: DynamicPostCardProps) => {
   const safeSlug = slug ?? ''
-  const href = `${getLinkPrefix(linkType)}/${safeSlug}`
+  const href = `${getLinkPrefix(contentType)}/${safeSlug}`
 
   const currentRating = getRating(
-    linkType,
+    contentType,
     diningType,
     hotelRating,
     foodRating,
@@ -163,7 +163,7 @@ const DynamicPostCard = ({
   const scoreDisplay =
     calculatedRating != null ? calculatedRating.toFixed(1) : null
 
-  const mobileBadge = getMobileTypeBadge(linkType, diningType, category)
+  const mobileBadge = getMobileTypeBadge(contentType, diningType, category)
   const hasImage =
     coverImage?.asset?._ref != null || coverImage?.asset?._id != null
 
@@ -219,7 +219,7 @@ const DynamicPostCard = ({
             {title}
           </p>
 
-          {linkType === 'story' && summary && (
+          {contentType === 'guide' && summary && (
             <p className="line-clamp-1 text-[11px] italic leading-snug text-muted-foreground">
               {summary}
             </p>
@@ -274,7 +274,7 @@ const DynamicPostCard = ({
             image={coverImage}
             rating={currentRating}
             showRating={showRating ?? false}
-            linkType={linkType}
+            contentType={contentType}
             diningType={diningType}
             category={category}
           />
@@ -298,7 +298,7 @@ const DynamicPostCard = ({
             </CardTitle>
 
             {/* Guide summary excerpt */}
-            {linkType === 'story' && summary && (
+            {contentType === 'guide' && summary && (
               <p className="line-clamp-2 text-xs text-muted-foreground mt-1 leading-relaxed">
                 {summary}
               </p>

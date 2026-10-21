@@ -55,12 +55,11 @@ export default function TopListItems({
                   date={post.date}
                   author={'author' in post ? post.author : undefined}
                   slug={post.slug}
-                  excerpt2={post.excerpt2}
                   location={post.location}
                   category={'category' in post ? post.category : undefined}
                   showRating={true}
                   rank={rank}
-                  linkType={
+                  contentType={
                     contentType === 'hotel'
                       ? 'hotel'
                       : contentType === 'food'

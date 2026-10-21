@@ -159,6 +159,8 @@ export default defineType({
     }),
 
     defineField({
+      // Legacy short summary (rich text). Hidden in Studio and not shown on the
+      // site, but still searched. Stored name kept so existing content isn't lost — see docs/FIELD-GLOSSARY.md.
       name: 'excerpt2',
       title: 'Hotel Summary',
       type: 'array',
@@ -513,6 +515,8 @@ export default defineType({
               validation: (rule) => rule.required(),
             }),
             defineField({
+              // Keys must match the `hotelRating` object's field names exactly
+              // (mixed case like Bed_Comfort is how the data is stored).
               name: 'ratingUpdates',
               title: 'Changed Ratings Only',
               description:

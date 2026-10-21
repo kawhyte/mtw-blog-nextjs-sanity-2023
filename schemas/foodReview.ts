@@ -130,6 +130,8 @@ export default defineType({
     }),
 
     defineField({
+      // Legacy short summary (rich text). Not shown on the site, but still
+      // searched. Stored name kept so existing content isn't lost — see docs/FIELD-GLOSSARY.md.
       name: 'excerpt2',
       title: 'Restaurant Summary',
       type: 'array',
@@ -161,6 +163,8 @@ export default defineType({
     }),
 
     defineField({
+      // The dishes & drinks list (photo, name, price, rating, mini review).
+      // Stored name kept so existing content isn't lost — see docs/FIELD-GLOSSARY.md.
       name: 'individualFoodRating',
       title: 'Individual Food Rating',
       type: 'array',
@@ -226,6 +230,7 @@ export default defineType({
 
     // DINE-IN SPECIFIC RATING SYSTEM
     defineField({
+      // Dine-in scores. Takeout reviews use `takeoutRating` instead (see diningType).
       name: 'foodRating',
       title: 'Rating for Dine-in',
       description:
@@ -411,6 +416,7 @@ export default defineType({
               validation: (rule) => rule.required(),
             }),
             defineField({
+              // Keys must match the `foodRating` object's field names exactly.
               name: 'foodRatingUpdates',
               title: 'Changed Dine-in Ratings Only',
               description:
@@ -464,6 +470,7 @@ export default defineType({
               ],
             }),
             defineField({
+              // Keys must match the `takeoutRating` object's field names exactly.
               name: 'takeoutRatingUpdates',
               title: 'Changed Takeout Ratings Only',
               description:

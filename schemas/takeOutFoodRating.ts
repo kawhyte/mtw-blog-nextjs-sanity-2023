@@ -4,7 +4,7 @@ export default defineType({
   type: 'object',
   name: 'takeOutFoodRating',
   description: 'Rating for Takeout Food (0–10 scale)',
-  title: 'foodRating',
+  title: 'Takeout Ratings',
   fieldsets: [{ name: 'social', title: 'Give a rating 0–10 for each item' }],
   options: {
     collapsible: true,
