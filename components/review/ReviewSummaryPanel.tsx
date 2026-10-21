@@ -66,7 +66,9 @@ export default function ReviewSummaryPanel({
       <div className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-x-4 gap-y-1 lg:gap-y-4">
         {score && (
           <div
-            className={`font-heading-family row-span-2 flex h-16 w-16 shrink-0 items-center justify-center rounded-full text-[1.75rem] font-extrabold tracking-tight lg:row-span-1 lg:h-[5.5rem] lg:w-[5.5rem] lg:text-[2.4rem] ${scoreCircleClass(score.textRating)}`}
+            // pt-[0.2em]: Epilogue's digits sit ~0.1em above the line box's
+            // centre, so nudge them down to look optically centred
+            className={`font-heading-family row-span-2 flex h-16 w-16 shrink-0 items-center justify-center rounded-full pt-[0.2em] text-[1.75rem] font-extrabold tracking-tight lg:row-span-1 lg:h-[5.5rem] lg:w-[5.5rem] lg:text-[2.4rem] ${scoreCircleClass(score.textRating)}`}
             role="img"
             aria-label={`Rated ${score.displayRating} out of 5, ${score.textRating}`}
           >

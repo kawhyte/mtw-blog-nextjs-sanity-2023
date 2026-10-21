@@ -274,6 +274,7 @@ function HotelReviewPageContent(props: HotelReviewPageProps) {
                 <HeroPhotoGallery
                   images={heroImages}
                   onShowAllPhotos={openModal}
+                  bare
                 />
               </div>
             )}

@@ -8,6 +8,9 @@ import { useState } from 'react'
 interface HeroPhotoGalleryProps {
   images: any[]
   onShowAllPhotos: () => void
+  /** Drop the outer container padding, for layouts that already provide it
+      (e.g. the hotel review column, so the photos line up with the panel) */
+  bare?: boolean
 }
 
 const FadeImage = ({
@@ -60,6 +63,7 @@ const smallTileSpec = (count: number, index: number) => {
 export default function HeroPhotoGallery({
   images,
   onShowAllPhotos,
+  bare = false,
 }: HeroPhotoGalleryProps) {
   if (!images || images.length === 0) {
     return null
@@ -69,7 +73,7 @@ export default function HeroPhotoGallery({
   const otherImages = images.slice(1, 5)
 
   return (
-    <div className="container mx-auto px-4 py-8 relative">
+    <div className={bare ? 'relative' : 'container mx-auto px-4 py-8 relative'}>
       {/* Mobile: Main image only */}
       <div className="relative h-96 md:hidden">
         <FadeImage
