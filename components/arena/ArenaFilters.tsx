@@ -54,7 +54,7 @@ export default function ArenaFilters({
         </div>
 
         {/* Filter By Buttons */}
-        <div className="flex w-full items-center justify-center gap-x-2 overflow-x-auto md:w-auto md:justify-end">
+        <div className="flex w-full items-center justify-center gap-x-2 overflow-x-auto px-1 py-1 md:w-auto md:justify-end">
           <span className="mr-1 hidden shrink-0 text-sm font-bold text-foreground sm:inline">
             Filter:
           </span>

@@ -122,7 +122,7 @@ function StatTile({
 }) {
   return (
     <div className="rounded-2xl border-[3px] border-border-bold bg-card px-4 py-3 shadow-brutalist sm:px-5 sm:py-4">
-      <div className={`font-epilogue text-3xl font-extrabold sm:text-4xl ${accent}`}>
+      <div className={`font-heading-family text-3xl font-extrabold sm:text-4xl ${accent}`}>
         {value}
       </div>
       <div className="text-sm text-muted-foreground">{label}</div>
@@ -203,11 +203,11 @@ export default function ArenaQuestHero({
                   screen readers and search engines read */}
               <span
                 aria-hidden="true"
-                className="quest-count font-epilogue text-7xl font-extrabold leading-none tabular-nums text-foreground md:text-8xl"
+                className="quest-count font-heading-family text-7xl font-extrabold leading-none tabular-nums text-foreground md:text-8xl"
                 style={{ '--quest-target': visited.length } as React.CSSProperties}
               />
               <span className="sr-only">{visited.length}</span>
-              <span className="font-epilogue text-2xl font-bold text-muted-foreground md:text-3xl">
+              <span className="font-heading-family text-2xl font-bold text-muted-foreground md:text-3xl">
                 / {total}
               </span>
               <span className="text-sm text-muted-foreground md:text-base">
@@ -262,7 +262,7 @@ export default function ArenaQuestHero({
         </div>
 
         <div className="flex flex-col gap-2 rounded-3xl border-4 border-border-bold bg-card p-3 shadow-brutalist sm:gap-3 sm:p-6">
-          <h2 className="font-epilogue text-lg font-extrabold sm:text-2xl">
+          <h2 className="font-heading-family text-lg font-extrabold sm:text-2xl">
             Our arena map
           </h2>
           <ArenaQuestMap arenas={arenas} />
