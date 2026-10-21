@@ -1,6 +1,6 @@
 import { urlForImage } from 'lib/sanity.image'
 import Image, { ImageProps } from 'next/image'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 
 interface SanityImageAsset {
   _ref?: string
@@ -40,6 +40,11 @@ export default function SanityImage({
   ...props
 }: SanityImageProps) {
   const [isLoaded, setIsLoaded] = useState(false)
+  // A cached image can finish loading before React hydrates, so onLoad never
+  // fires and it would stay blurred/zoomed — check `complete` on mount too.
+  const imgRef = useCallback((img: HTMLImageElement | null) => {
+    if (img?.complete && img.naturalWidth > 0) setIsLoaded(true)
+  }, [])
 
   if (!image?.asset?._ref && !image?.asset?._id) return null
 
@@ -70,6 +75,7 @@ export default function SanityImage({
       blurDataURL={lqip}
       placeholder={lqip ? 'blur' : 'empty'}
       alt={alt ?? image.alt ?? ''}
+      ref={imgRef}
       onLoad={() => setIsLoaded(true)}
       className={`transition-all duration-700 ease-in-out ${isLoaded ? 'blur-0 scale-100' : 'blur-xl scale-105'} ${className ?? ''}`}
       {...props}

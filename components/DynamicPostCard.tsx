@@ -184,7 +184,7 @@ const DynamicPostCard = ({
         </Link>
 
         {/* Thumbnail — self-stretch so it fills the full card height regardless of content length */}
-        <div className="relative self-stretch w-[96px] shrink-0 overflow-hidden rounded-l-[22px] bg-muted">
+        <div className="relative self-stretch w-[96px] shrink-0 overflow-hidden rounded-l-[22px] bg-muted -my-px -ml-px">
           {hasImage ? (
             <SanityImage
               image={coverImage}
@@ -271,7 +271,9 @@ const DynamicPostCard = ({
           <span className="sr-only">View {title}</span>
         </Link>
 
-        <div className="relative">
+        {/* -mx-px -mt-px: the image runs 1px under the border so fractional card
+            widths can't leave a sliver of card background at its edges */}
+        <div className="relative -mx-px -mt-px">
           <CoverImage
             slug={safeSlug}
             title={title}
