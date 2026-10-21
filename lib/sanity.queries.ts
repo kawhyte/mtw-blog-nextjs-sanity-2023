@@ -857,46 +857,73 @@ export const latestIndependentContentQuery = groq`
 // allFoodQuery -> allFoodReviewsQuery
 // allStoriesQuery -> allGuidesQuery
 
-// Global Search Query - Searches across all independent schemas
+// Global Search Query - Searches across all independent schemas.
+// $terms is one prefix pattern per word (e.g. ["las*", "vegas*"]); `match`
+// requires every term, and matching against an array of fields lets the words
+// be spread across them ("conrad luxury" = title + category). score() ranks
+// title hits highest; each type is capped at SEARCH_RESULT_LIMIT.
+const SEARCH_RESULT_LIMIT = 50
+
 export const globalSearchQuery = groq`
 {
-  "hotels": *[_type == "hotelReview" && (!defined(publishedAt) || publishedAt <= now()) && (
-    title match $searchTerm ||
-    location match $searchTerm ||
-    excerpt2 match $searchTerm ||
-    category match $searchTerm
-  )] {
+  "hotels": *[_type == "hotelReview" && (!defined(publishedAt) || publishedAt <= now()) &&
+    [title, location, pt::text(excerpt2), category, array::join(tags, " ")] match $terms
+  ] | score(
+    boost(title match $terms, 3),
+    boost(location match $terms, 2),
+    pt::text(excerpt2) match $terms,
+    tags[] match $terms
+  ) | order(_score desc, date desc)[0...${SEARCH_RESULT_LIMIT}] {
     ${hotelCardFields},
+    _score,
     "_contentType": "hotel"
   },
-  "food": *[_type == "foodReview" && (!defined(publishedAt) || publishedAt <= now()) && (
-    title match $searchTerm ||
-    location match $searchTerm ||
-    excerpt2 match $searchTerm ||
-    diningType match $searchTerm
-  )] {
+  "food": *[_type == "foodReview" && (!defined(publishedAt) || publishedAt <= now()) &&
+    [title, location, pt::text(excerpt2), diningType, array::join(tags, " ")] match $terms
+  ] | score(
+    boost(title match $terms, 3),
+    boost(location match $terms, 2),
+    pt::text(excerpt2) match $terms,
+    tags[] match $terms
+  ) | order(_score desc, date desc)[0...${SEARCH_RESULT_LIMIT}] {
     ${foodCardFields},
+    _score,
     "_contentType": "food"
   },
-  "guides": *[_type == "guide" && (!defined(publishedAt) || publishedAt <= now()) && (
-    title match $searchTerm ||
-    location match $searchTerm ||
-    summary match $searchTerm ||
-    guideType match $searchTerm
-  )] {
+  "guides": *[_type == "guide" && (!defined(publishedAt) || publishedAt <= now()) &&
+    [title, location, summary, category, array::join(tags, " ")] match $terms
+  ] | score(
+    boost(title match $terms, 3),
+    boost(location match $terms, 2),
+    summary match $terms,
+    tags[] match $terms
+  ) | order(_score desc, date desc)[0...${SEARCH_RESULT_LIMIT}] {
     ${guideCardFields},
+    _score,
     "_contentType": "guide"
   },
-  "arenas": *[_type == "arenas" && visited == true && (
-    name match $searchTerm ||
-    location match $searchTerm ||
-    gallery[].name match $searchTerm
-  )] {
+  "arenas": *[_type == "arenas" && visited == true &&
+    [name, location, array::join(gallery[].name, " ")] match $terms
+  ] | score(
+    boost(name match $terms, 3),
+    boost(location match $terms, 2),
+    gallery[].name match $terms
+  ) | order(_score desc, date desc)[0...${SEARCH_RESULT_LIMIT}] {
     ${arenaFields},
+    _score,
     "title": name,
     "_contentType": "arena"
   }
 }`
+
+// Turns free text into globalSearchQuery's $terms: one prefix pattern per word.
+export const toSearchTerms = (query: string): string[] =>
+  query
+    .toLowerCase()
+    .split(/[^\p{L}\p{N}]+/u)
+    .filter(Boolean)
+    .slice(0, 8)
+    .map((word) => `${word}*`)
 
 // REMOVED: Legacy weighted queries - replaced by new weighted calculation functions
 // topWeightedHotelsQuery -> getTopWeightedHotelReviews() in sanity.client.ts

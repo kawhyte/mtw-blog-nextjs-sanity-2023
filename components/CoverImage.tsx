@@ -88,7 +88,7 @@ export default function CoverImage(props: CoverImageProps) {
         <SanityImage
           image={source}
           className={cn(
-            'w-full object-cover object-center brightness-[0.85] rounded-t-3xl',
+            'w-full object-cover object-center brightness-[0.85] rounded-t-[28px]',
             {
               ' relative z-20 transition-all ': slug,
             },
@@ -147,7 +147,7 @@ export default function CoverImage(props: CoverImageProps) {
     badgeColorClasses[categoryType.color] || 'bg-gray-500 text-white'
 
   return (
-    <div className="relative overflow-hidden rounded-t-3xl">
+    <div className="relative overflow-hidden rounded-t-[28px]">
       <div className="relative">
         {slug ? (
           <Link href={href} aria-label={title}>
