@@ -321,3 +321,41 @@
     transform: translate(2px, 2px);
   }
 }
+
+/* Arena quest hero: count-up number + progress bar fill on page load.
+   Pure CSS (a registered integer + counter, and a transform), so there's no
+   JS, no hydration flicker and no layout work — cheap on phones. Browsers
+   without @property just show the final number. */
+@property --quest-count {
+  syntax: '<integer>';
+  inherits: false;
+  initial-value: 0;
+}
+.quest-count {
+  --quest-count: var(--quest-target);
+  counter-reset: quest var(--quest-count);
+  animation: quest-count 1.1s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+.quest-count::after {
+  content: counter(quest);
+}
+@keyframes quest-count {
+  from {
+    --quest-count: 0;
+  }
+}
+.quest-bar {
+  transform-origin: left center;
+  animation: quest-bar 1.1s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+@keyframes quest-bar {
+  from {
+    transform: scaleX(0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .quest-count,
+  .quest-bar {
+    animation: none;
+  }
+}

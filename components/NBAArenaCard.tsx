@@ -20,7 +20,6 @@ interface NBAArenaCardProps {
   location: string
   dateVisited: string
   visited: boolean
-  gallery: any
   id: string
   slug: string
   averageRating: string

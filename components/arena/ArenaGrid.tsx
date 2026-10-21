@@ -32,11 +32,6 @@ function ArenaCardGrid({
             arenaReview={arena.arenaReview || {}}
             arenaName={arena.name ?? 'Arena'}
             slug={arena.slug ?? ''}
-            gallery={
-              arena.firstGalleryImage
-                ? [arena.firstGalleryImage]
-                : arena.gallery
-            }
             visited={arena.visited ?? false}
             dateVisited={arena.date ?? ''}
             id={arena._id}

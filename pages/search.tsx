@@ -382,11 +382,6 @@ const SearchResults = ({ settings }: { settings: Settings }) => {
                       dateVisited={arenaResult.date ?? ''}
                       visited={arenaResult.visited ?? false}
                       slug={arenaResult.slug ?? ''}
-                      gallery={
-                        arenaResult.firstGalleryImage
-                          ? [arenaResult.firstGalleryImage]
-                          : []
-                      }
                       id={arenaResult._id}
                       averageRating={average}
                       textRating={textRating}
