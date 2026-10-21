@@ -18,7 +18,7 @@ import { PaginationWrapper as Pagination } from '@/components/ui/pagination-wrap
 
 import { useDebounce } from '../hooks/useDebounce'
 import { CMS_NAME } from '../lib/constants'
-import { globalSearchQuery } from '../lib/sanity.queries'
+import { globalSearchQuery, toSearchTerms } from '../lib/sanity.queries'
 import {
   Arena,
   FoodReview,
@@ -124,11 +124,16 @@ const NoResultsFound = ({ query }) => {
 // Union type for all content types that can appear in search results
 type SearchResult = (HotelReview | FoodReview | Guide | Arena) & {
   _contentType: string
+  _score?: number
 }
 
 const SearchResults = ({ settings }: { settings: Settings }) => {
   const router = useRouter()
-  const { q: searchQuery } = router.query
+  // /search is statically prerendered without a query, so read `q` only after
+  // mount — otherwise the first client render disagrees with the server HTML.
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => setMounted(true), [])
+  const searchQuery = mounted ? router.query.q : undefined
   const [results, setResults] = useState<SearchResult[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<Error | null>(null)
@@ -139,12 +144,12 @@ const SearchResults = ({ settings }: { settings: Settings }) => {
 
   // Debounce the query so rapid URL changes (browser back/forward) don't fire
   // duplicate fetches. Loading spinner shows immediately via the effect below.
-  const debouncedSearchQuery = useDebounce(router.query.q, 300)
+  const debouncedSearchQuery = useDebounce(searchQuery, 300)
 
   // Show loading state immediately on URL change — don't wait for debounce
   useEffect(() => {
-    if (router.query.q) setLoading(true)
-  }, [router.query.q])
+    if (searchQuery) setLoading(true)
+  }, [searchQuery])
 
   useEffect(() => {
     const currentSearchQuery = debouncedSearchQuery
@@ -153,10 +158,15 @@ const SearchResults = ({ settings }: { settings: Settings }) => {
       setLoading(true)
       setError(null)
       setPage(1)
+      const terms = toSearchTerms(currentSearchQuery)
+      // Only punctuation typed: an empty $terms would match everything
+      if (terms.length === 0) {
+        setResults([])
+        setLoading(false)
+        return
+      }
       sanityClient
-        .fetch(globalSearchQuery, {
-          searchTerm: `*${currentSearchQuery.trim()}*`,
-        })
+        .fetch(globalSearchQuery, { terms })
         .then((data) => {
           // Flatten the results from all content types into a single array
           const flattenedResults = [
@@ -166,8 +176,10 @@ const SearchResults = ({ settings }: { settings: Settings }) => {
             ...(data?.arenas || []),
           ]
 
-          // Sort by date (most recent first) to provide consistent ordering
+          // Most relevant first; newest first among equally relevant results
           flattenedResults.sort((a, b) => {
+            const byScore = (b._score ?? 0) - (a._score ?? 0)
+            if (byScore !== 0) return byScore
             const dateA = new Date(a.date || a._updatedAt || 0)
             const dateB = new Date(b.date || b._updatedAt || 0)
             return dateB.getTime() - dateA.getTime()
@@ -250,6 +262,8 @@ const SearchResults = ({ settings }: { settings: Settings }) => {
               }
 
               const reviewResult = result as HotelReview | FoodReview | Guide
+              // Search tags guides as 'guide'; the card expects 'story'
+              const isGuide = result._contentType === 'guide'
               return (
                 <DynamicPostCard
                   key={result._id}
@@ -275,8 +289,11 @@ const SearchResults = ({ settings }: { settings: Settings }) => {
                       ? reviewResult.category
                       : undefined
                   }
-                  linkType={result._contentType as any}
-                  showRating={true}
+                  summary={
+                    isGuide ? (reviewResult as Guide).summary : undefined
+                  }
+                  linkType={isGuide ? 'story' : (result._contentType as any)}
+                  showRating={!isGuide}
                   hotelRating={
                     result._contentType === 'hotel'
                       ? (reviewResult as HotelReview).hotelRating
