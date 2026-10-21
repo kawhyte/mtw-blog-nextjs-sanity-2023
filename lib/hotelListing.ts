@@ -1,23 +1,7 @@
-import { calculateRating } from './calculateRating'
 import { withInternetRating } from './mbpsToRating'
 import { getEffectiveRating } from './mergeRatings'
 import { HOTEL_WEIGHTS } from './ratingWeights'
-
-/**
- * One hotel on the /hotels listing — only what a card needs, with the overall
- * score already worked out (same maths as the hotel review page: Wi-Fi score
- * from Mbps, plus any revisit updates), so the page ships no rating objects.
- */
-export interface HotelListingItem {
-  _id: string
-  title: string
-  slug: string
-  location: string | null
-  category: string | null
-  date: string | null
-  coverImage: { asset?: { _ref?: string }; hotspot?: any; crop?: any } | null
-  rating: { value: number; display: string; text: string } | null
-}
+import { type ListingItem, listingRating } from './reviewListing'
 
 export interface RawHotelListingRow {
   _id: string
@@ -26,7 +10,7 @@ export interface RawHotelListingRow {
   location?: string
   category?: string
   date?: string
-  coverImage?: HotelListingItem['coverImage']
+  coverImage?: ListingItem['coverImage']
   hotelRating?: Record<string, number | undefined>
   internetSpeed?: number
   revisits?: {
@@ -35,51 +19,26 @@ export interface RawHotelListingRow {
   }[]
 }
 
-export function buildHotelListing(
-  rows: RawHotelListingRow[],
-): HotelListingItem[] {
+/** Hotels for /hotels, scored like the hotel review page (Wi-Fi score from Mbps, plus revisit updates) */
+export function buildHotelListing(rows: RawHotelListingRow[]): ListingItem[] {
   return rows
     .filter((row) => row.title && row.slug)
-    .map((row) => {
-      let rating: HotelListingItem['rating'] = null
-      if (row.hotelRating) {
-        const effective = getEffectiveRating(
-          withInternetRating(row.hotelRating, row.internetSpeed),
-          row.revisits ?? [],
-        )
-        const result = calculateRating(
-          effective as Record<string, number>,
-          HOTEL_WEIGHTS,
-        )
-        rating = {
-          value: result.numericalRating,
-          display: result.displayRating,
-          text: result.textRating,
-        }
-      }
-      return {
-        _id: row._id,
-        title: row.title!,
-        slug: row.slug!,
-        location: row.location?.trim() ?? null,
-        category: row.category ?? null,
-        date: row.date ?? null,
-        coverImage: row.coverImage ?? null,
-        rating,
-      }
-    })
+    .map((row) => ({
+      _id: row._id,
+      title: row.title!,
+      slug: row.slug!,
+      location: row.location?.trim() ?? null,
+      kind: row.category ?? null,
+      date: row.date ?? null,
+      coverImage: row.coverImage ?? null,
+      rating: row.hotelRating
+        ? listingRating(
+            getEffectiveRating(
+              withInternetRating(row.hotelRating, row.internetSpeed),
+              row.revisits ?? [],
+            ),
+            HOTEL_WEIGHTS,
+          )
+        : null,
+    }))
 }
-
-/** How many hotels count as "Whytes' favourites" (replaced the Top 10 page) */
-export const FAVOURITES_COUNT = 10
-
-/** The top 10 by score (newer stay wins a tie) — Whytes' favourites, in rank order */
-export const topFavourites = (hotels: HotelListingItem[]) =>
-  hotels
-    .filter((hotel) => hotel.rating)
-    .sort(
-      (a, b) =>
-        b.rating!.value - a.rating!.value ||
-        (b.date ?? '').localeCompare(a.date ?? ''),
-    )
-    .slice(0, FAVOURITES_COUNT)

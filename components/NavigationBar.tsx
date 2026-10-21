@@ -2,11 +2,8 @@
 
 import cn from 'classnames'
 import {
-  Award,
   Backpack,
   Building,
-  ChevronDown,
-  ChevronUp,
   MapPin,
   Menu,
   Search,
@@ -17,43 +14,25 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router' // Import useRouter
 import type React from 'react'
-import { useEffect, useRef, useState } from 'react' // Added useRef, useEffect
-import {
-  LiaBasketballBallSolid,
-  LiaBathSolid,
-  LiaCrownSolid,
-} from 'react-icons/lia'
+import { useEffect, useState } from 'react'
+import { LiaBasketballBallSolid } from 'react-icons/lia'
 
 import SearchBox from './SearchBox'
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isSearchOpen, setIsSearchOpen] = useState(false)
-  const [isPicksDropdownOpen, setIsPicksDropdownOpen] = useState(false) // State for the picks dropdown
 
   const router = useRouter() // Initialize router
-  const picksDropdownRef = useRef<HTMLDivElement>(null) // Ref for the desktop dropdown container
 
   // --- Handlers ---
   const toggleMenu = () => {
-    // When toggling the main menu, ensure the picks dropdown is also closed
-    if (!isMenuOpen) {
-      // If opening the menu
-      setIsPicksDropdownOpen(false)
-    }
     setIsMenuOpen(!isMenuOpen)
     setIsSearchOpen(false) // Close search if menu opens
   }
   const toggleSearch = () => {
     setIsSearchOpen(!isSearchOpen)
     setIsMenuOpen(false) // Close menu if search opens
-    setIsPicksDropdownOpen(false) // Close picks dropdown if search opens
-  }
-
-  const togglePicksDropdown = (e?: React.MouseEvent) => {
-    // Prevent event propagation if it's a click event to avoid conflicts, especially in mobile
-    e?.stopPropagation()
-    setIsPicksDropdownOpen(!isPicksDropdownOpen)
   }
 
   // Note: handleToggleMenu and handleToggleSearch were simplified and merged into toggleMenu/toggleSearch
@@ -64,7 +43,6 @@ export default function Navbar() {
     const handleRouteChange = () => {
       setIsMenuOpen(false)
       setIsSearchOpen(false)
-      setIsPicksDropdownOpen(false)
     }
 
     router.events.on('routeChangeStart', handleRouteChange)
@@ -74,32 +52,6 @@ export default function Navbar() {
       router.events.off('routeChangeStart', handleRouteChange)
     }
   }, [router.events])
-
-  // Close desktop dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      // Check if the click is outside the dropdown container referenced by picksDropdownRef
-      if (
-        picksDropdownRef.current &&
-        !picksDropdownRef.current.contains(event.target as Node)
-      ) {
-        setIsPicksDropdownOpen(false)
-      }
-    }
-
-    // Only add listener if the desktop dropdown is open
-    if (isPicksDropdownOpen && window.innerWidth >= 768) {
-      // Assuming md breakpoint is 768px
-      document.addEventListener('mousedown', handleClickOutside)
-    } else {
-      document.removeEventListener('mousedown', handleClickOutside)
-    }
-
-    // Cleanup
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-    }
-  }, [isPicksDropdownOpen]) // Re-run effect when dropdown state changes
 
   return (
     <nav className="sticky top-0 z-50 w-full bg-background shadow-sm">
@@ -162,86 +114,6 @@ export default function Navbar() {
             icon={<LiaBasketballBallSolid size={22} />}
             text="NBA/WNBA Arenas"
           />
-          {/* --- DESKTOP DROPDOWN START --- */}
-          <div className="relative" ref={picksDropdownRef}>
-            {' '}
-            {/* Add ref here */}
-            <button // Using button as it triggers a UI change, not navigation
-              type="button"
-              onClick={togglePicksDropdown}
-              className={cn(
-                'relative flex flex-col items-center rounded-md px-3 py-2 text-sm font-medium text-foreground transition-colors duration-200 ease-in-out hover:bg-accent',
-                // Add active state based on if a child route is active or dropdown is open
-                {
-                  'text-primary':
-                    isPicksDropdownOpen ||
-                    router.pathname.startsWith('/top-hotel-picks') ||
-                    router.pathname.startsWith('/top-restaurant-picks'),
-                },
-              )}
-              aria-haspopup="true" // Accessibility: Indicates it has a popup menu
-              aria-expanded={isPicksDropdownOpen} // Accessibility: Indicates if dropdown is open
-              id="desktop-picks-menu-button" // Added ID for aria-labelledby
-            >
-              <span
-                className={cn(
-                  'mb-1',
-                  isPicksDropdownOpen ||
-                    router.pathname.startsWith('/top-hotel-picks') ||
-                    router.pathname.startsWith('/top-restaurant-picks')
-                    ? 'text-primary'
-                    : 'text-primary',
-                )}
-              >
-                <LiaCrownSolid size={22} />
-              </span>
-              <span className="flex items-center">
-                {' '}
-                {/* Wrap text and icon */}
-                Our Top Picks
-                {/* Chevron indicating dropdown state */}
-                {isPicksDropdownOpen ? (
-                  <ChevronUp size={16} className="ml-1" />
-                ) : (
-                  <ChevronDown size={16} className="ml-1" />
-                )}
-              </span>
-              {/* Active underline indicator */}
-              {(router.pathname.startsWith('/top-hotel-picks') ||
-                router.pathname.startsWith('/top-restaurant-picks')) && (
-                <span className="absolute bottom-0 left-1/2 h-0.5 w-3/5 -translate-x-1/2 transform rounded-full bg-primary"></span>
-              )}
-            </button>
-            {/* Dropdown Menu */}
-            {isPicksDropdownOpen && (
-              <div
-                className="absolute left-1/2 top-full z-10 mt-2 w-48 -translate-x-1/2 transform rounded-md bg-card shadow-lg ring-1 ring-ring ring-opacity-5 focus:outline-none"
-                role="menu" // Accessibility: Defines the role
-                aria-orientation="vertical"
-                aria-labelledby="desktop-picks-menu-button" // Associates menu with its button
-              >
-                <div className="py-1" role="none">
-                  <Link
-                    href="/hotels?type=favourites"
-                    className="block px-4 py-2 text-sm text-foreground hover:bg-muted hover:text-foreground"
-                    role="menuitem" // Accessibility
-                    onClick={() => setIsPicksDropdownOpen(false)} // Close this dropdown on click
-                  >
-                    Top Hotel Picks
-                  </Link>
-                  <Link
-                    href="/top-restaurant-picks"
-                    className="block px-4 py-2 text-sm text-foreground hover:bg-muted hover:text-foreground"
-                    role="menuitem" // Accessibility
-                    onClick={() => setIsPicksDropdownOpen(false)} // Close this dropdown on click
-                  >
-                    Top Restaurant Picks
-                  </Link>
-                </div>
-              </div>
-            )}
-          </div>
-          {/* --- DESKTOP DROPDOWN END --- */}
           <NavItem
             href="/hotels"
             icon={<Building size={22} />}
@@ -283,76 +155,6 @@ export default function Navbar() {
             text="NBA & WNBA Arenas"
             onClick={toggleMenu}
           />
-
-          {/* --- MOBILE DROPDOWN START --- */}
-          {/* Button to toggle the mobile dropdown sub-menu */}
-          <button
-            type="button"
-            onClick={togglePicksDropdown}
-            className={cn(
-              'flex w-full items-center justify-between border-b border-border py-4 px-2 text-left text-foreground transition-colors duration-200 ease-in-out hover:bg-muted focus:outline-none focus:ring-2 focus:ring-inset focus:ring-ring min-h-12',
-              {
-                'bg-accent text-primary font-medium':
-                  isPicksDropdownOpen ||
-                  router.pathname.startsWith('/top-hotel-picks') ||
-                  router.pathname.startsWith('/top-restaurant-picks'),
-              },
-            )}
-            aria-expanded={isPicksDropdownOpen}
-            aria-controls="mobile-picks-submenu"
-          >
-            <span className="flex items-center">
-              {/* Icon for the dropdown toggle */}
-              <span
-                className={cn(
-                  'mr-3',
-                  isPicksDropdownOpen ||
-                    router.pathname.startsWith('/top-hotel-picks') ||
-                    router.pathname.startsWith('/top-restaurant-picks')
-                    ? 'text-primary'
-                    : 'text-primary',
-                )}
-              >
-                <LiaCrownSolid size={18} />
-              </span>
-              <span>Our Top Picks</span>
-            </span>
-            {/* Chevron indicator showing dropdown state */}
-            {isPicksDropdownOpen ? (
-              <ChevronUp size={18} />
-            ) : (
-              <ChevronDown size={18} />
-            )}
-          </button>
-
-          {/* Conditionally rendered sub-menu items */}
-          {isPicksDropdownOpen && (
-            <div
-              id="mobile-picks-submenu"
-              className="ml-4 flex flex-col border-l border-border pl-2"
-            >
-              {' '}
-              {/* Indent sub-items */}
-              {/* ***** CORRECTION ***** */}
-              {/* REMOVED onClick={toggleMenu} from these sub-items */}
-              {/* The routeChangeStart effect will handle closing the main menu */}
-              <MobileNavItem
-                href="/hotels?type=favourites"
-                icon={<Building size={16} />} // Optional: smaller icon
-                text="Top Hotel Picks"
-                // onClick={toggleMenu} // REMOVED - This caused the original issue
-                isSubItem
-              />
-              <MobileNavItem
-                href="/top-restaurant-picks"
-                icon={<Utensils size={16} />} // Optional: smaller icon
-                text="Top Restaurant Picks"
-                // onClick={toggleMenu} // REMOVED - This caused the original issue
-                isSubItem
-              />
-            </div>
-          )}
-          {/* --- MOBILE DROPDOWN END --- */}
 
           {/* Other top-level mobile items */}
           <MobileNavItem

@@ -1,8 +1,6 @@
-import {
-  buildHotelListing,
-  type HotelListingItem,
-  type RawHotelListingRow,
-} from 'lib/hotelListing'
+import { buildFoodListing, type RawFoodListingRow } from 'lib/foodListing'
+import { buildHotelListing, type RawHotelListingRow } from 'lib/hotelListing'
+import type { ListingItem } from 'lib/reviewListing'
 import { apiVersion, dataset, projectId, useCdn } from 'lib/sanity.api'
 // Import queries and types from the updated queries file
 import {
@@ -23,6 +21,7 @@ import {
   // Other types
   type Essential,
   foodCardFields,
+  foodListingQuery,
   type FoodReview,
   foodReviewBySlugQuery,
   foodReviewsByArenaQuery,
@@ -45,8 +44,6 @@ import {
   relatedGuidesQuery,
   type Settings,
   settingsQuery,
-  topFoodReviewsQuery,
-  topHotelReviewsQuery,
   travelEssentialQuery,
   visitedArenasHighlightQuery,
 } from 'lib/sanity.queries'
@@ -289,13 +286,25 @@ export async function getArenaBySlug(
   }
 }
 /** Every published hotel as a lean card list for /hotels (see lib/hotelListing). */
-export async function getHotelListing(): Promise<HotelListingItem[]> {
+export async function getHotelListing(): Promise<ListingItem[]> {
   if (!client) return []
   try {
     const rows = await client.fetch<RawHotelListingRow[]>(hotelListingQuery)
     return buildHotelListing(rows ?? [])
   } catch (error) {
     console.error('Error fetching hotel listing:', error)
+    return []
+  }
+}
+
+/** Every published food review as a lean card list for /food (see lib/foodListing). */
+export async function getFoodListing(): Promise<ListingItem[]> {
+  if (!client) return []
+  try {
+    const rows = await client.fetch<RawFoodListingRow[]>(foodListingQuery)
+    return buildFoodListing(rows ?? [])
+  } catch (error) {
+    console.error('Error fetching food listing:', error)
     return []
   }
 }
@@ -342,7 +351,9 @@ export async function getCityPageData(location: string): Promise<CityPageData> {
 export async function getTopArenas(): Promise<ArenaHighlightCard[]> {
   if (!client) return []
   try {
-    const results = await client.fetch<ArenaHighlightCard[]>(visitedArenasHighlightQuery)
+    const results = await client.fetch<ArenaHighlightCard[]>(
+      visitedArenasHighlightQuery,
+    )
     if (!results) return []
     const { getArenaDisplayRating } = await import('utils/arena/arenaUtils')
     return results.map((arena) => {
@@ -355,10 +366,15 @@ export async function getTopArenas(): Promise<ArenaHighlightCard[]> {
   }
 }
 
-export async function getFoodReviewsByArena(arenaId: string): Promise<ArenaFoodReviewCard[]> {
+export async function getFoodReviewsByArena(
+  arenaId: string,
+): Promise<ArenaFoodReviewCard[]> {
   if (!client) return []
   try {
-    const results = await client.fetch<ArenaFoodReviewCard[]>(foodReviewsByArenaQuery, { arenaId })
+    const results = await client.fetch<ArenaFoodReviewCard[]>(
+      foodReviewsByArenaQuery,
+      { arenaId },
+    )
     return results ?? []
   } catch (error) {
     console.error(`Error fetching food reviews for arena "${arenaId}":`, error)
@@ -617,115 +633,6 @@ export async function getAllHotelReviews(): Promise<HotelReview[]> {
     return hotelReviews || []
   } catch (error) {
     console.error('Error fetching all hotel reviews:', error)
-    return []
-  }
-}
-
-/**
- * Fetches top weighted hotel reviews sorted by rating.
- * @param limit Maximum number of reviews to return (default: 10)
- * @returns An array of HotelReview objects sorted by weighted rating, or empty array on error.
- */
-export async function getTopWeightedHotelReviews(
-  limit: number = 10,
-): Promise<HotelReview[]> {
-  if (!client) {
-    console.warn('Sanity client is not initialized.')
-    return []
-  }
-
-  try {
-    const hotelReviews = await client.fetch(topHotelReviewsQuery)
-
-    if (!hotelReviews || hotelReviews.length === 0) {
-      return []
-    }
-
-    // Import weights and calculate ratings
-    const { calculateRating } = await import('./calculateRating')
-    const { HOTEL_WEIGHTS } = await import('./ratingWeights')
-
-    // Calculate weighted ratings and sort
-    const reviewsWithRatings = hotelReviews
-      .map((review: HotelReview) => {
-        if (!review.hotelRating) {
-          return { ...review, calculatedRating: 0 }
-        }
-
-        const { numericalRating } = calculateRating(
-          review.hotelRating,
-          HOTEL_WEIGHTS,
-        )
-        return { ...review, calculatedRating: numericalRating }
-      })
-      .sort((a: any, b: any) => b.calculatedRating - a.calculatedRating)
-      .slice(0, limit)
-
-    return reviewsWithRatings
-  } catch (error) {
-    console.error('Error fetching top weighted hotel reviews:', error)
-    return []
-  }
-}
-
-/**
- * Fetches the top weighted food reviews based on calculated ratings
- * @param limit The maximum number of food reviews to return (default: 10)
- * @returns An array of FoodReview objects sorted by weighted rating, or an empty array on error.
- */
-export async function getTopWeightedFoodReviews(
-  limit: number = 10,
-): Promise<FoodReview[]> {
-  if (!client) {
-    console.warn('Sanity client is not initialized.')
-    return []
-  }
-
-  try {
-    const foodReviews = await client.fetch(topFoodReviewsQuery)
-
-    if (!foodReviews || foodReviews.length === 0) {
-      return []
-    }
-
-    // Import weights and calculate ratings
-    const { calculateRating } = await import('./calculateRating')
-    const { FOOD_WEIGHTS, TAKEOUT_WEIGHTS } = await import('./ratingWeights')
-
-    // Calculate weighted ratings and sort
-    const reviewsWithRatings = foodReviews
-      .map((review: FoodReview) => {
-        // Use the correct rating based on dining type, just like FoodReviewPage.tsx
-        const ratingsToUse =
-          review.diningType === 'takeout'
-            ? review.takeoutRating
-            : review.foodRating
-
-        if (!ratingsToUse) {
-          return { ...review, calculatedRating: 0 }
-        }
-
-        // Determine the correct weights based on the rating type
-        const isTakeoutRating = Object.keys(ratingsToUse).some((key) =>
-          [
-            'tasteAndFlavor',
-            'foodValue',
-            'packaging',
-            'accuracy',
-            'overallSatisfaction',
-          ].includes(key),
-        )
-        const weights = isTakeoutRating ? TAKEOUT_WEIGHTS : FOOD_WEIGHTS
-
-        const { numericalRating } = calculateRating(ratingsToUse, weights)
-        return { ...review, calculatedRating: numericalRating }
-      })
-      .sort((a: any, b: any) => b.calculatedRating - a.calculatedRating)
-      .slice(0, limit)
-
-    return reviewsWithRatings
-  } catch (error) {
-    console.error('Error fetching top weighted food reviews:', error)
     return []
   }
 }

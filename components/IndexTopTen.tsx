@@ -34,7 +34,7 @@ export default function IndexTopTen() {
             </Button>
             <Button
               icon={<CookingPot className="h-6 w-6 text-pink-500" />}
-              link={'/top-restaurant-picks'}
+              link={'/food?type=favourites'}
             >
               Restaurant
             </Button>

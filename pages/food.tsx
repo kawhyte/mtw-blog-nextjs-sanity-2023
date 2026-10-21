@@ -1,20 +1,26 @@
-import FoodReviewsPage from 'components/FoodReviewsPage' // Component to display food reviews
+import BlogHeader from 'components/BlogHeader'
+import Layout from 'components/BlogLayout'
+import CategoryPageHead from 'components/CategoryPageHead'
+import Footer from 'components/Footer'
+import ListingBrowse, {
+  type ListingKindTab,
+} from 'components/listing/ListingBrowse'
 import PreviewIndexPage from 'components/PreviewIndexPage'
-import {
-  getFoodReviewsTotalCount, // Independent food review count function
-  getPaginatedFoodReviews, // Independent food review pagination function
-  getSettings,
-} from 'lib/sanity.client'
+import type { ListingItem } from 'lib/reviewListing'
+import { getFoodListing, getSettings } from 'lib/sanity.client'
 import PreviewProvider from 'lib/sanity.preview'
-import { FoodReview, Settings } from 'lib/sanity.queries'
+import { Settings } from 'lib/sanity.queries'
+import { ShoppingBag, Utensils } from 'lucide-react'
 import { GetStaticProps } from 'next'
 
-// Define how many items to show per page
-const ITEMS_PER_PAGE = 12
+// Dining types, matching the `diningType` options in schemas/foodReview.ts
+const KIND_TABS: ListingKindTab[] = [
+  { key: 'dinein', label: 'Dine-in', icon: Utensils, gridTitle: 'Dine-in' },
+  { key: 'takeout', label: 'Takeout', icon: ShoppingBag, gridTitle: 'Takeout' },
+]
 
 interface PageProps {
-  initialPosts: FoodReview[]
-  totalPostsCount: number
+  restaurants: ListingItem[]
   settings: Settings
   preview: boolean
   token: string | null
@@ -29,7 +35,7 @@ interface PreviewData {
 }
 
 export default function Page(props: PageProps) {
-  const { initialPosts, totalPostsCount, settings, preview, token } = props
+  const { restaurants, settings, preview, token } = props
 
   if (preview) {
     return (
@@ -40,13 +46,32 @@ export default function Page(props: PageProps) {
   }
 
   return (
-    <FoodReviewsPage
-      key="food-page"
-      initialPosts={initialPosts}
-      totalPostsCount={totalPostsCount}
-      itemsPerPage={ITEMS_PER_PAGE}
-      settings={settings}
-    />
+    <>
+      <CategoryPageHead
+        settings={settings}
+        categoryType="food"
+        totalCount={restaurants.length}
+        topItems={restaurants
+          .slice(0, 10)
+          .map((r) => ({ name: r.title, url: `/food/${r.slug}` }))}
+      />
+      <Layout preview={false} loading={false}>
+        <BlogHeader level={1} />
+        <ListingBrowse
+          items={restaurants}
+          basePath="/food"
+          itemPath="/food"
+          title="Food Reviews"
+          intro={(count) =>
+            `${count} places we’ve eaten, honestly rated — hidden gems to fancy hotspots.`
+          }
+          kindTabs={KIND_TABS}
+          allTitle="All food reviews"
+          noun="places"
+        />
+        <Footer />
+      </Layout>
+    </>
   )
 }
 
@@ -57,19 +82,16 @@ export const getStaticProps: GetStaticProps<
 > = async (ctx) => {
   const { preview = false, previewData = {} } = ctx
 
-  // Fetch settings and total count concurrently
-  const [settings, totalPostsCount] = await Promise.all([
+  // Every restaurant as a lean card (scores computed at build time), so the
+  // rows, tabs and grid all filter on the client with no further requests.
+  const [settings, restaurants] = await Promise.all([
     getSettings(),
-    getFoodReviewsTotalCount(),
+    getFoodListing(),
   ])
-
-  // Fetch first page of posts and cast to FoodReview[]
-  const initialPosts = await getPaginatedFoodReviews(0, ITEMS_PER_PAGE)
 
   return {
     props: {
-      initialPosts: initialPosts as FoodReview[], // Cast to FoodReview[] for compatibility
-      totalPostsCount,
+      restaurants,
       settings,
       preview,
       token: previewData.token ?? null,
