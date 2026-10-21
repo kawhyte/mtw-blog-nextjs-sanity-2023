@@ -36,6 +36,8 @@ const ImageGallery = dynamic(() => import('./ImageGallery'), {
   ),
 })
 
+import Footer from 'components/Footer'
+
 import { Badge } from '@/components/ui/badge'
 import {
   Dialog,
@@ -778,6 +780,7 @@ export default function ArenaPage({
             showInlineGrid={false}
           />
         )}
+        <Footer />
       </Layout>
     </div>
   )

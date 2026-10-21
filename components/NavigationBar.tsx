@@ -24,10 +24,11 @@ import {
   LiaCrownSolid,
 } from 'react-icons/lia'
 
+import SearchBox from './SearchBox'
+
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isSearchOpen, setIsSearchOpen] = useState(false)
-  const [searchTerm, setSearchTerm] = useState('')
   const [isPicksDropdownOpen, setIsPicksDropdownOpen] = useState(false) // State for the picks dropdown
 
   const router = useRouter() // Initialize router
@@ -55,22 +56,8 @@ export default function Navbar() {
     setIsPicksDropdownOpen(!isPicksDropdownOpen)
   }
 
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value)
-  }
-
   // Note: handleToggleMenu and handleToggleSearch were simplified and merged into toggleMenu/toggleSearch
   // This avoids potential state conflicts if both tried to open simultaneously.
-
-  const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    if (searchTerm.trim()) {
-      router.push(`/search?q=${encodeURIComponent(searchTerm.trim())}`)
-      setIsSearchOpen(false) // Close search overlay on submit
-      setSearchTerm('')
-      // No need to close dropdowns here, routeChangeStart effect handles it
-    }
-  }
 
   // Close dropdowns and menu when navigating
   useEffect(() => {
@@ -117,32 +104,7 @@ export default function Navbar() {
   return (
     <nav className="sticky top-0 z-50 w-full bg-background shadow-sm">
       {/* Mobile Search Overlay */}
-      {isSearchOpen && (
-        <form
-          onSubmit={handleSearchSubmit}
-          className="absolute inset-0 z-30 flex items-center justify-center bg-background p-4 md:hidden"
-          aria-label="Mobile search form"
-        >
-          <div className="relative w-full">
-            <input
-              type="text"
-              placeholder="Search Hotels, Restaurants, Guides, or Arenas..."
-              className="w-full rounded-full border border-input bg-card py-3 pl-5 pr-12 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-foreground transition-shadow duration-150"
-              value={searchTerm}
-              onChange={handleSearchChange}
-              autoFocus // Automatically focus the input when it appears
-            />
-            <button
-              type="button"
-              className="absolute right-3 top-1/2 -translate-y-1/2 min-h-11 min-w-11 p-2 text-muted-foreground hover:text-primary focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
-              onClick={toggleSearch}
-              aria-label="Close search"
-            >
-              <X size={18} />
-            </button>
-          </div>
-        </form>
-      )}
+      {isSearchOpen && <SearchBox variant="mobile" onClose={toggleSearch} />}
 
       <div className="mx-auto flex max-w-396 items-center justify-between px-4 py-3">
         {/* Logo */}
@@ -167,27 +129,7 @@ export default function Navbar() {
         </div>
 
         {/* Desktop Search */}
-        <form
-          onSubmit={handleSearchSubmit}
-          className="ml-4 hidden flex-1 max-w-md md:ml-6 md:block"
-        >
-          <div className="relative">
-            <input
-              type="text"
-              placeholder="Search Hotels, Restaurants, Guides, or Arenas..."
-              className="w-full rounded-full border border-input bg-card py-2 pl-4 pr-10 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-foreground transition-shadow duration-150"
-              value={searchTerm}
-              onChange={handleSearchChange}
-            />
-            <button
-              type="submit"
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-primary" // Added hover state
-              aria-label="Submit search"
-            >
-              <Search size={18} />
-            </button>
-          </div>
-        </form>
+        <SearchBox variant="desktop" />
 
         {/* Mobile Icons (Search and Menu Toggle) */}
         <div className="flex items-center md:hidden">

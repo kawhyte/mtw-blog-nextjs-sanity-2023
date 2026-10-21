@@ -912,14 +912,33 @@ export const globalSearchQuery = groq`
   }
 }`
 
-// Turns free text into globalSearchQuery's $terms: one prefix pattern per word.
-export const toSearchTerms = (query: string): string[] =>
+// Splits free text into lowercase search words (max 8), dropping punctuation.
+export const toSearchWords = (query: string): string[] =>
   query
     .toLowerCase()
     .split(/[^\p{L}\p{N}]+/u)
     .filter(Boolean)
     .slice(0, 8)
-    .map((word) => `${word}*`)
+
+// Turns free text into globalSearchQuery's $terms: one prefix pattern per word.
+export const toSearchTerms = (query: string): string[] =>
+  toSearchWords(query).map((word) => `${word}*`)
+
+// Tiny title-only query for the nav search box's as-you-type suggestions.
+export const searchSuggestionsQuery = groq`
+  *[(
+    (_type in ["hotelReview", "foodReview", "guide"] && (!defined(publishedAt) || publishedAt <= now())) ||
+    (_type == "arenas" && visited == true)
+  ) && (title match $terms || name match $terms)]
+  | score(boost(title match $terms, 2), boost(name match $terms, 2), location match $terms)
+  | order(_score desc, date desc)[0...6] {
+    _id,
+    _type,
+    "title": coalesce(title, name),
+    location,
+    "slug": slug.current
+  }
+`
 
 // REMOVED: Legacy weighted queries - replaced by new weighted calculation functions
 // topWeightedHotelsQuery -> getTopWeightedHotelReviews() in sanity.client.ts

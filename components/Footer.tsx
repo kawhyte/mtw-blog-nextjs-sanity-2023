@@ -5,12 +5,16 @@ import { EXAMPLE_PATH } from '../lib/constants'
 export default function Footer() {
   let year = new Date().getFullYear()
   return (
-    <footer className=" mt-20 relative text-muted-foreground body-font  bg-purple-100">
-      <div className="container px-5 py-8 mx-auto flex items-center sm:flex-row ">
-        <div className="flex title-font font-medium items-center md:justify-start justify-center text-foreground">
-          <Link href="/" passHref legacyBehavior>
-            <div className="flex flex-row justify-center align-middle items-center">
-              {/* <div className=' hidden mx-4 sm:inline-block'>
+    // BlogLayout's <main> is a flex column: the spacer keeps the old 5rem gap
+    // above the footer, and mt-auto pushes it to the bottom of short pages
+    <>
+      <div aria-hidden="true" className="h-20 shrink-0" />
+      <footer className="relative mt-auto text-muted-foreground body-font bg-purple-100">
+        <div className="container px-5 py-8 mx-auto flex items-center sm:flex-row ">
+          <div className="flex title-font font-medium items-center md:justify-start justify-center text-foreground">
+            <Link href="/" passHref legacyBehavior>
+              <div className="flex flex-row justify-center align-middle items-center">
+                {/* <div className=' hidden mx-4 sm:inline-block'>
 									<img
 										className='rounded-xl '
 										src='/icon/icon.jpg'
@@ -20,74 +24,75 @@ export default function Footer() {
 									/>
 								</div> */}
 
-              <p className="lg:block hidden text-base leading-relaxed md:inline-block mr-4 py-2 whitespace-nowrap text-foreground">
-                meet the whytes
+                <p className="lg:block hidden text-base leading-relaxed md:inline-block mr-4 py-2 whitespace-nowrap text-foreground">
+                  meet the whytes
+                </p>
+              </div>
+            </Link>
+          </div>
+
+          <div className="flex  flex-row">
+            <a
+              href="https://www.kennywhyte.com"
+              className="text-primary ml-1 "
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              {' '}
+              <p
+                id="copyright-year"
+                className="font-sans mt-4 text-sm leading-relaxed md:text-sm lg:text-sm text-foreground sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-border sm:py-2 sm:mt-0"
+              >
+                © {year} Created by Kenny
               </p>
-            </div>
-          </Link>
-        </div>
+            </a>
+          </div>
 
-        <div className="flex  flex-row">
-          <a
-            href="https://www.kennywhyte.com"
-            className="text-primary ml-1 "
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            {' '}
-            <p
-              id="copyright-year"
-              className="font-sans mt-4 text-sm leading-relaxed md:text-sm lg:text-sm text-foreground sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-border sm:py-2 sm:mt-0"
+          <span className="flex flex-row sm:ml-auto sm:mt-0 mt-4 justify-center  sm:justify-start cursor-pointer">
+            <a
+              className="ml-3 p-2 text-primary"
+              rel="noopener noreferrer nofollow"
+              target="_blank"
+              href="https://www.instagram.com/mtwtravel/"
+              aria-label="Follow us on Instagram"
             >
-              © {year} Created by Kenny
-            </p>
-          </a>
+              <svg
+                fill="none"
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                className="w-6 h-6"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01"></path>
+              </svg>
+            </a>
+            <a
+              className="ml-3 p-2 text-primary"
+              rel="noopener noreferrer nofollow"
+              target="_blank"
+              href="https://www.youtube.com/channel/UC519Rsb02cRpbzDNLMWflVA"
+              aria-label="Watch us on YouTube"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                stroke="currentColor"
+                width="24"
+                height="24"
+                className="w-6 h-6"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z" />
+              </svg>
+            </a>
+          </span>
         </div>
-
-        <span className="flex flex-row sm:ml-auto sm:mt-0 mt-4 justify-center  sm:justify-start cursor-pointer">
-          <a
-            className="ml-3 p-2 text-primary"
-            rel="noopener noreferrer nofollow"
-            target="_blank"
-            href="https://www.instagram.com/mtwtravel/"
-            aria-label="Follow us on Instagram"
-          >
-            <svg
-              fill="none"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              className="w-6 h-6"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-            >
-              <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
-              <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01"></path>
-            </svg>
-          </a>
-          <a
-            className="ml-3 p-2 text-primary"
-            rel="noopener noreferrer nofollow"
-            target="_blank"
-            href="https://www.youtube.com/channel/UC519Rsb02cRpbzDNLMWflVA"
-            aria-label="Watch us on YouTube"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="currentColor"
-              stroke="currentColor"
-              width="24"
-              height="24"
-              className="w-6 h-6"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-            >
-              <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z" />
-            </svg>
-          </a>
-        </span>
-      </div>
-    </footer>
+      </footer>
+    </>
   )
 }

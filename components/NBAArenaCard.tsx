@@ -6,6 +6,7 @@ import { getRankBadgeStyle } from 'utils/arena/rankBadgeStyles'
 import { CardFooter } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 
+import HighlightText from './HighlightText'
 import PostDate from './PostDate'
 import RatingBadge from './RatingBadge'
 import SanityImage from './SanityImage'
@@ -29,6 +30,8 @@ interface NBAArenaCardProps {
   rank?: number
   priority?: boolean
   revisitCount?: number
+  /** Search words to highlight in the arena name (search results page). */
+  highlightWords?: string[]
 }
 
 
@@ -53,6 +56,7 @@ const Arenas = React.memo(
     rank,
     priority = false,
     revisitCount,
+    highlightWords,
   }: NBAArenaCardProps) => {
     const hasImage =
       arenaImageSrc?.asset?._ref != null || arenaImageSrc?.asset?._id != null
@@ -117,7 +121,7 @@ const Arenas = React.memo(
             </span>
 
             <p className="line-clamp-2 text-sm font-bold leading-snug text-foreground decoration-primary decoration-dashed decoration-2 group-hover:underline">
-              {arenaName}
+              <HighlightText text={arenaName} words={highlightWords} />
             </p>
 
             {hasRating && (
@@ -234,7 +238,7 @@ const Arenas = React.memo(
               ) : null}
 
               <h2 className="line-clamp-1 pt-1 text-lg font-bold text-foreground decoration-primary decoration-dashed decoration-4 group-hover:underline sm:line-clamp-2 sm:h-8 sm:text-xl lg:text-xl xl:pt-1.5">
-                {arenaName}
+                <HighlightText text={arenaName} words={highlightWords} />
               </h2>
 
               <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-muted-foreground">

@@ -65,9 +65,11 @@ export default function BlogLayout({
         <title>{siteTitle}</title>
         <meta name="description" content={siteDescription} />
       </Head>
-      <div className="min-h-screen  ">
+      {/* Flex column so the footer (rendered last inside <main>) can sit at the
+          bottom of the screen on short pages via its mt-auto */}
+      <div className="flex min-h-screen flex-col">
         <AlertBanner preview={preview} loading={loading} />
-        <main>{children}</main>
+        <main className="flex flex-1 flex-col">{children}</main>
       </div>
     </>
   )

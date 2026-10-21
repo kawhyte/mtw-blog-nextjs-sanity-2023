@@ -16,6 +16,7 @@ import { Badge } from '@/components/ui/badge'
 import { CardContent, CardFooter, CardTitle } from '@/components/ui/card'
 
 import CoverImage from './CoverImage'
+import HighlightText from './HighlightText'
 import SanityImage from './SanityImage'
 
 const GUIDE_CATEGORY_LABELS: Record<string, string> = {
@@ -48,6 +49,8 @@ interface DynamicPostCardProps {
   revisitCount?: number
   calculatedRating?: number
   rank?: number
+  /** Search words to highlight in the title (search results page). */
+  highlightWords?: string[]
 }
 
 const getLinkPrefix = (
@@ -140,6 +143,7 @@ const DynamicPostCard = ({
   revisitCount,
   calculatedRating,
   rank,
+  highlightWords,
 }: DynamicPostCardProps) => {
   const safeSlug = slug ?? ''
   const href = `${getLinkPrefix(contentType)}/${safeSlug}`
@@ -216,7 +220,7 @@ const DynamicPostCard = ({
           )}
 
           <p className="line-clamp-2 text-sm font-bold leading-snug text-foreground decoration-primary decoration-dashed decoration-2 group-hover:underline">
-            {title}
+            <HighlightText text={title} words={highlightWords} />
           </p>
 
           {contentType === 'guide' && summary && (
@@ -294,7 +298,7 @@ const DynamicPostCard = ({
             ) : null}
 
             <CardTitle className="line-clamp-1 pt-1 text-sm font-bold text-foreground no-underline decoration-primary decoration-dashed decoration-4 group-hover:underline sm:line-clamp-2 sm:h-8 sm:text-xl lg:text-xl xl:pt-1.5">
-              {title}
+              <HighlightText text={title} words={highlightWords} />
             </CardTitle>
 
             {/* Guide summary excerpt */}
