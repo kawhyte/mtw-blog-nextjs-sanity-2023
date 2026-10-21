@@ -77,7 +77,7 @@ const Arenas = React.memo(
           )}
 
           {/* Thumbnail — self-stretch so it fills the full card height regardless of content length */}
-          <div className="relative self-stretch w-[96px] shrink-0 overflow-hidden rounded-l-[22px] bg-muted">
+          <div className="relative self-stretch w-[96px] shrink-0 overflow-hidden rounded-l-[22px] bg-muted -my-px -ml-px">
             {hasImage ? (
               <SanityImage
                 image={arenaImageSrc}
@@ -172,7 +172,9 @@ const Arenas = React.memo(
             </Link>
           )}
 
-          <div className="relative">
+          {/* -mx-px -mt-px: the image runs 1px under the border so fractional card
+              widths can't leave a sliver of card background at its edges */}
+          <div className="relative -mx-px -mt-px">
             {!!rank && (
               <div
                 className={`absolute left-3 top-3 z-30 rounded-full px-2 py-1 text-xs font-bold min-h-[32px] flex items-center gap-1 ${getRankBadgeStyle(rank)}`}
