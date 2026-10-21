@@ -368,11 +368,9 @@ function HotelReviewPageContent(props: HotelReviewPageProps) {
                 </Section>
               )}
 
-              {hotelReview.tip && (
-                <Section spacing="tight" as="div">
-                  <HelpfulTip tip={hotelReview.tip} />
-                </Section>
-              )}
+              {/* The tip card has its own margin (same 40px gap as the
+                  sections around it) — no extra wrapper */}
+              <HelpfulTip tip={hotelReview.tip} />
 
               {/* RoomTech has its own vertical margins — no extra wrapper */}
               <RoomTech

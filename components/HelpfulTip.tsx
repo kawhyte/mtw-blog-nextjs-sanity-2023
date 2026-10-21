@@ -8,7 +8,7 @@ export default function HelpfulTip({ tip }) {
   }
 
   return (
-    <div className="my-16 bg-accent border-4 border-foreground rounded-lg shadow-brutalist p-6 sm:p-8">
+    <div className="my-10 bg-accent border-4 border-foreground rounded-lg shadow-brutalist p-6 sm:p-8">
       <div className="flex items-start gap-x-4">
         <div className="flex-shrink-0 border-2 border-foreground rounded p-1.5 bg-accent-foreground/10">
           <Lightbulb className="h-6 w-6 text-accent-foreground" />

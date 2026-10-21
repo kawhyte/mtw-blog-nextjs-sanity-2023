@@ -13,14 +13,17 @@ import { extractPlainText } from './utils'
  * can be edited, and you can always just type your own.
  */
 export function VerdictHeadlineGeneratorInput(props: StringInputProps) {
-  const [state, setState] = useState<'idle' | 'confirming' | 'generating'>('idle')
+  const [state, setState] = useState<'idle' | 'confirming' | 'generating'>(
+    'idle',
+  )
   const toast = useToast()
 
   const doc = useFormValue([]) as any
   const verdictText = extractPlainText(doc?.verdict ?? [])
   const positives: string[] = (doc?.positives ?? []).filter(Boolean)
   const negatives: string[] = (doc?.negatives ?? []).filter(Boolean)
-  const hasSource = Boolean(verdictText.trim()) || positives.length > 0 || negatives.length > 0
+  const hasSource =
+    Boolean(verdictText.trim()) || positives.length > 0 || negatives.length > 0
   const hasContent = Boolean(props.value?.trim())
 
   const runGenerate = async () => {
@@ -43,6 +46,15 @@ export function VerdictHeadlineGeneratorInput(props: StringInputProps) {
           internetSpeed: doc?.internetSpeed,
           techRating: doc?.techRating,
           roomAmenities: doc?.roomAmenities,
+          // Food reviews
+          diningType: doc?.diningType,
+          dishes: (doc?.individualFoodRating ?? [])
+            .filter((dish: any) => dish?.name)
+            .map((dish: any) => ({
+              name: dish.name,
+              rating: dish.rating?.Dish,
+              price: dish.price,
+            })),
         }),
         signal: AbortSignal.timeout(20000),
       })
@@ -53,7 +65,8 @@ export function VerdictHeadlineGeneratorInput(props: StringInputProps) {
       toast.push({
         status: 'success',
         title: `Verdict headline generated (${(data.verdictHeadline as string).length} chars)`,
-        description: 'Read it over and tweak anything that doesn’t sound like you.',
+        description:
+          'Read it over and tweak anything that doesn’t sound like you.',
       })
     } catch (err: any) {
       toast.push({
@@ -98,19 +111,23 @@ export function VerdictHeadlineGeneratorInput(props: StringInputProps) {
           <Box>
             <Button
               icon={SparklesIcon}
-              text={state === 'generating' ? 'Generating…' : 'Generate with Gemini'}
+              text={
+                state === 'generating' ? 'Generating…' : 'Generate with Gemini'
+              }
               tone="primary"
               mode="ghost"
               fontSize={1}
               padding={2}
               disabled={!hasSource || state === 'generating'}
-              onClick={() => (hasContent ? setState('confirming') : runGenerate())}
+              onClick={() =>
+                hasContent ? setState('confirming') : runGenerate()
+              }
             />
           </Box>
           {!hasSource && (
             <Text size={1} muted>
-              Fill in The Verdict, What We Loved or What We Didn’t Like first — the
-              headline is written from those.
+              Fill in The Verdict, What We Loved or What We Didn’t Like first —
+              the headline is written from those.
             </Text>
           )}
         </Stack>

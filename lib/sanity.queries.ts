@@ -559,6 +559,7 @@ export const independentFoodReviewFields = groq`
     asset->{ _id, metadata { lqip, dimensions { width, height } } }
   },
   seoExcerpt,
+  verdictHeadline,
   tip,
   individualFoodRating,
   heroPhotos[] {
@@ -733,6 +734,8 @@ export interface FoodReview {
   diningType?: 'dinein' | 'takeout'
   coverImage?: any
   seoExcerpt?: string
+  /** One-line "Our take" under the photos; falls back to seoExcerpt */
+  verdictHeadline?: string
   tip?: any[]
   individualFoodRating?: any[]
   heroPhotos?: GalleryImageItem[] // Hero block (first = large), max 5

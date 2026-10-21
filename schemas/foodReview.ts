@@ -2,8 +2,10 @@ import { IceCreamIcon } from '@sanity/icons'
 import { format, parseISO } from 'date-fns'
 import { IceCream } from 'lucide-react'
 import { defineField, defineType } from 'sanity'
+
 import { AltTextGeneratorInput } from '../plugins/AltTextGeneratorInput'
 import { SeoExcerptGeneratorInput } from '../plugins/SeoExcerptGeneratorInput'
+import { VerdictHeadlineGeneratorInput } from '../plugins/VerdictHeadlineGeneratorInput'
 import {
   galleryField,
   heroPhotosField,
@@ -145,12 +147,29 @@ export default defineType({
       title: 'SEO Excerpt / Meta Description',
       type: 'string',
       description:
-        'Plain text shown in Google search results and social shares. 120–155 characters ideal. If left blank, Google will show the site\'s generic description — always fill this in.',
+        "Plain text shown in Google search results and social shares. 120–155 characters ideal. If left blank, Google will show the site's generic description — always fill this in.",
       validation: (Rule) => [
-        Rule.max(155).warning('Keep under 155 characters for Google search results'),
-        Rule.min(120).warning('At least 120 characters recommended for Google search results'),
+        Rule.max(155).warning(
+          'Keep under 155 characters for Google search results',
+        ),
+        Rule.min(120).warning(
+          'At least 120 characters recommended for Google search results',
+        ),
       ],
       components: { input: SeoExcerptGeneratorInput },
+    }),
+
+    defineField({
+      name: 'verdictHeadline',
+      title: 'Verdict Headline (optional)',
+      type: 'string',
+      description:
+        'One punchy sentence shown under the photos as "Our take", e.g. "The branzino alone is worth the trip to Back Bay." If left blank, the SEO excerpt is shown there instead.',
+      validation: (Rule) =>
+        Rule.max(120).warning(
+          'Keep it to one short sentence (under 120 characters)',
+        ),
+      components: { input: VerdictHeadlineGeneratorInput },
     }),
 
     defineField({
@@ -549,7 +568,11 @@ export default defineType({
         date && `📅 ${format(parseISO(date), 'LLL d, yyyy')}`,
       ].filter(Boolean)
 
-      return { title, media: media || heroMedia, subtitle: subtitles.join(' • ') }
+      return {
+        title,
+        media: media || heroMedia,
+        subtitle: subtitles.join(' • '),
+      }
     },
   },
 

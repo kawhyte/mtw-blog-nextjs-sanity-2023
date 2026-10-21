@@ -4,8 +4,8 @@ import { ReactNode, useCallback, useEffect, useRef, useState } from 'react'
 
 interface SwipeRowProps {
   title: string
-  /** Where the title (and the "See all" card, if any) go */
-  seeAllHref: string
+  /** Where the title (and the "See all" card, if any) go; leave out for a plain title */
+  seeAllHref?: string
   /** Label for the dashed end card; leave out when the row already shows everything */
   seeAllLabel?: string
   children: ReactNode
@@ -52,13 +52,17 @@ export default function SwipeRow({
     <section className="flex flex-col gap-4">
       <div className="flex items-center justify-between gap-4">
         <h2 className="text-xl font-extrabold tracking-tight sm:text-2xl">
-          <Link
-            href={seeAllHref}
-            scroll={false}
-            className="-my-3 inline-block py-3 hover:text-primary"
-          >
-            {title} <span aria-hidden="true">›</span>
-          </Link>
+          {seeAllHref ? (
+            <Link
+              href={seeAllHref}
+              scroll={false}
+              className="-my-3 inline-block py-3 hover:text-primary"
+            >
+              {title} <span aria-hidden="true">›</span>
+            </Link>
+          ) : (
+            title
+          )}
         </h2>
         <div className="hidden gap-2 md:flex">
           <button
@@ -89,7 +93,7 @@ export default function SwipeRow({
         className="scrollbar-hide -mx-4 flex snap-x snap-mandatory scroll-px-4 gap-4 overflow-x-auto px-4 pb-2 md:mx-0 md:scroll-px-0 md:gap-5 md:px-0"
       >
         {children}
-        {seeAllLabel && (
+        {seeAllLabel && seeAllHref && (
           <Link
             href={seeAllHref}
             scroll={false}
