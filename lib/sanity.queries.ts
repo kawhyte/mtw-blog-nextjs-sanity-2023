@@ -470,6 +470,7 @@ export const independentHotelReviewFields = groq`
     asset->{ _id, metadata { lqip, dimensions { width, height } } }
   },
   seoExcerpt,
+  verdictHeadline,
   blurbSource,
   blurbUrl,
   tip,
@@ -668,6 +669,7 @@ export interface HotelReview {
   lounge?: string
   coverImage?: any
   seoExcerpt?: string
+  verdictHeadline?: string // One-line "The Verdict" shown under the photos
   blurbSource?: string
   blurbUrl?: string
   tip?: any[]
@@ -1227,6 +1229,16 @@ export interface Instagram {
 }
 
 // --- City hub pages ---
+// Arenas whose location matches a review's city (e.g. "Las Vegas, NV"),
+// for the "Going to a game?" box on review pages
+export const arenasInLocationQuery = groq`
+  *[_type == "arenas" && lower(location) == lower($location)] | order(name asc) {
+    name,
+    "slug": slug.current,
+    location
+  }
+`
+
 export const allArenaLocationsQuery = groq`
   array::unique(*[_type == "arenas" && defined(location) && location != ""][].location)
 `

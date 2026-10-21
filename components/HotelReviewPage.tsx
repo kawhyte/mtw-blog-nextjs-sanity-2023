@@ -16,22 +16,15 @@ import { computeTimelineEntries, getEffectiveRating } from 'lib/mergeRatings'
 import { HOTEL_WEIGHTS } from 'lib/ratingWeights'
 import type { HotelReview, Settings } from 'lib/sanity.queries'
 import {
-  Armchair,
-  Banknote,
   Bath,
   Bed,
-  BedDouble,
   BrushCleaning,
-  CalendarDays,
   ChevronRight,
   Dumbbell,
   Handshake,
-  Hotel,
   MapPin,
-  RefreshCw,
   Star,
   Tag,
-  Users,
   WavesLadder,
   Wifi,
 } from 'lucide-react'
@@ -42,6 +35,10 @@ import HelpfulTip from './HelpfulTip'
 import HeroPhotoGallery from './HeroPhotoGallery'
 import NearestArenaLink from './NearestArenaLink'
 import ResortFeeCard from './ResortFeeCard'
+import { ReviewActionBar } from './review/ReviewActions'
+import ReviewSummaryPanel, {
+  type ReviewChip,
+} from './review/ReviewSummaryPanel'
 import ReviewBlurb from './ReviewBlurb'
 import ReviewRating from './ReviewRating'
 import ReviewStructuredData from './ReviewStructuredData'
@@ -53,10 +50,13 @@ export interface HotelReviewPageProps {
   loading?: boolean
   hotelReview: HotelReview
   settings: Settings
+  /** Arenas in the same city, for the "Going to a game?" box */
+  arenasInCity?: { name: string; slug: string; location: string }[]
 }
 
 import { usePhotoGallery } from 'hooks/usePhotoGallery'
 import { urlForImage } from 'lib/sanity.image'
+import { locationToSlug } from 'utils/locationSlug'
 
 const HOTEL_RATING_LABELS: Record<string, string> = {
   Location: 'Location',
@@ -110,7 +110,7 @@ const hotelRatingIcons = {
 }
 
 function HotelReviewPageContent(props: HotelReviewPageProps) {
-  const { preview, loading, hotelReview, settings } = props
+  const { preview, loading, hotelReview, settings, arenasInCity = [] } = props
   const { title = demo.title } = settings || {}
 
   // Enrich the base rating: auto-compute Internet_Speed from the Mbps value when present.
@@ -177,6 +177,40 @@ function HotelReviewPageContent(props: HotelReviewPageProps) {
       ...(hotelReview.gallery || []),
     ])
 
+  // Summary panel: overall score, the place's name (for Directions/Share)
+  // and the key facts as chips
+  const overall = effectiveHotelRating
+    ? calculateRating(
+        effectiveHotelRating as Record<string, number>,
+        HOTEL_WEIGHTS,
+      )
+    : null
+  const reviewTitle = hotelReview.title || 'Hotel Review'
+  const placeName = reviewTitle.replace(/\s+(hotel\s+)?review$/i, '').trim()
+  const chips: ReviewChip[] = [
+    hotelReview.category && {
+      label: hotelReview.category.replace(/\b\w/g, (c) => c.toUpperCase()),
+      tone: 'dark' as const,
+    },
+    hotelReview.room && { label: hotelReview.room, tone: 'indigo' as const },
+    hotelReview.date && { label: `Stayed ${formatDate(hotelReview.date)}` },
+    hotelReview.wouldReturn && {
+      label: WOULD_RETURN_CONFIG[hotelReview.wouldReturn].label,
+      tone:
+        hotelReview.wouldReturn === 'yes' ? ('success' as const) : undefined,
+    },
+    hotelReview.priceTier && {
+      label: PRICE_TIER_LABELS[hotelReview.priceTier] ?? hotelReview.priceTier,
+    },
+    hotelReview.lounge &&
+      hotelReview.lounge.toLowerCase() !== 'no' && {
+        label: hotelReview.lounge.toLowerCase().includes('free')
+          ? 'Lounge: Free Access'
+          : 'Lounge: Member/Paid',
+      },
+  ].filter(Boolean) as ReviewChip[]
+  const verdictText = hotelReview.verdictHeadline || hotelReview.seoExcerpt
+
   return (
     <div>
       <PostPageHead
@@ -210,7 +244,7 @@ function HotelReviewPageContent(props: HotelReviewPageProps) {
       <Layout preview={preview} loading={loading}>
         <BlogHeader title={title} level={2} />
 
-        <article className="container mx-auto px-4 py-8 md:px-6 md:py-12">
+        <article className="container mx-auto max-w-7xl px-4 pb-28 pt-6 md:px-6 md:pt-10 lg:pb-12">
           <nav
             aria-label="Breadcrumb"
             className="flex items-center gap-1.5 text-sm text-muted-foreground mb-6 flex-wrap"
@@ -231,183 +265,174 @@ function HotelReviewPageContent(props: HotelReviewPageProps) {
             </span>
           </nav>
 
-          <Section spacing="tight" as="div">
-            <header>
-              <h1 className="mb-4 text-4xl font-bold">{hotelReview.title}</h1>
-              <div className="mb-4 flex flex-wrap items-center justify-start gap-x-6 gap-y-2">
-                {hotelReview.location && (
-                  <div className="flex items-center text-base text-muted-foreground">
-                    <MapPin className="mr-2 h-4 w-4" />
-                    {hotelReview.location}
-                  </div>
-                )}
-                {hotelReview.category && (
-                  <div className="flex items-center text-base text-muted-foreground capitalize">
-                    <Hotel className="mr-2 h-4 w-4" />
-                    {hotelReview.category}
-                  </div>
-                )}
-                {hotelReview.room && (
-                  <div className="flex items-center text-base text-muted-foreground">
-                    <BedDouble className="mr-2 h-4 w-4" />
-                    {hotelReview.room}
-                  </div>
-                )}
-                {hotelReview.date && (
-                  <div className="flex items-center text-base text-muted-foreground">
-                    <CalendarDays className="mr-2 h-4 w-4" />
-                    {formatDate(hotelReview.date)}
-                  </div>
-                )}
-                {hotelReview.lounge &&
-                  hotelReview.lounge.toLowerCase() !== 'no' && (
-                    <div className="flex items-center text-base text-muted-foreground">
-                      <Armchair className="mr-2 h-4 w-4" />
-                      {hotelReview.lounge.toLowerCase().includes('free')
-                        ? 'Lounge: Free Access'
-                        : 'Lounge: Member/Paid'}
-                    </div>
-                  )}
-                {hotelReview.wouldReturn && (
-                  <div
-                    className={`flex items-center text-base font-medium ${WOULD_RETURN_CONFIG[hotelReview.wouldReturn].className}`}
-                  >
-                    <RefreshCw className="mr-2 h-4 w-4 shrink-0" />
-                    {WOULD_RETURN_CONFIG[hotelReview.wouldReturn].label}
-                  </div>
-                )}
-                {hotelReview.priceTier && (
-                  <div className="flex items-center text-base text-muted-foreground">
-                    <Banknote className="mr-2 h-4 w-4 shrink-0" />
-                    {PRICE_TIER_LABELS[hotelReview.priceTier] ??
-                      hotelReview.priceTier}
-                  </div>
-                )}
-              </div>
-
-              {hotelReview.bestFor && hotelReview.bestFor.length > 0 && (
-                <div className="mt-2 flex flex-wrap items-center gap-2">
-                  <div className="flex items-center text-sm text-muted-foreground">
-                    <Users className="mr-1.5 h-4 w-4 shrink-0" />
-                    <span className="font-medium">Best for:</span>
-                  </div>
-                  {hotelReview.bestFor.map((type) => (
-                    <span
-                      key={type}
-                      className="rounded-full border border-border bg-muted px-3 py-0.5 text-sm text-muted-foreground"
-                    >
-                      {BEST_FOR_LABELS[type] ?? type}
-                    </span>
-                  ))}
-                </div>
-              )}
-            </header>
-
-            {/* Hotel Summary hidden — excerpt2 not rendered to avoid duplicate content SEO issues */}
-          </Section>
-
-          {galleryImages.length > 0 && (
-            <HeroPhotoGallery
-              images={heroImages}
-              onShowAllPhotos={openModal}
-            />
-          )}
-
-          {effectiveHotelRating && (
-            <Section spacing="tight" as="div">
-              <ReviewRating
-                ratings={effectiveHotelRating}
-                ratingIcons={hotelRatingIcons}
-                title="Hotel Rating"
-                reviewType="hotel"
-              />
-            </Section>
-          )}
-
-          {timelineEntries.length > 0 &&
-            originalRatingResult &&
-            hotelReview.date && (
-              <Section spacing="tight" as="div">
-                <RevisitTimeline
-                  originalDate={hotelReview.date}
-                  originalDisplayRating={originalRatingResult.displayRating}
-                  originalTextRating={originalRatingResult.textRating}
-                  originalColor={originalRatingResult.color ?? '#6B7280'}
-                  entries={timelineEntries}
+          {/* Photos and the rest of the review on the right; the summary
+              panel sticks in the left column on large screens. On phones
+              the DOM order is photos → panel → review. */}
+          <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-[340px_minmax(0,1fr)] lg:gap-10">
+            {galleryImages.length > 0 && (
+              <div className="min-w-0 lg:col-start-2 lg:row-start-1">
+                <HeroPhotoGallery
+                  images={heroImages}
+                  onShowAllPhotos={openModal}
                 />
-              </Section>
+              </div>
             )}
 
-          <ProConList
-            positives={hotelReview.positives}
-            negatives={hotelReview.negatives}
-            verdict2={hotelReview.verdict}
-          />
-
-          {hotelReview.resortFee && (
-            <Section spacing="tight" as="div">
-              <ResortFeeCard data={hotelReview.resortFee} />
-            </Section>
-          )}
-
-          {hotelReview.tip && (
-            <Section spacing="tight" as="div">
-              <HelpfulTip tip={hotelReview.tip} />
-            </Section>
-          )}
-
-          <Section spacing="tight" as="div">
-            <RoomTech
-              techAvailable={hotelReview.techRating}
-              speed={hotelReview.internetSpeed}
-              roomAmenitiesAvailiable={hotelReview.roomAmenities}
-              parking={hotelReview.parking}
-              breakfast={hotelReview.breakfast}
-            />
-          </Section>
-
-          <Section spacing="tight" as="div">
-            <PostBody content={hotelReview.content} />
-          </Section>
-
-          {hotelReview.tags && hotelReview.tags.length > 0 && (
-            <Section spacing="tight" as="div">
-              <div className="flex flex-wrap items-center gap-2">
-                <Tag className="h-4 w-4 text-muted-foreground shrink-0" />
-                {hotelReview.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="rounded-full border border-border bg-muted px-3 py-1 text-sm text-muted-foreground"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </Section>
-          )}
-
-          <NearestArenaLink arena={hotelReview.nearestArena} />
-
-          {hotelReview.youtube && (
-            <Section spacing="tight" as="div">
-              <VideoPlayer
-                url={hotelReview.youtube}
-                documentDate={hotelReview.date}
-                videoDescription={hotelReview.seoExcerpt || `Our review of ${hotelReview.title} in ${hotelReview.location}.`}
+            <aside className="self-start lg:sticky lg:top-24 lg:col-start-1 lg:row-span-2 lg:row-start-1">
+              <ReviewSummaryPanel
+                title={reviewTitle}
+                placeName={placeName}
+                location={hotelReview.location}
+                score={
+                  overall
+                    ? {
+                        displayRating: overall.displayRating,
+                        textRating: overall.textRating,
+                      }
+                    : undefined
+                }
+                chips={chips}
+                footnote={
+                  hotelReview.bestFor && hotelReview.bestFor.length > 0 ? (
+                    <>
+                      <span className="font-semibold">Best for: </span>
+                      {hotelReview.bestFor
+                        .map((type) => BEST_FOR_LABELS[type] ?? type)
+                        .join(' · ')}
+                    </>
+                  ) : undefined
+                }
+                arenasInCity={arenasInCity}
+                cityGuideHref={
+                  arenasInCity[0]?.location
+                    ? `/city/${locationToSlug(arenasInCity[0].location)}`
+                    : undefined
+                }
               />
-            </Section>
-          )}
+            </aside>
 
-          {galleryImages.length > 0 && (
-            <ImageGallery
-              images={galleryImages}
-              isOpen={isOpen}
-              openModal={openModal}
-              closeModal={closeModal}
-              showInlineGrid={false}
-            />
-          )}
+            <div className="min-w-0 lg:col-start-2 lg:row-start-2">
+              {/* Hotel Summary hidden — excerpt2 not rendered to avoid duplicate content SEO issues */}
+              {verdictText && (
+                <section className="mb-8 flex flex-col gap-3">
+                  <span className="text-xs font-bold tracking-[0.14em] text-primary">
+                    OUR TAKE
+                  </span>
+                  <p
+                    className={`font-heading-family font-extrabold leading-tight text-foreground ${
+                      hotelReview.verdictHeadline
+                        ? 'text-3xl md:text-4xl'
+                        : 'text-xl md:text-2xl'
+                    }`}
+                  >
+                    {verdictText}
+                  </p>
+                </section>
+              )}
+
+              {effectiveHotelRating && (
+                <ReviewRating
+                  ratings={effectiveHotelRating}
+                  ratingIcons={hotelRatingIcons}
+                  title="Ratings at a glance"
+                  reviewType="hotel"
+                  variant="glance"
+                />
+              )}
+
+              {timelineEntries.length > 0 &&
+                originalRatingResult &&
+                hotelReview.date && (
+                  <Section spacing="tight" as="div">
+                    <RevisitTimeline
+                      originalDate={hotelReview.date}
+                      originalDisplayRating={originalRatingResult.displayRating}
+                      originalTextRating={originalRatingResult.textRating}
+                      originalColor={originalRatingResult.color ?? '#6B7280'}
+                      entries={timelineEntries}
+                    />
+                  </Section>
+                )}
+
+              <ProConList
+                positives={hotelReview.positives}
+                negatives={hotelReview.negatives}
+                verdict2={hotelReview.verdict}
+              />
+
+              {hotelReview.resortFee && (
+                <Section spacing="tight" as="div">
+                  <ResortFeeCard data={hotelReview.resortFee} />
+                </Section>
+              )}
+
+              {hotelReview.tip && (
+                <Section spacing="tight" as="div">
+                  <HelpfulTip tip={hotelReview.tip} />
+                </Section>
+              )}
+
+              <Section spacing="tight" as="div">
+                <RoomTech
+                  techAvailable={hotelReview.techRating}
+                  speed={hotelReview.internetSpeed}
+                  roomAmenitiesAvailiable={hotelReview.roomAmenities}
+                  parking={hotelReview.parking}
+                  breakfast={hotelReview.breakfast}
+                />
+              </Section>
+
+              <Section spacing="tight" as="div">
+                <PostBody content={hotelReview.content} />
+              </Section>
+
+              {hotelReview.tags && hotelReview.tags.length > 0 && (
+                <Section spacing="tight" as="div">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <Tag className="h-4 w-4 text-muted-foreground shrink-0" />
+                    {hotelReview.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="rounded-full border border-border bg-muted px-3 py-1 text-sm text-muted-foreground"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </Section>
+              )}
+
+              <NearestArenaLink arena={hotelReview.nearestArena} />
+
+              {hotelReview.youtube && (
+                <Section spacing="tight" as="div">
+                  <VideoPlayer
+                    url={hotelReview.youtube}
+                    documentDate={hotelReview.date}
+                    videoDescription={
+                      hotelReview.seoExcerpt ||
+                      `Our review of ${hotelReview.title} in ${hotelReview.location}.`
+                    }
+                  />
+                </Section>
+              )}
+
+              {galleryImages.length > 0 && (
+                <ImageGallery
+                  images={galleryImages}
+                  isOpen={isOpen}
+                  openModal={openModal}
+                  closeModal={closeModal}
+                  showInlineGrid={false}
+                />
+              )}
+            </div>
+          </div>
         </article>
+        <ReviewActionBar
+          placeName={placeName}
+          location={hotelReview.location}
+        />
         <Footer />
       </Layout>
     </div>

@@ -57,19 +57,32 @@ interface ReviewRatingProps {
   ratingIcons: { [key: string]: ReactElement }
   title: string
   reviewType?: 'food' | 'hotel' // Add review type to determine weights
+  /** 'glance': compact bar grid only (the overall score is shown elsewhere) */
+  variant?: 'full' | 'glance'
 }
+
+// Bar colour for one category, on the displayed 0–5 scale
+const glanceBarClass = (score: number) =>
+  score >= 4 ? 'bg-success' : score >= 3 ? 'bg-warning' : 'bg-destructive'
 
 export default function ReviewRating({
   ratings,
   ratingIcons,
   title,
   reviewType = 'food', // Default to food if not specified
+  variant = 'full',
 }: ReviewRatingProps) {
   if (!ratings) {
     return null
   }
+  // `internetSpeed` is the raw Mbps measurement stored alongside the
+  // Internet_Speed score — not a rating, so it must not get its own row
   const ratingEntries = Object.entries(ratings).filter(
-    ([key, value]) => key !== '_type' && value !== null && value !== undefined,
+    ([key, value]) =>
+      key !== '_type' &&
+      key !== 'internetSpeed' &&
+      value !== null &&
+      value !== undefined,
   )
   if (ratingEntries.length === 0) {
     return null
@@ -109,6 +122,44 @@ export default function ReviewRating({
       return false
     return true
   }).length
+
+  if (variant === 'glance') {
+    return (
+      <section className="rounded-3xl border-[3px] border-border-bold bg-card p-5 sm:p-6">
+        <h2 className="mb-4 text-xl font-extrabold text-foreground">{title}</h2>
+        <div className="grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2 xl:grid-cols-3">
+          {ratingEntries.map(([name, value]) => {
+            const score = (value ?? 0) / 2
+            const unavailable =
+              value === 0 && ['Pool', 'Gym', 'Internet_Speed'].includes(name)
+            return (
+              <div key={name}>
+                <div className="flex items-center justify-between text-sm font-semibold text-foreground">
+                  <span className="flex items-center">
+                    {ratingIcons[name]}
+                    {formatRatingName(name)}
+                  </span>
+                  <span>{unavailable ? '—' : score.toFixed(1)}</span>
+                </div>
+                {unavailable ? (
+                  <span className="text-xs italic text-muted-foreground">
+                    {getUnavailableText(name)}
+                  </span>
+                ) : (
+                  <div className="mt-1.5 h-2 rounded-full bg-muted">
+                    <div
+                      className={`h-full rounded-full ${glanceBarClass(score)}`}
+                      style={{ width: `${Math.min(100, (score / 5) * 100)}%` }}
+                    />
+                  </div>
+                )}
+              </div>
+            )
+          })}
+        </div>
+      </section>
+    )
+  }
 
   return (
     <section className="bg-secondary-soft-background rounded-2xl p-6 sm:p-8 my-8">
