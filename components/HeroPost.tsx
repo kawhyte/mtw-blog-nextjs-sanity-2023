@@ -11,7 +11,6 @@ export default function HeroPost(
     | 'title'
     | 'coverImage'
     | 'date'
-    | 'excerpt2'
     | 'author'
     | 'slug'
     | 'hotelRating'
@@ -22,7 +21,6 @@ export default function HeroPost(
     title,
     coverImage,
     date,
-    excerpt2,
     author,
     slug,
     hotelRating,
@@ -51,11 +49,10 @@ export default function HeroPost(
               title={title ?? 'Unnamed Place'}
               date={date}
               location={location}
-              excerpt2={excerpt2}
               rating={undefined}
-              linkType={'story'}
+              contentType="guide"
               diningType={undefined} // url={coverImage}
-              showRating={false} // linkType={linkType}
+              showRating={false}
               priority={true} // Hero image should load with priority
             />
           </div>

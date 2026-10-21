@@ -15,6 +15,7 @@ const GUIDE_CATEGORY_LABELS: Record<string, string> = {
 import cn from 'classnames'
 // Your existing imports
 import { calculateRating } from 'lib/calculateRating'
+import type { CardContentType } from 'lib/cardContentType'
 import { FOOD_WEIGHTS, HOTEL_WEIGHTS, TAKEOUT_WEIGHTS } from 'lib/ratingWeights'
 import { BookOpen, Hotel, ShoppingBag, Utensils } from 'lucide-react'
 import Link from 'next/link'
@@ -28,12 +29,12 @@ import SanityImage from './SanityImage'
 
 // Helper function to determine the link prefix based on post type
 const getLinkPrefix = (
-  linkType?: 'hotel' | 'food' | 'story' | 'favorite',
+  contentType?: CardContentType,
 ): string => {
-  switch (linkType) {
+  switch (contentType) {
     case 'hotel':
       return '/hotel'
-    case 'story':
+    case 'guide':
       return '/guide'
     case 'food':
       return '/food'
@@ -50,9 +51,8 @@ interface CoverImageProps {
   location?: string
   image: any
   category?: string
-  excerpt2?: any
   rating: any
-  linkType?: 'hotel' | 'food' | 'story' | 'favorite'
+  contentType?: CardContentType
   diningType: any
   showRating: boolean
   priority?: boolean // Add priority prop for above-the-fold images
@@ -66,18 +66,18 @@ export default function CoverImage(props: CoverImageProps) {
     rating,
     category,
     image: source,
-    linkType,
+    contentType,
     diningType,
     priority = false,
     location,
   } = props
 
   const altText =
-    linkType === 'hotel'
+    contentType === 'hotel'
       ? `${title} - NBA Arena Hotel Review${location ? ` in ${location}` : ''}`
-      : linkType === 'food'
+      : contentType === 'food'
         ? `${title} - NBA Arena Food Review${location ? ` in ${location}` : ''}`
-        : linkType === 'story'
+        : contentType === 'guide'
           ? `${title} - NBA Arena Travel Guide${location ? ` for ${location}` : ''}`
           : `${title} - NBA Arena Travel Review`
 
@@ -107,12 +107,12 @@ export default function CoverImage(props: CoverImageProps) {
       <div style={{ paddingTop: '50%', backgroundColor: '#ddd' }} />
     )
 
-  // Determine the correct weights based on linkType and rating field names
+  // Determine the correct weights based on contentType and rating field names
   let weights:
     | typeof HOTEL_WEIGHTS
     | typeof FOOD_WEIGHTS
     | typeof TAKEOUT_WEIGHTS
-  if (linkType === 'hotel') {
+  if (contentType === 'hotel') {
     weights = HOTEL_WEIGHTS
   } else {
     // For food reviews, detect if it's takeout based on field names or diningType
@@ -131,7 +131,7 @@ export default function CoverImage(props: CoverImageProps) {
   }
 
   const overallRating = calculateRating(rating, weights)
-  const href = slug ? `${getLinkPrefix(linkType)}/${slug}` : '#'
+  const href = slug ? `${getLinkPrefix(contentType)}/${slug}` : '#'
 
   const categoryType = categoryRating(category)
 
@@ -152,7 +152,7 @@ export default function CoverImage(props: CoverImageProps) {
         {slug ? (
           <Link href={href} aria-label={title}>
             {image}
-            {linkType === 'hotel' && category && (
+            {contentType === 'hotel' && category && (
               <Badge
                 className="absolute top-3 left-3 z-30 bg-zinc-900/65 text-white backdrop-blur-sm border-transparent min-h-[32px] flex items-center"
                 role="status"
@@ -165,7 +165,7 @@ export default function CoverImage(props: CoverImageProps) {
               </Badge>
             )}
 
-            {linkType === 'food' && diningType && (
+            {contentType === 'food' && diningType && (
               <Badge
                 className="absolute top-3 left-3 z-30 bg-zinc-900/65 text-white backdrop-blur-sm border-transparent min-h-[32px] flex items-center"
                 role="status"
@@ -180,7 +180,7 @@ export default function CoverImage(props: CoverImageProps) {
               </Badge>
             )}
 
-            {linkType === 'story' && category && GUIDE_CATEGORY_LABELS[category] && (
+            {contentType === 'guide' && category && GUIDE_CATEGORY_LABELS[category] && (
               <Badge
                 className="absolute top-3 left-3 z-30 bg-zinc-900/65 text-white backdrop-blur-sm border-transparent min-h-[32px] flex items-center"
                 role="status"
@@ -191,7 +191,7 @@ export default function CoverImage(props: CoverImageProps) {
               </Badge>
             )}
 
-            {showRating && linkType !== 'story' && (
+            {showRating && contentType !== 'guide' && (
               <div
                 className="absolute right-3 top-3 z-30"
                 style={{ maxWidth: 'calc(100% - 120px)' }}

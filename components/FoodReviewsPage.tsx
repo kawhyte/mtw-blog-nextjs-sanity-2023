@@ -107,7 +107,7 @@ export default function FoodReviewsPage(props: FoodReviewsPageProps) {
                     coverImage={foodReview.coverImage}
                     foodRating={foodReview.foodRating}
                     takeoutRating={foodReview.takeoutRating}
-                    linkType="food"
+                    contentType="food"
                     diningType={foodReview.diningType}
                     date={foodReview.date}
                     showRating={true}

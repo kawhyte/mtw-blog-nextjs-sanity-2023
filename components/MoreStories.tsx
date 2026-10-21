@@ -1,4 +1,8 @@
 import DynamicPostCard from 'components/DynamicPostCard'
+import {
+  type CardContentType,
+  cardContentTypeFromLinkType,
+} from 'lib/cardContentType'
 import { client } from 'lib/sanity.client'
 import {
   type FoodReview,
@@ -149,36 +153,14 @@ export default function MoreStories({
       {/* Display Posts Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  gap-4 px-4 sm:px-6 lg:px-8 container mx-auto max-w-8xl">
         {currentPagePosts.map((item) => {
-          // Helper function to determine linkType for new schema types
-          const getLinkType = (
-            item: ContentItem,
-          ): 'hotel' | 'food' | 'story' | 'favorite' => {
-            if ('_type' in item) {
-              switch (item._type) {
-                case 'hotelReview':
-                  return 'hotel'
-                case 'foodReview':
-                  return 'food'
-                case 'guide':
-                  return 'story'
-                default:
-                  const linkType = (item as Post).linkType
-                  return linkType === 'hotel' ||
-                    linkType === 'food' ||
-                    linkType === 'story' ||
-                    linkType === 'favorite'
-                    ? linkType
-                    : 'favorite'
-              }
-            }
-            const linkType = (item as Post).linkType
-            return linkType === 'hotel' ||
-              linkType === 'food' ||
-              linkType === 'story' ||
-              linkType === 'favorite'
-              ? linkType
-              : 'favorite'
-          }
+          const contentType: CardContentType =
+            '_type' in item && item._type === 'hotelReview'
+              ? 'hotel'
+              : '_type' in item && item._type === 'foodReview'
+                ? 'food'
+                : '_type' in item && item._type === 'guide'
+                  ? 'guide'
+                  : cardContentTypeFromLinkType((item as Post).linkType)
 
           return (
             <DynamicPostCard
@@ -188,10 +170,9 @@ export default function MoreStories({
               date={item.date}
               author={'author' in item ? item.author : undefined}
               slug={item.slug}
-              excerpt2={'excerpt2' in item ? item.excerpt2 : undefined}
               location={'location' in item ? item.location : undefined}
               category={'category' in item ? item.category : undefined}
-              linkType={getLinkType(item)}
+              contentType={contentType}
               // Pass specific rating fields based on content type
               hotelRating={'hotelRating' in item ? item.hotelRating : undefined}
               foodRating={'foodRating' in item ? item.foodRating : undefined}

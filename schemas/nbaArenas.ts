@@ -56,6 +56,7 @@ export default defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      // SEO meta description — hotels/food/guides call this `seoExcerpt`.
       name: 'excerpt',
       title: 'SEO Excerpt',
       type: 'string',
@@ -220,7 +221,9 @@ export default defineType({
     // --- END NEW Image Gallery Field ---
 
     defineField({
-      name: 'gallery', // Renamed field for Teams / Logos
+      // Team logos for the arena's home teams (not a photo gallery — photos
+      // live in `imageGallery`). Stored name kept so existing content isn't lost — see docs/FIELD-GLOSSARY.md.
+      name: 'gallery',
       title: 'Teams / Logos',
       description:
         'Logos/info for teams associated with the arena. Logo size: 200 × 200 px (square). PNG with transparent background preferred.',

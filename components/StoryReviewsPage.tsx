@@ -169,7 +169,7 @@ export default function StoryReviewsPage(props: StoryReviewsPageProps) {
                     title={guide.title}
                     summary={guide.summary}
                     coverImage={guide.coverImage}
-                    linkType="story"
+                    contentType="guide"
                     date={guide.date}
                     showRating={false}
                     slug={guide.slug}
