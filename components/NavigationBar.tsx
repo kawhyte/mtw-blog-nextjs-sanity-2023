@@ -222,7 +222,7 @@ export default function Navbar() {
               >
                 <div className="py-1" role="none">
                   <Link
-                    href="/top-hotel-picks"
+                    href="/hotels?type=favourites"
                     className="block px-4 py-2 text-sm text-foreground hover:bg-muted hover:text-foreground"
                     role="menuitem" // Accessibility
                     onClick={() => setIsPicksDropdownOpen(false)} // Close this dropdown on click
@@ -337,7 +337,7 @@ export default function Navbar() {
               {/* REMOVED onClick={toggleMenu} from these sub-items */}
               {/* The routeChangeStart effect will handle closing the main menu */}
               <MobileNavItem
-                href="/top-hotel-picks"
+                href="/hotels?type=favourites"
                 icon={<Building size={16} />} // Optional: smaller icon
                 text="Top Hotel Picks"
                 // onClick={toggleMenu} // REMOVED - This caused the original issue

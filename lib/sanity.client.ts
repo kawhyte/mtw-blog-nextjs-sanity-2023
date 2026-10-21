@@ -1,3 +1,8 @@
+import {
+  buildHotelListing,
+  type HotelListingItem,
+  type RawHotelListingRow,
+} from 'lib/hotelListing'
 import { apiVersion, dataset, projectId, useCdn } from 'lib/sanity.api'
 // Import queries and types from the updated queries file
 import {
@@ -29,6 +34,7 @@ import {
   guidesByCategoryQuery,
   guideSlugsQuery,
   hotelCardFields,
+  hotelListingQuery,
   type HotelReview,
   hotelReviewBySlugQuery,
   hotelReviewsByCategoryQuery,
@@ -282,6 +288,18 @@ export async function getArenaBySlug(
     return null // Return null on error
   }
 }
+/** Every published hotel as a lean card list for /hotels (see lib/hotelListing). */
+export async function getHotelListing(): Promise<HotelListingItem[]> {
+  if (!client) return []
+  try {
+    const rows = await client.fetch<RawHotelListingRow[]>(hotelListingQuery)
+    return buildHotelListing(rows ?? [])
+  } catch (error) {
+    console.error('Error fetching hotel listing:', error)
+    return []
+  }
+}
+
 /** Arenas in the same city as a review, for the "Going to a game?" box. */
 export async function getArenasInLocation(
   location?: string,

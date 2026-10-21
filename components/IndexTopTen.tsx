@@ -28,7 +28,7 @@ export default function IndexTopTen() {
           <div className="flex flex-col gap-3 md:flex-row md:gap-6 px-6 w-full">
             <Button
               icon={<Bed className="h-6 w-6 text-pink-500" />}
-              link={'/top-hotel-picks'}
+              link={'/hotels?type=favourites'}
             >
               Hotel
             </Button>

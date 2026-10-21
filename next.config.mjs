@@ -42,6 +42,17 @@ const config = {
     ignoreDuringBuilds: process.env.VERCEL_ENV === 'production',
   },
 
+  async redirects() {
+    return [
+      // Our Top Hotel Picks now lives on /hotels as the ranked favourites tab
+      {
+        source: '/top-hotel-picks',
+        destination: '/hotels?type=favourites',
+        permanent: true,
+      },
+    ]
+  },
+
   async headers() {
     return [
       {
