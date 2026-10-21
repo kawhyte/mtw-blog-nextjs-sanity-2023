@@ -90,7 +90,21 @@ const FeatureItem = ({ label, isAvailable, details }) => (
 )
 
 // A reusable card for Tech and Amenities sections
-const InfoCard = ({ title, icon, color, config, data }) => {
+const InfoCard = ({
+  title,
+  icon,
+  color,
+  config,
+  data,
+  className = undefined,
+}: {
+  title: string
+  icon: React.ReactElement
+  color: 'primary' | 'secondary' | 'third'
+  config: any[]
+  data: any
+  className?: string
+}) => {
   if (!data || Object.keys(data).length === 0) return null
 
   const themeClasses = {
@@ -102,7 +116,7 @@ const InfoCard = ({ title, icon, color, config, data }) => {
 
   return (
     <div
-      className={`flex h-full flex-col rounded-2xl border-2 bg-card p-5 shadow-lg ${theme.border}`}
+      className={`@container flex h-full flex-col rounded-2xl border-2 bg-card p-5 shadow-lg ${theme.border} ${className ?? ''}`}
     >
       <div
         className={`mb-3 flex items-center border-b border-border pb-3  font-bold uppercase tracking-wider ${theme.text}`}
@@ -110,7 +124,8 @@ const InfoCard = ({ title, icon, color, config, data }) => {
         {React.cloneElement(icon, { className: 'h-5 w-5 mr-3 ' })}
         {title}
       </div>
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 text-base ">
+      {/* Columns follow the card's own width, not the screen's */}
+      <div className="grid grid-cols-1 gap-3 text-base @sm:grid-cols-2 @2xl:grid-cols-3">
         {config.map((item) => {
           const value = data[item.key]
           const isAvailable =
@@ -177,10 +192,12 @@ const RoomTech = ({
   const badgeClass = themeClasses[speedTier.theme]
 
   return (
-    <section className="my-16">
-      <SectionTitle header={'Technology & Amenities'} />
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+    // @container: the card grid follows the width this section actually gets
+    // (narrow next to the hotel review's side panel), not the screen width
+    <section className="@container my-12">
+      <SectionTitle header={'Technology & Amenities'} flush />
+      <div>
+        <div className="grid grid-cols-1 gap-6 @2xl:grid-cols-2 @5xl:grid-cols-3">
           {/* --- Internet Speed Card --- */}
           <div className="flex h-full flex-col rounded-2xl border-2 border-success bg-card p-5 shadow-lg">
             <div className="mb-3 flex items-center border-b border-border pb-3 font-bold uppercase tracking-wider text-success">
@@ -235,6 +252,7 @@ const RoomTech = ({
           {/* --- Room Amenities Card --- */}
           <InfoCard
             title="Room Amenities"
+            className="@2xl:col-span-2 @5xl:col-span-1"
             icon={<ConciergeBell />}
             color="third"
             config={amenityConfig}
@@ -244,7 +262,7 @@ const RoomTech = ({
 
         {/* --- Parking & Breakfast row (only shown when data exists) --- */}
         {(parking?.parkingType || breakfast) && (
-          <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2">
+          <div className="mt-6 grid grid-cols-1 gap-6 @xl:grid-cols-2">
             {parking?.parkingType && (
               <div className="flex items-start gap-3 rounded-2xl border border-border bg-card p-4">
                 <Car className="h-5 w-5 shrink-0 text-muted-foreground mt-0.5" />

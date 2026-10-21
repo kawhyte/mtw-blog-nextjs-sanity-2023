@@ -1,6 +1,7 @@
 import { HomeIcon } from '@sanity/icons'
 import { format, parseISO } from 'date-fns'
 import { defineField, defineType } from 'sanity'
+
 import { AltTextGeneratorInput } from '../plugins/AltTextGeneratorInput'
 import { SeoExcerptGeneratorInput } from '../plugins/SeoExcerptGeneratorInput'
 import {
@@ -180,6 +181,16 @@ export default defineType({
         Rule.min(120).warning('At least 120 characters recommended for Google search results'),
       ],
       components: { input: SeoExcerptGeneratorInput },
+    }),
+
+    defineField({
+      name: 'verdictHeadline',
+      title: 'Verdict Headline (optional)',
+      type: 'string',
+      description:
+        'One punchy sentence shown under the photos as "Our take", e.g. "A 5-star stay at a 5-star brand — and we\'ll definitely be back." If left blank, the SEO excerpt is shown there instead.',
+      validation: (Rule) =>
+        Rule.max(120).warning('Keep it to one short sentence (under 120 characters)'),
     }),
 
     defineField({

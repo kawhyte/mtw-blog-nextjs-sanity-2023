@@ -11,6 +11,7 @@ import {
   type ArenaFoodReviewCard,
   type ArenaHighlightCard,
   arenaQuery,
+  arenasInLocationQuery,
   arenaSlugsQuery,
   type CityPageData,
   cityPageQuery,
@@ -281,6 +282,22 @@ export async function getArenaBySlug(
     return null // Return null on error
   }
 }
+/** Arenas in the same city as a review, for the "Going to a game?" box. */
+export async function getArenasInLocation(
+  location?: string,
+): Promise<{ name: string; slug: string; location: string }[]> {
+  if (!client || !location?.trim()) return []
+  try {
+    const arenas = await client.fetch(arenasInLocationQuery, {
+      location: location.trim(),
+    })
+    return arenas ?? []
+  } catch (error) {
+    console.error('Error fetching arenas in location:', error)
+    return []
+  }
+}
+
 export async function getAllArenaLocations(): Promise<string[]> {
   if (!client) return []
   try {

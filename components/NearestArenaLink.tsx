@@ -14,17 +14,22 @@ interface NearestArenaLinkProps {
     location?: string
     arenaImage?: any
   }
+  /** Drop the container padding when placed inside a padded column */
+  flush?: boolean
 }
 
-export default function NearestArenaLink({ arena }: NearestArenaLinkProps) {
+export default function NearestArenaLink({
+  arena,
+  flush = false,
+}: NearestArenaLinkProps) {
   if (!arena?.slug || !arena?.name) return null
 
   const hasImage = arena.arenaImage?.asset?._ref || arena.arenaImage?.asset?._id
 
   return (
     <section className="py-8 md:py-12">
-      <SectionTitle header="NBA Arena Nearby" />
-      <div className="container mx-auto px-4 md:px-6">
+      <SectionTitle header="NBA Arena Nearby" flush={flush} />
+      <div className={flush ? '' : 'container mx-auto px-4 md:px-6'}>
         <Card className="max-w-2xl border-2 border-border shadow-brutalist-sm">
           <CardContent className="p-4 sm:p-6">
             <div className="flex items-start gap-4">

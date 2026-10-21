@@ -2,6 +2,7 @@ import HotelReviewPage from 'components/HotelReviewPage'
 import PreviewHotelReviewPage from 'components/PreviewHotelReviewPage'
 import {
   getAllHotelReviewSlugs,
+  getArenasInLocation,
   getHotelReviewBySlug,
   getSettings,
 } from 'lib/sanity.client'
@@ -11,6 +12,7 @@ import { GetStaticProps } from 'next'
 
 interface PageProps {
   hotelReview: HotelReview
+  arenasInCity: { name: string; slug: string; location: string }[]
   settings: Settings
   preview: boolean
   token: string | null
@@ -25,7 +27,7 @@ interface PreviewData {
 }
 
 export default function HotelSlugRoute(props: PageProps) {
-  const { settings, hotelReview, preview, token } = props
+  const { settings, hotelReview, arenasInCity, preview, token } = props
 
   if (preview) {
     return (
@@ -35,7 +37,13 @@ export default function HotelSlugRoute(props: PageProps) {
     )
   }
 
-  return <HotelReviewPage hotelReview={hotelReview} settings={settings} />
+  return (
+    <HotelReviewPage
+      hotelReview={hotelReview}
+      arenasInCity={arenasInCity}
+      settings={settings}
+    />
+  )
 }
 
 export const getStaticProps: GetStaticProps<
@@ -58,9 +66,12 @@ export const getStaticProps: GetStaticProps<
     }
   }
 
+  const arenasInCity = await getArenasInLocation(hotelReview.location)
+
   return {
     props: {
       hotelReview,
+      arenasInCity,
       settings,
       preview,
       token,

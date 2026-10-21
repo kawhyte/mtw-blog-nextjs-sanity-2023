@@ -4,18 +4,22 @@ interface SectionTitleProps {
   header: string
   description?: string
   align?: 'left' | 'center'
+  /** Drop the container + side padding when the title sits inside a column
+      that already has its own padding (e.g. the hotel review column) */
+  flush?: boolean
 }
 
 export default function SectionTitle({
   header,
   description,
   align = 'left',
+  flush = false,
 }: SectionTitleProps) {
   const isCentered = align === 'center'
 
   return (
     <div
-      className={cn('container mx-auto px-6 mb-6', {
+      className={cn(flush ? 'mb-6' : 'container mx-auto px-6 mb-6', {
         'text-center': isCentered,
       })}
     >
