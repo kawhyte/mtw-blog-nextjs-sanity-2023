@@ -1,0 +1,242 @@
+import PaginationComponent from 'components/PaginationComponent'
+import type { ListingItem } from 'lib/reviewListing'
+import { topFavourites } from 'lib/reviewListing'
+import { LayoutGrid, LucideIcon, Star } from 'lucide-react'
+import { useRouter } from 'next/router'
+import { useEffect, useMemo, useRef, useState } from 'react'
+
+import ListingCard from './ListingCard'
+import SwipeRow from './SwipeRow'
+
+export interface ListingKindTab {
+  /** Matches `ListingItem.kind`, and is the `?type=` value in the URL */
+  key: string
+  label: string
+  icon: LucideIcon
+  /** Heading over the grid when this tab is picked, e.g. "Luxury stays" */
+  gridTitle: string
+}
+
+export interface ListingBrowseProps {
+  /** Every published review, newest first */
+  items: ListingItem[]
+  /** This page, e.g. "/hotels" */
+  basePath: string
+  /** Review pages live at `${itemPath}/${slug}`, e.g. "/hotel" */
+  itemPath: string
+  title: string
+  /** Line under the title; gets the live review count */
+  intro: (count: number) => string
+  /** The kind filters, after All and Whytes' favourites */
+  kindTabs: ListingKindTab[]
+  /** e.g. "All hotel reviews" */
+  allTitle: string
+  /** e.g. "stays" → "See all 102 stays" */
+  noun: string
+}
+
+const ALL = 'all'
+const FAVOURITES = 'favourites'
+const ROW_LIMIT = 12
+const PAGE_SIZE = 12
+
+/**
+ * Airbnb-style listing shared by /hotels and /food: icon tabs, "Recently
+ * reviewed" and "Whytes' favourites" swipe rows, then the full paginated
+ * grid. Everything filters on the client from one lean list.
+ */
+export default function ListingBrowse({
+  items,
+  basePath,
+  itemPath,
+  title,
+  intro,
+  kindTabs,
+  allTitle,
+  noun,
+}: ListingBrowseProps) {
+  const router = useRouter()
+  const [page, setPage] = useState(1)
+  const gridTop = useRef<HTMLDivElement>(null)
+  const tabStrip = useRef<HTMLDivElement>(null)
+
+  const tabs = useMemo(
+    () => [
+      { key: ALL, label: 'All', icon: LayoutGrid, gridTitle: allTitle },
+      // Second so it's on screen in the phone tab strip without scrolling
+      {
+        key: FAVOURITES,
+        label: 'Whytes’ favourites',
+        icon: Star,
+        gridTitle: 'Whytes’ favourites',
+      },
+      ...kindTabs,
+    ],
+    [allTitle, kindTabs],
+  )
+  const queryType = router.query.type
+  const tab = tabs.find((t) => t.key === queryType) ?? tabs[0]
+
+  // Whytes' favourites = the top 10 by score (this replaced the old "Our
+  // Top Picks" pages). Ranked #1–#10 in their row/tab; the same 10 get the
+  // white pill everywhere else.
+  const favourites = useMemo(() => topFavourites(items), [items])
+  const rankOf = useMemo(
+    () => new Map(favourites.map((item, i) => [item._id, i + 1])),
+    [favourites],
+  )
+  const kindLabelOf = (item: ListingItem) =>
+    kindTabs.find((t) => t.key === item.kind)?.label ?? null
+
+  const gridItems = useMemo(() => {
+    if (tab.key === FAVOURITES) return favourites
+    if (tab.key === ALL) return items
+    return items.filter((item) => item.kind === tab.key)
+  }, [tab.key, items, favourites])
+
+  // New tab → back to page 1, and keep the chosen tab visible in the phone strip
+  useEffect(() => {
+    setPage(1)
+    tabStrip.current
+      ?.querySelector<HTMLElement>('[aria-selected="true"]')
+      ?.scrollIntoView({ block: 'nearest', inline: 'nearest' })
+  }, [tab.key])
+
+  const pageItems = gridItems.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
+
+  const tabHref = (key: string) =>
+    key === ALL ? basePath : `${basePath}?type=${key}`
+
+  const selectTab = (key: string) => {
+    router.replace(tabHref(key), undefined, { shallow: true, scroll: false })
+  }
+
+  const changePage = (next: number) => {
+    setPage(next)
+    gridTop.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+
+  const card = (
+    item: ListingItem,
+    opts: { inRow?: boolean; showRank?: boolean; priority?: boolean } = {},
+  ) => (
+    <ListingCard
+      key={item._id}
+      item={item}
+      href={`${itemPath}/${item.slug}`}
+      kindLabel={kindLabelOf(item)}
+      rank={rankOf.get(item._id)}
+      {...opts}
+    />
+  )
+
+  return (
+    <>
+      <section className="border-b border-primary/20 bg-primary-soft-background">
+        <div className="container mx-auto flex max-w-7xl flex-col gap-6 px-4 pt-8 sm:pt-10 md:px-6">
+          <div>
+            <h1 className="text-4xl font-extrabold tracking-tight text-primary md:text-5xl">
+              {title}
+            </h1>
+            <p className="mt-2 text-base text-muted-foreground sm:text-lg">
+              {intro(items.length)}
+            </p>
+          </div>
+
+          <div
+            ref={tabStrip}
+            role="tablist"
+            aria-label={`Filter ${title.toLowerCase()}`}
+            className="scrollbar-hide -mx-4 flex gap-7 overflow-x-auto px-4 md:mx-0 md:gap-9 md:px-0"
+          >
+            {tabs.map(({ key, label, icon: Icon }) => {
+              const active = key === tab.key
+              return (
+                <button
+                  key={key}
+                  type="button"
+                  role="tab"
+                  aria-selected={active}
+                  onClick={() => selectTab(key)}
+                  className={`flex min-w-11 shrink-0 flex-col items-center gap-1.5 border-b-[3px] pb-3 text-sm transition-colors ${
+                    active
+                      ? 'border-foreground font-bold text-foreground'
+                      : 'border-transparent text-muted-foreground hover:border-border hover:text-foreground'
+                  }`}
+                >
+                  <Icon
+                    className="h-6 w-6"
+                    strokeWidth={2}
+                    aria-hidden="true"
+                  />
+                  {label}
+                </button>
+              )
+            })}
+          </div>
+        </div>
+      </section>
+
+      <div className="container mx-auto flex max-w-7xl flex-col gap-10 px-4 py-8 sm:py-10 md:gap-12 md:px-6">
+        {tab.key === ALL && (
+          <>
+            <SwipeRow
+              title="Recently reviewed"
+              seeAllHref="#all-reviews"
+              seeAllLabel={`See all ${items.length} ${noun}`}
+            >
+              {items
+                .slice(0, ROW_LIMIT)
+                .map((item, i) => card(item, { inRow: true, priority: i < 2 }))}
+            </SwipeRow>
+
+            {favourites.length > 0 && (
+              <SwipeRow
+                title="Whytes’ favourites"
+                seeAllHref={tabHref(FAVOURITES)}
+              >
+                {favourites.map((item) =>
+                  card(item, { inRow: true, showRank: true }),
+                )}
+              </SwipeRow>
+            )}
+          </>
+        )}
+
+        <section
+          id="all-reviews"
+          ref={gridTop}
+          className="flex scroll-mt-28 flex-col gap-5"
+          aria-live="polite"
+        >
+          <h2 className="text-xl font-extrabold tracking-tight sm:text-2xl">
+            {tab.gridTitle}{' '}
+            <span className="text-base font-semibold text-muted-foreground">
+              ({gridItems.length}
+              {tab.key === FAVOURITES ? ', ranked by our score' : ''})
+            </span>
+          </h2>
+
+          {pageItems.length > 0 ? (
+            <div className="grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-3 md:gap-x-5 lg:grid-cols-4">
+              {pageItems.map((item) =>
+                card(item, { showRank: tab.key === FAVOURITES }),
+              )}
+            </div>
+          ) : (
+            <p className="py-10 text-center text-muted-foreground">
+              No reviews here yet.
+            </p>
+          )}
+
+          <PaginationComponent
+            totalItems={gridItems.length}
+            itemsPerPage={PAGE_SIZE}
+            currentPage={page}
+            onPageChange={changePage}
+          />
+        </section>
+      </div>
+    </>
+  )
+}

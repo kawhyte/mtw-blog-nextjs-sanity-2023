@@ -44,10 +44,16 @@ const config = {
 
   async redirects() {
     return [
-      // Our Top Hotel Picks now lives on /hotels as the ranked favourites tab
+      // The Our Top Picks pages now live on /hotels and /food as the ranked
+      // favourites tab
       {
         source: '/top-hotel-picks',
         destination: '/hotels?type=favourites',
+        permanent: true,
+      },
+      {
+        source: '/top-restaurant-picks',
+        destination: '/food?type=favourites',
         permanent: true,
       },
     ]

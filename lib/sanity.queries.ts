@@ -539,12 +539,6 @@ export const allHotelReviewsQuery = groq`
 `
 
 // Top hotel reviews for rankings/top lists
-export const topHotelReviewsQuery = groq`
-  *[_type == "hotelReview" && defined(hotelRating) && (!defined(publishedAt) || publishedAt <= now())] {
-    ${hotelCardFields}
-  }
-`
-
 // Hotel reviews by category
 export const hotelReviewsByCategoryQuery = groq`
   *[_type == "hotelReview" && category == $category && (!defined(publishedAt) || publishedAt <= now())] | order(date desc) {
@@ -609,12 +603,6 @@ export const independentFoodReviewFields = groq`
 `
 
 // Top food reviews for rankings/top lists
-export const topFoodReviewsQuery = groq`
-  *[_type == "foodReview" && (defined(foodRating) || defined(takeoutRating)) && (!defined(publishedAt) || publishedAt <= now())] {
-    ${foodCardFields}
-  }
-`
-
 // Food review slugs query
 export const foodReviewSlugsQuery = fetchSlugs('foodReview')
 
@@ -1037,7 +1025,12 @@ export interface Arena {
   name?: string
   slug?: string
   arenaImage?: any // SanityImageObject
-  teams?: { name?: string; asset?: { _id: string }; hotspot?: any; crop?: any }[] // First 2 team logos (listing only)
+  teams?: {
+    name?: string
+    asset?: { _id: string }
+    hotspot?: any
+    crop?: any
+  }[] // First 2 team logos (listing only)
   heroPhotos?: GalleryImageItem[] // Hero block (first = large), max 5
   gallery?: any[] // Full gallery for detailed pages (teams/logos)
   imageGallery?: GalleryImageItem[] // New flexible image gallery with captions
@@ -1243,6 +1236,23 @@ export const hotelListingQuery = groq`
     hotelRating,
     internetSpeed,
     revisits[] { visitDate, ratingUpdates }
+  }
+`
+
+// Lean list of every published food review for the /food page (cards only;
+// the score is computed at build time in lib/foodListing.ts). No LQIP blobs.
+export const foodListingQuery = groq`
+  *[_type == "foodReview" && (!defined(publishedAt) || publishedAt <= now())] | order(date desc) {
+    _id,
+    title,
+    "slug": slug.current,
+    location,
+    diningType,
+    date,
+    "coverImage": coalesce(coverImage, heroPhotos[0]) { asset, hotspot, crop },
+    foodRating,
+    takeoutRating,
+    revisits[] { visitDate, foodRatingUpdates, takeoutRatingUpdates }
   }
 `
 
