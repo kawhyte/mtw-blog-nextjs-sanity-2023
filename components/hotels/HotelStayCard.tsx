@@ -1,6 +1,5 @@
 import SanityImage from 'components/SanityImage'
 import type { HotelListingItem } from 'lib/hotelListing'
-import { isFavourite } from 'lib/hotelListing'
 import Link from 'next/link'
 import { getRankBadgeStyle } from 'utils/arena/rankBadgeStyles'
 
@@ -23,8 +22,10 @@ const cardName = (title: string) =>
 
 interface HotelStayCardProps {
   hotel: HotelListingItem
-  /** Rank among the favourites (1–10 get a gold/silver/bronze-style badge) */
+  /** Set when the hotel is one of the Whytes' favourites (top 10 by score) */
   rank?: number
+  /** Show the #1–#10 badge (favourites row/tab) instead of the white pill */
+  showRank?: boolean
   /** In a swipe row the card has a fixed width; in the grid it fills its cell */
   inRow?: boolean
   priority?: boolean
@@ -33,6 +34,7 @@ interface HotelStayCardProps {
 export default function HotelStayCard({
   hotel,
   rank,
+  showRank = false,
   inRow = false,
   priority = false,
 }: HotelStayCardProps) {
@@ -66,19 +68,18 @@ export default function HotelStayCard({
             className="h-full w-full object-cover group-hover:scale-[1.03]"
           />
         )}
-        {rank && rank <= 10 ? (
-          <span
-            className={`absolute left-2.5 top-2.5 flex h-8 min-w-8 items-center justify-center rounded-full px-2 text-xs font-black shadow ${getRankBadgeStyle(rank)}`}
-          >
-            #{rank}
-          </span>
-        ) : (
-          isFavourite(hotel) && (
+        {rank &&
+          (showRank ? (
+            <span
+              className={`absolute left-2.5 top-2.5 flex h-8 min-w-8 items-center justify-center rounded-full px-2 text-xs font-black shadow ${getRankBadgeStyle(rank)}`}
+            >
+              #{rank}
+            </span>
+          ) : (
             <span className="absolute left-2.5 top-2.5 rounded-full bg-white px-2.5 py-1 text-xs font-bold text-gray-900 shadow">
               Whytes’ favourite
             </span>
-          )
-        )}
+          ))}
       </div>
       <div className="flex flex-col gap-0.5">
         <span

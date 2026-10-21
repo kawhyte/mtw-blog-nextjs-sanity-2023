@@ -70,6 +70,16 @@ export function buildHotelListing(
     })
 }
 
-/** "Whytes' favourite" = rated Excellent */
-export const isFavourite = (hotel: HotelListingItem) =>
-  hotel.rating?.text === 'Excellent'
+/** How many hotels count as "Whytes' favourites" (replaced the Top 10 page) */
+export const FAVOURITES_COUNT = 10
+
+/** The top 10 by score (newer stay wins a tie) — Whytes' favourites, in rank order */
+export const topFavourites = (hotels: HotelListingItem[]) =>
+  hotels
+    .filter((hotel) => hotel.rating)
+    .sort(
+      (a, b) =>
+        b.rating!.value - a.rating!.value ||
+        (b.date ?? '').localeCompare(a.date ?? ''),
+    )
+    .slice(0, FAVOURITES_COUNT)

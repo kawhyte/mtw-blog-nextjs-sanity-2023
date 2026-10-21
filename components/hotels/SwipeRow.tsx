@@ -4,9 +4,10 @@ import { ReactNode, useCallback, useEffect, useRef, useState } from 'react'
 
 interface SwipeRowProps {
   title: string
-  /** Where the title and the "See all" card go */
+  /** Where the title (and the "See all" card, if any) go */
   seeAllHref: string
-  seeAllLabel: string
+  /** Label for the dashed end card; leave out when the row already shows everything */
+  seeAllLabel?: string
   children: ReactNode
 }
 
@@ -88,16 +89,18 @@ export default function SwipeRow({
         className="scrollbar-hide -mx-4 flex snap-x snap-mandatory scroll-px-4 gap-4 overflow-x-auto px-4 pb-2 md:mx-0 md:scroll-px-0 md:gap-5 md:px-0"
       >
         {children}
-        <Link
-          href={seeAllHref}
-          scroll={false}
-          className="flex aspect-square w-[68vw] max-w-64 shrink-0 snap-start flex-col items-center justify-center gap-2 rounded-[22px] border-[3px] border-dashed border-border-bold bg-card p-4 text-center transition-colors hover:bg-primary-soft-background sm:w-60 lg:w-62"
-        >
-          <span className="font-heading-family text-lg font-extrabold leading-tight sm:text-xl">
-            {seeAllLabel}
-          </span>
-          <span className="text-sm font-bold text-primary">Browse →</span>
-        </Link>
+        {seeAllLabel && (
+          <Link
+            href={seeAllHref}
+            scroll={false}
+            className="flex aspect-square w-[68vw] max-w-64 shrink-0 snap-start flex-col items-center justify-center gap-2 rounded-[22px] border-[3px] border-dashed border-border-bold bg-card p-4 text-center transition-colors hover:bg-primary-soft-background sm:w-60 lg:w-62"
+          >
+            <span className="font-heading-family text-lg font-extrabold leading-tight sm:text-xl">
+              {seeAllLabel}
+            </span>
+            <span className="text-sm font-bold text-primary">Browse →</span>
+          </Link>
+        )}
       </div>
     </section>
   )

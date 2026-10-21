@@ -1,6 +1,6 @@
 import PaginationComponent from 'components/PaginationComponent'
 import type { HotelListingItem } from 'lib/hotelListing'
-import { isFavourite } from 'lib/hotelListing'
+import { topFavourites } from 'lib/hotelListing'
 import {
   Building2,
   Crown,
@@ -55,15 +55,10 @@ export default function HotelsBrowse({ hotels }: HotelsBrowseProps) {
   const [page, setPage] = useState(1)
   const gridTop = useRef<HTMLDivElement>(null)
 
-  // Favourites = rated Excellent, ranked by score (this replaced the old
-  // "Our Top Hotel Picks" top-10 page, so #1–#10 match what it showed).
-  const favourites = useMemo(
-    () =>
-      hotels
-        .filter(isFavourite)
-        .sort((a, b) => (b.rating?.value ?? 0) - (a.rating?.value ?? 0)),
-    [hotels],
-  )
+  // Whytes' favourites = the top 10 by score (this replaced the old "Our
+  // Top Hotel Picks" page). Ranked #1–#10 in their row/tab; the same 10 get
+  // the white pill everywhere else.
+  const favourites = useMemo(() => topFavourites(hotels), [hotels])
   const rankOf = useMemo(
     () => new Map(favourites.map((hotel, i) => [hotel._id, i + 1])),
     [favourites],
@@ -160,6 +155,7 @@ export default function HotelsBrowse({ hotels }: HotelsBrowseProps) {
                 <HotelStayCard
                   key={hotel._id}
                   hotel={hotel}
+                  rank={rankOf.get(hotel._id)}
                   inRow
                   priority={i < 2}
                 />
@@ -170,13 +166,13 @@ export default function HotelsBrowse({ hotels }: HotelsBrowseProps) {
               <SwipeRow
                 title="Whytes’ favourites"
                 seeAllHref={tabHref('favourites')}
-                seeAllLabel="See all our favourites"
               >
                 {favourites.slice(0, ROW_LIMIT).map((hotel) => (
                   <HotelStayCard
                     key={hotel._id}
                     hotel={hotel}
                     rank={rankOf.get(hotel._id)}
+                    showRank
                     inRow
                   />
                 ))}
@@ -205,9 +201,8 @@ export default function HotelsBrowse({ hotels }: HotelsBrowseProps) {
                 <HotelStayCard
                   key={hotel._id}
                   hotel={hotel}
-                  rank={
-                    tab === 'favourites' ? rankOf.get(hotel._id) : undefined
-                  }
+                  rank={rankOf.get(hotel._id)}
+                  showRank={tab === 'favourites'}
                 />
               ))}
             </div>
