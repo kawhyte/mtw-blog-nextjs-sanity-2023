@@ -37,7 +37,9 @@ const VerdictText = ({ content }: { content: any }) => (
         strong: (({ children }) => (
           <strong className="font-bold">{children}</strong>
         )) as PortableTextMarkComponent,
-        em: (({ children }) => <em className="italic">{children}</em>) as PortableTextMarkComponent,
+        em: (({ children }) => (
+          <em className="italic">{children}</em>
+        )) as PortableTextMarkComponent,
         underline: (({ children }) => (
           <span className="underline underline-offset-2">{children}</span>
         )) as PortableTextMarkComponent,
@@ -138,13 +140,64 @@ const InfoBox = ({
 }
 
 // --- Main Exported Component ---
-export default function ProConList({ positives, negatives, verdict2 }) {
+// layout 'verdictFirst': for narrow content columns (e.g. next to the hotel
+// review's side panel) — the verdict spans the full width, with the pros and
+// cons side by side below it, and no extra container padding.
+export default function ProConList({
+  positives,
+  negatives,
+  verdict2,
+  layout = 'columns',
+}: {
+  positives?: string[]
+  negatives?: string[]
+  verdict2?: any
+  layout?: 'columns' | 'verdictFirst'
+}) {
   const showPositives = positives && positives.length > 0
   const showNegatives = negatives && negatives.length > 0
   const showVerdict = verdict2 && verdict2.length > 0
 
   if (!showPositives && !showNegatives && !showVerdict) {
     return null
+  }
+
+  if (layout === 'verdictFirst') {
+    return (
+      <section className="@container my-10">
+        <SectionTitle header={'The Bottom Line'} flush />
+        <div className="flex flex-col gap-6">
+          {showVerdict && (
+            <InfoBox
+              title="The Verdict"
+              icon={<Scale />}
+              color="primary"
+              content={verdict2}
+            />
+          )}
+          {(showPositives || showNegatives) && (
+            <div className="grid grid-cols-1 gap-6 @xl:grid-cols-2">
+              {showPositives && (
+                <InfoBox
+                  title="What We Loved"
+                  icon={<ThumbsUp />}
+                  color="success"
+                  items={positives}
+                />
+              )}
+              {showNegatives && (
+                <InfoBox
+                  title="What We Didn't Like"
+                  icon={<ThumbsDown />}
+                  color="destructive"
+                  items={negatives}
+                />
+              )}
+            </div>
+          )}
+        </div>
+      </section>
+    )
   }
 
   return (

@@ -244,7 +244,7 @@ function HotelReviewPageContent(props: HotelReviewPageProps) {
       <Layout preview={preview} loading={loading}>
         <BlogHeader title={title} level={2} />
 
-        <article className="container mx-auto max-w-7xl px-4 pb-28 pt-6 md:px-6 md:pt-10 lg:pb-12">
+        <article className="container mx-auto max-w-7xl px-4 pb-28 pt-6 md:px-6 md:pt-10 xl:pb-12">
           <nav
             aria-label="Breadcrumb"
             className="flex items-center gap-1.5 text-sm text-muted-foreground mb-6 flex-wrap"
@@ -268,9 +268,9 @@ function HotelReviewPageContent(props: HotelReviewPageProps) {
           {/* Photos and the rest of the review on the right; the summary
               panel sticks in the left column on large screens. On phones
               the DOM order is photos → panel → review. */}
-          <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-[340px_minmax(0,1fr)] lg:gap-10">
+          <div className="grid grid-cols-1 items-start gap-6 xl:grid-cols-[340px_minmax(0,1fr)] xl:gap-10">
             {galleryImages.length > 0 && (
-              <div className="min-w-0 lg:col-start-2 lg:row-start-1">
+              <div className="min-w-0 xl:col-start-2 xl:row-start-1">
                 <HeroPhotoGallery
                   images={heroImages}
                   onShowAllPhotos={openModal}
@@ -279,7 +279,7 @@ function HotelReviewPageContent(props: HotelReviewPageProps) {
               </div>
             )}
 
-            <aside className="self-start lg:sticky lg:top-24 lg:col-start-1 lg:row-span-2 lg:row-start-1">
+            <aside className="self-start xl:sticky xl:top-24 xl:col-start-1 xl:row-span-2 xl:row-start-1">
               <ReviewSummaryPanel
                 title={reviewTitle}
                 placeName={placeName}
@@ -312,7 +312,7 @@ function HotelReviewPageContent(props: HotelReviewPageProps) {
               />
             </aside>
 
-            <div className="min-w-0 lg:col-start-2 lg:row-start-2">
+            <div className="min-w-0 xl:col-start-2 xl:row-start-2">
               {/* Hotel Summary hidden — excerpt2 not rendered to avoid duplicate content SEO issues */}
               {verdictText && (
                 <section className="mb-8 flex flex-col gap-3">
@@ -359,6 +359,7 @@ function HotelReviewPageContent(props: HotelReviewPageProps) {
                 positives={hotelReview.positives}
                 negatives={hotelReview.negatives}
                 verdict2={hotelReview.verdict}
+                layout="verdictFirst"
               />
 
               {hotelReview.resortFee && (

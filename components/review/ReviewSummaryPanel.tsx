@@ -60,15 +60,15 @@ export default function ReviewSummaryPanel({
   cityGuideHref,
 }: ReviewSummaryPanelProps) {
   return (
-    <div className="flex flex-col gap-4 lg:rounded-[1.75rem] lg:border-4 lg:border-border-bold lg:bg-card lg:p-6 lg:shadow-brutalist">
+    <div className="flex flex-col gap-4 xl:rounded-[1.75rem] xl:border-4 xl:border-border-bold xl:bg-card xl:p-6 xl:shadow-brutalist">
       {/* One title, placed by the grid: beside the score on phones, below
           it (full width) on large screens */}
-      <div className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-x-4 gap-y-1 lg:gap-y-4">
+      <div className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-x-4 gap-y-1 xl:gap-y-4">
         {score && (
           <div
             // pt-[0.2em]: Epilogue's digits sit ~0.1em above the line box's
             // centre, so nudge them down to look optically centred
-            className={`font-heading-family row-span-2 flex h-16 w-16 shrink-0 items-center justify-center rounded-full pt-[0.2em] text-[1.75rem] font-extrabold tracking-tight lg:row-span-1 lg:h-[5.5rem] lg:w-[5.5rem] lg:text-[2.4rem] ${scoreCircleClass(score.textRating)}`}
+            className={`font-heading-family row-span-2 flex h-16 w-16 shrink-0 items-center justify-center rounded-full pt-[0.2em] text-[1.75rem] font-extrabold tracking-tight xl:row-span-1 xl:h-[5.5rem] xl:w-[5.5rem] xl:text-[2.4rem] ${scoreCircleClass(score.textRating)}`}
             role="img"
             aria-label={`Rated ${score.displayRating} out of 5, ${score.textRating}`}
           >
@@ -76,21 +76,21 @@ export default function ReviewSummaryPanel({
           </div>
         )}
         <h1
-          className={`text-2xl font-extrabold leading-tight sm:text-3xl lg:col-span-2 lg:row-start-2 ${score ? 'col-start-2' : 'col-span-2'}`}
+          className={`text-2xl font-extrabold leading-tight sm:text-3xl xl:col-span-2 xl:row-start-2 ${score ? 'col-start-2' : 'col-span-2'}`}
         >
           {title}
         </h1>
-        <div className="col-start-2 text-sm text-muted-foreground lg:row-start-1 lg:text-base">
+        <div className="col-start-2 text-sm text-muted-foreground xl:row-start-1 xl:text-base">
           {score && (
             <span
-              className={`font-heading-family font-extrabold ${scoreTextClass(score.textRating)} lg:block lg:text-xl`}
+              className={`font-heading-family font-extrabold ${scoreTextClass(score.textRating)} xl:block xl:text-xl`}
             >
               {score.textRating}
             </span>
           )}
           {location && (
             <span>
-              <span className="lg:hidden">{score ? ' · ' : ''}</span>
+              <span className="xl:hidden">{score ? ' · ' : ''}</span>
               {location}
             </span>
           )}
@@ -112,7 +112,7 @@ export default function ReviewSummaryPanel({
 
       {footnote && <div className="text-sm text-muted-foreground">{footnote}</div>}
 
-      <div className="hidden lg:block">
+      <div className="hidden xl:block">
         <ReviewActionButtons placeName={placeName} location={location} />
       </div>
 
@@ -131,7 +131,7 @@ export default function ReviewSummaryPanel({
           {cityGuideHref && (
             <Link
               href={cityGuideHref}
-              className="flex min-h-11 items-center text-sm font-bold text-primary hover:underline lg:min-h-0"
+              className="flex min-h-11 items-center text-sm font-bold text-primary hover:underline xl:min-h-0"
             >
               {location?.split(',')[0]} game-day guide →
             </Link>
