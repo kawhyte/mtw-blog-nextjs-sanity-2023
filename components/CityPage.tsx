@@ -2,6 +2,7 @@ import BlogHeader from 'components/BlogHeader'
 import Layout from 'components/BlogLayout'
 import BlogMeta from 'components/BlogMeta'
 import BreadcrumbStructuredData from 'components/BreadcrumbStructuredData'
+import Footer from 'components/Footer'
 import SanityImage from 'components/SanityImage'
 import SectionTitle from 'components/SectionTitle'
 import type { CityPageData, Settings } from 'lib/sanity.queries'
@@ -289,6 +290,7 @@ export default function CityPage({ location, data, settings }: CityPageProps) {
             </p>
           )}
         </article>
+        <Footer />
       </Layout>
     </>
   )

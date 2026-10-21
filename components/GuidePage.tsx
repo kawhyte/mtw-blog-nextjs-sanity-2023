@@ -1,6 +1,7 @@
 // components/GuidePage.tsx
 
 import Layout from 'components/BlogLayout'
+import Footer from 'components/Footer'
 import ImageGallery from 'components/ImageGallery'
 import PostBody from 'components/PostBody'
 import { formatDate } from 'components/PostDate'
@@ -263,6 +264,7 @@ export default function GuidePage({
             </section>
           )}
         </article>
+        <Footer />
       </Layout>
     </div>
   )

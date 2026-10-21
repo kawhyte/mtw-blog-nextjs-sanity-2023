@@ -58,14 +58,6 @@ function generateSiteMap(
     <priority>0.8</priority>
   </url>
   
-  <!-- Search Page -->
-  <url>
-    <loc>${baseUrl}/search</loc>
-    <lastmod>${new Date().toISOString()}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-
   <!-- Individual Arena Reviews - High Priority -->
   ${arenas
     .map(

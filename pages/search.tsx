@@ -6,11 +6,12 @@ import DynamicPostCard from 'components/DynamicPostCard'
 import Footer from 'components/Footer'
 import NBAArenaCard from 'components/NBAArenaCard'
 import * as demo from 'lib/demo.data'
+import { getSettings } from 'lib/sanity.client'
+import type { GetStaticProps } from 'next'
 import dynamic from 'next/dynamic'
 import Head from 'next/head'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { getArenaDisplayRating } from 'utils/arena/arenaUtils'
 
 import { CardSkeletonGrid } from '@/components/ui/card-skeleton'
@@ -18,8 +19,11 @@ import { PaginationWrapper as Pagination } from '@/components/ui/pagination-wrap
 
 import { useDebounce } from '../hooks/useDebounce'
 import type { CardContentType } from '../lib/cardContentType'
-import { CMS_NAME } from '../lib/constants'
-import { globalSearchQuery, toSearchTerms } from '../lib/sanity.queries'
+import {
+  globalSearchQuery,
+  toSearchTerms,
+  toSearchWords,
+} from '../lib/sanity.queries'
 import {
   Arena,
   FoodReview,
@@ -36,10 +40,30 @@ const PlayerWithNoSSR = dynamic(
   { ssr: false },
 )
 
+const SITE_NAME = 'Meet the Whytes'
+const ITEMS_PER_PAGE = 9
+
+// Filter tabs. `type` matches each result's `_contentType` and the ?type= URL param.
+const RESULT_TYPES = [
+  { type: 'all', label: 'All' },
+  { type: 'hotel', label: 'Hotels' },
+  { type: 'food', label: 'Food' },
+  { type: 'guide', label: 'Guides' },
+  { type: 'arena', label: 'Arenas' },
+] as const
+
+type ResultType = (typeof RESULT_TYPES)[number]['type']
+
+const isResultType = (value: unknown): value is ResultType =>
+  RESULT_TYPES.some((tab) => tab.type === value)
+
+// Searches known to return results — shown when a search finds nothing.
+const POPULAR_SEARCHES = ['Las Vegas', 'Hyatt', 'Marriott', 'Chase Center']
+
 // --- Reusable UI Components for this page ---
 
-// NEW: A styled loading state with card skeletons to prevent UI shifting
-const LoadingState = ({ searchQuery }: { searchQuery?: string | string[] }) => (
+// A styled loading state with card skeletons to prevent UI shifting
+const LoadingState = ({ searchQuery }: { searchQuery?: string }) => (
   <>
     {searchQuery && (
       <div className="w-full text-center bg-primary-soft-background rounded-2xl p-8 my-8">
@@ -61,8 +85,8 @@ const LoadingState = ({ searchQuery }: { searchQuery?: string | string[] }) => (
   </>
 )
 
-// NEW: A styled header for displaying the search query and result count
-const ResultsHeader = ({ query, count }) => (
+// A styled header for displaying the search query and result count
+const ResultsHeader = ({ query, count }: { query: string; count: number }) => (
   <div className="w-full text-center bg-primary-soft-background rounded-2xl p-8 my-8">
     <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-2">
       Search results for{' '}
@@ -74,13 +98,71 @@ const ResultsHeader = ({ query, count }) => (
   </div>
 )
 
-// NEW: An improved "No Results" component with helpful suggestions
-const NoResultsFound = ({ query }) => {
-  const router = useRouter()
-  const popularSearches = ['Hyatt', 'Review', 'Travel', 'Marriott']
+// Hotels / Food / Guides / Arenas tabs; types with no results are hidden
+const ResultTypeTabs = ({
+  activeType,
+  counts,
+  onChange,
+}: {
+  activeType: ResultType
+  counts: Record<ResultType, number>
+  onChange: (type: ResultType) => void
+}) => (
+  <div
+    role="tablist"
+    aria-label="Filter results by type"
+    className="mb-6 flex flex-wrap justify-center gap-2"
+  >
+    {RESULT_TYPES.filter(
+      ({ type }) => type === 'all' || counts[type] > 0,
+    ).map(({ type, label }) => {
+      const isActive = type === activeType
+      return (
+        <button
+          key={type}
+          type="button"
+          role="tab"
+          aria-selected={isActive}
+          onClick={() => onChange(type)}
+          className={`min-h-11 rounded-full border-2 px-4 py-2 text-sm font-semibold transition-colors duration-200 ${
+            isActive
+              ? 'border-primary bg-primary text-primary-foreground'
+              : 'border-border-bold bg-card text-foreground hover:bg-accent'
+          }`}
+        >
+          {label} <span className="opacity-70">({counts[type]})</span>
+        </button>
+      )
+    })}
+  </div>
+)
 
-  const handleSuggestionClick = (term) => {
-    router.push(`/search?q=${term}`)
+// Shown instead of the raw error; details go to the console
+const SearchError = ({ onRetry }: { onRetry: () => void }) => (
+  <div className="flex flex-col items-center justify-center min-h-[50vh] text-center px-4">
+    <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
+      Search is having a moment
+    </h1>
+    <p className="text-lg text-muted-foreground max-w-md mb-6">
+      We couldn&apos;t load results just now. Check your connection and try
+      again.
+    </p>
+    <button
+      type="button"
+      onClick={onRetry}
+      className="min-h-11 rounded-lg border-2 border-border-bold bg-primary px-5 py-2 font-semibold text-primary-foreground transition-colors duration-200 hover:opacity-90"
+    >
+      Try again
+    </button>
+  </div>
+)
+
+// An improved "No Results" component with helpful suggestions
+const NoResultsFound = ({ query }: { query: string }) => {
+  const router = useRouter()
+
+  const handleSuggestionClick = (term: string) => {
+    router.push(`/search?q=${encodeURIComponent(term)}`)
   }
 
   return (
@@ -105,7 +187,7 @@ const NoResultsFound = ({ query }) => {
           Popular searches:
         </p>
         <div className="flex flex-wrap items-center justify-center gap-2">
-          {popularSearches.map((term) => (
+          {POPULAR_SEARCHES.map((term) => (
             <button
               key={term}
               onClick={() => handleSuggestionClick(term)}
@@ -124,24 +206,38 @@ const NoResultsFound = ({ query }) => {
 
 // Union type for all content types that can appear in search results
 type SearchResult = (HotelReview | FoodReview | Guide | Arena) & {
-  _contentType: string
+  _contentType: Exclude<ResultType, 'all'>
   _score?: number
 }
 
 const SearchResults = ({ settings }: { settings: Settings }) => {
   const router = useRouter()
-  // /search is statically prerendered without a query, so read `q` only after
-  // mount — otherwise the first client render disagrees with the server HTML.
+  // /search is statically prerendered without a query, so read the URL only
+  // after mount — otherwise the first client render disagrees with the server.
   const [mounted, setMounted] = useState(false)
   useEffect(() => setMounted(true), [])
-  const searchQuery = mounted ? router.query.q : undefined
+
+  // The URL is the source of truth: ?q= search text, ?type= tab, ?page= page
+  const urlQuery = mounted ? router.query : {}
+  const searchQuery =
+    typeof urlQuery.q === 'string' ? urlQuery.q : undefined
+  const activeType: ResultType = isResultType(urlQuery.type)
+    ? urlQuery.type
+    : 'all'
+  const requestedPage = Math.max(1, Number(urlQuery.page) || 1)
+
   const [results, setResults] = useState<SearchResult[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<Error | null>(null)
-  const [activePage, setPage] = useState(1)
-  const itemsPerPage = 9
+  const [retryCount, setRetryCount] = useState(0)
 
   const { title = demo.title, description = demo.description } = settings || {}
+
+  // Words to highlight in card titles; memoised so memo'd cards don't re-render
+  const highlightWords = useMemo(
+    () => (searchQuery ? toSearchWords(searchQuery) : []),
+    [searchQuery],
+  )
 
   // Debounce the query so rapid URL changes (browser back/forward) don't fire
   // duplicate fetches. Loading spinner shows immediately via the effect below.
@@ -158,7 +254,6 @@ const SearchResults = ({ settings }: { settings: Settings }) => {
       let isCurrent = true
       setLoading(true)
       setError(null)
-      setPage(1)
       const terms = toSearchTerms(currentSearchQuery)
       // Only punctuation typed: an empty $terms would match everything
       if (terms.length === 0) {
@@ -170,7 +265,7 @@ const SearchResults = ({ settings }: { settings: Settings }) => {
         .fetch(globalSearchQuery, { terms })
         .then((data) => {
           // Flatten the results from all content types into a single array
-          const flattenedResults = [
+          const flattenedResults: SearchResult[] = [
             ...(data?.hotels || []),
             ...(data?.food || []),
             ...(data?.guides || []),
@@ -181,8 +276,8 @@ const SearchResults = ({ settings }: { settings: Settings }) => {
           flattenedResults.sort((a, b) => {
             const byScore = (b._score ?? 0) - (a._score ?? 0)
             if (byScore !== 0) return byScore
-            const dateA = new Date(a.date || a._updatedAt || 0)
-            const dateB = new Date(b.date || b._updatedAt || 0)
+            const dateA = new Date(a.date || (a as any)._updatedAt || 0)
+            const dateB = new Date(b.date || (b as any)._updatedAt || 0)
             return dateB.getTime() - dateA.getTime()
           })
 
@@ -195,7 +290,9 @@ const SearchResults = ({ settings }: { settings: Settings }) => {
           }
           console.error('Error fetching search results:', err)
         })
-        .finally(() => setLoading(false))
+        .finally(() => {
+          if (isCurrent) setLoading(false)
+        })
 
       return () => {
         isCurrent = false
@@ -205,36 +302,74 @@ const SearchResults = ({ settings }: { settings: Settings }) => {
       setLoading(false)
       setError(null)
     }
-  }, [debouncedSearchQuery])
+  }, [debouncedSearchQuery, retryCount])
 
-  const totalPages = Math.ceil(results.length / itemsPerPage)
-  const displayedResults = results.slice(
-    (activePage - 1) * itemsPerPage,
-    activePage * itemsPerPage,
+  const countsByType = useMemo(() => {
+    const counts: Record<ResultType, number> = {
+      all: results.length,
+      hotel: 0,
+      food: 0,
+      guide: 0,
+      arena: 0,
+    }
+    results.forEach((result) => {
+      counts[result._contentType] += 1
+    })
+    return counts
+  }, [results])
+
+  const filteredResults =
+    activeType === 'all'
+      ? results
+      : results.filter((result) => result._contentType === activeType)
+  const totalPages = Math.ceil(filteredResults.length / ITEMS_PER_PAGE)
+  const activePage = Math.min(requestedPage, Math.max(totalPages, 1))
+  const displayedResults = filteredResults.slice(
+    (activePage - 1) * ITEMS_PER_PAGE,
+    activePage * ITEMS_PER_PAGE,
   )
+
+  // Writes tab/page changes to the URL (shareable, back/forward-friendly)
+  const updateUrl = (type: ResultType, page: number) => {
+    router.push(
+      {
+        pathname: '/search',
+        query: {
+          q: searchQuery,
+          ...(type !== 'all' && { type }),
+          ...(page > 1 && { page }),
+        },
+      },
+      undefined,
+      { shallow: true, scroll: false },
+    )
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
   const renderContent = () => {
     if (loading) return <LoadingState searchQuery={searchQuery} />
     if (error) {
-      return (
-        <div className="flex justify-center items-center min-h-[50vh] text-destructive">
-          Blast! Something went wrong: {error.message}
-        </div>
-      )
+      return <SearchError onRetry={() => setRetryCount((n) => n + 1)} />
     }
     if (searchQuery && results.length > 0) {
       return (
         <>
           <ResultsHeader query={searchQuery} count={results.length} />
+          <ResultTypeTabs
+            activeType={activeType}
+            counts={countsByType}
+            onChange={(type) => updateUrl(type, 1)}
+          />
           <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 container mx-auto max-w-8xl">
             {displayedResults.map((result) => {
               if (result._contentType === 'arena') {
                 const arenaResult = result as Arena
-                const { average, textRating, color } = getArenaDisplayRating(arenaResult)
+                const { average, textRating, color } =
+                  getArenaDisplayRating(arenaResult)
                 return (
-                  <Link
+                  // NBAArenaCard has its own link — don't wrap it in another
+                  <div
                     key={arenaResult._id}
-                    href={`/arena/${arenaResult.slug}`}
                     className="w-full flex justify-center"
                   >
                     <NBAArenaCard
@@ -257,8 +392,9 @@ const SearchResults = ({ settings }: { settings: Settings }) => {
                       textRating={textRating}
                       ratingColor={color}
                       priority={false}
+                      highlightWords={highlightWords}
                     />
-                  </Link>
+                  </div>
                 )
               }
 
@@ -289,6 +425,7 @@ const SearchResults = ({ settings }: { settings: Settings }) => {
                   }
                   contentType={result._contentType as CardContentType}
                   showRating={!isGuide}
+                  highlightWords={highlightWords}
                   hotelRating={
                     result._contentType === 'hotel'
                       ? (reviewResult as HotelReview).hotelRating
@@ -318,7 +455,7 @@ const SearchResults = ({ settings }: { settings: Settings }) => {
               <Pagination
                 total={totalPages}
                 value={activePage}
-                onChange={setPage}
+                onChange={(page) => updateUrl(activeType, page)}
                 position="center"
                 size="lg"
               />
@@ -345,9 +482,11 @@ const SearchResults = ({ settings }: { settings: Settings }) => {
       <Head>
         <title>
           {searchQuery
-            ? `Search Results for "${searchQuery}"`
-            : `Search - ${CMS_NAME}`}
+            ? `Search: "${searchQuery.slice(0, 60)}" | ${SITE_NAME}`
+            : `Search | ${SITE_NAME}`}
         </title>
+        {/* Result pages are thin, endless variants — keep them out of Google */}
+        <meta name="robots" content="noindex, follow" />
       </Head>
       <BlogHeader title={title} description={description} level={1} />
       <Container>{renderContent()}</Container>
@@ -357,3 +496,8 @@ const SearchResults = ({ settings }: { settings: Settings }) => {
 }
 
 export default SearchResults
+
+export const getStaticProps: GetStaticProps<{ settings: Settings }> = async () => ({
+  props: { settings: await getSettings() },
+  revalidate: 60,
+})
