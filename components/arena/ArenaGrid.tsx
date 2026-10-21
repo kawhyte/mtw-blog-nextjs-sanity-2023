@@ -16,7 +16,7 @@ function ArenaCardGrid({
   priorityOffset?: number
 }) {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-8 px-4 md:gap-x-6 md:gap-y-10 md:px-6 lg:gap-x-8 mx-auto container">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-8 px-4 md:gap-x-6 md:gap-y-10 md:px-6 lg:gap-x-8 mx-auto container max-w-7xl">
       {arenas.map((arena, index) => {
         const displayRating = arena.displayRating!
         const isPriority = index + priorityOffset < 6
@@ -71,7 +71,7 @@ export default function ArenaGrid({ arenas }: ArenaGridProps) {
 
       {bucketListArenas.length > 0 && (
         <div>
-          <div className="container mx-auto px-4 md:px-6 mb-8">
+          <div className="container mx-auto max-w-7xl px-4 md:px-6 mb-8">
             <Separator className="mb-8" />
             <div className="flex items-center gap-3">
               <MapPin className="h-5 w-5 text-muted-foreground shrink-0" />

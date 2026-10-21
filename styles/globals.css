@@ -353,9 +353,30 @@
     transform: scaleX(0);
   }
 }
+/* Quest complete: confetti falls once on load, then disappears */
+.quest-confetti {
+  opacity: 0;
+  animation: quest-confetti 2.4s cubic-bezier(0.25, 0.6, 0.4, 1) 1 both;
+}
+@keyframes quest-confetti {
+  0% {
+    opacity: 1;
+    transform: translateY(-20px) rotate(0deg);
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(420px) rotate(var(--confetti-rotate, 180deg));
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   .quest-count,
   .quest-bar {
     animation: none;
+  }
+  .quest-confetti {
+    display: none;
   }
 }

@@ -1,17 +1,115 @@
 import { formatDate } from 'components/PostDate'
-import type { Arena } from 'lib/sanity.queries'
+import SanityImage from 'components/SanityImage'
+import { Trophy } from 'lucide-react'
 import Link from 'next/link'
 import { useMemo } from 'react'
+import type { ArenaWithRating } from 'utils/arena/arenaConstants'
+import { getRankBadgeStyle } from 'utils/arena/rankBadgeStyles'
 
 import ArenaQuestMap from './ArenaQuestMap'
 
 interface ArenaQuestHeroProps {
-  arenas: Arena[]
+  arenas: ArenaWithRating[]
   hotelReviewCount: number
   foodReviewCount: number
 }
 
 const cityOf = (location?: string) => location?.split(',')[0]?.trim() ?? ''
+
+// Fixed confetti layout (no Math.random, so server and client HTML match)
+const CONFETTI_COLORS = ['bg-primary', 'bg-secondary', 'bg-yellow-400', 'bg-green-500']
+const CONFETTI = Array.from({ length: 18 }, (_, i) => ({
+  left: `${(i * 37 + 7) % 100}%`,
+  delay: `${(i % 6) * 0.12}s`,
+  color: CONFETTI_COLORS[i % CONFETTI_COLORS.length],
+  rotate: `${(i * 47) % 360}deg`,
+}))
+
+/** One-time confetti burst over the hero when the quest is complete. */
+function Confetti() {
+  return (
+    <div
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-0 overflow-hidden"
+    >
+      {CONFETTI.map((piece, i) => (
+        <span
+          key={i}
+          className={`quest-confetti absolute top-0 h-3 w-1.5 rounded-sm ${piece.color}`}
+          style={
+            {
+              left: piece.left,
+              animationDelay: piece.delay,
+              '--confetti-rotate': piece.rotate,
+            } as React.CSSProperties
+          }
+        />
+      ))}
+    </div>
+  )
+}
+
+/** Shown in place of the "to go" chips once every arena is visited. */
+function FinalPodium({
+  arenas,
+  finishedOn,
+}: {
+  arenas: ArenaWithRating[]
+  finishedOn?: string
+}) {
+  return (
+    <div className="flex flex-col gap-3">
+      <span className="inline-flex w-fit max-w-full items-center gap-2 rounded-full border-2 border-border-bold bg-yellow-300 px-3 py-1.5 text-sm font-extrabold text-gray-900 shadow-brutalist-sm">
+        <Trophy className="h-4 w-4" aria-hidden="true" />
+        Quest complete{finishedOn ? ` · finished ${formatDate(finishedOn)}` : ''}
+      </span>
+      <span className="text-sm font-bold">Our final top 3</span>
+      <ol className="flex flex-col gap-2">
+        {arenas.map((arena) => (
+          <li key={arena._id}>
+            <Link
+              href={`/arena/${arena.slug}`}
+              className="flex min-h-11 items-center gap-3 rounded-2xl border-2 border-border-bold bg-card p-2 pr-3 shadow-brutalist-sm transition-transform hover:-translate-y-0.5"
+            >
+              <span
+                className={`flex h-8 min-w-8 shrink-0 items-center justify-center rounded-full px-2 text-xs font-black ${getRankBadgeStyle(arena.rank ?? 99)}`}
+              >
+                #{arena.rank}
+              </span>
+              {arena.arenaImage?.asset && (
+                <SanityImage
+                  image={arena.arenaImage}
+                  width={96}
+                  height={96}
+                  alt=""
+                  className="h-11 w-11 shrink-0 rounded-xl object-cover"
+                  sizes="44px"
+                />
+              )}
+              <span className="min-w-0 flex-1">
+                <span className="block truncate font-bold">{arena.name}</span>
+                <span className="block text-xs text-muted-foreground">
+                  {cityOf(arena.location)}
+                </span>
+              </span>
+              {arena.displayRating?.average && (
+                <span className="shrink-0 rounded-lg bg-green-600 px-2 py-1 text-sm font-extrabold text-white">
+                  {arena.displayRating.average}
+                </span>
+              )}
+            </Link>
+          </li>
+        ))}
+      </ol>
+      <a
+        href="#arena-rankings"
+        className="inline-flex min-h-11 w-fit items-center text-sm font-bold text-primary hover:underline"
+      >
+        See the full rankings ↓
+      </a>
+    </div>
+  )
+}
 
 function StatTile({
   value,
@@ -65,10 +163,27 @@ export default function ArenaQuestHero({
 
   const total = arenas.length
   const progress = total > 0 ? visited.length / total : 0
+  // Complete only while every arena is visited — adding a new arena in
+  // Studio reopens the quest automatically.
+  const complete = total > 0 && visited.length === total
+  const podium = useMemo(
+    () =>
+      visited
+        .filter((a) => a.rank != null && a.slug)
+        .sort(
+          (a, b) =>
+            (a.rank ?? 0) - (b.rank ?? 0) ||
+            Number(b.displayRating?.average ?? 0) -
+              Number(a.displayRating?.average ?? 0),
+        )
+        .slice(0, 3),
+    [visited],
+  )
 
   return (
-    <section className="bg-secondary-soft-background">
-      <div className="container mx-auto grid max-w-7xl items-start gap-6 px-4 py-8 sm:gap-8 sm:px-6 sm:py-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-12 lg:px-8 lg:py-14">
+    <section className="relative bg-secondary-soft-background">
+      {complete && <Confetti />}
+      <div className="container mx-auto grid max-w-7xl grid-cols-1 items-start gap-6 px-4 py-8 sm:gap-8 sm:py-10 md:px-6 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-12 lg:py-14">
         <div className="flex flex-col gap-5">
           <span className="text-xs font-bold tracking-[0.14em] text-primary">
             THE ARENA QUEST
@@ -77,9 +192,9 @@ export default function ArenaQuestHero({
             Visiting and Ranking Every NBA/WNBA Arena
           </h1>
           <p className="max-w-xl leading-relaxed text-muted-foreground">
-            We&apos;re traveling near and far to visit and rank all {total} NBA
-            and WNBA arenas across the US and Canada. Follow along as the map
-            fills in.
+            {complete
+              ? `We did it — all ${total} NBA and WNBA arenas across the US and Canada, visited and ranked. Here's how they stack up.`
+              : `We're traveling near and far to visit and rank all ${total} NBA and WNBA arenas across the US and Canada. Follow along as the map fills in.`}
           </p>
 
           <div>
@@ -112,16 +227,21 @@ export default function ArenaQuestHero({
                 style={{ transform: `scaleX(${progress})` }}
               />
             </div>
-            {/* Phones: skip past the map straight to the arena list */}
-            <a
-              href="#arena-rankings"
-              className="mt-3 inline-flex min-h-11 items-center text-sm font-bold text-primary hover:underline md:hidden"
-            >
-              Jump to the rankings ↓
-            </a>
+            {/* Phones: skip past the map straight to the arena list (the
+                podium has its own link once the quest is complete) */}
+            {!complete && (
+              <a
+                href="#arena-rankings"
+                className="mt-3 inline-flex min-h-11 items-center text-sm font-bold text-primary hover:underline md:hidden"
+              >
+                Jump to the rankings ↓
+              </a>
+            )}
           </div>
 
-          {stillToGo.length > 0 ? (
+          {complete ? (
+            <FinalPodium arenas={podium} finishedOn={lastVisited?.date} />
+          ) : (
             <div className="flex flex-col gap-2">
               <span className="text-sm font-bold">
                 {stillToGo.length} to go
@@ -138,10 +258,6 @@ export default function ArenaQuestHero({
                 ))}
               </ul>
             </div>
-          ) : (
-            <span className="text-sm font-bold text-primary">
-              Quest complete — every arena visited!
-            </span>
           )}
         </div>
 
@@ -176,7 +292,7 @@ export default function ArenaQuestHero({
         </div>
       </div>
 
-      <div className="container mx-auto grid max-w-7xl grid-cols-2 gap-3 px-4 pb-10 sm:gap-5 sm:px-6 lg:grid-cols-4 lg:px-8 lg:pb-14">
+      <div className="container mx-auto grid max-w-7xl grid-cols-2 gap-3 px-4 pb-10 sm:gap-5 md:px-6 lg:grid-cols-4 lg:pb-14">
         <StatTile value={visited.length} label="arenas visited" accent="text-primary" />
         <StatTile value={arenaCities} label="arena cities explored" accent="text-secondary" />
         <StatTile value={hotelReviewCount} label="hotel reviews" accent="text-foreground" />
