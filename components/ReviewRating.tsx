@@ -125,9 +125,9 @@ export default function ReviewRating({
 
   if (variant === 'glance') {
     return (
-      <section className="rounded-3xl border-[3px] border-border-bold bg-card p-5 sm:p-6">
-        <h2 className="mb-4 text-xl font-extrabold text-foreground">{title}</h2>
-        <div className="grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2 xl:grid-cols-3">
+      <section className="rounded-3xl border-[3px] border-border-bold bg-card p-6 sm:p-7">
+        <h2 className="mb-6 text-xl font-extrabold text-foreground">{title}</h2>
+        <div className="grid grid-cols-1 gap-x-10 gap-y-6 sm:grid-cols-2 xl:grid-cols-3">
           {ratingEntries.map(([name, value]) => {
             const score = (value ?? 0) / 2
             const unavailable =
@@ -146,7 +146,7 @@ export default function ReviewRating({
                     {getUnavailableText(name)}
                   </span>
                 ) : (
-                  <div className="mt-1.5 h-2 rounded-full bg-muted">
+                  <div className="mt-2.5 h-2 rounded-full bg-muted">
                     <div
                       className={`h-full rounded-full ${glanceBarClass(score)}`}
                       style={{ width: `${Math.min(100, (score / 5) * 100)}%` }}
