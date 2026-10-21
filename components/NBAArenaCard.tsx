@@ -1,14 +1,12 @@
-import { ArrowRight, Calendar, MapPin, RefreshCw, Trophy } from 'lucide-react'
+import { Calendar, MapPin, RefreshCw, Trophy } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
 import { getRankBadgeStyle } from 'utils/arena/rankBadgeStyles'
 
-import { CardFooter } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 
 import HighlightText from './HighlightText'
-import PostDate from './PostDate'
-import RatingBadge from './RatingBadge'
+import PostDate, { formatDate } from './PostDate'
 import SanityImage from './SanityImage'
 
 interface NBAArenaCardProps {
@@ -20,7 +18,6 @@ interface NBAArenaCardProps {
   location: string
   dateVisited: string
   visited: boolean
-  gallery: any
   id: string
   slug: string
   averageRating: string
@@ -159,9 +156,9 @@ const Arenas = React.memo(
           </div>
         </div>
 
-        {/* ── DESKTOP / TABLET CARD (≥ 640px) — unchanged ──────────────── */}
+        {/* ── DESKTOP / TABLET CARD (≥ 640px) ───────────────────────────── */}
         <div
-          className={`hidden sm:block group relative w-full overflow-hidden rounded-3xl border-4 border-black bg-card text-foreground shadow-offsetIndigo transition-all duration-300 ease-in-out hover:scale-105 hover:-translate-y-2 hover:shadow-lg ${
+          className={`hidden sm:block group relative w-full overflow-hidden rounded-[2rem] border-4 border-border-bold bg-card text-foreground shadow-brutalist transition-transform duration-200 ease-out hover:-translate-y-1 ${
             visited === false ? 'opacity-50 grayscale' : 'grayscale-0'
           }`}
         >
@@ -174,10 +171,10 @@ const Arenas = React.memo(
 
           {/* -mx-px -mt-px: the image runs 1px under the border so fractional card
               widths can't leave a sliver of card background at its edges */}
-          <div className="relative -mx-px -mt-px">
+          <div className="relative -mx-px -mt-px aspect-[19/10] overflow-hidden">
             {!!rank && (
               <div
-                className={`absolute left-3 top-3 z-30 rounded-full px-2 py-1 text-xs font-bold min-h-[32px] flex items-center gap-1 ${getRankBadgeStyle(rank)}`}
+                className={`absolute left-3 top-3 z-30 flex min-h-[28px] items-center gap-1 rounded-full px-2.5 py-1 text-xs font-bold ${getRankBadgeStyle(rank)}`}
                 role="status"
                 aria-label={
                   rank === 1 ? 'Best Arena ranking' : `Arena rank: ${rank}`
@@ -188,86 +185,60 @@ const Arenas = React.memo(
               </div>
             )}
 
-            {Number(averageRating) > 0 && (
-              <div
-                className="absolute right-3 top-3 z-30"
-                style={{ maxWidth: 'calc(100% - 120px)' }}
+            {hasRating && (
+              <span
+                className="font-heading-family absolute right-3 top-3 z-30 rounded-xl px-2.5 py-1 text-base font-extrabold leading-tight text-gray-900"
+                style={{ backgroundColor: ratingColor }}
+                role="img"
+                aria-label={`Rating: ${Number(averageRating).toFixed(1)} out of 5, ${textRating}`}
+                title={textRating}
               >
-                <RatingBadge
-                  average={averageRating}
-                  textRating={textRating}
-                  color={ratingColor}
-                />
-              </div>
+                {Number(averageRating).toFixed(1)}
+              </span>
             )}
 
-            <Skeleton className="absolute inset-0 h-full w-full rounded-md" />
+            <Skeleton className="absolute inset-0 h-full w-full" />
 
             {hasImage ? (
               <SanityImage
                 image={arenaImageSrc}
                 width={800}
-                height={500}
-                className="w-full object-cover object-center brightness-[0.85]"
+                height={420}
+                className="relative h-full w-full object-cover object-center brightness-[0.85]"
                 alt={alt}
                 loading={priority ? 'eager' : 'lazy'}
                 priority={priority}
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                style={{ objectFit: 'cover' }}
               />
             ) : (
               <img
                 src="https://fakeimg.pl/320x200?text=Arena+Image&font=georgia"
                 width={320}
-                height={200}
-                className="w-full object-cover object-center brightness-[0.85]"
+                height={168}
+                className="relative h-full w-full object-cover object-center brightness-[0.85]"
                 alt={alt}
               />
             )}
           </div>
 
-          <div className="flex justify-between text-foreground">
-            <div className="ml-2 mt-1 flex flex-col sm:mb-2 sm:ml-4 sm:gap-y-2">
-              {revisitCount && revisitCount > 0 ? (
-                <div className="flex items-center gap-1 text-[11px] font-medium text-muted-foreground">
-                  <RefreshCw className="h-3 w-3" />
-                  <span>
-                    {revisitCount === 1
-                      ? 'Revisited'
-                      : `${revisitCount + 1} visits`}
-                  </span>
-                </div>
-              ) : null}
-
-              <h2 className="line-clamp-1 pt-1 text-lg font-bold text-foreground decoration-primary decoration-dashed decoration-4 group-hover:underline sm:line-clamp-2 sm:h-8 sm:text-xl lg:text-xl xl:pt-1.5">
-                <HighlightText text={arenaName} words={highlightWords} />
-              </h2>
-
-              <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-muted-foreground">
-                {location && (
-                  <div className="flex items-center gap-x-2">
-                    <MapPin className="h-4 w-4 shrink-0" />
-                    <p className="text-sm">{location}</p>
-                  </div>
-                )}
-                {visited && dateVisited && (
-                  <span className="flex items-center gap-x-2 text-xs">
-                    <Calendar className="h-4 w-4" />
-                    <PostDate dateString={dateVisited} />
-                  </span>
-                )}
-              </div>
-            </div>
+          <div className="flex flex-col gap-1.5 px-5 pb-5 pt-4">
+            <h2 className="line-clamp-1 text-xl font-bold leading-tight text-foreground decoration-primary decoration-dashed decoration-4 group-hover:underline">
+              <HighlightText text={arenaName} words={highlightWords} />
+            </h2>
+            <p className="text-sm text-muted-foreground">
+              {[
+                location,
+                visited && dateVisited ? formatDate(dateVisited) : null,
+                revisitCount && revisitCount > 0
+                  ? revisitCount === 1
+                    ? 'Revisited'
+                    : `${revisitCount + 1} visits`
+                  : null,
+              ]
+                .filter(Boolean)
+                .join(' · ')}
+            </p>
           </div>
-
-          {visited && (
-            <CardFooter className="container mx-auto mt-auto flex items-center pt-1 my-3">
-              <span className="mx-auto mb-2 flex items-center gap-1 font-semibold text-primary">
-                View Review
-                <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
-              </span>
-            </CardFooter>
-          )}
         </div>
       </>
     )

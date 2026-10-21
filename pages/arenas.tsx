@@ -1,11 +1,16 @@
 import ArenaPageContent from 'components/arena/ArenaPageContent'
-import ArenaPageHeader from 'components/ArenaPageHeader'
+import ArenaQuestHero from 'components/arena/ArenaQuestHero'
 import BlogHeader from 'components/BlogHeader'
 import Layout from 'components/BlogLayout'
 import CategoryPageHead from 'components/CategoryPageHead'
 import Footer from 'components/Footer'
 import PreviewIndexPage from 'components/PreviewIndexPage'
-import { getArenaPosts, getSettings } from 'lib/sanity.client'
+import {
+  getArenaPosts,
+  getFoodReviewsTotalCount,
+  getHotelReviewsTotalCount,
+  getSettings,
+} from 'lib/sanity.client'
 import PreviewProvider from 'lib/sanity.preview'
 import { Arena, Settings } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
@@ -16,6 +21,8 @@ import {
 
 interface PageProps {
   arenaPosts: Arena[]
+  hotelReviewCount: number
+  foodReviewCount: number
   settings: Settings
   preview: boolean
   token: string | null
@@ -30,7 +37,14 @@ interface PreviewData {
 }
 
 export default function ArenasPage(props: PageProps) {
-  const { arenaPosts, settings, preview, token } = props
+  const {
+    arenaPosts,
+    hotelReviewCount,
+    foodReviewCount,
+    settings,
+    preview,
+    token,
+  } = props
 
   // Preview Mode Rendering
   if (preview) {
@@ -60,11 +74,10 @@ export default function ArenasPage(props: PageProps) {
           description={[]}
           level={1}
         />
-        <ArenaPageHeader
-          title={'Visiting and Ranking Every NBA/WNBA Arena'}
+        <ArenaQuestHero
           arenas={arenaPosts}
-          summary={`We are traveling near and far to every state/country to visit and rank all the NBA and WNBA arenas (${arenaPosts.length}) across the US and Canada. Follow us on this journey.`}
-          animation={'/basketball.svg'}
+          hotelReviewCount={hotelReviewCount}
+          foodReviewCount={foodReviewCount}
         />
 
         <ArenaPageContent arenas={arenaPosts} />
@@ -82,10 +95,13 @@ export const getStaticProps: GetStaticProps<
 > = async (ctx) => {
   const { preview = false, previewData = {} } = ctx
 
-  const [settings, arenaPosts = []] = await Promise.all([
-    getSettings(),
-    getArenaPosts(),
-  ])
+  const [settings, arenaPosts = [], hotelReviewCount, foodReviewCount] =
+    await Promise.all([
+      getSettings(),
+      getArenaPosts(),
+      getHotelReviewsTotalCount(),
+      getFoodReviewsTotalCount(),
+    ])
 
   // Basic validation
   if (!Array.isArray(arenaPosts)) {
@@ -103,6 +119,8 @@ export const getStaticProps: GetStaticProps<
   return {
     props: {
       arenaPosts: enrichedArenas, // ✅ Send pre-computed data to client
+      hotelReviewCount,
+      foodReviewCount,
       settings: settings || {},
       preview,
       token: previewData.token ?? null,

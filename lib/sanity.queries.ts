@@ -54,10 +54,9 @@ const arenaFields = groq`
       ...,
       asset->{ _id, metadata { lqip, dimensions { width, height } } }
     },
-    "firstGalleryImage": gallery[0] {
-      ...,
-      asset->{ _id, metadata { lqip, dimensions { width, height } } }
-    },
+    // Team names + logos for the /arenas quest map hover card (stored in
+    // the arena's "Teams / Logos" field, which is named gallery)
+    "teams": gallery[0...2] { name, hotspot, crop, asset->{ _id } },
     location,
     buildDate,
     venueNote,
@@ -1036,7 +1035,7 @@ export interface Arena {
   name?: string
   slug?: string
   arenaImage?: any // SanityImageObject
-  firstGalleryImage?: any // Single gallery image for listing
+  teams?: { name?: string; asset?: { _id: string }; hotspot?: any; crop?: any }[] // First 2 team logos (listing only)
   heroPhotos?: GalleryImageItem[] // Hero block (first = large), max 5
   gallery?: any[] // Full gallery for detailed pages (teams/logos)
   imageGallery?: GalleryImageItem[] // New flexible image gallery with captions

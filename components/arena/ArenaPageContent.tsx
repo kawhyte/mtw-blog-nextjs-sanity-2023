@@ -17,7 +17,9 @@ export default function ArenaPageContent({ arenas }: ArenaPageContentProps) {
   const displayArenas = useArenaDisplay(arenas, filterCriteria, sortCriteria)
 
   return (
-    <>
+    // Anchor for the hero's "Jump to the rankings" link (scroll-mt clears
+    // the sticky nav)
+    <div id="arena-rankings" className="scroll-mt-20">
       <ArenaFilters
         sortCriteria={sortCriteria}
         filterCriteria={filterCriteria}
@@ -26,6 +28,6 @@ export default function ArenaPageContent({ arenas }: ArenaPageContentProps) {
       />
 
       <ArenaGrid arenas={displayArenas} />
-    </>
+    </div>
   )
 }
