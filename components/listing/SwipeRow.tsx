@@ -8,6 +8,17 @@ interface SwipeRowProps {
   seeAllHref?: string
   /** Label for the dashed end card; leave out when the row already shows everything */
   seeAllLabel?: string
+  /** Homepage style: a line under the title and a text link beside the arrows */
+  subtitle?: string
+  linkLabel?: string
+  /** Shorter link text for phones, e.g. "All 36" */
+  shortLinkLabel?: string
+  linkHref?: string
+  /** The link leaves the site (opens in a new tab) */
+  linkExternal?: boolean
+  id?: string
+  /** Shown between the header and the cards, e.g. filter chips */
+  toolbar?: ReactNode
   children: ReactNode
 }
 
@@ -20,6 +31,13 @@ export default function SwipeRow({
   title,
   seeAllHref,
   seeAllLabel,
+  subtitle,
+  linkLabel,
+  shortLinkLabel,
+  linkHref,
+  linkExternal = false,
+  id,
+  toolbar,
   children,
 }: SwipeRowProps) {
   const scroller = useRef<HTMLDivElement>(null)
@@ -49,42 +67,75 @@ export default function SwipeRow({
     'flex h-10 w-10 items-center justify-center rounded-full border-2 bg-card transition-colors enabled:border-border-bold enabled:text-foreground enabled:hover:bg-muted disabled:cursor-default disabled:border-border disabled:text-muted-foreground/50'
 
   return (
-    <section className="flex flex-col gap-4">
-      <div className="flex items-center justify-between gap-4">
-        <h2 className="text-xl font-extrabold tracking-tight sm:text-2xl">
-          {seeAllHref ? (
-            <Link
-              href={seeAllHref}
-              scroll={false}
-              className="-my-3 inline-block py-3 hover:text-primary"
-            >
-              {title} <span aria-hidden="true">›</span>
-            </Link>
-          ) : (
-            title
+    <section id={id} className="flex scroll-mt-24 flex-col gap-4">
+      <div
+        className={`flex justify-between gap-4 ${subtitle ? 'items-end' : 'items-center'}`}
+      >
+        <div className="flex min-w-0 flex-col gap-1">
+          <h2 className="text-xl font-extrabold tracking-tight sm:text-2xl">
+            {seeAllHref && !linkLabel ? (
+              <Link
+                href={seeAllHref}
+                scroll={false}
+                className="-my-3 inline-block py-3 hover:text-primary"
+              >
+                {title} <span aria-hidden="true">›</span>
+              </Link>
+            ) : (
+              title
+            )}
+          </h2>
+          {subtitle && (
+            <p className="text-sm text-muted-foreground sm:text-[15px]">
+              {subtitle}
+            </p>
           )}
-        </h2>
-        <div className="hidden gap-2 md:flex">
-          <button
-            type="button"
-            aria-label={`Scroll ${title} left`}
-            className={arrowClass}
-            disabled={atStart}
-            onClick={() => scrollByPage(-1)}
-          >
-            <ChevronLeft className="h-5 w-5" aria-hidden="true" />
-          </button>
-          <button
-            type="button"
-            aria-label={`Scroll ${title} right`}
-            className={arrowClass}
-            disabled={atEnd}
-            onClick={() => scrollByPage(1)}
-          >
-            <ChevronRight className="h-5 w-5" aria-hidden="true" />
-          </button>
+        </div>
+        <div className="flex shrink-0 items-center gap-5">
+          {linkLabel && linkHref && (
+            <Link
+              href={linkHref}
+              scroll={false}
+              {...(linkExternal
+                ? { target: '_blank', rel: 'noopener noreferrer' }
+                : {})}
+              className="-my-3 whitespace-nowrap py-3 text-sm font-bold text-pink-700 hover:underline"
+            >
+              {shortLinkLabel ? (
+                <>
+                  <span className="sm:hidden">{shortLinkLabel}</span>
+                  <span className="hidden sm:inline">{linkLabel}</span>
+                </>
+              ) : (
+                linkLabel
+              )}{' '}
+              <span aria-hidden="true">{linkExternal ? '↗' : '→'}</span>
+            </Link>
+          )}
+          <div className="hidden gap-2 md:flex">
+            <button
+              type="button"
+              aria-label={`Scroll ${title} left`}
+              className={arrowClass}
+              disabled={atStart}
+              onClick={() => scrollByPage(-1)}
+            >
+              <ChevronLeft className="h-5 w-5" aria-hidden="true" />
+            </button>
+            <button
+              type="button"
+              aria-label={`Scroll ${title} right`}
+              className={arrowClass}
+              disabled={atEnd}
+              onClick={() => scrollByPage(1)}
+            >
+              <ChevronRight className="h-5 w-5" aria-hidden="true" />
+            </button>
+          </div>
         </div>
       </div>
+
+      {toolbar}
 
       {/* Bleeds to the screen edge on phones so the next card peeks in */}
       <div

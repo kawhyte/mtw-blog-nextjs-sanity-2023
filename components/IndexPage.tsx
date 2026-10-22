@@ -1,70 +1,66 @@
-import Container from 'components/BlogContainer'
 import Layout from 'components/BlogLayout'
+import HomeAboutGear from 'components/home/HomeAboutGear'
+import HomeFavourites from 'components/home/HomeFavourites'
+import HomeHero from 'components/home/HomeHero'
+import HomeQuickLinks, { type HomeCounts } from 'components/home/HomeQuickLinks'
+import HomeVideos from 'components/home/HomeVideos'
 import IndexPageHead from 'components/IndexPageHead'
-import MoreStoriesIndex from 'components/MoreStories' // Your generic, paginated component
-import * as demo from 'lib/demo.data'
-// Import Post type and potentially the query used for the paginated components
-import type {
-  FoodReview,
-  Guide,
-  HotelReview,
-  Settings,
-} from 'lib/sanity.queries'
+import ListingCard, { monthFormatter } from 'components/listing/ListingCard'
+import SwipeRow from 'components/listing/SwipeRow'
+import type { FreshItem, HomeArena, HomeGear } from 'lib/homeData'
+import type { ListingItem } from 'lib/reviewListing'
+import type { Settings } from 'lib/sanity.queries'
 import type { YoutubeVideo } from 'lib/youtube'
-// Removed legacy import - pagination is disabled on index page
-import { BriefcaseConveyorBelt, Plane, Trophy } from 'lucide-react'
-import dynamic from 'next/dynamic'
 import Head from 'next/head'
-import Button from 'ui/Button'
-
-const GearLottie = dynamic(
-  () =>
-    import('@lottiefiles/react-lottie-player').then((module) => module.Player),
-  { ssr: false },
-)
-
-import type { ArenaHighlightCard } from 'lib/sanity.queries'
 
 import { CMS_NAME } from '../lib/constants'
-import ArenaHighlights from './ArenaHighlights'
 import BlogHeader from './BlogHeader'
-import BlogSection from './BlogSection'
 import Footer from './Footer'
-import Hero from './Hero'
-import IndexTopTen from './IndexTopTen'
-import SectionTitle from './SectionTitle'
-import Welcome from './Welcome'
-import YoutubeHighlights from './YoutubeHighlights'
 
 export interface IndexPageProps {
   preview?: boolean
   loading?: boolean
-  posts: (Guide | HotelReview | FoodReview)[]
   settings: Settings
+  heroArenas?: HomeArena[]
+  latestArenas?: HomeArena[]
+  counts?: HomeCounts
+  fresh?: FreshItem[]
+  favouriteHotels?: ListingItem[]
+  favouriteFood?: ListingItem[]
+  gear?: HomeGear[]
   youtubeVideos?: YoutubeVideo[]
-  youtubeShorts?: YoutubeVideo[]
-  arenas?: ArenaHighlightCard[]
 }
 
-export default function IndexPage(props: IndexPageProps) {
-  const {
-    preview,
-    loading,
-    posts,
-    settings,
-    youtubeVideos = [],
-    youtubeShorts = [],
-    arenas = [],
-  } = props
+const NO_COUNTS: HomeCounts = {
+  arenas: 0,
+  hotels: 0,
+  food: 0,
+  guides: 0,
+  gear: 0,
+}
 
-  // This hero logic might conflict if posts is empty, handle gracefully
-  const heroPost = posts?.[0] // Example: Safely access hero post if needed elsewhere
-  const { title = demo.title, description = demo.description } = settings || {}
+const FRESH: Record<FreshItem['kind'], { label: string; path: string }> = {
+  hotel: { label: 'Hotel', path: '/hotel' },
+  food: { label: 'Food', path: '/food' },
+  guide: { label: 'Guide', path: '/guide' },
+}
 
-  // Calculate props needed for MoreStories, even though pagination is off
-  const itemsPerPageForIndex = posts?.length || 6 // Set itemsPerPage >= number of posts
-  const totalPostsForIndex = posts?.length || 0
+const month = (date: string | null) =>
+  date ? monthFormatter.format(new Date(date)) : null
 
+export default function IndexPage({
+  preview,
+  loading,
+  settings,
+  heroArenas = [],
+  latestArenas = [],
+  counts = NO_COUNTS,
+  fresh = [],
+  favouriteHotels = [],
+  favouriteFood = [],
+  gear = [],
+  youtubeVideos = [],
+}: IndexPageProps) {
   return (
     <>
       <IndexPageHead settings={settings} />
@@ -74,103 +70,71 @@ export default function IndexPage(props: IndexPageProps) {
           <title>{CMS_NAME}</title>
         </Head>
 
-        <BlogHeader title={title} description={description} level={1} />
-        <Container>
-          <Hero />
+        <BlogHeader level={1} />
+        <HomeHero arenas={heroArenas} />
 
-          <BlogSection className=" mt-24 ">
-            <Welcome />
-          </BlogSection>
+        <div className="container mx-auto flex max-w-7xl flex-col gap-10 px-4 py-7 md:gap-14 md:px-6 md:py-10">
+          <HomeQuickLinks counts={counts} />
 
-          {arenas.length > 0 && (
-            <BlogSection className="bg-indigo-50 py-10 md:py-14 mb-10 md:mb-14">
-              <ArenaHighlights arenas={arenas} />
-            </BlogSection>
+          {latestArenas.length > 0 && (
+            <SwipeRow
+              title="Latest arena visits"
+              subtitle="Our newest reviews from the quest."
+              linkLabel={`All ${counts.arenas} arenas`}
+              shortLinkLabel={`All ${counts.arenas}`}
+              linkHref="/arenas"
+            >
+              {latestArenas.map((arena) => (
+                <ListingCard
+                  key={arena._id}
+                  item={arena}
+                  href={`/arena/${arena.slug}`}
+                  meta={[arena.location, month(arena.date)]
+                    .filter(Boolean)
+                    .join(' · ')}
+                  showMonth={false}
+                  inRow
+                />
+              ))}
+            </SwipeRow>
           )}
 
-          <BlogSection className="bg-pink-100 py-10 md:py-14">
-            <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start">
-              {/* Left: text + button */}
-              <div className="flex w-full flex-col lg:w-1/2">
-                <SectionTitle
-                  header={'Travel Gear and Gadgets'}
-                  description={`Our tried-and-tested gear we pack  for NBA games, cruises, day trips, and beyond.`}
+          {fresh.length > 0 && (
+            <SwipeRow
+              id="fresh"
+              title="Fresh from the road"
+              subtitle="New hotel, food and guide posts."
+            >
+              {fresh.map(({ kind, item, readMinutes }) => (
+                <ListingCard
+                  key={item._id}
+                  item={item}
+                  href={`${FRESH[kind].path}/${item.slug}`}
+                  meta={[FRESH[kind].label, item.location]
+                    .filter(Boolean)
+                    .join(' · ')}
+                  detail={
+                    kind === 'guide'
+                      ? [`${readMinutes} min read`, month(item.date)]
+                          .filter(Boolean)
+                          .join(' · ')
+                      : undefined
+                  }
+                  inRow
                 />
-                <div className="flex pt-9 lg:mt-0 lg:shrink-0">
-                  <div className="flex flex-col gap-3 md:flex-row md:gap-6 px-6 w-full">
-                    <Button
-                      icon={<Plane className="text-pink-500" />}
-                      link={'/essentials'}
-                    >
-                      See What We Pack
-                    </Button>
-                  </div>
-                </div>
-              </div>
+              ))}
+            </SwipeRow>
+          )}
 
-              {/* Right: Lottie animation — mirrors IndexTopTen layout */}
-              <div className="mt-12 w-full hidden lg:flex lg:w-1/2 lg:justify-center lg:items-center lg:mt-0">
-                <div className="w-full max-w-[220px]">
-                  <GearLottie
-                    autoplay
-                    loop
-                    src={'/plane.json'}
-                    className="w-full h-auto"
-                  />
-                </div>
-              </div>
-            </div>
-          </BlogSection>
+          <HomeFavourites hotels={favouriteHotels} food={favouriteFood} />
 
-          <BlogSection className={''}>
-            <SectionTitle
-              header={'Our Latest Adventures'}
-              description={'Check out some of the places we have been.'}
-            />
+          <HomeAboutGear gear={gear} gearCount={counts.gear} />
 
-            {/* --- Updated MoreStoriesIndex Call --- */}
-            {posts && posts.length > 0 && (
-              <MoreStoriesIndex
-                // Pass required props, calculated for non-pagination display
-                initialPosts={posts}
-                totalPostsCount={totalPostsForIndex}
-                itemsPerPage={itemsPerPageForIndex} // Ensures totalPages <= 1
-                paginatedQuery={null} // Not used since showPagination=false
-                // Explicitly disable pagination and control rating display
-                showPagination={false}
-                showRating={true}
-              />
-            )}
-
-            {/* You might want a button linking to the actual paginated page */}
-            <div className="flex justify-center  pt-9 lg:mt-0 lg:shrink-0">
-              <div className="w-fit">
-                <Button
-                  icon={<BriefcaseConveyorBelt className="text-pink-500" />}
-                  link="/hotels" // Link to the page that shows ALL reviews/guides with pagination
-                >
-                  More Adventures & Reviews
-                </Button>
-              </div>
-            </div>
-          </BlogSection>
-
-          <BlogSection
-            className={
-              'bg-linear-to-r from-indigo-200 via-pink-200 to-yellow-50 py-10 md:py-14'
-            }
-          >
-            <IndexTopTen />
-          </BlogSection>
-
-          <BlogSection className={undefined}>
-            <YoutubeHighlights
-              videos={youtubeVideos}
-              featuredVideo={settings?.featuredVideo}
-              shorts={youtubeShorts}
-            />
-          </BlogSection>
-        </Container>
+          <HomeVideos
+            videos={youtubeVideos}
+            featuredVideo={settings?.featuredVideo}
+          />
+        </div>
       </Layout>
       <Footer />
     </>

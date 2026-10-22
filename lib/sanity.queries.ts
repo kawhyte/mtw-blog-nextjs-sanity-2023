@@ -1390,7 +1390,7 @@ export interface CityPageData {
 
 // --- Homepage arena highlights (visited only, max 6, newest first) ---
 export const visitedArenasHighlightQuery = groq`
-  *[_type == "arenas" && visited == true] | order(date desc) [0...6] {
+  *[_type == "arenas" && visited == true] | order(date desc) {
     _id,
     name,
     "slug": slug.current,
