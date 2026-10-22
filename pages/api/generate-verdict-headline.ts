@@ -3,6 +3,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import {
   ANTI_AI_RULES,
   BRAND_VOICE,
+  stripDashes,
   trimToSentence,
 } from '../../lib/gemini-voice'
 
@@ -21,9 +22,9 @@ const WOULD_RETURN: Record<string, string> = {
 
 const PRICE_TIER: Record<string, string> = {
   under_100: 'under $100/night',
-  '100_200': '$100–$200/night',
-  '200_350': '$200–$350/night',
-  '350_500': '$350–$500/night',
+  '100_200': '$100 to $200/night',
+  '200_350': '$200 to $350/night',
+  '350_500': '$350 to $500/night',
   '500_plus': '$500+/night',
 }
 
@@ -68,7 +69,7 @@ function buildHotelPrompt(body: any): string {
     .slice(0, 8)
     .join(', ')
 
-  return `${BRAND_VOICE} You write the one-line "Our take" that sits under the photos on our hotel reviews — the first thing a reader sees after the pictures.
+  return `${BRAND_VOICE} You write the one-line "Our take" that sits under the photos on our hotel reviews, the first thing a reader sees after the pictures.
 
 Hotel: ${title}
 Location: ${location ?? 'Unknown'}
@@ -83,13 +84,13 @@ ${internetSpeed ? `Wi-Fi speed: ${internetSpeed} Mbps` : ''}
 ${features ? `In-room tech & amenities: ${features}` : ''}
 
 Write ONE line that sums up the stay. Hard rules:
-- ONE sentence, ${MAX_LENGTH} characters or fewer — count every character
-- Give the honest bottom line (would we stay again, and why) — a real opinion, not a description
-- Work in the hotel's name or the city naturally, so it reads well in search — never keyword-stuff
+- ONE sentence, ${MAX_LENGTH} characters or fewer. Count every character
+- Give the honest bottom line (would we stay again, and why): a real opinion, not a description
+- Work in the hotel's name or the city naturally, so it reads well in search; never keyword-stuff
 - Use ONE specific detail from our notes above, never a generic one
 - If there's a real catch (a resort fee, a closed pool), it's fine to hint at it
 - First person plural ("we"), like we're telling a friend
-- Don't open with "We'd" or "We would" — lead with the most telling detail or the hotel itself, e.g. "The staff made this stay…", "Great location, but…"
+- Don't open with "We'd" or "We would". Lead with the most telling detail or the hotel itself, e.g. "The staff made this stay…", "Great location, but…"
 ${ANTI_AI_RULES}
 
 Return ONLY the line. No quotes. No label. No explanation.`
@@ -130,7 +131,7 @@ function buildFoodPrompt(body: any): string {
     .join(' | ')
   const ordered = topDishes(dishes)
 
-  return `${BRAND_VOICE} You write the one-line "Our take" that sits under the photos on our restaurant reviews — the first thing a reader sees after the pictures.
+  return `${BRAND_VOICE} You write the one-line "Our take" that sits under the photos on our restaurant reviews, the first thing a reader sees after the pictures.
 
 Restaurant: ${title}
 Location: ${location ?? 'Unknown'}
@@ -142,13 +143,13 @@ ${disliked ? `What we didn't like: ${disliked}` : ''}
 ${ordered ? `What we ordered (best first): ${ordered}` : ''}
 
 Write ONE line that sums up the meal. Hard rules:
-- ONE sentence, ${MAX_LENGTH} characters or fewer — count every character
-- Give the honest bottom line (would we go back, and why) — a real opinion, not a description
-- Work in the restaurant's name or the city naturally, so it reads well in search — never keyword-stuff
+- ONE sentence, ${MAX_LENGTH} characters or fewer. Count every character
+- Give the honest bottom line (would we go back, and why): a real opinion, not a description
+- Work in the restaurant's name or the city naturally, so it reads well in search; never keyword-stuff
 - Use ONE specific detail from our notes above (a dish we loved is ideal), never a generic one
 - If there's a real catch (slow service, tiny tables), it's fine to hint at it
 - First person plural ("we"), like we're telling a friend
-- Don't open with "We'd" or "We would" — lead with the most telling detail or the restaurant itself, e.g. "The branzino alone…", "Great seafood, but…"
+- Don't open with "We'd" or "We would". Lead with the most telling detail or the restaurant itself, e.g. "The branzino alone…", "Great seafood, but…"
 ${ANTI_AI_RULES}
 
 Return ONLY the line. No quotes. No label. No explanation.`
@@ -266,8 +267,8 @@ export default async function handler(
         const seconds = retryMatch ? Math.ceil(Number(retryMatch[1])) : null
         return res.status(429).json({
           error: seconds
-            ? `Gemini rate limit hit — try again in ${seconds}s.`
-            : 'Gemini rate limit hit — wait a minute then try again.',
+            ? `Gemini rate limit hit. Try again in ${seconds}s.`
+            : 'Gemini rate limit hit. Wait a minute then try again.',
         })
       }
       throw new Error(msg)
@@ -284,9 +285,8 @@ export default async function handler(
     const cleaned = /^["“].*["”]$/.test(firstLine)
       ? firstLine.slice(1, -1).trim()
       : firstLine
-    // Kenny's style: no em/en dashes between words, even if Gemini slips one in
-    const noDashes = cleaned.replace(/\s*[—–]\s*/g, ', ')
-    const verdictHeadline = trimToSentence(noDashes, MAX_LENGTH)
+    // Kenny's style: no dashes, even if Gemini slips one in
+    const verdictHeadline = trimToSentence(stripDashes(cleaned), MAX_LENGTH)
 
     res.status(200).json({ verdictHeadline })
   } catch (err: any) {

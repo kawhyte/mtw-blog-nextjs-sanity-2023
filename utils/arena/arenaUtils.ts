@@ -10,7 +10,7 @@ import { getSorterFunction } from './arenaSorters'
 
 /**
  * Single source of truth for arena rating display.
- * Always applies revisit updates before calculating — call this everywhere
+ * Always applies revisit updates before calculating, call this everywhere
  * a rating needs to be shown, never chain getEffectiveRating + calculateAverageRating manually.
  */
 export const getArenaDisplayRating = (
@@ -49,7 +49,7 @@ export const calculateArenaRanks = (arenas: Arena[]): Map<string, number> => {
 
   const visitedArenas = arenas.filter((arena) => arena.visited)
 
-  // Sort by rating descending — no alphabetical tie-breaker so equal scores stay equal
+  // Sort by rating descending, no alphabetical tie-breaker so equal scores stay equal
   const sortedForRanking = [...visitedArenas].sort((a, b) => {
     const { average: scoreA } = getArenaDisplayRating(a)
     const { average: scoreB } = getArenaDisplayRating(b)

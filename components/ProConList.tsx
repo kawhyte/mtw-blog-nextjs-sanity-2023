@@ -141,7 +141,7 @@ const InfoBox = ({
 
 // --- Main Exported Component ---
 // layout 'verdictFirst': for narrow content columns (e.g. next to the hotel
-// review's side panel) — the verdict spans the full width, with the pros and
+// review's side panel), the verdict spans the full width, with the pros and
 // cons side by side below it, and no extra container padding.
 export default function ProConList({
   positives,

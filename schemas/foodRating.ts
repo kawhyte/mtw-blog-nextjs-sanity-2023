@@ -3,9 +3,9 @@ import { defineField, defineType } from 'sanity'
 export default defineType({
   type: 'object',
   name: 'foodRating',
-  description: 'Rating for Food (0–10 scale)',
+  description: 'Rating for Food (0 to 10 scale)',
   title: 'Dine-in Ratings',
-  fieldsets: [{ name: 'social', title: 'Give a rating 0–10 for each item' }],
+  fieldsets: [{ name: 'social', title: 'Give a rating 0 to 10 for each item' }],
   options: {
     collapsible: true,
     collapsed: false,

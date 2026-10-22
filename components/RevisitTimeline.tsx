@@ -126,7 +126,7 @@ export default function RevisitTimeline({
         <div className="absolute left-[7px] top-3 bottom-3 w-px bg-border" />
 
         <ol className="space-y-6">
-          {/* Revisit entries — newest first */}
+          {/* Revisit entries, newest first */}
           {entries.map((entry, i) => (
             <li key={i} className="relative flex gap-4">
               {/* Dot */}
@@ -175,7 +175,7 @@ export default function RevisitTimeline({
 
           <Separator className="ml-6" />
 
-          {/* Original visit — always at bottom */}
+          {/* Original visit, always at bottom */}
           <li className="relative flex gap-4">
             <div className="mt-1 h-3.5 w-3.5 shrink-0 rounded-full border-2 border-muted-foreground bg-muted" />
 

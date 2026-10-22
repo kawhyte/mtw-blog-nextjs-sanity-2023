@@ -4,7 +4,7 @@ const config = {
 
   // Transpile ESM-only packages so webpack can handle their CJS/ESM interop correctly.
   // sanity-plugin-media: its ESM build does a named import from CJS react-dropzone,
-  // which Node rejects when the package is externalized — bundling it through
+  // which Node rejects when the package is externalized, bundling it through
   // webpack resolves the interop.
   transpilePackages: [
     '@heroicons/react',
@@ -20,7 +20,7 @@ const config = {
   images: {
     // Bypass Vercel's image optimization pipeline (Hobby plan: 1,000/month limit).
     // The custom loader builds each srcset width as a Sanity CDN URL, so resizing,
-    // format negotiation (WebP/AVIF) and quality are all handled by Sanity — and
+    // format negotiation (WebP/AVIF) and quality are all handled by Sanity, and
     // every `sizes` prop now actually picks the right width per device.
     // Non-Sanity images (local icons, YouTube thumbnails) use `unoptimized` per image.
     loader: 'custom',

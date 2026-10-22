@@ -1,4 +1,4 @@
-// GENERATED — do not edit by hand.
+// GENERATED, do not edit by hand.
 // Lower-48 US outline + state borders for the arena quest map, pre-projected
 // (Albers equal-area conic, parallels 29.5°/45.5°, rotate -96°) into a
 // 960×600 viewBox so the page needs no map library at runtime.

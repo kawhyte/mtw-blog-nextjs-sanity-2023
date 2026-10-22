@@ -39,7 +39,7 @@ export default function TopListItems({
                   : ''
               }`}
             >
-              {/* Large rank number — visible on sm+ only; hidden on mobile */}
+              {/* Large rank number, visible on sm+ only; hidden on mobile */}
               <span
                 className={`hidden sm:block absolute left-1/2 sm:-top-1 z-0 -translate-x-1/2 font-epilogue font-black leading-none transition-all duration-300 group-hover:scale-110 sm:text-[14rem] ${getRankColor(rank)}`}
                 aria-hidden="true"

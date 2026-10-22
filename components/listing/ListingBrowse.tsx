@@ -78,7 +78,7 @@ export default function ListingBrowse({
   const tab = tabs.find((t) => t.key === queryType) ?? tabs[0]
 
   // Whytes' favourites = the top 10 by score (this replaced the old "Our
-  // Top Picks" pages). Ranked #1–#10 in their row/tab; the same 10 get the
+  // Top Picks" pages). Ranked #1-#10 in their row/tab; the same 10 get the
   // white pill everywhere else.
   const favourites = useMemo(() => topFavourites(items), [items])
   const rankOf = useMemo(

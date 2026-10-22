@@ -57,7 +57,7 @@ type ResultType = (typeof RESULT_TYPES)[number]['type']
 const isResultType = (value: unknown): value is ResultType =>
   RESULT_TYPES.some((tab) => tab.type === value)
 
-// Searches known to return results — shown when a search finds nothing.
+// Searches known to return results, shown when a search finds nothing.
 const POPULAR_SEARCHES = ['Las Vegas', 'Hyatt', 'Marriott', 'Chase Center']
 
 // --- Reusable UI Components for this page ---
@@ -213,7 +213,7 @@ type SearchResult = (HotelReview | FoodReview | Guide | Arena) & {
 const SearchResults = ({ settings }: { settings: Settings }) => {
   const router = useRouter()
   // /search is statically prerendered without a query, so read the URL only
-  // after mount — otherwise the first client render disagrees with the server.
+  // after mount, otherwise the first client render disagrees with the server.
   const [mounted, setMounted] = useState(false)
   useEffect(() => setMounted(true), [])
 
@@ -243,7 +243,7 @@ const SearchResults = ({ settings }: { settings: Settings }) => {
   // duplicate fetches. Loading spinner shows immediately via the effect below.
   const debouncedSearchQuery = useDebounce(searchQuery, 300)
 
-  // Show loading state immediately on URL change — don't wait for debounce
+  // Show loading state immediately on URL change, don't wait for debounce
   useEffect(() => {
     if (searchQuery) setLoading(true)
   }, [searchQuery])
@@ -367,7 +367,7 @@ const SearchResults = ({ settings }: { settings: Settings }) => {
                 const { average, textRating, color } =
                   getArenaDisplayRating(arenaResult)
                 return (
-                  // NBAArenaCard has its own link — don't wrap it in another
+                  // NBAArenaCard has its own link, don't wrap it in another
                   <div
                     key={arenaResult._id}
                     className="w-full flex justify-center"
@@ -480,7 +480,7 @@ const SearchResults = ({ settings }: { settings: Settings }) => {
             ? `Search: "${searchQuery.slice(0, 60)}" | ${SITE_NAME}`
             : `Search | ${SITE_NAME}`}
         </title>
-        {/* Result pages are thin, endless variants — keep them out of Google */}
+        {/* Result pages are thin, endless variants, keep them out of Google */}
         <meta name="robots" content="noindex, follow" />
       </Head>
       <BlogHeader title={title} description={description} level={1} />

@@ -95,9 +95,9 @@ export default defineType({
       title: 'Why We Pack This',
       type: 'string',
       description:
-        'First-person blurb — max 150 chars. e.g. "Never leave for an NBA game without this."',
+        'First-person blurb, max 150 chars. e.g. "Never leave for an NBA game without this."',
       validation: (Rule) =>
-        Rule.max(150).warning(`Keep it short — 150 characters max.`),
+        Rule.max(150).warning(`Keep it short, 150 characters max.`),
     }),
 
     defineField({
@@ -146,7 +146,7 @@ export default defineType({
       name: 'description',
       title: 'Production description and rating ',
       description:
-        '(Optional) Add a short summary — aim for 120 characters max. (Use Heading 5 formatting)',
+        '(Optional) Add a short summary, aim for 120 characters max. (Use Heading 5 formatting)',
       validation: (Rule) =>
         Rule.custom((portableTextValue) => {
           const textLength = getPortableTextLength(portableTextValue as any[])
@@ -201,7 +201,7 @@ export default defineType({
       type: 'image',
       validation: (Rule) => Rule.required(),
       description:
-        'Product image — displayed in a square card. Upload at 800 × 800 px (square). PNG with transparent background preferred; WebP 80% or JPEG 85% otherwise.',
+        'Product image, displayed in a square card. Upload at 800 × 800 px (square). PNG with transparent background preferred; WebP 80% or JPEG 85% otherwise.',
       options: {
         hotspot: true,
       },

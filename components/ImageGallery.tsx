@@ -201,7 +201,7 @@ export default function ImageGallery({
               </button>
             </div>
 
-            {/* Category tabs — only shown when categories are present */}
+            {/* Category tabs, only shown when categories are present */}
             {hasCategories && (
               <div className="flex gap-2 overflow-x-auto px-4 pb-3 scrollbar-hide">
                 {categorySections.map((section) => (
@@ -223,7 +223,7 @@ export default function ImageGallery({
           {/* Scrollable content */}
           <div className="mx-auto max-w-6xl p-4 md:p-8 space-y-10">
             {hasCategories ? (
-              // Photo Tour mode — sections with headings
+              // Photo Tour mode, sections with headings
               categorySections.map((section) => (
                 <div
                   key={section.key}
@@ -269,7 +269,7 @@ export default function ImageGallery({
                 </div>
               ))
             ) : (
-              // Flat mode — existing behaviour
+              // Flat mode, existing behaviour
               <div className="columns-1 md:columns-2 space-y-4">
                 {images.map((item, i) => {
                   if (!item?.asset) return null

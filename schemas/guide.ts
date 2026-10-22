@@ -1,6 +1,7 @@
 import { BoltIcon } from '@sanity/icons'
 import { format, parseISO } from 'date-fns'
 import { defineField, defineType } from 'sanity'
+
 import { AltTextGeneratorInput } from '../plugins/AltTextGeneratorInput'
 import { CaptionGeneratorInput } from '../plugins/CaptionGeneratorInput'
 import { GuideSummaryGeneratorInput } from '../plugins/GuideSummaryGeneratorInput'
@@ -51,7 +52,7 @@ export default defineType({
       title: 'Main Image',
       type: 'image',
       description:
-        'Main image — used on listing cards and the guide hero. Upload at 2400 × 1600 px (3:2 landscape) — keep the subject centred, the guide banner trims a little off the top and bottom. WebP 85% or JPEG 88% quality.',
+        'Main image, used on listing cards and the guide hero. Upload at 2400 × 1600 px (3:2 landscape). Keep the subject centred; the guide banner trims a little off the top and bottom. WebP 85% or JPEG 88% quality.',
       options: {
         hotspot: true,
       },
@@ -91,7 +92,7 @@ export default defineType({
       title: 'Location (City / Region)',
       type: 'string',
       description:
-        'City or region this guide covers, e.g. "Dallas, TX" or "Miami, FL". Used for local SEO signals — helps Google understand the geographic focus.',
+        'City or region this guide covers, e.g. "Dallas, TX" or "Miami, FL". Used for local SEO signals. It helps Google understand the geographic focus.',
       placeholder: 'e.g. Dallas, TX',
     }),
 
@@ -101,7 +102,7 @@ export default defineType({
       type: 'text',
       rows: 3,
       description:
-        'Short summary shown on listing cards and used as the SEO meta description (max 160 chars). Ideal: 120–155 chars.',
+        'Short summary shown on listing cards and used as the SEO meta description (max 160 chars). Ideal: 120 to 155 chars.',
       validation: (rule) => rule.max(160),
       components: { input: GuideSummaryGeneratorInput },
     }),
@@ -162,7 +163,7 @@ export default defineType({
         {
           type: 'object',
           name: 'imageGroup',
-          title: 'Image Grid (2–4 side-by-side)',
+          title: 'Image Grid (2 to 4 side-by-side)',
           fields: [
             {
               name: 'layout',
@@ -309,7 +310,7 @@ export default defineType({
       title: 'Photo Gallery',
       type: 'array',
       description:
-        'Photo gallery — upload each photo at its natural crop, max 1600 px on the longest edge. WebP 85% or JPEG 88% quality. Any aspect ratio is fine.',
+        'Photo gallery: upload each photo at its natural crop, max 1600 px on the longest edge. WebP 85% or JPEG 88% quality. Any aspect ratio is fine.',
       of: [
         {
           type: 'image',
@@ -359,7 +360,7 @@ export default defineType({
           .custom((value) => {
             if (!value) return true
             if (new Date(value as string) > new Date()) {
-              return `Scheduled — this post will not appear publicly until ${new Date(value as string).toLocaleDateString('en-US', { dateStyle: 'long' })}.`
+              return `Scheduled: this post will not appear publicly until ${new Date(value as string).toLocaleDateString('en-US', { dateStyle: 'long' })}.`
             }
             return true
           })

@@ -72,7 +72,7 @@ async function main() {
   let deleted = 0
   const retryIds = []
 
-  // First pass — batch delete, collecting any IDs that still have references
+  // First pass, batch delete, collecting any IDs that still have references
   for (let i = 0; i < postIds.length; i += BATCH) {
     const batch = postIds.slice(i, i + BATCH)
     try {

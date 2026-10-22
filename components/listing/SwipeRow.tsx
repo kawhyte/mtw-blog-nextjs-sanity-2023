@@ -25,7 +25,7 @@ interface SwipeRowProps {
 /**
  * Airbnb-style horizontal row: swipe on touch, arrow buttons on desktop
  * (disabled at each end), and a dashed "See all" card at the end. Pure CSS
- * scroll-snap — the only JS is the arrow state.
+ * scroll-snap, the only JS is the arrow state.
  */
 export default function SwipeRow({
   title,

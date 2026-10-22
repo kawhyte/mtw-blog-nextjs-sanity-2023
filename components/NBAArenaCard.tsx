@@ -74,7 +74,7 @@ const Arenas = React.memo(
             </Link>
           )}
 
-          {/* Thumbnail — self-stretch so it fills the full card height regardless of content length */}
+          {/* Thumbnail, self-stretch so it fills the full card height regardless of content length */}
           <div className="relative self-stretch w-[96px] shrink-0 overflow-hidden bg-border-bold -my-px -ml-px">
             {hasImage ? (
               <SanityImage
@@ -162,7 +162,7 @@ const Arenas = React.memo(
             visited === false ? 'opacity-50 grayscale' : 'grayscale-0'
           }`}
         >
-          {/* Ghost link — makes the entire card clickable without nested <a> tags */}
+          {/* Ghost link, makes the entire card clickable without nested <a> tags */}
           {visited && (
             <Link href={`/arena/${slug}`} className="absolute inset-0 z-10">
               <span className="sr-only">View {arenaName} review</span>

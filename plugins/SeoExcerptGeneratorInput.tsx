@@ -3,6 +3,7 @@ import { Box, Button, Card, Inline, Stack, Text, useToast } from '@sanity/ui'
 import { useState } from 'react'
 import type { StringInputProps } from 'sanity'
 import { set, useFormValue } from 'sanity'
+
 import { extractPlainText } from './utils'
 
 export function SeoExcerptGeneratorInput(props: StringInputProps) {
@@ -71,7 +72,7 @@ export function SeoExcerptGeneratorInput(props: StringInputProps) {
       toast.push({
         status: 'success',
         title: `SEO excerpt generated (${len} chars)`,
-        description: len < 120 || len > 155 ? 'Consider editing — ideal range is 120–155 chars' : 'Within the ideal 120–155 character range.',
+        description: len < 120 || len > 155 ? 'Consider editing: the ideal range is 120 to 155 chars' : 'Within the ideal 120 to 155 character range.',
       })
     } catch (err: any) {
       toast.push({

@@ -14,7 +14,7 @@ interface VideoPlayerProps {
   url: string
   /** Optional title to display above the video */
   title?: string
-  /** ISO date string of the parent document — used as VideoObject uploadDate */
+  /** ISO date string of the parent document, used as VideoObject uploadDate */
   documentDate?: string
   /** Short description of the video content */
   videoDescription?: string
@@ -120,7 +120,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ url, title, documentDate, vid
               name: title || 'Meet the Whytes Video',
               description:
                 videoDescription ||
-                `${title ? title + ' — ' : ''}Video from Meet the Whytes NBA & WNBA arena travel blog.`,
+                `${title ? title + '. ' : ''}Video from Meet the Whytes NBA & WNBA arena travel blog.`,
               thumbnailUrl: `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`,
               uploadDate: documentDate || new Date().toISOString(),
               contentUrl: url,

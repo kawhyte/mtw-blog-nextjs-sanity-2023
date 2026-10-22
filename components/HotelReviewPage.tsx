@@ -82,9 +82,9 @@ const WOULD_RETURN_CONFIG = {
 
 const PRICE_TIER_LABELS: Record<string, string> = {
   under_100: 'Under $100/night',
-  '100_200': '$100–$200/night',
-  '200_350': '$200–$350/night',
-  '350_500': '$350–$500/night',
+  '100_200': '$100 to $200/night',
+  '200_350': '$200 to $350/night',
+  '350_500': '$350 to $500/night',
   '500_plus': '$500+/night',
 }
 
@@ -313,7 +313,7 @@ function HotelReviewPageContent(props: HotelReviewPageProps) {
             </aside>
 
             <div className="min-w-0 xl:col-start-2 xl:row-start-2">
-              {/* Hotel Summary hidden — excerpt2 not rendered to avoid duplicate content SEO issues */}
+              {/* Hotel Summary hidden, excerpt2 not rendered to avoid duplicate content SEO issues */}
               {verdictText && (
                 <section className="mb-8 flex flex-col gap-3">
                   <span className="text-xs font-bold tracking-[0.14em] text-primary">
@@ -369,10 +369,10 @@ function HotelReviewPageContent(props: HotelReviewPageProps) {
               )}
 
               {/* The tip card has its own margin (same 40px gap as the
-                  sections around it) — no extra wrapper */}
+                  sections around it), no extra wrapper */}
               <HelpfulTip tip={hotelReview.tip} />
 
-              {/* RoomTech has its own vertical margins — no extra wrapper */}
+              {/* RoomTech has its own vertical margins, no extra wrapper */}
               <RoomTech
                 techAvailable={hotelReview.techRating}
                 speed={hotelReview.internetSpeed}

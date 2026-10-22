@@ -182,7 +182,7 @@ const DynamicPostCard = ({
           <span className="sr-only">View {title}</span>
         </Link>
 
-        {/* Thumbnail — self-stretch so it fills the full card height regardless of content length */}
+        {/* Thumbnail, self-stretch so it fills the full card height regardless of content length */}
         <div className="relative self-stretch w-[96px] shrink-0 overflow-hidden bg-border-bold -my-px -ml-px">
           {hasImage ? (
             <SanityImage
@@ -258,13 +258,13 @@ const DynamicPostCard = ({
         </div>
       </div>
 
-      {/* ── DESKTOP / TABLET CARD (≥ 640px) — unchanged ────────────────── */}
+      {/* ── DESKTOP / TABLET CARD (≥ 640px), unchanged ────────────────── */}
       <div
         className={`hidden sm:block group relative w-full overflow-hidden rounded-3xl border-[3px] border-border-bold bg-border-bold text-foreground shadow-brutalist transition-all duration-300 ease-in-out hover:scale-105 hover:-translate-y-2 hover:shadow-brutalist ${
           visited === false ? 'opacity-40 grayscale' : 'grayscale-0'
         }`}
       >
-        {/* Ghost link — makes the whole card clickable without nested <a> tags */}
+        {/* Ghost link, makes the whole card clickable without nested <a> tags */}
         <Link href={href} className="absolute inset-0 z-10">
           <span className="sr-only">View {title}</span>
         </Link>

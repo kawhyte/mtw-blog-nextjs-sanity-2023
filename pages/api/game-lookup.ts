@@ -33,7 +33,7 @@ async function getEspnGameData(
   const dateParam = gameDate.replace(/-/g, '') // YYYYMMDD
   const lower = teamName.toLowerCase().trim()
 
-  // 1. Scoreboard — find the event and extract game data
+  // 1. Scoreboard, find the event and extract game data
   const scoreboardRes = await fetch(
     `${ESPN_BASE}/${sport}/scoreboard?dates=${dateParam}`,
     { cache: 'no-store' },
@@ -80,7 +80,7 @@ async function getEspnGameData(
   const period: number = competition?.status?.period ?? 4
   const overtimePeriods = Math.max(0, period - 4)
 
-  // 2. Summary — full box score for top scorer per team
+  // 2. Summary, full box score for top scorer per team
   const players: EspnPlayer[] = []
   try {
     const summaryRes = await fetch(
@@ -134,7 +134,7 @@ async function getEspnGameData(
       }
     }
   } catch {
-    // Summary failed — return game data without player info
+    // Summary failed, return game data without player info
   }
 
   return { opponent, ourScore, opponentScore, seasonType, overtimePeriods, players }

@@ -184,7 +184,8 @@ function FoodReviewPageContent(props: FoodReviewPageProps) {
       tone: 'dark' as const,
     },
     foodReview.priceTier && {
-      label: foodReview.priceTier,
+      // Stored with an en dash in Sanity; shown as "$$ ($15 to $30)"
+      label: foodReview.priceTier.replace(/\s*\u2013\s*/g, ' to '),
       tone: 'indigo' as const,
     },
     foodReview.date && { label: `Visited ${formatDate(foodReview.date)}` },
@@ -294,7 +295,7 @@ function FoodReviewPageContent(props: FoodReviewPageProps) {
             </aside>
 
             <div className="min-w-0 xl:col-start-2 xl:row-start-2">
-              {/* Restaurant Summary hidden — excerpt2 not rendered to avoid duplicate content SEO issues */}
+              {/* Restaurant Summary hidden, excerpt2 not rendered to avoid duplicate content SEO issues */}
               {verdictText && (
                 <section className="mb-8 flex flex-col gap-3">
                   <span className="text-xs font-bold tracking-[0.14em] text-primary">
@@ -345,7 +346,7 @@ function FoodReviewPageContent(props: FoodReviewPageProps) {
               />
 
               {/* The tip card has its own margin (same 40px gap as the
-                  sections around it) — no extra wrapper */}
+                  sections around it), no extra wrapper */}
               <HelpfulTip tip={foodReview.tip} />
 
               {dishes.length > 0 && (

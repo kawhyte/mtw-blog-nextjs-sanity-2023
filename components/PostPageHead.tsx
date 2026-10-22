@@ -88,7 +88,7 @@ export default function PostPageHead({
     const loc = (post as any).location as string
     const topPositive = Array.isArray((post as any).positives) && (post as any).positives[0]
     pageDescription = topPositive
-      ? `${post.title} in ${loc} — ${topPositive}. Read our honest hotel review.`
+      ? `${post.title} in ${loc}: ${topPositive}. Read our honest hotel review.`
       : `Our honest review of ${post.title} in ${loc}. Find out if it's worth booking for your NBA game trip.`
   } else if (contentType === 'food' && post?.title && (post as any).location) {
     // 3c. Auto-generate food fallback from structured fields when seoExcerpt is missing
@@ -96,7 +96,7 @@ export default function PostPageHead({
     const topPositive = Array.isArray((post as any).positives) && (post as any).positives[0]
     const diningLabel = (post as any).diningType === 'takeout' ? 'takeout' : 'restaurant'
     pageDescription = topPositive
-      ? `${post.title} in ${loc} — ${topPositive}. Read our honest ${diningLabel} review.`
+      ? `${post.title} in ${loc}: ${topPositive}. Read our honest ${diningLabel} review.`
       : `Our honest ${diningLabel} review of ${post.title} in ${loc}. Real food, real opinions from the Meet the Whytes.`
   } else if (
     settings?.description &&
@@ -209,7 +209,7 @@ export default function PostPageHead({
       <meta name="twitter:url" content={pageUrl} />
       {/* Canonical URL */}
       <link rel="canonical" href={pageUrl} />
-      {/* Article / Guide Structured Data — arena pages use ArenaStructuredData instead */}
+      {/* Article / Guide Structured Data, arena pages use ArenaStructuredData instead */}
       {contentType !== 'arena' && (
         <script
           type="application/ld+json"

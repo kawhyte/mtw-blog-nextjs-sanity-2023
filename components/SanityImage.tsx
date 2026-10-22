@@ -23,7 +23,7 @@ interface SanityImageProps extends Omit<
   'src' | 'blurDataURL' | 'placeholder'
 > {
   image: SanityImageObject
-  /** Max width for this slot — the loader serves smaller srcset widths per `sizes`. */
+  /** Max width for this slot, the loader serves smaller srcset widths per `sizes`. */
   width?: number
   /** With `width`, crops to width:height (respecting the Studio hotspot). */
   height?: number
@@ -41,7 +41,7 @@ export default function SanityImage({
 }: SanityImageProps) {
   const [isLoaded, setIsLoaded] = useState(false)
   // A cached image can finish loading before React hydrates, so onLoad never
-  // fires and it would stay blurred/zoomed — check `complete` on mount too.
+  // fires and it would stay blurred/zoomed, check `complete` on mount too.
   const imgRef = useCallback((img: HTMLImageElement | null) => {
     if (img?.complete && img.naturalWidth > 0) setIsLoaded(true)
   }, [])

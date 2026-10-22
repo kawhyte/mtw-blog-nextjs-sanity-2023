@@ -23,7 +23,7 @@ interface GuideCardProps {
   inRow?: boolean
 }
 
-/** Square guide card — the same look as the hotel and food listing cards */
+/** Square guide card, the same look as the hotel and food listing cards */
 export default function GuideCard({ guide, inRow = false }: GuideCardProps) {
   const month = guideMonth(guide)
   const category = guideCategory(guide)

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * Hero Photos migration — copies each page's current hero photos into the new
+ * Hero Photos migration, copies each page's current hero photos into the new
  * `heroPhotos` field on hotelReview, foodReview and arenas documents.
  *
  * SAFETY (additive only):
@@ -99,7 +99,7 @@ function currentHeroPhotos(doc) {
 const label = (doc) => doc.title || doc.name || doc._id
 
 async function main() {
-  console.log(`\n🖼️  Hero Photos migration — ${LIVE ? 'LIVE' : 'DRY RUN (no writes)'}\n`)
+  console.log(`\n🖼️  Hero Photos migration, ${LIVE ? 'LIVE' : 'DRY RUN (no writes)'}\n`)
 
   // 1. Backup ---------------------------------------------------------------
   const before = await fetchAll()
@@ -109,7 +109,7 @@ async function main() {
   fs.writeFileSync(backupPath, JSON.stringify(before, null, 2))
   const reread = JSON.parse(fs.readFileSync(backupPath, 'utf8'))
   if (reread.length !== before.length || canonical(reread) !== canonical(before)) {
-    throw new Error('Backup verification failed — aborting before any writes.')
+    throw new Error('Backup verification failed, aborting before any writes.')
   }
   console.log(`💾 Backup: ${before.length} documents → ${backupPath}\n`)
 
@@ -139,7 +139,7 @@ async function main() {
   }
   if (skipped.length) {
     console.log(`\n── Skipped: ${skipped.length}`)
-    for (const [doc, why] of skipped) console.log(`   ${label(doc)} (${doc._id}) — ${why}`)
+    for (const [doc, why] of skipped) console.log(`   ${label(doc)} (${doc._id}), ${why}`)
   }
 
   if (!LIVE) {

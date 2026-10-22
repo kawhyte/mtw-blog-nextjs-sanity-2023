@@ -63,7 +63,7 @@ interface ReviewRatingProps {
   labels?: Record<string, string>
 }
 
-// Bar colour for one category, on the displayed 0–5 scale
+// Bar colour for one category, on the displayed 0 to 5 scale
 const glanceBarClass = (score: number) =>
   score >= 4 ? 'bg-success' : score >= 3 ? 'bg-warning' : 'bg-destructive'
 
@@ -79,7 +79,7 @@ export default function ReviewRating({
     return null
   }
   // `internetSpeed` is the raw Mbps measurement stored alongside the
-  // Internet_Speed score — not a rating, so it must not get its own row
+  // Internet_Speed score, not a rating, so it must not get its own row
   const ratingEntries = Object.entries(ratings).filter(
     ([key, value]) =>
       key !== '_type' &&
@@ -140,7 +140,7 @@ export default function ReviewRating({
                     {ratingIcons[name]}
                     {labels?.[name] ?? formatRatingName(name)}
                   </span>
-                  <span>{unavailable ? '—' : score.toFixed(1)}</span>
+                  <span>{unavailable ? 'N/A' : score.toFixed(1)}</span>
                 </div>
                 {unavailable ? (
                   <span className="text-xs italic text-muted-foreground">
@@ -169,7 +169,7 @@ export default function ReviewRating({
           {/* Title */}
           <h2 className="text-title font-bold text-foreground mb-6">{title}</h2>
 
-          {/* Score — centered, fills remaining space */}
+          {/* Score, centered, fills remaining space */}
           <div className="flex flex-col items-center gap-2 flex-1 justify-center">
             <div className="flex items-baseline gap-1">
               <span className="text-display font-bold text-secondary leading-none">

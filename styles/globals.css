@@ -352,7 +352,7 @@
 
 /* Arena quest hero: count-up number + progress bar fill on page load.
    Pure CSS (a registered integer + counter, and a transform), so there's no
-   JS, no hydration flicker and no layout work — cheap on phones. Browsers
+   JS, no hydration flicker and no layout work, cheap on phones. Browsers
    without @property just show the final number. */
 @property --quest-count {
   syntax: '<integer>';
