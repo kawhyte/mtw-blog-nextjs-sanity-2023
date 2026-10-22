@@ -1,4 +1,5 @@
 // pages/sitemap.xml.tsx
+import { primaryCityLocation } from 'lib/cityMatch'
 import { GetServerSideProps } from 'next'
 
 import {
@@ -139,19 +140,16 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
 
     // Generate the XML sitemap
     const sitemap = generateSiteMap(
-      hotels
-        .filter((h) => h.slug)
-        .map((h) => ({ slug: h.slug, date: h.date })),
-      foods
-        .filter((f) => f.slug)
-        .map((f) => ({ slug: f.slug, date: f.date })),
-      guides
-        .filter((g) => g.slug)
-        .map((g) => ({ slug: g.slug, date: g.date })),
-      arenas
-        .filter((a) => a.slug)
-        .map((a) => ({ slug: a.slug, date: a.date })),
-      cityLocations,
+      hotels.filter((h) => h.slug).map((h) => ({ slug: h.slug, date: h.date })),
+      foods.filter((f) => f.slug).map((f) => ({ slug: f.slug, date: f.date })),
+      guides.filter((g) => g.slug).map((g) => ({ slug: g.slug, date: g.date })),
+      arenas.filter((a) => a.slug).map((a) => ({ slug: a.slug, date: a.date })),
+      // One URL per city (alias pages like Paradise redirect to Las Vegas)
+      [
+        ...new Set(
+          cityLocations.map((loc) => primaryCityLocation(loc, cityLocations)),
+        ),
+      ],
     )
 
     res.setHeader('Content-Type', 'text/xml')

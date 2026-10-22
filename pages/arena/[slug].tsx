@@ -2,6 +2,7 @@
 
 import ArenaPage from 'components/ArenaPage'
 import PreviewArenaPage from 'components/PreviewArenaPage'
+import { primaryCityLocation } from 'lib/cityMatch'
 import {
   getAllArenaSlugs,
   getArenaBySlug,
@@ -39,6 +40,14 @@ export const getStaticProps: GetStaticProps<
 
   const foodReviews = await getFoodReviewsByArena(arena._id)
 
+  // The city page this arena links to: Paradise → the Las Vegas page, etc.
+  const arenaLocations = [
+    ...new Set((arenaPosts ?? []).map((a) => a.location).filter(Boolean)),
+  ] as string[]
+  const cityLocation = arena.location
+    ? primaryCityLocation(arena.location, arenaLocations)
+    : null
+
   const rankMap = calculateArenaRanks(arenaPosts ?? [])
   const rank = arena.visited ? (rankMap.get(arena._id) ?? null) : null
   const totalVisited = (arenaPosts ?? []).filter((a) => a.visited).length
@@ -57,6 +66,7 @@ export const getStaticProps: GetStaticProps<
       totalVisited,
       isTied,
       foodReviews: foodReviews ?? [],
+      cityLocation,
     },
     revalidate: 60, // Revalidate every minute
   }
@@ -78,6 +88,7 @@ interface PageProps {
   token: string | null
   rank: number | null
   totalVisited: number
+  cityLocation: string | null
   isTied: boolean
   foodReviews: ArenaFoodReviewCard[]
 }
@@ -100,6 +111,7 @@ export default function ArenaSlugRoute(props: PageProps) {
     totalVisited,
     isTied,
     foodReviews,
+    cityLocation,
   } = props
 
   if (preview) {
@@ -122,6 +134,7 @@ export default function ArenaSlugRoute(props: PageProps) {
         totalVisited={totalVisited}
         isTied={isTied}
         foodReviews={foodReviews}
+        cityLocation={cityLocation}
       />
     </>
   )

@@ -6,9 +6,17 @@ import Footer from 'components/Footer'
 import SanityImage from 'components/SanityImage'
 import SectionTitle from 'components/SectionTitle'
 import type { CityPageData, Settings } from 'lib/sanity.queries'
-import { Bed, BookOpen, MapPin, Trophy,Utensils } from 'lucide-react'
+import {
+  ArrowLeft,
+  Bed,
+  BookOpen,
+  MapPin,
+  Trophy,
+  Utensils,
+} from 'lucide-react'
 import Head from 'next/head'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || ''
 
@@ -25,6 +33,7 @@ function ContentCard({
   coverImage,
   subtitle,
   badge,
+  rating,
 }: {
   title: string
   slug: string
@@ -32,6 +41,8 @@ function ContentCard({
   coverImage?: any
   subtitle?: string
   badge?: string
+  /** Overall score, e.g. { display: '4.4', text: 'Great' } */
+  rating?: { display: string; text: string } | null
 }) {
   const hasImage = coverImage?.asset?._ref || coverImage?.asset?._id
   return (
@@ -61,6 +72,15 @@ function ContentCard({
         <p className="line-clamp-2 text-sm font-bold text-foreground group-hover:underline decoration-primary decoration-dashed">
           {title}
         </p>
+        {rating && (
+          <p className="mt-0.5 text-xs font-semibold text-foreground">
+            <span aria-hidden="true">★</span> {rating.display}
+            <span className="font-normal text-muted-foreground">
+              {' '}
+              · {rating.text}
+            </span>
+          </p>
+        )}
         {subtitle && (
           <p className="mt-0.5 line-clamp-2 text-xs text-muted-foreground">
             {subtitle}
@@ -74,15 +94,26 @@ function ContentCard({
 export default function CityPage({ location, data, settings }: CityPageProps) {
   const { title: siteTitle = 'Meet the Whytes' } = settings || {}
   const cityName = location.split(',')[0].trim()
-  const pageTitle = `${location} NBA Game Day Guide — Arena, Hotels & Food | Meet the Whytes`
-  const pageDescription = `Your complete guide to visiting ${location} for an NBA or WNBA game. Arena tips, where we stayed, where we ate, and travel guides — all from real basketball fans.`
-  const pageUrl = `${SITE_URL}/city/${encodeURIComponent(location.toLowerCase().replace(/,\s*/g, '-').replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, ''))}`
+  const pageTitle = `${location} NBA Game Day Guide: Arena, Hotels & Food | Meet the Whytes`
+  const pageDescription = `Your complete guide to visiting ${location} for an NBA or WNBA game. Arena tips, where we stayed, where we ate, and travel guides, all from real basketball fans.`
+  const pageUrl = `${SITE_URL}/city/${encodeURIComponent(
+    location
+      .toLowerCase()
+      .replace(/,\s*/g, '-')
+      .replace(/\s+/g, '-')
+      .replace(/[^a-z0-9-]/g, ''),
+  )}`
 
   const hasArena = data.arenas.length > 0
   const hasHotels = data.hotels.length > 0
   const hasFood = data.food.length > 0
   const hasGuides = data.guides.length > 0
   const visitedArena = data.arenas.find((a) => a.visited)
+
+  // Came here from an arena review (?from=<arena slug>)? Offer a way back.
+  // Only arenas on this page count, so the link can't point anywhere else.
+  const { query } = useRouter()
+  const fromArena = data.arenas.find((a) => a.slug && a.slug === query.from)
 
   const structuredData = {
     '@context': 'https://schema.org',
@@ -135,11 +166,28 @@ export default function CityPage({ location, data, settings }: CityPageProps) {
         <BlogHeader title={siteTitle} level={2} />
 
         <article className="container mx-auto px-4 py-8 md:px-6 md:py-12 max-w-4xl">
+          {fromArena && (
+            <Link
+              href={`/arena/${fromArena.slug}`}
+              className="mb-5 inline-flex min-h-11 items-center gap-2 rounded-full border-2 border-border-bold bg-card px-4 text-sm font-bold text-foreground transition-colors hover:bg-muted"
+            >
+              <ArrowLeft className="h-4 w-4" aria-hidden="true" />
+              Back to {fromArena.name}
+            </Link>
+          )}
+
           {/* Breadcrumb nav */}
           <nav className="mb-6 flex items-center gap-1.5 text-sm text-muted-foreground flex-wrap">
-            <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
+            <Link href="/" className="hover:text-foreground transition-colors">
+              Home
+            </Link>
             <span>/</span>
-            <Link href="/arenas" className="hover:text-foreground transition-colors">Arenas</Link>
+            <Link
+              href="/arenas"
+              className="hover:text-foreground transition-colors"
+            >
+              Arenas
+            </Link>
             <span>/</span>
             <span className="text-foreground">{location}</span>
           </nav>
@@ -154,7 +202,9 @@ export default function CityPage({ location, data, settings }: CityPageProps) {
               {cityName} NBA Game Day Guide
             </h1>
             <p className="text-muted-foreground text-lg leading-relaxed">
-              Everything you need for your {cityName} basketball trip — arena tips, hotels we&apos;ve stayed in, food we&apos;ve tried, and travel guides from real NBA fans.
+              Everything you need for your {cityName} basketball trip: arena
+              tips, hotels we&apos;ve stayed in, food we&apos;ve tried, and
+              travel guides from real NBA fans.
             </p>
           </div>
 
@@ -162,7 +212,8 @@ export default function CityPage({ location, data, settings }: CityPageProps) {
           {hasArena && (
             <section className="mb-12">
               <SectionTitle
-                header={visitedArena ? 'The Arena' : 'The Arena (On Our List)'}
+                header={`${data.arenas.length > 1 ? 'The Arenas' : 'The Arena'}${visitedArena ? '' : ' (On Our List)'}`}
+                flush
               />
               <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
                 {data.arenas.map((arena) => (
@@ -202,7 +253,9 @@ export default function CityPage({ location, data, settings }: CityPageProps) {
                         </p>
                       )}
                       <span className="mt-3 block text-sm font-semibold text-primary">
-                        {arena.visited ? 'Read our review →' : 'See what we know →'}
+                        {arena.visited
+                          ? 'Read our review →'
+                          : 'See what we know →'}
                       </span>
                     </div>
                   </Link>
@@ -214,7 +267,7 @@ export default function CityPage({ location, data, settings }: CityPageProps) {
           {/* HOTELS SECTION */}
           {hasHotels && (
             <section className="mb-12">
-              <SectionTitle header="Where We Stayed" />
+              <SectionTitle header="Where We Stayed" flush />
               <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
                 {data.hotels.map((hotel) => (
                   <ContentCard
@@ -225,6 +278,7 @@ export default function CityPage({ location, data, settings }: CityPageProps) {
                     coverImage={hotel.coverImage}
                     subtitle={hotel.seoExcerpt}
                     badge={hotel.category || 'Hotel'}
+                    rating={hotel.rating}
                   />
                 ))}
               </div>
@@ -240,7 +294,7 @@ export default function CityPage({ location, data, settings }: CityPageProps) {
           {/* FOOD SECTION */}
           {hasFood && (
             <section className="mb-12">
-              <SectionTitle header="Where We Ate" />
+              <SectionTitle header="Where We Ate" flush />
               <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
                 {data.food.map((review) => (
                   <ContentCard
@@ -250,7 +304,10 @@ export default function CityPage({ location, data, settings }: CityPageProps) {
                     href={`/food/${review.slug}`}
                     coverImage={review.coverImage}
                     subtitle={review.seoExcerpt}
-                    badge={review.diningType === 'takeout' ? 'Takeout' : 'Dine-in'}
+                    badge={
+                      review.diningType === 'takeout' ? 'Takeout' : 'Dine-in'
+                    }
+                    rating={review.rating}
                   />
                 ))}
               </div>
@@ -266,7 +323,7 @@ export default function CityPage({ location, data, settings }: CityPageProps) {
           {/* GUIDES SECTION */}
           {hasGuides && (
             <section className="mb-12">
-              <SectionTitle header="Travel Guides" />
+              <SectionTitle header="Travel Guides" flush />
               <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
                 {data.guides.map((guide) => (
                   <ContentCard
@@ -286,7 +343,8 @@ export default function CityPage({ location, data, settings }: CityPageProps) {
           {/* Empty state */}
           {!hasHotels && !hasFood && !hasGuides && (
             <p className="text-muted-foreground">
-              More {cityName} content coming soon — follow along as we add hotel reviews, food guides, and more.
+              More {cityName} content coming soon. Follow along as we add hotel
+              reviews, food guides, and more.
             </p>
           )}
         </article>

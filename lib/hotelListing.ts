@@ -19,7 +19,21 @@ export interface RawHotelListingRow {
   }[]
 }
 
-/** Hotels for /hotels, scored like the hotel review page (Wi-Fi score from Mbps, plus revisit updates) */
+/** A hotel's overall score, the same maths as the hotel review page (Wi-Fi score from Mbps, plus revisit updates) */
+export const hotelRowRating = (
+  row: Pick<RawHotelListingRow, 'hotelRating' | 'internetSpeed' | 'revisits'>,
+) =>
+  row.hotelRating
+    ? listingRating(
+        getEffectiveRating(
+          withInternetRating(row.hotelRating, row.internetSpeed),
+          row.revisits ?? [],
+        ),
+        HOTEL_WEIGHTS,
+      )
+    : null
+
+/** Hotels for /hotels, scored like the hotel review page */
 export function buildHotelListing(rows: RawHotelListingRow[]): ListingItem[] {
   return rows
     .filter((row) => row.title && row.slug)
@@ -31,14 +45,6 @@ export function buildHotelListing(rows: RawHotelListingRow[]): ListingItem[] {
       kind: row.category ?? null,
       date: row.date ?? null,
       coverImage: row.coverImage ?? null,
-      rating: row.hotelRating
-        ? listingRating(
-            getEffectiveRating(
-              withInternetRating(row.hotelRating, row.internetSpeed),
-              row.revisits ?? [],
-            ),
-            HOTEL_WEIGHTS,
-          )
-        : null,
+      rating: hotelRowRating(row),
     }))
 }

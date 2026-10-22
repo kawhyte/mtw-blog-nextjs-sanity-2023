@@ -1,3 +1,4 @@
+import type { ListingRating } from 'lib/reviewListing'
 import { groq } from 'next-sanity'
 
 // ------------------------------
@@ -1271,8 +1272,15 @@ export const allArenaLocationsQuery = groq`
   array::unique(*[_type == "arenas" && defined(location) && location != ""][].location)
 `
 
+// Every place with a location, so city pages can match them in code
+// (lib/cityMatch.ts) however the location was typed
+export const cityLocationsQuery = groq`
+  *[_type in ["arenas", "hotelReview", "foodReview", "guide"] && defined(location)
+    && (!defined(publishedAt) || publishedAt <= now())] { _id, _type, location }
+`
+
 export const cityPageQuery = groq`{
-  "arenas": *[_type == "arenas" && location == $location] | order(visited desc, name asc) {
+  "arenas": *[_type == "arenas" && _id in $ids] | order(visited desc, name asc) {
     _id,
     name,
     "slug": slug.current,
@@ -1285,8 +1293,7 @@ export const cityPageQuery = groq`{
     },
     arenaReview { transportation, walkability, vibes, view, seatComfort, food }
   },
-  "hotels": *[_type == "hotelReview" && location == $location
-    && (!defined(publishedAt) || publishedAt <= now())] | order(date desc) [0...6] {
+  "hotels": *[_type == "hotelReview" && _id in $ids] | order(date desc) {
     _id,
     title,
     "slug": slug.current,
@@ -1297,10 +1304,11 @@ export const cityPageQuery = groq`{
       ...,
       asset->{ _id, metadata { lqip, dimensions { width, height } } }
     },
-    hotelRating
+    hotelRating,
+    internetSpeed,
+    revisits[] { visitDate, ratingUpdates }
   },
-  "food": *[_type == "foodReview" && location == $location
-    && (!defined(publishedAt) || publishedAt <= now())] | order(date desc) [0...6] {
+  "food": *[_type == "foodReview" && _id in $ids] | order(date desc) {
     _id,
     title,
     "slug": slug.current,
@@ -1310,10 +1318,12 @@ export const cityPageQuery = groq`{
     "coverImage": coalesce(coverImage, heroPhotos[0]) {
       ...,
       asset->{ _id, metadata { lqip, dimensions { width, height } } }
-    }
+    },
+    foodRating,
+    takeoutRating,
+    revisits[] { visitDate, foodRatingUpdates, takeoutRatingUpdates }
   },
-  "guides": *[_type == "guide" && location == $location
-    && (!defined(publishedAt) || publishedAt <= now())] | order(date desc) [0...3] {
+  "guides": *[_type == "guide" && _id in $ids] | order(date desc) [0...3] {
     _id,
     title,
     "slug": slug.current,
@@ -1353,7 +1363,8 @@ export interface CityPageData {
     category?: string
     seoExcerpt?: string
     coverImage?: any
-    hotelRating?: Record<string, number>
+    /** Overall score worked out at build time (lib/hotelListing) */
+    rating?: ListingRating
   }>
   food: Array<{
     _id: string
@@ -1363,6 +1374,8 @@ export interface CityPageData {
     diningType?: 'dinein' | 'takeout'
     seoExcerpt?: string
     coverImage?: any
+    /** Overall score worked out at build time (lib/foodListing) */
+    rating?: ListingRating
   }>
   guides: Array<{
     _id: string
