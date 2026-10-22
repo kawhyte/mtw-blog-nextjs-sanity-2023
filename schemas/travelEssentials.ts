@@ -1,6 +1,8 @@
 import { HeartFilledIcon } from '@sanity/icons'
 // import { format, parseISO } from 'date-fns'
 import { defineField, defineType } from 'sanity'
+
+import { GEAR_SECTIONS } from '../lib/gearSections'
 import { getPortableTextLength } from './utils'
 
 export default defineType({
@@ -55,7 +57,21 @@ export default defineType({
     }),
 
     defineField({
+      name: 'section',
+      title: 'Section',
+      type: 'string',
+      description:
+        'Which group this item shows under on the Travel Gear page. Aim for 3 to 6 items per section (4 fills one row on a laptop).',
+      options: {
+        list: GEAR_SECTIONS.map(({ title, value }) => ({ title, value })),
+        layout: 'radio',
+      },
+    }),
+
+    defineField({
       name: 'tripType',
+      // Not used on the site any more (empty on every item); kept so no data is lost
+      hidden: true,
       title: 'Trip Type',
       description: 'Which trips do you pack this for? (Select all that apply)',
       type: 'array',
@@ -74,6 +90,8 @@ export default defineType({
 
     defineField({
       name: 'whyWePack',
+      // Not used on the site any more (empty on every item); kept so no data is lost
+      hidden: true,
       title: 'Why We Pack This',
       type: 'string',
       description:
@@ -84,6 +102,8 @@ export default defineType({
 
     defineField({
       name: 'featured',
+      // Not used on the site any more (empty on every item); kept so no data is lost
+      hidden: true,
       title: 'Featured Pick',
       type: 'boolean',
       description: 'Feature this item at the top of the page.',
