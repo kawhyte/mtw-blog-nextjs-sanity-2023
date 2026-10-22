@@ -220,7 +220,7 @@ export default function CityPage({ location, data, settings }: CityPageProps) {
                   <Link
                     key={arena._id}
                     href={`/arena/${arena.slug}`}
-                    className="group relative block overflow-hidden rounded-3xl border-4 border-black bg-card shadow-offsetIndigo transition-all hover:scale-105 hover:-translate-y-1"
+                    className="group relative flex flex-col overflow-hidden rounded-3xl border-[3px] border-border-bold bg-border-bold shadow-brutalist transition-all hover:scale-105 hover:-translate-y-1"
                   >
                     {arena.arenaImage?.asset?._ref && (
                       <SanityImage
@@ -233,7 +233,7 @@ export default function CityPage({ location, data, settings }: CityPageProps) {
                         loading="eager"
                       />
                     )}
-                    <div className="p-4">
+                    <div className="flex-1 bg-card p-4">
                       {!arena.visited && (
                         <span className="mb-2 inline-flex rounded-full border border-muted px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
                           On Our Bucket List

@@ -7,7 +7,6 @@ import {
   Calendar,
   MapPin,
   RefreshCw,
-  Trophy,
 } from 'lucide-react'
 import Link from 'next/link'
 import { getRankBadgeStyle } from 'utils/arena/rankBadgeStyles'
@@ -175,7 +174,7 @@ const DynamicPostCard = ({
     <>
       {/* ── MOBILE CARD (< 640px) ──────────────────────────────────────── */}
       <div
-        className={`sm:hidden group relative flex w-full flex-row overflow-hidden rounded-3xl border-2 border-border-bold bg-card text-foreground shadow-offsetIndigo transition-all duration-200 active:scale-95 active:shadow-none ${
+        className={`sm:hidden group relative flex w-full flex-row overflow-hidden rounded-2xl border-[3px] border-border-bold bg-border-bold text-foreground shadow-brutalist-sm transition-all duration-200 active:scale-95 active:shadow-none ${
           visited === false ? 'opacity-40 grayscale' : ''
         }`}
       >
@@ -184,7 +183,7 @@ const DynamicPostCard = ({
         </Link>
 
         {/* Thumbnail — self-stretch so it fills the full card height regardless of content length */}
-        <div className="relative self-stretch w-[96px] shrink-0 overflow-hidden rounded-l-[22px] bg-muted -my-px -ml-px">
+        <div className="relative self-stretch w-[96px] shrink-0 overflow-hidden bg-border-bold -my-px -ml-px">
           {hasImage ? (
             <SanityImage
               image={coverImage}
@@ -203,14 +202,13 @@ const DynamicPostCard = ({
             <span
               className={`absolute left-1.5 top-1.5 z-20 flex items-center gap-0.5 rounded-full px-1.5 py-0.5 text-[10px] font-black ${getRankBadgeStyle(rank)}`}
             >
-              {rank === 1 && <Trophy className="h-2.5 w-2.5" />}
               {rank === 1 ? 'Best' : `#${rank}`}
             </span>
           )}
         </div>
 
         {/* Content */}
-        <div className="flex min-w-0 flex-1 flex-col justify-center gap-0.5 px-3 py-2.5">
+        <div className="flex min-w-0 flex-1 flex-col justify-center gap-0.5 bg-card px-3 py-2.5">
           {mobileBadge && (
             <span
               className={`inline-flex w-fit rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${mobileBadge.className}`}
@@ -262,7 +260,7 @@ const DynamicPostCard = ({
 
       {/* ── DESKTOP / TABLET CARD (≥ 640px) — unchanged ────────────────── */}
       <div
-        className={`hidden sm:block group relative w-full overflow-hidden rounded-4xl border-4 border-border-bold bg-card text-foreground shadow-offsetIndigo transition-all duration-300 ease-in-out hover:scale-105 hover:-translate-y-2 hover:shadow-brutalist ${
+        className={`hidden sm:block group relative w-full overflow-hidden rounded-3xl border-[3px] border-border-bold bg-border-bold text-foreground shadow-brutalist transition-all duration-300 ease-in-out hover:scale-105 hover:-translate-y-2 hover:shadow-brutalist ${
           visited === false ? 'opacity-40 grayscale' : 'grayscale-0'
         }`}
       >
@@ -286,7 +284,7 @@ const DynamicPostCard = ({
           />
         </div>
 
-        <CardContent className="flex grow flex-col justify-between p-4">
+        <CardContent className="flex grow flex-col justify-between bg-card p-4">
           <div className="flex flex-col sm:mb-2 sm:ml-2 sm:gap-y-2">
             {revisitCount && revisitCount > 0 ? (
               <div className="flex items-center gap-1 text-[11px] font-medium text-muted-foreground">

@@ -126,9 +126,9 @@ export default function GuidesBrowse({
         {featured && page === 1 && (
           <Link
             href={`/guide/${featured.slug}`}
-            className="group grid overflow-hidden rounded-3xl border-[3px] border-border-bold bg-card md:grid-cols-[7fr_5fr]"
+            className="group grid overflow-hidden rounded-3xl border-[3px] border-border-bold bg-border-bold md:grid-cols-[7fr_5fr]"
           >
-            <div className="relative aspect-[16/10] overflow-hidden bg-muted md:aspect-auto md:min-h-[400px]">
+            <div className="relative aspect-[16/10] overflow-hidden bg-border-bold md:aspect-auto md:min-h-[400px]">
               {featured.coverImage?.asset && (
                 <SanityImage
                   image={featured.coverImage}
@@ -141,7 +141,7 @@ export default function GuidesBrowse({
                 />
               )}
             </div>
-            <div className="flex flex-col justify-center gap-3 p-5 sm:p-7 md:gap-4 md:p-9">
+            <div className="flex flex-col justify-center gap-3 bg-card p-5 sm:p-7 md:gap-4 md:p-9">
               <span className="text-xs font-bold tracking-[0.14em] text-primary">
                 LATEST GUIDE
               </span>

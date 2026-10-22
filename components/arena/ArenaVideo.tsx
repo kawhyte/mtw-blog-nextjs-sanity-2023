@@ -20,7 +20,7 @@ const playBadge = (
 )
 
 const frame =
-  'group relative block aspect-video w-full overflow-hidden rounded-[22px] border-[3px] border-border-bold bg-black'
+  'group relative block aspect-video w-full overflow-hidden rounded-2xl border-[3px] border-border-bold bg-black'
 
 /**
  * "Watch our visit": a photo card instead of a heavy embed. YouTube plays in

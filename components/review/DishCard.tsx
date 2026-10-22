@@ -29,7 +29,7 @@ export default function DishCard({ dish }: { dish: FoodReviewDish }) {
 
   return (
     <div className="flex w-[60vw] max-w-56 shrink-0 snap-start flex-col gap-2 sm:w-52">
-      <div className="relative aspect-square overflow-hidden rounded-[22px] border-[3px] border-border-bold bg-muted">
+      <div className="relative aspect-square overflow-hidden rounded-2xl border-[3px] border-border-bold bg-border-bold">
         {dish.asset && (
           <SanityImage
             image={dish}

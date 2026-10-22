@@ -15,9 +15,9 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import type React from 'react'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
-import SearchDialog from './SearchBox'
+import SearchDialog, { NavSearch } from './SearchBox'
 
 interface NavLink {
   href: string
@@ -61,14 +61,15 @@ const NAV_LINKS: NavLink[] = [
 ]
 
 /**
- * Site navbar: logo, text links and a Search button on laptops and up;
+ * Site navbar: logo, text links and a search field on laptops and up;
  * logo + Search + Menu buttons below 1024px, so nothing gets squished.
- * Search opens a popup (also ⌘K / Ctrl+K).
+ * Below 1024px search opens full screen; ⌘K / Ctrl+K works on both.
  */
 export default function Navbar() {
   const router = useRouter()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isSearchOpen, setIsSearchOpen] = useState(false)
+  const searchInputRef = useRef<HTMLInputElement>(null)
 
   const isActive = (link: NavLink) =>
     link.matches.some((path) => router.pathname.startsWith(path))
@@ -83,13 +84,17 @@ export default function Navbar() {
     return () => router.events.off('routeChangeStart', close)
   }, [router.events])
 
-  // ⌘K / Ctrl+K opens search from anywhere
+  // ⌘K / Ctrl+K: focuses the navbar field on laptops, opens search below that
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
         event.preventDefault()
         setIsMenuOpen(false)
-        setIsSearchOpen(true)
+        if (window.matchMedia('(min-width: 1024px)').matches) {
+          searchInputRef.current?.focus()
+        } else {
+          setIsSearchOpen(true)
+        }
       }
     }
     window.addEventListener('keydown', onKeyDown)
@@ -167,19 +172,9 @@ export default function Navbar() {
             )
           })}
         </ul>
-        <button
-          type="button"
-          onClick={openSearch}
-          className="hidden h-[42px] w-44 items-center gap-2.5 rounded-full border-2 border-border bg-card pl-3.5 pr-2.5 text-sm text-muted-foreground transition-colors hover:border-foreground/40 lg:ml-2 lg:flex xl:ml-4 xl:w-56"
-        >
-          <Search className="h-4 w-4 shrink-0" aria-hidden="true" />
-          <span className="flex-1 whitespace-nowrap text-left">
-            Search<span className="hidden xl:inline"> the site</span>
-          </span>
-          <kbd className="rounded-md border border-border px-1.5 font-sans text-xs font-semibold">
-            ⌘K
-          </kbd>
-        </button>
+        <div className="hidden lg:ml-2 lg:block xl:ml-4">
+          <NavSearch inputRef={searchInputRef} />
+        </div>
 
         {/* Below 1024px: search + menu buttons */}
         <div className="flex items-center gap-2 lg:hidden">

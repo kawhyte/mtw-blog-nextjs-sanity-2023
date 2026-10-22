@@ -73,7 +73,7 @@ export default function IndexPage(props: IndexPageProps) {
           <div className="container mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
             <Link
               href={siblingLink}
-              className="flex items-center justify-between rounded-2xl border-4 border-border-bold bg-card p-6 shadow-brutalist transition-all duration-200 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-brutalist-pressed"
+              className="flex items-center justify-between rounded-2xl border-[3px] border-border-bold bg-card p-6 shadow-brutalist transition-all duration-200 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-brutalist-pressed"
             >
               <p className="font-plus-jakarta-sans text-base font-semibold text-foreground">
                 {siblingLabel}

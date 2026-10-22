@@ -61,7 +61,7 @@ function GameCard({ game, team }: { game: any; team: any }) {
       : null
 
   return (
-    <div className="flex w-[78vw] max-w-[268px] shrink-0 snap-start flex-col gap-3 rounded-[20px] border-[3px] border-border-bold bg-card p-4">
+    <div className="flex w-[78vw] max-w-[268px] shrink-0 snap-start flex-col gap-3 rounded-2xl border-[3px] border-border-bold bg-card p-4">
       <div className="flex flex-wrap items-center gap-1.5 text-[11px] font-extrabold tracking-[0.1em] text-muted-foreground">
         <span>
           FINAL{gameDate(game.gameDate) ? ` · ${gameDate(game.gameDate)}` : ''}

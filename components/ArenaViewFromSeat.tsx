@@ -149,7 +149,7 @@ export default function ArenaViewFromSeat({
           type="button"
           onClick={openModal}
           aria-label={lead.caption || lead.alt || 'View from our seat'}
-          className="group relative block aspect-[4/3] w-full overflow-hidden rounded-[22px] border-[3px] border-border-bold bg-muted focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary sm:aspect-[16/10]"
+          className="group relative block aspect-[4/3] w-full overflow-hidden rounded-2xl border-[3px] border-border-bold bg-border-bold focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary sm:aspect-[16/10]"
         >
           <FadeImage
             image={lead}

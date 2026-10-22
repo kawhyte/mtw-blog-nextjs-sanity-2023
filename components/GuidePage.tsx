@@ -189,7 +189,7 @@ export default function GuidePage({
             )}
 
             <aside className="self-start xl:sticky xl:top-24 xl:col-start-1 xl:row-span-2 xl:row-start-1">
-              <div className="xl:flex xl:max-h-[calc(100vh-7rem)] xl:flex-col xl:overflow-hidden xl:rounded-[28px] xl:border-4 xl:border-border-bold xl:bg-card">
+              <div className="xl:flex xl:max-h-[calc(100vh-7rem)] xl:flex-col xl:overflow-hidden xl:rounded-3xl xl:border-[3px] xl:border-border-bold xl:bg-card">
                 <div className="scrollbar-hide flex flex-col gap-5 xl:overflow-y-auto xl:overscroll-contain xl:p-6">
                   {categoryLabel && (
                     <Link

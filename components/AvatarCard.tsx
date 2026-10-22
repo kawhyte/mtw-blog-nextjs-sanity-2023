@@ -1,7 +1,7 @@
 export default function AuthorAvatar({ data }) {
   return (
     <>
-      <div className="w-full max-w-sm space-y-4 rounded-xl bg-white  border-4 border-black p-6 text-center shadow-lg">
+      <div className="w-full max-w-sm space-y-4 rounded-xl bg-white  border-[3px] border-border-bold p-6 text-center shadow-lg">
         <img
           src={data?.image}
           alt={data?.name}

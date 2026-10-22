@@ -37,7 +37,7 @@ export default function GuideCard({ guide, inRow = false }: GuideCardProps) {
           : 'min-w-0'
       }`}
     >
-      <div className="relative aspect-square overflow-hidden rounded-[22px] border-[3px] border-border-bold bg-muted">
+      <div className="relative aspect-square overflow-hidden rounded-2xl border-[3px] border-border-bold bg-border-bold">
         {guide.coverImage?.asset && (
           <SanityImage
             image={guide.coverImage}

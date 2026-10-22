@@ -1,8 +1,9 @@
-import { Calendar, MapPin, RefreshCw, Trophy } from 'lucide-react'
+import { Calendar, MapPin, RefreshCw } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
 import { getRankBadgeStyle } from 'utils/arena/rankBadgeStyles'
 
+import { PhotoScore } from '@/components/ui/score-circle'
 import { Skeleton } from '@/components/ui/skeleton'
 
 import HighlightText from './HighlightText'
@@ -22,7 +23,8 @@ interface NBAArenaCardProps {
   slug: string
   averageRating: string
   textRating: string
-  ratingColor: string
+  /** No longer drawn: scores use the design system colours */
+  ratingColor?: string
   arenaReview?: any | null
   rank?: number
   priority?: boolean
@@ -49,7 +51,6 @@ const Arenas = React.memo(
     arenaImageSrc,
     averageRating,
     textRating,
-    ratingColor,
     rank,
     priority = false,
     revisitCount,
@@ -63,7 +64,7 @@ const Arenas = React.memo(
       <>
         {/* ── MOBILE CARD (< 640px) ─────────────────────────────────────── */}
         <div
-          className={`sm:hidden group relative flex w-full flex-row overflow-hidden rounded-3xl border-2 border-black bg-card text-foreground shadow-offsetIndigo transition-all duration-200 active:scale-95 active:shadow-none ${
+          className={`sm:hidden group relative flex w-full flex-row overflow-hidden rounded-2xl border-[3px] border-border-bold bg-border-bold text-foreground shadow-brutalist-sm transition-all duration-200 active:scale-95 active:shadow-none ${
             visited === false ? 'opacity-50 grayscale' : ''
           }`}
         >
@@ -74,7 +75,7 @@ const Arenas = React.memo(
           )}
 
           {/* Thumbnail — self-stretch so it fills the full card height regardless of content length */}
-          <div className="relative self-stretch w-[96px] shrink-0 overflow-hidden rounded-l-[22px] bg-muted -my-px -ml-px">
+          <div className="relative self-stretch w-[96px] shrink-0 overflow-hidden bg-border-bold -my-px -ml-px">
             {hasImage ? (
               <SanityImage
                 image={arenaImageSrc}
@@ -105,14 +106,13 @@ const Arenas = React.memo(
                   rank === 1 ? 'Best Arena' : `Arena rank: ${rank}`
                 }
               >
-                {rank === 1 && <Trophy className="h-2.5 w-2.5" />}
                 {rank === 1 ? 'Best' : `#${rank}`}
               </span>
             )}
           </div>
 
           {/* Content */}
-          <div className="flex min-w-0 flex-1 flex-col justify-center gap-0.5 px-3 py-2.5">
+          <div className="flex min-w-0 flex-1 flex-col justify-center gap-0.5 bg-card px-3 py-2.5">
             <span className="inline-flex w-fit rounded-full bg-secondary/10 border border-secondary/20 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-secondary">
               NBA Arena
             </span>
@@ -122,13 +122,13 @@ const Arenas = React.memo(
             </p>
 
             {hasRating && (
-              <span
-                className="inline-flex w-fit items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold"
-                style={{ backgroundColor: ratingColor, opacity: 0.9 }}
-              >
-                <span className="text-foreground">{Number(averageRating).toFixed(1)}</span>
-                <span className="h-3 w-px bg-black/25" />
-                <span className="text-foreground truncate max-w-[60px]">{textRating}</span>
+              <span className="text-xs font-semibold text-foreground">
+                <span aria-hidden="true">★</span>{' '}
+                {Number(averageRating).toFixed(1)}
+                <span className="font-normal text-muted-foreground">
+                  {' '}
+                  · {textRating}
+                </span>
               </span>
             )}
 
@@ -158,7 +158,7 @@ const Arenas = React.memo(
 
         {/* ── DESKTOP / TABLET CARD (≥ 640px) ───────────────────────────── */}
         <div
-          className={`hidden sm:block group relative w-full overflow-hidden rounded-[2rem] border-4 border-border-bold bg-card text-foreground shadow-brutalist transition-transform duration-200 ease-out hover:-translate-y-1 ${
+          className={`hidden sm:block group relative w-full overflow-hidden rounded-3xl border-[3px] border-border-bold bg-border-bold text-foreground shadow-brutalist transition-transform duration-200 ease-out hover:-translate-y-1 ${
             visited === false ? 'opacity-50 grayscale' : 'grayscale-0'
           }`}
         >
@@ -180,21 +180,16 @@ const Arenas = React.memo(
                   rank === 1 ? 'Best Arena ranking' : `Arena rank: ${rank}`
                 }
               >
-                {rank === 1 && <Trophy className="h-3.5 w-3.5" />}
                 {rank === 1 ? 'Best Arena' : `#${rank}`}
               </div>
             )}
 
             {hasRating && (
-              <span
-                className="font-heading-family absolute right-3 top-3 z-30 rounded-xl px-2.5 py-1 text-base font-extrabold leading-tight text-gray-900"
-                style={{ backgroundColor: ratingColor }}
-                role="img"
-                aria-label={`Rating: ${Number(averageRating).toFixed(1)} out of 5, ${textRating}`}
-                title={textRating}
-              >
-                {Number(averageRating).toFixed(1)}
-              </span>
+              <PhotoScore
+                score={Number(averageRating)}
+                textRating={textRating}
+                className="right-3 top-3"
+              />
             )}
 
             <Skeleton className="absolute inset-0 h-full w-full" />
@@ -221,7 +216,7 @@ const Arenas = React.memo(
             )}
           </div>
 
-          <div className="flex flex-col gap-1.5 px-5 pb-5 pt-4">
+          <div className="flex flex-col gap-1.5 bg-card px-5 pb-5 pt-4">
             <h2 className="line-clamp-1 text-xl font-bold leading-tight text-foreground decoration-primary decoration-dashed decoration-4 group-hover:underline">
               <HighlightText text={arenaName} words={highlightWords} />
             </h2>

@@ -25,7 +25,7 @@ function VideoCard({ id, title }: { id: string; title: string }) {
 
   return (
     <div className="flex w-[78vw] max-w-[300px] shrink-0 snap-start flex-col gap-2 sm:max-w-none sm:w-[340px] md:w-[calc((100%-2.5rem)/3)]">
-      <div className="relative aspect-video overflow-hidden rounded-[18px] border-[3px] border-border-bold bg-black">
+      <div className="relative aspect-video overflow-hidden rounded-2xl border-[3px] border-border-bold bg-black">
         {playing ? (
           <iframe
             src={`https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`}

@@ -182,7 +182,7 @@ export function PhotoCards({
       {items.map(({ line, image }) => (
         <figure
           key={image._key}
-          className="m-0 flex min-w-0 flex-col overflow-hidden rounded-[20px] border-[3px] border-border-bold bg-card"
+          className="m-0 flex min-w-0 flex-col overflow-hidden rounded-2xl border-[3px] border-border-bold bg-card"
         >
           <ZoomablePhoto image={image} className="block w-full">
             <div className="h-40 bg-muted p-2.5 sm:h-48 md:h-56 md:p-3">

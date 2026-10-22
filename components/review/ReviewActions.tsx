@@ -47,7 +47,7 @@ export function ReviewActionButtons({
         href={directionsUrl(placeName, location)}
         target="_blank"
         rel="noopener noreferrer"
-        className="flex min-h-12 items-center justify-center gap-2 rounded-xl border-[3px] border-border-bold bg-primary px-3 text-sm font-bold text-primary-foreground shadow-brutalist-sm transition-transform hover:-translate-y-0.5"
+        className="flex min-h-12 items-center justify-center gap-2 rounded-full border-[3px] border-border-bold bg-primary px-3 text-[15px] font-extrabold text-primary-foreground transition-colors hover:bg-pink-700"
       >
         <MapPin className="h-4 w-4" aria-hidden="true" />
         Directions
@@ -55,7 +55,7 @@ export function ReviewActionButtons({
       <button
         type="button"
         onClick={share}
-        className="flex min-h-12 items-center justify-center gap-2 rounded-xl border-2 border-border-bold bg-card px-3 text-sm font-bold text-foreground transition-transform hover:-translate-y-0.5"
+        className="flex min-h-12 items-center justify-center gap-2 rounded-full border-[3px] border-border-bold bg-card px-3 text-[15px] font-extrabold text-foreground transition-colors hover:bg-muted"
       >
         {copied ? (
           <Check className="h-4 w-4" aria-hidden="true" />
@@ -78,7 +78,7 @@ export function ReviewActionBar({ placeName, location }: ReviewActionsProps) {
           href={directionsUrl(placeName, location)}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex min-h-12 flex-1 items-center justify-center gap-2 rounded-xl border-[3px] border-border-bold bg-primary text-base font-bold text-primary-foreground"
+          className="flex min-h-12 flex-1 items-center justify-center gap-2 rounded-full border-[3px] border-border-bold bg-primary text-[15px] font-extrabold text-primary-foreground"
         >
           <MapPin className="h-5 w-5" aria-hidden="true" />
           Directions
@@ -87,7 +87,7 @@ export function ReviewActionBar({ placeName, location }: ReviewActionsProps) {
           type="button"
           onClick={share}
           aria-label={copied ? 'Link copied' : 'Share this review'}
-          className="flex h-12 min-w-12 items-center justify-center gap-2 rounded-xl border-2 border-border-bold bg-card px-3 text-sm font-bold text-foreground"
+          className="flex h-12 min-w-12 items-center justify-center gap-2 rounded-full border-[3px] border-border-bold bg-card px-3 text-[15px] font-extrabold text-foreground"
         >
           {copied ? (
             <Check className="h-5 w-5" aria-hidden="true" />
