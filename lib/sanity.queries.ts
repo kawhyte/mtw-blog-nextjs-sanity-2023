@@ -37,6 +37,7 @@ const travelEssentialFields = groq`
     description,
     recommend,
     price,
+    section,
     tripType,
     whyWePack,
     featured,
@@ -979,6 +980,8 @@ export interface Essential {
   }
   recommend?: boolean
   price?: number
+  /** Travel Gear page group (lib/gearSections) */
+  section?: string
   tripType?: string[]
   whyWePack?: string
   featured?: boolean
