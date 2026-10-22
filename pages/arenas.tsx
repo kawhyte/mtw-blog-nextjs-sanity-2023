@@ -5,12 +5,7 @@ import Layout from 'components/BlogLayout'
 import CategoryPageHead from 'components/CategoryPageHead'
 import Footer from 'components/Footer'
 import PreviewIndexPage from 'components/PreviewIndexPage'
-import {
-  getArenaPosts,
-  getFoodReviewsTotalCount,
-  getHotelReviewsTotalCount,
-  getSettings,
-} from 'lib/sanity.client'
+import { getArenaPosts, getSettings } from 'lib/sanity.client'
 import PreviewProvider from 'lib/sanity.preview'
 import { Arena, Settings } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
@@ -21,8 +16,6 @@ import {
 
 interface PageProps {
   arenaPosts: Arena[]
-  hotelReviewCount: number
-  foodReviewCount: number
   settings: Settings
   preview: boolean
   token: string | null
@@ -37,14 +30,7 @@ interface PreviewData {
 }
 
 export default function ArenasPage(props: PageProps) {
-  const {
-    arenaPosts,
-    hotelReviewCount,
-    foodReviewCount,
-    settings,
-    preview,
-    token,
-  } = props
+  const { arenaPosts, settings, preview, token } = props
 
   // Preview Mode Rendering
   if (preview) {
@@ -74,11 +60,7 @@ export default function ArenasPage(props: PageProps) {
           description={[]}
           level={1}
         />
-        <ArenaQuestHero
-          arenas={arenaPosts}
-          hotelReviewCount={hotelReviewCount}
-          foodReviewCount={foodReviewCount}
-        />
+        <ArenaQuestHero arenas={arenaPosts} />
 
         <ArenaPageContent arenas={arenaPosts} />
 
@@ -95,13 +77,10 @@ export const getStaticProps: GetStaticProps<
 > = async (ctx) => {
   const { preview = false, previewData = {} } = ctx
 
-  const [settings, arenaPosts = [], hotelReviewCount, foodReviewCount] =
-    await Promise.all([
-      getSettings(),
-      getArenaPosts(),
-      getHotelReviewsTotalCount(),
-      getFoodReviewsTotalCount(),
-    ])
+  const [settings, arenaPosts = []] = await Promise.all([
+    getSettings(),
+    getArenaPosts(),
+  ])
 
   // Basic validation
   if (!Array.isArray(arenaPosts)) {
@@ -119,8 +98,6 @@ export const getStaticProps: GetStaticProps<
   return {
     props: {
       arenaPosts: enrichedArenas, // ✅ Send pre-computed data to client
-      hotelReviewCount,
-      foodReviewCount,
       settings: settings || {},
       preview,
       token: previewData.token ?? null,

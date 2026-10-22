@@ -120,7 +120,34 @@ function ClusterDetails({ arenas }: { arenas: MapArena[] }) {
   )
 }
 
-export default function ArenaQuestMap({ arenas }: { arenas: Arena[] }) {
+/** Visited / still to go key, plus how to open a pin's card */
+export function MapLegend({ className = '' }: { className?: string }) {
+  return (
+    <div
+      className={`flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground ${className}`}
+    >
+      <span className="flex items-center gap-1.5">
+        <span className="h-3 w-3 rounded-full border-2 border-border-bold bg-primary" />
+        Visited
+      </span>
+      <span className="flex items-center gap-1.5">
+        <span className="h-3 w-3 rounded-full border-2 border-dashed border-border-bold bg-card" />
+        Still to go
+      </span>
+      <span className="md:hidden">Tap a pin for our review</span>
+      <span className="hidden md:inline">Hover a pin for our review</span>
+    </div>
+  )
+}
+
+export default function ArenaQuestMap({
+  arenas,
+  showLegend = true,
+}: {
+  arenas: Arena[]
+  /** Off when the page places <MapLegend /> itself */
+  showLegend?: boolean
+}) {
   const [clusterDistance, setClusterDistance] = useState(
     CLUSTER_DISTANCE_DESKTOP,
   )
@@ -204,7 +231,7 @@ export default function ArenaQuestMap({ arenas }: { arenas: Arena[] }) {
   return (
     <div ref={mapRef} className="flex flex-col gap-2 sm:gap-3">
       <div
-        className="relative"
+        className="@container relative"
         onPointerLeave={(e) => {
           if (e.pointerType === 'mouse') setActiveIndex(null)
         }}
@@ -216,7 +243,7 @@ export default function ArenaQuestMap({ arenas }: { arenas: Arena[] }) {
         >
           <path
             d={US_OUTLINE_PATH}
-            className="fill-primary-soft-background stroke-border-bold"
+            className="fill-card stroke-border-bold"
             strokeWidth={2.5}
             strokeLinejoin="round"
           />
@@ -269,6 +296,33 @@ export default function ArenaQuestMap({ arenas }: { arenas: Arena[] }) {
           )
         })}
 
+        {/* The arenas still to go are named right on the map: full name when
+            the map is wide, the city when it's small */}
+        {clusters.map((cluster) => {
+          const toGo = cluster.items.filter((a) => !a.visited)
+          if (toGo.length === 0) return null
+          // On a small map the big phone pins crowd the Gulf coast, so a
+          // label there drops into the water below its pin
+          const gulf = cluster.y > US_MAP_HEIGHT * 0.7
+          return (
+            <span
+              key={`label-${toGo.map((a) => a.id).join('|')}`}
+              aria-hidden="true"
+              style={toPercent(cluster.x, cluster.y)}
+              className={`pointer-events-none absolute z-10 -translate-x-1/2 whitespace-nowrap rounded-full border-[1.5px] border-dashed border-border-bold bg-card px-2 py-px text-[10px] font-bold text-foreground @3xl:-translate-y-[calc(100%_+_12px)] @3xl:px-2.5 @3xl:py-0.5 @3xl:text-xs ${
+                gulf ? 'translate-y-4' : '-translate-y-[calc(100%_+_12px)]'
+              }`}
+            >
+              <span className="@3xl:hidden">
+                {[...new Set(toGo.map((a) => a.city))].join(', ')}
+              </span>
+              <span className="hidden @3xl:inline">
+                {toGo.map((a) => `${a.name} · ${a.city}`).join(', ')}
+              </span>
+            </span>
+          )
+        })}
+
         {/* Hover card — tablets and up */}
         {active && (
           <div
@@ -288,18 +342,7 @@ export default function ArenaQuestMap({ arenas }: { arenas: Arena[] }) {
         </div>
       )}
 
-      <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground">
-        <span className="flex items-center gap-1.5">
-          <span className="h-3 w-3 rounded-full border-2 border-border-bold bg-primary" />
-          Visited
-        </span>
-        <span className="flex items-center gap-1.5">
-          <span className="h-3 w-3 rounded-full border-2 border-dashed border-border-bold bg-card" />
-          Still to go
-        </span>
-        <span className="md:hidden">Tap a pin for details</span>
-        <span className="hidden md:inline">Hover a pin for details</span>
-      </div>
+      {showLegend && <MapLegend />}
     </div>
   )
 }
