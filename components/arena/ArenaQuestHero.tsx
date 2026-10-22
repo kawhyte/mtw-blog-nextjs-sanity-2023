@@ -1,17 +1,16 @@
+import { monthFormatter } from 'components/listing/ListingCard'
 import { formatDate } from 'components/PostDate'
 import SanityImage from 'components/SanityImage'
-import { Trophy } from 'lucide-react'
+import { CircleDashed, Clock, Trophy } from 'lucide-react'
 import Link from 'next/link'
 import { useMemo } from 'react'
 import type { ArenaWithRating } from 'utils/arena/arenaConstants'
 import { getRankBadgeStyle } from 'utils/arena/rankBadgeStyles'
 
-import ArenaQuestMap from './ArenaQuestMap'
+import ArenaQuestMap, { MapLegend } from './ArenaQuestMap'
 
 interface ArenaQuestHeroProps {
   arenas: ArenaWithRating[]
-  hotelReviewCount: number
-  foodReviewCount: number
 }
 
 const cityOf = (location?: string) => location?.split(',')[0]?.trim() ?? ''
@@ -111,34 +110,119 @@ function FinalPodium({
   )
 }
 
-function StatTile({
-  value,
-  label,
-  accent,
+/** "36 of 39 arenas visited", the thin progress line and the last visit */
+function QuestProgress({
+  visitedCount,
+  total,
+  lastVisited,
 }: {
-  value: number
-  label: string
-  accent: string
+  visitedCount: number
+  total: number
+  lastVisited?: ArenaWithRating
 }) {
   return (
-    <div className="rounded-2xl border-[3px] border-border-bold bg-card px-4 py-3 shadow-brutalist sm:px-5 sm:py-4">
-      <div className={`font-heading-family text-3xl font-extrabold sm:text-4xl ${accent}`}>
-        {value}
+    <div className="flex w-72 shrink-0 flex-col gap-2.5 lg:w-[340px]">
+      <div className="flex items-baseline gap-2">
+        {/* Animated digits are decorative; the sr-only text is what
+            screen readers and search engines read */}
+        <span
+          aria-hidden="true"
+          className="quest-count font-heading-family text-[34px] font-extrabold leading-none tabular-nums text-foreground"
+          style={{ '--quest-target': visitedCount } as React.CSSProperties}
+        />
+        <span className="sr-only">{visitedCount}</span>
+        <span className="font-heading-family text-lg font-extrabold text-muted-foreground">
+          of {total}
+        </span>
+        <span className="text-sm text-muted-foreground">arenas visited</span>
       </div>
-      <div className="text-sm text-muted-foreground">{label}</div>
+      <ProgressLine visitedCount={visitedCount} total={total} />
+      {lastVisited && (
+        <span className="text-[13px] text-muted-foreground">
+          Last visited{' '}
+          <strong className="text-foreground">{lastVisited.name}</strong>
+          {lastVisited.date && (
+            <span className="hidden lg:inline">
+              {' '}
+              · {monthFormatter.format(new Date(lastVisited.date))}
+            </span>
+          )}
+          {lastVisited.slug && (
+            <>
+              {' '}
+              ·{' '}
+              <Link
+                href={`/arena/${lastVisited.slug}`}
+                className="font-bold text-pink-700 hover:underline"
+              >
+                Review →
+              </Link>
+            </>
+          )}
+        </span>
+      )}
+    </div>
+  )
+}
+
+/** The thin progress line from the wall-art look (animates in on load) */
+function ProgressLine({
+  visitedCount,
+  total,
+  className = 'w-full',
+}: {
+  visitedCount: number
+  total: number
+  className?: string
+}) {
+  return (
+    <div
+      className={`h-1.5 overflow-hidden rounded-full bg-stone-200 ${className}`}
+      role="progressbar"
+      aria-label="Arenas visited"
+      aria-valuemin={0}
+      aria-valuemax={total}
+      aria-valuenow={visitedCount}
+    >
+      <div
+        className="quest-bar h-full w-full bg-primary"
+        style={{ transform: `scaleX(${total > 0 ? visitedCount / total : 0})` }}
+      />
+    </div>
+  )
+}
+
+/** One phone row under the map: small pink label, then the value */
+function Milestone({
+  icon: Icon,
+  label,
+  children,
+}: {
+  icon: typeof Clock
+  label: string
+  children: React.ReactNode
+}) {
+  return (
+    <div className="flex flex-col gap-1 border-t border-border py-3">
+      <span className="flex items-center gap-1.5 text-[11px] font-extrabold tracking-[0.12em] text-primary">
+        <Icon className="h-4 w-4" aria-hidden="true" />
+        {label}
+      </span>
+      <span className="text-[15px] font-semibold text-foreground">
+        {children}
+      </span>
     </div>
   )
 }
 
 /**
- * /arenas hero: the quest progress (animated count + bar), a US map of every
- * arena, the arenas still to go, and quick stats.
+ * /arenas hero: the title with the quest progress beside it, then a US map
+ * of every arena (the ones still to go are labelled). On laptops the map
+ * sizes itself to the screen height, so "The rankings" below always peeks
+ * in and it's clear the page keeps going. Phones get the progress and the
+ * last visit as short rows under the map.
  */
-export default function ArenaQuestHero({
-  arenas,
-  hotelReviewCount,
-  foodReviewCount,
-}: ArenaQuestHeroProps) {
+export default function ArenaQuestHero({ arenas }: ArenaQuestHeroProps) {
   const visited = useMemo(() => arenas.filter((a) => a.visited), [arenas])
   const stillToGo = useMemo(
     () =>
@@ -154,15 +238,8 @@ export default function ArenaQuestHero({
       )[0],
     [visited],
   )
-  const arenaCities = useMemo(
-    () =>
-      new Set(visited.map((a) => (a.location ?? '').trim().toLowerCase()))
-        .size,
-    [visited],
-  )
 
   const total = arenas.length
-  const progress = total > 0 ? visited.length / total : 0
   // Complete only while every arena is visited — adding a new arena in
   // Studio reopens the quest automatically.
   const complete = total > 0 && visited.length === total
@@ -181,123 +258,91 @@ export default function ArenaQuestHero({
   )
 
   return (
-    <section className="relative bg-secondary-soft-background">
-      {complete && <Confetti />}
-      <div className="container mx-auto grid max-w-7xl grid-cols-1 items-start gap-6 px-4 py-8 sm:gap-8 sm:py-10 md:px-6 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-12 lg:py-14">
-        <div className="flex flex-col gap-5">
-          <span className="text-xs font-bold tracking-[0.14em] text-primary">
-            THE ARENA QUEST
-          </span>
-          <h1 className="text-4xl font-extrabold leading-[1.05] tracking-tight text-primary md:text-5xl">
-            Visiting and Ranking Every NBA/WNBA Arena
-          </h1>
-          <p className="max-w-xl leading-relaxed text-muted-foreground">
-            {complete
-              ? `We did it! All ${total} NBA and WNBA arenas across the US and Canada, visited and ranked. Here's how they stack up.`
-              : `We're traveling near and far to visit and rank all ${total} NBA and WNBA arenas across the US and Canada. Follow along as the map fills in.`}
-          </p>
-
-          <div>
-            <div className="flex items-baseline gap-2">
-              {/* Animated digits are decorative; the sr-only text is what
-                  screen readers and search engines read */}
-              <span
-                aria-hidden="true"
-                className="quest-count font-heading-family text-7xl font-extrabold leading-none tabular-nums text-foreground md:text-8xl"
-                style={{ '--quest-target': visited.length } as React.CSSProperties}
-              />
-              <span className="sr-only">{visited.length}</span>
-              <span className="font-heading-family text-2xl font-bold text-muted-foreground md:text-3xl">
-                / {total}
-              </span>
-              <span className="text-sm text-muted-foreground md:text-base">
-                arenas visited
-              </span>
+    <>
+      <section className="relative bg-primary-soft-background">
+        {complete && <Confetti />}
+        <div className="container mx-auto max-w-7xl px-4 pb-1.5 pt-6 md:px-6 md:pt-8 lg:pb-5">
+          <div className="flex items-end justify-between gap-9 lg:gap-12">
+            <div className="flex min-w-0 flex-col gap-2 md:gap-2.5">
+              <h1 className="font-heading-family text-[30px] font-extrabold leading-[1.06] tracking-tight text-foreground md:text-4xl">
+                Every <span className="text-primary">NBA &amp; WNBA</span>{' '}
+                arena, visited and ranked
+              </h1>
+              <p className="text-[15px] leading-relaxed text-muted-foreground lg:text-base">
+                All {total} arenas
+                <span className="hidden md:inline"> in the US and Canada</span>,{' '}
+                {complete ? 'visited' : 'reviewed'} and ranked.
+              </p>
             </div>
-            <div
-              className="mt-4 h-4 overflow-hidden rounded-full border-[3px] border-border-bold bg-card"
-              role="progressbar"
-              aria-label="Arenas visited"
-              aria-valuemin={0}
-              aria-valuemax={total}
-              aria-valuenow={visited.length}
-            >
-              <div
-                className="quest-bar h-full w-full bg-primary"
-                style={{ transform: `scaleX(${progress})` }}
+            <div className="hidden md:block">
+              <QuestProgress
+                visitedCount={visited.length}
+                total={total}
+                lastVisited={lastVisited}
               />
             </div>
-            {/* Phones: skip past the map straight to the arena list (the
-                podium has its own link once the quest is complete) */}
-            {!complete && (
-              <a
-                href="#arena-rankings"
-                className="mt-3 inline-flex min-h-11 items-center text-sm font-bold text-primary hover:underline md:hidden"
-              >
-                Jump to the rankings ↓
-              </a>
-            )}
           </div>
 
-          {complete ? (
-            <FinalPodium arenas={podium} finishedOn={lastVisited?.date} />
-          ) : (
-            <div className="flex flex-col gap-2">
-              <span className="text-sm font-bold">
-                {stillToGo.length} to go
-              </span>
-              <ul className="flex flex-wrap gap-2">
-                {stillToGo.map((arena) => (
-                  <li
-                    key={arena._id}
-                    className="rounded-full border-2 border-dashed border-border-bold bg-card px-3 py-1.5 text-xs sm:text-sm"
-                  >
-                    {arena.name}
-                    {arena.location ? ` · ${cityOf(arena.location)}` : ''}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </div>
+          {/* Laptops: the map's height follows the screen's (nav, title row
+              and the peek of "The rankings" take ~380px), within 560-960px wide */}
+          <div className="mx-auto mt-5 w-full lg:max-w-[clamp(560px,calc((100svh_-_380px)*1.6),960px)]">
+            <ArenaQuestMap arenas={arenas} showLegend={false} />
+          </div>
+          <MapLegend className="mt-2 md:justify-end lg:-mt-1" />
 
-        <div className="flex flex-col gap-2 rounded-3xl border-[3px] border-border-bold bg-card p-3 shadow-brutalist sm:gap-3 sm:p-6">
-          <h2 className="font-heading-family text-lg font-extrabold sm:text-2xl">
-            Our arena map
-          </h2>
-          <ArenaQuestMap arenas={arenas} />
-          {lastVisited && (
-            <div className="flex items-center justify-between gap-3 border-t-2 border-border pt-2 text-sm sm:pt-3">
-              <span className="min-w-0 truncate">
-                <span className="text-muted-foreground">Last visited </span>
-                <strong>{lastVisited.name}</strong>
-                <span className="hidden sm:inline">
-                  {lastVisited.location
-                    ? ` · ${cityOf(lastVisited.location)}`
-                    : ''}
-                  {lastVisited.date ? ` · ${formatDate(lastVisited.date)}` : ''}
+          {/* Phones: progress and the last visit as rows under the map */}
+          {!complete && (
+            <div className="mt-4 md:hidden">
+              <div className="flex items-center gap-3 pb-3">
+                <ProgressLine
+                  visitedCount={visited.length}
+                  total={total}
+                  className="flex-1"
+                />
+                <span className="shrink-0 text-sm font-extrabold">
+                  {visited.length} of {total} visited
                 </span>
-              </span>
-              {lastVisited.slug && (
-                <Link
-                  href={`/arena/${lastVisited.slug}`}
-                  className="flex min-h-11 shrink-0 items-center font-bold text-primary hover:underline sm:min-h-0"
-                >
-                  <span className="sm:hidden">Review →</span>
-                  <span className="hidden sm:inline">Read the review →</span>
-                </Link>
+              </div>
+              {lastVisited && (
+                <Milestone icon={Clock} label="LAST VISITED">
+                  {lastVisited.slug ? (
+                    <Link
+                      href={`/arena/${lastVisited.slug}`}
+                      className="hover:underline"
+                    >
+                      {lastVisited.name}
+                      {lastVisited.date &&
+                        ` · ${monthFormatter.format(new Date(lastVisited.date))}`}{' '}
+                      <span className="text-pink-700">→</span>
+                    </Link>
+                  ) : (
+                    lastVisited.name
+                  )}
+                </Milestone>
+              )}
+              {stillToGo.length > 0 && (
+                <Milestone icon={CircleDashed} label="STILL TO GO">
+                  {[...new Set(stillToGo.map((a) => cityOf(a.location)))]
+                    .filter(Boolean)
+                    .join(', ')}
+                </Milestone>
               )}
             </div>
           )}
-        </div>
-      </div>
 
-      <div className="container mx-auto grid max-w-7xl grid-cols-2 gap-3 px-4 pb-10 sm:gap-5 md:px-6 lg:grid-cols-4 lg:pb-14">
-        <StatTile value={visited.length} label="arenas visited" accent="text-primary" />
-        <StatTile value={arenaCities} label="arena cities explored" accent="text-secondary" />
-        <StatTile value={hotelReviewCount} label="hotel reviews" accent="text-foreground" />
-        <StatTile value={foodReviewCount} label="food reviews" accent="text-foreground" />
-      </div>
-    </section>
+          {complete && (
+            <div className="mt-6 max-w-xl">
+              <FinalPodium arenas={podium} finishedOn={lastVisited?.date} />
+            </div>
+          )}
+        </div>
+      </section>
+      {/* The linen fades into the page instead of ending on a hard line,
+          so it never looks like the bottom of the page */}
+      <div
+        aria-hidden="true"
+        className="h-10 bg-linear-to-b from-primary-soft-background to-background"
+      />
+    </>
   )
 }
