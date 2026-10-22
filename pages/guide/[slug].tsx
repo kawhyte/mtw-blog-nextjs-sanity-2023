@@ -3,9 +3,13 @@
 import GuidePage from 'components/GuidePage'
 import PreviewGuidePage from 'components/PreviewGuidePage'
 import {
+  type GuideListingItem,
+  relatedGuides as pickRelated,
+} from 'lib/guideListing'
+import {
   getAllGuideSlugs,
   getGuideBySlug,
-  getRelatedGuides,
+  getGuideListing,
   getSettings,
 } from 'lib/sanity.client'
 import PreviewProvider from 'lib/sanity.preview'
@@ -23,9 +27,10 @@ export const getStaticProps: GetStaticProps<
   const token = preview ? (previewData.token ?? null) : null
 
   const slug = params?.slug as string
-  const [guide, settings] = await Promise.all([
+  const [guide, settings, allGuides] = await Promise.all([
     getGuideBySlug(slug, token ?? undefined),
     getSettings(),
+    getGuideListing(),
   ])
 
   if (!guide) {
@@ -34,9 +39,11 @@ export const getStaticProps: GetStaticProps<
     }
   }
 
-  const relatedGuides = guide.category
-    ? await getRelatedGuides(guide.category, slug)
-    : []
+  // "More guides": same category first, then the newest (never empty)
+  const relatedGuides = pickRelated(allGuides, {
+    slug,
+    category: guide.category,
+  })
 
   return {
     props: {
@@ -62,7 +69,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 interface PageProps {
   guide: Guide
   settings: Settings
-  relatedGuides: Guide[]
+  relatedGuides: GuideListingItem[]
   preview: boolean
   token: string | null
 }

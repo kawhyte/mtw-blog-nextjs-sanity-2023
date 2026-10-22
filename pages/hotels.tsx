@@ -69,7 +69,7 @@ export default function Page(props: PageProps) {
           itemPath="/hotel"
           title="Hotel Reviews"
           intro={(count) =>
-            `${count} stays, honestly rated — from beds to breakfast.`
+            `${count} stays, honestly rated, from beds to breakfast.`
           }
           kindTabs={KIND_TABS}
           allTitle="All hotel reviews"
