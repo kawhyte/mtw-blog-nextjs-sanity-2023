@@ -1409,6 +1409,11 @@ export const visitedArenasHighlightQuery = groq`
       ...,
       asset->{ _id, metadata { lqip, dimensions { width, height } } }
     },
+    // The homepage picks the sharpest of these (the card image is often small)
+    heroPhotos[] {
+      _key, alt, hotspot, crop,
+      asset->{ _id, metadata { lqip, dimensions { width, height } } }
+    },
     arenaReview {
       transportation,
       walkability,
@@ -1438,6 +1443,7 @@ export interface ArenaHighlightCard {
   location?: string
   date?: string
   arenaImage?: any
+  heroPhotos?: any[]
   arenaReview?: {
     transportation?: number
     walkability?: number
