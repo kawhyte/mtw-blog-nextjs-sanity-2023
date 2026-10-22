@@ -18,7 +18,8 @@ export const HUMAN_STYLE_RULES = `- Vary sentence length — mix short punchy se
 - It's fine to start a sentence with "And" or "But"
 - Never open with a rhetorical question or "If you're looking for..."
 - No rule-of-three lists ("great food, great views, great vibes")
-- Specific beats generic: name the dish, the seat section, the street — never "a variety of options"`
+- Specific beats generic: name the dish, the seat section, the street, never "a variety of options"
+- Never use em dashes (—) or en dashes (–) between words; use a comma, a period or a colon instead`
 
 // One combined block for injecting into prompts.
 export const ANTI_AI_RULES = `BANNED WORDS — never use any of these: ${BANNED_WORDS}

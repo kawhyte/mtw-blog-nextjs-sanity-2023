@@ -63,7 +63,7 @@ export default function Page(props: PageProps) {
           itemPath="/food"
           title="Food Reviews"
           intro={(count) =>
-            `${count} places we’ve eaten, honestly rated — hidden gems to fancy hotspots.`
+            `${count} places we’ve eaten, honestly rated. Hidden gems to fancy hotspots.`
           }
           kindTabs={KIND_TABS}
           allTitle="All food reviews"

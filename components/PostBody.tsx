@@ -1,10 +1,22 @@
-import { PortableText, PortableTextMarkComponent } from '@portabletext/react'
+import {
+  PortableText,
+  PortableTextBlockComponent,
+  PortableTextMarkComponent,
+} from '@portabletext/react'
 import { getImageDimensions } from '@sanity/asset-utils'
+import { blockText, headingId } from 'lib/headings'
 import { urlForImage } from 'lib/sanity.image'
 import { AlertTriangle, Info, Lightbulb, Sparkles } from 'lucide-react'
 import Image from 'next/image'
 import { useState } from 'react'
 
+import {
+  groupPhotos,
+  PhotoCards,
+  PhotoRow,
+  TALL_PHOTO_RATIO,
+  TallPhoto,
+} from './PhotoLayouts'
 import styles from './PostBody.module.css'
 
 const SampleImageComponent = ({ value }) => {
@@ -40,30 +52,33 @@ const SampleImageComponent = ({ value }) => {
   )
 }
 
+// In-article callouts use the same card as the review "Insider tip"
 const CALLOUT_CONFIG = {
   tip: {
-    border: 'border-secondary',
-    bg: 'bg-secondary/10',
     icon: Lightbulb,
-    label: 'Tip',
+    label: 'INSIDER TIP',
+    labelClass: 'text-primary',
+    iconClass: 'border-primary/30 bg-primary-soft-background text-primary',
   },
   warning: {
-    border: 'border-warning',
-    bg: 'bg-amber-50',
     icon: AlertTriangle,
-    label: 'Warning',
+    label: 'HEADS UP',
+    labelClass: 'text-amber-700 dark:text-amber-400',
+    iconClass:
+      'border-amber-300 bg-amber-50 text-amber-600 dark:border-amber-700 dark:bg-amber-950/40 dark:text-amber-400',
   },
   info: {
-    border: 'border-blue-500',
-    bg: 'bg-blue-50',
     icon: Info,
-    label: 'Info',
+    label: 'GOOD TO KNOW',
+    labelClass: 'text-secondary',
+    iconClass:
+      'border-secondary/30 bg-secondary-soft-background text-secondary',
   },
   highlight: {
-    border: 'border-primary',
-    bg: 'bg-primary/10',
     icon: Sparkles,
-    label: 'Highlight',
+    label: 'DON’T MISS',
+    labelClass: 'text-primary',
+    iconClass: 'border-primary/30 bg-primary-soft-background text-primary',
   },
 }
 
@@ -73,10 +88,32 @@ const COL_MAP: Record<string, string> = {
   '4-col': 'grid-cols-2 md:grid-cols-4',
 }
 
-export default function PostBody({ content }) {
+export default function PostBody({
+  content,
+  flush = false,
+}: {
+  content: any
+  /** Line text up with the column edges (guide pages) instead of insetting it */
+  flush?: boolean
+}) {
   const portableTextComponents = {
     types: {
-      image: SampleImageComponent,
+      image: ({ value }) => {
+        if (!value?.asset) return null
+        const { width, height } = getImageDimensions(value)
+        // Tall phone screenshots get a height cap instead of filling the screen
+        return height / width >= TALL_PHOTO_RATIO ? (
+          <TallPhoto image={value} caption={value.caption} />
+        ) : (
+          <SampleImageComponent value={value} />
+        )
+      },
+
+      // Built by groupPhotos(): photos back to back, and "line + photo" pairs
+      autoPhotoRow: ({ value }) => <PhotoRow images={value.images} />,
+      autoPhotoCards: ({ value }) => (
+        <PhotoCards items={value.items} marks={portableTextComponents.marks} />
+      ),
 
       imageGroup: ({ value }) => {
         const cols = COL_MAP[value.layout] || 'grid-cols-1 sm:grid-cols-2'
@@ -142,21 +179,51 @@ export default function PostBody({ content }) {
           CALLOUT_CONFIG.tip
         const Icon = config.icon
         return (
-          <div
-            className={`my-6 border-l-4 ${config.border} ${config.bg} rounded-r-xl p-4 flex gap-3 not-prose`}
-          >
-            <Icon className="h-5 w-5 shrink-0 mt-0.5 text-muted-foreground" />
-            <div className={`${styles.portableText} ${styles.calloutBody}`}>
-              {value.text && (
-                <PortableText
-                  value={value.text}
-                  components={inlineComponents}
-                />
-              )}
+          <aside className="not-prose my-8 flex items-start gap-4 rounded-3xl border-[3px] border-border-bold bg-card p-5 sm:gap-5 sm:px-7 sm:py-6">
+            <span
+              className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-2 ${config.iconClass}`}
+            >
+              <Icon className="h-5 w-5" aria-hidden="true" />
+            </span>
+            <div className="flex min-w-0 flex-col gap-2 pt-0.5">
+              <span
+                className={`text-xs font-bold tracking-[0.14em] ${config.labelClass}`}
+              >
+                {config.label}
+              </span>
+              <div className={`${styles.portableText} ${styles.calloutBody}`}>
+                {value.text && (
+                  <PortableText
+                    value={value.text}
+                    components={inlineComponents}
+                  />
+                )}
+              </div>
             </div>
-          </div>
+          </aside>
         )
       },
+    },
+
+    // Section headings get an id (for "On this page" links); empty
+    // heading blocks left in the editor are skipped
+    block: {
+      h2: (({ value, children }) => {
+        const text = blockText(value)
+        return text ? (
+          <h2 id={headingId(text)} className="scroll-mt-28">
+            {children}
+          </h2>
+        ) : null
+      }) as PortableTextBlockComponent,
+      h3: (({ value, children }) => {
+        const text = blockText(value)
+        return text ? (
+          <h3 id={headingId(text)} className="scroll-mt-28">
+            {children}
+          </h3>
+        ) : null
+      }) as PortableTextBlockComponent,
     },
 
     marks: {
@@ -189,9 +256,12 @@ export default function PostBody({ content }) {
 
   return (
     <div
-      className={`max-w-7xl leading-loose text-sm md:text-base font-thin ${styles.portableText}`}
+      className={`max-w-7xl leading-loose text-sm md:text-base font-thin ${styles.portableText} ${flush ? styles.flush : ''}`}
     >
-      <PortableText value={content || []} components={portableTextComponents} />
+      <PortableText
+        value={groupPhotos(content || [])}
+        components={portableTextComponents}
+      />
     </div>
   )
 }

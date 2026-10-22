@@ -224,7 +224,9 @@ export default async function handler(
     const cleaned = /^["“].*["”]$/.test(firstLine)
       ? firstLine.slice(1, -1).trim()
       : firstLine
-    const verdictHeadline = trimToSentence(cleaned, MAX_LENGTH)
+    // Kenny's style: no em/en dashes between words, even if Gemini slips one in
+    const noDashes = cleaned.replace(/\s*[—–]\s*/g, ', ')
+    const verdictHeadline = trimToSentence(noDashes, MAX_LENGTH)
 
     res.status(200).json({ verdictHeadline })
   } catch (err: any) {

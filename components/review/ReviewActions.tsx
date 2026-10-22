@@ -11,7 +11,7 @@ export function directionsUrl(placeName: string, location?: string) {
  * Opens the phone's share sheet when available, otherwise copies the page
  * link and briefly shows "Link copied".
  */
-function useShare(title: string) {
+export function useShare(title: string) {
   const [copied, setCopied] = useState(false)
   const share = async () => {
     const url = window.location.href
@@ -36,7 +36,10 @@ interface ReviewActionsProps {
 }
 
 /** Directions + Share buttons for the desktop side panel. */
-export function ReviewActionButtons({ placeName, location }: ReviewActionsProps) {
+export function ReviewActionButtons({
+  placeName,
+  location,
+}: ReviewActionsProps) {
   const { share, copied } = useShare(placeName)
   return (
     <div className="grid grid-cols-2 gap-2">
@@ -91,7 +94,9 @@ export function ReviewActionBar({ placeName, location }: ReviewActionsProps) {
           ) : (
             <Share2 className="h-5 w-5" aria-hidden="true" />
           )}
-          <span className="hidden sm:inline">{copied ? 'Copied' : 'Share'}</span>
+          <span className="hidden sm:inline">
+            {copied ? 'Copied' : 'Share'}
+          </span>
         </button>
       </div>
     </div>

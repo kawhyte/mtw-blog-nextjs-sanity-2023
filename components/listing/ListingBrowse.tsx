@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 import { useEffect, useMemo, useRef, useState } from 'react'
 
 import ListingCard from './ListingCard'
+import ListingHeader from './ListingHeader'
 import SwipeRow from './SwipeRow'
 
 export interface ListingKindTab {
@@ -58,7 +59,6 @@ export default function ListingBrowse({
   const router = useRouter()
   const [page, setPage] = useState(1)
   const gridTop = useRef<HTMLDivElement>(null)
-  const tabStrip = useRef<HTMLDivElement>(null)
 
   const tabs = useMemo(
     () => [
@@ -94,13 +94,8 @@ export default function ListingBrowse({
     return items.filter((item) => item.kind === tab.key)
   }, [tab.key, items, favourites])
 
-  // New tab → back to page 1, and keep the chosen tab visible in the phone strip
-  useEffect(() => {
-    setPage(1)
-    tabStrip.current
-      ?.querySelector<HTMLElement>('[aria-selected="true"]')
-      ?.scrollIntoView({ block: 'nearest', inline: 'nearest' })
-  }, [tab.key])
+  // New tab → back to page 1
+  useEffect(() => setPage(1), [tab.key])
 
   const pageItems = gridItems.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
 
@@ -132,50 +127,13 @@ export default function ListingBrowse({
 
   return (
     <>
-      <section className="border-b border-primary/20 bg-primary-soft-background">
-        <div className="container mx-auto flex max-w-7xl flex-col gap-6 px-4 pt-8 sm:pt-10 md:px-6">
-          <div>
-            <h1 className="text-4xl font-extrabold tracking-tight text-primary md:text-5xl">
-              {title}
-            </h1>
-            <p className="mt-2 text-base text-muted-foreground sm:text-lg">
-              {intro(items.length)}
-            </p>
-          </div>
-
-          <div
-            ref={tabStrip}
-            role="tablist"
-            aria-label={`Filter ${title.toLowerCase()}`}
-            className="scrollbar-hide -mx-4 flex gap-7 overflow-x-auto px-4 md:mx-0 md:gap-9 md:px-0"
-          >
-            {tabs.map(({ key, label, icon: Icon }) => {
-              const active = key === tab.key
-              return (
-                <button
-                  key={key}
-                  type="button"
-                  role="tab"
-                  aria-selected={active}
-                  onClick={() => selectTab(key)}
-                  className={`flex min-w-11 shrink-0 flex-col items-center gap-1.5 border-b-[3px] pb-3 text-sm transition-colors ${
-                    active
-                      ? 'border-foreground font-bold text-foreground'
-                      : 'border-transparent text-muted-foreground hover:border-border hover:text-foreground'
-                  }`}
-                >
-                  <Icon
-                    className="h-6 w-6"
-                    strokeWidth={2}
-                    aria-hidden="true"
-                  />
-                  {label}
-                </button>
-              )
-            })}
-          </div>
-        </div>
-      </section>
+      <ListingHeader
+        title={title}
+        intro={intro(items.length)}
+        tabs={tabs}
+        activeKey={tab.key}
+        onSelect={selectTab}
+      />
 
       <div className="container mx-auto flex max-w-7xl flex-col gap-10 px-4 py-8 sm:py-10 md:gap-12 md:px-6">
         {tab.key === ALL && (

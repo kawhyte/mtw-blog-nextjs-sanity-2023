@@ -431,29 +431,7 @@ export const allGuidesQuery = groq`
 `
 
 // Guides by category (card fields only — used for filter tabs)
-export const guidesByCategoryQuery = groq`
-  *[_type == "guide" && category == $category && (!defined(publishedAt) || publishedAt <= now())] | order(date desc) {
-    ${guideCardFields}
-  }
-`
-
 // Related guides — same category, different slug, max 3
-export const relatedGuidesQuery = groq`
-  *[_type == "guide" && category == $category && slug.current != $slug
-    && (!defined(publishedAt) || publishedAt <= now())]
-  | order(date desc)[0...3] {
-    _id,
-    title,
-    summary,
-    "slug": slug.current,
-    "coverImage": coalesce(coverImage, heroPhotos[0]) {
-      ...,
-      asset->{ _id, metadata { lqip, dimensions { width, height } } }
-    },
-    date,
-    category
-  }
-`
 // --- End Independent Guide Document Queries ---
 
 // --- NEW: Independent Hotel Review Document Queries ---
@@ -1239,6 +1217,26 @@ export const hotelListingQuery = groq`
     hotelRating,
     internetSpeed,
     revisits[] { visitDate, ratingUpdates }
+  }
+`
+
+// Lean list of every published guide for /guides and "More guides" (cards
+// only; reading time is computed from the text in lib/guideListing.ts)
+export const guideListingQuery = groq`
+  *[_type == "guide" && (!defined(publishedAt) || publishedAt <= now())] | order(date desc) {
+    _id,
+    title,
+    "slug": slug.current,
+    category,
+    location,
+    date,
+    summary,
+    "coverImage": coalesce(coverImage, heroPhotos[0]) { asset, hotspot, crop },
+    "content": content[_type in ["block", "callout", "mediaWithText"]] {
+      _type,
+      children[] { text },
+      text[] { _type, children[] { text } }
+    }
   }
 `
 

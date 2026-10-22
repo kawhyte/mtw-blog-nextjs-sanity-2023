@@ -1,4 +1,9 @@
 import { buildFoodListing, type RawFoodListingRow } from 'lib/foodListing'
+import {
+  buildGuideListing,
+  type GuideListingItem,
+  type RawGuideListingRow,
+} from 'lib/guideListing'
 import { buildHotelListing, type RawHotelListingRow } from 'lib/hotelListing'
 import type { ListingItem } from 'lib/reviewListing'
 import { apiVersion, dataset, projectId, useCdn } from 'lib/sanity.api'
@@ -30,7 +35,7 @@ import {
   type Guide,
   guideBySlugQuery,
   guideCardFields,
-  guidesByCategoryQuery,
+  guideListingQuery,
   guideSlugsQuery,
   hotelCardFields,
   hotelListingQuery,
@@ -41,7 +46,6 @@ import {
   independentGuideFields,
   type Instagram,
   latestIndependentContentQuery,
-  relatedGuidesQuery,
   type Settings,
   settingsQuery,
   travelEssentialQuery,
@@ -191,40 +195,6 @@ export async function getFoodReviewsTotalCount(): Promise<number> {
   }
 }
 
-/** Fetches a specific page/slice of independent guides */
-export async function getPaginatedGuides(
-  start: number,
-  end: number,
-): Promise<Guide[]> {
-  if (!client) return []
-  try {
-    const results = await client.fetch<
-      Guide[]
-    >(`*[_type == "guide"] | order(date desc) [${start}...${end}] {
-      ${guideCardFields}
-    }`)
-    return results ?? []
-  } catch (error) {
-    console.error(
-      `Error fetching paginated guides (start: ${start}, end: ${end}):`,
-      error,
-    )
-    return []
-  }
-}
-
-/** Gets the total count of independent guides */
-export async function getGuidesTotalCount(): Promise<number> {
-  if (!client) return 0
-  try {
-    const count = await client.fetch<number>(`count(*[_type == "guide"])`)
-    return count ?? 0
-  } catch (error) {
-    console.error(`Error fetching guides total count:`, error)
-    return 0
-  }
-}
-
 // --- Story/Guide Posts ---
 // REMOVED: Legacy story/guide post functions - Use independent guide functions instead:
 // - getAllStoryPosts() -> getAllGuides()
@@ -293,6 +263,18 @@ export async function getHotelListing(): Promise<ListingItem[]> {
     return buildHotelListing(rows ?? [])
   } catch (error) {
     console.error('Error fetching hotel listing:', error)
+    return []
+  }
+}
+
+/** Every published guide as a lean card list (see lib/guideListing). */
+export async function getGuideListing(): Promise<GuideListingItem[]> {
+  if (!client) return []
+  try {
+    const rows = await client.fetch<RawGuideListingRow[]>(guideListingQuery)
+    return buildGuideListing(rows ?? [])
+  } catch (error) {
+    console.error('Error fetching guide listing:', error)
     return []
   }
 }
@@ -468,26 +450,6 @@ export async function getAllGuideSlugs(): Promise<string[]> {
   }
 }
 
-/**
- * Fetches up to 3 related guides from the same category (excludes current slug).
- */
-export async function getRelatedGuides(
-  category: string,
-  slug: string,
-): Promise<Guide[]> {
-  if (!client) return []
-  try {
-    const results = await client.fetch<Guide[]>(relatedGuidesQuery, {
-      category,
-      slug,
-    })
-    return results ?? []
-  } catch (error) {
-    console.error(`Error fetching related guides:`, error)
-    return []
-  }
-}
-
 // ============================================
 // --- Hotel Reviews ---
 // ============================================
@@ -596,25 +558,6 @@ export async function getAllGuides(): Promise<Guide[]> {
     return guides || []
   } catch (error) {
     console.error('Error fetching all guides:', error)
-    return []
-  }
-}
-
-/**
- * Fetches guides filtered by category.
- * @param category The category to filter by.
- * @returns An array of Guide objects, or an empty array on error.
- */
-export async function getGuidesByCategory(category: string): Promise<Guide[]> {
-  if (!client) {
-    console.warn('Sanity client is not initialized.')
-    return []
-  }
-  try {
-    const guides = await client.fetch(guidesByCategoryQuery, { category })
-    return guides || []
-  } catch (error) {
-    console.error(`Error fetching guides by category "${category}":`, error)
     return []
   }
 }

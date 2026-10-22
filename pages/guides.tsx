@@ -1,20 +1,17 @@
+import BlogHeader from 'components/BlogHeader'
+import Layout from 'components/BlogLayout'
+import CategoryPageHead from 'components/CategoryPageHead'
+import Footer from 'components/Footer'
+import GuidesBrowse from 'components/guides/GuidesBrowse'
 import PreviewIndexPage from 'components/PreviewIndexPage'
-import StoryReviewsPage from 'components/StoryReviewsPage' // Component to display stories
-import {
-  getGuidesTotalCount,
-  getPaginatedGuides,
-  getSettings,
-} from 'lib/sanity.client'
+import type { GuideListingItem } from 'lib/guideListing'
+import { getGuideListing, getSettings } from 'lib/sanity.client'
 import PreviewProvider from 'lib/sanity.preview'
-import { Guide, Settings } from 'lib/sanity.queries'
+import { Settings } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
 
-// Define how many items to show per page
-const ITEMS_PER_PAGE = 12
-
 interface PageProps {
-  initialPosts: Guide[]
-  totalPostsCount: number
+  guides: GuideListingItem[]
   settings: Settings
   preview: boolean
   token: string | null
@@ -29,7 +26,7 @@ interface PreviewData {
 }
 
 export default function Page(props: PageProps) {
-  const { initialPosts, totalPostsCount, settings, preview, token } = props
+  const { guides, settings, preview, token } = props
 
   if (preview) {
     return (
@@ -40,13 +37,21 @@ export default function Page(props: PageProps) {
   }
 
   return (
-    <StoryReviewsPage
-      key="guides-page"
-      initialPosts={initialPosts}
-      totalPostsCount={totalPostsCount}
-      itemsPerPage={ITEMS_PER_PAGE}
-      settings={settings}
-    />
+    <>
+      <CategoryPageHead
+        settings={settings}
+        categoryType="guides"
+        totalCount={guides.length}
+        topItems={guides
+          .slice(0, 10)
+          .map((g) => ({ name: g.title, url: `/guide/${g.slug}` }))}
+      />
+      <Layout preview={false} loading={false}>
+        <BlogHeader level={1} />
+        <GuidesBrowse guides={guides} />
+        <Footer />
+      </Layout>
+    </>
   )
 }
 
@@ -57,19 +62,16 @@ export const getStaticProps: GetStaticProps<
 > = async (ctx) => {
   const { preview = false, previewData = {} } = ctx
 
-  // Fetch settings and total count concurrently
-  const [settings, totalPostsCount] = await Promise.all([
+  // Every guide as a lean card (reading time worked out at build time), so
+  // the tabs and grid filter on the client with no further requests.
+  const [settings, guides] = await Promise.all([
     getSettings(),
-    getGuidesTotalCount(),
+    getGuideListing(),
   ])
-
-  // Fetch first page of posts
-  const initialPosts = await getPaginatedGuides(0, ITEMS_PER_PAGE)
 
   return {
     props: {
-      initialPosts: initialPosts, // No longer need to cast
-      totalPostsCount,
+      guides,
       settings,
       preview,
       token: previewData.token ?? null,

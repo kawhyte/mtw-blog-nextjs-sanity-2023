@@ -193,7 +193,7 @@ export default function ArenaQuestHero({
           </h1>
           <p className="max-w-xl leading-relaxed text-muted-foreground">
             {complete
-              ? `We did it — all ${total} NBA and WNBA arenas across the US and Canada, visited and ranked. Here's how they stack up.`
+              ? `We did it! All ${total} NBA and WNBA arenas across the US and Canada, visited and ranked. Here's how they stack up.`
               : `We're traveling near and far to visit and rank all ${total} NBA and WNBA arenas across the US and Canada. Follow along as the map fills in.`}
           </p>
 
