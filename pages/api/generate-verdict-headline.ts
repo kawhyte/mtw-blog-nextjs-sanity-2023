@@ -154,9 +154,69 @@ ${ANTI_AI_RULES}
 Return ONLY the line. No quotes. No label. No explanation.`
 }
 
+const ARENA_RATING_NAMES: Record<string, string> = {
+  vibes: 'Atmosphere',
+  view: 'Sightlines',
+  seatComfort: 'Seat comfort',
+  food: 'Food',
+  transportation: 'Getting there',
+  walkability: 'Walkability',
+}
+
+function buildArenaPrompt(body: any): string {
+  const {
+    title,
+    location,
+    positives = [],
+    negatives = [],
+    verdict,
+    arenaReview,
+    teams = [],
+  } = body
+  const loved = (positives as string[]).filter(Boolean).slice(0, 5).join(' | ')
+  const disliked = (negatives as string[])
+    .filter(Boolean)
+    .slice(0, 4)
+    .join(' | ')
+  // Scores are stored out of 10; readers see them out of 5
+  const scores = Object.entries(ARENA_RATING_NAMES)
+    .filter(([key]) => typeof arenaReview?.[key] === 'number')
+    .map(([key, name]) => `${name} ${(arenaReview[key] / 2).toFixed(1)}/5`)
+    .join(', ')
+  const games = (teams as { name: string; games: number }[])
+    .map(
+      (team) =>
+        `${team.name} (${team.games} game${team.games === 1 ? '' : 's'})`,
+    )
+    .join(', ')
+
+  return `${BRAND_VOICE} You write the one-line "Our take" that sits under the photos on our NBA and WNBA arena reviews. It's the first thing a reader sees after the pictures.
+
+Arena: ${title}
+Location: ${location ?? 'Unknown'}
+${games ? `Teams we saw here: ${games}` : ''}
+${scores ? `Our scores: ${scores}` : ''}
+${verdict ? `Our full verdict: ${String(verdict).slice(0, 600)}` : ''}
+${loved ? `What we loved: ${loved}` : ''}
+${disliked ? `What we didn't like: ${disliked}` : ''}
+
+Write ONE line that sums up a game night here. Hard rules:
+- ONE sentence, ${MAX_LENGTH} characters or fewer. Count every character
+- Give the honest bottom line (is it worth the trip, and why). A real opinion, not a description
+- Work in the arena's name, the team or the city naturally, so it reads well in search. Never keyword-stuff
+- Use ONE specific detail from our notes or scores above, never a generic one
+- If there's a real catch (weak food, a long walk), it's fine to hint at it
+- First person plural ("we"), like we're telling a friend
+- Don't open with "We'd" or "We would". Lead with the most telling detail, the team or the arena itself
+${ANTI_AI_RULES}
+
+Return ONLY the line. No quotes. No label. No explanation.`
+}
+
 const PROMPT_BUILDERS: Record<string, (body: any) => string> = {
   hotelReview: buildHotelPrompt,
   foodReview: buildFoodPrompt,
+  arenas: buildArenaPrompt,
 }
 
 export default async function handler(

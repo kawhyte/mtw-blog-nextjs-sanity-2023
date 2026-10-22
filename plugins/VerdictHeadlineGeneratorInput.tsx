@@ -19,9 +19,11 @@ export function VerdictHeadlineGeneratorInput(props: StringInputProps) {
   const toast = useToast()
 
   const doc = useFormValue([]) as any
-  const verdictText = extractPlainText(doc?.verdict ?? [])
-  const positives: string[] = (doc?.positives ?? []).filter(Boolean)
-  const negatives: string[] = (doc?.negatives ?? []).filter(Boolean)
+  // Arenas keep these inside "Pros, Cons, & Verdict"
+  const notes = doc?._type === 'arenas' ? (doc?.prosConsVerdict ?? {}) : doc
+  const verdictText = extractPlainText(notes?.verdict ?? [])
+  const positives: string[] = (notes?.positives ?? []).filter(Boolean)
+  const negatives: string[] = (notes?.negatives ?? []).filter(Boolean)
   const hasSource =
     Boolean(verdictText.trim()) || positives.length > 0 || negatives.length > 0
   const hasContent = Boolean(props.value?.trim())
@@ -34,7 +36,7 @@ export function VerdictHeadlineGeneratorInput(props: StringInputProps) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           docType: doc?._type,
-          title: doc?.title,
+          title: doc?.title ?? doc?.name,
           location: doc?.location,
           category: doc?.category,
           room: doc?.room,
@@ -54,6 +56,14 @@ export function VerdictHeadlineGeneratorInput(props: StringInputProps) {
               name: dish.name,
               rating: dish.rating?.Dish,
               price: dish.price,
+            })),
+          // Arenas
+          arenaReview: doc?.arenaReview,
+          teams: (doc?.gallery ?? [])
+            .filter((team: any) => team?.played && team?.name)
+            .map((team: any) => ({
+              name: team.name,
+              games: team.attendedGames?.length || team.timesAttended || 1,
             })),
         }),
         signal: AbortSignal.timeout(20000),
@@ -126,8 +136,8 @@ export function VerdictHeadlineGeneratorInput(props: StringInputProps) {
           </Box>
           {!hasSource && (
             <Text size={1} muted>
-              Fill in The Verdict, What We Loved or What We Didn’t Like first —
-              the headline is written from those.
+              Fill in The Verdict, What We Loved or What We Didn’t Like first.
+              The headline is written from those.
             </Text>
           )}
         </Stack>

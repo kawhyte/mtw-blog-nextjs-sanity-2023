@@ -149,6 +149,7 @@ const arenaFieldsDetailed = groq`
     },
     visited,
     videoUrl,
+    verdictHeadline,
     prosConsVerdict {
       positives,
       negatives,
@@ -1026,6 +1027,8 @@ export interface Arena {
   venueNote?: string
   capacity?: number
   videoUrl?: string
+  /** One-line "Our take" under the photos (optional) */
+  verdictHeadline?: string
   updatedAt?: string
   faqs?: { question: string; answer: string }[]
   prosConsVerdict?: {
