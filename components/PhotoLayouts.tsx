@@ -5,6 +5,8 @@ import { urlForImage } from 'lib/sanity.image'
 import Image from 'next/image'
 import type { ReactNode } from 'react'
 
+import { ZoomablePhoto } from './PhotoViewer'
+
 /*
  * Automatic photo layouts for article bodies (guides, review write-ups):
  * - 2+ photos back to back → one justified row (same height, nothing cropped)
@@ -99,20 +101,22 @@ function JustifiedRow({ images }: { images: any[] }) {
             className="m-0 flex min-w-0 flex-col gap-1.5"
             style={{ flex: `${ratio} 1 0%` }}
           >
-            <Image
-              src={imageUrl(image, 1000)}
-              alt={image.alt || image.caption || ' '}
-              width={1000}
-              height={Math.round(1000 / ratio)}
-              sizes={`(min-width: 1280px) ${Math.round(760 / images.length)}px, ${Math.round(100 / images.length)}vw`}
-              className="block rounded-2xl object-cover"
-              style={{
-                width: '100%',
-                height: 'auto',
-                aspectRatio: ratio,
-                padding: 0,
-              }}
-            />
+            <ZoomablePhoto image={image} className="w-full">
+              <Image
+                src={imageUrl(image, 1000)}
+                alt={image.alt || image.caption || ' '}
+                width={1000}
+                height={Math.round(1000 / ratio)}
+                sizes={`(min-width: 1280px) ${Math.round(760 / images.length)}px, ${Math.round(100 / images.length)}vw`}
+                className="block rounded-2xl object-cover"
+                style={{
+                  width: '100%',
+                  height: 'auto',
+                  aspectRatio: ratio,
+                  padding: 0,
+                }}
+              />
+            </ZoomablePhoto>
             {image.caption && (
               <figcaption className="text-center text-xs text-muted-foreground sm:text-sm">
                 {image.caption}
@@ -125,27 +129,18 @@ function JustifiedRow({ images }: { images: any[] }) {
   )
 }
 
-/** Photos back to back: 2 = pair, 3 = row of three (phone: one big + a pair), 4 = two pairs */
+/** Photos back to back, max 2 per row: pairs, with a big lead photo when the count is odd */
 export function PhotoRow({ images }: { images: any[] }) {
-  const desktopRows = chunk(images, images.length === 4 ? 2 : 3)
-  // Phones: pairs, with a big lead photo when the count is odd
-  const phoneRows =
+  const rows =
     images.length % 2 === 1
       ? [[images[0]], ...chunk(images.slice(1), 2)]
       : chunk(images, 2)
 
   return (
-    <div className="not-prose my-8">
-      <div className="hidden flex-col gap-2 md:flex">
-        {desktopRows.map((row, i) => (
-          <JustifiedRow key={i} images={row} />
-        ))}
-      </div>
-      <div className="flex flex-col gap-2 md:hidden">
-        {phoneRows.map((row, i) => (
-          <JustifiedRow key={i} images={row} />
-        ))}
-      </div>
+    <div className="not-prose my-8 flex flex-col gap-2">
+      {rows.map((row, i) => (
+        <JustifiedRow key={i} images={row} />
+      ))}
     </div>
   )
 }
@@ -174,7 +169,7 @@ function LineText({
   )
 }
 
-/** "Line, then its photo" pairs: cards in a row (desktop), compact rows (phone) */
+/** "Line, then its photo" pairs: photo cards, 2 per row on every screen */
 export function PhotoCards({
   items,
   marks,
@@ -182,70 +177,40 @@ export function PhotoCards({
   items: { line: any; image: any }[]
   marks: PortableTextComponents['marks']
 }) {
-  const columns = Math.min(items.length, 3)
   return (
-    <div className="not-prose my-8">
-      <div
-        className="hidden gap-4 md:grid"
-        style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}
-      >
-        {items.map(({ line, image }) => (
-          <figure
-            key={image._key}
-            className="m-0 flex flex-col overflow-hidden rounded-[20px] border-[3px] border-border-bold bg-card"
-          >
-            <div className="flex h-56 items-center justify-center bg-muted p-3">
+    <div className="not-prose my-8 grid grid-cols-2 gap-3 md:gap-4">
+      {items.map(({ line, image }) => (
+        <figure
+          key={image._key}
+          className="m-0 flex min-w-0 flex-col overflow-hidden rounded-[20px] border-[3px] border-border-bold bg-card"
+        >
+          <ZoomablePhoto image={image} className="block w-full">
+            <div className="h-40 bg-muted p-2.5 sm:h-48 md:h-56 md:p-3">
               <Image
                 src={imageUrl(image, 700)}
                 alt={image.alt || image.caption || blockText(line)}
                 width={700}
                 height={Math.round(700 / ratioOf(image))}
-                sizes="(min-width: 1280px) 250px, 30vw"
-                className="rounded-lg object-contain"
+                sizes="(min-width: 1280px) 380px, 45vw"
+                className="rounded-lg"
+                // Fill the box and letterbox the screenshot, never crop it
                 style={{
-                  maxWidth: '100%',
-                  maxHeight: '100%',
-                  width: 'auto',
-                  height: 'auto',
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'contain',
                   padding: 0,
                 }}
               />
             </div>
-            <figcaption className="p-4 text-left text-sm leading-relaxed text-foreground/80">
-              <LineText line={line} marks={marks} />
-            </figcaption>
-          </figure>
-        ))}
-      </div>
-      <div className="flex flex-col gap-2.5 md:hidden">
-        {items.map(({ line, image }) => (
-          <figure
-            key={image._key}
-            className="m-0 flex items-center gap-3 rounded-2xl border-2 border-border-bold bg-card p-2.5"
+          </ZoomablePhoto>
+          <figcaption
+            className="p-3 text-[13px] leading-snug text-foreground/80 md:p-4 md:text-sm md:leading-relaxed"
+            style={{ textAlign: 'left' }}
           >
-            <div className="flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-muted">
-              <Image
-                src={imageUrl(image, 240)}
-                alt={image.alt || image.caption || blockText(line)}
-                width={240}
-                height={Math.round(240 / ratioOf(image))}
-                sizes="80px"
-                className="object-contain"
-                style={{
-                  maxWidth: '100%',
-                  maxHeight: '100%',
-                  width: 'auto',
-                  height: 'auto',
-                  padding: 0,
-                }}
-              />
-            </div>
-            <figcaption className="text-left text-[13px] leading-snug text-foreground/80">
-              <LineText line={line} marks={marks} />
-            </figcaption>
-          </figure>
-        ))}
-      </div>
+            <LineText line={line} marks={marks} />
+          </figcaption>
+        </figure>
+      ))}
     </div>
   )
 }
@@ -262,23 +227,25 @@ export function TallPhoto({
   return (
     <figure className="not-prose my-8 flex flex-col gap-2">
       <div className="flex justify-center rounded-2xl bg-muted p-3 sm:p-4">
-        <Image
-          src={imageUrl(image, 900)}
-          alt={image.alt || image.caption || ' '}
-          width={900}
-          height={Math.round(900 / ratio)}
-          sizes="(min-width: 768px) 360px, 70vw"
-          placeholder={image.asset?.metadata?.lqip ? 'blur' : 'empty'}
-          blurDataURL={image.asset?.metadata?.lqip}
-          className="block rounded-xl"
-          style={{
-            width: 'auto',
-            height: 'auto',
-            maxWidth: '100%',
-            maxHeight: 'min(520px, 55vh)',
-            padding: 0,
-          }}
-        />
+        <ZoomablePhoto image={image}>
+          <Image
+            src={imageUrl(image, 900)}
+            alt={image.alt || image.caption || ' '}
+            width={900}
+            height={Math.round(900 / ratio)}
+            sizes="(min-width: 768px) 360px, 70vw"
+            placeholder={image.asset?.metadata?.lqip ? 'blur' : 'empty'}
+            blurDataURL={image.asset?.metadata?.lqip}
+            className="block rounded-xl"
+            style={{
+              width: 'auto',
+              height: 'auto',
+              maxWidth: '100%',
+              maxHeight: 'min(520px, 55vh)',
+              padding: 0,
+            }}
+          />
+        </ZoomablePhoto>
       </div>
       {caption && (
         <figcaption className="text-center text-sm text-muted-foreground">

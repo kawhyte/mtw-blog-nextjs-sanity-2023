@@ -8,7 +8,7 @@ import { blockText, headingId } from 'lib/headings'
 import { urlForImage } from 'lib/sanity.image'
 import { AlertTriangle, Info, Lightbulb, Sparkles } from 'lucide-react'
 import Image from 'next/image'
-import { useState } from 'react'
+import { memo, useState } from 'react'
 
 import {
   groupPhotos,
@@ -17,6 +17,12 @@ import {
   TALL_PHOTO_RATIO,
   TallPhoto,
 } from './PhotoLayouts'
+import {
+  photoKey,
+  PhotoViewerProvider,
+  type ViewerPhoto,
+  ZoomablePhoto,
+} from './PhotoViewer'
 import styles from './PostBody.module.css'
 
 const SampleImageComponent = ({ value }) => {
@@ -29,22 +35,24 @@ const SampleImageComponent = ({ value }) => {
 
   return (
     <figure className="image-container">
-      <Image
-        src={urlForImage(value)
-          .width(targetWidth)
-          .height(targetHeight)
-          .quality(75)
-          .url()}
-        alt={value.alt || value.caption || ' '}
-        width={width}
-        height={height}
-        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 70vw, 800px"
-        placeholder={lqip ? 'blur' : 'empty'}
-        blurDataURL={lqip}
-        onLoad={() => setIsLoaded(true)}
-        className={`single-image transition-all duration-700 ease-in-out ${isLoaded ? 'blur-0 scale-100' : 'blur-xl scale-105'}`}
-        style={{ aspectRatio: width / height }}
-      />
+      <ZoomablePhoto image={value} className="w-full">
+        <Image
+          src={urlForImage(value)
+            .width(targetWidth)
+            .height(targetHeight)
+            .quality(75)
+            .url()}
+          alt={value.alt || value.caption || ' '}
+          width={width}
+          height={height}
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 70vw, 800px"
+          placeholder={lqip ? 'blur' : 'empty'}
+          blurDataURL={lqip}
+          onLoad={() => setIsLoaded(true)}
+          className={`single-image transition-all duration-700 ease-in-out ${isLoaded ? 'blur-0 scale-100' : 'blur-xl scale-105'}`}
+          style={{ aspectRatio: width / height }}
+        />
+      </ZoomablePhoto>
       {value.caption && (
         <figcaption className="image-caption">{value.caption}</figcaption>
       )}
@@ -82,13 +90,35 @@ const CALLOUT_CONFIG = {
   },
 }
 
+/** Every photo in the article, in reading order, for the click-to-enlarge viewer */
+function viewerPhotos(blocks: any[]): ViewerPhoto[] {
+  const photo = (image: any, caption?: string): ViewerPhoto => ({
+    key: photoKey(image),
+    image,
+    caption: caption || image?.caption,
+  })
+  return blocks
+    .flatMap((block) => {
+      if (block?._type === 'image' && block.asset) return [photo(block)]
+      if (block?._type === 'autoPhotoRow') return block.images.map(photo)
+      if (block?._type === 'autoPhotoCards')
+        return block.items.map(({ line, image }) =>
+          photo(image, blockText(line)),
+        )
+      if (block?._type === 'imageGroup')
+        return (block.images ?? []).filter((image) => image?.asset).map(photo)
+      return []
+    })
+    .filter((p) => p.key)
+}
+
 const COL_MAP: Record<string, string> = {
   '2-col': 'grid-cols-1 sm:grid-cols-2',
   '3-col': 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3',
   '4-col': 'grid-cols-2 md:grid-cols-4',
 }
 
-export default function PostBody({
+function PostBody({
   content,
   flush = false,
 }: {
@@ -249,6 +279,8 @@ export default function PostBody({
     },
   }
 
+  const blocks = groupPhotos(content || [])
+
   // Shared components for nested PortableText (callout/mediaWithText)
   const inlineComponents = {
     marks: portableTextComponents.marks,
@@ -258,10 +290,13 @@ export default function PostBody({
     <div
       className={`max-w-7xl leading-loose text-sm md:text-base font-thin ${styles.portableText} ${flush ? styles.flush : ''}`}
     >
-      <PortableText
-        value={groupPhotos(content || [])}
-        components={portableTextComponents}
-      />
+      <PhotoViewerProvider photos={viewerPhotos(blocks)}>
+        <PortableText value={blocks} components={portableTextComponents} />
+      </PhotoViewerProvider>
     </div>
   )
 }
+
+// Memoised: pages re-render as you scroll (e.g. the guide's "On this page"
+// highlight), and the article and its photos shouldn't rebuild each time
+export default memo(PostBody)
