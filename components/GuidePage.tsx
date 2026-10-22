@@ -188,75 +188,77 @@ export default function GuidePage({
               </div>
             )}
 
-            <aside className="self-start xl:sticky xl:top-24 xl:col-start-1 xl:row-span-2 xl:row-start-1 xl:max-h-[calc(100vh-7rem)] xl:overflow-y-auto">
-              <div className="flex flex-col gap-5 xl:rounded-[28px] xl:border-4 xl:border-border-bold xl:bg-card xl:p-6">
-                {categoryLabel && (
-                  <Link
-                    href={`/guides?type=${guide.category}`}
-                    className="self-start rounded-full bg-gray-900 px-3 py-1 text-xs font-bold text-white transition-opacity hover:opacity-80 dark:bg-white dark:text-gray-900"
-                  >
-                    {categoryLabel}
-                  </Link>
-                )}
-                <h1 className="font-heading-family text-3xl font-extrabold leading-tight xl:text-[28px]">
-                  {guide.title}
-                </h1>
-                <p className="text-sm text-muted-foreground">{meta}</p>
-
-                {/* Phones/tablets: collapsible "On this page" + share icon */}
-                <div className="flex items-start gap-2.5 xl:hidden">
-                  {showSections && (
-                    <details className="group min-w-0 flex-1 rounded-2xl border-2 border-border-bold bg-card">
-                      <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between px-4 text-sm font-bold [&::-webkit-details-marker]:hidden">
-                        On this page
-                        <ChevronDown
-                          className="h-4 w-4 transition-transform group-open:rotate-180"
-                          aria-hidden="true"
-                        />
-                      </summary>
-                      <div className="px-4 pb-3">
-                        <SectionLinks sections={sections} active={active} />
-                      </div>
-                    </details>
+            <aside className="self-start xl:sticky xl:top-24 xl:col-start-1 xl:row-span-2 xl:row-start-1">
+              <div className="xl:flex xl:max-h-[calc(100vh-7rem)] xl:flex-col xl:overflow-hidden xl:rounded-[28px] xl:border-4 xl:border-border-bold xl:bg-card">
+                <div className="scrollbar-hide flex flex-col gap-5 xl:overflow-y-auto xl:overscroll-contain xl:p-6">
+                  {categoryLabel && (
+                    <Link
+                      href={`/guides?type=${guide.category}`}
+                      className="self-start rounded-full bg-gray-900 px-3 py-1 text-xs font-bold text-white transition-opacity hover:opacity-80 dark:bg-white dark:text-gray-900"
+                    >
+                      {categoryLabel}
+                    </Link>
                   )}
+                  <h1 className="font-heading-family text-3xl font-extrabold leading-tight xl:text-[28px]">
+                    {guide.title}
+                  </h1>
+                  <p className="text-sm text-muted-foreground">{meta}</p>
+
+                  {/* Phones/tablets: collapsible "On this page" + share icon */}
+                  <div className="flex items-start gap-2.5 xl:hidden">
+                    {showSections && (
+                      <details className="group min-w-0 flex-1 rounded-2xl border-2 border-border-bold bg-card">
+                        <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between px-4 text-sm font-bold [&::-webkit-details-marker]:hidden">
+                          On this page
+                          <ChevronDown
+                            className="h-4 w-4 transition-transform group-open:rotate-180"
+                            aria-hidden="true"
+                          />
+                        </summary>
+                        <div className="px-4 pb-3">
+                          <SectionLinks sections={sections} active={active} />
+                        </div>
+                      </details>
+                    )}
+                    <button
+                      type="button"
+                      onClick={share}
+                      aria-label={copied ? 'Link copied' : 'Share this guide'}
+                      className={`flex min-h-11 items-center justify-center gap-2 rounded-2xl border-2 border-border-bold bg-card text-sm font-bold transition-colors hover:bg-muted ${
+                        showSections ? 'w-11 shrink-0' : 'px-4'
+                      }`}
+                    >
+                      {copied ? (
+                        <Check className="h-4 w-4" aria-hidden="true" />
+                      ) : (
+                        <Share2 className="h-4 w-4" aria-hidden="true" />
+                      )}
+                      {!showSections && (copied ? 'Link copied' : 'Share')}
+                    </button>
+                  </div>
+
+                  {/* Large screens: share button + always-open section list */}
                   <button
                     type="button"
                     onClick={share}
-                    aria-label={copied ? 'Link copied' : 'Share this guide'}
-                    className={`flex min-h-11 items-center justify-center gap-2 rounded-2xl border-2 border-border-bold bg-card text-sm font-bold transition-colors hover:bg-muted ${
-                      showSections ? 'w-11 shrink-0' : 'px-4'
-                    }`}
+                    className="hidden min-h-11 items-center justify-center gap-2 rounded-2xl border-2 border-border-bold bg-card text-sm font-bold transition-colors hover:bg-muted xl:flex"
                   >
                     {copied ? (
                       <Check className="h-4 w-4" aria-hidden="true" />
                     ) : (
                       <Share2 className="h-4 w-4" aria-hidden="true" />
                     )}
-                    {!showSections && (copied ? 'Link copied' : 'Share')}
+                    {copied ? 'Link copied' : 'Share this guide'}
                   </button>
-                </div>
-
-                {/* Large screens: share button + always-open section list */}
-                <button
-                  type="button"
-                  onClick={share}
-                  className="hidden min-h-11 items-center justify-center gap-2 rounded-2xl border-2 border-border-bold bg-card text-sm font-bold transition-colors hover:bg-muted xl:flex"
-                >
-                  {copied ? (
-                    <Check className="h-4 w-4" aria-hidden="true" />
-                  ) : (
-                    <Share2 className="h-4 w-4" aria-hidden="true" />
+                  {showSections && (
+                    <div className="hidden flex-col gap-2.5 border-t-2 border-muted pt-5 xl:flex">
+                      <span className="text-xs font-bold tracking-[0.14em] text-muted-foreground">
+                        ON THIS PAGE
+                      </span>
+                      <SectionLinks sections={sections} active={active} />
+                    </div>
                   )}
-                  {copied ? 'Link copied' : 'Share this guide'}
-                </button>
-                {showSections && (
-                  <div className="hidden flex-col gap-2.5 border-t-2 border-muted pt-5 xl:flex">
-                    <span className="text-xs font-bold tracking-[0.14em] text-muted-foreground">
-                      ON THIS PAGE
-                    </span>
-                    <SectionLinks sections={sections} active={active} />
-                  </div>
-                )}
+                </div>
               </div>
             </aside>
 
