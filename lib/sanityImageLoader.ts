@@ -1,7 +1,7 @@
 // next/image custom loader (wired up via `images.loaderFile` in next.config.mjs).
 //
 // Lets next/image build a responsive srcset straight from Sanity's CDN, so each
-// device downloads the width its `sizes` prop calls for — without using
+// device downloads the width its `sizes` prop calls for, without using
 // Vercel's paid image optimization.
 //
 // The w/h already on a Sanity URL (set by urlForImage().width().height()) are
@@ -45,10 +45,10 @@ export default function sanityImageLoader({
   let maxW = reqW ?? Infinity
   if (srcW && srcH) {
     if (reqW && reqH && CROP_FITS.has(fit)) {
-      // Cropped to reqW:reqH — widest crop the source supports without upscaling
+      // Cropped to reqW:reqH, widest crop the source supports without upscaling
       maxW = Math.min(maxW, srcW, srcH * (reqW / reqH))
     } else if (reqW && reqH) {
-      // Bounding-box fit (max/clip) — Sanity never upscales these
+      // Bounding-box fit (max/clip), Sanity never upscales these
       maxW = Math.min(maxW, srcW, reqH * (srcW / srcH))
     } else {
       maxW = Math.min(maxW, srcW)

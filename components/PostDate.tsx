@@ -1,6 +1,6 @@
 // Sanity stores dates as UTC datetimes. Formatting them in the runtime's local
 // timezone made the server (UTC on Vercel) and the browser disagree on the day,
-// causing hydration errors — so always format in the site's home timezone.
+// causing hydration errors, so always format in the site's home timezone.
 const SITE_TIME_ZONE = 'America/Los_Angeles'
 
 const dayFormatter = new Intl.DateTimeFormat('en-US', {
@@ -15,7 +15,7 @@ const yearFormatter = new Intl.DateTimeFormat('en-US', {
   timeZone: SITE_TIME_ZONE,
 })
 
-// Date-only strings ("2024-05-02") are calendar days, not instants — anchor
+// Date-only strings ("2024-05-02") are calendar days, not instants, anchor
 // them at noon UTC so no timezone shift moves them to a neighbouring day.
 const toDate = (dateString: string) =>
   new Date(

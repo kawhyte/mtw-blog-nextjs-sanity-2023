@@ -25,7 +25,7 @@ const tipComponents: PortableTextComponents = {
   },
 }
 
-/** "Insider tip" card: white, 3px border, pink label — matches "Ratings at a glance" */
+/** "Insider tip" card: white, 3px border, pink label, matches "Ratings at a glance" */
 export default function HelpfulTip({ tip }) {
   if (!tip) {
     return null

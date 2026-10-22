@@ -4,6 +4,8 @@ import {
   BANNED_PHRASES,
   BANNED_WORDS,
   BRAND_VOICE,
+  NO_DASHES_RULE,
+  stripDashes,
   trimToSentence,
 } from '../../lib/gemini-voice'
 
@@ -22,7 +24,7 @@ function buildHotelPrompt(body: any): string {
     no: 'No',
   }
 
-  return `${BRAND_VOICE} You write SEO meta descriptions for our hotel reviews — the places we stay on our NBA & WNBA arena trips.
+  return `${BRAND_VOICE} You write SEO meta descriptions for our hotel reviews, the places we stay on our NBA & WNBA arena trips.
 
 Hotel: ${title}
 Location: ${location ?? 'Unknown'}
@@ -32,14 +34,15 @@ ${verdict ? `Our verdict: ${verdict.slice(0, 200)}` : ''}
 ${wouldReturn ? `Would we return: ${wouldReturnMap[wouldReturn] ?? wouldReturn}` : ''}
 
 Write ONE meta description for Google search results. Hard rules:
-- MUST be between 120 and 155 characters — count every character, do not go under 120 or over 155
+- MUST be between 120 and 155 characters. Count every character, do not go under 120 or over 155
+${NO_DASHES_RULE}
 - Include "${title}" and "${location ?? 'the city'}"
 - Mention one specific, honest detail from the stay
-- Sound like a real traveler wrote it — not marketing copy, not AI
+- Sound like a real traveler wrote it, not marketing copy, not AI
 - End with something that makes a reader want to click through
 - NEVER use: ${FORBIDDEN}
 - NEVER use these phrases or close variants: ${BANNED_PHRASES}
-- Use a contraction where it fits naturally (we're, it's, don't) — real people use them
+- Use a contraction where it fits naturally (we're, it's, don't); real people use them
 
 Return ONLY the meta description. No quotes. No label. No explanation.`
 }
@@ -52,7 +55,7 @@ function buildFoodPrompt(body: any): string {
     .join(' | ')
   const diningLabel = diningType === 'takeout' ? 'Takeout' : 'Dine-in'
 
-  return `${BRAND_VOICE} You write SEO meta descriptions for our restaurant reviews — the food we hunt down on our NBA & WNBA arena trips.
+  return `${BRAND_VOICE} You write SEO meta descriptions for our restaurant reviews, the food we hunt down on our NBA & WNBA arena trips.
 
 Restaurant: ${title}
 Location: ${location ?? 'Unknown'}
@@ -61,14 +64,15 @@ ${highlights ? `Highlights: ${highlights}` : ''}
 ${verdict ? `Our verdict: ${verdict.slice(0, 200)}` : ''}
 
 Write ONE meta description for Google search results. Hard rules:
-- MUST be between 120 and 155 characters — count every character, do not go under 120 or over 155
+- MUST be between 120 and 155 characters. Count every character, do not go under 120 or over 155
+${NO_DASHES_RULE}
 - Include "${title}" and "${location ?? 'the city'}"
 - Mention something specific and honest about the food
-- Sound like a real person wrote it — not a food critic or AI
+- Sound like a real person wrote it, not a food critic or AI
 - End with something that makes a reader want to click through
 - NEVER use: ${FORBIDDEN}
 - NEVER use these phrases or close variants: ${BANNED_PHRASES}
-- Use a contraction where it fits naturally (we're, it's, don't) — real people use them
+- Use a contraction where it fits naturally (we're, it's, don't); real people use them
 
 Return ONLY the meta description. No quotes. No label. No explanation.`
 }
@@ -88,14 +92,15 @@ ${highlights ? `Highlights: ${highlights}` : ''}
 ${verdict ? `Our verdict: ${verdict.slice(0, 200)}` : ''}
 
 Write ONE meta description for Google search results. Hard rules:
-- MUST be between 120 and 155 characters — count every character, do not go under 120 or over 155
+- MUST be between 120 and 155 characters. Count every character, do not go under 120 or over 155
+${NO_DASHES_RULE}
 - Include "${name}" and "${location ?? 'the city'}"
 - Mention one specific honest detail (food, sightlines, parking, atmosphere, etc.)
-- Sound like a real fan who attended a game wrote it — not a tourism board
+- Sound like a real fan who attended a game wrote it, not a tourism board
 - End with something that makes a reader want to click through
 - NEVER use: ${FORBIDDEN}
 - NEVER use these phrases or close variants: ${BANNED_PHRASES}
-- Use a contraction where it fits naturally (we're, it's, don't) — real people use them
+- Use a contraction where it fits naturally (we're, it's, don't); real people use them
 
 Return ONLY the meta description. No quotes. No label. No explanation.`
 }
@@ -148,8 +153,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const retryMatch = msg.match(/retry in ([\d.]+)s/i)
         const seconds = retryMatch ? Math.ceil(Number(retryMatch[1])) : null
         const friendly = seconds
-          ? `Gemini rate limit hit — try again in ${seconds}s.`
-          : 'Gemini rate limit hit — wait a minute then try again.'
+          ? `Gemini rate limit hit. Try again in ${seconds}s.`
+          : 'Gemini rate limit hit. Wait a minute then try again.'
         return res.status(429).json({ error: friendly })
       }
       throw new Error(msg)
@@ -162,7 +167,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // Strip any surrounding quotes Gemini sometimes adds, then enforce the
     // 155-char meta description ceiling at a word boundary (schema only warns)
-    const cleaned = raw.replace(/^["']|["']$/g, '').trim()
+    const cleaned = stripDashes(raw.replace(/^["']|["']$/g, '').trim())
     const seoExcerpt = trimToSentence(cleaned, 155)
 
     res.status(200).json({ seoExcerpt })

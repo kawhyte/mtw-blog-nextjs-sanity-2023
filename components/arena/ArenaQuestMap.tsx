@@ -323,7 +323,7 @@ export default function ArenaQuestMap({
           )
         })}
 
-        {/* Hover card — tablets and up */}
+        {/* Hover card, tablets and up */}
         {active && (
           <div
             style={cardStyle}
@@ -334,7 +334,7 @@ export default function ArenaQuestMap({
         )}
       </div>
 
-      {/* Tap card — phones (no hover on touch screens); only takes up
+      {/* Tap card, phones (no hover on touch screens); only takes up
           space once a pin is tapped */}
       {active && (
         <div className="rounded-2xl border-2 border-border bg-card p-3 md:hidden">

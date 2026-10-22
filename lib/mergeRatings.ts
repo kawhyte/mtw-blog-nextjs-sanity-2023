@@ -2,9 +2,9 @@
  * Applies ALL historical revisit ratingUpdates chronologically over the base rating.
  * Uses .reduce() so Revisit 1 (Service) + Revisit 2 (Food) both accumulate.
  *
- * Accepts any numeric value including 0 — so a literal 0 can intentionally
+ * Accepts any numeric value including 0, so a literal 0 can intentionally
  * downgrade a category. Only undefined/null/NaN are skipped (meaning "no change").
- * Returns a new object — does NOT mutate base.
+ * Returns a new object, does NOT mutate base.
  */
 export function getEffectiveRating<
   T extends Record<string, number | undefined>,
@@ -26,7 +26,7 @@ export function getEffectiveRating<
 
       const merged = { ...acc }
       for (const [key, val] of Object.entries(updates)) {
-        // Accept 0 as a valid explicit downgrade — only skip undefined/null/NaN
+        // Accept 0 as a valid explicit downgrade, only skip undefined/null/NaN
         if (typeof val === 'number' && !isNaN(val)) {
           ;(merged as Record<string, number | undefined>)[key] = val
         }

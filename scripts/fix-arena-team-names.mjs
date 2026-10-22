@@ -83,7 +83,7 @@ const TEAM_NAME_MAP = {
 
 async function run() {
   console.log(
-    `\n🏀 Arena Team Name Fix — ${isDryRun ? 'DRY RUN' : 'LIVE RUN'}\n`,
+    `\n🏀 Arena Team Name Fix, ${isDryRun ? 'DRY RUN' : 'LIVE RUN'}\n`,
   )
 
   if (
@@ -111,7 +111,7 @@ async function run() {
 
   for (const arena of arenas) {
     if (!arena.gallery || arena.gallery.length === 0) {
-      console.log(`⚪ ${arena.name} — no gallery entries, skipping`)
+      console.log(`⚪ ${arena.name}, no gallery entries, skipping`)
       continue
     }
 
@@ -132,7 +132,7 @@ async function run() {
     )
 
     if (!hasChanges) {
-      console.log(`✅ ${arena.name} — all team names already correct`)
+      console.log(`✅ ${arena.name}, all team names already correct`)
       continue
     }
 
@@ -142,14 +142,14 @@ async function run() {
       await client.patch(arena._id).set({ gallery: updatedGallery }).commit()
       console.log(`   ✅ Saved`)
     } else {
-      console.log(`   [dry run — no changes written]`)
+      console.log(`   [dry run, no changes written]`)
     }
 
     updatedCount++
   }
 
   console.log(
-    `\n${isDryRun ? 'Dry run complete' : 'Done'} — ${updatedCount} arena(s) ${isDryRun ? 'would be' : 'were'} updated.`,
+    `\n${isDryRun ? 'Dry run complete' : 'Done'}, ${updatedCount} arena(s) ${isDryRun ? 'would be' : 'were'} updated.`,
   )
 
   if (isDryRun && updatedCount > 0) {

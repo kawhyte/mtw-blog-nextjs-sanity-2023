@@ -4,6 +4,8 @@ import {
   BANNED_PHRASES,
   BANNED_WORDS,
   BRAND_VOICE,
+  NO_DASHES_RULE,
+  stripDashes,
   trimToSentence,
 } from '../../lib/gemini-voice'
 
@@ -21,20 +23,21 @@ function buildPrompt(contentType?: string, docTitle?: string): string {
 
   const context =
     {
-      arenas: `This image is from an NBA/WNBA arena visit${docTitle ? ` — ${docTitle}` : ''}.`,
+      arenas: `This image is from an NBA/WNBA arena visit${docTitle ? `: ${docTitle}` : ''}.`,
       hotelReview: `This image is from a hotel stay${docTitle ? ` at ${docTitle}` : ''}.`,
-      foodReview: `This image is from a meal or restaurant${docTitle ? ` — ${docTitle}` : ''}.`,
-      guide: `This image is from a travel guide${docTitle ? ` — "${docTitle}"` : ''}.`,
+      foodReview: `This image is from a meal or restaurant${docTitle ? `: ${docTitle}` : ''}.`,
+      guide: `This image is from a travel guide${docTitle ? `: "${docTitle}"` : ''}.`,
     }[contentType ?? ''] ?? ''
 
   return `${base} ${context}
 
-Write alt text the way a travel writer would naturally caption a photo — specific, direct, and real. It must sound like a human wrote it, not an AI.
+Write alt text the way a travel writer would naturally caption a photo: specific, direct, and real. It must sound like a human wrote it, not an AI.
 
 Rules:
 - Describe exactly what is shown (the court, the seats, the dish, the room, the view, etc.)
-- Include specific details: arena name, city, hotel name, dish name — only if clearly visible or inferable. A real name (like the arena or dish) doubles as a search keyword, but never force one in
-- 50–120 characters total
+- Include specific details: arena name, city, hotel name, dish name, but only if clearly visible or inferable. A real name (like the arena or dish) doubles as a search keyword, but never force one in
+- 50 to 120 characters total
+${NO_DASHES_RULE}
 - Do NOT use any of these words: ${BANNED_WORDS}, modern, "beautiful views of"
 - Do NOT use these phrases or close variants: ${BANNED_PHRASES}
 - Do NOT start with "image of", "photo of", or "picture of"
@@ -112,8 +115,9 @@ export default async function handler(
 
     if (!raw) throw new Error('No alt text returned from Gemini')
 
-    // Prompt asks for 50–120 chars; only intervene on a bad overshoot
-    const altText = raw.length > 150 ? trimToSentence(raw, 120) : raw
+    // Prompt asks for 50 to 120 chars; only intervene on a bad overshoot
+    const clean = stripDashes(raw)
+    const altText = clean.length > 150 ? trimToSentence(clean, 120) : clean
 
     res.status(200).json({ altText })
   } catch (err: any) {

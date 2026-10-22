@@ -4,6 +4,8 @@ import {
   BANNED_PHRASES,
   BANNED_WORDS,
   BRAND_VOICE,
+  NO_DASHES_RULE,
+  stripDashes,
   trimToSentence,
 } from '../../lib/gemini-voice'
 
@@ -21,25 +23,26 @@ function buildPrompt(contentType?: string, docTitle?: string): string {
 
   const context =
     {
-      arenas: `This photo is from an NBA/WNBA arena visit${docTitle ? ` — ${docTitle}` : ''}. Write from a basketball fan's perspective.`,
+      arenas: `This photo is from an NBA/WNBA arena visit${docTitle ? `: ${docTitle}` : ''}. Write from a basketball fan's perspective.`,
       hotelReview: `This photo is from a hotel stay${docTitle ? ` at ${docTitle}` : ''}. Write from a traveler's perspective.`,
-      foodReview: `This photo is from a meal or restaurant${docTitle ? ` — ${docTitle}` : ''}. Write from a food lover's perspective.`,
-      guide: `This photo is from a travel guide${docTitle ? ` — "${docTitle}"` : ''}. Write from a traveler's perspective.`,
-    }[contentType ?? ''] ?? `This photo is from the Meet the Whytes travel blog${docTitle ? ` — ${docTitle}` : ''}.`
+      foodReview: `This photo is from a meal or restaurant${docTitle ? `: ${docTitle}` : ''}. Write from a food lover's perspective.`,
+      guide: `This photo is from a travel guide${docTitle ? `: "${docTitle}"` : ''}. Write from a traveler's perspective.`,
+    }[contentType ?? ''] ?? `This photo is from the Meet the Whytes travel blog${docTitle ? `: ${docTitle}` : ''}.`
 
   return `${base} ${context}
 
-Write a photo caption the way a travel blogger would — specific, real, and in the first person plural ("we"). It should sound like someone who was actually there describing what you see.
+Write a photo caption the way a travel blogger would: specific, real, and in the first person plural ("we"). It should sound like someone who was actually there describing what you see.
 
 Rules:
 - Describe what is shown and add just enough context to make it interesting
-- 80–160 characters total
-- First person plural ("we", "our") when natural — e.g. "Our view from the upper deck at Fiserv Forum"
-- Include specific details: arena name, city, dish name, hotel name, location — only when clearly visible or inferable
+- 80 to 160 characters total
+${NO_DASHES_RULE}
+- First person plural ("we", "our") when natural, e.g. "Our view from the upper deck at Fiserv Forum"
+- Include specific details: arena name, city, dish name, hotel name, location, but only when clearly visible or inferable
 - Do NOT use any of these words: ${BANNED_WORDS}, modern
 - Do NOT use these phrases or close variants: ${BANNED_PHRASES}
 - Do NOT start with "A photo of", "An image of", or "This is"
-- Contractions are good (we're, it's, don't) — write like a person, not an ad
+- Contractions are good (we're, it's, don't); write like a person, not an ad
 
 Return ONLY the caption. No quotes. No explanation.`
 }
@@ -111,8 +114,9 @@ export default async function handler(
 
     if (!raw) throw new Error('No caption returned from Gemini')
 
-    // Prompt asks for 80–160 chars; only intervene on a bad overshoot
-    const caption = raw.length > 200 ? trimToSentence(raw, 160) : raw
+    // Prompt asks for 80 to 160 chars; only intervene on a bad overshoot
+    const clean = stripDashes(raw)
+    const caption = clean.length > 200 ? trimToSentence(clean, 160) : clean
 
     res.status(200).json({ caption })
   } catch (err: any) {

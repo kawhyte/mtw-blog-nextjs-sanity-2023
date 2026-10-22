@@ -24,7 +24,7 @@ interface ListingCardProps {
   kindLabel?: string | null
   /** Set when the item is one of the Whytes' favourites (top 10 by score) */
   rank?: number
-  /** Show the #1–#10 badge (favourites row/tab) instead of the white pill */
+  /** Show the #1-#10 badge (favourites row/tab) instead of the white pill */
   showRank?: boolean
   /** In a swipe row the card has a fixed width; in the grid it fills its cell */
   inRow?: boolean

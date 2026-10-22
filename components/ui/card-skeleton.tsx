@@ -27,7 +27,7 @@ export function CardSkeleton({ className }: CardSkeletonProps) {
         </div>
       </div>
 
-      {/* ── DESKTOP / TABLET SKELETON (≥ 640px) — unchanged ──────────────── */}
+      {/* ── DESKTOP / TABLET SKELETON (≥ 640px), unchanged ──────────────── */}
       <div
         className={`hidden sm:block group relative w-full overflow-hidden rounded-3xl border-[3px] border-border-bold bg-card text-foreground shadow-offsetIndigo ${className ?? ''}`}
       >

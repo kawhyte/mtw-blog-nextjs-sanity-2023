@@ -25,7 +25,7 @@ import { apiVersion, dataset, projectId } from 'lib/sanity.api'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { createClient, groq, type SanityClient } from 'next-sanity'
 
-// Signature validation needs the raw request body — disable Next's JSON parser.
+// Signature validation needs the raw request body, disable Next's JSON parser.
 // (next-sanity v9's parseBody only accepts App Router NextRequest, so this route
 // validates the Sanity webhook signature directly via @sanity/webhook, which is
 // exactly what the old next-sanity/webhook parseBody wrapped.)

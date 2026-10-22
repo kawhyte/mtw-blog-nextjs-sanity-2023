@@ -427,15 +427,15 @@ export const guideBySlugQuery = fetchDocumentBySlug(
   'slug.current',
 )
 
-// All guides query (card fields only — used on listing page)
+// All guides query (card fields only, used on listing page)
 export const allGuidesQuery = groq`
   *[_type == "guide" && (!defined(publishedAt) || publishedAt <= now())] | order(date desc) {
     ${guideCardFields}
   }
 `
 
-// Guides by category (card fields only — used for filter tabs)
-// Related guides — same category, different slug, max 3
+// Guides by category (card fields only, used for filter tabs)
+// Related guides, same category, different slug, max 3
 // --- End Independent Guide Document Queries ---
 
 // --- NEW: Independent Hotel Review Document Queries ---

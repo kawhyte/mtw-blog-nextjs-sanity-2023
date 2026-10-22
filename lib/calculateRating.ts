@@ -47,7 +47,7 @@ const ratingTextColorMap: { [threshold: number]: string } = {
   0: '#ffffff',
 }
 
-// Pre-computed at module scope — avoids re-sorting on every call
+// Pre-computed at module scope, avoids re-sorting on every call
 const _sortedDefaultThresholds = Object.keys(defaultRatingThresholds)
   .map(Number)
   .sort((a, b) => b - a)
@@ -72,13 +72,13 @@ export function calculateRating(
    * Amenities that treat an exact `0` value as "Not Available" rather than a
    * legitimate rock-bottom score.
    *
-   * Preferred signal: leave the Sanity field blank (null/undefined) — the
+   * Preferred signal: leave the Sanity field blank (null/undefined), the
    * `typeof rating !== 'number'` guard above already excludes those safely.
    *
    * This list is a legacy fallback for documents that were saved with `0`
    * before the schema enforced optional fields. Because `shouldExcludeZero`
    * uses strict equality (`=== 0`), a score of `0.1` still flows through as a
-   * real (very poor) rating — intentional, so reviewers can tank an amenity
+   * real (very poor) rating, intentional, so reviewers can tank an amenity
    * without hitting the legacy `0` trap.
    *
    * WARNING: Adding a field here means no reviewer can ever legitimately

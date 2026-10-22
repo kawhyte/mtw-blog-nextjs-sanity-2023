@@ -1,7 +1,7 @@
 import { calculateRating } from './calculateRating'
 
 /**
- * One review on a listing page (/hotels, /food) — only what a card needs,
+ * One review on a listing page (/hotels, /food), only what a card needs,
  * with the overall score already worked out using the same maths as the
  * review page, so the page ships no rating objects.
  */
@@ -36,7 +36,7 @@ export function listingRating(
 /** How many reviews count as "Whytes' favourites" (replaced the Top 10 pages) */
 export const FAVOURITES_COUNT = 10
 
-/** The top 10 by score (newer visit wins a tie) — Whytes' favourites, in rank order */
+/** The top 10 by score (newer visit wins a tie), Whytes' favourites, in rank order */
 export const topFavourites = (items: ListingItem[]) =>
   items
     .filter((item) => item.rating)

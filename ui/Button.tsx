@@ -27,9 +27,9 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        // Outlined white — default for secondary CTAs
+        // Outlined white, default for secondary CTAs
         secondary: 'bg-white text-gray-700',
-        // Filled pink — for primary/highlight CTAs
+        // Filled pink, for primary/highlight CTAs
         primary: 'bg-primary text-white',
       },
       size: {

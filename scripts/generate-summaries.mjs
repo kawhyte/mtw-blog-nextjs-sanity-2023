@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
 /**
- * Bulk Summary Rewriter — Meet the Whytes
+ * Bulk Summary Rewriter, Meet the Whytes
  *
  * For every published hotel review and food review that already has an excerpt2
  * (Hotel Summary / Restaurant Summary), rewrites it in the Meet the Whytes voice
- * using Gemini — keeping all the facts but stripping the copy-pasted brochure tone.
+ * using Gemini, keeping all the facts but stripping the copy-pasted brochure tone.
  *
  * Usage:
  *   npm run generate-summaries          # Dry run (prints before/after, no changes)
@@ -76,19 +76,19 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
-const VOICE_RULES = `VOICE RULES — follow every one:
+const VOICE_RULES = `VOICE RULES (follow every one):
 - Write as "we" (a couple traveling together)
-- Use "&" instead of "and" in casual phrasing — not every sentence, just naturally
+- Use "&" instead of "and" in casual phrasing, not every sentence, just naturally
 - State opinions directly: "top-notch", "exactly what we needed", "worth the stay"
 - If the original mentions anything practical or honest, keep it
-- FORBIDDEN words — never use: showcasing, stunning, vibrant, world-class, nestled, boasting, iconic, impeccable, seamlessly, state-of-the-art, culinary, modern amenities`
+- FORBIDDEN words, never use: showcasing, stunning, vibrant, world-class, nestled, boasting, iconic, impeccable, seamlessly, state-of-the-art, culinary, modern amenities`
 
 // ─── PROMPT BUILDERS ─────────────────────────────────────────────────────────
 
 function buildHotelPrompt(doc, currentText) {
   return `You are rewriting the intro summary for "Meet the Whytes," a travel couple's blog covering hotels, NBA arenas, and food.
 
-The current summary was copied from the hotel's website and reads like marketing copy. Rewrite it so it sounds like a real couple wrote it after staying there — honest, direct, and grounded in real travel.
+The current summary was copied from the hotel's website and reads like marketing copy. Rewrite it so it sounds like a real couple wrote it after staying there, honest, direct, and grounded in real travel.
 
 CURRENT SUMMARY (keep the facts, change the voice):
 "${currentText}"
@@ -101,7 +101,7 @@ ${VOICE_RULES}
 SEO RULES:
 - Include "${doc.title}" naturally (do not force it in awkwardly)
 - Include "${doc.location || 'the city'}" at least once
-- Target exactly 400–500 characters total — count carefully, do not go under 400 or over 500
+- Target exactly 400 to 500 characters total, count carefully, do not go under 400 or over 500
 
 Return ONLY the rewritten summary. No quotes. No explanation. No label.`
 }
@@ -111,7 +111,7 @@ function buildFoodPrompt(doc, currentText) {
 
   return `You are rewriting the intro summary for "Meet the Whytes," a travel couple's blog covering restaurants, hotels, and NBA arenas.
 
-The current summary was copied from the restaurant's website and reads like marketing copy. Rewrite it so it sounds like a real couple wrote it after eating there — honest, direct, and grounded in real experience.
+The current summary was copied from the restaurant's website and reads like marketing copy. Rewrite it so it sounds like a real couple wrote it after eating there, honest, direct, and grounded in real experience.
 
 CURRENT SUMMARY (keep the facts, change the voice):
 "${currentText}"
@@ -126,7 +126,7 @@ ${VOICE_RULES}
 SEO RULES:
 - Include "${doc.title}" naturally
 - Include "${doc.location || 'the city'}" at least once
-- Target exactly 400–500 characters total — count carefully, do not go under 400 or over 500
+- Target exactly 400 to 500 characters total, count carefully, do not go under 400 or over 500
 
 Return ONLY the rewritten summary. No quotes. No explanation. No label.`
 }
@@ -171,7 +171,7 @@ async function processDoc(label, doc, buildPrompt) {
   const currentText = toPlainText(doc.excerpt2)
 
   if (!currentText) {
-    console.log(`  ⏭  ${label} — no existing summary, skipping`)
+    console.log(`  ⏭  ${label}, no existing summary, skipping`)
     totalSkipped++
     return
   }
@@ -193,7 +193,7 @@ async function processDoc(label, doc, buildPrompt) {
     totalRewritten++
     await sleep(1000)
   } catch (err) {
-    console.error(`  ❌  ${label} — ${err.message}`)
+    console.error(`  ❌  ${label}, ${err.message}`)
     totalErrors++
     await sleep(2000)
   }
@@ -239,7 +239,7 @@ async function processFoodReviews() {
 
 async function main() {
   console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━')
-  console.log('  Meet the Whytes — Bulk Summary Rewriter')
+  console.log('  Meet the Whytes, Bulk Summary Rewriter')
   console.log(`  Mode: ${isDryRun ? '🔍 DRY RUN (no changes made)' : '✍️  LIVE (writing to Sanity)'}`)
   console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━')
 

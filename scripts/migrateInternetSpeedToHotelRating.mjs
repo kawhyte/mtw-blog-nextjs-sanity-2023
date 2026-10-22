@@ -8,7 +8,7 @@
  * alongside the other rating fields in Studio.
  *
  * This script copies the old value into the new location for every document
- * that has the old value but not the new one. Safe to re-run — only touches
+ * that has the old value but not the new one. Safe to re-run, only touches
  * documents where hotelRating.internetSpeed is still undefined.
  *
  * Usage:
@@ -37,7 +37,7 @@ async function run() {
     process.exit(1)
   }
   if (IS_LIVE && !process.env.SANITY_API_WRITE_TOKEN) {
-    console.error('Missing SANITY_API_WRITE_TOKEN — required for --live mode')
+    console.error('Missing SANITY_API_WRITE_TOKEN, required for --live mode')
     process.exit(1)
   }
 
@@ -55,7 +55,7 @@ async function run() {
   console.log(`Found ${docs.length} document(s) to migrate.\n`)
 
   if (docs.length === 0) {
-    console.log('Nothing to do — all documents are already up to date.')
+    console.log('Nothing to do, all documents are already up to date.')
     return
   }
 

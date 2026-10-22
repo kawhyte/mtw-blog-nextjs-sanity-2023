@@ -22,7 +22,7 @@ import {
 
 // Shared by heroPhotos and gallery so both offer the same photo categories
 const GALLERY_ARGS: Parameters<typeof galleryField> = [
-  "Choose a category — Food & Drinks: dishes, cocktails, desserts. Interior & Atmosphere: dining room, tables, décor. Exterior: outside the building, signage, patio. Menu: printed or digital menu shots. Additional Photos: anything that doesn't fit above.",
+  "Choose a category. Food & Drinks: dishes, cocktails, desserts. Interior & Atmosphere: dining room, tables, décor. Exterior: outside the building, signage, patio. Menu: printed or digital menu shots. Additional Photos: anything that doesn't fit above.",
   [
     { title: 'Food & Drinks', value: 'food-drinks' },
     { title: 'Interior & Atmosphere', value: 'interior' },
@@ -46,7 +46,7 @@ export default defineType({
   icon: IceCreamIcon,
   type: 'document',
 
-  // Optional override, collapsed by default — cards and share previews use
+  // Optional override, collapsed by default, cards and share previews use
   // Hero Photo #1 when it's empty.
   fieldsets: [
     {
@@ -116,7 +116,7 @@ export default defineType({
       title: 'Card & Share Image',
       type: 'image',
       description:
-        'Used on listing cards and when the page is shared. Optional — leave empty to use Hero Photo #1. Upload at 2400 × 1600 px (3:2 landscape), WebP 85% or JPEG 88%.',
+        'Used on listing cards and when the page is shared. Optional: leave empty to use Hero Photo #1. Upload at 2400 × 1600 px (3:2 landscape), WebP 85% or JPEG 88%.',
       options: {
         hotspot: true,
       },
@@ -133,7 +133,7 @@ export default defineType({
 
     defineField({
       // Legacy short summary (rich text). Not shown on the site, but still
-      // searched. Stored name kept so existing content isn't lost — see docs/FIELD-GLOSSARY.md.
+      // searched. Stored name kept so existing content isn't lost, see docs/FIELD-GLOSSARY.md.
       name: 'excerpt2',
       title: 'Restaurant Summary',
       type: 'array',
@@ -147,7 +147,7 @@ export default defineType({
       title: 'SEO Excerpt / Meta Description',
       type: 'string',
       description:
-        "Plain text shown in Google search results and social shares. 120–155 characters ideal. If left blank, Google will show the site's generic description — always fill this in.",
+        "Plain text shown in Google search results and social shares. 120 to 155 characters ideal. If left blank, Google will show the site's generic description. Always fill this in.",
       validation: (Rule) => [
         Rule.max(155).warning(
           'Keep under 155 characters for Google search results',
@@ -177,18 +177,18 @@ export default defineType({
       title: 'Restaurant Quick Tip',
       type: 'array',
       description:
-        'Add a helpful tip for this restaurant — aim for 1–2 sentences (under 200 characters is ideal). Optional.',
+        'Add a helpful tip for this restaurant. Aim for 1 to 2 sentences (under 200 characters is ideal). Optional.',
       of: [{ type: 'block' }],
     }),
 
     defineField({
       // The dishes & drinks list (photo, name, price, rating, mini review).
-      // Stored name kept so existing content isn't lost — see docs/FIELD-GLOSSARY.md.
+      // Stored name kept so existing content isn't lost, see docs/FIELD-GLOSSARY.md.
       name: 'individualFoodRating',
       title: 'Individual Food Rating',
       type: 'array',
       description:
-        'Rate individual dishes/drinks. Photo for each dish: max 1600 px on the longest edge, natural shape. Cards crop to 3:2, so landscape shots fill them best (portrait loses the top and bottom — set the hotspot). WebP 85% or JPEG 88%.',
+        'Rate individual dishes/drinks. Photo for each dish: max 1600 px on the longest edge, natural shape. Cards crop to 3:2, so landscape shots fill them best (portrait loses the top and bottom, set the hotspot). WebP 85% or JPEG 88%.',
       of: [
         {
           type: 'image',
@@ -363,8 +363,8 @@ export default defineType({
       options: {
         list: [
           { title: '$ (Under $15)', value: '$ (Under $15)' },
-          { title: '$$ ($15–$30)', value: '$$ ($15–$30)' },
-          { title: '$$$ ($30–$60)', value: '$$$ ($30–$60)' },
+          { title: '$$ ($15 to $30)', value: '$$ ($15\u2013$30)' },
+          { title: '$$$ ($30 to $60)', value: '$$$ ($30\u2013$60)' },
           { title: '$$$$ ($60+)', value: '$$$$ ($60+)' },
         ],
       },
@@ -400,7 +400,7 @@ export default defineType({
           .custom((value) => {
             if (!value) return true
             if (new Date(value as string) > new Date()) {
-              return `Scheduled — this post will not appear publicly until ${new Date(value as string).toLocaleDateString('en-US', { dateStyle: 'long' })}.`
+              return `Scheduled: this post will not appear publicly until ${new Date(value as string).toLocaleDateString('en-US', { dateStyle: 'long' })}.`
             }
             return true
           })

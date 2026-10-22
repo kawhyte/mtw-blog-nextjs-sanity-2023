@@ -68,7 +68,7 @@ for (const [i, blk] of (payload.content ?? []).entries()) {
     errors.push(`content[${i}]: callout.text must be an array of blocks`)
   if (blk._type === 'imageGroup') {
     const n = blk.images?.length ?? 0
-    if (n < 2 || n > 4) errors.push(`content[${i}]: imageGroup needs 2–4 images (has ${n})`)
+    if (n < 2 || n > 4) errors.push(`content[${i}]: imageGroup needs 2 to 4 images (has ${n})`)
   }
 }
 

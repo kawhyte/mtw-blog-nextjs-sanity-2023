@@ -1,19 +1,19 @@
 #!/usr/bin/env node
 
 /**
- * One-time cleanup script — Meet the Whytes
+ * One-time cleanup script, Meet the Whytes
  *
  * Fixes two pre-existing Sanity Studio warnings that appear on hotel and food reviews:
  *
- * 1. "Invalid property value — must be type array, current value is null"
+ * 1. "Invalid property value, must be type array, current value is null"
  *    Caused by optional array fields (negatives, tip, gallery, etc.) that were explicitly
  *    stored as null rather than being absent. Fix: unset them so they're simply absent.
  *
- * 2. "Unknown field found — Robes: No"
+ * 2. "Unknown field found, Robes: No"
  *    The Robes field was removed from the roomAmenities schema but still exists in old
  *    hotel documents. Fix: unset roomAmenities.Robes from those documents.
  *
- * These errors predate any recent changes — no rating data, content, or other fields
+ * These errors predate any recent changes, no rating data, content, or other fields
  * are touched by this script.
  *
  * Usage:
@@ -60,7 +60,7 @@ async function fixDocument(docId, label, fieldsToUnset) {
       await client.patch(docId).unset(fieldsToUnset).commit()
       totalFixed++
     } catch (err) {
-      console.error(`  ❌  ${label} — ${err.message}`)
+      console.error(`  ❌  ${label}, ${err.message}`)
       totalErrors++
     }
   } else {
@@ -158,7 +158,7 @@ async function fixFoodReviews() {
 
 async function main() {
   console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━')
-  console.log('  Meet the Whytes — Null Field Cleanup')
+  console.log('  Meet the Whytes, Null Field Cleanup')
   console.log(`  Mode: ${isDryRun ? '🔍 DRY RUN (no changes)' : '✍️  LIVE (writing to Sanity)'}`)
   console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━')
   console.log('  This script only removes null values and')

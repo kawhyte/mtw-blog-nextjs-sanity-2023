@@ -24,7 +24,7 @@ export function useShare(title: string) {
       setCopied(true)
       window.setTimeout(() => setCopied(false), 2000)
     } catch {
-      // Share sheet dismissed or clipboard blocked — nothing to do
+      // Share sheet dismissed or clipboard blocked, nothing to do
     }
   }
   return { share, copied }

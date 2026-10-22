@@ -6,7 +6,7 @@ export interface FoodReviewDish extends SanityImageObject {
   name?: string
   price?: number | null
   review?: string | null
-  /** `Dish` is 0–10; shown /2 like every other score */
+  /** `Dish` is 0 to 10; shown /2 like every other score */
   rating?: { Dish?: number }
 }
 

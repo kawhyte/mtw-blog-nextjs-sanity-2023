@@ -20,7 +20,7 @@ import {
 
 // Shared by heroPhotos and gallery so both offer the same photo categories
 const GALLERY_ARGS: Parameters<typeof galleryField> = [
-  "Choose a category — Bedroom: bed, pillows, sleeping area. Bathroom: shower, tub, vanity. Living Area: sofa, desk, sitting space. Kitchen / Coffee Station: coffee maker, mini fridge, kitchenette. View from the Room: cityscape, scenery, or balcony shot as seen from inside the room. Pool & Fitness: gym equipment, pool area. Additional Photos: anything that doesn't fit above.",
+  "Choose a category. Bedroom: bed, pillows, sleeping area. Bathroom: shower, tub, vanity. Living Area: sofa, desk, sitting space. Kitchen / Coffee Station: coffee maker, mini fridge, kitchenette. View from the Room: cityscape, scenery, or balcony shot as seen from inside the room. Pool & Fitness: gym equipment, pool area. Additional Photos: anything that doesn't fit above.",
   [
     { title: 'Bedroom', value: 'bedroom' },
     { title: 'Bathroom', value: 'bathroom' },
@@ -47,7 +47,7 @@ export default defineType({
   icon: HomeIcon,
   type: 'document',
 
-  // Optional override, collapsed by default — cards and share previews use
+  // Optional override, collapsed by default, cards and share previews use
   // Hero Photo #1 when it's empty.
   fieldsets: [
     {
@@ -114,7 +114,7 @@ export default defineType({
       name: 'room',
       title: 'Room Type',
       type: 'string',
-      description: 'e.g., 1 King Bed Lagoon Access — max 45 characters (optional)',
+      description: 'e.g., 1 King Bed Lagoon Access, max 45 characters (optional)',
       validation: (Rule) => Rule.max(45), // Limit to 45 characters
     }),
 
@@ -145,7 +145,7 @@ export default defineType({
       title: 'Card & Share Image',
       type: 'image',
       description:
-        'Used on listing cards and when the page is shared. Optional — leave empty to use Hero Photo #1. Upload at 2400 × 1600 px (3:2 landscape), WebP 85% or JPEG 88%.',
+        'Used on listing cards and when the page is shared. Optional: leave empty to use Hero Photo #1. Upload at 2400 × 1600 px (3:2 landscape), WebP 85% or JPEG 88%.',
       options: {
         hotspot: true,
       },
@@ -162,7 +162,7 @@ export default defineType({
 
     defineField({
       // Legacy short summary (rich text). Hidden in Studio and not shown on the
-      // site, but still searched. Stored name kept so existing content isn't lost — see docs/FIELD-GLOSSARY.md.
+      // site, but still searched. Stored name kept so existing content isn't lost, see docs/FIELD-GLOSSARY.md.
       name: 'excerpt2',
       title: 'Hotel Summary',
       type: 'array',
@@ -176,7 +176,7 @@ export default defineType({
       title: 'SEO Excerpt / Meta Description',
       type: 'string',
       description:
-        'Plain text shown in Google search results and social shares. 120–155 characters ideal. If left blank, Google will show the site\'s generic description — always fill this in.',
+        'Plain text shown in Google search results and social shares. 120 to 155 characters ideal. If left blank, Google will show the site\'s generic description. Always fill this in.',
       validation: (Rule) => [
         Rule.max(155).warning('Keep under 155 characters for Google search results'),
         Rule.min(120).warning('At least 120 characters recommended for Google search results'),
@@ -189,7 +189,7 @@ export default defineType({
       title: 'Verdict Headline (optional)',
       type: 'string',
       description:
-        'One punchy sentence shown under the photos as "Our take", e.g. "A 5-star stay at a 5-star brand — and we\'ll definitely be back." If left blank, the SEO excerpt is shown there instead.',
+        'One punchy sentence shown under the photos as "Our take", e.g. "A 5-star stay at a 5-star brand, and we\'ll definitely be back." If left blank, the SEO excerpt is shown there instead.',
       validation: (Rule) =>
         Rule.max(120).warning('Keep it to one short sentence (under 120 characters)'),
       components: { input: VerdictHeadlineGeneratorInput },
@@ -217,7 +217,7 @@ export default defineType({
       title: 'Hotel Quick Tip',
       type: 'array',
       description:
-        'Add a helpful tip for this hotel — aim for 1–2 sentences (under 200 characters is ideal). Optional.',
+        'Add a helpful tip for this hotel. Aim for 1 to 2 sentences (under 200 characters is ideal). Optional.',
       of: [{ type: 'block' }],
     }),
 
@@ -243,7 +243,7 @@ export default defineType({
       name: 'internetSpeed',
       title: 'Internet Speed (legacy)',
       type: 'number',
-      description: 'Legacy field — now stored inside hotelRating.internetSpeed. Kept for GROQ fallback.',
+      description: 'Legacy field, now stored inside hotelRating.internetSpeed. Kept for GROQ fallback.',
       hidden: true,
     }),
 
@@ -332,13 +332,13 @@ export default defineType({
       title: 'Approximate Nightly Rate (at time of visit)',
       type: 'string',
       description:
-        'Approximate cash rate per night — not points value (optional)',
+        'Approximate cash rate per night, not points value (optional)',
       options: {
         list: [
           { title: 'Under $100/night', value: 'under_100' },
-          { title: '$100–$200/night', value: '100_200' },
-          { title: '$200–$350/night', value: '200_350' },
-          { title: '$350–$500/night', value: '350_500' },
+          { title: '$100 to $200/night', value: '100_200' },
+          { title: '$200 to $350/night', value: '200_350' },
+          { title: '$350 to $500/night', value: '350_500' },
           { title: '$500+/night', value: '500_plus' },
         ],
         layout: 'radio',
@@ -493,7 +493,7 @@ export default defineType({
           .custom((value) => {
             if (!value) return true
             if (new Date(value as string) > new Date()) {
-              return `Scheduled — this post will not appear publicly until ${new Date(value as string).toLocaleDateString('en-US', { dateStyle: 'long' })}.`
+              return `Scheduled: this post will not appear publicly until ${new Date(value as string).toLocaleDateString('en-US', { dateStyle: 'long' })}.`
             }
             return true
           })

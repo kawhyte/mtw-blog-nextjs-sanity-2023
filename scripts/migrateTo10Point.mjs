@@ -13,7 +13,7 @@
  *   - foodReview documents (individualFoodRating[].rating.Dish nested array)
  *
  * NOT migrated:
- *   - nbaArenas / arenaReview  — already on 1–10 scale
+ *   - nbaArenas / arenaReview , already on 1 to 10 scale
  *
  * Usage:
  *   node scripts/migrateTo10Point.mjs          # dry run (default)
@@ -102,7 +102,7 @@ async function migrateHotelReviews() {
       'hotelRating',
     )
     if (Object.keys(ratingPatch).length === 0) {
-      console.log(`  SKIP ${doc._id} — no numeric fields found`)
+      console.log(`  SKIP ${doc._id}, no numeric fields found`)
       continue
     }
 
@@ -148,7 +148,7 @@ async function migrateFoodReviews() {
     const combinedPatch = { ...dineInPatch, ...takeoutPatch }
 
     if (Object.keys(combinedPatch).length === 0) {
-      console.log(`  SKIP ${doc._id} — no numeric fields found`)
+      console.log(`  SKIP ${doc._id}, no numeric fields found`)
       continue
     }
 
@@ -200,7 +200,7 @@ async function migrateIndividualFoodRatings() {
     })
 
     if (!hasChanges) {
-      console.log(`  SKIP ${doc._id} — no dish ratings to migrate`)
+      console.log(`  SKIP ${doc._id}, no dish ratings to migrate`)
       continue
     }
 
@@ -232,7 +232,7 @@ async function main() {
     process.exit(1)
   }
   if (IS_LIVE && !process.env.SANITY_API_WRITE_TOKEN) {
-    console.error('Missing SANITY_API_WRITE_TOKEN — required for --live mode')
+    console.error('Missing SANITY_API_WRITE_TOKEN, required for --live mode')
     process.exit(1)
   }
 
