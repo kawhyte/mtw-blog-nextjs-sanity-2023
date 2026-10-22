@@ -11,8 +11,8 @@ import type { ArenaHighlightCard, Essential } from './sanity.queries'
 /** An arena as a homepage card, plus the colour of its score */
 export interface HomeArena extends ListingItem {
   ratingColor: string | null
-  /** The photo is wider than it is tall (only these get the big hero spot) */
-  landscape: boolean
+  /** The photo is big enough for the large hero spot without looking pixelated */
+  sharp: boolean
 }
 
 export type FreshKind = 'hotel' | 'food' | 'guide'
@@ -30,10 +30,43 @@ export interface HomeGear {
   image: Essential['productImage'] | null
 }
 
+const dimensions = (image: any) => {
+  const { width = 0, height = 0 } = image?.asset?.metadata?.dimensions ?? {}
+  return { width, height }
+}
+
+// Short side, in pixels, the photo needs for each spot (2x for sharp screens):
+// the square cards are ~250px, the big hero tile ~380 x 480
+const CARD_MIN = 500
+const LEAD_MIN_HEIGHT = 900
+const LEAD_MIN_WIDTH = 700
+
+/**
+ * The arena's sharpest photo: the first hero photo when it's big enough
+ * (that's the one Kenny picked to lead the page), otherwise the largest of
+ * the hero photos and the card image.
+ */
+function bestPhoto(arena: ArenaHighlightCard) {
+  const candidates = [...(arena.heroPhotos ?? []), arena.arenaImage].filter(
+    (image) => image?.asset,
+  )
+  const first = arena.heroPhotos?.find((image) => image?.asset)
+  const shortSide = (image: any) =>
+    Math.min(dimensions(image).width, dimensions(image).height)
+  if (first && shortSide(first) >= CARD_MIN) return first
+  return (
+    candidates.sort(
+      (a, b) =>
+        dimensions(b).width * dimensions(b).height -
+        dimensions(a).width * dimensions(a).height,
+    )[0] ?? null
+  )
+}
+
 export const toHomeArena = (arena: ArenaHighlightCard): HomeArena => {
   const average = Number(arena.displayRating?.average)
-  const { width = 0, height = 0 } =
-    arena.arenaImage?.asset?.metadata?.dimensions ?? {}
+  const photo = bestPhoto(arena)
+  const { width, height } = dimensions(photo)
   return {
     _id: arena._id,
     title: arena.name ?? '',
@@ -41,7 +74,7 @@ export const toHomeArena = (arena: ArenaHighlightCard): HomeArena => {
     location: arena.location?.trim() || null,
     kind: null,
     date: arena.date ?? null,
-    coverImage: arena.arenaImage?.asset ? arena.arenaImage : null,
+    coverImage: photo,
     rating:
       average > 0
         ? {
@@ -51,7 +84,7 @@ export const toHomeArena = (arena: ArenaHighlightCard): HomeArena => {
           }
         : null,
     ratingColor: arena.displayRating?.color ?? null,
-    landscape: width > height,
+    sharp: height >= LEAD_MIN_HEIGHT && width >= LEAD_MIN_WIDTH,
   }
 }
 
@@ -64,10 +97,10 @@ const shuffle = <T>(items: T[]) => {
   return out
 }
 
-/** 3 random visited arenas with photos; the first (big) one is landscape */
+/** 3 random visited arenas with photos; the first (big) one has a sharp photo */
 export function pickHeroArenas(arenas: HomeArena[]): HomeArena[] {
   const withPhotos = shuffle(arenas.filter((a) => a.coverImage && a.slug))
-  const leadIndex = withPhotos.findIndex((a) => a.landscape)
+  const leadIndex = withPhotos.findIndex((a) => a.sharp)
   if (leadIndex > 0) withPhotos.unshift(...withPhotos.splice(leadIndex, 1))
   return withPhotos.slice(0, 3)
 }
