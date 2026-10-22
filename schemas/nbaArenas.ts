@@ -43,6 +43,13 @@ export default defineType({
       description: 'The name of Arena/Stadium ( ex. Crypto )',
     }),
     defineField({
+      name: 'currentName',
+      title: 'Now called (optional)',
+      type: 'string',
+      description:
+        'Only if the arena was renamed after our visit, e.g. "Kia Center". Arena Name above stays the name from our visit; the page shows "Now called …" under it.',
+    }),
+    defineField({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
@@ -246,6 +253,13 @@ export default defineType({
               title: 'Did we see this team play?',
               name: 'played',
               type: 'boolean',
+            }),
+            defineField({
+              title: 'Special game here (not their home arena)',
+              name: 'specialGame',
+              type: 'boolean',
+              description:
+                'Tick for a one-off game at this arena, e.g. an NBA Cup game in Las Vegas or a WNBA game at TD Garden. The team then shows as a special game instead of a home team.',
             }),
             defineField({
               name: 'timesAttended',

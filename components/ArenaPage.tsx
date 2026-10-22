@@ -190,7 +190,19 @@ export default function ArenaPage({
   // --- Facts for the side panel ---
   const teamsGallery = (arena.gallery ?? []) as any[]
   const attendedTeams = teamsGallery.filter((t) => t.played && t.name)
-  const homeTeams = attendedTeams.length > 0 ? attendedTeams : teamsGallery
+  // Home teams first (the ones we saw play lead); one-off games get their own chip
+  const homeTeams = teamsGallery
+    .filter((t) => t.name && !t.specialGame)
+    .sort((a, b) => Number(Boolean(b.played)) - Number(Boolean(a.played)))
+  const specialTeams = teamsGallery.filter((t) => t.name && t.specialGame)
+  const specialLeagues = [
+    ...new Set(specialTeams.map((t) => String(t.teamType ?? '').toUpperCase())),
+  ].filter(Boolean)
+  const specialGameCount = specialTeams.reduce(
+    (sum: number, t: any) =>
+      sum + (t.attendedGames?.length || t.timesAttended || 1),
+    0,
+  )
   const visitCount = 1 + (arena.revisits?.length ?? 0)
   // Prefer attendedGames.length when games are entered; fall back to timesAttended
   const totalGamesAttended = attendedTeams.reduce(
@@ -218,6 +230,10 @@ export default function ArenaPage({
           : t.name,
         tone: 'indigo' as const,
       })),
+    specialTeams.length > 0 && {
+      label: `Special ${specialLeagues.join(' & ')}${specialLeagues.length ? ' ' : ''}game${specialGameCount === 1 ? '' : 's'}`,
+      tone: 'pink' as const,
+    },
     rank != null &&
       totalVisited != null &&
       totalVisited > 0 && {
@@ -314,6 +330,16 @@ export default function ArenaPage({
                     : undefined
                 }
                 chips={chips}
+                subtitle={
+                  arena.currentName ? (
+                    <span className="inline-flex rounded-xl bg-muted px-3 py-1.5 text-sm text-muted-foreground">
+                      Now called&nbsp;
+                      <b className="font-bold text-foreground">
+                        {arena.currentName}
+                      </b>
+                    </span>
+                  ) : undefined
+                }
                 footnote={
                   arena.venueNote ? (
                     <span className="italic">{arena.venueNote}</span>

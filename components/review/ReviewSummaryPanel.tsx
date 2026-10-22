@@ -5,7 +5,7 @@ import { ReviewActionButtons } from './ReviewActions'
 
 export interface ReviewChip {
   label: string
-  tone?: 'dark' | 'indigo' | 'muted' | 'success' | 'amber'
+  tone?: 'dark' | 'indigo' | 'muted' | 'success' | 'amber' | 'pink'
 }
 
 interface ReviewSummaryPanelProps {
@@ -15,6 +15,8 @@ interface ReviewSummaryPanelProps {
   location?: string
   score?: { displayRating: string; textRating: string }
   chips: ReviewChip[]
+  /** Line under the title, e.g. "Now called Kia Center" */
+  subtitle?: ReactNode
   /** Extra line under the chips, e.g. "Best for: Families · Couples" */
   footnote?: ReactNode
   arenasInCity: { name: string; slug: string }[]
@@ -30,6 +32,7 @@ const CHIP_TONES: Record<NonNullable<ReviewChip['tone']>, string> = {
   success:
     'bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300',
   amber: 'bg-amber-100 text-amber-900',
+  pink: 'border border-pink-200 bg-primary-soft-background text-pink-700',
 }
 
 // Score circle colour follows the site's rating bands
@@ -59,6 +62,7 @@ export default function ReviewSummaryPanel({
   location,
   score,
   chips,
+  subtitle,
   footnote,
   arenasInCity,
   cityGuideHref,
@@ -101,6 +105,8 @@ export default function ReviewSummaryPanel({
           )}
         </div>
       </div>
+
+      {subtitle && <div className="-mt-2">{subtitle}</div>}
 
       {chips.length > 0 && (
         <ul className="flex flex-wrap gap-2">

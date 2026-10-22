@@ -92,6 +92,7 @@ const arenaFields = groq`
 const arenaFieldsDetailed = groq`
     _id,
     name,
+    currentName,
     "slug": slug.current,
     "arenaImage": coalesce(arenaImage, heroPhotos[0]) {
       ...,
@@ -1030,6 +1031,8 @@ export interface Arena {
   venueNote?: string
   capacity?: number
   videoUrl?: string
+  /** The arena's name today, when it was renamed after our visit */
+  currentName?: string
   /** One-line "Our take" under the photos (optional) */
   verdictHeadline?: string
   updatedAt?: string
