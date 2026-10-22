@@ -167,7 +167,7 @@ export default function ListingBrowse({
           className="flex scroll-mt-28 flex-col gap-5"
           aria-live="polite"
         >
-          <h2 className="text-xl font-extrabold tracking-tight sm:text-2xl">
+          <h2 className="text-title font-extrabold tracking-tight sm:text-title">
             {tab.gridTitle}{' '}
             <span className="text-base font-semibold text-muted-foreground">
               ({gridItems.length}

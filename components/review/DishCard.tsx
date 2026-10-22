@@ -41,14 +41,14 @@ export default function DishCard({ dish }: { dish: FoodReviewDish }) {
           />
         )}
         {chefsKiss && (
-          <span className="absolute left-2.5 top-2.5 rounded-full bg-white px-2.5 py-1 text-xs font-bold text-gray-900 shadow">
+          <span className="absolute left-2.5 top-2.5 rounded-full bg-white px-2.5 py-1 text-xs font-bold text-foreground shadow">
             Chef’s kiss
           </span>
         )}
       </div>
       <div className="flex flex-col gap-0.5">
         {dish.name && (
-          <span className="line-clamp-2 text-[15px] font-bold">
+          <span className="line-clamp-2 text-base font-bold">
             {dish.name.trim()}
           </span>
         )}

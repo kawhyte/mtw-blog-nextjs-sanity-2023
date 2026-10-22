@@ -70,7 +70,7 @@ const LoadingState = ({ searchQuery }: { searchQuery?: string }) => (
         <div className="flex flex-col items-center gap-4">
           <div className="w-12 h-12 rounded-full animate-spin border-4 border-solid border-primary border-t-transparent"></div>
           <div>
-            <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-2">
+            <h1 className="text-section md:text-page font-bold text-foreground mb-2">
               Searching for{' '}
               <span className="text-primary">&quot;{searchQuery}&quot;</span>
             </h1>
@@ -88,7 +88,7 @@ const LoadingState = ({ searchQuery }: { searchQuery?: string }) => (
 // A styled header for displaying the search query and result count
 const ResultsHeader = ({ query, count }: { query: string; count: number }) => (
   <div className="w-full text-center bg-primary-soft-background rounded-2xl p-8 my-8">
-    <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-2">
+    <h1 className="text-section md:text-page font-bold text-foreground mb-2">
       Search results for{' '}
       <span className="text-primary">&quot;{query}&quot;</span>
     </h1>
@@ -140,7 +140,7 @@ const ResultTypeTabs = ({
 // Shown instead of the raw error; details go to the console
 const SearchError = ({ onRetry }: { onRetry: () => void }) => (
   <div className="flex flex-col items-center justify-center min-h-[50vh] text-center px-4">
-    <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
+    <h1 className="text-title sm:text-section font-bold text-foreground mb-3">
       Search is having a moment
     </h1>
     <p className="text-lg text-muted-foreground max-w-md mb-6">
@@ -175,7 +175,7 @@ const NoResultsFound = ({ query }: { query: string }) => {
           src={'/confused-search.json'}
         />
       </div>
-      <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">
+      <h1 className="text-section sm:text-page md:text-page font-bold text-foreground mb-4">
         No results for <span className="text-primary">&quot;{query}&quot;</span>
       </h1>
       <p className="text-lg text-muted-foreground max-w-lg mx-auto">
@@ -464,7 +464,7 @@ const SearchResults = ({ settings }: { settings: Settings }) => {
     }
     return (
       <div className="flex flex-col items-center justify-center min-h-[70vh] text-center px-4">
-        <h2 className="text-2xl text-foreground mb-4">Ready when you are!</h2>
+        <h2 className="text-title text-foreground mb-4">Ready when you are!</h2>
         <p className="text-lg text-muted-foreground">
           Pop a search term into the bar above to begin your adventure.
         </p>

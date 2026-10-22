@@ -25,7 +25,7 @@ import { locationToSlug } from 'utils/locationSlug'
 
 const ImageGallery = dynamic(() => import('./ImageGallery'), {
   loading: () => (
-    <div className="animate-pulse bg-gray-200 h-96 rounded-lg"></div>
+    <div className="animate-pulse bg-muted h-96 rounded-lg"></div>
   ),
 })
 
@@ -368,7 +368,7 @@ export default function ArenaPage({
                   <span className="text-xs font-bold tracking-[0.14em] text-primary">
                     OUR TAKE
                   </span>
-                  <p className="font-heading-family text-2xl font-extrabold leading-tight text-foreground md:text-3xl">
+                  <p className="font-heading-family text-title font-extrabold leading-tight text-foreground md:text-section">
                     {arena.verdictHeadline}
                   </p>
                 </section>

@@ -93,7 +93,7 @@ const PaginationComponent: React.FC<PaginationComponentProps> = ({
             }}
             aria-disabled={currentPage === 1}
             className={
-              currentPage === 1 ? 'pointer-events-none text-gray-400' : ''
+              currentPage === 1 ? 'pointer-events-none text-muted-foreground' : ''
             }
           />
         </PaginationItem>
@@ -125,7 +125,7 @@ const PaginationComponent: React.FC<PaginationComponentProps> = ({
             aria-disabled={currentPage === totalPages}
             className={
               currentPage === totalPages
-                ? 'pointer-events-none text-gray-400'
+                ? 'pointer-events-none text-muted-foreground'
                 : ''
             }
           />

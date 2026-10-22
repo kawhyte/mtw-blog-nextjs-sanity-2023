@@ -101,17 +101,17 @@ const getMobileTypeBadge = (
   if (contentType === 'hotel') {
     const cat = category ? categoryRating(category) : null
     const name = cat?.name ?? 'Hotel'
-    return { label: name, className: 'bg-zinc-800 text-white' }
+    return { label: name, className: 'bg-foreground text-background' }
   }
   if (contentType === 'food') {
     return diningType === 'takeout'
       ? {
           label: 'Takeout',
-          className: 'bg-amber-100 text-amber-800 border border-amber-300',
+          className: 'bg-amber-50 text-amber-900 border border-amber-200',
         }
       : {
           label: 'Dine-In',
-          className: 'bg-rose-100 text-rose-800 border border-rose-300',
+          className: 'bg-pink-50 text-pink-700 border border-pink-200',
         }
   }
   if (contentType === 'guide' && category && GUIDE_CATEGORY_LABELS[category]) {
@@ -200,7 +200,7 @@ const DynamicPostCard = ({
           {/* Compact rank badge */}
           {rank != null && (
             <span
-              className={`absolute left-1.5 top-1.5 z-20 flex items-center gap-0.5 rounded-full px-1.5 py-0.5 text-[10px] font-black ${getRankBadgeStyle(rank)}`}
+              className={`absolute left-1.5 top-1.5 z-20 flex items-center gap-0.5 rounded-full px-1.5 py-0.5 text-xs font-black ${getRankBadgeStyle(rank)}`}
             >
               {rank === 1 ? 'Best' : `#${rank}`}
             </span>
@@ -211,7 +211,7 @@ const DynamicPostCard = ({
         <div className="flex min-w-0 flex-1 flex-col justify-center gap-0.5 bg-card px-3 py-2.5">
           {mobileBadge && (
             <span
-              className={`inline-flex w-fit rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${mobileBadge.className}`}
+              className={`inline-flex w-fit rounded-full px-2 py-0.5 text-xs font-semibold uppercase tracking-wide ${mobileBadge.className}`}
             >
               {mobileBadge.label}
             </span>
@@ -222,26 +222,26 @@ const DynamicPostCard = ({
           </p>
 
           {contentType === 'guide' && summary && (
-            <p className="line-clamp-1 text-[11px] italic leading-snug text-muted-foreground">
+            <p className="line-clamp-1 text-xs italic leading-snug text-muted-foreground">
               {summary}
             </p>
           )}
 
           <div className="mt-0.5 flex flex-wrap items-center gap-1.5">
             {showRating && scoreDisplay && (
-              <span className="inline-flex items-center rounded-full bg-primary px-2 py-0.5 text-[10px] font-bold text-primary-foreground">
+              <span className="inline-flex items-center rounded-full bg-primary px-2 py-0.5 text-xs font-bold text-primary-foreground">
                 {scoreDisplay}/10
               </span>
             )}
             {revisitCount != null && revisitCount > 0 && (
-              <span className="flex items-center gap-0.5 text-[10px] text-muted-foreground">
+              <span className="flex items-center gap-0.5 text-xs text-muted-foreground">
                 <RefreshCw className="h-2.5 w-2.5" />
                 {revisitCount === 1 ? 'Revisited' : `${revisitCount + 1}x`}
               </span>
             )}
           </div>
 
-          <div className="mt-0.5 flex flex-wrap items-center gap-x-3 gap-y-0 text-[11px] text-muted-foreground">
+          <div className="mt-0.5 flex flex-wrap items-center gap-x-3 gap-y-0 text-xs text-muted-foreground">
             {location && (
               <span className="flex shrink-0 items-center gap-1">
                 <MapPin className="h-3 w-3 shrink-0" />
@@ -287,7 +287,7 @@ const DynamicPostCard = ({
         <CardContent className="flex grow flex-col justify-between bg-card p-4">
           <div className="flex flex-col sm:mb-2 sm:ml-2 sm:gap-y-2">
             {revisitCount && revisitCount > 0 ? (
-              <div className="flex items-center gap-1 text-[11px] font-medium text-muted-foreground">
+              <div className="flex items-center gap-1 text-xs font-medium text-muted-foreground">
                 <RefreshCw className="h-3 w-3" />
                 <span>
                   {revisitCount === 1
@@ -297,7 +297,7 @@ const DynamicPostCard = ({
               </div>
             ) : null}
 
-            <CardTitle className="line-clamp-1 pt-1 text-sm font-bold text-foreground no-underline decoration-primary decoration-dashed decoration-4 group-hover:underline sm:line-clamp-2 sm:h-8 sm:text-xl lg:text-xl xl:pt-1.5">
+            <CardTitle className="line-clamp-1 pt-1 text-sm font-bold text-foreground no-underline decoration-primary decoration-dashed decoration-4 group-hover:underline sm:line-clamp-2 sm:h-8 sm:text-title lg:text-title xl:pt-1.5">
               <HighlightText text={title} words={highlightWords} />
             </CardTitle>
 

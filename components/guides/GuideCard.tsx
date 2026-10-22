@@ -54,7 +54,7 @@ export default function GuideCard({ guide, inRow = false }: GuideCardProps) {
         )}
       </div>
       <div className="flex flex-col gap-1">
-        <span className="line-clamp-2 text-[15px] font-bold leading-snug group-hover:text-primary">
+        <span className="line-clamp-2 text-base font-bold leading-snug group-hover:text-primary">
           {guide.title}
         </span>
         <span className="text-sm text-muted-foreground">

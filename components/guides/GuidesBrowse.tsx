@@ -145,7 +145,7 @@ export default function GuidesBrowse({
               <span className="text-xs font-bold tracking-[0.14em] text-primary">
                 LATEST GUIDE
               </span>
-              <span className="font-heading-family text-2xl font-extrabold leading-tight group-hover:text-primary md:text-[32px]">
+              <span className="font-heading-family text-title font-extrabold leading-tight group-hover:text-primary md:text-section">
                 {featured.title}
               </span>
               {featured.summary && (
@@ -162,7 +162,7 @@ export default function GuidesBrowse({
                   .filter(Boolean)
                   .join(' · ')}
               </span>
-              <span className="hidden text-[15px] font-bold text-primary md:block">
+              <span className="hidden text-base font-bold text-primary md:block">
                 Read the guide →
               </span>
             </div>
@@ -175,7 +175,7 @@ export default function GuidesBrowse({
           className="flex scroll-mt-28 flex-col gap-5"
           aria-live="polite"
         >
-          <h2 className="text-xl font-extrabold tracking-tight sm:text-2xl">
+          <h2 className="text-title font-extrabold tracking-tight sm:text-title">
             {isAll ? 'All guides' : activeLabel}{' '}
             <span className="text-base font-semibold text-muted-foreground">
               ({filtered.length})

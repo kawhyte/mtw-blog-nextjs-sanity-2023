@@ -204,7 +204,7 @@ export function PhotoCards({
             </div>
           </ZoomablePhoto>
           <figcaption
-            className="p-3 text-[13px] leading-snug text-foreground/80 md:p-4 md:text-sm md:leading-relaxed"
+            className="p-3 text-sm leading-snug text-foreground/80 md:p-4 md:text-sm md:leading-relaxed"
             style={{ textAlign: 'left' }}
           >
             <LineText line={line} marks={marks} />

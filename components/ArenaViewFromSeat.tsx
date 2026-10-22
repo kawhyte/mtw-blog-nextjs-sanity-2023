@@ -9,7 +9,7 @@ import { useState } from 'react'
 import VideoPlayer from './Youtube'
 
 const ImageGallery = dynamic(() => import('./ImageGallery'), {
-  loading: () => <div className="animate-pulse bg-gray-200 h-64 rounded-lg" />,
+  loading: () => <div className="animate-pulse bg-muted h-64 rounded-lg" />,
 })
 
 const SEAT_TYPE_LABELS: Record<string, string> = {
@@ -99,8 +99,8 @@ export default function ArenaViewFromSeat({
     facts.map((fact) => (
       <span
         key={fact}
-        className={`rounded-full px-3 py-1.5 text-[13px] font-extrabold ${
-          onPhoto ? 'bg-white text-gray-900 shadow' : 'bg-muted text-foreground'
+        className={`rounded-full px-3 py-1.5 text-sm font-extrabold ${
+          onPhoto ? 'bg-white text-foreground shadow' : 'bg-muted text-foreground'
         }`}
       >
         {fact}
@@ -110,10 +110,10 @@ export default function ArenaViewFromSeat({
   return (
     <section className="flex flex-col gap-4">
       <div className="flex flex-col gap-1">
-        <h2 className="text-xl font-extrabold tracking-tight sm:text-2xl">
+        <h2 className="text-title font-extrabold tracking-tight sm:text-title">
           View from our seats
         </h2>
-        <p className="text-sm text-muted-foreground sm:text-[15px]">
+        <p className="text-sm text-muted-foreground sm:text-base">
           What the court looked like from where we sat.
         </p>
       </div>
@@ -211,7 +211,7 @@ export default function ArenaViewFromSeat({
                   className="object-cover"
                 />
                 {isOverflowSlot && (
-                  <span className="absolute inset-0 flex items-center justify-center bg-black/55 text-xl font-bold text-white">
+                  <span className="absolute inset-0 flex items-center justify-center bg-black/55 text-title font-bold text-white">
                     +{hiddenCount + 1}
                   </span>
                 )}

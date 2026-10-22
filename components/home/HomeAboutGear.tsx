@@ -8,13 +8,13 @@ const DUO = [
   {
     name: 'Mr. Whyte',
     image: '/avatar_mr.png',
-    ring: 'bg-indigo-100',
-    text: 'text-indigo-500',
+    ring: 'bg-stone-100',
+    text: 'text-foreground',
   },
   {
     name: 'Mrs. Whyte',
     image: '/avatar_mrs.png',
-    ring: 'bg-pink-100',
+    ring: 'bg-pink-50',
     text: 'text-primary',
   },
 ]
@@ -51,16 +51,16 @@ export default function HomeAboutGear({
                   className="h-[86%] w-[86%] rounded-full object-cover"
                 />
               </span>
-              <span className={`text-[13px] font-bold ${person.text}`}>
+              <span className={`text-sm font-bold ${person.text}`}>
                 {person.name}
               </span>
             </div>
           ))}
-          <h2 className="ml-2 text-xl font-extrabold tracking-tight md:text-2xl">
+          <h2 className="ml-2 text-title font-extrabold tracking-tight md:text-title">
             Meet the Whytes
           </h2>
         </div>
-        <p className="text-[15px] leading-relaxed text-foreground/85 md:text-base">
+        <p className="text-base leading-relaxed text-foreground/85 md:text-base">
           We&apos;re Rene and Kenny, and we travel for basketball. Tip-off is
           only half the trip, so this is our playbook for everything around it:
           the hotels we crash in, the local food we hunt down and the gear we
@@ -68,7 +68,7 @@ export default function HomeAboutGear({
         </p>
         <p className="flex items-center gap-2 text-sm text-foreground/85">
           <Globe
-            className="h-[18px] w-[18px] text-indigo-500"
+            className="h-[18px] w-[18px] text-foreground"
             aria-hidden="true"
           />
           <b>{COUNTRIES_VISITED}</b> countries visited together
@@ -80,10 +80,10 @@ export default function HomeAboutGear({
           <div className="flex items-center justify-between gap-3">
             <div className="flex items-center gap-2.5">
               <Backpack
-                className="h-6 w-6 text-indigo-500"
+                className="h-6 w-6 text-foreground"
                 aria-hidden="true"
               />
-              <h2 className="text-xl font-extrabold tracking-tight md:text-2xl">
+              <h2 className="text-title font-extrabold tracking-tight md:text-title">
                 What we pack
               </h2>
             </div>
@@ -94,7 +94,7 @@ export default function HomeAboutGear({
               All {gearCount} items <span aria-hidden="true">→</span>
             </Link>
           </div>
-          <p className="text-[15px] text-foreground/75">
+          <p className="text-base text-foreground/75">
             Tried-and-tested gear for game days, cruises and day trips.
           </p>
           <ul className="grid grid-cols-4 gap-3">
@@ -115,7 +115,7 @@ export default function HomeAboutGear({
                       />
                     )}
                   </span>
-                  <span className="text-xs font-semibold leading-snug md:text-[13px]">
+                  <span className="text-xs font-semibold leading-snug md:text-sm">
                     {item.name}
                   </span>
                 </Link>

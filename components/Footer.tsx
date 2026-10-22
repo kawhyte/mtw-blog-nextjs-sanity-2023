@@ -9,7 +9,7 @@ export default function Footer() {
     // above the footer, and mt-auto pushes it to the bottom of short pages
     <>
       <div aria-hidden="true" className="h-20 shrink-0" />
-      <footer className="relative mt-auto text-muted-foreground body-font bg-purple-100">
+      <footer className="relative mt-auto text-muted-foreground body-font bg-primary-soft-background">
         <div className="container px-5 py-8 mx-auto flex items-center sm:flex-row ">
           <div className="flex title-font font-medium items-center md:justify-start justify-center text-foreground">
             <Link href="/" passHref legacyBehavior>

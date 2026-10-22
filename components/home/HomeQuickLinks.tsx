@@ -51,7 +51,7 @@ export default function HomeQuickLinks({ counts }: { counts: HomeCounts }) {
             />
           </span>
           <span className="flex items-baseline gap-1.5 md:flex-col md:items-start md:gap-0.5">
-            <b className="font-extrabold md:font-heading-family md:text-2xl md:leading-none">
+            <b className="font-extrabold md:font-heading-family md:text-title md:leading-none">
               {count}
             </b>
             <span className="whitespace-nowrap text-muted-foreground">

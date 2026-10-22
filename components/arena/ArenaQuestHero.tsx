@@ -16,7 +16,7 @@ interface ArenaQuestHeroProps {
 const cityOf = (location?: string) => location?.split(',')[0]?.trim() ?? ''
 
 // Fixed confetti layout (no Math.random, so server and client HTML match)
-const CONFETTI_COLORS = ['bg-primary', 'bg-secondary', 'bg-yellow-400', 'bg-green-500']
+const CONFETTI_COLORS = ['bg-primary', 'bg-brand', 'bg-warning', 'bg-success']
 const CONFETTI = Array.from({ length: 18 }, (_, i) => ({
   left: `${(i * 37 + 7) % 100}%`,
   delay: `${(i % 6) * 0.12}s`,
@@ -58,7 +58,7 @@ function FinalPodium({
 }) {
   return (
     <div className="flex flex-col gap-3">
-      <span className="inline-flex w-fit max-w-full items-center gap-2 rounded-full border-2 border-border-bold bg-yellow-300 px-3 py-1.5 text-sm font-extrabold text-gray-900 shadow-brutalist-sm">
+      <span className="inline-flex w-fit max-w-full items-center gap-2 rounded-full border-2 border-border-bold bg-amber-50 px-3 py-1.5 text-sm font-extrabold text-amber-900">
         <Trophy className="h-4 w-4" aria-hidden="true" />
         Quest complete{finishedOn ? ` · finished ${formatDate(finishedOn)}` : ''}
       </span>
@@ -92,7 +92,7 @@ function FinalPodium({
                 </span>
               </span>
               {arena.displayRating?.average && (
-                <span className="shrink-0 rounded-lg bg-green-600 px-2 py-1 text-sm font-extrabold text-white">
+                <span className="shrink-0 rounded-lg bg-success px-2 py-1 text-sm font-extrabold text-white">
                   {arena.displayRating.average}
                 </span>
               )}
@@ -121,13 +121,13 @@ function QuestProgress({
   lastVisited?: ArenaWithRating
 }) {
   return (
-    <div className="flex w-72 shrink-0 flex-col gap-2.5 lg:w-[340px]">
+    <div className="flex w-72 shrink-0 flex-col gap-2.5 lg:w-[300px]">
       <div className="flex items-baseline gap-2">
         {/* Animated digits are decorative; the sr-only text is what
             screen readers and search engines read */}
         <span
           aria-hidden="true"
-          className="quest-count font-heading-family text-[34px] font-extrabold leading-none tabular-nums text-foreground"
+          className="quest-count font-heading-family text-section font-extrabold leading-none tabular-nums text-foreground"
           style={{ '--quest-target': visitedCount } as React.CSSProperties}
         />
         <span className="sr-only">{visitedCount}</span>
@@ -138,7 +138,7 @@ function QuestProgress({
       </div>
       <ProgressLine visitedCount={visitedCount} total={total} />
       {lastVisited && (
-        <span className="text-[13px] text-muted-foreground">
+        <span className="text-sm text-muted-foreground">
           Last visited{' '}
           <strong className="text-foreground">{lastVisited.name}</strong>
           {lastVisited.date && (
@@ -204,11 +204,11 @@ function Milestone({
 }) {
   return (
     <div className="flex flex-col gap-1 border-t border-border py-3">
-      <span className="flex items-center gap-1.5 text-[11px] font-extrabold tracking-[0.12em] text-primary">
+      <span className="flex items-center gap-1.5 text-xs font-extrabold tracking-[0.12em] text-primary">
         <Icon className="h-4 w-4" aria-hidden="true" />
         {label}
       </span>
-      <span className="text-[15px] font-semibold text-foreground">
+      <span className="text-base font-semibold text-foreground">
         {children}
       </span>
     </div>
@@ -262,13 +262,13 @@ export default function ArenaQuestHero({ arenas }: ArenaQuestHeroProps) {
       <section className="relative bg-primary-soft-background">
         {complete && <Confetti />}
         <div className="container mx-auto max-w-7xl px-4 pb-1.5 pt-6 md:px-6 md:pt-8 lg:pb-5">
-          <div className="flex items-end justify-between gap-9 lg:gap-12">
+          <div className="flex items-end justify-between gap-9 lg:gap-10">
             <div className="flex min-w-0 flex-col gap-2 md:gap-2.5">
-              <h1 className="font-heading-family text-[30px] font-extrabold leading-[1.06] tracking-tight text-foreground md:text-4xl">
+              <h1 className="font-heading-family text-section font-extrabold leading-[1.06] tracking-tight text-foreground md:text-page">
                 Every <span className="text-primary">NBA &amp; WNBA</span>{' '}
                 arena, visited and ranked
               </h1>
-              <p className="text-[15px] leading-relaxed text-muted-foreground lg:text-base">
+              <p className="text-base leading-relaxed text-muted-foreground lg:text-base">
                 All {total} arenas
                 <span className="hidden md:inline"> in the US and Canada</span>,{' '}
                 {complete ? 'visited' : 'reviewed'} and ranked.

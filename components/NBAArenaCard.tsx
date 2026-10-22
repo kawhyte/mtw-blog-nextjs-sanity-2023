@@ -100,7 +100,7 @@ const Arenas = React.memo(
             {/* Compact rank badge */}
             {rank != null && (
               <span
-                className={`absolute left-1.5 top-1.5 z-20 flex items-center gap-0.5 rounded-full px-1.5 py-0.5 text-[10px] font-black ${getRankBadgeStyle(rank)}`}
+                className={`absolute left-1.5 top-1.5 z-20 flex items-center gap-0.5 rounded-full px-1.5 py-0.5 text-xs font-black ${getRankBadgeStyle(rank)}`}
                 role="status"
                 aria-label={
                   rank === 1 ? 'Best Arena' : `Arena rank: ${rank}`
@@ -113,7 +113,7 @@ const Arenas = React.memo(
 
           {/* Content */}
           <div className="flex min-w-0 flex-1 flex-col justify-center gap-0.5 bg-card px-3 py-2.5">
-            <span className="inline-flex w-fit rounded-full bg-secondary/10 border border-secondary/20 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-secondary">
+            <span className="inline-flex w-fit rounded-full bg-secondary/10 border border-secondary/20 px-2 py-0.5 text-xs font-semibold uppercase tracking-wide text-secondary">
               NBA Arena
             </span>
 
@@ -133,13 +133,13 @@ const Arenas = React.memo(
             )}
 
             {revisitCount != null && revisitCount > 0 && (
-              <span className="flex items-center gap-0.5 text-[10px] text-muted-foreground">
+              <span className="flex items-center gap-0.5 text-xs text-muted-foreground">
                 <RefreshCw className="h-2.5 w-2.5" />
                 {revisitCount === 1 ? 'Revisited' : `${revisitCount + 1}x`}
               </span>
             )}
 
-            <div className="mt-0.5 flex flex-wrap items-center gap-x-3 gap-y-0 text-[11px] text-muted-foreground">
+            <div className="mt-0.5 flex flex-wrap items-center gap-x-3 gap-y-0 text-xs text-muted-foreground">
               {location && (
                 <span className="flex shrink-0 items-center gap-1">
                   <MapPin className="h-3 w-3 shrink-0" />
@@ -217,7 +217,7 @@ const Arenas = React.memo(
           </div>
 
           <div className="flex flex-col gap-1.5 bg-card px-5 pb-5 pt-4">
-            <h2 className="line-clamp-1 text-xl font-bold leading-tight text-foreground decoration-primary decoration-dashed decoration-4 group-hover:underline">
+            <h2 className="line-clamp-1 text-title font-bold leading-tight text-foreground decoration-primary decoration-dashed decoration-4 group-hover:underline">
               <HighlightText text={arenaName} words={highlightWords} />
             </h2>
             <p className="text-sm text-muted-foreground">

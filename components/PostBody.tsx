@@ -71,9 +71,9 @@ const CALLOUT_CONFIG = {
   warning: {
     icon: AlertTriangle,
     label: 'HEADS UP',
-    labelClass: 'text-amber-700 dark:text-amber-400',
+    labelClass: 'text-amber-900 dark:text-amber-400',
     iconClass:
-      'border-amber-300 bg-amber-50 text-amber-600 dark:border-amber-700 dark:bg-amber-950/40 dark:text-amber-400',
+      'border-amber-200 bg-amber-50 text-amber-900 dark:border-amber-700 dark:bg-amber-950/40 dark:text-amber-400',
   },
   info: {
     icon: Info,

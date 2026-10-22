@@ -32,7 +32,7 @@ export function FAQSection({
 
   return (
     <section className={className}>
-      <h2 className="text-2xl font-bold mb-6 text-center">{title}</h2>
+      <h2 className="text-title font-bold mb-6 text-center">{title}</h2>
       <Accordion type="single" collapsible className="w-full max-w-3xl mx-auto">
         {items.map((item, index) => (
           <AccordionItem

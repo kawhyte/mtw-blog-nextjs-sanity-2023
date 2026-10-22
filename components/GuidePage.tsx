@@ -194,12 +194,12 @@ export default function GuidePage({
                   {categoryLabel && (
                     <Link
                       href={`/guides?type=${guide.category}`}
-                      className="self-start rounded-full bg-gray-900 px-3 py-1 text-xs font-bold text-white transition-opacity hover:opacity-80 dark:bg-white dark:text-gray-900"
+                      className="self-start rounded-full bg-foreground px-3 py-1 text-xs font-bold text-background transition-opacity hover:opacity-80"
                     >
                       {categoryLabel}
                     </Link>
                   )}
-                  <h1 className="font-heading-family text-3xl font-extrabold leading-tight xl:text-[28px]">
+                  <h1 className="font-heading-family text-section font-extrabold leading-tight xl:text-section">
                     {guide.title}
                   </h1>
                   <p className="text-sm text-muted-foreground">{meta}</p>
@@ -269,7 +269,7 @@ export default function GuidePage({
                     <span className="text-xs font-bold tracking-[0.14em] text-primary">
                       IN SHORT
                     </span>
-                    <p className="font-heading-family text-xl font-extrabold leading-snug text-foreground md:text-[26px]">
+                    <p className="font-heading-family text-title font-extrabold leading-snug text-foreground md:text-section">
                       {guide.summary}
                     </p>
                   </section>

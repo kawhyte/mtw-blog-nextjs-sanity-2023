@@ -71,29 +71,29 @@ export default function GearCard({
           />
         )}
         {skip && (
-          <span className="absolute left-2.5 top-2.5 rounded-full bg-red-600 px-2.5 py-1 text-xs font-extrabold text-white shadow">
+          <span className="absolute left-2.5 top-2.5 rounded-full bg-destructive px-2.5 py-1 text-xs font-extrabold text-white shadow">
             Skip it
           </span>
         )}
       </a>
-      <span className="text-sm font-bold leading-snug sm:text-[15px]">
+      <span className="text-sm font-bold leading-snug sm:text-base">
         {item.name?.replace(/\s+/g, ' ')}
       </span>
       {blurb && (
-        <p className="line-clamp-2 text-[13px] leading-snug text-muted-foreground sm:text-sm">
+        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground sm:text-sm">
           {blurb}
         </p>
       )}
       {(price || store) && (
         <div className="mt-0.5 flex min-w-0 items-center gap-2">
-          {price && <b className="text-sm sm:text-[15px]">{price}</b>}
+          {price && <b className="text-sm sm:text-base">{price}</b>}
           {store && item.link && (
             <a
               href={item.link}
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`Get ${item.name} at ${store} (opens in a new tab)`}
-              className="inline-flex min-h-8 min-w-0 items-center gap-1 rounded-full border-2 border-border px-2.5 text-xs font-bold text-foreground transition-colors hover:border-foreground/40 sm:px-3 sm:text-[13px]"
+              className="inline-flex min-h-8 min-w-0 items-center gap-1 rounded-full border-2 border-border px-2.5 text-xs font-bold text-foreground transition-colors hover:border-foreground/40 sm:px-3 sm:text-sm"
             >
               <span className="truncate">{store}</span>
               <span aria-hidden="true">↗</span>

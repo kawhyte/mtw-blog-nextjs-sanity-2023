@@ -88,14 +88,14 @@ export default function ListingCard({
               #{rank}
             </span>
           ) : (
-            <span className="absolute left-2.5 top-2.5 rounded-full bg-white px-2.5 py-1 text-xs font-bold text-gray-900 shadow">
+            <span className="absolute left-2.5 top-2.5 rounded-full bg-white px-2.5 py-1 text-xs font-bold text-foreground shadow">
               Whytes’ favourite
             </span>
           ))}
       </div>
       <div className="flex flex-col gap-0.5">
         <span
-          className={`text-[15px] font-bold group-hover:text-primary ${
+          className={`text-base font-bold group-hover:text-primary ${
             // Two-up phone grid: let long names wrap to a 2nd line
             inRow ? 'line-clamp-1' : 'line-clamp-2 sm:line-clamp-1'
           }`}

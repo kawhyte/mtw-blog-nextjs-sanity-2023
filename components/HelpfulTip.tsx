@@ -40,7 +40,7 @@ export default function HelpfulTip({ tip }) {
         <span className="text-xs font-bold tracking-[0.14em] text-primary">
           INSIDER TIP
         </span>
-        <div className="text-base leading-relaxed text-foreground/80 sm:text-[17px]">
+        <div className="text-base leading-relaxed text-foreground/80 sm:text-lg">
           <PortableText value={tip} components={tipComponents} />
         </div>
       </div>
