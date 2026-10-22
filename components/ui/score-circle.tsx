@@ -44,7 +44,7 @@ export function PhotoScore({
     <span
       role="img"
       aria-label={`Rated ${display} out of 5, ${textRating}`}
-      className={`font-heading-family absolute z-30 flex h-10 w-10 items-center justify-center rounded-full border-2 border-white pt-[0.15em] text-[15px] font-extrabold shadow ${scoreCircleClass(textRating)} ${className}`}
+      className={`font-heading-family absolute z-30 flex h-10 w-10 items-center justify-center rounded-full border-2 border-white pt-[0.15em] text-base font-extrabold shadow ${scoreCircleClass(textRating)} ${className}`}
     >
       {display}
     </span>

@@ -144,7 +144,7 @@ export default function CoverImage(props: CoverImageProps) {
   }
 
   const badgeClasses =
-    badgeColorClasses[categoryType.color] || 'bg-gray-500 text-white'
+    badgeColorClasses[categoryType.color] || 'bg-muted-foreground text-white'
 
   return (
     <div className="relative overflow-hidden rounded-t-[28px]">
@@ -154,7 +154,7 @@ export default function CoverImage(props: CoverImageProps) {
             {image}
             {contentType === 'hotel' && category && (
               <Badge
-                className="absolute top-3 left-3 z-30 bg-zinc-900/65 text-white backdrop-blur-sm border-transparent min-h-[32px] flex items-center"
+                className="absolute top-3 left-3 z-30 bg-foreground/65 text-white backdrop-blur-sm border-transparent min-h-[32px] flex items-center"
                 role="status"
                 aria-label={`Hotel category: ${categoryType.name}`}
               >
@@ -167,7 +167,7 @@ export default function CoverImage(props: CoverImageProps) {
 
             {contentType === 'food' && diningType && (
               <Badge
-                className="absolute top-3 left-3 z-30 bg-zinc-900/65 text-white backdrop-blur-sm border-transparent min-h-[32px] flex items-center"
+                className="absolute top-3 left-3 z-30 bg-foreground/65 text-white backdrop-blur-sm border-transparent min-h-[32px] flex items-center"
                 role="status"
                 aria-label={`Dining type: ${diningType === 'dinein' ? 'Dine-In' : 'Takeout'}`}
               >
@@ -182,7 +182,7 @@ export default function CoverImage(props: CoverImageProps) {
 
             {contentType === 'guide' && category && GUIDE_CATEGORY_LABELS[category] && (
               <Badge
-                className="absolute top-3 left-3 z-30 bg-zinc-900/65 text-white backdrop-blur-sm border-transparent min-h-[32px] flex items-center"
+                className="absolute top-3 left-3 z-30 bg-foreground/65 text-white backdrop-blur-sm border-transparent min-h-[32px] flex items-center"
                 role="status"
                 aria-label={`Guide category: ${GUIDE_CATEGORY_LABELS[category]}`}
               >

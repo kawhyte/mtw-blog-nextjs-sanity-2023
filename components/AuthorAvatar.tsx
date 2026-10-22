@@ -21,7 +21,7 @@ export default function AuthorAvatar(props: Author) {
           loading="lazy"
         />
       </div>
-      <div className="text-xl font-bold">{name}</div>
+      <div className="text-title font-bold">{name}</div>
     </div>
   )
 }

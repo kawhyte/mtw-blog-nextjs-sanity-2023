@@ -65,7 +65,7 @@ function ContentCard({
       )}
       <div className="min-w-0 flex-1">
         {badge && (
-          <span className="mb-1 inline-flex rounded-full bg-secondary/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-secondary">
+          <span className="mb-1 inline-flex rounded-full bg-secondary/10 px-2 py-0.5 text-xs font-semibold uppercase tracking-wide text-secondary">
             {badge}
           </span>
         )}
@@ -198,7 +198,7 @@ export default function CityPage({ location, data, settings }: CityPageProps) {
               <MapPin className="h-4 w-4 shrink-0" />
               <span className="text-sm">{location}</span>
             </div>
-            <h1 className="text-4xl font-bold mb-4">
+            <h1 className="text-page font-bold mb-4">
               {cityName} NBA Game Day Guide
             </h1>
             <p className="text-muted-foreground text-lg leading-relaxed">
@@ -235,12 +235,12 @@ export default function CityPage({ location, data, settings }: CityPageProps) {
                     )}
                     <div className="flex-1 bg-card p-4">
                       {!arena.visited && (
-                        <span className="mb-2 inline-flex rounded-full border border-muted px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
+                        <span className="mb-2 inline-flex rounded-full border border-muted px-2 py-0.5 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
                           On Our Bucket List
                         </span>
                       )}
                       {arena.visited && (
-                        <span className="mb-2 inline-flex items-center gap-1 rounded-full bg-secondary/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-secondary">
+                        <span className="mb-2 inline-flex items-center gap-1 rounded-full bg-secondary/10 px-2 py-0.5 text-xs font-semibold uppercase tracking-wide text-secondary">
                           <Trophy className="h-3 w-3" /> Visited
                         </span>
                       )}

@@ -66,7 +66,7 @@ function ArenaDetails({ arena }: { arena: MapArena }) {
           {[arena.city, teamNames].filter(Boolean).join(' · ')}
         </span>
         {arena.visited ? (
-          <span className="text-xs font-bold text-green-700 dark:text-green-400">
+          <span className="text-xs font-bold text-success">
             Visited{arena.date ? ` ${formatDate(arena.date)}` : ''}
           </span>
         ) : (
@@ -280,7 +280,7 @@ export default function ArenaQuestMap({
               className="absolute z-10 flex h-9 w-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary md:h-7 md:w-7"
             >
               <span
-                className={`flex items-center justify-center rounded-full border-2 border-border-bold text-[10px] font-black leading-none transition-transform ${
+                className={`flex items-center justify-center rounded-full border-2 border-border-bold text-xs font-black leading-none transition-transform ${
                   cluster.items.length > 1 ? 'h-5 w-5' : 'h-3.5 w-3.5'
                 } ${
                   allVisited
@@ -309,7 +309,7 @@ export default function ArenaQuestMap({
               key={`label-${toGo.map((a) => a.id).join('|')}`}
               aria-hidden="true"
               style={toPercent(cluster.x, cluster.y)}
-              className={`pointer-events-none absolute z-10 -translate-x-1/2 whitespace-nowrap rounded-full border-[1.5px] border-dashed border-border-bold bg-card px-2 py-px text-[10px] font-bold text-foreground @3xl:-translate-y-[calc(100%_+_12px)] @3xl:px-2.5 @3xl:py-0.5 @3xl:text-xs ${
+              className={`pointer-events-none absolute z-10 -translate-x-1/2 whitespace-nowrap rounded-full border-[1.5px] border-dashed border-border-bold bg-card px-2 py-px text-xs font-bold text-foreground @3xl:-translate-y-[calc(100%_+_12px)] @3xl:px-2.5 @3xl:py-0.5 @3xl:text-xs ${
                 gulf ? 'translate-y-4' : '-translate-y-[calc(100%_+_12px)]'
               }`}
             >

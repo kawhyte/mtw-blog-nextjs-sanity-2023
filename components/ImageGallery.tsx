@@ -232,7 +232,7 @@ export default function ImageGallery({
                   }}
                   className="scroll-mt-32"
                 >
-                  <h2 className="mb-4 text-xl font-semibold text-foreground">
+                  <h2 className="mb-4 text-title font-semibold text-foreground">
                     {section.label}
                   </h2>
                   <div className="columns-1 md:columns-2 space-y-4">

@@ -8,7 +8,7 @@ export default function PostTitle({ children }) {
 
 export function CardTitle({ children }) {
   return (
-    <h1 className="font-adventure-subheading line-clamp-1 text-2xl text-blog-heading">
+    <h1 className="font-adventure-subheading line-clamp-1 text-title text-blog-heading">
       {children}
     </h1>
   )

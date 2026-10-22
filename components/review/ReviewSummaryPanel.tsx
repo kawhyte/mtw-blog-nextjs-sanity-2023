@@ -61,7 +61,7 @@ export default function ReviewSummaryPanel({
           <div
             // pt-[0.2em]: Epilogue's digits sit ~0.1em above the line box's
             // centre, so nudge them down to look optically centred
-            className={`font-heading-family row-span-2 flex h-16 w-16 shrink-0 items-center justify-center rounded-full pt-[0.2em] text-[1.75rem] font-extrabold tracking-tight xl:row-span-1 xl:h-[5.5rem] xl:w-[5.5rem] xl:text-[2.4rem] ${scoreCircleClass(score.textRating)}`}
+            className={`font-heading-family row-span-2 flex h-16 w-16 shrink-0 items-center justify-center rounded-full pt-[0.2em] text-section font-extrabold tracking-tight xl:row-span-1 xl:h-[5.5rem] xl:w-[5.5rem] xl:text-page ${scoreCircleClass(score.textRating)}`}
             role="img"
             aria-label={`Rated ${score.displayRating} out of 5, ${score.textRating}`}
           >
@@ -69,14 +69,14 @@ export default function ReviewSummaryPanel({
           </div>
         )}
         <h1
-          className={`text-2xl font-extrabold leading-tight sm:text-3xl xl:col-span-2 xl:row-start-2 ${score ? 'col-start-2' : 'col-span-2'}`}
+          className={`text-title font-extrabold leading-tight sm:text-section xl:col-span-2 xl:row-start-2 ${score ? 'col-start-2' : 'col-span-2'}`}
         >
           {title}
         </h1>
         <div className="col-start-2 text-sm text-muted-foreground xl:row-start-1 xl:text-base">
           {score && (
             <span
-              className={`font-heading-family font-extrabold ${scoreTextClass(score.textRating)} xl:block xl:text-xl`}
+              className={`font-heading-family font-extrabold ${scoreTextClass(score.textRating)} xl:block xl:text-title`}
             >
               {score.textRating}
             </span>

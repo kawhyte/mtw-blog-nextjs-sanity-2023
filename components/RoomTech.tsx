@@ -74,7 +74,7 @@ const wifiCapabilities = [
 const FeatureItem = ({ label, isAvailable, details }) => (
   <div className="flex items-start text-foreground">
     {isAvailable ? (
-      <CheckCircle2 className="h-4 w-4 mr-2 mt-0.5 shrink-0 text-green-500" />
+      <CheckCircle2 className="h-4 w-4 mr-2 mt-0.5 shrink-0 text-success" />
     ) : (
       <XCircle className="h-4 w-4 mr-2 mt-0.5 shrink-0  text-destructive" />
     )}
@@ -201,7 +201,7 @@ const RoomTech = ({
           {/* --- Internet Speed Card --- */}
           <div className="flex h-full flex-col rounded-2xl border-2 border-success bg-card p-5 shadow-lg">
             <div className="mb-3 flex items-center border-b border-border pb-3 font-bold uppercase tracking-wider text-success">
-              <Wifi className="h-6 w-6 mr-3 text-green-500" />
+              <Wifi className="h-6 w-6 mr-3 text-success" />
               Internet Speed
               <span
                 className={`ml-auto rounded-full px-3 py-1 text-xs font-semibold ${badgeClass}`}
@@ -210,7 +210,7 @@ const RoomTech = ({
               </span>
             </div>
             <div className="flex items-end text-foreground">
-              <span className="text-6xl font-bold leading-none">
+              <span className="text-display font-bold leading-none">
                 {speed || '0'}
               </span>
               <span className="ml-2 pb-1 text-lg font-normal text-muted-foreground">
@@ -229,7 +229,7 @@ const RoomTech = ({
                     className={`flex items-center ${capable ? 'text-foreground' : 'text-muted-foreground opacity-50'}`}
                   >
                     {capable ? (
-                      <CheckCircle2 className="h-4 w-4 mr-2 shrink-0 text-green-500" />
+                      <CheckCircle2 className="h-4 w-4 mr-2 shrink-0 text-success" />
                     ) : (
                       <XCircle className="h-4 w-4 mr-2 shrink-0 text-destructive" />
                     )}

@@ -63,9 +63,9 @@ function DeltaRow({ delta }: { delta: TimelineDelta }) {
       <span
         className={`flex items-center gap-0.5 font-semibold ${
           isPositive
-            ? 'text-green-600 dark:text-green-400'
+            ? 'text-success'
             : isNegative
-              ? 'text-red-500 dark:text-red-400'
+              ? 'text-destructive'
               : 'text-muted-foreground'
         }`}
       >
@@ -118,7 +118,7 @@ export default function RevisitTimeline({
     <section aria-label="Visit History" className="space-y-6">
       <div className="flex items-center gap-2">
         <History className="h-5 w-5 text-muted-foreground" />
-        <h2 className="text-xl font-bold tracking-tight">Visit History</h2>
+        <h2 className="text-title font-bold tracking-tight">Visit History</h2>
       </div>
 
       <div className="relative">
@@ -139,7 +139,7 @@ export default function RevisitTimeline({
                     <CalendarCheck className="h-4 w-4 text-muted-foreground" />
                     {formatVisitDate(entry.visitDate)}
                   </div>
-                  <span className="rounded-sm bg-muted px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+                  <span className="rounded-sm bg-muted px-1.5 py-0.5 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                     Revisit
                   </span>
                 </div>
@@ -185,7 +185,7 @@ export default function RevisitTimeline({
                   <CalendarCheck className="h-4 w-4 text-muted-foreground" />
                   {formatVisitDate(originalDate)}
                 </div>
-                <span className="rounded-sm bg-accent px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-accent-foreground">
+                <span className="rounded-sm bg-accent px-1.5 py-0.5 text-xs font-semibold uppercase tracking-wider text-accent-foreground">
                   Original Visit
                 </span>
               </div>

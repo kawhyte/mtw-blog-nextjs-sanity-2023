@@ -127,7 +127,7 @@ export default function ReviewRating({
   if (variant === 'glance') {
     return (
       <section className="rounded-3xl border-[3px] border-border-bold bg-card p-6 sm:p-7">
-        <h2 className="mb-6 text-xl font-extrabold text-foreground">{title}</h2>
+        <h2 className="mb-6 text-title font-extrabold text-foreground">{title}</h2>
         <div className="grid grid-cols-1 gap-x-10 gap-y-6 sm:grid-cols-2 xl:grid-cols-3">
           {ratingEntries.map(([name, value]) => {
             const score = (value ?? 0) / 2
@@ -167,19 +167,19 @@ export default function ReviewRating({
       <div className="grid grid-cols-1 md:grid-cols-12 md:gap-x-12">
         <div className="md:col-span-4 flex flex-col items-center text-center border-b-2 md:border-b-0 md:border-r-2 border-border pb-6 md:pb-0 md:pr-8 mb-6 md:mb-0">
           {/* Title */}
-          <h2 className="text-2xl font-bold text-foreground mb-6">{title}</h2>
+          <h2 className="text-title font-bold text-foreground mb-6">{title}</h2>
 
           {/* Score — centered, fills remaining space */}
           <div className="flex flex-col items-center gap-2 flex-1 justify-center">
             <div className="flex items-baseline gap-1">
-              <span className="text-7xl font-bold text-secondary leading-none">
+              <span className="text-display font-bold text-secondary leading-none">
                 {displayRating}
               </span>
-              <span className="text-2xl font-normal text-muted-foreground">
+              <span className="text-title font-normal text-muted-foreground">
                 / 5.0
               </span>
             </div>
-            <p className={`text-xl font-bold ${ratingClasses.text}`}>
+            <p className={`text-title font-bold ${ratingClasses.text}`}>
               {textScore}
             </p>
           </div>

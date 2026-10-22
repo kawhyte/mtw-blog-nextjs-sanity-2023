@@ -189,6 +189,17 @@
 
 /* ===== 2. MAP PALETTE TO TAILWIND'S THEME ===== */
 @theme {
+  /* Text scale: 12 / 14 / 16 / 18 are text-xs, -sm, -base, -lg; the four
+     bigger steps have names so nothing else creeps in */
+  --text-title: 1.375rem; /* 22px: card and panel titles */
+  --text-title--line-height: 1.25;
+  --text-section: 1.75rem; /* 28px: section titles */
+  --text-section--line-height: 1.15;
+  --text-page: 2.5rem; /* 40px: page titles */
+  --text-page--line-height: 1.1;
+  --text-display: 3.5rem; /* 56px: homepage headline */
+  --text-display--line-height: 1.05;
+
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
   --color-primary: hsl(var(--primary));

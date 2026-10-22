@@ -58,7 +58,7 @@ function VideoCard({ id, title }: { id: string; title: string }) {
           </button>
         )}
       </div>
-      <span className="line-clamp-2 text-[15px] font-bold">{title}</span>
+      <span className="line-clamp-2 text-base font-bold">{title}</span>
     </div>
   )
 }

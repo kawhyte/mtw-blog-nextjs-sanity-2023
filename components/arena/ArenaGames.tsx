@@ -62,11 +62,11 @@ function GameCard({ game, team }: { game: any; team: any }) {
 
   return (
     <div className="flex w-[78vw] max-w-[268px] shrink-0 snap-start flex-col gap-3 rounded-2xl border-[3px] border-border-bold bg-card p-4">
-      <div className="flex flex-wrap items-center gap-1.5 text-[11px] font-extrabold tracking-[0.1em] text-muted-foreground">
+      <div className="flex flex-wrap items-center gap-1.5 text-xs font-extrabold tracking-[0.1em] text-muted-foreground">
         <span>
           FINAL{gameDate(game.gameDate) ? ` · ${gameDate(game.gameDate)}` : ''}
         </span>
-        {overtime && <span className="text-amber-600">· {overtime}</span>}
+        {overtime && <span className="text-warning">· {overtime}</span>}
         {extra && (
           <span className="rounded-full bg-primary-soft-background px-2 py-0.5 tracking-normal text-primary">
             {extra}
@@ -76,12 +76,12 @@ function GameCard({ game, team }: { game: any; team: any }) {
 
       <div className="flex flex-col gap-1.5">
         <div className="flex items-baseline justify-between gap-2">
-          <span className="truncate text-[15px] font-bold">{team.name}</span>
+          <span className="truncate text-base font-bold">{team.name}</span>
           {hasScore && (
-            <span className="font-heading-family flex items-baseline gap-1.5 text-xl font-extrabold tabular-nums">
+            <span className="font-heading-family flex items-baseline gap-1.5 text-title font-extrabold tabular-nums">
               {game.homeScore}
               <span
-                className={`text-xs ${won ? 'text-green-600' : 'text-red-600'}`}
+                className={`text-xs ${won ? 'text-success' : 'text-destructive'}`}
               >
                 {won ? 'W' : lost ? 'L' : ''}
               </span>
@@ -89,9 +89,9 @@ function GameCard({ game, team }: { game: any; team: any }) {
           )}
         </div>
         <div className="flex items-baseline justify-between gap-2 text-muted-foreground">
-          <span className="truncate text-[15px]">{game.opponent ?? 'TBA'}</span>
+          <span className="truncate text-base">{game.opponent ?? 'TBA'}</span>
           {hasScore && (
-            <span className="font-heading-family pr-[1.1rem] text-xl font-bold tabular-nums">
+            <span className="font-heading-family pr-[1.1rem] text-title font-bold tabular-nums">
               {game.awayScore}
             </span>
           )}
@@ -100,7 +100,7 @@ function GameCard({ game, team }: { game: any; team: any }) {
 
       {game.playerOfGame?.length > 0 && (
         <div className="flex flex-col gap-2.5 border-t-2 border-muted pt-3">
-          <span className="text-[11px] font-extrabold tracking-[0.1em] text-muted-foreground">
+          <span className="text-xs font-extrabold tracking-[0.1em] text-muted-foreground">
             TOP SCORERS
           </span>
           {game.playerOfGame.map((player: any, i: number) => (
@@ -126,7 +126,7 @@ function GameCard({ game, team }: { game: any; team: any }) {
                 )}
               </span>
               <span className="flex min-w-0 flex-col">
-                <span className="truncate text-[13px] font-bold">
+                <span className="truncate text-sm font-bold">
                   {player.playerName}
                 </span>
                 <span className="truncate text-xs text-muted-foreground">
@@ -192,7 +192,7 @@ export default function ArenaGames({ teams }: { teams: any[] }) {
           return (
             <section key={team.name} className="flex flex-col gap-4">
               {i === 0 && (
-                <h2 className="text-xl font-extrabold tracking-tight sm:text-2xl">
+                <h2 className="text-title font-extrabold tracking-tight sm:text-title">
                   Games we attended
                 </h2>
               )}

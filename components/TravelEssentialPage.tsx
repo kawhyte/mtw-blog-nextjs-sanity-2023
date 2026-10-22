@@ -78,7 +78,7 @@ export default function TravelEssentialPage({
         <section className="border-b border-border bg-primary-soft-background">
           <div className="container mx-auto flex max-w-7xl flex-col gap-5 px-4 pb-5 pt-7 md:px-6 md:pb-7 md:pt-11">
             <div className="flex flex-col gap-2">
-              <h1 className="text-4xl font-extrabold tracking-tight text-primary md:text-5xl">
+              <h1 className="text-page font-extrabold tracking-tight text-primary md:text-page">
                 What We Pack
               </h1>
               <p className="max-w-2xl text-base leading-relaxed text-foreground/75 md:text-lg">
@@ -115,14 +115,14 @@ export default function TravelEssentialPage({
               className="flex scroll-mt-24 flex-col gap-4 md:gap-5"
             >
               <div className="flex flex-col gap-1">
-                <h2 className="text-xl font-extrabold tracking-tight sm:text-2xl">
+                <h2 className="text-title font-extrabold tracking-tight sm:text-title">
                   {group.title}{' '}
                   <span className="text-sm font-semibold text-muted-foreground sm:text-base">
                     ({group.items.length})
                   </span>
                 </h2>
                 {group.blurb && (
-                  <p className="text-sm text-muted-foreground sm:text-[15px]">
+                  <p className="text-sm text-muted-foreground sm:text-base">
                     {group.blurb}
                   </p>
                 )}

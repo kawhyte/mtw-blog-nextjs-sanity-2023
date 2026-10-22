@@ -38,7 +38,7 @@ export default function ListingHeader({
     <section className="border-b border-primary/20 bg-primary-soft-background">
       <div className="container mx-auto flex max-w-7xl flex-col gap-6 px-4 pt-8 sm:pt-10 md:px-6">
         <div>
-          <h1 className="text-4xl font-extrabold tracking-tight text-primary md:text-5xl">
+          <h1 className="text-page font-extrabold tracking-tight text-primary md:text-page">
             {title}
           </h1>
           <p className="mt-2 text-base text-muted-foreground sm:text-lg">

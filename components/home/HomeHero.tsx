@@ -38,7 +38,7 @@ export default function HomeHero({ arenas }: { arenas: HomeArena[] }) {
         {/* Phones: its children flow around the photo; laptops: one column */}
         <div className="contents lg:flex lg:flex-col lg:gap-7">
           <div className="order-1 flex flex-col gap-4 lg:gap-6">
-            <h1 className="text-[38px] font-black uppercase leading-[1.02] tracking-tight text-foreground sm:text-5xl xl:text-6xl">
+            <h1 className="text-page font-black uppercase leading-[1.02] tracking-tight text-foreground sm:text-page xl:text-display">
               Our quest to visit every{' '}
               <span className="text-primary">NBA &amp; WNBA</span> arena
             </h1>
@@ -50,13 +50,13 @@ export default function HomeHero({ arenas }: { arenas: HomeArena[] }) {
           <div className="order-3 flex flex-col gap-3 sm:flex-row">
             <Link
               href="/arenas"
-              className="inline-flex h-12 items-center justify-center rounded-full border-[3px] border-border-bold bg-primary px-[22px] text-[15px] font-extrabold text-white transition-colors hover:bg-pink-700"
+              className="inline-flex h-12 items-center justify-center rounded-full border-[3px] border-border-bold bg-primary px-[22px] text-base font-extrabold text-white transition-colors hover:bg-pink-700"
             >
               See the arena rankings
             </Link>
             <Link
               href="#fresh"
-              className="inline-flex h-12 items-center justify-center rounded-full border-[3px] border-border-bold bg-card px-[22px] text-[15px] font-extrabold text-foreground transition-colors hover:bg-muted"
+              className="inline-flex h-12 items-center justify-center rounded-full border-[3px] border-border-bold bg-card px-[22px] text-base font-extrabold text-foreground transition-colors hover:bg-muted"
             >
               Our latest trips
             </Link>
@@ -81,11 +81,11 @@ export default function HomeHero({ arenas }: { arenas: HomeArena[] }) {
               <ScoreChip arena={lead} />
               <span className="absolute inset-x-0 bottom-0 flex flex-col bg-linear-to-t from-black/75 to-transparent px-3.5 pb-3 pt-10 text-white lg:px-4.5 lg:pb-4">
                 {leadMonth && (
-                  <span className="text-[11px] font-extrabold tracking-[0.12em] opacity-85 lg:text-xs">
+                  <span className="text-xs font-extrabold tracking-[0.12em] opacity-85 lg:text-xs">
                     VISITED {leadMonth}
                   </span>
                 )}
-                <span className="font-heading-family text-lg font-extrabold leading-tight lg:text-[22px]">
+                <span className="font-heading-family text-lg font-extrabold leading-tight lg:text-title">
                   {lead.title}
                   {city(lead.location) ? `, ${city(lead.location)}` : ''}
                 </span>

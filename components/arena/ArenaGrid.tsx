@@ -76,7 +76,7 @@ export default function ArenaGrid({ arenas }: ArenaGridProps) {
             <div className="flex items-center gap-3">
               <MapPin className="h-5 w-5 text-muted-foreground shrink-0" />
               <div>
-                <h2 className="text-xl font-bold tracking-tight">
+                <h2 className="text-title font-bold tracking-tight">
                   Still on Our Bucket List
                 </h2>
                 <p className="text-sm text-muted-foreground mt-0.5">

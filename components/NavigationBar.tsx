@@ -137,7 +137,7 @@ export default function Navbar() {
             height={40}
             priority
           />
-          <span className="font-heading-family hidden text-[17px] font-extrabold tracking-tight text-foreground sm:inline">
+          <span className="font-heading-family hidden text-lg font-extrabold tracking-tight text-foreground sm:inline">
             meet the whytes
           </span>
         </Link>
@@ -154,7 +154,7 @@ export default function Navbar() {
                   href={link.href}
                   aria-current={active ? 'page' : undefined}
                   className={cn(
-                    'relative block py-2 text-[15px] transition-colors hover:text-primary',
+                    'relative block py-2 text-base transition-colors hover:text-primary',
                     active
                       ? 'font-bold text-primary'
                       : 'font-semibold text-foreground',
@@ -213,7 +213,7 @@ export default function Navbar() {
             <button
               type="button"
               onClick={openSearch}
-              className="flex h-12 items-center gap-2.5 rounded-full border-2 border-border bg-card px-4 text-[15px] text-muted-foreground"
+              className="flex h-12 items-center gap-2.5 rounded-full border-2 border-border bg-card px-4 text-base text-muted-foreground"
             >
               <Search className="h-[18px] w-[18px]" aria-hidden="true" />
               Search the site

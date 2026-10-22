@@ -199,16 +199,16 @@ function SuggestionList({ search }: { search: SiteSearch }) {
           }`}
         >
           <span className="flex min-w-0 flex-col">
-            <span className="truncate text-[15px] font-bold text-foreground">
+            <span className="truncate text-base font-bold text-foreground">
               <HighlightText text={suggestion.title} words={words} />
             </span>
             {suggestion.location && (
-              <span className="truncate text-[13px] text-muted-foreground">
+              <span className="truncate text-sm text-muted-foreground">
                 {suggestion.location}
               </span>
             )}
           </span>
-          <span className="shrink-0 rounded-full border border-border bg-stone-100 px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wide text-stone-700">
+          <span className="shrink-0 rounded-full border border-border bg-stone-100 px-2.5 py-0.5 text-xs font-bold uppercase tracking-wide text-stone-700">
             {SUGGESTION_LABELS[suggestion._type]}
           </span>
         </li>
@@ -220,7 +220,7 @@ function SuggestionList({ search }: { search: SiteSearch }) {
         onMouseDown={(event) => event.preventDefault()}
         onClick={goToResults}
         onMouseEnter={() => setActiveIndex(suggestions.length)}
-        className={`mt-1 flex min-h-12 cursor-pointer items-center justify-between gap-2 border-t border-border px-4 py-2 text-[15px] font-extrabold text-pink-700 lg:px-[18px] ${
+        className={`mt-1 flex min-h-12 cursor-pointer items-center justify-between gap-2 border-t border-border px-4 py-2 text-base font-extrabold text-pink-700 lg:px-[18px] ${
           activeIndex === suggestions.length
             ? 'bg-primary-soft-background'
             : ''
@@ -287,7 +287,7 @@ export function NavSearch({
           type="search"
           placeholder="Search the site"
           aria-label={PLACEHOLDER}
-          className="min-w-0 flex-1 bg-transparent text-[15px] font-semibold text-foreground placeholder:font-medium placeholder:text-muted-foreground focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 [&::-webkit-search-cancel-button]:hidden"
+          className="min-w-0 flex-1 bg-transparent text-base font-semibold text-foreground placeholder:font-medium placeholder:text-muted-foreground focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 [&::-webkit-search-cancel-button]:hidden"
           value={search.value}
           onChange={(event) => {
             search.setValue(event.target.value)
@@ -360,7 +360,7 @@ function SearchSheet({ onDone }: { onDone: () => void }) {
             {...search.comboboxProps}
           />
         </div>
-        <DialogPrimitive.Close className="-mr-1 min-h-11 shrink-0 px-1 text-[15px] font-bold text-pink-700">
+        <DialogPrimitive.Close className="-mr-1 min-h-11 shrink-0 px-1 text-base font-bold text-pink-700">
           Cancel
         </DialogPrimitive.Close>
       </div>

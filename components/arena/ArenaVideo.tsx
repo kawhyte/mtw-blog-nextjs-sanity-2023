@@ -48,7 +48,7 @@ export default function ArenaVideo({
 
   return (
     <section className="flex flex-col gap-4">
-      <h2 className="text-xl font-extrabold tracking-tight sm:text-2xl">
+      <h2 className="text-title font-extrabold tracking-tight sm:text-title">
         Watch our visit
       </h2>
 
@@ -121,7 +121,7 @@ export default function ArenaVideo({
             />
           )}
           {playBadge}
-          <span className="absolute bottom-3.5 left-4 inline-flex items-center gap-2 text-[15px] font-extrabold text-white drop-shadow">
+          <span className="absolute bottom-3.5 left-4 inline-flex items-center gap-2 text-base font-extrabold text-white drop-shadow">
             <Instagram className="h-5 w-5" aria-hidden="true" />
             Watch on Instagram ↗
           </span>

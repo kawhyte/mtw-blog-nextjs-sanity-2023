@@ -72,7 +72,7 @@ export default function SwipeRow({
         className={`flex justify-between gap-4 ${subtitle ? 'items-end' : 'items-center'}`}
       >
         <div className="flex min-w-0 flex-col gap-1">
-          <h2 className="text-xl font-extrabold tracking-tight sm:text-2xl">
+          <h2 className="text-title font-extrabold tracking-tight sm:text-title">
             {seeAllHref && !linkLabel ? (
               <Link
                 href={seeAllHref}
@@ -86,7 +86,7 @@ export default function SwipeRow({
             )}
           </h2>
           {subtitle && (
-            <p className="text-sm text-muted-foreground sm:text-[15px]">
+            <p className="text-sm text-muted-foreground sm:text-base">
               {subtitle}
             </p>
           )}
@@ -150,7 +150,7 @@ export default function SwipeRow({
             scroll={false}
             className="flex aspect-square w-[68vw] max-w-64 shrink-0 snap-start flex-col items-center justify-center gap-2 rounded-2xl border-[3px] border-dashed border-border-bold bg-card p-4 text-center transition-colors hover:bg-primary-soft-background sm:w-60 lg:w-62"
           >
-            <span className="font-heading-family text-lg font-extrabold leading-tight sm:text-xl">
+            <span className="font-heading-family text-lg font-extrabold leading-tight sm:text-title">
               {seeAllLabel}
             </span>
             <span className="text-sm font-bold text-primary">Browse →</span>

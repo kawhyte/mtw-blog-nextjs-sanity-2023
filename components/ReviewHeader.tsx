@@ -23,7 +23,7 @@ function ReviewHeader({ title, summary, contentType }: ReviewHeaderProps) {
           </p>
         )}
 
-        <h1 className="font-epilogue mb-4 text-4xl font-bold text-primary md:text-5xl lg:text-6xl">
+        <h1 className="font-epilogue mb-4 text-page font-bold text-primary md:text-page lg:text-display">
           {title}
         </h1>
 

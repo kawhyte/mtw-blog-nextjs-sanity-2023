@@ -303,8 +303,8 @@ function FoodReviewPageContent(props: FoodReviewPageProps) {
                   <p
                     className={`font-heading-family font-extrabold leading-tight text-foreground ${
                       foodReview.verdictHeadline
-                        ? 'text-3xl md:text-4xl'
-                        : 'text-xl md:text-2xl'
+                        ? 'text-section md:text-page'
+                        : 'text-title'
                     }`}
                   >
                     {verdictText}

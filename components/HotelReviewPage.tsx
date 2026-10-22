@@ -71,12 +71,12 @@ const HOTEL_RATING_LABELS: Record<string, string> = {
 }
 
 const WOULD_RETURN_CONFIG = {
-  yes: { label: 'Would Return', className: 'text-green-600' },
+  yes: { label: 'Would Return', className: 'text-success' },
   if_prices_drop: {
     label: 'Would Return If Cheaper',
-    className: 'text-amber-500',
+    className: 'text-warning',
   },
-  maybe: { label: 'Maybe Return', className: 'text-amber-500' },
+  maybe: { label: 'Maybe Return', className: 'text-warning' },
   no: { label: "Wouldn't Return", className: 'text-destructive' },
 } as const
 
@@ -322,8 +322,8 @@ function HotelReviewPageContent(props: HotelReviewPageProps) {
                   <p
                     className={`font-heading-family font-extrabold leading-tight text-foreground ${
                       hotelReview.verdictHeadline
-                        ? 'text-3xl md:text-4xl'
-                        : 'text-xl md:text-2xl'
+                        ? 'text-section md:text-page'
+                        : 'text-title'
                     }`}
                   >
                     {verdictText}

@@ -24,10 +24,10 @@ export default function ArenaPageContent({ arenas }: ArenaPageContentProps) {
       {/* This heading peeks in under the hero on every screen, so it's clear
           the page keeps going */}
       <div className="container mx-auto max-w-7xl px-4 md:px-6">
-        <h2 className="font-heading-family text-2xl font-extrabold tracking-tight text-foreground md:text-[28px]">
+        <h2 className="font-heading-family text-title font-extrabold tracking-tight text-foreground md:text-section">
           The rankings
         </h2>
-        <p className="mt-1 text-[15px] text-muted-foreground">
+        <p className="mt-1 text-base text-muted-foreground">
           All {arenas.length} arenas, best to worst. {visitedCount} visited
           {arenas.length > visitedCount
             ? `, ${arenas.length - visitedCount} to go`
