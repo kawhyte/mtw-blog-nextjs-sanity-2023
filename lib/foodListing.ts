@@ -21,31 +21,38 @@ export interface RawFoodListingRow {
   }[]
 }
 
-/** Restaurants for /food, scored like the food review page (dine-in or takeout weights, plus revisit updates) */
+/** A restaurant's overall score, the same maths as the food review page (dine-in or takeout weights, plus revisit updates) */
+export function foodRowRating(
+  row: Pick<
+    RawFoodListingRow,
+    'diningType' | 'foodRating' | 'takeoutRating' | 'revisits'
+  >,
+) {
+  const isTakeout = row.diningType === 'takeout'
+  const base = isTakeout ? row.takeoutRating : row.foodRating
+  if (!base) return null
+  const revisits = (row.revisits ?? []).map((r) => ({
+    visitDate: r.visitDate,
+    ratingUpdates: isTakeout ? r.takeoutRatingUpdates : r.foodRatingUpdates,
+  }))
+  return listingRating(
+    getEffectiveRating(base, revisits),
+    isTakeout ? TAKEOUT_WEIGHTS : FOOD_WEIGHTS,
+  )
+}
+
+/** Restaurants for /food, scored like the food review page */
 export function buildFoodListing(rows: RawFoodListingRow[]): ListingItem[] {
   return rows
     .filter((row) => row.title && row.slug)
-    .map((row) => {
-      const isTakeout = row.diningType === 'takeout'
-      const base = isTakeout ? row.takeoutRating : row.foodRating
-      const revisits = (row.revisits ?? []).map((r) => ({
-        visitDate: r.visitDate,
-        ratingUpdates: isTakeout ? r.takeoutRatingUpdates : r.foodRatingUpdates,
-      }))
-      return {
-        _id: row._id,
-        title: row.title!,
-        slug: row.slug!,
-        location: row.location?.trim() ?? null,
-        kind: row.diningType ?? null,
-        date: row.date ?? null,
-        coverImage: row.coverImage ?? null,
-        rating: base
-          ? listingRating(
-              getEffectiveRating(base, revisits),
-              isTakeout ? TAKEOUT_WEIGHTS : FOOD_WEIGHTS,
-            )
-          : null,
-      }
-    })
+    .map((row) => ({
+      _id: row._id,
+      title: row.title!,
+      slug: row.slug!,
+      location: row.location?.trim() ?? null,
+      kind: row.diningType ?? null,
+      date: row.date ?? null,
+      coverImage: row.coverImage ?? null,
+      rating: foodRowRating(row),
+    }))
 }

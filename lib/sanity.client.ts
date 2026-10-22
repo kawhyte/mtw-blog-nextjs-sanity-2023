@@ -1,10 +1,19 @@
-import { buildFoodListing, type RawFoodListingRow } from 'lib/foodListing'
+import { cityKey, placeCityKey } from 'lib/cityMatch'
+import {
+  buildFoodListing,
+  foodRowRating,
+  type RawFoodListingRow,
+} from 'lib/foodListing'
 import {
   buildGuideListing,
   type GuideListingItem,
   type RawGuideListingRow,
 } from 'lib/guideListing'
-import { buildHotelListing, type RawHotelListingRow } from 'lib/hotelListing'
+import {
+  buildHotelListing,
+  hotelRowRating,
+  type RawHotelListingRow,
+} from 'lib/hotelListing'
 import type { ListingItem } from 'lib/reviewListing'
 import { apiVersion, dataset, projectId, useCdn } from 'lib/sanity.api'
 // Import queries and types from the updated queries file
@@ -21,6 +30,7 @@ import {
   arenaQuery,
   arenasInLocationQuery,
   arenaSlugsQuery,
+  cityLocationsQuery,
   type CityPageData,
   cityPageQuery,
   // Other types
@@ -318,12 +328,50 @@ export async function getAllArenaLocations(): Promise<string[]> {
   }
 }
 
-export async function getCityPageData(location: string): Promise<CityPageData> {
+/**
+ * Everything for a city page. Places are matched in code (lib/cityMatch), so
+ * "Paradise, NV", a full street address or "Aria Hotel Las Vegas" all land
+ * on the Las Vegas page. Hotel and food scores are worked out here.
+ */
+export async function getCityPageData(
+  location: string,
+  arenaLocations: string[],
+): Promise<CityPageData> {
   const empty: CityPageData = { arenas: [], hotels: [], food: [], guides: [] }
   if (!client) return empty
   try {
-    const data = await client.fetch<CityPageData>(cityPageQuery, { location })
-    return data ?? empty
+    const arenaCityKeys = [...new Set(arenaLocations.map(cityKey))]
+    const key = cityKey(location)
+    const places =
+      await client.fetch<{ _id: string; location?: string }[]>(
+        cityLocationsQuery,
+      )
+    const ids = (places ?? [])
+      .filter((place) => placeCityKey(place.location, arenaCityKeys) === key)
+      .map((place) => place._id)
+    const data = await client.fetch<any>(cityPageQuery, { ids })
+    if (!data) return empty
+    return {
+      arenas: data.arenas ?? [],
+      guides: data.guides ?? [],
+      hotels: (data.hotels ?? []).map(
+        ({ hotelRating, internetSpeed, revisits, ...hotel }) => ({
+          ...hotel,
+          rating: hotelRowRating({ hotelRating, internetSpeed, revisits }),
+        }),
+      ),
+      food: (data.food ?? []).map(
+        ({ foodRating, takeoutRating, revisits, ...review }) => ({
+          ...review,
+          rating: foodRowRating({
+            diningType: review.diningType,
+            foodRating,
+            takeoutRating,
+            revisits,
+          }),
+        }),
+      ),
+    }
   } catch (error) {
     console.error(`Error fetching city page data for "${location}":`, error)
     return empty

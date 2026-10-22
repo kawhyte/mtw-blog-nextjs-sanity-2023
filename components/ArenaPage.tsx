@@ -9,6 +9,7 @@ import { computeTimelineEntries, getEffectiveRating } from 'lib/mergeRatings'
 import { urlForImage } from 'lib/sanity.image'
 import { Arena, ArenaFoodReviewCard, Settings } from 'lib/sanity.queries'
 import {
+  ArrowRight,
   Award,
   Building2,
   CalendarDays,
@@ -71,6 +72,8 @@ interface ArenaPageProps {
   totalVisited?: number
   isTied?: boolean
   foodReviews?: ArenaFoodReviewCard[]
+  /** The city page to link to (Paradise, NV → "Las Vegas, NV") */
+  cityLocation?: string | null
 }
 
 const ratingIcons: Record<string, React.ReactElement> = {
@@ -92,7 +95,14 @@ const ARENA_RATING_LABELS: Record<string, string> = {
 }
 
 // Display order matches weight importance: highest weight first
-const ARENA_RATING_ORDER = ['vibes', 'view', 'seatComfort', 'food', 'transportation', 'walkability']
+const ARENA_RATING_ORDER = [
+  'vibes',
+  'view',
+  'seatComfort',
+  'food',
+  'transportation',
+  'walkability',
+]
 
 const GAMES_PREVIEW_COUNT = 4
 
@@ -127,7 +137,8 @@ function GameCard({ game, team }: { game: any; team: any }) {
               {game.eventName}
             </Badge>
           ) : (
-            game.seasonType && game.seasonType !== 'Regular Season' && (
+            game.seasonType &&
+            game.seasonType !== 'Regular Season' && (
               <Badge variant="secondary" className="text-[10px] px-1.5 py-0">
                 {game.seasonType}
               </Badge>
@@ -138,9 +149,7 @@ function GameCard({ game, team }: { game: any; team: any }) {
               variant="outline"
               className="text-[10px] px-1.5 py-0 text-amber-600 border-amber-600/50"
             >
-              {game.overtimePeriods === 1
-                ? 'OT'
-                : `${game.overtimePeriods}OT`}
+              {game.overtimePeriods === 1 ? 'OT' : `${game.overtimePeriods}OT`}
             </Badge>
           )}
         </div>
@@ -259,6 +268,7 @@ export default function ArenaPage({
   totalVisited,
   isTied,
   foodReviews = [],
+  cityLocation,
 }: ArenaPageProps) {
   const { title = 'Arena Review' } = settings || {}
 
@@ -343,17 +353,23 @@ export default function ArenaPage({
   const totalGamesAttended = attendedTeams.reduce(
     (sum: number, t: any) =>
       sum +
-      (t.attendedGames?.length > 0 ? t.attendedGames.length : (t.timesAttended ?? 1)),
+      (t.attendedGames?.length > 0
+        ? t.attendedGames.length
+        : (t.timesAttended ?? 1)),
     0,
   )
 
-  const [showAllGamesTeamKey, setShowAllGamesTeamKey] = useState<string | null>(null)
+  const [showAllGamesTeamKey, setShowAllGamesTeamKey] = useState<string | null>(
+    null,
+  )
 
   return (
     <div>
       <PostPageHead
         settings={settings}
-        post={{ ...arena, title: arena.name, coverImage: arena.arenaImage } as any}
+        post={
+          { ...arena, title: arena.name, coverImage: arena.arenaImage } as any
+        }
         contentType="arena"
       />
       <ArenaStructuredData arena={arena} />
@@ -402,15 +418,21 @@ export default function ArenaPage({
 
             <h1 className="mb-4 text-4xl font-bold">{arena.name}</h1>
             {arena.location && (
-              <p className="mb-4 text-sm text-muted-foreground">
-                <Link
-                  href={`/city/${locationToSlug(arena.location)}`}
-                  className="hover:text-foreground hover:underline transition-colors"
-                >
-                  <MapPin className="inline h-3.5 w-3.5 mr-1" />
-                  {arena.location} — see all our {arena.location.split(',')[0]} content
-                </Link>
-              </p>
+              // A clear button to the city's game day guide (hotels, food,
+              // guides); the arena's own location is in the stats row below
+              <Link
+                href={`/city/${locationToSlug(cityLocation || arena.location)}?from=${arena.slug}`}
+                className="mb-5 inline-flex min-h-11 items-center gap-2 rounded-full border-2 border-primary/40 bg-primary-soft-background px-4 text-sm font-bold text-primary transition-colors hover:border-primary hover:bg-primary hover:text-white"
+              >
+                <MapPin className="h-4 w-4 shrink-0" aria-hidden="true" />
+                {(cityLocation || arena.location).split(',')[0].trim()} game day
+                guide
+                {/* Phones: short label so the pill stays on one line */}
+                <span className="-ml-2 hidden sm:inline">
+                  : hotels, food &amp; more
+                </span>
+                <ArrowRight className="h-4 w-4 shrink-0" aria-hidden="true" />
+              </Link>
             )}
 
             {arena.venueNote && (
@@ -466,9 +488,7 @@ export default function ArenaPage({
                     #{rank}
                   </span>{' '}
                   of {totalVisited} arenas
-                  {isTied && (
-                    <span className="ml-1.5 text-sm">(tied)</span>
-                  )}
+                  {isTied && <span className="ml-1.5 text-sm">(tied)</span>}
                 </div>
               )}
             </div>
@@ -491,10 +511,7 @@ export default function ArenaPage({
 
           {/* 1. HERO PHOTO GALLERY */}
           {galleryImages.length > 0 && (
-            <HeroPhotoGallery
-              images={heroImages}
-              onShowAllPhotos={openModal}
-            />
+            <HeroPhotoGallery images={heroImages} onShowAllPhotos={openModal} />
           )}
 
           {/* 3. ARENA RATING CARD — score left, breakdown right */}
@@ -508,7 +525,6 @@ export default function ArenaPage({
               categoryOrder={ARENA_RATING_ORDER}
             />
           )}
-
         </article>
 
         {/* 5. TEAMS AT THIS ARENA */}
@@ -524,7 +540,9 @@ export default function ArenaPage({
                       Games We Attended
                     </span>
                   </div>
-                  <div className={`grid grid-cols-1 gap-4 ${attendedTeams.length > 1 ? 'sm:grid-cols-2' : ''}`}>
+                  <div
+                    className={`grid grid-cols-1 gap-4 ${attendedTeams.length > 1 ? 'sm:grid-cols-2' : ''}`}
+                  >
                     {attendedTeams.map((team: any, i: number) => {
                       const games: any[] = team.attendedGames ?? []
                       const visibleGames = games.slice(0, GAMES_PREVIEW_COUNT)
@@ -678,30 +696,31 @@ export default function ArenaPage({
         )}
 
         {/* "See all games" dialog — opens when +N chip is clicked */}
-        {showAllGamesTeamKey && (() => {
-          const dialogTeam = attendedTeams.find(
-            (t: any) => t.name === showAllGamesTeamKey,
-          )
-          if (!dialogTeam) return null
-          const allGames: any[] = dialogTeam.attendedGames ?? []
-          return (
-            <Dialog
-              open={true}
-              onOpenChange={() => setShowAllGamesTeamKey(null)}
-            >
-              <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
-                <DialogHeader>
-                  <DialogTitle>All Games — {dialogTeam.name}</DialogTitle>
-                </DialogHeader>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-2">
-                  {allGames.map((game: any, gi: number) => (
-                    <GameCard key={gi} game={game} team={dialogTeam} />
-                  ))}
-                </div>
-              </DialogContent>
-            </Dialog>
-          )
-        })()}
+        {showAllGamesTeamKey &&
+          (() => {
+            const dialogTeam = attendedTeams.find(
+              (t: any) => t.name === showAllGamesTeamKey,
+            )
+            if (!dialogTeam) return null
+            const allGames: any[] = dialogTeam.attendedGames ?? []
+            return (
+              <Dialog
+                open={true}
+                onOpenChange={() => setShowAllGamesTeamKey(null)}
+              >
+                <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+                  <DialogHeader>
+                    <DialogTitle>All Games — {dialogTeam.name}</DialogTitle>
+                  </DialogHeader>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-2">
+                    {allGames.map((game: any, gi: number) => (
+                      <GameCard key={gi} game={game} team={dialogTeam} />
+                    ))}
+                  </div>
+                </DialogContent>
+              </Dialog>
+            )
+          })()}
 
         {/* 6. REVISIT TIMELINE */}
         {timelineEntries.length > 0 && originalRatingResult && arena.date && (
@@ -718,7 +737,10 @@ export default function ArenaPage({
 
         {/* 7. WHERE WE STAYED (optional) */}
         {(arena.hotelStays?.length ?? 0) > 0 && (
-          <ArenaHotelStay hotelStays={arena.hotelStays!} arenaDate={arena.date} />
+          <ArenaHotelStay
+            hotelStays={arena.hotelStays!}
+            arenaDate={arena.date}
+          />
         )}
 
         {/* 7b. FOOD REVIEWS NEARBY (optional — from NearestArena links) */}
@@ -766,7 +788,10 @@ export default function ArenaPage({
             url={arena.videoUrl}
             title="Our Experience"
             documentDate={arena.date}
-            videoDescription={arena.excerpt || `Our experience visiting ${arena.name} — tips, food, seating, and atmosphere.`}
+            videoDescription={
+              arena.excerpt ||
+              `Our experience visiting ${arena.name} — tips, food, seating, and atmosphere.`
+            }
           />
         )}
 
