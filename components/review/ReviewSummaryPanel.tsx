@@ -1,3 +1,4 @@
+import { scoreCircleClass, scoreTextClass } from 'components/ui/score-circle'
 import Link from 'next/link'
 import type { ReactNode } from 'react'
 
@@ -26,29 +27,12 @@ interface ReviewSummaryPanelProps {
 }
 
 const CHIP_TONES: Record<NonNullable<ReviewChip['tone']>, string> = {
-  dark: 'bg-gray-900 text-white dark:bg-white dark:text-gray-900',
-  indigo: 'bg-secondary-soft-background text-secondary',
-  muted: 'bg-muted text-foreground',
-  success:
-    'bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300',
-  amber: 'bg-amber-100 text-amber-900',
-  pink: 'border border-pink-200 bg-primary-soft-background text-pink-700',
-}
-
-// Score circle colour follows the site's rating bands
-const scoreCircleClass = (textRating: string) => {
-  if (textRating === 'Excellent' || textRating === 'Great')
-    return 'bg-green-600 text-white'
-  if (textRating === 'Good' || textRating === 'Fair')
-    return 'bg-amber-400 text-gray-900'
-  return 'bg-red-600 text-white'
-}
-const scoreTextClass = (textRating: string) => {
-  if (textRating === 'Excellent' || textRating === 'Great')
-    return 'text-green-700 dark:text-green-400'
-  if (textRating === 'Good' || textRating === 'Fair')
-    return 'text-amber-700 dark:text-amber-400'
-  return 'text-red-700 dark:text-red-400'
+  dark: 'bg-foreground text-background',
+  indigo: 'border border-border bg-stone-100 text-foreground',
+  muted: 'border border-border bg-card text-foreground',
+  success: 'border border-green-200 bg-green-50 text-success',
+  amber: 'border border-amber-200 bg-amber-50 text-amber-900',
+  pink: 'border border-pink-200 bg-pink-50 text-pink-700',
 }
 
 /**
@@ -69,7 +53,7 @@ export default function ReviewSummaryPanel({
   children,
 }: ReviewSummaryPanelProps) {
   return (
-    <div className="flex flex-col gap-6 xl:rounded-[1.75rem] xl:border-4 xl:border-border-bold xl:bg-card xl:p-6 xl:shadow-brutalist">
+    <div className="flex flex-col gap-6 xl:rounded-3xl xl:border-[3px] xl:border-border-bold xl:bg-card xl:p-6 xl:shadow-brutalist">
       {/* One title, placed by the grid: beside the score on phones, below
           it (full width) on large screens */}
       <div className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-x-4 gap-y-1 xl:gap-y-4">

@@ -261,7 +261,7 @@ export default function ArenaQuestHero({
           )}
         </div>
 
-        <div className="flex flex-col gap-2 rounded-3xl border-4 border-border-bold bg-card p-3 shadow-brutalist sm:gap-3 sm:p-6">
+        <div className="flex flex-col gap-2 rounded-3xl border-[3px] border-border-bold bg-card p-3 shadow-brutalist sm:gap-3 sm:p-6">
           <h2 className="font-heading-family text-lg font-extrabold sm:text-2xl">
             Our arena map
           </h2>

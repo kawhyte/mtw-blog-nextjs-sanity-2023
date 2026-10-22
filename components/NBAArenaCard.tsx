@@ -3,6 +3,7 @@ import Link from 'next/link'
 import React from 'react'
 import { getRankBadgeStyle } from 'utils/arena/rankBadgeStyles'
 
+import { PhotoScore } from '@/components/ui/score-circle'
 import { Skeleton } from '@/components/ui/skeleton'
 
 import HighlightText from './HighlightText'
@@ -22,7 +23,8 @@ interface NBAArenaCardProps {
   slug: string
   averageRating: string
   textRating: string
-  ratingColor: string
+  /** No longer drawn: scores use the design system colours */
+  ratingColor?: string
   arenaReview?: any | null
   rank?: number
   priority?: boolean
@@ -49,7 +51,6 @@ const Arenas = React.memo(
     arenaImageSrc,
     averageRating,
     textRating,
-    ratingColor,
     rank,
     priority = false,
     revisitCount,
@@ -74,7 +75,7 @@ const Arenas = React.memo(
           )}
 
           {/* Thumbnail — self-stretch so it fills the full card height regardless of content length */}
-          <div className="relative self-stretch w-[96px] shrink-0 overflow-hidden rounded-l-[22px] bg-muted -my-px -ml-px">
+          <div className="relative self-stretch w-[96px] shrink-0 overflow-hidden rounded-l-2xl bg-muted -my-px -ml-px">
             {hasImage ? (
               <SanityImage
                 image={arenaImageSrc}
@@ -122,13 +123,13 @@ const Arenas = React.memo(
             </p>
 
             {hasRating && (
-              <span
-                className="inline-flex w-fit items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold"
-                style={{ backgroundColor: ratingColor, opacity: 0.9 }}
-              >
-                <span className="text-foreground">{Number(averageRating).toFixed(1)}</span>
-                <span className="h-3 w-px bg-black/25" />
-                <span className="text-foreground truncate max-w-[60px]">{textRating}</span>
+              <span className="text-xs font-semibold text-foreground">
+                <span aria-hidden="true">★</span>{' '}
+                {Number(averageRating).toFixed(1)}
+                <span className="font-normal text-muted-foreground">
+                  {' '}
+                  · {textRating}
+                </span>
               </span>
             )}
 
@@ -158,7 +159,7 @@ const Arenas = React.memo(
 
         {/* ── DESKTOP / TABLET CARD (≥ 640px) ───────────────────────────── */}
         <div
-          className={`hidden sm:block group relative w-full overflow-hidden rounded-[2rem] border-4 border-border-bold bg-card text-foreground shadow-brutalist transition-transform duration-200 ease-out hover:-translate-y-1 ${
+          className={`hidden sm:block group relative w-full overflow-hidden rounded-3xl border-[3px] border-border-bold bg-card text-foreground shadow-brutalist transition-transform duration-200 ease-out hover:-translate-y-1 ${
             visited === false ? 'opacity-50 grayscale' : 'grayscale-0'
           }`}
         >
@@ -186,15 +187,11 @@ const Arenas = React.memo(
             )}
 
             {hasRating && (
-              <span
-                className="font-heading-family absolute right-3 top-3 z-30 rounded-xl px-2.5 py-1 text-base font-extrabold leading-tight text-gray-900"
-                style={{ backgroundColor: ratingColor }}
-                role="img"
-                aria-label={`Rating: ${Number(averageRating).toFixed(1)} out of 5, ${textRating}`}
-                title={textRating}
-              >
-                {Number(averageRating).toFixed(1)}
-              </span>
+              <PhotoScore
+                score={Number(averageRating)}
+                textRating={textRating}
+                className="right-3 top-3"
+              />
             )}
 
             <Skeleton className="absolute inset-0 h-full w-full" />

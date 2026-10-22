@@ -73,7 +73,7 @@ export default function IndexPage({
         <BlogHeader level={1} />
         <HomeHero arenas={heroArenas} />
 
-        <div className="container mx-auto flex max-w-7xl flex-col gap-10 px-4 py-7 md:gap-14 md:px-6 md:py-10">
+        <div className="container mx-auto flex max-w-7xl flex-col gap-10 px-4 py-7 md:gap-12 md:px-6 md:py-10">
           <HomeQuickLinks counts={counts} />
 
           {latestArenas.length > 0 && (

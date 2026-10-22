@@ -13,7 +13,7 @@ export function CardSkeleton({ className }: CardSkeletonProps) {
         className={`sm:hidden flex w-full flex-row overflow-hidden rounded-3xl border-2 border-border-bold bg-card ${className ?? ''}`}
       >
         {/* Thumbnail placeholder */}
-        <Skeleton className="self-stretch w-[96px] shrink-0 rounded-l-[22px] rounded-r-none" />
+        <Skeleton className="self-stretch w-[96px] shrink-0 rounded-l-2xl rounded-r-none" />
 
         {/* Content placeholders */}
         <div className="flex flex-1 flex-col justify-center gap-2 px-3 py-2.5">
@@ -29,7 +29,7 @@ export function CardSkeleton({ className }: CardSkeletonProps) {
 
       {/* ── DESKTOP / TABLET SKELETON (≥ 640px) — unchanged ──────────────── */}
       <div
-        className={`hidden sm:block group relative w-full overflow-hidden rounded-4xl border-4 border-border-bold bg-card text-foreground shadow-offsetIndigo ${className ?? ''}`}
+        className={`hidden sm:block group relative w-full overflow-hidden rounded-3xl border-[3px] border-border-bold bg-card text-foreground shadow-offsetIndigo ${className ?? ''}`}
       >
         {/* Cover Image Skeleton */}
         <div className="relative">

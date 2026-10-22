@@ -220,7 +220,7 @@ export default function CityPage({ location, data, settings }: CityPageProps) {
                   <Link
                     key={arena._id}
                     href={`/arena/${arena.slug}`}
-                    className="group relative block overflow-hidden rounded-3xl border-4 border-black bg-card shadow-offsetIndigo transition-all hover:scale-105 hover:-translate-y-1"
+                    className="group relative block overflow-hidden rounded-3xl border-[3px] border-border-bold bg-card shadow-offsetIndigo transition-all hover:scale-105 hover:-translate-y-1"
                   >
                     {arena.arenaImage?.asset?._ref && (
                       <SanityImage

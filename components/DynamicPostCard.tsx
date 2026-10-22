@@ -184,7 +184,7 @@ const DynamicPostCard = ({
         </Link>
 
         {/* Thumbnail — self-stretch so it fills the full card height regardless of content length */}
-        <div className="relative self-stretch w-[96px] shrink-0 overflow-hidden rounded-l-[22px] bg-muted -my-px -ml-px">
+        <div className="relative self-stretch w-[96px] shrink-0 overflow-hidden rounded-l-2xl bg-muted -my-px -ml-px">
           {hasImage ? (
             <SanityImage
               image={coverImage}
@@ -262,7 +262,7 @@ const DynamicPostCard = ({
 
       {/* ── DESKTOP / TABLET CARD (≥ 640px) — unchanged ────────────────── */}
       <div
-        className={`hidden sm:block group relative w-full overflow-hidden rounded-4xl border-4 border-border-bold bg-card text-foreground shadow-offsetIndigo transition-all duration-300 ease-in-out hover:scale-105 hover:-translate-y-2 hover:shadow-brutalist ${
+        className={`hidden sm:block group relative w-full overflow-hidden rounded-3xl border-[3px] border-border-bold bg-card text-foreground shadow-offsetIndigo transition-all duration-300 ease-in-out hover:scale-105 hover:-translate-y-2 hover:shadow-brutalist ${
           visited === false ? 'opacity-40 grayscale' : 'grayscale-0'
         }`}
       >

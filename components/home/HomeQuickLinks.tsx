@@ -42,7 +42,7 @@ export default function HomeQuickLinks({ counts }: { counts: HomeCounts }) {
         <Link
           key={href}
           href={href}
-          className="flex shrink-0 items-center gap-2 rounded-full border-2 border-border bg-card px-3.5 py-2.5 text-sm text-foreground transition-colors hover:border-foreground/40 md:gap-3.5 md:rounded-[20px] md:px-5 md:py-4"
+          className="flex shrink-0 items-center gap-2 rounded-full border-2 border-border bg-card px-3.5 py-2.5 text-sm text-foreground transition-colors hover:border-foreground/40 md:gap-3.5 md:rounded-2xl md:px-5 md:py-4"
         >
           <span className="flex items-center justify-center md:h-11 md:w-11 md:shrink-0 md:rounded-[14px] md:bg-primary-soft-background">
             <Icon

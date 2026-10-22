@@ -58,7 +58,7 @@ export default function GearCard({
         href={item.link}
         target="_blank"
         rel="noopener noreferrer"
-        className="group relative block aspect-square overflow-hidden rounded-[22px] border-[3px] border-border-bold bg-white"
+        className="group relative block aspect-square overflow-hidden rounded-2xl border-[3px] border-border-bold bg-white"
       >
         {item.productImage?.asset && (
           <SanityImage

@@ -32,7 +32,7 @@ export default function HomeAboutGear({
 }) {
   return (
     <div className="grid gap-4 md:grid-cols-2 md:gap-6">
-      <section className="flex flex-col gap-4 rounded-3xl border-2 border-pink-200 bg-primary-soft-background p-5 md:p-7">
+      <section className="flex flex-col gap-4 rounded-3xl border-2 border-border bg-primary-soft-background p-5 md:p-7">
         <div className="flex items-center gap-4">
           {DUO.map((person) => (
             <div
@@ -76,7 +76,7 @@ export default function HomeAboutGear({
       </section>
 
       {gear.length > 0 && (
-        <section className="flex flex-col gap-4 rounded-3xl border-2 border-violet-200 bg-violet-50 p-5 md:p-7">
+        <section className="flex flex-col gap-4 rounded-3xl border-2 border-border bg-card p-5 md:p-7">
           <div className="flex items-center justify-between gap-3">
             <div className="flex items-center gap-2.5">
               <Backpack

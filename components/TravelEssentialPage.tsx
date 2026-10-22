@@ -75,7 +75,7 @@ export default function TravelEssentialPage({
       <Layout preview={preview} loading={loading}>
         <BlogHeader title="" description={[]} level={1} />
 
-        <section className="border-b border-pink-200 bg-primary-soft-background">
+        <section className="border-b border-border bg-primary-soft-background">
           <div className="container mx-auto flex max-w-7xl flex-col gap-5 px-4 pb-5 pt-7 md:px-6 md:pb-7 md:pt-11">
             <div className="flex flex-col gap-2">
               <h1 className="text-4xl font-extrabold tracking-tight text-primary md:text-5xl">
