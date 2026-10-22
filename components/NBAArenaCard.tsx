@@ -1,4 +1,4 @@
-import { Calendar, MapPin, RefreshCw, Trophy } from 'lucide-react'
+import { Calendar, MapPin, RefreshCw } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
 import { getRankBadgeStyle } from 'utils/arena/rankBadgeStyles'
@@ -64,7 +64,7 @@ const Arenas = React.memo(
       <>
         {/* ── MOBILE CARD (< 640px) ─────────────────────────────────────── */}
         <div
-          className={`sm:hidden group relative flex w-full flex-row overflow-hidden rounded-3xl border-2 border-black bg-card text-foreground shadow-offsetIndigo transition-all duration-200 active:scale-95 active:shadow-none ${
+          className={`sm:hidden group relative flex w-full flex-row overflow-hidden rounded-2xl border-[3px] border-border-bold bg-border-bold text-foreground shadow-brutalist-sm transition-all duration-200 active:scale-95 active:shadow-none ${
             visited === false ? 'opacity-50 grayscale' : ''
           }`}
         >
@@ -75,7 +75,7 @@ const Arenas = React.memo(
           )}
 
           {/* Thumbnail — self-stretch so it fills the full card height regardless of content length */}
-          <div className="relative self-stretch w-[96px] shrink-0 overflow-hidden rounded-l-2xl bg-muted -my-px -ml-px">
+          <div className="relative self-stretch w-[96px] shrink-0 overflow-hidden bg-border-bold -my-px -ml-px">
             {hasImage ? (
               <SanityImage
                 image={arenaImageSrc}
@@ -106,14 +106,13 @@ const Arenas = React.memo(
                   rank === 1 ? 'Best Arena' : `Arena rank: ${rank}`
                 }
               >
-                {rank === 1 && <Trophy className="h-2.5 w-2.5" />}
                 {rank === 1 ? 'Best' : `#${rank}`}
               </span>
             )}
           </div>
 
           {/* Content */}
-          <div className="flex min-w-0 flex-1 flex-col justify-center gap-0.5 px-3 py-2.5">
+          <div className="flex min-w-0 flex-1 flex-col justify-center gap-0.5 bg-card px-3 py-2.5">
             <span className="inline-flex w-fit rounded-full bg-secondary/10 border border-secondary/20 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-secondary">
               NBA Arena
             </span>
@@ -159,7 +158,7 @@ const Arenas = React.memo(
 
         {/* ── DESKTOP / TABLET CARD (≥ 640px) ───────────────────────────── */}
         <div
-          className={`hidden sm:block group relative w-full overflow-hidden rounded-3xl border-[3px] border-border-bold bg-card text-foreground shadow-brutalist transition-transform duration-200 ease-out hover:-translate-y-1 ${
+          className={`hidden sm:block group relative w-full overflow-hidden rounded-3xl border-[3px] border-border-bold bg-border-bold text-foreground shadow-brutalist transition-transform duration-200 ease-out hover:-translate-y-1 ${
             visited === false ? 'opacity-50 grayscale' : 'grayscale-0'
           }`}
         >
@@ -181,7 +180,6 @@ const Arenas = React.memo(
                   rank === 1 ? 'Best Arena ranking' : `Arena rank: ${rank}`
                 }
               >
-                {rank === 1 && <Trophy className="h-3.5 w-3.5" />}
                 {rank === 1 ? 'Best Arena' : `#${rank}`}
               </div>
             )}
@@ -218,7 +216,7 @@ const Arenas = React.memo(
             )}
           </div>
 
-          <div className="flex flex-col gap-1.5 px-5 pb-5 pt-4">
+          <div className="flex flex-col gap-1.5 bg-card px-5 pb-5 pt-4">
             <h2 className="line-clamp-1 text-xl font-bold leading-tight text-foreground decoration-primary decoration-dashed decoration-4 group-hover:underline">
               <HighlightText text={arenaName} words={highlightWords} />
             </h2>
