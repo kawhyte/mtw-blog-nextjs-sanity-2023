@@ -163,7 +163,8 @@ const teamSummary = (team: any) => {
           ? ', a win'
           : ', all wins'
         : `, ${wins} win${wins === 1 ? '' : 's'}`
-  return `${league}${count} game${count === 1 ? '' : 's'}${record}`
+  const special = team.specialGame ? ' · special game here' : ''
+  return `${league}${count} game${count === 1 ? '' : 's'}${record}${special}`
 }
 
 /** Every game we saw here, one swipe row per team, plus the other teams */
