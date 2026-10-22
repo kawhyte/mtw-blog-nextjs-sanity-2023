@@ -7,7 +7,7 @@ import { useMemo } from 'react'
 // useLiveQuery(initialData, query, params) returns [data, loading, enabled] and
 // live-patches the server-rendered data while preview mode is active.
 // Unlike the old definePreview/groq-store setup there is no client-side dataset
-// mirror anymore, so the old documentLimit/includeTypes tuning is obsolete —
+// mirror anymore, so the old documentLimit/includeTypes tuning is obsolete, 
 // each query listens for its own changes against the API directly.
 export { useLiveQuery } from 'next-sanity/preview'
 

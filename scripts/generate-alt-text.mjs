@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * Bulk Alt Text Generator — Meet the Whytes
+ * Bulk Alt Text Generator, Meet the Whytes
  *
  * Iterates over all published arenas, hotel reviews, and food reviews.
  * For each image field that has no alt text, calls Gemini 1.5 Flash to
@@ -51,19 +51,19 @@ function buildPrompt(contentType, docTitle) {
 
   const context =
     {
-      arenas: `This image is from an NBA/WNBA arena visit${docTitle ? ` — ${docTitle}` : ''}.`,
+      arenas: `This image is from an NBA/WNBA arena visit${docTitle ? `: ${docTitle}` : ''}.`,
       hotelReview: `This image is from a hotel stay${docTitle ? ` at ${docTitle}` : ''}.`,
-      foodReview: `This image is from a meal or restaurant${docTitle ? ` — ${docTitle}` : ''}.`,
+      foodReview: `This image is from a meal or restaurant${docTitle ? `: ${docTitle}` : ''}.`,
     }[contentType] ?? ''
 
   return `${base} ${context}
 
-Write alt text the way a travel writer would naturally caption a photo — specific, direct, and real. It must sound like a human wrote it, not an AI.
+Write alt text the way a travel writer would naturally caption a photo, specific, direct, and real. It must sound like a human wrote it, not an AI.
 
 Rules:
 - Describe exactly what is shown (the court, the seats, the dish, the room, the view, etc.)
-- Include specific details: arena name, city, hotel name, dish name — only if clearly visible or inferable
-- 50–120 characters total
+- Include specific details: arena name, city, hotel name, dish name, only if clearly visible or inferable
+- 50 to 120 characters total
 - Do NOT use these AI/marketing words: "showcasing", "featuring", "stunning", "vibrant", "modern", "iconic", "offering", "boasting", "nestled", "beautiful views of", "world-class", "state-of-the-art"
 - Do NOT start with "image of", "photo of", or "picture of"
 - Write like you're texting a friend what the photo shows
@@ -126,13 +126,13 @@ let totalErrors = 0
 
 async function processImage(label, assetRef, existingAlt, patchFn, contentType, docTitle) {
   if (existingAlt?.trim()) {
-    console.log(`  ⏭  ${label} — already has alt text, skipping`)
+    console.log(`  ⏭  ${label}, already has alt text, skipping`)
     totalSkipped++
     return
   }
 
   if (!assetRef) {
-    console.log(`  ⚠  ${label} — no asset ref, skipping`)
+    console.log(`  ⚠  ${label}, no asset ref, skipping`)
     totalSkipped++
     return
   }
@@ -149,7 +149,7 @@ async function processImage(label, assetRef, existingAlt, patchFn, contentType, 
     totalGenerated++
     await sleep(5000)
   } catch (err) {
-    console.error(`  ❌  ${label} — ${err.message}`)
+    console.error(`  ❌  ${label}, ${err.message}`)
     totalErrors++
     await sleep(8000)
   }
@@ -200,7 +200,7 @@ async function processArenas() {
         const item = updated[i]
         if (!item.assetRef || item.alt?.trim()) {
           if (item.alt?.trim()) {
-            console.log(`  ⏭  imageGallery[${i}].alt — already has alt text, skipping`)
+            console.log(`  ⏭  imageGallery[${i}].alt, already has alt text, skipping`)
             totalSkipped++
           }
           continue
@@ -215,7 +215,7 @@ async function processArenas() {
           totalGenerated++
           await sleep(5000)
         } catch (err) {
-          console.error(`  ❌  imageGallery[${i}].alt — ${err.message}`)
+          console.error(`  ❌  imageGallery[${i}].alt, ${err.message}`)
           totalErrors++
           await sleep(8000)
         }
@@ -272,7 +272,7 @@ async function processHotelReviews() {
         const item = updated[i]
         if (!item.assetRef || item.alt?.trim()) {
           if (item.alt?.trim()) {
-            console.log(`  ⏭  gallery[${i}].alt — already has alt text, skipping`)
+            console.log(`  ⏭  gallery[${i}].alt, already has alt text, skipping`)
             totalSkipped++
           }
           continue
@@ -287,7 +287,7 @@ async function processHotelReviews() {
           totalGenerated++
           await sleep(5000)
         } catch (err) {
-          console.error(`  ❌  gallery[${i}].alt — ${err.message}`)
+          console.error(`  ❌  gallery[${i}].alt, ${err.message}`)
           totalErrors++
           await sleep(8000)
         }
@@ -344,7 +344,7 @@ async function processFoodReviews() {
         const item = updated[i]
         if (!item.assetRef || item.alt?.trim()) {
           if (item.alt?.trim()) {
-            console.log(`  ⏭  gallery[${i}].alt — already has alt text, skipping`)
+            console.log(`  ⏭  gallery[${i}].alt, already has alt text, skipping`)
             totalSkipped++
           }
           continue
@@ -359,7 +359,7 @@ async function processFoodReviews() {
           totalGenerated++
           await sleep(5000)
         } catch (err) {
-          console.error(`  ❌  gallery[${i}].alt — ${err.message}`)
+          console.error(`  ❌  gallery[${i}].alt, ${err.message}`)
           totalErrors++
           await sleep(8000)
         }
@@ -376,7 +376,7 @@ async function processFoodReviews() {
 
 async function main() {
   console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━')
-  console.log('  Meet the Whytes — Bulk Alt Text Generator')
+  console.log('  Meet the Whytes, Bulk Alt Text Generator')
   console.log(`  Mode: ${isDryRun ? '🔍 DRY RUN (no changes)' : '✍️  LIVE (writing to Sanity)'}`)
   console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━')
 

@@ -34,9 +34,9 @@ export function GameDataFetcherInput(props: ArrayOfObjectsInputProps) {
   const [error, setError] = useState<string | null>(null)
   const toast = useToast()
 
-  // Root document — for visit dates
+  // Root document, for visit dates
   const doc = useFormValue([]) as any
-  // Parent gallery item — for team name + type
+  // Parent gallery item, for team name + type
   const parentItem = useFormValue(props.path.slice(0, -1)) as any
 
   const teamName = parentItem?.name as string | undefined
@@ -84,7 +84,7 @@ export function GameDataFetcherInput(props: ArrayOfObjectsInputProps) {
 
       const scoreLabel =
         data.game.homeScore != null && data.game.awayScore != null
-          ? ` · ${data.game.homeScore}–${data.game.awayScore}`
+          ? ` · ${data.game.homeScore}-${data.game.awayScore}`
           : ''
 
       toast.push({
@@ -94,7 +94,7 @@ export function GameDataFetcherInput(props: ArrayOfObjectsInputProps) {
       })
       setDate('')
     } catch (err: any) {
-      setError(err.message ?? 'Network error — check your connection')
+      setError(err.message ?? 'Network error. Check your connection.')
     } finally {
       setLoading(false)
     }

@@ -7,8 +7,8 @@ export default defineType({
   type: 'object',
   title: 'Hotel Ratings',
   description:
-    'Rating for HOTEL (0–10 scale; 0 = Not available for Gym, Pool, Internet)',
-  fieldsets: [{ name: 'social', title: 'Give a rating 0–10 for each item' }],
+    'Rating for HOTEL (0 to 10 scale; 0 = Not available for Gym, Pool, Internet)',
+  fieldsets: [{ name: 'social', title: 'Give a rating 0 to 10 for each item' }],
   options: {
     collapsible: true,
     collapsed: false,
@@ -29,7 +29,7 @@ export default defineType({
     defineField({
       name: 'internetSpeed',
       title: 'Internet Speed (Mbps)',
-      description: 'Measured speed in Mbps — set to 0 for no internet.',
+      description: 'Measured speed in Mbps, set to 0 for no internet.',
       type: 'number',
       validation: (Rule) => Rule.min(0),
       components: { input: MbpsInternetInput },

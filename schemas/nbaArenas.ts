@@ -1,6 +1,7 @@
 // schemas/nbaArenas.ts
 import { ImagesIcon, StarIcon } from '@sanity/icons' // Added ImagesIcon
 import { defineField, defineType } from 'sanity'
+
 import { AltTextGeneratorInput } from '../plugins/AltTextGeneratorInput'
 import { CaptionGeneratorInput } from '../plugins/CaptionGeneratorInput'
 import { GameDataFetcherInput } from '../plugins/GameDataFetcherInput'
@@ -24,7 +25,7 @@ export default defineType({
     visited: false,
   },
 
-  // Optional override, collapsed by default — cards and share previews use
+  // Optional override, collapsed by default, cards and share previews use
   // Hero Photo #1 when it's empty.
   fieldsets: [
     {
@@ -64,12 +65,12 @@ export default defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
-      // SEO meta description — hotels/food/guides call this `seoExcerpt`.
+      // SEO meta description, hotels/food/guides call this `seoExcerpt`.
       name: 'excerpt',
       title: 'SEO Excerpt',
       type: 'string',
       description:
-        'A 1–2 sentence description that appears in Google search results. Keep it under 155 characters. Example: "Our full review of Barclays Center in Brooklyn — food, parking, sightlines, and tips for first-time visitors."',
+        'A 1 to 2 sentence description that appears in Google search results. Keep it under 155 characters. Example: "Our full review of Barclays Center in Brooklyn: food, parking, sightlines, and tips for first-time visitors."',
       validation: (Rule) =>
         Rule.max(155).warning('Keep under 155 characters for best SEO results.'),
       components: { input: SeoExcerptGeneratorInput },
@@ -95,7 +96,7 @@ export default defineType({
 
     // --- Images & Galleries ---
     heroPhotosField(
-      "Choose a category — Seating & Game Floor: court, baskets, view from your seat. Concessions & Food: food stalls, menu boards, food shots. Exterior: outside the building, signage, plaza. Entrances & Lobby: inside entrance, hallways, common areas. Additional Photos: anything that doesn't fit above.",
+      "Choose a category. Seating & Game Floor: court, baskets, view from your seat. Concessions & Food: food stalls, menu boards, food shots. Exterior: outside the building, signage, plaza. Entrances & Lobby: inside entrance, hallways, common areas. Additional Photos: anything that doesn't fit above.",
       [
         { title: 'Seating & Game Floor', value: 'court' },
         { title: 'Concessions & Food', value: 'concessions' },
@@ -119,7 +120,7 @@ export default defineType({
       fieldset: 'cardImage',
       title: 'Card & Share Image',
       type: 'image',
-      description: 'Used on arena cards and when the page is shared. Optional — leave empty to use Hero Photo #1. Upload at 2400 × 1600 px (3:2 landscape), WebP 85% or JPEG 88%.',
+      description: 'Used on arena cards and when the page is shared. Optional: leave empty to use Hero Photo #1. Upload at 2400 × 1600 px (3:2 landscape), WebP 85% or JPEG 88%.',
       options: { hotspot: true },
       fields: [
         defineField({
@@ -142,7 +143,7 @@ export default defineType({
       title: 'Legacy Hero Gallery (replaced by Hero Photos)',
       type: 'photoGallery', // References 'photoGallery' object schema
       description:
-        'Read-only backup of the old 1 main + 4 layout. Its photos were copied into Hero Photos above — edit those instead.',
+        'Read-only backup of the old 1 main + 4 layout. Its photos were copied into Hero Photos above. Edit those instead.',
       readOnly: true,
       hidden: ({ document }) =>
         Array.isArray(document?.heroPhotos) && document.heroPhotos.length > 0,
@@ -187,7 +188,7 @@ export default defineType({
               title: 'Photo Category',
               type: 'string',
               description:
-                "Choose a category — Seating & Game Floor: court, baskets, view from your seat. Concessions & Food: food stalls, menu boards, food shots. Exterior: outside the building, signage, plaza. Entrances & Lobby: inside entrance, hallways, common areas. Additional Photos: anything that doesn't fit above.",
+                "Choose a category. Seating & Game Floor: court, baskets, view from your seat. Concessions & Food: food stalls, menu boards, food shots. Exterior: outside the building, signage, plaza. Entrances & Lobby: inside entrance, hallways, common areas. Additional Photos: anything that doesn't fit above.",
               options: {
                 list: [
                   { title: 'Seating & Game Floor', value: 'court' },
@@ -229,8 +230,8 @@ export default defineType({
     // --- END NEW Image Gallery Field ---
 
     defineField({
-      // Team logos for the arena's home teams (not a photo gallery — photos
-      // live in `imageGallery`). Stored name kept so existing content isn't lost — see docs/FIELD-GLOSSARY.md.
+      // Team logos for the arena's home teams (not a photo gallery, photos
+      // live in `imageGallery`). Stored name kept so existing content isn't lost, see docs/FIELD-GLOSSARY.md.
       name: 'gallery',
       title: 'Teams / Logos',
       description:
@@ -246,7 +247,7 @@ export default defineType({
               type: 'string',
               title: 'Team Name',
               description:
-                'Full team name — e.g., "Houston Rockets", not just "Rockets"',
+                'Full team name, e.g., "Houston Rockets", not just "Rockets"',
               validation: (Rule) => Rule.required(),
             }),
             defineField({
@@ -301,7 +302,7 @@ export default defineType({
                         : 'No date'
                       const score =
                         homeScore != null && awayScore != null
-                          ? ` · ${homeScore}–${awayScore}`
+                          ? ` · ${homeScore}-${awayScore}`
                           : ''
                       return {
                         title: opponent ? `vs. ${opponent}${score}` : 'Game entry',
@@ -415,7 +416,7 @@ export default defineType({
                               title: 'ESPN Athlete ID',
                               type: 'number',
                               description:
-                                'ESPN athlete ID — used to load the player headshot.',
+                                'ESPN athlete ID, used to load the player headshot.',
                             }),
                           ],
                         },
@@ -495,7 +496,7 @@ export default defineType({
           title: 'Pros (Positives)',
           name: 'positives',
           description:
-            "Add the arena's standout positives. Keep each point to 1–2 short sentences (aim for 100–150 chars each).",
+            "Add the arena's standout positives. Keep each point to 1 to 2 short sentences (aim for 100 to 150 chars each).",
           type: 'array',
           of: [
             {
@@ -510,7 +511,7 @@ export default defineType({
           title: 'Cons (Negatives)',
           name: 'negatives',
           description:
-            "Add the arena's main drawbacks. Keep each point to 1–2 short sentences (aim for 100–150 chars each).",
+            "Add the arena's main drawbacks. Keep each point to 1 to 2 short sentences (aim for 100 to 150 chars each).",
           type: 'array',
           of: [
             {
@@ -574,7 +575,7 @@ export default defineType({
       name: 'videoUrl',
       title: 'Video URL (YouTube / Instagram)',
       description:
-        'OUR EXPERIENCE video — your full visit vlog or highlights reel. YouTube or Instagram both work here. Use the "Seat View Video" field inside each View From My Seat entry for short clips filmed from your actual seat.',
+        'OUR EXPERIENCE video: your full visit vlog or highlights reel. YouTube or Instagram both work here. Use the "Seat View Video" field inside each View From My Seat entry for short clips filmed from your actual seat.',
       type: 'url',
       validation: (Rule) =>
         Rule.custom((value) => {
@@ -615,7 +616,7 @@ export default defineType({
       title: 'Arena Food & Drinks We Tried',
       type: 'array',
       description:
-        'Rate individual food/drink items tried at this arena (optional). Photo for each item: max 1600 px on the longest edge, natural shape. Cards crop to 3:2, so landscape shots fill them best (portrait loses the top and bottom — set the hotspot). WebP 85% or JPEG 88%.',
+        'Rate individual food/drink items tried at this arena (optional). Photo for each item: max 1600 px on the longest edge, natural shape. Cards crop to 3:2, so landscape shots fill them best (portrait loses the top and bottom, set the hotspot). WebP 85% or JPEG 88%.',
       hidden: ({ document }) => !document?.visited,
       of: [
         {
@@ -705,7 +706,7 @@ export default defineType({
               title: 'Seat Location',
               type: 'string',
               description:
-                'e.g., "Section 210, Row L, Seats 1–2" or "Club Level, Corner"',
+                'e.g., "Section 210, Row L, Seats 1-2" or "Club Level, Corner"',
               validation: (Rule) => Rule.max(80),
             }),
             defineField({
@@ -736,7 +737,7 @@ export default defineType({
               title: 'Seat View Photos',
               type: 'array',
               description:
-                'Max 1600 px on the longest edge, natural shape. WebP 85% or JPEG 88%. The page crops every photo to 4:3 — landscape shots fill the frame perfectly. Portrait photos (phone held vertically) will lose the top and bottom; use the hotspot tool to anchor the court/key area.',
+                'Max 1600 px on the longest edge, natural shape. WebP 85% or JPEG 88%. The page crops every photo to 4:3, so landscape shots fill the frame perfectly. Portrait photos (phone held vertically) will lose the top and bottom; use the hotspot tool to anchor the court/key area.',
               of: [
                 {
                   type: 'image',
@@ -764,7 +765,7 @@ export default defineType({
               title: 'Seat View Video (optional)',
               type: 'url',
               description:
-                'A short clip filmed from this specific seat. YouTube (landscape 1920×1080) looks best on desktop. Instagram Reels (1080×1920 vertical) also work but render narrower. Keep it under 60 seconds — this is a seat preview, not a full game highlight.',
+                'A short clip filmed from this specific seat. YouTube (landscape 1920×1080) looks best on desktop. Instagram Reels (1080×1920 vertical) also work but render narrower. Keep it under 60 seconds, this is a seat preview, not a full game highlight.',
               validation: (Rule) =>
                 Rule.custom((value) => {
                   if (!value) return true
@@ -939,7 +940,7 @@ export default defineType({
       name: 'faqs',
       title: 'FAQs (for Google rich results)',
       type: 'array',
-      description: 'Add 3–5 Q&A pairs that fans commonly ask about this arena. These appear as expandable answers in Google search results.',
+      description: 'Add 3 to 5 Q&A pairs that fans commonly ask about this arena. These appear as expandable answers in Google search results.',
       of: [
         {
           type: 'object',

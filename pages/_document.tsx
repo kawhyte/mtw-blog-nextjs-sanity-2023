@@ -4,7 +4,7 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        {/* Google Fonts — Neo-Brutalist design system */}
+        {/* Google Fonts, Neo-Brutalist design system */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"

@@ -103,7 +103,7 @@
   @apply text-xs text-muted-foreground my-2 text-center;
 }
 
-/* Paragraphs nested inside callout/mediaWithText blocks — no side padding */
+/* Paragraphs nested inside callout/mediaWithText blocks, no side padding */
 .calloutBody p {
   @apply px-0 max-w-none;
 }

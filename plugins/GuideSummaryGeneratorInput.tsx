@@ -3,6 +3,7 @@ import { Box, Button, Card, Inline, Stack, Text, useToast } from '@sanity/ui'
 import { useState } from 'react'
 import type { StringInputProps } from 'sanity'
 import { set, useFormValue } from 'sanity'
+
 import { extractPlainText } from './utils'
 
 export function GuideSummaryGeneratorInput(props: StringInputProps) {
@@ -23,7 +24,7 @@ export function GuideSummaryGeneratorInput(props: StringInputProps) {
   const runGenerate = async () => {
     setState('generating')
     try {
-      // Extract first 600 chars of body text — enough context without hitting token limits
+      // Extract first 600 chars of body text, enough context without hitting token limits
       const contentExcerpt = extractPlainText(doc?.content ?? []).slice(0, 600)
 
       const payload = {
@@ -52,8 +53,8 @@ export function GuideSummaryGeneratorInput(props: StringInputProps) {
         title: `Summary generated (${len} chars)`,
         description:
           len < 120 || len > 155
-            ? 'Consider editing — ideal range is 120–155 chars'
-            : 'Within the ideal 120–155 character range.',
+            ? 'Consider editing: the ideal range is 120 to 155 chars'
+            : 'Within the ideal 120 to 155 character range.',
       })
     } catch (err: any) {
       toast.push({

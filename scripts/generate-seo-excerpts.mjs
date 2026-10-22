@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * Bulk SEO Excerpt Generator — Meet the Whytes
+ * Bulk SEO Excerpt Generator, Meet the Whytes
  *
  * For every published hotel review and food review that has no seoExcerpt,
  * calls Gemini to generate a 120-155 character, human-sounding meta description
@@ -70,7 +70,7 @@ ${summary ? `Our summary: ${summary.slice(0, 200)}` : ''}
 ${doc.wouldReturn ? `Would we go back: ${wouldReturnMap[doc.wouldReturn] || doc.wouldReturn}` : ''}
 
 Write ONE meta description for Google search results. It MUST:
-- Be between 120 and 155 characters — count every character carefully
+- Be between 120 and 155 characters, count every character carefully
 - Sound like a real traveler wrote it, not marketing copy or AI
 - Include the hotel name and city/location
 - Mention at least one specific, honest detail from the stay
@@ -97,7 +97,7 @@ ${highlights ? `What stood out: ${highlights}` : ''}
 ${summary ? `Our summary: ${summary.slice(0, 200)}` : ''}
 
 Write ONE meta description for Google search results. It MUST:
-- Be between 120 and 155 characters — count every character carefully
+- Be between 120 and 155 characters, count every character carefully
 - Sound like a real person wrote it, not a food critic or AI
 - Include the restaurant name and city/location
 - Mention something specific and honest about the food or experience
@@ -145,7 +145,7 @@ async function generateExcerpt(prompt) {
 
 async function processDoc(label, doc, buildPrompt) {
   if (doc.seoExcerpt?.trim()) {
-    console.log(`  ⏭  ${label} — already has seoExcerpt, skipping`)
+    console.log(`  ⏭  ${label}, already has seoExcerpt, skipping`)
     totalSkipped++
     return
   }
@@ -165,7 +165,7 @@ async function processDoc(label, doc, buildPrompt) {
     totalGenerated++
     await sleep(5000)
   } catch (err) {
-    console.error(`  ❌  ${label} — ${err.message}`)
+    console.error(`  ❌  ${label}, ${err.message}`)
     totalErrors++
     await sleep(2000)
   }
@@ -211,7 +211,7 @@ async function processFoodReviews() {
 
 async function main() {
   console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━')
-  console.log('  Meet the Whytes — Bulk SEO Excerpt Generator')
+  console.log('  Meet the Whytes, Bulk SEO Excerpt Generator')
   console.log(`  Mode: ${isDryRun ? '🔍 DRY RUN (no changes)' : '✍️  LIVE (writing to Sanity)'}`)
   console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━')
 

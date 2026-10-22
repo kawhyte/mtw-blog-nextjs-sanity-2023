@@ -240,7 +240,7 @@ export default function ArenaQuestHero({ arenas }: ArenaQuestHeroProps) {
   )
 
   const total = arenas.length
-  // Complete only while every arena is visited — adding a new arena in
+  // Complete only while every arena is visited, adding a new arena in
   // Studio reopens the quest automatically.
   const complete = total > 0 && visited.length === total
   const podium = useMemo(

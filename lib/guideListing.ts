@@ -1,7 +1,7 @@
 import { calculateReadingTime } from './readingTime'
 import type { ListingItem } from './reviewListing'
 
-/** One guide on /guides and in "More guides" — only what a card needs */
+/** One guide on /guides and in "More guides", only what a card needs */
 export interface GuideListingItem {
   _id: string
   title: string

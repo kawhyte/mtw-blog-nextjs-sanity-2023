@@ -38,7 +38,7 @@ const callout = (type, children) => ({
 const photo = (text) => callout('info', [p([span(`📷  ${text}`)])])
 const video = (text) => callout('info', [p([span(`🎥  ${text}`)])])
 
-// Helper — linked paragraph
+// Helper, linked paragraph
 const linkedP = (before, linkText, href, after) => {
   const lk = key()
   return p(
@@ -54,11 +54,11 @@ const content = [
 
   p([span("We decided to visit every NBA arena in the United States and Canada. All 30 of them. Somewhere along the way, that casual \"wouldn't that be cool?\" conversation turned into a spreadsheet, a hotel points strategy, and a real opinion about the parking situation in Oklahoma City.")]),
 
-  p([span("If you've ever watched a game from your couch and thought \"what if I just actually went\" — this guide is for you. We've been doing this for a while, and we've picked up a lot along the way. How to plan your trips around the schedule, how to stack multiple arenas into one visit, which buildings are genuinely worth the flight, and what to do once you get there.")]),
+  p([span("If you've ever watched a game from your couch and thought \"what if I just actually went\", this guide is for you. We've been doing this for a while, and we've picked up a lot along the way. How to plan your trips around the schedule, how to stack multiple arenas into one visit, which buildings are genuinely worth the flight, and what to do once you get there.")]),
 
   p([span("This isn't a listicle. It's a real guide from people who are actually working through the list.")]),
 
-  photo('Add a hero photo here — wide shot of one of the arenas you\'ve visited, or a collage showing multiple stops on the list'),
+  photo('Add a hero photo here, wide shot of one of the arenas you\'ve visited, or a collage showing multiple stops on the list'),
 
   // ── WHY ──────────────────────────────────────────────────────────────────
   h2('Why Visiting Every NBA Arena Is Worth It'),
@@ -69,11 +69,11 @@ const content = [
 
   p([span("And then there's the arena itself. Each one has a personality. Each one tells you something about its city.")]),
 
-  video('Add a short clip here — crowd noise at a game, a dunk that shook the building, or the Deer District before tip-off. This is the moment people get it.'),
+  video('Add a short clip here, crowd noise at a game, a dunk that shook the building, or the Deer District before tip-off. This is the moment people get it.'),
 
-  p([span("Fiserv Forum in Milwaukee has an entire neighborhood that turns into a street festival three hours before tip-off. State Farm Arena in Atlanta is one of the sharpest renovated buildings in the league. Mohegan Sun Arena in Connecticut is the only NBA venue sitting inside a casino resort — which creates a game-day experience you genuinely can't find anywhere else.")]),
+  p([span("Fiserv Forum in Milwaukee has an entire neighborhood that turns into a street festival three hours before tip-off. State Farm Arena in Atlanta is one of the sharpest renovated buildings in the league. Mohegan Sun Arena in Connecticut is the only NBA venue sitting inside a casino resort, which creates a game-day experience you genuinely can't find anywhere else.")]),
 
-  p([span("The point is: visiting NBA arenas is a legitimately great reason to see parts of the country you might never otherwise make it to. Indianapolis, Oklahoma City, Memphis, Portland — cities that rarely top anyone's travel list but have real things to offer if you actually show up.")]),
+  p([span("The point is: visiting NBA arenas is a legitimately great reason to see parts of the country you might never otherwise make it to. Indianapolis, Oklahoma City, Memphis, Portland, cities that rarely top anyone's travel list but have real things to offer if you actually show up.")]),
 
   // ── HOW TO PLAN ──────────────────────────────────────────────────────────
   h2('How to Plan Your NBA Arena Road Trip'),
@@ -86,10 +86,10 @@ const content = [
 
   p([span("Example: Dallas, San Antonio, and Houston are all within driving distance of each other. But that trip only works if the Mavericks, Spurs, and Rockets all have home games during the same 5-7 day stretch. Some seasons the schedule lines up perfectly. Other times you're doing two out of three and adding the third to next year's list.")]),
 
-  p([span("The schedule also shows you which games are nationally televised — those tend to have better atmospheres, more energy in the building, and higher ticket prices to match. Mid-week games against non-contenders are your budget-friendly options without sacrificing much of the experience.")]),
+  p([span("The schedule also shows you which games are nationally televised, those tend to have better atmospheres, more energy in the building, and higher ticket prices to match. Mid-week games against non-contenders are your budget-friendly options without sacrificing much of the experience.")]),
 
   callout('tip', [
-    p([span("The NBA app lets you filter the full schedule by date and city. Set a reminder for when the schedule drops in August — that's when you plan the whole season's trips.")]),
+    p([span("The NBA app lets you filter the full schedule by date and city. Set a reminder for when the schedule drops in August, that's when you plan the whole season's trips.")]),
   ]),
 
   h3('How to Stack Multiple Arenas in One Trip'),
@@ -98,14 +98,14 @@ const content = [
 
   p([span("The key to stacking is picking cities you can connect by short flight or reasonable drive. Some natural groupings:")]),
 
-  p([span('Dallas → San Antonio → Houston — all drivable, three arenas in three days if the schedules cooperate.')]),
-  p([span('New York (Madison Square Garden) → Brooklyn (Barclays Center) → Philadelphia (Wells Fargo Center) — train travel the whole way, three arenas in close proximity.')]),
-  p([span('Denver → Salt Lake City → Phoenix — short flights between, three completely different arena vibes.')]),
-  p([span('Toronto → Detroit → Cleveland → Indianapolis — a Midwest/Canada run that hits four arenas with a border crossing built in.')]),
+  p([span('Dallas → San Antonio → Houston, all drivable, three arenas in three days if the schedules cooperate.')]),
+  p([span('New York (Madison Square Garden) → Brooklyn (Barclays Center) → Philadelphia (Wells Fargo Center), train travel the whole way, three arenas in close proximity.')]),
+  p([span('Denver → Salt Lake City → Phoenix, short flights between, three completely different arena vibes.')]),
+  p([span('Toronto → Detroit → Cleveland → Indianapolis, a Midwest/Canada run that hits four arenas with a border crossing built in.')]),
 
   p([span("One rule we've learned the hard way: don't do more than two arenas on back-to-back nights if you actually want to enjoy either of them. Day games help when you can find them.")]),
 
-  photo("Add a photo here — your trip itinerary, a map of the route, or a behind-the-scenes shot of the planning (the spreadsheet, the hotel booking screen, whatever shows the process)"),
+  photo("Add a photo here, your trip itinerary, a map of the route, or a behind-the-scenes shot of the planning (the spreadsheet, the hotel booking screen, whatever shows the process)"),
 
   // ── COST ─────────────────────────────────────────────────────────────────
   h2("What It Actually Costs: An Honest Budget Breakdown"),
@@ -114,11 +114,11 @@ const content = [
 
   h3('Tickets: $30 to $300+ Per Seat'),
 
-  p([span("The range is enormous. A Tuesday night game for a rebuilding team in a mid-market city — Oklahoma City, Memphis, Indianapolis — might run you $30-60 a seat in the lower bowl on the secondary market. A weekend game for a contender in New York, Boston, or Golden State? Easily $150-300 before fees.")]),
+  p([span("The range is enormous. A Tuesday night game for a rebuilding team in a mid-market city, Oklahoma City, Memphis, Indianapolis, might run you $30-60 a seat in the lower bowl on the secondary market. A weekend game for a contender in New York, Boston, or Golden State? Easily $150-300 before fees.")]),
 
   p([span("Our go-to approach: lower bowl seats in the 100-level, bought 2-3 weeks before the game on SeatGeek or StubHub. Prices almost always drop in that window unless it's a marquee matchup. The one exception: Milwaukee when the Bucks are good. Prices hold because locals actually show up.")]),
 
-  photo("Add a photo of your actual tickets or the seat view from your section — helps readers know what they're actually getting for the money"),
+  photo("Add a photo of your actual tickets or the seat view from your section, helps readers know what they're actually getting for the money"),
 
   h3('Hotels: $120-200 Per Night'),
 
@@ -130,7 +130,7 @@ const content = [
 
   p([span("Flying in, staying one night, attending one game: realistically budget $400-700 per person. That covers the flight, hotel, ticket, food at the game, and transportation.")]),
 
-  p([span("Cities like Milwaukee, Indianapolis, Oklahoma City, and Memphis come in well under that range. New York, Boston, San Francisco, and Toronto will push well over it. Plan your list with that in mind — mix expensive markets with affordable ones so the overall project stays manageable.")]),
+  p([span("Cities like Milwaukee, Indianapolis, Oklahoma City, and Memphis come in well under that range. New York, Boston, San Francisco, and Toronto will push well over it. Plan your list with that in mind, mix expensive markets with affordable ones so the overall project stays manageable.")]),
 
   callout('info', [
     p([span("If you have a specific number of arenas you want to hit in a season, figure out which expensive markets you can't avoid and budget those first. Everything else gets easier to plan around them.")]),
@@ -141,72 +141,72 @@ const content = [
 
   p([span("We're not going to pretend every arena is a destination on its own. Some you visit because you're working the list. Others you'd go back to even if you'd already been. Here are the ones that genuinely stood out:")]),
 
-  h3('Fiserv Forum — Milwaukee, WI'),
+  h3('Fiserv Forum, Milwaukee, WI'),
 
   linkedP(
     "We were not prepared for ",
     "Fiserv Forum",
     "/arena/fiserv-forum",
-    ". The building itself is excellent — sightlines are great, acoustics are loud in the best way, and the food is actually worth eating. But the real story is outside. The Deer District, the block surrounding the arena, starts filling up three hours before tip-off and turns into a full street festival: bars, live music, thousands of people who are clearly here to have a night out, not just watch a game. If you're choosing one arena for the atmosphere alone, Milwaukee is it.",
+    ". The building itself is excellent, sightlines are great, acoustics are loud in the best way, and the food is actually worth eating. But the real story is outside. The Deer District, the block surrounding the arena, starts filling up three hours before tip-off and turns into a full street festival: bars, live music, thousands of people who are clearly here to have a night out, not just watch a game. If you're choosing one arena for the atmosphere alone, Milwaukee is it.",
   ),
 
-  photo("Add photos of Fiserv Forum here — the Deer District crowd before tip-off, the arena exterior at night, your view from inside"),
-  video("Add a short clip of the Deer District energy if you have one — this is the thing that surprises everyone"),
+  photo("Add photos of Fiserv Forum here, the Deer District crowd before tip-off, the arena exterior at night, your view from inside"),
+  video("Add a short clip of the Deer District energy if you have one, this is the thing that surprises everyone"),
 
-  h3('State Farm Arena — Atlanta, GA'),
+  h3('State Farm Arena, Atlanta, GA'),
 
   linkedP(
     "Atlanta's arena went through a full renovation a few years back and it completely changed what the building feels like. ",
     "State Farm Arena",
     "/arena/state-farm-arena",
-    " is now one of the cleanest, sharpest venues in the league — and the food has improved significantly. The surrounding area keeps getting better too, with restaurants and bars within easy walking distance. A Trae Young game here with a good crowd is one of the better atmospheres we've been in.",
+    " is now one of the cleanest, sharpest venues in the league, and the food has improved significantly. The surrounding area keeps getting better too, with restaurants and bars within easy walking distance. A Trae Young game here with a good crowd is one of the better atmospheres we've been in.",
   ),
 
-  photo("Add photos of State Farm Arena here — interior shot of the renovated concourse, your seats, the court from your section"),
+  photo("Add photos of State Farm Arena here, interior shot of the renovated concourse, your seats, the court from your section"),
 
-  h3('Gainbridge Fieldhouse — Indianapolis, IN'),
+  h3('Gainbridge Fieldhouse, Indianapolis, IN'),
 
   linkedP(
     "Indianapolis is one of the most underrated arena cities on this list and it's not particularly close. ",
     "Gainbridge Fieldhouse",
     "/arena/gainbridge-fieldhouse",
-    " is right in the middle of downtown, surrounded by walkable restaurants and a city that genuinely rallies around its teams. The building has history — it feels lived-in in the best way. Indiana Fever games here are also genuinely worth attending if you follow the WNBA at all. Caitlin Clark playing in this building is an experience.",
+    " is right in the middle of downtown, surrounded by walkable restaurants and a city that genuinely rallies around its teams. The building has history, it feels lived-in in the best way. Indiana Fever games here are also genuinely worth attending if you follow the WNBA at all. Caitlin Clark playing in this building is an experience.",
   ),
 
-  photo("Add photos of Gainbridge Fieldhouse here — exterior, inside the bowl, maybe a Fever game shot if you have one"),
+  photo("Add photos of Gainbridge Fieldhouse here, exterior, inside the bowl, maybe a Fever game shot if you have one"),
 
-  h3('T-Mobile Arena — Las Vegas, NV'),
+  h3('T-Mobile Arena, Las Vegas, NV'),
 
   linkedP(
     "This one comes with a built-in reason to visit. ",
     "T-Mobile Arena",
     "/arena/t-mobile-arena",
-    " is a legitimately good NBA venue — solid sightlines, great energy — but you're clearly combining this trip with everything else Las Vegas offers. Budget accordingly and plan to stay a few extra days. The Golden Knights games here are also worth checking out if the schedule overlaps.",
+    " is a legitimately good NBA venue, solid sightlines, great energy, but you're clearly combining this trip with everything else Las Vegas offers. Budget accordingly and plan to stay a few extra days. The Golden Knights games here are also worth checking out if the schedule overlaps.",
   ),
 
-  photo("Add photos of T-Mobile Arena here — the exterior on the Strip, inside the arena, game night atmosphere"),
+  photo("Add photos of T-Mobile Arena here, the exterior on the Strip, inside the arena, game night atmosphere"),
 
-  h3('Mohegan Sun Arena — Uncasville, CT'),
+  h3('Mohegan Sun Arena, Uncasville, CT'),
 
   linkedP(
     "This one is genuinely unlike any other arena in North American sports. ",
     "Mohegan Sun Arena",
     "/arena/mohegan-sun-arena",
-    " sits inside a full casino resort in the middle of Connecticut — and the game-day experience reflects that completely. It's compact, it's intimate, and the parking situation is so easy you'll forget arenas are usually a headache. The Connecticut Sun are one of the best WNBA franchises, and watching a playoff game here with a sold-out crowd is electric. Perfect quick weekend trip from anywhere in New England or the New York area.",
+    " sits inside a full casino resort in the middle of Connecticut, and the game-day experience reflects that completely. It's compact, it's intimate, and the parking situation is so easy you'll forget arenas are usually a headache. The Connecticut Sun are one of the best WNBA franchises, and watching a playoff game here with a sold-out crowd is electric. Perfect quick weekend trip from anywhere in New England or the New York area.",
   ),
 
-  photo("Add photos of Mohegan Sun Arena here — the casino resort exterior, the compact arena interior, the Sun crowd"),
+  photo("Add photos of Mohegan Sun Arena here, the casino resort exterior, the compact arena interior, the Sun crowd"),
 
   // ── FOOD ─────────────────────────────────────────────────────────────────
   h2("Arena Food: What's Actually Worth Your Money"),
 
   p([span("Every arena claims to have great food now. Some of them are actually telling the truth.")]),
 
-  p([span("The general rule: the newer or more recently renovated the arena, the better the food options. Older buildings that haven't been updated are still leaning on the same basic concession stands they were running in 2005. This is not always bad — some of those stands are genuinely iconic — but you shouldn't expect a culinary experience.")]),
+  p([span("The general rule: the newer or more recently renovated the arena, the better the food options. Older buildings that haven't been updated are still leaning on the same basic concession stands they were running in 2005. This is not always bad, some of those stands are genuinely iconic, but you shouldn't expect a culinary experience.")]),
 
   p([span("Our approach at any new arena: do one full lap of the concourse before sitting down. Every arena has at least one local food concept tucked into a corner that you'd completely miss if you went straight to your seat. That's almost always the best thing in the building.")]),
 
-  photo("Add photos of your best arena food finds here — be specific, show the actual item, the stand it came from, and which arena. Readers love this."),
+  photo("Add photos of your best arena food finds here, be specific, show the actual item, the stand it came from, and which arena. Readers love this."),
 
   p([span("A few specific things we've eaten that were worth the arena markup: pretty much anything on the upper concourse at Fiserv Forum, the fried chicken situation at State Farm Arena, the craft beer options at Gainbridge Fieldhouse, and the general food quality at Moda Center in Portland, which reflects that city's food culture in a way most arenas don't bother to.")]),
 
@@ -219,12 +219,12 @@ const content = [
 
   h3('Arrive 45 Minutes Before Tip-Off, Minimum'),
 
-  p([span("This is the single tip that has improved every arena visit we've had since we started doing it. Arriving early means you can walk the full concourse without fighting through a crowd, grab food while the lines are short, watch warmups — which are genuinely interesting up close — and actually find your seats and get settled before the game starts.")]),
+  p([span("This is the single tip that has improved every arena visit we've had since we started doing it. Arriving early means you can walk the full concourse without fighting through a crowd, grab food while the lines are short, watch warmups, which are genuinely interesting up close, and actually find your seats and get settled before the game starts.")]),
 
   p([span("Most arenas open 90 minutes before tip-off. The people who show up in that first half-hour have a fundamentally different experience than the people rushing to their seats at tip-off. Be the first group.")]),
 
-  photo("Add a photo of warmups from close to the floor — this is the thing that makes arriving early click for people who haven't done it"),
-  video("Add a short clip of warmups if you have one — showing how close you can get, how big the players look in person"),
+  photo("Add a photo of warmups from close to the floor, this is the thing that makes arriving early click for people who haven't done it"),
+  video("Add a short clip of warmups if you have one, showing how close you can get, how big the players look in person"),
 
   h3('Lower Bowl for the First Visit, Upper Deck After'),
 
@@ -236,14 +236,14 @@ const content = [
 
   p([span("For any arena in a major city, skip the arena parking lots. The post-game traffic situation will add 45-60 minutes to your night and cost you $30-50 for the privilege. Take a rideshare or public transit, then walk back to a restaurant after the game and wait out the rush over a drink. You'll have a better night and get home faster.")]),
 
-  p([span("For smaller markets — Indianapolis, Oklahoma City, Memphis, Salt Lake City — arena parking is usually a different story. The post-game exit is quick, lots are reasonably priced, and it's genuinely the easiest option.")]),
+  p([span("For smaller markets, Indianapolis, Oklahoma City, Memphis, Salt Lake City, arena parking is usually a different story. The post-game exit is quick, lots are reasonably priced, and it's genuinely the easiest option.")]),
 
   h3('What to Pack'),
 
-  p([span("Mobile tickets only — don't print anything, most arenas won't scan paper anymore and you'll be the person holding up the security line.")]),
+  p([span("Mobile tickets only, don't print anything, most arenas won't scan paper anymore and you'll be the person holding up the security line.")]),
   p([span("A light jacket regardless of the season. Arenas run cold, especially in the upper deck. Even in August.")]),
   p([span("A portable battery pack. You'll be taking photos, running Uber or Lyft, checking scores, and your phone will be at 12% by the third quarter.")]),
-  p([span("A small amount of cash. Most arenas are cashless now, but some of the best vendors — especially the older independent concession spots — still prefer it.")]),
+  p([span("A small amount of cash. Most arenas are cashless now, but some of the best vendors, especially the older independent concession spots, still prefer it.")]),
 
   callout('tip', [
     p([span("If you're hitting multiple arenas in one trip, pack light enough to carry everything on the plane. Checking bags between cities adds time, stress, and the occasional lost bag. A carry-on and a personal item is all you need for a 4-5 day arena trip.")]),
@@ -254,20 +254,20 @@ const content = [
 
   p([span("We're working through the full list. Here are the arenas where we've published complete reviews with our honest ratings, food picks, parking tips, and game-day breakdowns:")]),
 
-  photo("Add a photo collage or grid here showing all the arenas you've visited so far — a visual map works great too"),
+  photo("Add a photo collage or grid here showing all the arenas you've visited so far, a visual map works great too"),
 
   ...[
-    { name: 'Fiserv Forum — Milwaukee, WI (Bucks)', slug: 'fiserv-forum' },
-    { name: 'State Farm Arena — Atlanta, GA (Hawks)', slug: 'state-farm-arena' },
-    { name: 'Gainbridge Fieldhouse — Indianapolis, IN (Pacers / Fever)', slug: 'gainbridge-fieldhouse' },
-    { name: 'T-Mobile Arena — Las Vegas, NV (Golden Knights / NBA expansion)', slug: 't-mobile-arena' },
-    { name: 'Mohegan Sun Arena — Uncasville, CT (Connecticut Sun)', slug: 'mohegan-sun-arena' },
-    { name: 'Moda Center — Portland, OR (Trail Blazers)', slug: 'moda-center' },
-    { name: 'Target Center — Minneapolis, MN (Timberwolves / Lynx)', slug: 'target-center' },
-    { name: 'Amway Center — Orlando, FL (Magic)', slug: 'amway-center' },
-    { name: 'Barclays Center — Brooklyn, NY (Nets)', slug: 'barclays-center' },
-    { name: 'Entertainment and Sports Arena — Washington, D.C. (Mystics)', slug: 'entertainment-and-sports-arena' },
-    { name: 'Paycom Center — Oklahoma City, OK (Thunder)', slug: 'paycom-center' },
+    { name: 'Fiserv Forum, Milwaukee, WI (Bucks)', slug: 'fiserv-forum' },
+    { name: 'State Farm Arena, Atlanta, GA (Hawks)', slug: 'state-farm-arena' },
+    { name: 'Gainbridge Fieldhouse, Indianapolis, IN (Pacers / Fever)', slug: 'gainbridge-fieldhouse' },
+    { name: 'T-Mobile Arena, Las Vegas, NV (Golden Knights / NBA expansion)', slug: 't-mobile-arena' },
+    { name: 'Mohegan Sun Arena, Uncasville, CT (Connecticut Sun)', slug: 'mohegan-sun-arena' },
+    { name: 'Moda Center, Portland, OR (Trail Blazers)', slug: 'moda-center' },
+    { name: 'Target Center, Minneapolis, MN (Timberwolves / Lynx)', slug: 'target-center' },
+    { name: 'Amway Center, Orlando, FL (Magic)', slug: 'amway-center' },
+    { name: 'Barclays Center, Brooklyn, NY (Nets)', slug: 'barclays-center' },
+    { name: 'Entertainment and Sports Arena, Washington, D.C. (Mystics)', slug: 'entertainment-and-sports-arena' },
+    { name: 'Paycom Center, Oklahoma City, OK (Thunder)', slug: 'paycom-center' },
   ].map(({ name, slug }) => {
     const lk = key()
     return p([span(name, [lk])], [{ _type: 'link', _key: lk, href: `/arena/${slug}` }])
@@ -282,11 +282,11 @@ const content = [
 
   p([span("But that's kind of the point. The arenas are the reason to go, but the cities are what you actually remember.")]),
 
-  p([span("Start small. One trip, two or three arenas, cities close enough together that the logistics are manageable. See how it feels. For us, that first trip turned into this — a full spreadsheet, a running list, and a genuine reason to go places we'd never otherwise have on our radar.")]),
+  p([span("Start small. One trip, two or three arenas, cities close enough together that the logistics are manageable. See how it feels. For us, that first trip turned into this, a full spreadsheet, a running list, and a genuine reason to go places we'd never otherwise have on our radar.")]),
 
   p([span("We're not done yet. But we're a lot closer than we were when this started. We'll see you at a game.")]),
 
-  photo("Add a final photo here — you and the family at a game, or a shot that captures why you started doing this. End on something personal."),
+  photo("Add a final photo here, you and the family at a game, or a shot that captures why you started doing this. End on something personal."),
 
 ].flat()
 

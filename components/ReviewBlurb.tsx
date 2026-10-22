@@ -28,7 +28,6 @@ export default function ReviewBlurb({
         </div>
         {source && (
           <footer className="mt-4 text-right text-sm font-semibold">
-            —{' '}
             {url ? (
               <Link
                 href={url}

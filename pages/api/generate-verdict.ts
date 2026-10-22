@@ -1,6 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-import { ANTI_AI_RULES, BRAND_VOICE, trimToSentence } from '../../lib/gemini-voice'
+import {
+  ANTI_AI_RULES,
+  BRAND_VOICE,
+  stripDashes,
+  trimToSentence,
+} from '../../lib/gemini-voice'
 
 // --- Weight configs (mirrors lib/ratingWeights.ts + lib/calculateArenaRating.ts) ---
 
@@ -179,36 +184,36 @@ function formatInsights(d: DigestedRatings): string {
 
 function toneGuidance(score: number, label: string): string {
   if (score >= 9.0) {
-    return `Score ${score.toFixed(1)} = "${label}" — Genuine enthusiasm. Don't hold back on praise. Close with something like "We'd go back in a heartbeat" or "Book it without hesitation."`
+    return `Score ${score.toFixed(1)} = "${label}". Genuine enthusiasm. Don't hold back on praise. Close with something like "We'd go back in a heartbeat" or "Book it without hesitation."`
   }
   if (score >= 8.0) {
-    return `Score ${score.toFixed(1)} = "${label}" — Strong positive. Name the best things with confidence. Acknowledge any weak spot briefly then move on. Close with "We'd go back" or "Worth every penny."`
+    return `Score ${score.toFixed(1)} = "${label}". Strong positive. Name the best things with confidence. Acknowledge any weak spot briefly then move on. Close with "We'd go back" or "Worth every penny."`
   }
   if (score >= 7.0) {
-    return `Score ${score.toFixed(1)} = "${label}" — Balanced and honest. Name the strongest thing first, then name the one gap plainly. Don't gush. Close with something like "Worth the visit if you're in [city]."`
+    return `Score ${score.toFixed(1)} = "${label}". Balanced and honest. Name the strongest thing first, then name the one gap plainly. Don't gush. Close with something like "Worth the visit if you're in [city]."`
   }
   if (score >= 5.5) {
-    return `Score ${score.toFixed(1)} = "${label}" — Measured and cautionary. Lead with what worked, name the problem clearly. Close with something like "We'd probably try somewhere else next time" or "Worth it only if you're already in the area."`
+    return `Score ${score.toFixed(1)} = "${label}". Measured and cautionary. Lead with what worked, name the problem clearly. Close with something like "We'd probably try somewhere else next time" or "Worth it only if you're already in the area."`
   }
   if (score >= 3.0) {
-    return `Score ${score.toFixed(1)} = "${label}" — Frank and direct. Lead with the core problem. Any positives are mentioned for context only — they cannot save the tone. Close with "Skip it." or "Wouldn't rush back."`
+    return `Score ${score.toFixed(1)} = "${label}". Frank and direct. Lead with the core problem. Any positives are mentioned for context only; they cannot save the tone. Close with "Skip it." or "Wouldn't rush back."`
   }
-  return `Score ${score.toFixed(1)} = "${label}" — Very blunt. This was a poor experience and the verdict must say so clearly. Do not soften it. Close with "Hard pass." or "We won't be back."`
+  return `Score ${score.toFixed(1)} = "${label}". Very blunt. This was a poor experience and the verdict must say so clearly. Do not soften it. Close with "Hard pass." or "We won't be back."`
 }
 
 // --- Shared voice rules ---
 
 const VOICE_RULES = `${BRAND_VOICE} You are writing the final verdict of a review.
 
-VOICE RULES — follow every one:
-- Write as "we" (a couple traveling together), warm, direct, and confident — an enthusiastic sports fan & traveler, not a machine
-- Use "&" instead of "and" in casual phrasing — not every sentence, just naturally
+VOICE RULES (follow every one):
+- Write as "we" (a couple traveling together), warm, direct, and confident: an enthusiastic sports fan & traveler, not a machine
+- Use "&" instead of "and" in casual phrasing; not every sentence, just naturally
 - State opinions directly: "top-notch", "divine", "exactly what we needed", "worth every penny"
-- Be honest about negatives — name them plainly but fairly, don't sugarcoat or bury them
+- Be honest about negatives: name them plainly but fairly, don't sugarcoat or bury them
 - Use sensory detail for food: textures, flavors, temperatures, reference specific dish names
 - End with a clear, forward-looking close that matches the tone set by the WEIGHTED SCORE
 - Write like a trusted friend giving real advice, not a press release
-- Do NOT mention specific score numbers in the verdict text — let the language carry the weight ("the food was the clear weak link" not "the food scored 5/10")
+- Do NOT mention specific score numbers in the verdict text; let the language carry the weight ("the food was the clear weak link" not "the food scored 5/10")
 - TONE IS NON-NEGOTIABLE: The weighted score sets the emotional ceiling. Even if the positives list is glowing, a score below 6 cannot produce a warm or enthusiastic verdict.
 - Never use "experience" as a noun, and never use "overall"
 
@@ -245,19 +250,19 @@ function buildArenaPrompt(body: any): string {
 
   if (hasRatings) {
     const d = preDigestRatings(arenaRatings, ARENA_WEIGHTS, ARENA_LABELS)
-    ratingsBlock = `ARENA RATINGS (1–10 scale):\n${d.ratingLines.join('\n')}\n\n${formatInsights(d)}`
-    toneBlock = `TONE — This is non-negotiable:\n${toneGuidance(d.weightedScore, d.textLabel)}\nCRITICAL: Even if the positives list is glowing, the tone must match the weighted score. Positives add color; they cannot override the emotional register.`
+    ratingsBlock = `ARENA RATINGS (1 to 10 scale):\n${d.ratingLines.join('\n')}\n\n${formatInsights(d)}`
+    toneBlock = `TONE (this is non-negotiable):\n${toneGuidance(d.weightedScore, d.textLabel)}\nCRITICAL: Even if the positives list is glowing, the tone must match the weighted score. Positives add color; they cannot override the emotional register.`
   }
 
   return `${VOICE_RULES}
 
 SEO RULES:
-- Use "${name}" naturally 2–3 times
+- Use "${name}" naturally 2 to 3 times
 - Include "${location}" at least once
-- Weave 2–3 key differentiators from the positives into natural sentences
-- If it fits naturally, one casual nod to our quest to visit every NBA & WNBA arena ("another stop on our arena quest") — skip it if it feels forced
-- HARD LIMIT: Stay under 600 characters total (roughly 85–95 words). Count carefully — do not exceed this.
-- Plain paragraphs only — no headers, no bullet points
+- Weave 2 to 3 key differentiators from the positives into natural sentences
+- If it fits naturally, one casual nod to our quest to visit every NBA & WNBA arena ("another stop on our arena quest"); skip it if it feels forced
+- HARD LIMIT: Stay under 600 characters total (roughly 85 to 95 words). Count carefully. Do not exceed this.
+- Plain paragraphs only: no headers, no bullet points
 
 ${ratingsBlock ? ratingsBlock + '\n\n' : ''}${toneBlock ? toneBlock + '\n\n' : ''}ARENA DATA:
 Arena: ${name}
@@ -309,18 +314,18 @@ function buildHotelPrompt(body: any): string {
 
   if (hasRatings) {
     const d = preDigestRatings(hotelRatings, HOTEL_WEIGHTS, HOTEL_LABELS, HOTEL_NA_FIELDS)
-    ratingsBlock = `HOTEL RATINGS (0–10 scale):\n${d.ratingLines.join('\n')}\n\n${formatInsights(d)}`
-    toneBlock = `TONE — This is non-negotiable:\n${toneGuidance(d.weightedScore, d.textLabel)}\nCRITICAL: Even if the positives list is glowing, the tone must match the weighted score. Positives add color; they cannot override the emotional register.`
+    ratingsBlock = `HOTEL RATINGS (0 to 10 scale):\n${d.ratingLines.join('\n')}\n\n${formatInsights(d)}`
+    toneBlock = `TONE (this is non-negotiable):\n${toneGuidance(d.weightedScore, d.textLabel)}\nCRITICAL: Even if the positives list is glowing, the tone must match the weighted score. Positives add color; they cannot override the emotional register.`
   }
 
   return `${VOICE_RULES}
 
 SEO RULES:
-- Use "${title}" naturally 2–3 times
+- Use "${title}" naturally 2 to 3 times
 - Include "${location}" at least once
-- Weave 2–3 key differentiators from the positives into natural sentences
-- HARD LIMIT: Stay under 600 characters total (roughly 85–95 words). Count carefully — do not exceed this.
-- Plain paragraphs only — no headers, no bullet points
+- Weave 2 to 3 key differentiators from the positives into natural sentences
+- HARD LIMIT: Stay under 600 characters total (roughly 85 to 95 words). Count carefully. Do not exceed this.
+- Plain paragraphs only: no headers, no bullet points
 
 ${ratingsBlock ? ratingsBlock + '\n\n' : ''}${toneBlock ? toneBlock + '\n\n' : ''}HOTEL DATA:
 Hotel: ${title}
@@ -383,19 +388,19 @@ function buildFoodPrompt(body: any): string {
 
   if (hasRatings) {
     const d = preDigestRatings(activeRatings, activeWeights, activeLabels)
-    const ratingTitle = isTakeout ? 'TAKEOUT RATINGS (0–10 scale)' : 'FOOD RATINGS (0–10 scale)'
+    const ratingTitle = isTakeout ? 'TAKEOUT RATINGS (0 to 10 scale)' : 'FOOD RATINGS (0 to 10 scale)'
     ratingsBlock = `${ratingTitle}:\n${d.ratingLines.join('\n')}\n\n${formatInsights(d)}`
-    toneBlock = `TONE — This is non-negotiable:\n${toneGuidance(d.weightedScore, d.textLabel)}\nCRITICAL: Even if the positives list is glowing, the tone must match the weighted score. Positives add color; they cannot override the emotional register.`
+    toneBlock = `TONE (this is non-negotiable):\n${toneGuidance(d.weightedScore, d.textLabel)}\nCRITICAL: Even if the positives list is glowing, the tone must match the weighted score. Positives add color; they cannot override the emotional register.`
   }
 
   return `${VOICE_RULES}
 
 SEO RULES:
-- Use "${title}" naturally 2–3 times
+- Use "${title}" naturally 2 to 3 times
 - Include "${location}" at least once
 - Reference specific dishes by name when available
-- HARD LIMIT: Stay under 600 characters total (roughly 85–95 words). Count carefully — do not exceed this.
-- Plain paragraphs only — no headers, no bullet points
+- HARD LIMIT: Stay under 600 characters total (roughly 85 to 95 words). Count carefully. Do not exceed this.
+- Plain paragraphs only: no headers, no bullet points
 
 ${ratingsBlock ? ratingsBlock + '\n\n' : ''}${toneBlock ? toneBlock + '\n\n' : ''}RESTAURANT DATA:
 Restaurant: ${title}
@@ -440,7 +445,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           'Content-Type': 'application/json',
           'x-goog-api-key': apiKey,
         },
-        // 9s — exits cleanly before Vercel Hobby's 10s hard kill
+        // 9s, exits cleanly before Vercel Hobby's 10s hard kill
         signal: AbortSignal.timeout(9000),
         body: JSON.stringify({
           contents: [{ parts: [{ text: prompt }] }],
@@ -461,8 +466,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const retryMatch = msg.match(/retry in ([\d.]+)s/i)
         const seconds = retryMatch ? Math.ceil(Number(retryMatch[1])) : null
         const friendly = seconds
-          ? `Gemini rate limit hit — try again in ${seconds}s.`
-          : 'Gemini rate limit hit — wait a minute then try again.'
+          ? `Gemini rate limit hit. Try again in ${seconds}s.`
+          : 'Gemini rate limit hit. Wait a minute then try again.'
         return res.status(429).json({ error: friendly })
       }
       throw new Error(msg)
@@ -474,7 +479,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (!raw) throw new Error('No verdict returned from Gemini')
 
     // Prompt asks for <600 chars; only intervene when the model badly overshoots
-    const verdict = raw.length > 700 ? trimToSentence(raw, 600) : raw
+    const clean = stripDashes(raw)
+    const verdict = clean.length > 700 ? trimToSentence(clean, 600) : clean
 
     res.status(200).json({ verdict })
   } catch (err: any) {

@@ -1,6 +1,7 @@
 // schemas/objects/photoGallery.js
 import { ImageIcon } from '@sanity/icons' // Optional: for a nice icon
 import { defineField, defineType } from 'sanity'
+
 import { AltTextGeneratorInput } from '../plugins/AltTextGeneratorInput'
 
 const ARENA_CATEGORY_LABELS: Record<string, string> = {
@@ -20,7 +21,7 @@ const ARENA_CATEGORY_LIST = [
 ]
 
 const ARENA_CATEGORY_DESCRIPTION =
-  "Choose a category — Seating & Game Floor: court, baskets, view from your seat. Concessions & Food: food stalls, menu boards, food shots. Exterior: outside the building, signage, plaza. Entrances & Lobby: inside entrance, hallways, common areas. Additional Photos: anything that doesn't fit above."
+  "Choose a category. Seating & Game Floor: court, baskets, view from your seat. Concessions & Food: food stalls, menu boards, food shots. Exterior: outside the building, signage, plaza. Entrances & Lobby: inside entrance, hallways, common areas. Additional Photos: anything that doesn't fit above."
 
 export default defineType({
   name: 'photoGallery',
