@@ -59,6 +59,8 @@ interface ReviewRatingProps {
   reviewType?: 'food' | 'hotel' // Add review type to determine weights
   /** 'glance': compact bar grid only (the overall score is shown elsewhere) */
   variant?: 'full' | 'glance'
+  /** Display names by rating key, e.g. { Restaurant_Cleanliness: 'Cleanliness' } */
+  labels?: Record<string, string>
 }
 
 // Bar colour for one category, on the displayed 0–5 scale
@@ -71,6 +73,7 @@ export default function ReviewRating({
   title,
   reviewType = 'food', // Default to food if not specified
   variant = 'full',
+  labels,
 }: ReviewRatingProps) {
   if (!ratings) {
     return null
@@ -90,9 +93,7 @@ export default function ReviewRating({
 
   // Determine weights based on review type and field names
   let weights:
-    | typeof HOTEL_WEIGHTS
-    | typeof FOOD_WEIGHTS
-    | typeof TAKEOUT_WEIGHTS
+    typeof HOTEL_WEIGHTS | typeof FOOD_WEIGHTS | typeof TAKEOUT_WEIGHTS
   if (reviewType === 'hotel') {
     weights = HOTEL_WEIGHTS
   } else {
@@ -137,7 +138,7 @@ export default function ReviewRating({
                 <div className="flex items-center justify-between text-sm font-semibold text-foreground">
                   <span className="flex items-center">
                     {ratingIcons[name]}
-                    {formatRatingName(name)}
+                    {labels?.[name] ?? formatRatingName(name)}
                   </span>
                   <span>{unavailable ? '—' : score.toFixed(1)}</span>
                 </div>
@@ -201,7 +202,7 @@ export default function ReviewRating({
                 <div className="flex justify-between items-center mb-1">
                   <span className="font-semibold text-foreground flex items-center">
                     {ratingIcons[name]}
-                    {formatRatingName(name)}
+                    {labels?.[name] ?? formatRatingName(name)}
                   </span>
                 </div>
                 <div className="flex items-center">

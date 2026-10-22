@@ -3,55 +3,58 @@ import Layout from 'components/BlogLayout'
 import Footer from 'components/Footer'
 import HeroPhotoGallery from 'components/HeroPhotoGallery'
 import ImageGallery from 'components/ImageGallery'
-import FoodRatings from 'components/IndividualFoodRating'
+import SwipeRow from 'components/listing/SwipeRow'
 import PostBody from 'components/PostBody'
 import { formatDate } from 'components/PostDate'
 import PostPageHead from 'components/PostPageHead'
 import PostTitle from 'components/PostTitle'
 import ProConList from 'components/ProConList'
+import SectionTitle from 'components/SectionTitle'
 import VideoPlayer from 'components/Youtube'
+import { usePhotoGallery } from 'hooks/usePhotoGallery'
 import { calculateRating } from 'lib/calculateRating'
 import * as demo from 'lib/demo.data'
 import { computeTimelineEntries, getEffectiveRating } from 'lib/mergeRatings'
 import { FOOD_WEIGHTS, TAKEOUT_WEIGHTS } from 'lib/ratingWeights'
+import { urlForImage } from 'lib/sanity.image'
 import type { FoodReview, Settings } from 'lib/sanity.queries'
-import { useCallback, useEffect, useState } from 'react'
+import {
+  CheckCircle,
+  ChevronRight,
+  Handshake,
+  MapPin,
+  Package,
+  Presentation,
+  Smile,
+  SprayCan,
+  Star,
+  Tag,
+  Utensils,
+} from 'lucide-react'
+import Link from 'next/link'
+import { locationToSlug } from 'utils/locationSlug'
 
 import BreadcrumbStructuredData from './BreadcrumbStructuredData'
 import HelpfulTip from './HelpfulTip'
 import NearestArenaLink from './NearestArenaLink'
-import ReviewBlurb from './ReviewBlurb'
+import DishCard, { dishPrice, type FoodReviewDish } from './review/DishCard'
+import { ReviewActionBar } from './review/ReviewActions'
+import ReviewSummaryPanel, {
+  type ReviewChip,
+} from './review/ReviewSummaryPanel'
+import ReviewRating from './ReviewRating'
 import ReviewStructuredData from './ReviewStructuredData'
 import RevisitTimeline from './RevisitTimeline'
+import { Section } from './ui/Section'
 
 export interface FoodReviewPageProps {
   preview?: boolean
   loading?: boolean
   foodReview: FoodReview
   settings: Settings
+  /** Arenas in the same city, for the "Going to a game?" box */
+  arenasInCity?: { name: string; slug: string; location: string }[]
 }
-
-import { usePhotoGallery } from 'hooks/usePhotoGallery'
-import { urlForImage } from 'lib/sanity.image'
-import {
-  Banknote,
-  CalendarDays,
-  CheckCircle,
-  ChevronRight,
-  Handshake,
-  MapPin,
-  Medal,
-  Package,
-  Presentation,
-  ShoppingBag,
-  Smile,
-  SprayCan,
-  Star,
-  Utensils,
-} from 'lucide-react'
-import Link from 'next/link'
-
-import ReviewRating from './ReviewRating'
 
 const FOOD_RATING_LABELS: Record<string, string> = {
   Flavor_and_Taste: 'Flavor & Taste',
@@ -91,8 +94,8 @@ const takeoutRatingIcons = {
   accuracy: <CheckCircle className="h-5 w-5 mr-2 " />,
 }
 
-export default function FoodReviewPage(props: FoodReviewPageProps) {
-  const { preview, loading, foodReview, settings } = props
+function FoodReviewPageContent(props: FoodReviewPageProps) {
+  const { preview, loading, foodReview, settings, arenasInCity = [] } = props
   const { title = demo.title } = settings || {}
 
   const { heroImages, galleryImages, isOpen, openModal, closeModal } =
@@ -100,14 +103,6 @@ export default function FoodReviewPage(props: FoodReviewPageProps) {
       foodReview.coverImage,
       ...(foodReview.gallery || []),
     ])
-
-  if (!foodReview) {
-    return preview ? (
-      <Layout preview={preview} loading={loading}>
-        <PostTitle>Loading…</PostTitle>
-      </Layout>
-    ) : null
-  }
 
   const isTakeout = foodReview.diningType === 'takeout'
   const weights = isTakeout ? TAKEOUT_WEIGHTS : FOOD_WEIGHTS
@@ -164,16 +159,41 @@ export default function FoodReviewPage(props: FoodReviewPageProps) {
         })
       : []
 
-  const bestDish = foodReview.individualFoodRating?.length
-    ? foodReview.individualFoodRating.reduce(
-        (top, item) =>
-          (item.rating?.Dish ?? 0) > (top.rating?.Dish ?? 0) ? item : top,
-        foodReview.individualFoodRating[0],
+  const dishes = (foodReview.individualFoodRating ?? []).filter(
+    (dish): dish is FoodReviewDish => Boolean(dish?.name),
+  )
+  // The best-rated dish (first one wins a tie) is the "Must order"
+  const bestDish = dishes.length
+    ? dishes.reduce((top, dish) =>
+        (dish.rating?.Dish ?? 0) > (top.rating?.Dish ?? 0) ? dish : top,
       )
     : null
-  const bestDishScore = bestDish
-    ? ((bestDish.rating?.Dish ?? 0) / 2).toFixed(1)
+
+  // Summary panel: overall score, the place's name (for Directions/Share)
+  // and the key facts as chips
+  const overall = effectiveRating
+    ? calculateRating(effectiveRating as Record<string, number>, weights)
     : null
+  const reviewTitle = foodReview.title || 'Food Review'
+  const placeName = reviewTitle
+    .replace(/\s+((restaurant|food)\s+)?review\s*$/i, '')
+    .trim()
+  const chips: ReviewChip[] = [
+    foodReview.diningType && {
+      label: isTakeout ? 'Takeout' : 'Dine-in',
+      tone: 'dark' as const,
+    },
+    foodReview.priceTier && {
+      label: foodReview.priceTier,
+      tone: 'indigo' as const,
+    },
+    foodReview.date && { label: `Visited ${formatDate(foodReview.date)}` },
+  ].filter(Boolean) as ReviewChip[]
+  const verdictText = foodReview.verdictHeadline || foodReview.seoExcerpt
+  const slug =
+    typeof foodReview.slug === 'string'
+      ? foodReview.slug
+      : (foodReview.slug as any)?.current || ''
 
   return (
     <div>
@@ -182,7 +202,7 @@ export default function FoodReviewPage(props: FoodReviewPageProps) {
       <ReviewStructuredData
         review={foodReview}
         reviewType="food"
-        pageUrl={`${process.env.NEXT_PUBLIC_SITE_URL}/food/${typeof foodReview.slug === 'string' ? foodReview.slug : (foodReview.slug as any)?.current || ''}`}
+        pageUrl={`${process.env.NEXT_PUBLIC_SITE_URL}/food/${slug}`}
         imageUrl={
           foodReview.coverImage
             ? urlForImage(foodReview.coverImage).width(1200).height(630).url()
@@ -196,7 +216,7 @@ export default function FoodReviewPage(props: FoodReviewPageProps) {
           { name: 'Food Reviews', url: '/food' },
           {
             name: foodReview.title || 'Food Review',
-            url: `/food/${typeof foodReview.slug === 'string' ? foodReview.slug : (foodReview.slug as any)?.current || ''}`,
+            url: `/food/${slug}`,
           },
         ]}
       />
@@ -204,7 +224,7 @@ export default function FoodReviewPage(props: FoodReviewPageProps) {
       <Layout preview={preview} loading={loading}>
         <BlogHeader title={title} level={2} />
 
-        <article className="container mx-auto px-4 py-8 md:px-6 md:py-12">
+        <article className="container mx-auto max-w-7xl px-4 pb-28 pt-6 md:px-6 md:pt-10 xl:pb-12">
           <nav
             aria-label="Breadcrumb"
             className="flex items-center gap-1.5 text-sm text-muted-foreground mb-6 flex-wrap"
@@ -217,7 +237,7 @@ export default function FoodReviewPage(props: FoodReviewPageProps) {
               href="/food"
               className="hover:text-foreground transition-colors"
             >
-              Restaurant Reviews
+              Food Reviews
             </Link>
             <ChevronRight className="h-3.5 w-3.5 shrink-0" />
             <span className="text-foreground line-clamp-1">
@@ -225,141 +245,195 @@ export default function FoodReviewPage(props: FoodReviewPageProps) {
             </span>
           </nav>
 
-          {/* Food Review Header - will create dedicated component later */}
-          <header className="mb-12">
-            <h1 className="mb-4 text-4xl font-bold">{foodReview.title}</h1>
-            <div className="mb-4 flex flex-wrap items-center justify-start gap-x-6 gap-y-2">
-              {foodReview.location && (
-                <div className="flex items-center text-base text-muted-foreground">
-                  <MapPin className="mr-2 h-4 w-4" />
-                  {foodReview.location}
-                </div>
-              )}
-              {foodReview.diningType && (
-                <div className="flex items-center text-base text-muted-foreground">
-                  {foodReview.diningType === 'dinein' ? (
-                    <Utensils className="mr-2 h-4 w-4" />
-                  ) : (
-                    <ShoppingBag className="mr-2 h-4 w-4" />
-                  )}
-                  {foodReview.diningType === 'dinein' ? 'Dine-in' : 'Takeout'}
-                </div>
-              )}
-              {foodReview.priceTier && (
-                <div className="flex items-center text-base text-muted-foreground">
-                  <Banknote className="mr-2 h-4 w-4" />
-                  {foodReview.priceTier}
-                </div>
-              )}
-              {foodReview.date && (
-                <div className="flex items-center text-base text-muted-foreground">
-                  <CalendarDays className="mr-2 h-4 w-4" />
-                  {formatDate(foodReview.date)}
-                </div>
-              )}
-            </div>
-          </header>
-
-          {galleryImages.length > 0 && (
-            <HeroPhotoGallery
-              images={heroImages}
-              onShowAllPhotos={openModal}
-            />
-          )}
-
-          {/* Restaurant Summary hidden — excerpt2 not rendered to avoid duplicate content SEO issues */}
-
-          {effectiveRating && (
-            <ReviewRating
-              ratings={effectiveRating}
-              ratingIcons={currentRatingIcons}
-              title="Food Rating"
-              reviewType="food"
-            />
-          )}
-
-          {timelineEntries.length > 0 &&
-            originalRatingResult &&
-            foodReview.date && (
-              <RevisitTimeline
-                originalDate={foodReview.date}
-                originalDisplayRating={originalRatingResult.displayRating}
-                originalTextRating={originalRatingResult.textRating}
-                originalColor={originalRatingResult.color ?? '#6B7280'}
-                entries={timelineEntries}
-              />
+          {/* Same layout as the hotel review: photos and the review on the
+              right; the summary panel sticks in the left column on large
+              screens. On phones the DOM order is photos → panel → review. */}
+          <div className="grid grid-cols-1 items-start gap-6 xl:grid-cols-[340px_minmax(0,1fr)] xl:gap-10">
+            {galleryImages.length > 0 && (
+              <div className="min-w-0 xl:col-start-2 xl:row-start-1">
+                <HeroPhotoGallery
+                  images={heroImages}
+                  onShowAllPhotos={openModal}
+                  bare
+                />
+              </div>
             )}
 
-          {foodReview.tip && <HelpfulTip tip={foodReview.tip} />}
+            <aside className="self-start xl:sticky xl:top-24 xl:col-start-1 xl:row-span-2 xl:row-start-1">
+              <ReviewSummaryPanel
+                title={reviewTitle}
+                placeName={placeName}
+                location={foodReview.location}
+                score={
+                  overall
+                    ? {
+                        displayRating: overall.displayRating,
+                        textRating: overall.textRating,
+                      }
+                    : undefined
+                }
+                chips={chips}
+                footnote={
+                  bestDish ? (
+                    <>
+                      <span className="font-bold text-primary">
+                        Must order:{' '}
+                      </span>
+                      {bestDish.name!.trim()}
+                      {dishPrice(bestDish) ? ` · ${dishPrice(bestDish)}` : ''}
+                    </>
+                  ) : undefined
+                }
+                arenasInCity={arenasInCity}
+                cityGuideHref={
+                  arenasInCity[0]?.location
+                    ? `/city/${locationToSlug(arenasInCity[0].location)}`
+                    : undefined
+                }
+              />
+            </aside>
 
-          {/* Best Dish callout */}
-          {bestDish && (
-            <div className="my-6 flex items-start gap-4 rounded-xl border-2 border-primary/30 bg-primary/5 p-4 sm:p-5">
-              <div className="mt-0.5 shrink-0 rounded-lg bg-primary/10 p-2">
-                <Medal className="h-5 w-5 text-primary" />
-              </div>
-              <div className="min-w-0">
-                <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-0.5">
-                  Must Order
-                </p>
-                <p className="text-lg font-bold text-foreground leading-tight">
-                  {bestDish.name}
-                </p>
-                <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground">
-                  <span className="font-semibold text-foreground">
-                    {bestDishScore} / 5
+            <div className="min-w-0 xl:col-start-2 xl:row-start-2">
+              {/* Restaurant Summary hidden — excerpt2 not rendered to avoid duplicate content SEO issues */}
+              {verdictText && (
+                <section className="mb-8 flex flex-col gap-3">
+                  <span className="text-xs font-bold tracking-[0.14em] text-primary">
+                    OUR TAKE
                   </span>
-                  {bestDish.price != null && bestDish.price > 0 && (
-                    <span>${Number(bestDish.price).toFixed(2)}</span>
-                  )}
-                  {bestDish.review && (
-                    <span className="line-clamp-1 italic">
-                      &ldquo;{bestDish.review}&rdquo;
-                    </span>
-                  )}
+                  <p
+                    className={`font-heading-family font-extrabold leading-tight text-foreground ${
+                      foodReview.verdictHeadline
+                        ? 'text-3xl md:text-4xl'
+                        : 'text-xl md:text-2xl'
+                    }`}
+                  >
+                    {verdictText}
+                  </p>
+                </section>
+              )}
+
+              {effectiveRating && (
+                <ReviewRating
+                  ratings={effectiveRating}
+                  ratingIcons={currentRatingIcons}
+                  labels={labelMap}
+                  title="Ratings at a glance"
+                  reviewType="food"
+                  variant="glance"
+                />
+              )}
+
+              {timelineEntries.length > 0 &&
+                originalRatingResult &&
+                foodReview.date && (
+                  <Section spacing="tight" as="div">
+                    <RevisitTimeline
+                      originalDate={foodReview.date}
+                      originalDisplayRating={originalRatingResult.displayRating}
+                      originalTextRating={originalRatingResult.textRating}
+                      originalColor={originalRatingResult.color ?? '#6B7280'}
+                      entries={timelineEntries}
+                    />
+                  </Section>
+                )}
+
+              <ProConList
+                positives={foodReview.positives}
+                negatives={foodReview.negatives}
+                verdict2={foodReview.verdict}
+                layout="verdictFirst"
+              />
+
+              {/* The tip card has its own margin (same 40px gap as the
+                  sections around it) — no extra wrapper */}
+              <HelpfulTip tip={foodReview.tip} />
+
+              {dishes.length > 0 && (
+                <section className="my-10">
+                  <SectionTitle header="What we ordered" flush />
+                  <SwipeRow
+                    title={`${dishes.length} ${
+                      dishes.length === 1 ? 'dish' : 'dishes'
+                    } & drinks`}
+                  >
+                    {dishes.map((dish, i) => (
+                      <DishCard key={dish._key ?? i} dish={dish} />
+                    ))}
+                  </SwipeRow>
+                </section>
+              )}
+
+              {/* Skip the article block when there's no write-up, so it
+                  doesn't leave an empty gap */}
+              {foodReview.content && foodReview.content.length > 0 && (
+                <Section spacing="tight" as="div">
+                  <PostBody content={foodReview.content} />
+                </Section>
+              )}
+
+              {foodReview.tags && foodReview.tags.length > 0 && (
+                <div className="mt-2 flex flex-wrap items-center gap-2 border-t-2 border-border pt-5">
+                  <span className="mr-1 flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.12em] text-muted-foreground">
+                    <Tag className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+                    Tagged
+                  </span>
+                  {/* Each tag opens search results for it (search matches tags) */}
+                  {foodReview.tags.map((tag) => (
+                    <Link
+                      key={tag}
+                      href={`/search?q=${encodeURIComponent(tag)}`}
+                      className="inline-flex min-h-9 items-center rounded-full border-2 border-border bg-card px-3 text-sm font-medium capitalize text-foreground transition-colors hover:border-primary hover:text-primary"
+                    >
+                      {tag}
+                    </Link>
+                  ))}
                 </div>
-              </div>
+              )}
+
+              <NearestArenaLink arena={foodReview.nearestArena} flush />
+
+              {foodReview.youtube && (
+                <Section spacing="tight" as="div">
+                  <VideoPlayer
+                    url={foodReview.youtube}
+                    documentDate={foodReview.date}
+                    videoDescription={
+                      foodReview.seoExcerpt ||
+                      `Our review of ${foodReview.title} in ${foodReview.location}.`
+                    }
+                  />
+                </Section>
+              )}
+
+              {galleryImages.length > 0 && (
+                <ImageGallery
+                  images={galleryImages}
+                  isOpen={isOpen}
+                  openModal={openModal}
+                  closeModal={closeModal}
+                  showInlineGrid={false}
+                />
+              )}
             </div>
-          )}
-
-          {/* Individual Food Ratings */}
-          {(foodReview.individualFoodRating?.length ?? 0) > 0 && (
-            <FoodRatings food={foodReview.individualFoodRating} />
-          )}
-
-          {/* Pros/Cons/Verdict */}
-          <ProConList
-            positives={foodReview.positives}
-            negatives={foodReview.negatives}
-            verdict2={foodReview.verdict}
-          />
+          </div>
         </article>
-
-        <NearestArenaLink arena={foodReview.nearestArena} />
-
-        <div className="container mx-auto">
-          <PostBody content={foodReview.content} />
-        </div>
-
-        <VideoPlayer
-          url={foodReview.youtube ?? ''}
-          documentDate={foodReview.date}
-          videoDescription={foodReview.seoExcerpt || `Our review of ${foodReview.title} in ${foodReview.location}.`}
-        />
-
-        {galleryImages.length > 0 && (
-          <ImageGallery
-            title="Photo Gallery"
-            images={galleryImages}
-            isOpen={isOpen}
-            openModal={openModal}
-            closeModal={closeModal}
-            showInlineGrid={false}
-          />
-        )}
-
+        <ReviewActionBar placeName={placeName} location={foodReview.location} />
         <Footer />
       </Layout>
     </div>
   )
+}
+
+export default function FoodReviewPage(props: FoodReviewPageProps) {
+  const { preview, loading, foodReview } = props
+
+  if (!foodReview) {
+    return preview ? (
+      <Layout preview={preview} loading={loading}>
+        <PostTitle>Loading…</PostTitle>
+      </Layout>
+    ) : null
+  }
+
+  return <FoodReviewPageContent {...props} />
 }

@@ -1,6 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-import { ANTI_AI_RULES, BRAND_VOICE, trimToSentence } from '../../lib/gemini-voice'
+import {
+  ANTI_AI_RULES,
+  BRAND_VOICE,
+  trimToSentence,
+} from '../../lib/gemini-voice'
 
 // Allow time for a slow Gemini response (default function limits can be ~10s)
 export const config = { maxDuration: 30 }
@@ -26,8 +30,16 @@ const PRICE_TIER: Record<string, string> = {
 // Keys whose value is "yes" in the tech / amenities objects, as readable words
 const availableFeatures = (obj?: Record<string, unknown>) =>
   Object.entries(obj ?? {})
-    .filter(([key, value]) => !key.startsWith('_') && String(value).toLowerCase() === 'yes')
-    .map(([key]) => key.replace(/([a-z])([A-Z])/g, '$1 $2').replace(/_/g, ' ').toLowerCase())
+    .filter(
+      ([key, value]) =>
+        !key.startsWith('_') && String(value).toLowerCase() === 'yes',
+    )
+    .map(([key]) =>
+      key
+        .replace(/([a-z])([A-Z])/g, '$1 $2')
+        .replace(/_/g, ' ')
+        .toLowerCase(),
+    )
 
 function buildHotelPrompt(body: any): string {
   const {
@@ -45,8 +57,14 @@ function buildHotelPrompt(body: any): string {
     roomAmenities,
   } = body
   const loved = (positives as string[]).filter(Boolean).slice(0, 5).join(' | ')
-  const disliked = (negatives as string[]).filter(Boolean).slice(0, 4).join(' | ')
-  const features = [...availableFeatures(techRating), ...availableFeatures(roomAmenities)]
+  const disliked = (negatives as string[])
+    .filter(Boolean)
+    .slice(0, 4)
+    .join(' | ')
+  const features = [
+    ...availableFeatures(techRating),
+    ...availableFeatures(roomAmenities),
+  ]
     .slice(0, 8)
     .join(', ')
 
@@ -77,14 +95,83 @@ ${ANTI_AI_RULES}
 Return ONLY the line. No quotes. No label. No explanation.`
 }
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+// Best-rated dishes first, as "Branzino (4.5/5, $44)"
+const topDishes = (
+  dishes: { name?: string; rating?: number; price?: number }[] = [],
+) =>
+  dishes
+    .filter((dish) => dish?.name)
+    .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0))
+    .slice(0, 4)
+    .map((dish) => {
+      const details = [
+        dish.rating != null ? `${dish.rating / 2}/5` : null,
+        dish.price ? `$${dish.price}` : null,
+      ].filter(Boolean)
+      return `${dish.name!.trim()}${details.length ? ` (${details.join(', ')})` : ''}`
+    })
+    .join(' | ')
+
+function buildFoodPrompt(body: any): string {
+  const {
+    title,
+    location,
+    diningType,
+    priceTier,
+    positives = [],
+    negatives = [],
+    verdict,
+    dishes,
+  } = body
+  const loved = (positives as string[]).filter(Boolean).slice(0, 5).join(' | ')
+  const disliked = (negatives as string[])
+    .filter(Boolean)
+    .slice(0, 4)
+    .join(' | ')
+  const ordered = topDishes(dishes)
+
+  return `${BRAND_VOICE} You write the one-line "Our take" that sits under the photos on our restaurant reviews — the first thing a reader sees after the pictures.
+
+Restaurant: ${title}
+Location: ${location ?? 'Unknown'}
+${diningType ? `How we ate: ${diningType === 'takeout' ? 'Takeout' : 'Dine-in'}` : ''}
+${priceTier ? `Price: ${priceTier}` : ''}
+${verdict ? `Our full verdict: ${String(verdict).slice(0, 600)}` : ''}
+${loved ? `What we loved: ${loved}` : ''}
+${disliked ? `What we didn't like: ${disliked}` : ''}
+${ordered ? `What we ordered (best first): ${ordered}` : ''}
+
+Write ONE line that sums up the meal. Hard rules:
+- ONE sentence, ${MAX_LENGTH} characters or fewer — count every character
+- Give the honest bottom line (would we go back, and why) — a real opinion, not a description
+- Work in the restaurant's name or the city naturally, so it reads well in search — never keyword-stuff
+- Use ONE specific detail from our notes above (a dish we loved is ideal), never a generic one
+- If there's a real catch (slow service, tiny tables), it's fine to hint at it
+- First person plural ("we"), like we're telling a friend
+- Don't open with "We'd" or "We would" — lead with the most telling detail or the restaurant itself, e.g. "The branzino alone…", "Great seafood, but…"
+${ANTI_AI_RULES}
+
+Return ONLY the line. No quotes. No label. No explanation.`
+}
+
+const PROMPT_BUILDERS: Record<string, (body: any) => string> = {
+  hotelReview: buildHotelPrompt,
+  foodReview: buildFoodPrompt,
+}
+
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse,
+) {
   if (req.method !== 'POST') return res.status(405).end()
 
   const apiKey = process.env.GEMINI_API_KEY
-  if (!apiKey) return res.status(500).json({ error: 'Gemini API key not configured' })
+  if (!apiKey)
+    return res.status(500).json({ error: 'Gemini API key not configured' })
 
   const { docType } = req.body
-  if (docType !== 'hotelReview') {
+  const buildPrompt = PROMPT_BUILDERS[docType]
+  if (!buildPrompt) {
     return res.status(400).json({ error: `Unsupported docType: ${docType}` })
   }
 
@@ -100,7 +187,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         // Gemini occasionally takes ~10s; the Studio button waits up to 20s
         signal: AbortSignal.timeout(15000),
         body: JSON.stringify({
-          contents: [{ parts: [{ text: buildHotelPrompt(req.body) }] }],
+          contents: [{ parts: [{ text: buildPrompt(req.body) }] }],
           generationConfig: {
             maxOutputTokens: 512,
             temperature: 0.8,
@@ -112,7 +199,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     if (!geminiRes.ok) {
       const err = await geminiRes.json()
-      const msg: string = err?.error?.message ?? `Gemini error ${geminiRes.status}`
+      const msg: string =
+        err?.error?.message ?? `Gemini error ${geminiRes.status}`
       if (geminiRes.status === 429) {
         const retryMatch = msg.match(/retry in ([\d.]+)s/i)
         const seconds = retryMatch ? Math.ceil(Number(retryMatch[1])) : null
@@ -141,6 +229,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     res.status(200).json({ verdictHeadline })
   } catch (err: any) {
     console.error('[generate-verdict-headline]', err)
-    res.status(500).json({ error: err.message ?? 'Failed to generate verdict headline' })
+    res
+      .status(500)
+      .json({ error: err.message ?? 'Failed to generate verdict headline' })
   }
 }

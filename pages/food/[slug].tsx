@@ -2,6 +2,7 @@ import FoodReviewPage from 'components/FoodReviewPage'
 import PreviewFoodReviewPage from 'components/PreviewFoodReviewPage'
 import {
   getAllFoodReviewSlugs,
+  getArenasInLocation,
   getFoodReviewBySlug,
   getSettings,
 } from 'lib/sanity.client'
@@ -11,6 +12,8 @@ import { GetStaticProps } from 'next'
 
 interface PageProps {
   foodReview: FoodReview
+  /** Arenas in the same city, for the "Going to a game?" box */
+  arenasInCity: { name: string; slug: string; location: string }[]
   settings: Settings
   preview: boolean
   token: string | null
@@ -25,7 +28,7 @@ interface PreviewData {
 }
 
 export default function FoodSlugRoute(props: PageProps) {
-  const { settings, foodReview, preview, token } = props
+  const { settings, foodReview, arenasInCity, preview, token } = props
 
   if (preview) {
     return (
@@ -35,7 +38,13 @@ export default function FoodSlugRoute(props: PageProps) {
     )
   }
 
-  return <FoodReviewPage foodReview={foodReview} settings={settings} />
+  return (
+    <FoodReviewPage
+      foodReview={foodReview}
+      settings={settings}
+      arenasInCity={arenasInCity}
+    />
+  )
 }
 
 export const getStaticProps: GetStaticProps<
@@ -58,9 +67,12 @@ export const getStaticProps: GetStaticProps<
     }
   }
 
+  const arenasInCity = await getArenasInLocation(foodReview.location)
+
   return {
     props: {
       foodReview,
+      arenasInCity,
       settings,
       preview,
       token,
