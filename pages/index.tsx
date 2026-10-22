@@ -1,31 +1,25 @@
-import IndexPage from 'components/IndexPage'
+import IndexPage, { type IndexPageProps } from 'components/IndexPage'
 import PreviewIndexPage from 'components/PreviewIndexPage'
 import {
-  getLatestIndependentContent,
+  freshFromTheRoad,
+  pickHeroArenas,
+  toHomeArena,
+  toHomeGear,
+} from 'lib/homeData'
+import { topFavourites } from 'lib/reviewListing'
+import {
+  getFoodListing,
+  getGuideListing,
+  getHotelListing,
   getSettings,
-  getTopArenas,
+  getTravelEssentialPosts,
+  getVisitedArenaCards,
 } from 'lib/sanity.client'
 import PreviewProvider from 'lib/sanity.preview'
-import {
-  ArenaHighlightCard,
-  FoodReview,
-  Guide,
-  HotelReview,
-  Settings,
-} from 'lib/sanity.queries'
-import {
-  fetchChannelShorts,
-  fetchPlaylistVideos,
-  YoutubeVideo,
-} from 'lib/youtube'
+import { fetchPlaylistVideos } from 'lib/youtube'
 import { GetStaticProps } from 'next'
 
-interface PageProps {
-  posts: (Guide | HotelReview | FoodReview)[]
-  settings: Settings
-  youtubeVideos: YoutubeVideo[]
-  youtubeShorts: YoutubeVideo[]
-  arenas: ArenaHighlightCard[]
+interface PageProps extends IndexPageProps {
   preview: boolean
   token: string | null
 }
@@ -38,34 +32,16 @@ interface PreviewData {
   token?: string
 }
 
-export default function Page(props: PageProps) {
-  const {
-    posts,
-    settings,
-    youtubeVideos,
-    youtubeShorts,
-    arenas,
-    preview,
-    token,
-  } = props
-
+export default function Page({ preview, token, ...props }: PageProps) {
   if (preview) {
     return (
       <PreviewProvider token={token}>
-        <PreviewIndexPage />
+        <PreviewIndexPage {...props} />
       </PreviewProvider>
     )
   }
 
-  return (
-    <IndexPage
-      posts={posts}
-      settings={settings}
-      youtubeVideos={youtubeVideos}
-      youtubeShorts={youtubeShorts}
-      arenas={arenas}
-    />
-  )
+  return <IndexPage {...props} />
 }
 
 export const getStaticProps: GetStaticProps<
@@ -75,30 +51,40 @@ export const getStaticProps: GetStaticProps<
 > = async (ctx) => {
   const { preview = false, previewData = {} } = ctx
 
-  const [
-    settings,
-    posts = [],
-    youtubeVideos = [],
-    youtubeShorts = [],
-    arenas = [],
-  ] = await Promise.all([
-    getSettings(),
-    getLatestIndependentContent(),
-    fetchPlaylistVideos(process.env.YOUTUBE_PLAYLIST_ID ?? ''),
-    fetchChannelShorts(process.env.YOUTUBE_CHANNEL_ID ?? ''),
-    getTopArenas(),
-  ])
+  const [settings, arenaCards, hotels, food, guides, gear, youtubeVideos] =
+    await Promise.all([
+      getSettings(),
+      getVisitedArenaCards(),
+      getHotelListing(),
+      getFoodListing(),
+      getGuideListing(),
+      getTravelEssentialPosts(),
+      fetchPlaylistVideos(process.env.YOUTUBE_PLAYLIST_ID ?? ''),
+    ])
+
+  const arenas = arenaCards.map(toHomeArena)
 
   return {
     props: {
-      posts,
       settings,
-      youtubeVideos,
-      youtubeShorts,
-      arenas,
+      heroArenas: pickHeroArenas(arenas),
+      latestArenas: arenas.slice(0, 8),
+      counts: {
+        arenas: arenas.length,
+        hotels: hotels.length,
+        food: food.length,
+        guides: guides.length,
+        gear: gear.length,
+      },
+      fresh: freshFromTheRoad(hotels, food, guides),
+      favouriteHotels: topFavourites(hotels),
+      favouriteFood: topFavourites(food),
+      gear: toHomeGear(gear),
+      youtubeVideos: youtubeVideos ?? [],
       preview,
       token: previewData.token ?? null,
     },
-    revalidate: 10,
+    // Also re-picks the random hero arenas about once a minute
+    revalidate: 60,
   }
 }

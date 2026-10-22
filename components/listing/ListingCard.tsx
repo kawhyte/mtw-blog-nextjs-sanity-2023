@@ -1,10 +1,11 @@
 import SanityImage from 'components/SanityImage'
 import type { ListingItem } from 'lib/reviewListing'
 import Link from 'next/link'
+import type { ReactNode } from 'react'
 import { getRankBadgeStyle } from 'utils/arena/rankBadgeStyles'
 
 // Same home timezone as PostDate, so server and browser agree on the month
-const monthFormatter = new Intl.DateTimeFormat('en-US', {
+export const monthFormatter = new Intl.DateTimeFormat('en-US', {
   month: 'short',
   year: 'numeric',
   timeZone: 'America/Los_Angeles',
@@ -28,6 +29,12 @@ interface ListingCardProps {
   /** In a swipe row the card has a fixed width; in the grid it fills its cell */
   inRow?: boolean
   priority?: boolean
+  /** Replaces the "location · kind" line (homepage rows) */
+  meta?: string
+  /** Replaces the rating line, e.g. "5 min read · May 2026" for a guide */
+  detail?: ReactNode
+  /** Leave the month off the rating line when `meta` already shows it */
+  showMonth?: boolean
 }
 
 export default function ListingCard({
@@ -38,10 +45,15 @@ export default function ListingCard({
   showRank = false,
   inRow = false,
   priority = false,
+  meta: metaOverride,
+  detail,
+  showMonth = true,
 }: ListingCardProps) {
   const name = cardName(item.title)
-  const meta = [item.location, kindLabel].filter(Boolean).join(' · ')
-  const month = item.date ? monthFormatter.format(new Date(item.date)) : null
+  const meta =
+    metaOverride ?? [item.location, kindLabel].filter(Boolean).join(' · ')
+  const month =
+    showMonth && item.date ? monthFormatter.format(new Date(item.date)) : null
 
   return (
     <Link
@@ -95,21 +107,25 @@ export default function ListingCard({
             {meta}
           </span>
         )}
-        {item.rating && (
-          <span className="text-sm font-semibold">
-            <span aria-hidden="true">★</span> {item.rating.display}
-            <span className="font-normal text-muted-foreground">
-              {' '}
-              · {item.rating.text}
-              {/* Two-up phone grid is too narrow for the month */}
-              {month && (
-                <span className={inRow ? undefined : 'hidden sm:inline'}>
-                  {' '}
-                  · {month}
-                </span>
-              )}
+        {detail ? (
+          <span className="text-sm text-muted-foreground">{detail}</span>
+        ) : (
+          item.rating && (
+            <span className="text-sm font-semibold">
+              <span aria-hidden="true">★</span> {item.rating.display}
+              <span className="font-normal text-muted-foreground">
+                {' '}
+                · {item.rating.text}
+                {/* Two-up phone grid is too narrow for the month */}
+                {month && (
+                  <span className={inRow ? undefined : 'hidden sm:inline'}>
+                    {' '}
+                    · {month}
+                  </span>
+                )}
+              </span>
             </span>
-          </span>
+          )
         )}
       </div>
     </Link>

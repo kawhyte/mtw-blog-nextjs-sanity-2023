@@ -378,7 +378,8 @@ export async function getCityPageData(
   }
 }
 
-export async function getTopArenas(): Promise<ArenaHighlightCard[]> {
+/** Every visited arena, newest visit first, with its overall score (homepage). */
+export async function getVisitedArenaCards(): Promise<ArenaHighlightCard[]> {
   if (!client) return []
   try {
     const results = await client.fetch<ArenaHighlightCard[]>(
@@ -391,7 +392,7 @@ export async function getTopArenas(): Promise<ArenaHighlightCard[]> {
       return { ...arena, displayRating: { average, textRating, color } }
     })
   } catch (error) {
-    console.error('Error fetching top arenas:', error)
+    console.error('Error fetching visited arenas:', error)
     return []
   }
 }
