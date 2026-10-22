@@ -2,11 +2,13 @@
 
 import ArenaPage from 'components/ArenaPage'
 import PreviewArenaPage from 'components/PreviewArenaPage'
+import { type ArenaGameDay, buildArenaGameDay } from 'lib/arenaGameDay'
 import { primaryCityLocation } from 'lib/cityMatch'
 import {
   getAllArenaSlugs,
   getArenaBySlug,
   getArenaPosts,
+  getCityPageData,
   getFoodReviewsByArena,
   getSettings,
 } from 'lib/sanity.client'
@@ -38,8 +40,6 @@ export const getStaticProps: GetStaticProps<
     }
   }
 
-  const foodReviews = await getFoodReviewsByArena(arena._id)
-
   // The city page this arena links to: Paradise → the Las Vegas page, etc.
   const arenaLocations = [
     ...new Set((arenaPosts ?? []).map((a) => a.location).filter(Boolean)),
@@ -47,6 +47,15 @@ export const getStaticProps: GetStaticProps<
   const cityLocation = arena.location
     ? primaryCityLocation(arena.location, arenaLocations)
     : null
+
+  const [foodReviews, cityData] = await Promise.all([
+    getFoodReviewsByArena(arena._id),
+    cityLocation ? getCityPageData(cityLocation, arenaLocations) : null,
+  ])
+  const gameDay =
+    cityData && cityLocation && arena.slug
+      ? buildArenaGameDay(cityData, cityLocation, arena.slug)
+      : null
 
   const rankMap = calculateArenaRanks(arenaPosts ?? [])
   const rank = arena.visited ? (rankMap.get(arena._id) ?? null) : null
@@ -67,6 +76,7 @@ export const getStaticProps: GetStaticProps<
       isTied,
       foodReviews: foodReviews ?? [],
       cityLocation,
+      gameDay,
     },
     revalidate: 60, // Revalidate every minute
   }
@@ -91,6 +101,7 @@ interface PageProps {
   cityLocation: string | null
   isTied: boolean
   foodReviews: ArenaFoodReviewCard[]
+  gameDay: ArenaGameDay | null
 }
 
 interface Query {
@@ -112,6 +123,7 @@ export default function ArenaSlugRoute(props: PageProps) {
     isTied,
     foodReviews,
     cityLocation,
+    gameDay,
   } = props
 
   if (preview) {
@@ -135,6 +147,7 @@ export default function ArenaSlugRoute(props: PageProps) {
         isTied={isTied}
         foodReviews={foodReviews}
         cityLocation={cityLocation}
+        gameDay={gameDay}
       />
     </>
   )

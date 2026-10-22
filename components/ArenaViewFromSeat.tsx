@@ -2,20 +2,14 @@
 
 import { urlForImage } from 'lib/sanity.image'
 import { GalleryImageItem } from 'lib/sanity.queries'
-import { Camera, DollarSign, MapPin, Ticket } from 'lucide-react'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import { useState } from 'react'
 
-import { Badge } from '@/components/ui/badge'
-
-import SectionTitle from './SectionTitle'
 import VideoPlayer from './Youtube'
 
 const ImageGallery = dynamic(() => import('./ImageGallery'), {
-  loading: () => (
-    <div className="animate-pulse bg-gray-200 h-64 rounded-lg" />
-  ),
+  loading: () => <div className="animate-pulse bg-gray-200 h-64 rounded-lg" />,
 })
 
 const SEAT_TYPE_LABELS: Record<string, string> = {
@@ -41,7 +35,8 @@ interface ArenaViewFromSeatProps {
   viewScore?: number
 }
 
-const MAX_PREVIEW = 6
+// Small photos under the big one (the last shows "+N" when there are more)
+const MAX_THUMBS = 4
 
 const FadeImage = ({
   image,
@@ -83,155 +78,155 @@ export default function ArenaViewFromSeat({
 
   const activeEntry = viewFromSeat[activeTab] ?? viewFromSeat[0]
   const photos = activeEntry?.photos ?? []
-  const displayScore =
-    viewScore != null ? (viewScore / 2).toFixed(1) : null
-
-  const previewPhotos = photos.slice(0, MAX_PREVIEW)
-  const remainingCount = photos.length - MAX_PREVIEW
+  const displayScore = viewScore != null ? (viewScore / 2).toFixed(1) : null
 
   const openModal = () => setIsModalOpen(true)
   const closeModal = () => setIsModalOpen(false)
 
+  const [lead, ...rest] = photos
+  const thumbs = rest.slice(0, MAX_THUMBS)
+  const hiddenCount = rest.length - thumbs.length
+  const facts = [
+    activeEntry.seatType &&
+      (SEAT_TYPE_LABELS[activeEntry.seatType] || activeEntry.seatType),
+    activeEntry.seatInfo,
+    activeEntry.ticketPrice != null &&
+      `$${activeEntry.ticketPrice.toFixed(2)} a ticket`,
+    displayScore && `Sightlines ${displayScore}`,
+  ].filter(Boolean) as string[]
+
+  const factChips = (onPhoto: boolean) =>
+    facts.map((fact) => (
+      <span
+        key={fact}
+        className={`rounded-full px-3 py-1.5 text-[13px] font-extrabold ${
+          onPhoto ? 'bg-white text-gray-900 shadow' : 'bg-muted text-foreground'
+        }`}
+      >
+        {fact}
+      </span>
+    ))
+
   return (
-    <section className="py-8 md:py-12">
-      <SectionTitle header="View From My Seat" />
-
-      <div className="container mx-auto px-4 md:px-6">
-        {/* Tab switcher — only shown when there are multiple entries */}
-        {viewFromSeat.length > 1 && (
-          <div className="flex gap-2 flex-wrap mb-6">
-            {viewFromSeat.map((entry, i) => (
-              <button
-                key={entry._key || i}
-                onClick={() => {
-                  setActiveTab(i)
-                  setIsModalOpen(false)
-                }}
-                className={`px-4 py-1.5 rounded-full text-sm font-semibold transition-colors ${
-                  activeTab === i
-                    ? 'bg-secondary text-secondary-foreground'
-                    : 'bg-muted text-muted-foreground hover:bg-muted/80'
-                }`}
-              >
-                {entry.seatInfo || `Seat View ${i + 1}`}
-              </button>
-            ))}
-          </div>
-        )}
-
-        {/* Seat info row */}
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-2 mb-6">
-          {activeEntry.seatInfo && (
-            <div className="flex items-center gap-1.5 text-sm">
-              <MapPin className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
-              <span className="font-medium text-foreground">
-                {activeEntry.seatInfo}
-              </span>
-            </div>
-          )}
-          {activeEntry.seatType && (
-            <Badge variant="outline" className="text-xs">
-              {SEAT_TYPE_LABELS[activeEntry.seatType] || activeEntry.seatType}
-            </Badge>
-          )}
-          {activeEntry.ticketPrice != null && (
-            <div className="flex items-center gap-1.5 text-sm">
-              <DollarSign className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
-              <span className="text-muted-foreground">
-                ${activeEntry.ticketPrice.toFixed(2)}
-                <span className="text-xs ml-0.5">/ ticket</span>
-              </span>
-            </div>
-          )}
-          {displayScore && (
-            <div className="flex items-center gap-1 sm:ml-auto">
-              <Ticket className="h-3.5 w-3.5 text-secondary shrink-0" />
-              <span className="text-sm font-semibold text-secondary">
-                Sightlines &amp; View: {displayScore} / 5
-              </span>
-            </div>
-          )}
-        </div>
-
-        {/* Photo grid */}
-        {photos.length > 0 && (
-          <>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 md:gap-3">
-              {previewPhotos.map((photo, index) => {
-                const isOverflowSlot =
-                  index === MAX_PREVIEW - 1 && remainingCount > 0
-                return (
-                  <button
-                    key={photo._key || index}
-                    onClick={openModal}
-                    className="relative aspect-[4/3] overflow-hidden rounded-lg group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
-                    aria-label={
-                      isOverflowSlot
-                        ? `View all ${photos.length} photos`
-                        : photo.caption || `Seat view photo ${index + 1}`
-                    }
-                  >
-                    <FadeImage
-                      image={photo}
-                      src={
-                        urlForImage(photo)
-                          ?.width(1200)
-                          .height(900)
-                          .quality(75)
-                          .fit('crop')
-                          .url() || ''
-                      }
-                      alt={photo.alt || `Seat view ${index + 1}`}
-                      fill
-                      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                      className="object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                    {/* "+X more" overlay on last visible slot */}
-                    {isOverflowSlot && (
-                      <div className="absolute inset-0 bg-black/55 flex items-center justify-center rounded-lg">
-                        <span className="text-white font-bold text-2xl">
-                          +{remainingCount + 1}
-                        </span>
-                      </div>
-                    )}
-                    {/* Caption on hover (only when not the overflow slot) */}
-                    {photo.caption && !isOverflowSlot && (
-                      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/65 to-transparent p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded-b-lg">
-                        <p className="text-white text-xs leading-snug">
-                          {photo.caption}
-                        </p>
-                      </div>
-                    )}
-                  </button>
-                )
-              })}
-            </div>
-
-            {/* Show all photos button */}
-            {photos.length > 1 && (
-              <button
-                onClick={openModal}
-                className="mt-4 flex items-center gap-2 text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <Camera className="h-4 w-4" />
-                Show all {photos.length} photos
-              </button>
-            )}
-          </>
-        )}
-
-        {/* Seat-specific video */}
-        {activeEntry.seatVideoUrl && (
-          <div className="mt-8">
-            <VideoPlayer
-              url={activeEntry.seatVideoUrl}
-              title="View From Our Seat"
-            />
-          </div>
-        )}
+    <section className="flex flex-col gap-4">
+      <div className="flex flex-col gap-1">
+        <h2 className="text-xl font-extrabold tracking-tight sm:text-2xl">
+          View from our seats
+        </h2>
+        <p className="text-sm text-muted-foreground sm:text-[15px]">
+          What the court looked like from where we sat.
+        </p>
       </div>
 
-      {/* Gallery modal — seat photos only, separate from main hero gallery */}
+      {/* Tab switcher, only when there are several seats */}
+      {viewFromSeat.length > 1 && (
+        <div className="flex flex-wrap gap-2">
+          {viewFromSeat.map((entry, i) => (
+            <button
+              key={entry._key || i}
+              type="button"
+              aria-pressed={activeTab === i}
+              onClick={() => {
+                setActiveTab(i)
+                setIsModalOpen(false)
+              }}
+              className={`min-h-10 rounded-full px-4 text-sm font-bold transition-colors ${
+                activeTab === i
+                  ? 'bg-foreground text-background'
+                  : 'border-2 border-border bg-card text-foreground hover:border-foreground/40'
+              }`}
+            >
+              {entry.seatInfo ||
+                (entry.seatType && SEAT_TYPE_LABELS[entry.seatType]) ||
+                `Seat ${i + 1}`}
+            </button>
+          ))}
+        </div>
+      )}
+
+      {lead ? (
+        <button
+          type="button"
+          onClick={openModal}
+          aria-label={lead.caption || lead.alt || 'View from our seat'}
+          className="group relative block aspect-[4/3] w-full overflow-hidden rounded-[22px] border-[3px] border-border-bold bg-muted focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary sm:aspect-[16/10]"
+        >
+          <FadeImage
+            image={lead}
+            src={
+              urlForImage(lead)
+                ?.width(1600)
+                .height(1000)
+                .quality(75)
+                .fit('crop')
+                .url() || ''
+            }
+            alt={lead.alt || 'View from our seat'}
+            fill
+            sizes="(min-width: 1280px) 860px, 100vw"
+            className="object-cover"
+          />
+          {facts.length > 0 && (
+            <span className="absolute bottom-3 left-3 flex flex-wrap gap-2">
+              {factChips(true)}
+            </span>
+          )}
+        </button>
+      ) : (
+        facts.length > 0 && (
+          <div className="flex flex-wrap gap-2">{factChips(false)}</div>
+        )
+      )}
+
+      {thumbs.length > 0 && (
+        <div className="grid grid-cols-4 gap-2">
+          {thumbs.map((photo, index) => {
+            const isOverflowSlot =
+              index === thumbs.length - 1 && hiddenCount > 0
+            return (
+              <button
+                key={photo._key || index}
+                type="button"
+                onClick={openModal}
+                aria-label={
+                  isOverflowSlot
+                    ? `View all ${photos.length} photos`
+                    : photo.caption || `Seat view photo ${index + 2}`
+                }
+                className="relative aspect-[4/3] overflow-hidden rounded-xl bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              >
+                <FadeImage
+                  image={photo}
+                  src={
+                    urlForImage(photo)
+                      ?.width(500)
+                      .height(375)
+                      .quality(70)
+                      .fit('crop')
+                      .url() || ''
+                  }
+                  alt={photo.alt || `Seat view ${index + 2}`}
+                  fill
+                  sizes="(min-width: 1280px) 210px, 25vw"
+                  className="object-cover"
+                />
+                {isOverflowSlot && (
+                  <span className="absolute inset-0 flex items-center justify-center bg-black/55 text-xl font-bold text-white">
+                    +{hiddenCount + 1}
+                  </span>
+                )}
+              </button>
+            )
+          })}
+        </div>
+      )}
+
+      {/* Seat-specific video */}
+      {activeEntry.seatVideoUrl && (
+        <VideoPlayer url={activeEntry.seatVideoUrl} />
+      )}
+
+      {/* Gallery modal: seat photos only, separate from the main gallery */}
       {photos.length > 0 && (
         <ImageGallery
           images={photos}

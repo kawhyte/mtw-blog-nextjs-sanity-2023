@@ -1,34 +1,26 @@
 // components/ArenaPage.tsx
 
+import { GameDayBox, GameDayRow } from 'components/arena/ArenaGameDay'
+import ArenaGames from 'components/arena/ArenaGames'
+import ArenaVideo from 'components/arena/ArenaVideo'
 import Layout from 'components/BlogLayout'
-import { formatDate } from 'components/PostDate'
 import PostPageHead from 'components/PostPageHead'
 import { usePhotoGallery } from 'hooks/usePhotoGallery'
+import type { ArenaGameDay } from 'lib/arenaGameDay'
 import calculateAverageRating from 'lib/calculateArenaRating'
 import { computeTimelineEntries, getEffectiveRating } from 'lib/mergeRatings'
-import { urlForImage } from 'lib/sanity.image'
 import { Arena, ArenaFoodReviewCard, Settings } from 'lib/sanity.queries'
 import {
-  ArrowRight,
-  Award,
-  Building2,
-  CalendarDays,
   Car,
   ChevronRight,
   Footprints,
-  MapPin,
   Pizza,
-  RefreshCw,
   Sofa,
   Ticket,
-  Trophy,
   Users,
-  Users2,
 } from 'lucide-react'
 import dynamic from 'next/dynamic'
-import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
 import { locationToSlug } from 'utils/locationSlug'
 
 const ImageGallery = dynamic(() => import('./ImageGallery'), {
@@ -39,19 +31,11 @@ const ImageGallery = dynamic(() => import('./ImageGallery'), {
 
 import Footer from 'components/Footer'
 
-import { Badge } from '@/components/ui/badge'
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog'
 import { FAQSection } from '@/components/ui/faq-section'
 
 import ArenaFoodItems from './ArenaFoodItems'
 import ArenaFoodReviews from './ArenaFoodReviews'
 import ArenaHotelStay from './ArenaHotelStay'
-import ArenaRatingCard from './ArenaRatingCard'
 import ArenaStructuredData from './ArenaStructuredData'
 import ArenaViewFromSeat from './ArenaViewFromSeat'
 import BlogHeader from './BlogHeader'
@@ -59,9 +43,12 @@ import BreadcrumbStructuredData from './BreadcrumbStructuredData'
 import FAQStructuredData from './FAQStructuredData'
 import HeroPhotoGallery from './HeroPhotoGallery'
 import ProConList from './ProConList'
+import { ReviewActionBar } from './review/ReviewActions'
+import ReviewSummaryPanel, {
+  type ReviewChip,
+} from './review/ReviewSummaryPanel'
+import ReviewRating from './ReviewRating'
 import RevisitTimeline from './RevisitTimeline'
-import SectionTitle from './SectionTitle'
-import VideoPlayer from './Youtube'
 
 interface ArenaPageProps {
   arena: Arena
@@ -74,15 +61,17 @@ interface ArenaPageProps {
   foodReviews?: ArenaFoodReviewCard[]
   /** The city page to link to (Paradise, NV → "Las Vegas, NV") */
   cityLocation?: string | null
+  /** Hotels and food we've reviewed in the arena's city */
+  gameDay?: ArenaGameDay | null
 }
 
 const ratingIcons: Record<string, React.ReactElement> = {
-  food: <Pizza className="h-5 w-5 mr-2 text-muted-foreground" />,
-  seatComfort: <Sofa className="h-5 w-5 mr-2 text-muted-foreground" />,
-  transportation: <Car className="h-5 w-5 mr-2 text-muted-foreground" />,
-  vibes: <Users className="h-5 w-5 mr-2 text-muted-foreground" />,
-  view: <Ticket className="h-5 w-5 mr-2 text-muted-foreground" />,
-  walkability: <Footprints className="h-5 w-5 mr-2 text-muted-foreground" />,
+  food: <Pizza className="h-5 w-5 mr-2" />,
+  seatComfort: <Sofa className="h-5 w-5 mr-2" />,
+  transportation: <Car className="h-5 w-5 mr-2" />,
+  vibes: <Users className="h-5 w-5 mr-2" />,
+  view: <Ticket className="h-5 w-5 mr-2" />,
+  walkability: <Footprints className="h-5 w-5 mr-2" />,
 }
 
 const ARENA_RATING_LABELS: Record<string, string> = {
@@ -94,170 +83,12 @@ const ARENA_RATING_LABELS: Record<string, string> = {
   vibes: 'Atmosphere & Vibes',
 }
 
-// Display order matches weight importance: highest weight first
-const ARENA_RATING_ORDER = [
-  'vibes',
-  'view',
-  'seatComfort',
-  'food',
-  'transportation',
-  'walkability',
-]
-
-const GAMES_PREVIEW_COUNT = 4
-
-function GameCard({ game, team }: { game: any; team: any }) {
-  const trackedScore = game.homeScore
-  const opponentScore = game.awayScore
-  const hasScore = trackedScore != null && opponentScore != null
-  const isWin = hasScore && trackedScore > opponentScore
-  const isLoss = hasScore && trackedScore < opponentScore
-
-  return (
-    <div className="rounded-lg border border-border bg-muted/30 overflow-hidden">
-      {/* Card header: Final + date + badges */}
-      <div className="flex items-center justify-between px-3 py-2 border-b border-border/50">
-        <div className="flex items-center gap-1.5">
-          <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
-            Final
-          </span>
-          {game.gameDate && (
-            <span className="text-[10px] text-muted-foreground">
-              ·{' '}
-              {new Date(game.gameDate + 'T12:00:00').toLocaleDateString(
-                'en-US',
-                { month: 'short', day: 'numeric', year: 'numeric' },
-              )}
-            </span>
-          )}
-        </div>
-        <div className="flex items-center gap-1">
-          {game.eventName ? (
-            <Badge variant="default" className="text-[10px] px-1.5 py-0">
-              {game.eventName}
-            </Badge>
-          ) : (
-            game.seasonType &&
-            game.seasonType !== 'Regular Season' && (
-              <Badge variant="secondary" className="text-[10px] px-1.5 py-0">
-                {game.seasonType}
-              </Badge>
-            )
-          )}
-          {game.overtimePeriods > 0 && (
-            <Badge
-              variant="outline"
-              className="text-[10px] px-1.5 py-0 text-amber-600 border-amber-600/50"
-            >
-              {game.overtimePeriods === 1 ? 'OT' : `${game.overtimePeriods}OT`}
-            </Badge>
-          )}
-        </div>
-      </div>
-
-      {/* Matchup rows */}
-      <div className="px-3 py-2.5 space-y-1.5">
-        {/* Tracked team (home) */}
-        <div className="flex items-center gap-2">
-          {team.asset ? (
-            <Image
-              src={urlForImage(team)
-                .width(44)
-                .height(44)
-                .fit('crop')
-                .auto('format')
-                .url()}
-              alt={`${team.name} logo`}
-              width={22}
-              height={22}
-              className="rounded-full shrink-0"
-              loading="lazy"
-              sizes="22px"
-            />
-          ) : (
-            <div className="w-[22px] shrink-0" />
-          )}
-          <span
-            className={`text-xs flex-1 leading-tight truncate ${isWin ? 'font-bold text-foreground' : 'text-muted-foreground'}`}
-          >
-            {team.name}
-          </span>
-          {hasScore && (
-            <>
-              <span
-                className={`text-xs font-mono tabular-nums font-bold min-w-[24px] text-right ${isWin ? 'text-foreground' : 'text-muted-foreground'}`}
-              >
-                {trackedScore}
-              </span>
-              <span className="w-3 text-[10px] text-green-500 font-bold text-center">
-                {isWin ? '◀' : ''}
-              </span>
-            </>
-          )}
-        </div>
-
-        {/* Opponent (away) */}
-        <div className="flex items-center gap-2">
-          <div className="w-[22px] shrink-0" />
-          <span
-            className={`text-xs flex-1 leading-tight truncate ${isLoss ? 'font-bold text-foreground' : 'text-muted-foreground'}`}
-          >
-            {game.opponent ?? '–'}
-          </span>
-          {hasScore && (
-            <>
-              <span
-                className={`text-xs font-mono tabular-nums font-bold min-w-[24px] text-right ${isLoss ? 'text-foreground' : 'text-muted-foreground'}`}
-              >
-                {opponentScore}
-              </span>
-              <span className="w-3 text-[10px] text-green-500 font-bold text-center">
-                {isLoss ? '◀' : ''}
-              </span>
-            </>
-          )}
-        </div>
-      </div>
-
-      {/* Key players — top scorer from each team */}
-      {game.playerOfGame?.length > 0 && (
-        <div className="flex flex-col divide-y divide-border/30 border-t border-border/50 bg-muted/20">
-          {game.playerOfGame.map((player: any) => (
-            <div
-              key={player._key}
-              className="flex items-center gap-2 px-3 py-1.5"
-            >
-              {player.nbaPlayerId && (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={`https://a.espncdn.com/i/headshots/${team.teamType === 'wnba' ? 'wnba' : 'nba'}/players/full/${player.nbaPlayerId}.png`}
-                  alt={player.playerName}
-                  width={32}
-                  height={32}
-                  className="rounded-full object-cover bg-muted shrink-0"
-                  onError={(e) => {
-                    ;(e.target as HTMLImageElement).style.display = 'none'
-                  }}
-                />
-              )}
-              <div className="min-w-0 flex-1">
-                <p className="text-xs font-semibold truncate">
-                  {player.playerName}
-                </p>
-                <p className="text-[10px] text-muted-foreground truncate">
-                  {player.teamName}
-                  {player.points != null && ` · ${player.points} pts`}
-                  {player.rebounds != null && ` · ${player.rebounds} reb`}
-                  {player.assists != null && ` · ${player.assists} ast`}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
-  )
-}
+const monthYear = (date?: string) =>
+  date
+    ? new Date(
+        date.length === 10 ? `${date}T12:00:00` : date,
+      ).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
+    : null
 
 export default function ArenaPage({
   arena,
@@ -269,6 +100,7 @@ export default function ArenaPage({
   isTied,
   foodReviews = [],
   cityLocation,
+  gameDay,
 }: ArenaPageProps) {
   const { title = 'Arena Review' } = settings || {}
 
@@ -307,6 +139,23 @@ export default function ArenaPage({
       )
     : arena.arenaReview
 
+  const overall =
+    arena.visited && effectiveArenaReview
+      ? calculateAverageRating(effectiveArenaReview as any)
+      : null
+
+  // Ratings at a glance: the 6 arena scores, best first
+  const glanceRatings: Record<string, number> | null = effectiveArenaReview
+    ? (Object.fromEntries(
+        Object.entries(effectiveArenaReview)
+          .filter(
+            ([key, value]) =>
+              key in ARENA_RATING_LABELS && typeof value === 'number',
+          )
+          .sort((a, b) => (b[1] as number) - (a[1] as number)),
+      ) as Record<string, number>)
+    : null
+
   // --- Revisit timeline ---
   const originalRatingResult = arena.arenaReview
     ? calculateAverageRating(arena.arenaReview as any)
@@ -338,16 +187,10 @@ export default function ArenaPage({
         })
       : []
 
-  // --- Teams split: attended vs others ---
+  // --- Facts for the side panel ---
   const teamsGallery = (arena.gallery ?? []) as any[]
   const attendedTeams = teamsGallery.filter((t) => t.played && t.name)
-  const otherTeams = teamsGallery.filter((t) => !t.played && t.name)
-  const leagueTypes = [
-    ...new Set(
-      teamsGallery.filter((t) => t.teamType).map((t) => t.teamType as string),
-    ),
-  ]
-
+  const homeTeams = attendedTeams.length > 0 ? attendedTeams : teamsGallery
   const visitCount = 1 + (arena.revisits?.length ?? 0)
   // Prefer attendedGames.length when games are entered; fall back to timesAttended
   const totalGamesAttended = attendedTeams.reduce(
@@ -358,10 +201,47 @@ export default function ArenaPage({
         : (t.timesAttended ?? 1)),
     0,
   )
+  const firstGame = attendedTeams
+    .flatMap((t: any) => (t.attendedGames ?? []).map((g: any) => g.gameDate))
+    .filter(Boolean)
+    .sort()[0]
+  const since = monthYear(firstGame || arena.date)
 
-  const [showAllGamesTeamKey, setShowAllGamesTeamKey] = useState<string | null>(
-    null,
-  )
+  const chips: ReviewChip[] = [
+    !arena.visited && { label: 'On our bucket list', tone: 'dark' as const },
+    ...homeTeams
+      .filter((t: any) => t.name)
+      .slice(0, 3)
+      .map((t: any) => ({
+        label: t.teamType
+          ? `${String(t.teamType).toUpperCase()} · ${t.name}`
+          : t.name,
+        tone: 'indigo' as const,
+      })),
+    rank != null &&
+      totalVisited != null &&
+      totalVisited > 0 && {
+        label: `🏆 Ranked #${rank} of ${totalVisited}${isTied ? ' (tied)' : ''}`,
+        tone: 'amber' as const,
+      },
+    arena.buildDate && { label: `Built ${arena.buildDate.slice(0, 4)}` },
+    arena.capacity && { label: `${arena.capacity.toLocaleString()} seats` },
+    totalGamesAttended > 0 && {
+      label: `${totalGamesAttended} game${totalGamesAttended === 1 ? '' : 's'}${since ? ` · since ${since}` : ''}`,
+    },
+    visitCount > 1 && { label: `${visitCount} visits` },
+  ].filter(Boolean) as ReviewChip[]
+
+  const cityHref = arena.location
+    ? `/city/${locationToSlug(cityLocation || arena.location)}?from=${arena.slug}`
+    : undefined
+  const cityName = (cityLocation || arena.location || '').split(',')[0].trim()
+
+  const hasBottomLine =
+    arena.prosConsVerdict &&
+    (arena.prosConsVerdict.positives?.length ||
+      arena.prosConsVerdict.negatives?.length ||
+      arena.prosConsVerdict.verdict)
 
   return (
     <div>
@@ -387,7 +267,7 @@ export default function ArenaPage({
       <Layout preview={preview} loading={loading}>
         <BlogHeader title={title} level={2} />
 
-        <article className="container mx-auto px-4 py-8 md:px-6 md:py-12">
+        <article className="container mx-auto max-w-7xl px-4 pb-28 pt-6 md:px-6 md:pt-10 xl:pb-12">
           <nav
             aria-label="Breadcrumb"
             className="flex items-center gap-1.5 text-sm text-muted-foreground mb-6 flex-wrap"
@@ -400,402 +280,156 @@ export default function ArenaPage({
               href="/arenas"
               className="hover:text-foreground transition-colors"
             >
-              NBA Arenas
+              Arenas
             </Link>
             <ChevronRight className="h-3.5 w-3.5 shrink-0" />
             <span className="text-foreground line-clamp-1">{arena.name}</span>
           </nav>
 
-          {/* 2. ARENA IDENTITY */}
-          <div className="py-8 md:py-12">
-            {!arena.visited && (
-              <div className="mb-4">
-                <Badge variant="outline" className="text-muted-foreground">
-                  On Our Bucket List
-                </Badge>
+          {/* Same layout as the hotel review page: photos and the review on
+              the right, the summary panel sticky on the left on large
+              screens. Phones: photos → panel → review. */}
+          <div className="grid grid-cols-1 items-start gap-6 xl:grid-cols-[340px_minmax(0,1fr)] xl:gap-10">
+            {galleryImages.length > 0 && (
+              <div className="min-w-0 xl:col-start-2 xl:row-start-1">
+                <HeroPhotoGallery
+                  images={heroImages}
+                  onShowAllPhotos={openModal}
+                  bare
+                />
               </div>
             )}
 
-            <h1 className="mb-4 text-4xl font-bold">{arena.name}</h1>
-            {arena.location && (
-              // A clear button to the city's game day guide (hotels, food,
-              // guides); the arena's own location is in the stats row below
-              <Link
-                href={`/city/${locationToSlug(cityLocation || arena.location)}?from=${arena.slug}`}
-                className="mb-5 inline-flex min-h-11 items-center gap-2 rounded-full border-2 border-primary/40 bg-primary-soft-background px-4 text-sm font-bold text-primary transition-colors hover:border-primary hover:bg-primary hover:text-white"
+            <aside className="self-start xl:sticky xl:top-24 xl:col-start-1 xl:row-span-2 xl:row-start-1">
+              <ReviewSummaryPanel
+                title={arena.name ?? 'Arena'}
+                placeName={arena.name ?? 'Arena'}
+                location={arena.location}
+                score={
+                  overall
+                    ? {
+                        displayRating: overall.average,
+                        textRating: overall.textRating,
+                      }
+                    : undefined
+                }
+                chips={chips}
+                footnote={
+                  arena.venueNote ? (
+                    <span className="italic">{arena.venueNote}</span>
+                  ) : undefined
+                }
+                arenasInCity={[]}
               >
-                <MapPin className="h-4 w-4 shrink-0" aria-hidden="true" />
-                {(cityLocation || arena.location).split(',')[0].trim()} game day
-                guide
-                {/* Phones: short label so the pill stays on one line */}
-                <span className="-ml-2 hidden sm:inline">
-                  : hotels, food &amp; more
-                </span>
-                <ArrowRight className="h-4 w-4 shrink-0" aria-hidden="true" />
-              </Link>
-            )}
+                {gameDay ? (
+                  <GameDayBox gameDay={gameDay} />
+                ) : (
+                  cityHref && (
+                    <Link
+                      href={cityHref}
+                      className="flex min-h-11 items-center rounded-2xl border-2 border-secondary/30 bg-secondary-soft-background px-4 text-sm font-bold text-primary hover:underline"
+                    >
+                      {cityName} game-day guide →
+                    </Link>
+                  )
+                )}
+              </ReviewSummaryPanel>
+            </aside>
 
-            {arena.venueNote && (
-              <p className="text-sm text-muted-foreground mb-4 italic">
-                {arena.venueNote}
-              </p>
-            )}
+            <div className="flex min-w-0 flex-col gap-10 xl:col-start-2 xl:row-start-2 md:gap-12 [&_.container]:px-0 [&>section]:my-0">
+              {arena.verdictHeadline && (
+                <section className="flex flex-col gap-3">
+                  <span className="text-xs font-bold tracking-[0.14em] text-primary">
+                    OUR TAKE
+                  </span>
+                  <p className="font-heading-family text-2xl font-extrabold leading-tight text-foreground md:text-3xl">
+                    {arena.verdictHeadline}
+                  </p>
+                </section>
+              )}
 
-            {/* Hotel-style inline meta row */}
-            <div className="mb-4 flex flex-wrap items-center justify-start gap-x-6 gap-y-2">
-              {arena.location && (
-                <div className="flex items-center text-base text-muted-foreground">
-                  <MapPin className="mr-2 h-4 w-4 shrink-0" />
-                  {arena.location}
-                </div>
+              {overall && glanceRatings && (
+                <ReviewRating
+                  ratings={glanceRatings}
+                  ratingIcons={ratingIcons}
+                  labels={ARENA_RATING_LABELS}
+                  title="Ratings at a glance"
+                  variant="glance"
+                />
               )}
-              {arena.buildDate && (
-                <div className="flex items-center text-base text-muted-foreground">
-                  <Building2 className="mr-2 h-4 w-4 shrink-0" />
-                  Built {formatDate(arena.buildDate)}
-                </div>
+
+              <ArenaGames teams={teamsGallery} />
+
+              {timelineEntries.length > 0 &&
+                originalRatingResult &&
+                arena.date && (
+                  <RevisitTimeline
+                    originalDate={arena.date}
+                    originalDisplayRating={originalRatingResult.average}
+                    originalTextRating={originalRatingResult.textRating}
+                    originalColor={originalRatingResult.color}
+                    entries={timelineEntries}
+                  />
+                )}
+
+              {(arena.hotelStays?.length ?? 0) > 0 && (
+                <ArenaHotelStay
+                  hotelStays={arena.hotelStays!}
+                  arenaDate={arena.date}
+                />
               )}
-              {arena.capacity && (
-                <div className="flex items-center text-base text-muted-foreground">
-                  <Users2 className="mr-2 h-4 w-4 shrink-0" />
-                  {arena.capacity.toLocaleString()} seats
-                </div>
+
+              {(arena.arenaFoodItems?.length ?? 0) > 0 && (
+                <ArenaFoodItems food={arena.arenaFoodItems!} />
               )}
-              {arena.visited && arena.date && (
-                <div className="flex items-center text-base text-muted-foreground">
-                  <CalendarDays className="mr-2 h-4 w-4 shrink-0" />
-                  Visited {formatDate(arena.date)}
-                </div>
+
+              {hasBottomLine && (
+                <ProConList
+                  positives={arena.prosConsVerdict!.positives}
+                  negatives={arena.prosConsVerdict!.negatives}
+                  verdict2={arena.prosConsVerdict!.verdict}
+                  layout="verdictFirst"
+                />
               )}
-              {visitCount > 1 && (
-                <div className="flex items-center text-base text-muted-foreground">
-                  <RefreshCw className="mr-2 h-4 w-4 shrink-0" />
-                  {visitCount} visits
-                </div>
+
+              {(arena.viewFromSeat?.length ?? 0) > 0 && (
+                <ArenaViewFromSeat
+                  viewFromSeat={arena.viewFromSeat!}
+                  viewScore={effectiveArenaReview?.view as number | undefined}
+                />
               )}
-              {totalGamesAttended > 0 && (
-                <div className="flex items-center text-base text-muted-foreground">
-                  <Award className="mr-2 h-4 w-4 shrink-0" />
-                  {totalGamesAttended} game{totalGamesAttended !== 1 ? 's' : ''}{' '}
-                  attended
-                </div>
+
+              {(arena.faqs?.length ?? 0) > 0 && (
+                <FAQSection
+                  title={`${arena.name}: your questions`}
+                  items={arena.faqs!}
+                />
               )}
-              {rank != null && totalVisited != null && totalVisited > 0 && (
-                <div className="flex items-center text-base text-muted-foreground">
-                  <Trophy className="mr-2 h-4 w-4 shrink-0" />
-                  Ranked{' '}
-                  <span className="mx-1 font-bold text-foreground">
-                    #{rank}
-                  </span>{' '}
-                  of {totalVisited} arenas
-                  {isTied && <span className="ml-1.5 text-sm">(tied)</span>}
-                </div>
+
+              {arena.videoUrl && (
+                <ArenaVideo
+                  url={arena.videoUrl}
+                  poster={arena.heroPhotos?.[0] ?? arena.arenaImage}
+                  arenaName={arena.name ?? 'the arena'}
+                  description={
+                    arena.excerpt ||
+                    `Our experience visiting ${arena.name}: tips, food, seating and atmosphere.`
+                  }
+                  date={arena.date}
+                />
+              )}
+
+              {gameDay ? (
+                <GameDayRow gameDay={gameDay} />
+              ) : (
+                foodReviews.length > 0 && (
+                  <ArenaFoodReviews foodReviews={foodReviews} />
+                )
               )}
             </div>
-
-            {/* League / sport type badges */}
-            {leagueTypes.length > 0 && (
-              <div className="flex flex-wrap gap-2">
-                {leagueTypes.map((league) => (
-                  <Badge
-                    key={league}
-                    variant="secondary"
-                    className="uppercase text-xs tracking-wide"
-                  >
-                    {league}
-                  </Badge>
-                ))}
-              </div>
-            )}
           </div>
-
-          {/* 1. HERO PHOTO GALLERY */}
-          {galleryImages.length > 0 && (
-            <HeroPhotoGallery images={heroImages} onShowAllPhotos={openModal} />
-          )}
-
-          {/* 3. ARENA RATING CARD — score left, breakdown right */}
-          {effectiveArenaReview && (
-            <ArenaRatingCard
-              effectiveArenaReview={
-                effectiveArenaReview as Record<string, number | undefined>
-              }
-              ratingIcons={ratingIcons}
-              ratingLabels={ARENA_RATING_LABELS}
-              categoryOrder={ARENA_RATING_ORDER}
-            />
-          )}
         </article>
 
-        {/* 5. TEAMS AT THIS ARENA */}
-        {teamsGallery.length > 0 && (
-          <div className="py-8 md:py-12">
-            <SectionTitle header="Teams at This Arena" />
-            <div className="container mx-auto px-4 md:px-6 space-y-8">
-              {attendedTeams.length > 0 && (
-                <div>
-                  <div className="flex items-center gap-2 mb-4">
-                    <Award className="h-4 w-4 text-primary" />
-                    <span className="text-sm font-bold uppercase tracking-widest text-primary">
-                      Games We Attended
-                    </span>
-                  </div>
-                  <div
-                    className={`grid grid-cols-1 gap-4 ${attendedTeams.length > 1 ? 'sm:grid-cols-2' : ''}`}
-                  >
-                    {attendedTeams.map((team: any, i: number) => {
-                      const games: any[] = team.attendedGames ?? []
-                      const visibleGames = games.slice(0, GAMES_PREVIEW_COUNT)
-                      const extraCount = games.length - GAMES_PREVIEW_COUNT
-                      const cardClasses =
-                        'rounded-xl border-2 border-primary ring-2 ring-primary/20 hover:ring-primary hover:shadow-brutalist-sm transition-all duration-200 bg-card overflow-hidden'
-
-                      const inner = (
-                        <>
-                          {/* Team identity row */}
-                          <div className="flex items-center gap-3 p-4">
-                            {team.asset && (
-                              <Image
-                                src={urlForImage(team)
-                                  .width(96)
-                                  .height(96)
-                                  .fit('crop')
-                                  .auto('format')
-                                  .url()}
-                                alt={`${team.name} logo`}
-                                width={48}
-                                height={48}
-                                className="rounded-full shrink-0"
-                                loading="lazy"
-                                sizes="48px"
-                              />
-                            )}
-                            <div className="flex-1 min-w-0">
-                              <p className="text-sm font-semibold leading-tight truncate">
-                                {team.name}
-                              </p>
-                              <div className="flex flex-wrap items-center gap-1.5 mt-1">
-                                {team.teamType && (
-                                  <Badge
-                                    variant="secondary"
-                                    className="text-xs uppercase"
-                                  >
-                                    {team.teamType}
-                                  </Badge>
-                                )}
-                                {games.length > 0 && (
-                                  <Badge
-                                    variant="outline"
-                                    className="text-xs text-primary border-primary font-bold"
-                                  >
-                                    {games.length}{' '}
-                                    {games.length === 1 ? 'game' : 'games'}
-                                  </Badge>
-                                )}
-                              </div>
-                            </div>
-                          </div>
-
-                          {/* Game scorecards — horizontal scroll */}
-                          {games.length > 0 && (
-                            <div className="border-t border-border px-3 pb-3 pt-2">
-                              <div className="flex gap-3 overflow-x-auto pb-1">
-                                {visibleGames.map((game: any, gi: number) => (
-                                  <div
-                                    key={gi}
-                                    className="w-[260px] min-w-[260px] shrink-0"
-                                  >
-                                    <GameCard game={game} team={team} />
-                                  </div>
-                                ))}
-                                {extraCount > 0 && (
-                                  <button
-                                    onClick={(e) => {
-                                      e.preventDefault()
-                                      e.stopPropagation()
-                                      setShowAllGamesTeamKey(team.name)
-                                    }}
-                                    className="w-[100px] min-w-[100px] shrink-0 rounded-lg border-2 border-dashed border-border bg-muted/10 flex flex-col items-center justify-center gap-1 text-muted-foreground hover:border-primary hover:text-primary transition-colors cursor-pointer"
-                                  >
-                                    <span className="text-2xl font-bold">
-                                      +{extraCount}
-                                    </span>
-                                    <span className="text-xs text-center leading-tight">
-                                      more games
-                                    </span>
-                                  </button>
-                                )}
-                              </div>
-                            </div>
-                          )}
-                        </>
-                      )
-
-                      return team.link ? (
-                        <a
-                          key={team.name || i}
-                          href={team.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className={cardClasses}
-                        >
-                          {inner}
-                        </a>
-                      ) : (
-                        <div key={team.name || i} className={cardClasses}>
-                          {inner}
-                        </div>
-                      )
-                    })}
-                  </div>
-                </div>
-              )}
-
-              {otherTeams.length > 0 && (
-                <div>
-                  <span className="text-sm font-bold uppercase tracking-widest text-muted-foreground mb-4 block">
-                    Also at This Arena
-                  </span>
-                  <div className="flex flex-wrap gap-3">
-                    {otherTeams.map((team: any, i: number) => (
-                      <div
-                        key={team.name || i}
-                        className="flex items-center gap-2 px-3 py-2 rounded-lg border border-border bg-muted/40"
-                      >
-                        {team.asset && (
-                          <Image
-                            src={urlForImage(team)
-                              .width(64)
-                              .height(64)
-                              .fit('crop')
-                              .auto('format')
-                              .url()}
-                            alt={`${team.name} logo`}
-                            width={32}
-                            height={32}
-                            className="rounded-full grayscale opacity-60"
-                            loading="lazy"
-                            sizes="32px"
-                          />
-                        )}
-                        <span className="text-xs text-muted-foreground">
-                          {team.name}
-                        </span>
-                        {team.teamType && (
-                          <span className="text-xs text-muted-foreground/60">
-                            · {team.teamType}
-                          </span>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        )}
-
-        {/* "See all games" dialog — opens when +N chip is clicked */}
-        {showAllGamesTeamKey &&
-          (() => {
-            const dialogTeam = attendedTeams.find(
-              (t: any) => t.name === showAllGamesTeamKey,
-            )
-            if (!dialogTeam) return null
-            const allGames: any[] = dialogTeam.attendedGames ?? []
-            return (
-              <Dialog
-                open={true}
-                onOpenChange={() => setShowAllGamesTeamKey(null)}
-              >
-                <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
-                  <DialogHeader>
-                    <DialogTitle>All Games — {dialogTeam.name}</DialogTitle>
-                  </DialogHeader>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-2">
-                    {allGames.map((game: any, gi: number) => (
-                      <GameCard key={gi} game={game} team={dialogTeam} />
-                    ))}
-                  </div>
-                </DialogContent>
-              </Dialog>
-            )
-          })()}
-
-        {/* 6. REVISIT TIMELINE */}
-        {timelineEntries.length > 0 && originalRatingResult && arena.date && (
-          <div className="container mx-auto px-4 md:px-6 py-8 md:py-12">
-            <RevisitTimeline
-              originalDate={arena.date}
-              originalDisplayRating={originalRatingResult.average}
-              originalTextRating={originalRatingResult.textRating}
-              originalColor={originalRatingResult.color}
-              entries={timelineEntries}
-            />
-          </div>
-        )}
-
-        {/* 7. WHERE WE STAYED (optional) */}
-        {(arena.hotelStays?.length ?? 0) > 0 && (
-          <ArenaHotelStay
-            hotelStays={arena.hotelStays!}
-            arenaDate={arena.date}
-          />
-        )}
-
-        {/* 7b. FOOD REVIEWS NEARBY (optional — from NearestArena links) */}
-        {foodReviews.length > 0 && (
-          <ArenaFoodReviews foodReviews={foodReviews} />
-        )}
-
-        {/* 8. FOOD & DRINKS WE TRIED (optional) */}
-        {(arena.arenaFoodItems?.length ?? 0) > 0 && (
-          <ArenaFoodItems food={arena.arenaFoodItems!} />
-        )}
-
-        {/* 9. THE BOTTOM LINE */}
-        {arena.prosConsVerdict &&
-          (arena.prosConsVerdict.positives?.length ||
-            arena.prosConsVerdict.negatives?.length ||
-            arena.prosConsVerdict.verdict) && (
-            <ProConList
-              positives={arena.prosConsVerdict.positives}
-              negatives={arena.prosConsVerdict.negatives}
-              verdict2={arena.prosConsVerdict.verdict}
-            />
-          )}
-
-        {/* 10. VIEW FROM MY SEAT */}
-        {(arena.viewFromSeat?.length ?? 0) > 0 && (
-          <ArenaViewFromSeat
-            viewFromSeat={arena.viewFromSeat!}
-            viewScore={effectiveArenaReview?.view as number | undefined}
-          />
-        )}
-
-        {/* 11. FAQs (optional — accordion for Google rich results) */}
-        {(arena.faqs?.length ?? 0) > 0 && (
-          <FAQSection
-            title={`${arena.name} — Frequently Asked Questions`}
-            items={arena.faqs!}
-            className="py-8 md:py-12"
-          />
-        )}
-
-        {/* 12. OUR EXPERIENCE (Video) */}
-        {arena.videoUrl && (
-          <VideoPlayer
-            url={arena.videoUrl}
-            title="Our Experience"
-            documentDate={arena.date}
-            videoDescription={
-              arena.excerpt ||
-              `Our experience visiting ${arena.name} — tips, food, seating, and atmosphere.`
-            }
-          />
-        )}
-
-        {/* 12. GALLERY MODAL */}
         {galleryImages.length > 0 && (
           <ImageGallery
             images={galleryImages}
@@ -805,6 +439,10 @@ export default function ArenaPage({
             showInlineGrid={false}
           />
         )}
+        <ReviewActionBar
+          placeName={arena.name ?? 'Arena'}
+          location={arena.location}
+        />
         <Footer />
       </Layout>
     </div>

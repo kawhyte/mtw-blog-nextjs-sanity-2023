@@ -6,6 +6,7 @@ import { CaptionGeneratorInput } from '../plugins/CaptionGeneratorInput'
 import { GameDataFetcherInput } from '../plugins/GameDataFetcherInput'
 import { SeoExcerptGeneratorInput } from '../plugins/SeoExcerptGeneratorInput'
 import { VerdictGeneratorInput } from '../plugins/VerdictGeneratorInput'
+import { VerdictHeadlineGeneratorInput } from '../plugins/VerdictHeadlineGeneratorInput'
 import { heroPhotosField } from './sharedReviewFields'
 import { getPortableTextLength } from './utils'
 
@@ -539,6 +540,20 @@ export default defineType({
         }), // --- End Verdict ---
       ], // --- End of fields INSIDE the group ---
     }), // --- End of the GROUPING Fieldset ---
+
+    defineField({
+      name: 'verdictHeadline',
+      title: 'Verdict Headline (optional)',
+      type: 'string',
+      description:
+        'One punchy sentence shown under the photos as "Our take", e.g. "The Aces crowd is loud, the sightlines are great, and you should eat before you go." Leave blank to hide the section.',
+      hidden: ({ document }) => !document?.visited,
+      validation: (Rule) =>
+        Rule.max(120).warning(
+          'Keep it to one short sentence (under 120 characters)',
+        ),
+      components: { input: VerdictHeadlineGeneratorInput },
+    }),
 
     // --- Video URL Field ---
     defineField({

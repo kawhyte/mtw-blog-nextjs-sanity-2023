@@ -5,7 +5,7 @@ import { ReviewActionButtons } from './ReviewActions'
 
 export interface ReviewChip {
   label: string
-  tone?: 'dark' | 'indigo' | 'muted' | 'success'
+  tone?: 'dark' | 'indigo' | 'muted' | 'success' | 'amber'
 }
 
 interface ReviewSummaryPanelProps {
@@ -19,13 +19,17 @@ interface ReviewSummaryPanelProps {
   footnote?: ReactNode
   arenasInCity: { name: string; slug: string }[]
   cityGuideHref?: string
+  /** Extra box at the bottom, e.g. the arena page's "Game day in …" */
+  children?: ReactNode
 }
 
 const CHIP_TONES: Record<NonNullable<ReviewChip['tone']>, string> = {
   dark: 'bg-gray-900 text-white dark:bg-white dark:text-gray-900',
   indigo: 'bg-secondary-soft-background text-secondary',
   muted: 'bg-muted text-foreground',
-  success: 'bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300',
+  success:
+    'bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300',
+  amber: 'bg-amber-100 text-amber-900',
 }
 
 // Score circle colour follows the site's rating bands
@@ -58,6 +62,7 @@ export default function ReviewSummaryPanel({
   footnote,
   arenasInCity,
   cityGuideHref,
+  children,
 }: ReviewSummaryPanelProps) {
   return (
     <div className="flex flex-col gap-6 xl:rounded-[1.75rem] xl:border-4 xl:border-border-bold xl:bg-card xl:p-6 xl:shadow-brutalist">
@@ -110,7 +115,9 @@ export default function ReviewSummaryPanel({
         </ul>
       )}
 
-      {footnote && <div className="text-sm text-muted-foreground">{footnote}</div>}
+      {footnote && (
+        <div className="text-sm text-muted-foreground">{footnote}</div>
+      )}
 
       <div className="hidden xl:block">
         <ReviewActionButtons placeName={placeName} location={location} />
@@ -126,7 +133,9 @@ export default function ReviewSummaryPanel({
               ? `${arenasInCity[0].name} is in ${location?.split(',')[0] ?? 'town'}.`
               : `${arenasInCity
                   .map((a) => a.name)
-                  .join(' and ')} are both in ${location?.split(',')[0] ?? 'town'}.`}
+                  .join(
+                    ' and ',
+                  )} are both in ${location?.split(',')[0] ?? 'town'}.`}
           </span>
           {cityGuideHref && (
             <Link
@@ -138,6 +147,8 @@ export default function ReviewSummaryPanel({
           )}
         </div>
       )}
+
+      {children}
     </div>
   )
 }

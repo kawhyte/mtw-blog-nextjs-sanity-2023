@@ -122,7 +122,9 @@ export default function ImageGallery({
   }
 
   return (
-    <section className={`w-full my-6 ${className || ''}`}>
+    <section
+      className={`w-full ${showInlineGrid ? 'my-6' : ''} ${className || ''}`}
+    >
       {showInlineGrid && (
         <div className="container mx-auto px-4">
           {title && (
@@ -225,7 +227,9 @@ export default function ImageGallery({
               categorySections.map((section) => (
                 <div
                   key={section.key}
-                  ref={(el) => { sectionRefs.current[section.key] = el }}
+                  ref={(el) => {
+                    sectionRefs.current[section.key] = el
+                  }}
                   className="scroll-mt-32"
                 >
                   <h2 className="mb-4 text-xl font-semibold text-foreground">
@@ -234,8 +238,10 @@ export default function ImageGallery({
                   <div className="columns-1 md:columns-2 space-y-4">
                     {section.photos.map((item, i) => {
                       if (!item?.asset) return null
-                      const imageAlt = item.alt || `${section.label} photo ${i + 1}`
-                      const hasCaption = item.caption && item.caption.trim().length > 0
+                      const imageAlt =
+                        item.alt || `${section.label} photo ${i + 1}`
+                      const hasCaption =
+                        item.caption && item.caption.trim().length > 0
 
                       return (
                         <div
@@ -268,7 +274,8 @@ export default function ImageGallery({
                 {images.map((item, i) => {
                   if (!item?.asset) return null
                   const imageAlt = item.alt || `Gallery image ${i + 1}`
-                  const hasCaption = item.caption && item.caption.trim().length > 0
+                  const hasCaption =
+                    item.caption && item.caption.trim().length > 0
 
                   return (
                     <div
