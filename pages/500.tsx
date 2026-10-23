@@ -1,31 +1,40 @@
-import { Home } from 'lucide-react'
-import Head from 'next/head'
+import ErrorPage from 'components/ErrorPage'
+import type { SectionCounts } from 'components/search/SearchSuggestions'
+import { getSearchSectionCounts } from 'lib/sanity.client'
+import type { GetStaticProps } from 'next'
 import Link from 'next/link'
 
-export default function Custom500() {
+const button =
+  'inline-flex h-12 flex-1 items-center justify-center whitespace-nowrap rounded-full border-[3px] border-border-bold px-[22px] text-base font-extrabold transition-colors sm:flex-none'
+
+export default function Custom500({ counts }: { counts: SectionCounts }) {
   return (
-    <>
-      <Head>
-        <title>Something Went Wrong | Meet the Whytes</title>
-        <meta name="robots" content="noindex" />
-      </Head>
-      <main className="flex min-h-screen flex-col items-center justify-center bg-background px-4 text-center">
-        <p className="text-7xl font-black text-primary sm:text-9xl">500</p>
-        <h1 className="mt-4 text-title font-bold text-foreground sm:text-page">
-          Well, that was an airball.
-        </h1>
-        <p className="mt-3 max-w-md text-muted-foreground">
-          Something went wrong on our end. Please refresh the page or try
-          again in a minute.
-        </p>
-        <Link
-          href="/"
-          className="mt-8 flex items-center gap-2 font-semibold text-primary hover:underline"
+    <ErrorPage
+      label="500 · SOMETHING WENT WRONG"
+      title="Something Went Wrong"
+      headline="Well, that was an airball."
+      text="Something went wrong on our end. Try again in a minute; the rest of the site should still work."
+      counts={counts}
+      // Search may be what broke, so only plain links here
+      popular={false}
+    >
+      <div className="flex gap-3">
+        <button
+          type="button"
+          onClick={() => window.location.reload()}
+          className={`${button} bg-primary text-white hover:bg-pink-700`}
         >
-          <Home className="h-4 w-4" />
-          Back to the homepage
+          Try again
+        </button>
+        <Link href="/" className={`${button} bg-card text-foreground hover:bg-muted`}>
+          Homepage
         </Link>
-      </main>
-    </>
+      </div>
+    </ErrorPage>
   )
 }
+
+// Counts come from build time, so this page never waits on Sanity
+export const getStaticProps: GetStaticProps<{ counts: SectionCounts }> = async () => ({
+  props: { counts: await getSearchSectionCounts() },
+})
