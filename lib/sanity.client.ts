@@ -193,6 +193,30 @@ export async function getPaginatedFoodReviews(
   }
 }
 
+/** How many arenas, hotels, restaurants and guides there are, for the search page's section tiles */
+export async function getSearchSectionCounts(): Promise<{
+  arenas: number
+  hotels: number
+  food: number
+  guides: number
+}> {
+  const empty = { arenas: 0, hotels: 0, food: 0, guides: 0 }
+  if (!client) return empty
+  const live = '(!defined(publishedAt) || publishedAt <= now()) && defined(slug.current)'
+  try {
+    const counts = await client.fetch(`{
+      "arenas": count(*[_type == "arenas" && visited == true]),
+      "hotels": count(*[_type == "hotelReview" && ${live}]),
+      "food": count(*[_type == "foodReview" && ${live}]),
+      "guides": count(*[_type == "guide" && ${live}])
+    }`)
+    return { ...empty, ...counts }
+  } catch (error) {
+    console.error('Error fetching search section counts:', error)
+    return empty
+  }
+}
+
 /** Gets the total count of independent food reviews */
 export async function getFoodReviewsTotalCount(): Promise<number> {
   if (!client) return 0
