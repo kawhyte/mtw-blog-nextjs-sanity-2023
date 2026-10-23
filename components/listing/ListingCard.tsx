@@ -13,7 +13,7 @@ export const monthFormatter = new Intl.DateTimeFormat('en-US', {
 
 // "Park Hyatt Jakarta Hotel Review" → "Park Hyatt Jakarta",
 // "Jackie DC Restaurant Review" → "Jackie DC" (cards say it's a review)
-const cardName = (title: string) =>
+export const cardName = (title: string) =>
   title.replace(/\s+((hotel|restaurant|food)\s+)?review\s*$/i, '').trim()
 
 interface ListingCardProps {
