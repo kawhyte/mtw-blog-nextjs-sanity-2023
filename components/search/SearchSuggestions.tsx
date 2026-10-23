@@ -29,7 +29,14 @@ export interface SectionCounts {
 const label = 'text-xs font-extrabold tracking-[0.12em] text-muted-foreground'
 
 /** Popular searches, then the 4 sections, so the page is never a dead end */
-export default function SearchSuggestions({ counts }: { counts: SectionCounts }) {
+export default function SearchSuggestions({
+  counts,
+  popular = true,
+}: {
+  counts: SectionCounts
+  /** Off where search itself might not work (the 500 page) */
+  popular?: boolean
+}) {
   const sections: {
     href: string
     title: string
@@ -45,6 +52,7 @@ export default function SearchSuggestions({ counts }: { counts: SectionCounts })
 
   return (
     <div className="flex flex-col gap-7 md:gap-8">
+      {popular && (
       <div className="flex flex-col gap-2.5">
         <h2 className={label}>POPULAR SEARCHES</h2>
         <ul className="flex flex-wrap gap-2">
@@ -64,8 +72,9 @@ export default function SearchSuggestions({ counts }: { counts: SectionCounts })
           ))}
         </ul>
       </div>
+      )}
       <div className="flex flex-col gap-2.5">
-        <h2 className={label}>OR BROWSE</h2>
+        <h2 className={label}>{popular ? 'OR BROWSE' : 'BROWSE THE SITE'}</h2>
         <ul className="grid grid-cols-2 gap-3 md:grid-cols-4">
           {sections.map(({ href, title, detail, short, icon: Icon }) => (
             <li key={href}>

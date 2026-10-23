@@ -1,50 +1,33 @@
-import { ArrowRight, Home } from 'lucide-react'
-import Head from 'next/head'
+import ErrorPage from 'components/ErrorPage'
+import SearchField from 'components/search/SearchField'
+import type { SectionCounts } from 'components/search/SearchSuggestions'
+import { getSearchSectionCounts } from 'lib/sanity.client'
+import type { GetStaticProps } from 'next'
 import Link from 'next/link'
 
-const sections = [
-  { href: '/hotels', label: 'Hotel Reviews' },
-  { href: '/food', label: 'Food Reviews' },
-  { href: '/guides', label: 'Travel Guides' },
-  { href: '/arenas', label: 'Arena Quest' },
-]
-
-export default function Custom404() {
+export default function Custom404({ counts }: { counts: SectionCounts }) {
   return (
-    <>
-      <Head>
-        <title>Page Not Found | Meet the Whytes</title>
-        <meta name="robots" content="noindex" />
-      </Head>
-      <main className="flex min-h-screen flex-col items-center justify-center bg-background px-4 text-center">
-        <p className="text-7xl font-black text-primary sm:text-9xl">404</p>
-        <h1 className="mt-4 text-title font-bold text-foreground sm:text-page">
-          This page took a wrong turn at the arena.
-        </h1>
-        <p className="mt-3 max-w-md text-muted-foreground">
-          The page you&apos;re looking for doesn&apos;t exist or may have
-          moved. Try one of these instead:
-        </p>
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-          {sections.map((s) => (
-            <Link
-              key={s.href}
-              href={s.href}
-              className="group flex items-center gap-1 rounded-full border-2 border-border-bold bg-card px-4 py-2 text-sm font-semibold text-foreground shadow-offsetIndigo transition-transform hover:-translate-y-0.5"
-            >
-              {s.label}
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Link>
-          ))}
-        </div>
+    <ErrorPage
+      label="404 · PAGE NOT FOUND"
+      title="Page Not Found"
+      headline="This page took a wrong turn at the arena."
+      text="The page you're looking for doesn't exist or may have moved. Search for it, or pick a section below."
+      counts={counts}
+      after={
         <Link
           href="/"
-          className="mt-8 flex items-center gap-2 font-semibold text-primary hover:underline"
+          className="w-fit text-[15px] font-extrabold text-pink-700 hover:underline"
         >
-          <Home className="h-4 w-4" />
-          Back to the homepage
+          Back to the homepage &rarr;
         </Link>
-      </main>
-    </>
+      }
+    >
+      <SearchField query="" />
+    </ErrorPage>
   )
 }
+
+export const getStaticProps: GetStaticProps<{ counts: SectionCounts }> = async () => ({
+  props: { counts: await getSearchSectionCounts() },
+  revalidate: 3600,
+})
