@@ -46,7 +46,7 @@
 |    - `bg-card`: Background for cards, modals, and elevated elements.         |
 |    - `bg-muted`: For subtle backgrounds, like highlighted list items.        |
 |    - `bg-primary-soft-background`: For large containers with a light pink tint.|
-|    - `bg-secondary-soft-background`: For large containers with a light purple tint.|
+|    - `bg-secondary-soft-background`: Soft linen info boxes (was a purple tint).  |
 |                                                                              |
 |  - TEXT: Use for all text content.                                           |
 |    - `text-foreground`: Primary text color.                                  |
@@ -97,9 +97,9 @@
     --brand: 330 81% 60%; /* Logo pink #EC4899 -> USE FOR: decorative accents only, never small text */
     --primary-foreground: 0 0% 100%; /* White -> USE FOR: Text on top of primary color elements (`text-primary-foreground`) */
     --primary-soft-background: 36 24% 96%; /* Linen #F7F5F2 -> USE FOR: Large soft section backgrounds, highlighted rows */
-    --secondary: 239 84% 67%; /* Indigo #6366F1 -> USE FOR: Secondary buttons, alternative actions (`bg-secondary`) */
-    --secondary-foreground: 239 84% 98%; /* Very light indigo -> USE FOR: Text on top of secondary color elements (`text-secondary-foreground`) */
-    --secondary-soft-background: 239 100% 98%; /* Very light indigo tint -> USE FOR: Large section backgrounds */
+    --secondary: 24 10% 25%; /* Dark stone #44403C (was indigo) -> USE FOR: small labels and tags (`text-secondary`, `bg-secondary/10`); pink stays for things you tap */
+    --secondary-foreground: 0 0% 100%; /* White -> USE FOR: Text on top of secondary (`text-secondary-foreground`) */
+    --secondary-soft-background: 36 24% 96%; /* Linen #F7F5F2, same as primary-soft-background -> USE FOR: soft info boxes */
     --tertiary: 324 88% 95%; /* Soft Pink Tint #FCE7F3 -> USE FOR: Large decorative surfaces (`bg-tertiary`) */
     --tertiary-foreground: 330 81% 30%; /* Deep Pink -> USE FOR: Text on tertiary surfaces (`text-tertiary-foreground`) */
 
@@ -153,9 +153,9 @@
     --brand: 330 81% 62%;
     --primary-foreground: 330 81% 98%;
     --primary-soft-background: 330 40% 14%; /* Dark, subtle pink tint */
-    --secondary: 239 84% 67%;
-    --secondary-foreground: 239 84% 98%;
-    --secondary-soft-background: 239 40% 14%; /* Dark, subtle indigo tint */
+    --secondary: 30 6% 83%; /* Light stone for labels on dark backgrounds */
+    --secondary-foreground: 24 10% 10%;
+    --secondary-soft-background: 24 8% 14%; /* Dark, subtle stone tint */
     --tertiary: 330 40% 14%; /* Dark, subtle tertiary tint */
     --tertiary-foreground: 330 81% 80%;
     --accent: 209 34% 25%;
