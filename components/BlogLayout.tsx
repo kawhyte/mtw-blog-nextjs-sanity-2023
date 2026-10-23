@@ -1,5 +1,4 @@
 import AlertBanner from 'components/AlertBanner'
-import { CMS_DESCRIPTION, CMS_NAME } from 'lib/constants' // Or fetch from settings
 // components/BlogLayout.tsx (or your main layout file)
 import Head from 'next/head'
 
@@ -15,13 +14,6 @@ export default function BlogLayout({
   loading?: boolean
   children: React.ReactNode
 }) {
-  // --- Use settings or fallbacks for default title/description ---
-  // const siteTitle = settings?.title || demo.title;
-  // const siteDescription = settings?.description ? toPlainText(settings.description) : demo.description;
-  // For simplicity here, using demo data. Fetch/pass settings for real data.
-  const siteTitle = CMS_NAME
-  const siteDescription = CMS_DESCRIPTION
-
   return (
     <>
       <Head>
@@ -61,9 +53,9 @@ export default function BlogLayout({
           href="//fonts.gstatic.com"
           crossOrigin="anonymous"
         />
-        {/* Default SEO - Social tags are handled per page */}
-        <title>{siteTitle}</title>
-        <meta name="description" content={siteDescription} />
+        {/* The default title and description live in _app.tsx: a <Head>
+            tag rendered last wins, and this layout renders after each
+            page's own head, so defaults here hid every page's title */}
       </Head>
       {/* Flex column so the footer (rendered last inside <main>) can sit at the
           bottom of the screen on short pages via its mt-auto */}

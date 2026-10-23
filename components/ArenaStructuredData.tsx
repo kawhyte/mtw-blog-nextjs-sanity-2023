@@ -1,7 +1,12 @@
+import { toPlainText } from '@portabletext/react'
 import { urlForImage } from 'lib/sanity.image'
 import { Arena } from 'lib/sanity.queries'
 import Head from 'next/head'
-import { getArenaDisplayRating } from 'utils/arena/arenaUtils'
+import {
+  arenaCountry,
+  arenaSharePhoto,
+  getArenaDisplayRating,
+} from 'utils/arena/arenaUtils'
 
 interface ArenaStructuredDataProps {
   arena: Arena
@@ -13,9 +18,25 @@ export default function ArenaStructuredData({ arena }: ArenaStructuredDataProps)
   if (!arena?.name || !arena?.slug) return null
 
   const pageUrl = `${SITE_URL}/arena/${arena.slug}`
-  const imageUrl = arena.arenaImage
-    ? urlForImage(arena.arenaImage).width(1200).height(630).url()
+  const photo = arenaSharePhoto(arena)
+  const imageUrl = photo
+    ? urlForImage(photo).width(1200).height(630).fit('crop').url()
     : `${SITE_URL}/MeettheWhytes.jpg`
+
+  const address = arena.location && {
+    '@type': 'PostalAddress',
+    addressLocality: arena.location,
+    addressCountry: arenaCountry(arena.location),
+  }
+
+  // Our own words: the verdict, else the excerpt
+  const verdict = arena.prosConsVerdict?.verdict
+    ? toPlainText(arena.prosConsVerdict.verdict as any).trim()
+    : ''
+  const reviewBody =
+    verdict ||
+    arena.excerpt?.trim() ||
+    `Tips, food, transportation, sightlines, and atmosphere review for ${arena.name}${arena.location ? ` in ${arena.location}` : ''}.`
 
   const ratingResult = arena.arenaReview
     ? getArenaDisplayRating(arena)
@@ -25,15 +46,10 @@ export default function ArenaStructuredData({ arena }: ArenaStructuredDataProps)
     '@context': 'https://schema.org',
     '@type': 'SportsActivityLocation',
     name: arena.name,
+    ...(arena.currentName && { alternateName: arena.currentName }),
     url: pageUrl,
     image: imageUrl,
-    ...(arena.location && {
-      address: {
-        '@type': 'PostalAddress',
-        addressLocality: arena.location,
-        addressCountry: 'US',
-      },
-    }),
+    ...(address && { address }),
     ...(arena.capacity && { numberOfSeats: arena.capacity }),
   }
 
@@ -47,13 +63,8 @@ export default function ArenaStructuredData({ arena }: ArenaStructuredDataProps)
           itemReviewed: {
             '@type': 'SportsActivityLocation',
             name: arena.name,
-            ...(arena.location && {
-              address: {
-                '@type': 'PostalAddress',
-                addressLocality: arena.location,
-                addressCountry: 'US',
-              },
-            }),
+            ...(arena.currentName && { alternateName: arena.currentName }),
+            ...(address && { address }),
           },
           reviewRating: {
             '@type': 'Rating',
@@ -76,8 +87,8 @@ export default function ArenaStructuredData({ arena }: ArenaStructuredDataProps)
             },
           },
           datePublished: arena.date,
-          dateModified: arena.date,
-          reviewBody: `Tips, food, transportation, sightlines, and atmosphere review for ${arena.name}${arena.location ? ` in ${arena.location}` : ''}. Written by basketball fans who visited the arena.`,
+          dateModified: arena.updatedAt || arena.date,
+          reviewBody,
           image: imageUrl,
           url: pageUrl,
         }

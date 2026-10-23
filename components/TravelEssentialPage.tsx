@@ -4,7 +4,6 @@ import StaticPageHead from 'components/StaticPageHead'
 import { GEAR_SECTIONS } from 'lib/gearSections'
 import type { Essential, Settings } from 'lib/sanity.queries'
 
-import { CMS_NAME } from '../lib/constants'
 import BlogHeader from './BlogHeader'
 import Footer from './Footer'
 
@@ -67,7 +66,7 @@ export default function TravelEssentialPage({
     <>
       <StaticPageHead
         settings={settings}
-        title={`What We Pack: Travel Gear | ${CMS_NAME}`}
+        title="What We Pack: Travel Gear | Meet the Whytes"
         description="Our tried-and-tested gear for NBA games, cruises, day trips and beyond, grouped by what it's for, plus the one thing we'd skip."
         path="/essentials"
       />

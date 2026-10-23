@@ -21,6 +21,7 @@ import {
 } from 'lucide-react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
+import { arenaSharePhoto } from 'utils/arena/arenaUtils'
 import { locationToSlug } from 'utils/locationSlug'
 
 const ImageGallery = dynamic(() => import('./ImageGallery'), {
@@ -264,7 +265,11 @@ export default function ArenaPage({
       <PostPageHead
         settings={settings}
         post={
-          { ...arena, title: arena.name, coverImage: arena.arenaImage } as any
+          {
+            ...arena,
+            title: arena.name,
+            coverImage: arenaSharePhoto(arena),
+          } as any
         }
         contentType="arena"
       />

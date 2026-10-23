@@ -2,7 +2,9 @@ import '../styles/globals.css'
 import '../styles/nprogress.css'
 
 import { SpeedInsights } from '@vercel/speed-insights/next'
+import { CMS_DESCRIPTION, CMS_NAME } from 'lib/constants'
 import { AppProps } from 'next/app'
+import Head from 'next/head'
 import Script from 'next/script'
 
 import NProgressBar from '../components/NProgressBar'
@@ -12,6 +14,12 @@ const GA4_ID = process.env.NEXT_PUBLIC_GA4_ID
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
+      {/* Site defaults, rendered before the page so any page's own title
+          and description replace them */}
+      <Head>
+        <title>{CMS_NAME}</title>
+        <meta name="description" content={CMS_DESCRIPTION} />
+      </Head>
       <Script
         src="https://cloud.umami.is/script.js"
         data-website-id="eaac332f-08e9-4b09-8d7a-66ff636cfcd9"
