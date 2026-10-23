@@ -1,0 +1,5074 @@
+[
+ {
+  "_createdAt": "2026-02-09T01:10:08Z",
+  "_dishRatingMigrated": true,
+  "_id": "drafts.1fe7e9e6-20e9-40df-aa65-b33cd5547d73",
+  "_ratingScale": 10,
+  "_rev": "hY1ly3Ju8qGsb6nQpYIBrG",
+  "_type": "foodReview",
+  "_updatedAt": "2026-05-16T01:25:32Z",
+  "date": "2026-02-09T01:10:03.196Z",
+  "diningType": "dinein",
+  "excerpt2": [
+   {
+    "_key": "094e527346db",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "9ca87b1e43f10",
+      "_type": "span",
+      "marks": [],
+      "text": "\"Our signature American steakhouse slices up sizzling ways to elevate your meal. A butcher’s display sets the tone — and the flavors — with mouthwatering specialty cuts like high grade wagyu beef and bone-in tomahawks. Watch through the open kitchen as seasoned chefs perfectly prepare your premium selection to your liking and serve it alongside your choice of savory sides — just be sure to save room for dessert.\" - "
+     },
+     {
+      "_key": "0b4e28989e1a",
+      "_type": "span",
+      "marks": [
+       "6e78e45b1235"
+      ],
+      "text": "Royal Caribbean"
+     }
+    ],
+    "markDefs": [
+     {
+      "_key": "6e78e45b1235",
+      "_type": "link",
+      "href": "https://www.royalcaribbean.com/cruise-dining/chops-grille"
+     }
+    ],
+    "style": "normal"
+   }
+  ],
+  "foodRating": {
+   "Flavor_and_Taste": 6,
+   "Food_Value": 6,
+   "Memorability": 6,
+   "Presentation_on_Plate": 6,
+   "Restaurant_Cleanliness": 6,
+   "Restaurant_Location": 6,
+   "Restaurant_Service": 6,
+   "_type": "foodRating"
+  },
+  "individualFoodRating": [
+   {
+    "_key": "89cf43c8278e",
+    "_type": "image",
+    "name": "Lobster Bisque",
+    "rating": {
+     "Dish": 8,
+     "_type": "individualFoodType"
+    },
+    "review": "Creamy but a bit salty & tepid adjacent"
+   },
+   {
+    "_key": "e73aae99d590",
+    "_type": "image",
+    "name": "WILD MUSHROOM SOUP",
+    "rating": {
+     "Dish": 7,
+     "_type": "individualFoodType"
+    },
+    "review": "Needed more flavor and needed to be hotter"
+   },
+   {
+    "_key": "8c605370d1d9",
+    "_type": "image",
+    "name": "CRISPY GOAT CHEESE SALAD",
+    "rating": {
+     "Dish": 10,
+     "_type": "individualFoodType"
+    },
+    "review": "Deep fried goat cheese on a flavorful, crunchy salad. No notes."
+   },
+   {
+    "_key": "e4b26f46514b",
+    "_type": "image",
+    "name": "PAN-SEARED CRAB CAKE",
+    "rating": {
+     "Dish": 10,
+     "_type": "individualFoodType"
+    },
+    "review": "Tower of crab with a light top layer of cake. Corn gave it a bit of an appreciated crunch"
+   },
+   {
+    "_key": "2b636ff76fca",
+    "_type": "image",
+    "name": "FILET (9 oz)",
+    "rating": {
+     "Dish": 8,
+     "_type": "individualFoodType"
+    },
+    "review": "Ordered medium - it came out medium well, seasoned well, good flavors, great sauce."
+   },
+   {
+    "_key": "25aa383b8a3f",
+    "_type": "image",
+    "name": "WARM APPLE PIE À LA MODE",
+    "rating": {
+     "Dish": 9,
+     "_type": "individualFoodType"
+    },
+    "review": "Crustalicious, needs more apple chunks & cinnamon/nutmeg."
+   },
+   {
+    "_key": "4ee7b96a7dbb",
+    "_type": "image",
+    "name": "KEY LIME MERINGUE PIE",
+    "rating": {
+     "Dish": 10,
+     "_type": "individualFoodType"
+    },
+    "review": "Best dessert we've had on the cruise."
+   }
+  ],
+  "location": "Quantum of the Seas",
+  "seoExcerpt": "Is Chops Grille on Quantum of the Seas worth it? We tried the wagyu beef at this steakhouse and are sharing our honest thoughts on the dinner experience.",
+  "slug": {
+   "_type": "slug",
+   "current": "rccl-quantum-of-the-seas-specialty-dining-chops-gille-dinner-review"
+  },
+  "takeoutRating": {
+   "_type": "takeOutFoodRating",
+   "accuracy": 6,
+   "foodValue": 6,
+   "overallSatisfaction": 6,
+   "packaging": 6,
+   "presentation": 6,
+   "tasteAndFlavor": 6
+  },
+  "title": "RCCL Quantum of the Seas Specialty Dining Chops Gille Dinner Review"
+ },
+ {
+  "_createdAt": "2026-03-10T20:29:05Z",
+  "_id": "drafts.4fcac865-d068-4df7-aab3-f3678391a104",
+  "_rev": "zSaaUk85ei6PC54zaO6Pgb",
+  "_type": "guide",
+  "_updatedAt": "2026-06-05T19:19:31Z",
+  "category": "culture",
+  "content": [
+   {
+    "_key": "oscar2",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar1",
+      "_type": "span",
+      "marks": [],
+      "text": "Every year, in the week leading up to the Academy Awards, Cinemark runs Oscar Movie Week — a chance to catch the nominated films on the big screen before the ceremony. This year we decided to go all in. Rene and I mapped out the schedule, bought our tickets in advance, and spent the week of March 9–15 living at the theater. Nine films, one shorts program, and $174.50 later, here is our full rundown of everything we watched before the 98th Academy Awards."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "oscar4",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar3",
+      "_type": "span",
+      "marks": [],
+      "text": "We did not see every film on the ballot — one slipped through due to a scheduling conflict — but we came close. Here is what we thought of each one, in the order we watched them."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "oscar5",
+    "_type": "callout",
+    "text": [
+     {
+      "_key": "oscar7",
+      "_type": "block",
+      "children": [
+       {
+        "_key": "oscar6",
+        "_type": "span",
+        "marks": [],
+        "text": "9 Oscar-nominated films watched + Oscars Shorts program"
+       }
+      ],
+      "markDefs": [],
+      "style": "normal"
+     },
+     {
+      "_key": "oscar9",
+      "_type": "block",
+      "children": [
+       {
+        "_key": "oscar8",
+        "_type": "span",
+        "marks": [],
+        "text": "7 days | March 9–15, 2026"
+       }
+      ],
+      "markDefs": [],
+      "style": "normal"
+     },
+     {
+      "_key": "oscar11",
+      "_type": "block",
+      "children": [
+       {
+        "_key": "oscar10",
+        "_type": "span",
+        "marks": [],
+        "text": "Total spent: $174.50"
+       }
+      ],
+      "markDefs": [],
+      "style": "normal"
+     },
+     {
+      "_key": "oscar13",
+      "_type": "block",
+      "children": [
+       {
+        "_key": "oscar12",
+        "_type": "span",
+        "marks": [],
+        "text": "1 film missed: Frankenstein (scheduling conflict)"
+       }
+      ],
+      "markDefs": [],
+      "style": "normal"
+     }
+    ],
+    "type": "info"
+   },
+   {
+    "_key": "oscar15",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar14",
+      "_type": "span",
+      "marks": [],
+      "text": "Marty Supreme"
+     }
+    ],
+    "markDefs": [],
+    "style": "h2"
+   },
+   {
+    "_key": "oscar17",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar16",
+      "_type": "span",
+      "marks": [],
+      "text": "Monday, March 9 | 1:00 PM | 2 hr 30 min | $21.50"
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "oscar19",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar18",
+      "_type": "span",
+      "marks": [],
+      "text": "Josh Safdie's first solo feature brings the same electric, nerve-shredding energy fans of Uncut Gems and Good Time have come to expect — but this time centered around the world of competitive ping-pong. Timothée Chalamet plays Marty Mauser, a brash, fast-talking table tennis champion in 1950s New York who will do absolutely anything to be the best in the world. The film swings from the grimy tenements of the Lower East Side all the way to a climactic match in Tokyo, and every scene crackles with that signature Safdie restlessness."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "oscar21",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar20",
+      "_type": "span",
+      "marks": [],
+      "text": "I personally loved it. Chalamet is electric and fully committed to the role, and the film moves at a pace that keeps you locked in even when Marty is at his most infuriating. Rene was less sold — she found the protagonist too abrasive and hard to root for. That is kind of the point of the whole film, but if Safdie protagonists are not your thing this one will wear on you. We still preferred Uncut Gems overall, but Marty Supreme is a very strong film and was a great way to kick off the week."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "oscar23",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar22",
+      "_type": "span",
+      "marks": [],
+      "text": "Even if you missed the Oscar buzz: this one is worth your time whenever you find it. The Safdie energy is unlike anything else in mainstream cinema and Chalamet's performance is one for the books."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "oscar25",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar24",
+      "_type": "span",
+      "marks": [],
+      "text": "Our Rating: 8.5/10 ★★★★¼"
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "oscar27",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar26",
+      "_type": "span",
+      "marks": [],
+      "text": "Train Dreams"
+     }
+    ],
+    "markDefs": [],
+    "style": "h2"
+   },
+   {
+    "_key": "oscar29",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar28",
+      "_type": "span",
+      "marks": [],
+      "text": "Tuesday, March 10 | 1:15 PM | 1 hr 43 min | $12.00"
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "oscar31",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar30",
+      "_type": "span",
+      "marks": [],
+      "text": "This one surprised us. Directed by Clint Bentley and based on Denis Johnson's beloved short novel, Train Dreams follows Robert Grainier (Joel Edgerton) — a quiet, solitary logger making his way through the Pacific Northwest in the early 1900s. He builds railroads, falls in love, raises a family, and then faces a loss that the film handles with a restraint that is almost painful to watch."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "oscar33",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar32",
+      "_type": "span",
+      "marks": [],
+      "text": "It is beautifully shot — every frame looks like a painting — and the story is a genuinely sad love story that sneaks up on you. Edgerton does not say much, but he does not need to. At only 1 hour 43 minutes it is the shortest film of the week, and somehow the one that lingered the longest. We were both fairly quiet walking out of the theater. That is usually the sign of something that landed."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "oscar35",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar34",
+      "_type": "span",
+      "marks": [],
+      "text": "Train Dreams is the kind of quiet film that will find you on a streaming service late one evening and stay with you for days afterward. Do not sleep on it."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "oscar37",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar36",
+      "_type": "span",
+      "marks": [],
+      "text": "Our Rating: 8.78/10 ★★★★½"
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "oscar39",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar38",
+      "_type": "span",
+      "marks": [],
+      "text": "Sentimental Value"
+     }
+    ],
+    "markDefs": [],
+    "style": "h2"
+   },
+   {
+    "_key": "oscar41",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar40",
+      "_type": "span",
+      "marks": [],
+      "text": "Wednesday, March 11 | 12:45 PM | 2 hr 13 min | $21.50"
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "oscar43",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar42",
+      "_type": "span",
+      "marks": [],
+      "text": "Joachim Trier's Norwegian drama follows two estranged sisters — Nora (Renate Reinsve) and Agnes — who reunite to deal with their long-absent father Gustav (Stellan Skarsgård), a once-celebrated film director who abandoned the family when they were young. Gustav shows up out of nowhere with a new screenplay based on a traumatic piece of family history, asking Nora to star in it. What follows is a slow-burn reckoning between a father who never showed up and daughters who never forgot."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "oscar45",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar44",
+      "_type": "span",
+      "marks": [],
+      "text": "Honestly? It was okay. The film won the Grand Prix at Cannes and collected nine Oscar nominations, so clearly it connected with a lot of people. The performances are strong across the board — Skarsgård especially — but for us it did not fully land. We were not really feeling it. There are moments that hit, but the film also spends a lot of time in its own head. We left the theater a little flat."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "oscar47",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar46",
+      "_type": "span",
+      "marks": [],
+      "text": "If you are drawn to slow, character-driven European family dramas this may land differently for you — and the Cannes reception suggests many people found it profound. Worth a watch if the premise appeals to you."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "oscar49",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar48",
+      "_type": "span",
+      "marks": [],
+      "text": "Our Rating: 6.49/10 ★★★¼"
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "oscar51",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar50",
+      "_type": "span",
+      "marks": [],
+      "text": "Hamnet"
+     }
+    ],
+    "markDefs": [],
+    "style": "h2"
+   },
+   {
+    "_key": "oscar53",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar52",
+      "_type": "span",
+      "marks": [],
+      "text": "Thursday, March 12 | 1:00 PM | 2 hr 5 min | $21.50"
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "oscar55",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar54",
+      "_type": "span",
+      "marks": [],
+      "text": "This was the highlight of the week. Directed by Chloé Zhao and based on Maggie O'Farrell's award-winning novel, Hamnet tells the story of Agnes (Jessie Buckley) — wife of William Shakespeare — and the devastating grief she carries after the death of their young son Hamnet. Paul Mescal plays William, but make no mistake: this is Buckley's film from the first frame to the last."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "oscar57",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar56",
+      "_type": "span",
+      "marks": [],
+      "text": "Jessie Buckley's performance is extraordinary. She makes you feel every layer of Agnes's grief, her strength, and her slow unraveling without ever overplaying a single moment. It is quiet, meditative, and devastating in the best possible way. We walked in already expecting something good and still left feeling like we had been through something. Her Best Actress Oscar was not a surprise — it felt inevitable from about the midpoint of the film."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "oscar59",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar58",
+      "_type": "span",
+      "marks": [],
+      "text": "If you only see one film from this entire list: make it Hamnet. It will be just as powerful on a streaming platform as it was in the theater, and it is the kind of film you will think about for weeks."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "oscar61",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar60",
+      "_type": "span",
+      "marks": [],
+      "text": "Our Rating: 9.3/10 ★★★★½"
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "oscar63",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar62",
+      "_type": "span",
+      "marks": [],
+      "text": "The Secret Agent"
+     }
+    ],
+    "markDefs": [],
+    "style": "h2"
+   },
+   {
+    "_key": "oscar65",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar64",
+      "_type": "span",
+      "marks": [],
+      "text": "Friday, March 13 | 3:15 PM | 2 hr 41 min | $21.50"
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "oscar67",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar66",
+      "_type": "span",
+      "marks": [],
+      "text": "Brazilian director Kleber Mendonça Filho swept Cannes 2025 with this one — winning both Best Director and Best Actor for Wagner Moura — so we walked in with high expectations. The film is set during Brazil's military dictatorship and follows Marcelo (Moura), a political fugitive on the run who travels to Recife during Carnival hoping to find safe passage out of the country."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "oscar69",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar68",
+      "_type": "span",
+      "marks": [],
+      "text": "Wagner Moura is genuinely great in this, and the Carnival backdrop makes for visually striking cinema. But the director's choice to constantly jump back and forth in the timeline made an already complex story unnecessarily difficult to follow. We both thought it was okay at best. At 2 hours 41 minutes it overstays its welcome, and the non-linear structure felt more like a distraction than a real storytelling choice. There is a good film somewhere inside this one — it just needed a straighter edit."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "oscar71",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar70",
+      "_type": "span",
+      "marks": [],
+      "text": "Still worth watching if you are interested in Brazilian political history or world cinema. Just be prepared to pay close attention to where in the timeline each scene is landing."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "oscar73",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar72",
+      "_type": "span",
+      "marks": [],
+      "text": "Our Rating: 6/10 ★★★"
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "oscar75",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar74",
+      "_type": "span",
+      "marks": [],
+      "text": "Bugonia"
+     }
+    ],
+    "markDefs": [],
+    "style": "h2"
+   },
+   {
+    "_key": "oscar77",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar76",
+      "_type": "span",
+      "marks": [],
+      "text": "Saturday, March 14 | 12:15 PM | 1 hr 58 min | $21.50"
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "oscar79",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar78",
+      "_type": "span",
+      "marks": [],
+      "text": "Yorgos Lanthimos is back doing Yorgos Lanthimos things, and we are here for it. Bugonia is an English-language remake of the 2003 Korean cult film Save the Green Planet — Jesse Plemons plays Teddy, a conspiracy-obsessed beekeeper who becomes absolutely convinced that his company's CEO (Emma Stone) is an alien plotting to destroy Earth. He and his cousin kidnap her from outside her home, drag her to their basement, and the madness spirals from there."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "oscar81",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar80",
+      "_type": "span",
+      "marks": [],
+      "text": "It is completely unhinged and we loved every second of it. There is nothing else like it in this year's lineup — or really any year's lineup. Lanthimos, Stone, and Plemons together seem to be building a cinematic universe of delightfully bizarre films, and Bugonia is another winner. Unique, funny, strange, and fully committed to its own absurd premise. This was the most fun we had in a theater all week."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "oscar83",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar82",
+      "_type": "span",
+      "marks": [],
+      "text": "No Oscars context needed to enjoy this one. It is a completely singular film that works on its own terms, now and years from now. If you like Lanthimos's work on Poor Things or The Favourite, this belongs on your list."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "oscar85",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar84",
+      "_type": "span",
+      "marks": [],
+      "text": "Our Rating: 8.5/10 ★★★★¼"
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "oscar87",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar86",
+      "_type": "span",
+      "marks": [],
+      "text": "One Battle After Another"
+     }
+    ],
+    "markDefs": [],
+    "style": "h2"
+   },
+   {
+    "_key": "oscar89",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar88",
+      "_type": "span",
+      "marks": [],
+      "text": "Saturday, March 14 | 3:00 PM | 2 hr 42 min | $21.50"
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "oscar91",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar90",
+      "_type": "span",
+      "marks": [],
+      "text": "We had two films on Saturday and saved the biggest for the afternoon. Paul Thomas Anderson's epic — loosely adapted from Thomas Pynchon's novel Vineland — stars Leonardo DiCaprio as Bob, a former guerrilla activist turned paranoid, cannabis-addled single father whose revolutionary past comes back to find him 16 years later. The ensemble cast is stacked: Sean Penn, Benicio del Toro, Teyana Taylor, Regina Hall. Every scene feels like it is building toward something enormous."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "oscar93",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar92",
+      "_type": "span",
+      "marks": [],
+      "text": "It is very good. PTA is operating at a very high level here — the film is kinetic, ambitious, and alive in a way that feels rare. DiCaprio has not been this interesting on screen in years. It went on to win Best Picture, Best Director, and four other Oscars at the 98th Academy Awards, which felt completely well-earned. Our second film of the day and we walked out buzzing."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "oscar95",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar94",
+      "_type": "span",
+      "marks": [],
+      "text": "This is the kind of Best Picture winner that will hold up. It has the density and ambition of Anderson's best work, and it rewards multiple viewings. Watch it now, watch it again in five years — it will still be doing things."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "oscar97",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar96",
+      "_type": "span",
+      "marks": [],
+      "text": "Our Rating: 8.88/10 ★★★★½"
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "oscar99",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar98",
+      "_type": "span",
+      "marks": [],
+      "text": "F1"
+     }
+    ],
+    "markDefs": [],
+    "style": "h2"
+   },
+   {
+    "_key": "oscar101",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar100",
+      "_type": "span",
+      "marks": [],
+      "text": "Sunday, March 15 | 11:00 AM | 2 hr 35 min | $21.50"
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "oscar103",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar102",
+      "_type": "span",
+      "marks": [],
+      "text": "We started the final day with Brad Pitt behind the wheel. F1 follows Sonny Hayes (Pitt), a former Formula 1 driver who returns to racing 30 years after a career-ending accident — this time to save his old teammate's (Javier Bardem) struggling team from collapse. He is paired with Joshua Pearce (Damson Idris), the team's hotshot rookie who wants to set his own pace. The film was shot at actual F1 race weekends, and the racing sequences are legitimately thrilling in a theater — the sound design alone is worth the price of admission."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "oscar105",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar104",
+      "_type": "span",
+      "marks": [],
+      "text": "That said, we did not think it was Oscar worthy. It is a great popcorn film — entertaining, loud, well-made — but the story is pretty predictable and the character drama between races feels surface-level. The four Oscar nominations surprised us both. If you love motorsport or just want a fun two-and-a-half hours, this delivers. Just do not go in expecting awards-season depth."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "oscar107",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar106",
+      "_type": "span",
+      "marks": [],
+      "text": "The good news: F1 is one of those films that will absolutely hold up as pure entertainment. Pop it on when you want something that looks and sounds incredible and does not require you to think too hard. It is built for repeated viewings."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "oscar109",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar108",
+      "_type": "span",
+      "marks": [],
+      "text": "Our Rating: 8/10 ★★★★"
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "oscar111",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar110",
+      "_type": "span",
+      "marks": [],
+      "text": "Oscars Shorts 2026"
+     }
+    ],
+    "markDefs": [],
+    "style": "h2"
+   },
+   {
+    "_key": "oscar113",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar112",
+      "_type": "span",
+      "marks": [],
+      "text": "Sunday, March 15 | 2:00 PM | 3 hr 40 min"
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "oscar115",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar114",
+      "_type": "span",
+      "marks": [],
+      "text": "After F1 we stayed for the full Oscars Shorts program — a theatrical package covering all five nominees in each of the three short film categories: Animated, Live Action, and Documentary. At 3 hours and 40 minutes it is a serious commitment, but it is one of the best values in cinema. Fifteen short films for one ticket price, ranging from devastating to delightful."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "oscar117",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar116",
+      "_type": "span",
+      "marks": [],
+      "text": "Animated highlights included Butterfly, Forevergreen, and The Girl Who Cried Pearls — each completely different in style and tone. The Documentary and Live Action categories were a mixed bag, with some entries landing much harder than others. Scores varied widely across the batches, which is expected when you are watching 15 films from 15 different creative teams back to back. But as an overall experience the Shorts program is something we would recommend to anyone who wants a crash course in global short-form filmmaking."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "oscar119",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar118",
+      "_type": "span",
+      "marks": [],
+      "text": "Short films have a long shelf life — many nominees end up on YouTube, Vimeo, or streaming platforms after their theatrical run. If you missed the theatrical program, it is worth hunting them down individually."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "oscar120",
+    "_type": "callout",
+    "text": [
+     {
+      "_key": "oscar122",
+      "_type": "block",
+      "children": [
+       {
+        "_key": "oscar121",
+        "_type": "span",
+        "marks": [],
+        "text": "We had Frankenstein on the schedule for Tuesday evening but did not end up making it — it clashed with other things that week. It stays on the to-watch list."
+       }
+      ],
+      "markDefs": [],
+      "style": "normal"
+     }
+    ],
+    "type": "warning"
+   },
+   {
+    "_key": "oscar124",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar123",
+      "_type": "span",
+      "marks": [],
+      "text": "Sinners — A Special Mention"
+     }
+    ],
+    "markDefs": [],
+    "style": "h2"
+   },
+   {
+    "_key": "oscar126",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar125",
+      "_type": "span",
+      "marks": [],
+      "text": "We also need to talk about Sinners, because it deserves its own section. Ryan Coogler's horror film starring Michael B. Jordan as twin brothers returning to their Mississippi Delta hometown in 1932 is one of those films that demands the biggest screen possible. We saw it twice — once in standard format and once in IMAX — and the IMAX version is not optional if you have access to it."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "oscar128",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar127",
+      "_type": "span",
+      "marks": [],
+      "text": "Sinners went into the 98th Oscars with 16 nominations — the most of any film in Academy Awards history — and earned every one of them. Michael B. Jordan is phenomenal in dual roles as twins who could not be more different. The blues music, the period detail, Ludwig Göransson's score, Autumn Durald Arkapaw's cinematography — everything about this film is alive. It won Best Actor, Best Original Screenplay, Best Cinematography, and Best Original Score. The IMAX screening was one of the best theatrical experiences we have had in years."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "oscar130",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar129",
+      "_type": "span",
+      "marks": [],
+      "text": "Years from now, Sinners will still be the answer when someone asks what the great films of 2025 were. It is the rare Oscar winner that also fully works as a genre film — horror, blues, history, and heart all in one package. See it on the biggest screen you can find. Then see it again."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "oscar132",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar131",
+      "_type": "span",
+      "marks": [],
+      "text": "Our Rating: 9.68/10 ★★★★¾"
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "oscar134",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar133",
+      "_type": "span",
+      "marks": [],
+      "text": "Final Thoughts"
+     }
+    ],
+    "markDefs": [],
+    "style": "h2"
+   },
+   {
+    "_key": "oscar136",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar135",
+      "_type": "span",
+      "marks": [],
+      "text": "Overall, Cinemark Oscar Movie Week is absolutely worth doing. At $21.50 per ticket for most films it is not cheap, but the experience of seeing these films in a theater — alongside audiences who specifically chose to be there — is something you cannot replicate at home. We spent $174.50 over the week and walked away with a much richer appreciation for what the 98th Academy Awards were actually celebrating."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "oscar138",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar137",
+      "_type": "span",
+      "marks": [],
+      "text": "Hamnet was our standout. One Battle After Another and Sinners are not far behind. Bugonia was the most fun. Train Dreams was the quiet gut-punch. And even the films we were less impressed by — Sentimental Value and The Secret Agent — are films with real craft behind them that other audiences clearly loved."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "oscar140",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "oscar139",
+      "_type": "span",
+      "marks": [],
+      "text": "Here is the thing we want to leave you with: you do not need Oscar season to enjoy any of these films. Every film on this list is available or will be available on streaming, and every one of them is worth your two hours regardless of when you find it. Hamnet will hit just as hard in 2028. Sinners will still be electric on a good home theater setup. One Battle After Another is a film people will be writing about for decades. The Oscars are just the event that brought them to your attention — the films themselves are the point."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "oscar141",
+    "_type": "callout",
+    "text": [
+     {
+      "_key": "oscar143",
+      "_type": "block",
+      "children": [
+       {
+        "_key": "oscar142",
+        "_type": "span",
+        "marks": [],
+        "text": "Cinemark Oscar Movie Week typically runs the week before the Academy Awards ceremony each year. Tickets sell out fast for the big titles — buy as early as possible once the schedule drops. Weekday matinees are often priced lower (we paid $12 for Train Dreams on a Tuesday afternoon vs $21.50 on weekends), so check the showtimes before you book."
+       }
+      ],
+      "markDefs": [],
+      "style": "normal"
+     }
+    ],
+    "type": "tip"
+   }
+  ],
+  "date": "2026-03-15T00:00:00Z",
+  "slug": {
+   "_type": "slug",
+   "current": "cinemark-oscar-movie-week-2026"
+  },
+  "summary": "We spent a week at Cinemark watching Oscar-nominated films before the 98th Academy Awards — here's our honest take on every movie we saw.",
+  "tags": [
+   "Oscar",
+   "Cinemark",
+   "Oscar Movie Week",
+   "film reviews",
+   "2026",
+   "98th Academy Awards",
+   "movies"
+  ],
+  "title": "Cinemark Oscar Movie Week 2026: Our Complete Rundown & Reviews"
+ },
+ {
+  "_createdAt": "2025-09-03T22:35:01Z",
+  "_id": "drafts.PHhuC41o5qRtc67VfJFrHF",
+  "_ratingScale": 10,
+  "_rev": "VnnbDxNmge33QNjwt7teoj",
+  "_type": "foodReview",
+  "_updatedAt": "2026-05-16T01:24:23Z",
+  "date": "2025-11-03T04:03:00.000Z",
+  "diningType": "dinein",
+  "excerpt2": [
+   {
+    "_key": "750f6666fe8c",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "69eda59194820",
+      "_type": "span",
+      "marks": [],
+      "text": "Forget the fancy tea sets—this is brunch, reimagined! Take a delicious trip around the world as five acclaimed chefs craft dishes inspired by the flavors and rich traditions of global tea culture. From dim sum and oolong to chai-spiced bites, Moroccan mint tea pairings, British tea-time classics and more, this walk-around brunch is steeped in bold flavors and creative pairings—the perfect sip to match every bite."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "8df39da43d5c",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "6304a0e8afd00",
+      "_type": "span",
+      "marks": [],
+      "text": "Enjoy tea-inspired cocktails and hand-selected teas from across the globe, guided by a tea sommelier who will pair each chef’s dish with complementary sips—highlighting the nuance, complexity, and culinary connection of tea beyond the cup. and taste how tea has shaped culinary traditions far beyond the cup. Whether you’re here for the matcha martinis, fragrant warmth of masala chai, or cool refreshing Moroccan mint tea, this brunch is your passport to the world of teatime."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "b8a6173945c6",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "e8ac00e4a0740",
+      "_type": "span",
+      "marks": [],
+      "text": "Join us for a global celebration of tea, taste, and tradition in one unforgettable brunch experience! - "
+     },
+     {
+      "_key": "6bef2a22bde5",
+      "_type": "span",
+      "marks": [
+       "8169eb273cf9"
+      ],
+      "text": "Hawai'i Foor and Wine Festival"
+     }
+    ],
+    "markDefs": [
+     {
+      "_key": "8169eb273cf9",
+      "_type": "link",
+      "href": "https://hawaiifoodandwinefestival.com/events/matcha-chai-brunch/"
+     }
+    ],
+    "style": "normal"
+   },
+   {
+    "_key": "1d3c5df9b5e7",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "39e05a9aa0a00",
+      "_type": "span",
+      "marks": [],
+      "text": "GENERAL ADMISSION COST: $125"
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   }
+  ],
+  "foodRating": {
+   "Flavor_and_Taste": 6,
+   "Food_Value": 6,
+   "Memorability": 6,
+   "Presentation_on_Plate": 6,
+   "Restaurant_Cleanliness": 6,
+   "Restaurant_Location": 6,
+   "Restaurant_Service": 6,
+   "_type": "foodRating"
+  },
+  "location": "Hyatt Regency Waikiki Beach Resort and Spa",
+  "seoExcerpt": "We checked out the MatCHA Chai Brunch at the Hyatt Regency Waikiki Beach. Five chefs made tea-inspired dishes that were fun, creative, and super tasty.",
+  "slug": {
+   "_type": "slug",
+   "current": "matcha-chai-brunch-hawaii-food-and-wine-festival"
+  },
+  "tags": [
+   "dine-in",
+   "Hyatt Regency Waikiki Beach Resort and Spa"
+  ],
+  "takeoutRating": {
+   "_type": "takeOutFoodRating",
+   "accuracy": 6,
+   "foodValue": 6,
+   "overallSatisfaction": 6,
+   "packaging": 6,
+   "presentation": 6,
+   "tasteAndFlavor": 6
+  },
+  "title": "MatCHA Chai Brunch - Hawaii Food and Wine Festival",
+  "youtube": null
+ },
+ {
+  "_createdAt": "2025-08-31T19:24:22Z",
+  "_dishRatingMigrated": true,
+  "_id": "drafts.RSxdWdUrV9bWPmM6vGKxOX",
+  "_ratingScale": 10,
+  "_rev": "43z35Sk0eKiQjSLkYCeIC0",
+  "_type": "foodReview",
+  "_updatedAt": "2026-10-13T20:53:15Z",
+  "coverImage": {
+   "_type": "image",
+   "alt": "The outdoor patio at Atlantic Fish Co. in Boston, framed by pink flowers and dark gray planters.",
+   "asset": {
+    "_ref": "image-eee074d3a2e0633a1bd2cfd9a0ff12056114391a-1224x922-webp",
+    "_type": "reference"
+   }
+  },
+  "date": "2024-08-20T01:03:00.000Z",
+  "diningType": "dinein",
+  "foodRating": {
+   "Flavor_and_Taste": 10,
+   "Food_Value": 7,
+   "Memorability": 10,
+   "Presentation_on_Plate": 10,
+   "Restaurant_Cleanliness": 10,
+   "Restaurant_Location": 9,
+   "Restaurant_Service": 10,
+   "_type": "foodRating"
+  },
+  "gallery": [
+   {
+    "_key": "75d0ffe8060e",
+    "_type": "image",
+    "asset": {
+     "_ref": "image-14469ba2bea4afd15edd53c811c065b4509e24a5-1224x922-webp",
+     "_type": "reference"
+    }
+   },
+   {
+    "_key": "91c24e6d390a",
+    "_type": "image",
+    "asset": {
+     "_ref": "image-b79cc7e97fb4a5e7f56c9c409e5d02ef755f16d1-922x1224-webp",
+     "_type": "reference"
+    },
+    "crop": {
+     "_type": "sanity.imageCrop",
+     "bottom": 0,
+     "left": 0,
+     "right": 0,
+     "top": 0
+    },
+    "hotspot": {
+     "_type": "sanity.imageHotspot",
+     "height": 0.5541889250814324,
+     "width": 1,
+     "x": 0.5,
+     "y": 0.48775244299674264
+    }
+   },
+   {
+    "_key": "34d474f9c677",
+    "_type": "image",
+    "asset": {
+     "_ref": "image-f2e992a1c735cbe010c5626a65bac734eab3a4e9-922x1224-webp",
+     "_type": "reference"
+    },
+    "crop": {
+     "_type": "sanity.imageCrop",
+     "bottom": 0,
+     "left": 0,
+     "right": 0,
+     "top": 0
+    },
+    "hotspot": {
+     "_type": "sanity.imageHotspot",
+     "height": 0.6668664495113998,
+     "width": 1,
+     "x": 0.5,
+     "y": 0.38242345276872936
+    }
+   },
+   {
+    "_key": "59633d81226d",
+    "_type": "image",
+    "asset": {
+     "_ref": "image-61d2b56b86cfb49361ab169659f8946b39a0c046-922x1224-webp",
+     "_type": "reference"
+    },
+    "crop": {
+     "_type": "sanity.imageCrop",
+     "bottom": 0,
+     "left": 0,
+     "right": 0,
+     "top": 0
+    },
+    "hotspot": {
+     "_type": "sanity.imageHotspot",
+     "height": 0.6668664495114007,
+     "width": 1,
+     "x": 0.5,
+     "y": 0.40446905537459277
+    }
+   },
+   {
+    "_key": "92aba708c718",
+    "_type": "image",
+    "asset": {
+     "_ref": "image-a9f0db2a9669af5d4418aacec996ae740924aada-922x1224-webp",
+     "_type": "reference"
+    }
+   },
+   {
+    "_key": "615e7d86dbc3",
+    "_type": "image",
+    "asset": {
+     "_ref": "image-1045b3a5ffca301a516d6ee69761b798d5e35e8c-922x1224-webp",
+     "_type": "reference"
+    }
+   },
+   {
+    "_key": "a03541a9703c",
+    "_type": "image",
+    "asset": {
+     "_ref": "image-315517d547ec072cdf65cf60ec0a261fd83be7e3-922x1224-webp",
+     "_type": "reference"
+    },
+    "crop": {
+     "_type": "sanity.imageCrop",
+     "bottom": 0,
+     "left": 0,
+     "right": 0,
+     "top": 0
+    },
+    "hotspot": {
+     "_type": "sanity.imageHotspot",
+     "height": 0.7207557003257323,
+     "width": 1,
+     "x": 0.5,
+     "y": 0.5195960912052114
+    }
+   },
+   {
+    "_key": "ba8ac89f81f3",
+    "_type": "image",
+    "asset": {
+     "_ref": "image-0184a815b3370ab8daab8cd4767c427625f4078c-922x1224-webp",
+     "_type": "reference"
+    },
+    "crop": {
+     "_type": "sanity.imageCrop",
+     "bottom": 0,
+     "left": 0,
+     "right": 0,
+     "top": 0
+    },
+    "hotspot": {
+     "_type": "sanity.imageHotspot",
+     "height": 0.6472703583061885,
+     "width": 1,
+     "x": 0.5,
+     "y": 0.4020195439739412
+    }
+   },
+   {
+    "_key": "d5a306632fc3",
+    "_type": "image",
+    "asset": {
+     "_ref": "image-90261027989b548393942be3c62c1f37afb3396c-922x1224-webp",
+     "_type": "reference"
+    },
+    "crop": {
+     "_type": "sanity.imageCrop",
+     "bottom": 0,
+     "left": 0,
+     "right": 0,
+     "top": 0
+    },
+    "hotspot": {
+     "_type": "sanity.imageHotspot",
+     "height": 0.5492899022801293,
+     "width": 1,
+     "x": 0.5,
+     "y": 0.38242345276872947
+    }
+   },
+   {
+    "_key": "58ca2bd3f87e",
+    "_type": "image",
+    "asset": {
+     "_ref": "image-226d3a5885a31cc8d8b07503534756c51ab99186-922x1224-webp",
+     "_type": "reference"
+    }
+   }
+  ],
+  "heroPhotos": [
+   {
+    "_key": "cf23dd12bfc5",
+    "_type": "image",
+    "alt": "The outdoor patio at Atlantic Fish Co. in Boston, framed by pink flowers and dark gray planters.",
+    "asset": {
+     "_ref": "image-eee074d3a2e0633a1bd2cfd9a0ff12056114391a-1224x922-webp",
+     "_type": "reference"
+    }
+   },
+   {
+    "_key": "614721bf00aa",
+    "_type": "image",
+    "asset": {
+     "_ref": "image-14469ba2bea4afd15edd53c811c065b4509e24a5-1224x922-webp",
+     "_type": "reference"
+    }
+   },
+   {
+    "_key": "69a4e24e5cbe",
+    "_type": "image",
+    "asset": {
+     "_ref": "image-b79cc7e97fb4a5e7f56c9c409e5d02ef755f16d1-922x1224-webp",
+     "_type": "reference"
+    },
+    "crop": {
+     "_type": "sanity.imageCrop",
+     "bottom": 0,
+     "left": 0,
+     "right": 0,
+     "top": 0
+    },
+    "hotspot": {
+     "_type": "sanity.imageHotspot",
+     "height": 0.5541889250814324,
+     "width": 1,
+     "x": 0.5,
+     "y": 0.48775244299674264
+    }
+   },
+   {
+    "_key": "286fde198768",
+    "_type": "image",
+    "asset": {
+     "_ref": "image-f2e992a1c735cbe010c5626a65bac734eab3a4e9-922x1224-webp",
+     "_type": "reference"
+    },
+    "crop": {
+     "_type": "sanity.imageCrop",
+     "bottom": 0,
+     "left": 0,
+     "right": 0,
+     "top": 0
+    },
+    "hotspot": {
+     "_type": "sanity.imageHotspot",
+     "height": 0.6668664495113998,
+     "width": 1,
+     "x": 0.5,
+     "y": 0.38242345276872936
+    }
+   },
+   {
+    "_key": "bc7c6d6c687a",
+    "_type": "image",
+    "asset": {
+     "_ref": "image-61d2b56b86cfb49361ab169659f8946b39a0c046-922x1224-webp",
+     "_type": "reference"
+    },
+    "crop": {
+     "_type": "sanity.imageCrop",
+     "bottom": 0,
+     "left": 0,
+     "right": 0,
+     "top": 0
+    },
+    "hotspot": {
+     "_type": "sanity.imageHotspot",
+     "height": 0.6668664495114007,
+     "width": 1,
+     "x": 0.5,
+     "y": 0.40446905537459277
+    }
+   }
+  ],
+  "individualFoodRating": [
+   {
+    "_key": "f26d04668656",
+    "_type": "image",
+    "alt": "Cheesy crab dip with tortilla chips at Atlantic Fish Company in Boston.",
+    "asset": {
+     "_ref": "image-869783db89813c8e325533ba53db0f14a5876587-3072x4080-jpg",
+     "_type": "reference"
+    },
+    "crop": {
+     "_type": "sanity.imageCrop",
+     "bottom": 0.1273745928338762,
+     "left": 0,
+     "right": 0,
+     "top": 0.12982410423452775
+    },
+    "hotspot": {
+     "_type": "sanity.imageHotspot",
+     "height": 0.5639869706840382,
+     "width": 0.9478827361563518,
+     "x": 0.5260586319218241,
+     "y": 0.4118175895765469
+    },
+    "name": "Crab Queso Special ",
+    "price": 28,
+    "rating": {
+     "Dish": 9,
+     "_type": "individualFoodType"
+    }
+   },
+   {
+    "_key": "7771871b8e98",
+    "_type": "image",
+    "asset": {
+     "_ref": "image-1d290a40ea60f80db6a2924691ece595d51edf3d-922x1224-webp",
+     "_type": "reference"
+    },
+    "name": "Chowder Cup ",
+    "price": 10,
+    "rating": {
+     "Dish": 9,
+     "_type": "individualFoodType"
+    }
+   },
+   {
+    "_key": "29b7e078ea41",
+    "_type": "image",
+    "asset": {
+     "_ref": "image-14469ba2bea4afd15edd53c811c065b4509e24a5-1224x922-webp",
+     "_type": "reference"
+    },
+    "name": "Branzino",
+    "price": 44,
+    "rating": {
+     "Dish": 9,
+     "_type": "individualFoodType"
+    }
+   },
+   {
+    "_key": "d269b4431d4d",
+    "_type": "image",
+    "alt": "Crab cake with tartar sauce and a lemon wedge at Atlantic Fish Company in Boston.",
+    "asset": {
+     "_ref": "image-6e29712b61f195f1aaa513176c9f3c926eb91333-922x1224-webp",
+     "_type": "reference"
+    },
+    "name": "Crab cake side",
+    "price": 9,
+    "rating": {
+     "Dish": 9,
+     "_type": "individualFoodType"
+    }
+   },
+   {
+    "_key": "8d2fea2daede",
+    "_type": "image",
+    "asset": {
+     "_ref": "image-b79cc7e97fb4a5e7f56c9c409e5d02ef755f16d1-922x1224-webp",
+     "_type": "reference"
+    },
+    "name": "Lobster Ravioli",
+    "price": 42,
+    "rating": {
+     "Dish": 7,
+     "_type": "individualFoodType"
+    }
+   },
+   {
+    "_key": "51ba89df250b",
+    "_type": "image",
+    "asset": {
+     "_ref": "image-0cbd3f2790371334cd0ddfbaf3304ec905d98591-3072x4080-jpg",
+     "_type": "reference"
+    },
+    "crop": {
+     "_type": "sanity.imageCrop",
+     "bottom": 0.10287947882736159,
+     "left": 0,
+     "right": 0,
+     "top": 0
+    },
+    "hotspot": {
+     "_type": "sanity.imageHotspot",
+     "height": 0.7942410423452765,
+     "width": 1,
+     "x": 0.5,
+     "y": 0.39712052117263824
+    },
+    "name": "Back Bay Sangria",
+    "price": 18,
+    "rating": {
+     "Dish": 8,
+     "_type": "individualFoodType"
+    }
+   },
+   {
+    "_key": "9e2bafaa5066",
+    "_type": "image",
+    "alt": "A classic cocktail with a large ice sphere and lemon twist at Atlantic Fish Company in Boston.",
+    "asset": {
+     "_ref": "image-c3ed1161eb3c56afce6d0e1f4b4a954146fa4429-922x1224-webp",
+     "_type": "reference"
+    },
+    "crop": {
+     "_type": "sanity.imageCrop",
+     "bottom": 0,
+     "left": 0,
+     "right": 0,
+     "top": 0.10777850162866458
+    },
+    "hotspot": {
+     "_type": "sanity.imageHotspot",
+     "height": 0.8677263843648206,
+     "width": 1,
+     "x": 0.5,
+     "y": 0.5661368078175897
+    },
+    "name": "Old Fashioned",
+    "price": 18,
+    "rating": {
+     "Dish": 8,
+     "_type": "individualFoodType"
+    }
+   }
+  ],
+  "location": "Boston, MA",
+  "negatives": [
+   "The bathroom is located down a set of stairs, an accessibility issue.",
+   "The 2-seater tables are a bit small & space can quickly be occupied with drinks, appetizers & cutlery. "
+  ],
+  "positives": [
+   "We came in without a reservation right before 5pm & were seated promptly. In the future, we would make a reservation, especially after 6pm and/or on the wekeend.",
+   "Karina, our waitress, was phenomenal. Genuine, personable & always anticipating our needs.",
+   "Food is amazing. Would make a trip out to Boston just to eat here again.",
+   "Bathroom is clean & there are plenty of stalls.",
+   "Branzino entree came with two sides, rather than a $3 - $5 charge per.",
+   "Hot hand towels were provided at the end of the meal."
+  ],
+  "priceTier": "$$$ ($30–$60)",
+  "seoExcerpt": "Visiting Boston for an NBA game? Don't miss Atlantic Fish Company. The service was top-tier and the food is so good we'd fly back just to eat here again.",
+  "slug": {
+   "_type": "slug",
+   "current": "atlantic-fish-company-review"
+  },
+  "tags": [
+   "dine-in",
+   "Boston",
+   "MA",
+   "individual ratings",
+   "highly rated",
+   "photo-rich"
+  ],
+  "title": "Atlantic Fish Company Review",
+  "verdict": [
+   {
+    "_key": "156dd2fda437",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "3484357824390",
+      "_type": "span",
+      "marks": [],
+      "text": "We stumbled upon Atlantic Fish Company just before the dinner rush and snagged a table, but we'd definitely recommend making a reservation, especially for later dining."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "5d2b0335b541",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "52ad97b4bd800",
+      "_type": "span",
+      "marks": [],
+      "text": "Our server, Karina, was an absolute gem! Attentive, friendly, and genuinely personable – she really elevated our experience."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "9295ba500e2b",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "11861e698e210",
+      "_type": "span",
+      "marks": [],
+      "text": "And the food? Amazing! Seriously, we'd travel back to Boston just to savor those flavors again. The branzino was a highlight, and we loved that it came with two sides included."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "7a457dea99bc",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "88f7f6c46a060",
+      "_type": "span",
+      "marks": [],
+      "text": "A few minor observations: the tables for two are a bit cozy (read: small), and the bathroom is down a flight of stairs, which poses an accessibility issue."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "720f952cf3ed",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "6716e38830e30",
+      "_type": "span",
+      "marks": [],
+      "text": "But those are minor quibbles in an otherwise fantastic experience. Hot towels at the end of the meal were a lovely touch! Overall, Atlantic Fish Company is a must-try for seafood lovers in the Boston area. Highly recommend!"
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   }
+  ],
+  "youtube": null
+ },
+ {
+  "_createdAt": "2026-05-16T00:13:57Z",
+  "_id": "drafts.VnnbDxNmge33QNjwt44eoF",
+  "_rev": "51f0d2d0-d20e-4e40-93a1-bc7695c74344",
+  "_type": "guide",
+  "_updatedAt": "2026-07-08T18:30:25Z",
+  "category": "tips",
+  "content": [
+   {
+    "_key": "0808876043e7",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph1",
+      "_type": "span",
+      "marks": [],
+      "text": "We have a problem. A very fun, very expensive, completely irrational problem."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "16836760d416",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph3",
+      "_type": "span",
+      "marks": [],
+      "text": "We decided to visit every NBA arena in the United States and Canada. All 30 of them. Somewhere along the way, that casual \"wouldn't that be cool?\" conversation turned into a spreadsheet, a hotel points strategy, and a real opinion about the parking situation in Oklahoma City."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "13e26321c9af",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph5",
+      "_type": "span",
+      "marks": [],
+      "text": "If you've ever watched a game from your couch and thought \"what if I just actually went\" — this guide is for you. We've been doing this for a while, and we've picked up a lot along the way. How to plan your trips around the schedule, how to stack multiple arenas into one visit, which buildings are genuinely worth the flight, and what to do once you get there."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "1e7618d569c1",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph7",
+      "_type": "span",
+      "marks": [],
+      "text": "This isn't a listicle. It's a real guide from people who are actually working through the list."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "f5fc2dadc1af",
+    "_type": "image",
+    "alt": "",
+    "caption": "Hero photo — wide shot of one of the arenas we've visited"
+   },
+   {
+    "_key": "7590098828c1",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph12",
+      "_type": "span",
+      "marks": [],
+      "text": "Why Visiting Every NBA Arena Is Worth It"
+     }
+    ],
+    "markDefs": [],
+    "style": "h2"
+   },
+   {
+    "_key": "f967a6cb010d",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph14",
+      "_type": "span",
+      "marks": [],
+      "text": "Most people watch basketball from their couch. And honestly, the TV angles are better, parking is free, and nobody elbows you for the armrest. We get it."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "8dd0575ff4df",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph16",
+      "_type": "span",
+      "marks": [],
+      "text": "But there's something a live NBA game does that a 75-inch screen just can't replicate: it shows you how fast and enormous these people actually are. On TV, the court looks compact. In person, you're watching humans move at a speed your eyes have to recalibrate to process. The sound when someone throws down a dunk reverberates in your chest in a way your soundbar was never designed to handle."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "1eb76efa535b",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph18",
+      "_type": "span",
+      "marks": [],
+      "text": "And then there's the arena itself. Each one has a personality. Each one tells you something about its city."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "6387576af5a4",
+    "_type": "callout",
+    "text": [
+     {
+      "_key": "ph21",
+      "_type": "block",
+      "children": [
+       {
+        "_key": "ph20",
+        "_type": "span",
+        "marks": [],
+        "text": "🎥  Add a short clip here — crowd noise at a game, a dunk that shook the building, or the Deer District before tip-off. This is the moment people get it."
+       }
+      ],
+      "markDefs": [],
+      "style": "normal"
+     }
+    ],
+    "type": "info"
+   },
+   {
+    "_key": "6a05c1c88fc0",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph23",
+      "_type": "span",
+      "marks": [],
+      "text": "Fiserv Forum in Milwaukee has an entire neighborhood that turns into a street festival three hours before tip-off. State Farm Arena in Atlanta is one of the sharpest renovated buildings in the league. Mohegan Sun Arena in Connecticut is the only NBA venue sitting inside a casino resort — which creates a game-day experience you genuinely can't find anywhere else."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "a1c6abb635a9",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph25",
+      "_type": "span",
+      "marks": [],
+      "text": "The point is: visiting NBA arenas is a legitimately great reason to see parts of the country you might never otherwise make it to. Indianapolis, Oklahoma City, Memphis, Portland — cities that rarely top anyone's travel list but have real things to offer if you actually show up."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "cba5f6b695db",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph27",
+      "_type": "span",
+      "marks": [],
+      "text": "How to Plan Your NBA Arena Road Trip"
+     }
+    ],
+    "markDefs": [],
+    "style": "h2"
+   },
+   {
+    "_key": "a9d0401a0caa",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph29",
+      "_type": "span",
+      "marks": [],
+      "text": "Here's the mistake most people make when they start planning: they look at a map and try to find arenas that are close together. That's the wrong starting point. Start with the schedule."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "76f882688620",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph31",
+      "_type": "span",
+      "marks": [],
+      "text": "Follow the NBA Schedule, Not the Map"
+     }
+    ],
+    "markDefs": [],
+    "style": "h3"
+   },
+   {
+    "_key": "1990f1ff1f8e",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph33",
+      "_type": "span",
+      "marks": [],
+      "text": "The NBA releases its full schedule every August for the upcoming season. That document is your real planning tool. Cross-reference your target arenas against home game dates and find the windows where two or three cities overlap within the same week."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "964b2dd325d6",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph35",
+      "_type": "span",
+      "marks": [],
+      "text": "Example: Dallas, San Antonio, and Houston are all within driving distance of each other. But that trip only works if the Mavericks, Spurs, and Rockets all have home games during the same 5-7 day stretch. Some seasons the schedule lines up perfectly. Other times you're doing two out of three and adding the third to next year's list."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "db5062ddfb7b",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph37",
+      "_type": "span",
+      "marks": [],
+      "text": "The schedule also shows you which games are nationally televised — those tend to have better atmospheres, more energy in the building, and higher ticket prices to match. Mid-week games against non-contenders are your budget-friendly options without sacrificing much of the experience."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "db74346f797c",
+    "_type": "callout",
+    "text": [
+     {
+      "_key": "ph40",
+      "_type": "block",
+      "children": [
+       {
+        "_key": "ph39",
+        "_type": "span",
+        "marks": [],
+        "text": "The NBA app lets you filter the full schedule by date and city. Set a reminder for when the schedule drops in August — that's when you plan the whole season's trips."
+       }
+      ],
+      "markDefs": [],
+      "style": "normal"
+     }
+    ],
+    "type": "tip"
+   },
+   {
+    "_key": "59d52a905dc2",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph42",
+      "_type": "span",
+      "marks": [],
+      "text": "How to Stack Multiple Arenas in One Trip"
+     }
+    ],
+    "markDefs": [],
+    "style": "h3"
+   },
+   {
+    "_key": "1eadbeb300c7",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph44",
+      "_type": "span",
+      "marks": [],
+      "text": "Our most efficient trip covered four arenas in six days. It was exhausting. It was also the most fun we've had on any trip we've taken."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "abb07e964d97",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph46",
+      "_type": "span",
+      "marks": [],
+      "text": "The key to stacking is picking cities you can connect by short flight or reasonable drive. Some natural groupings:"
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "b89cfbe12bb5",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph48",
+      "_type": "span",
+      "marks": [],
+      "text": "Dallas → San Antonio → Houston — all drivable, three arenas in three days if the schedules cooperate."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "faafb25a96f1",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph50",
+      "_type": "span",
+      "marks": [],
+      "text": "New York (Madison Square Garden) → Brooklyn (Barclays Center) → Philadelphia (Wells Fargo Center) — train travel the whole way, three arenas in close proximity."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "fda09afa218c",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph52",
+      "_type": "span",
+      "marks": [],
+      "text": "Denver → Salt Lake City → Phoenix — short flights between, three completely different arena vibes."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "455edd4b7668",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph54",
+      "_type": "span",
+      "marks": [],
+      "text": "Toronto → Detroit → Cleveland → Indianapolis — a Midwest/Canada run that hits four arenas with a border crossing built in."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "b7276d153e43",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph56",
+      "_type": "span",
+      "marks": [],
+      "text": "One rule we've learned the hard way: don't do more than two arenas on back-to-back nights if you actually want to enjoy either of them. Day games help when you can find them."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "25e04b3485b9",
+    "_type": "image",
+    "alt": "",
+    "caption": "Trip planning — itinerary, route map, or the spreadsheet"
+   },
+   {
+    "_key": "ace3f3696c6c",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph61",
+      "_type": "span",
+      "marks": [],
+      "text": "What It Actually Costs: An Honest Budget Breakdown"
+     }
+    ],
+    "markDefs": [],
+    "style": "h2"
+   },
+   {
+    "_key": "368d069ecc2c",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph63",
+      "_type": "span",
+      "marks": [],
+      "text": "Let's be real about money, because visiting every NBA arena isn't cheap. Here's how we think about the budget for each city."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "cff4240a99e0",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph65",
+      "_type": "span",
+      "marks": [],
+      "text": "Tickets: $30 to $300+ Per Seat"
+     }
+    ],
+    "markDefs": [],
+    "style": "h3"
+   },
+   {
+    "_key": "51f79c316865",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph67",
+      "_type": "span",
+      "marks": [],
+      "text": "The range is enormous. A Tuesday night game for a rebuilding team in a mid-market city — Oklahoma City, Memphis, Indianapolis — might run you $30-60 a seat in the lower bowl on the secondary market. A weekend game for a contender in New York, Boston, or Golden State? Easily $150-300 before fees."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "9ed87fc14237",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph69",
+      "_type": "span",
+      "marks": [],
+      "text": "Our go-to approach: lower bowl seats in the 100-level, bought 2-3 weeks before the game on SeatGeek or StubHub. Prices almost always drop in that window unless it's a marquee matchup. The one exception: Milwaukee when the Bucks are good. Prices hold because locals actually show up."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "b577e28140c1",
+    "_type": "image",
+    "alt": "",
+    "caption": "Game tickets or view from our seats"
+   },
+   {
+    "_key": "3b8edff61803",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph74",
+      "_type": "span",
+      "marks": [],
+      "text": "Hotels: $120-200 Per Night"
+     }
+    ],
+    "markDefs": [],
+    "style": "h3"
+   },
+   {
+    "_key": "7931dbc3900f",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph76",
+      "_type": "span",
+      "marks": [],
+      "text": "We budget $120-200 per night for a hotel within walking distance of the arena. That last part matters more than it sounds. After a game in a city like New York or Chicago, Uber surge pricing is real, the lines are long, and your night ends on a bad note. If you can walk back to your hotel, everything is better."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "7a5497c3fb93",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph78",
+      "_type": "span",
+      "marks": [],
+      "text": "Hotel points are one of the best things you can spend on arena travel. Most major arenas have a points hotel within a few blocks. We've stayed on points at places we definitely couldn't have afforded otherwise."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "dfc75f80f051",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph80",
+      "_type": "span",
+      "marks": [],
+      "text": "Total Cost Per City: $400-700 Per Person"
+     }
+    ],
+    "markDefs": [],
+    "style": "h3"
+   },
+   {
+    "_key": "5b2a28a81b93",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph82",
+      "_type": "span",
+      "marks": [],
+      "text": "Flying in, staying one night, attending one game: realistically budget $400-700 per person. That covers the flight, hotel, ticket, food at the game, and transportation."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "30e75fb1376b",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph84",
+      "_type": "span",
+      "marks": [],
+      "text": "Cities like Milwaukee, Indianapolis, Oklahoma City, and Memphis come in well under that range. New York, Boston, San Francisco, and Toronto will push well over it. Plan your list with that in mind — mix expensive markets with affordable ones so the overall project stays manageable."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "71ccf3559b74",
+    "_type": "callout",
+    "text": [
+     {
+      "_key": "ph87",
+      "_type": "block",
+      "children": [
+       {
+        "_key": "ph86",
+        "_type": "span",
+        "marks": [],
+        "text": "If you have a specific number of arenas you want to hit in a season, figure out which expensive markets you can't avoid and budget those first. Everything else gets easier to plan around them."
+       }
+      ],
+      "markDefs": [],
+      "style": "normal"
+     }
+    ],
+    "type": "info"
+   },
+   {
+    "_key": "5a1dd2464ded",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph89",
+      "_type": "span",
+      "marks": [],
+      "text": "The Arenas Worth Flying For"
+     }
+    ],
+    "markDefs": [],
+    "style": "h2"
+   },
+   {
+    "_key": "43917bbad209",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph91",
+      "_type": "span",
+      "marks": [],
+      "text": "We're not going to pretend every arena is a destination on its own. Some you visit because you're working the list. Others you'd go back to even if you'd already been. Here are the ones that genuinely stood out:"
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "75b55c0e6561",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph93",
+      "_type": "span",
+      "marks": [],
+      "text": "Fiserv Forum — Milwaukee, WI"
+     }
+    ],
+    "markDefs": [],
+    "style": "h3"
+   },
+   {
+    "_key": "f8fbd8d59ad5",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph96",
+      "_type": "span",
+      "marks": [],
+      "text": "We were not prepared for "
+     },
+     {
+      "_key": "ph97",
+      "_type": "span",
+      "marks": [
+       "ph95"
+      ],
+      "text": "Fiserv Forum"
+     },
+     {
+      "_key": "ph98",
+      "_type": "span",
+      "marks": [],
+      "text": ". The building itself is excellent — sightlines are great, acoustics are loud in the best way, and the food is actually worth eating. But the real story is outside. The Deer District, the block surrounding the arena, starts filling up three hours before tip-off and turns into a full street festival: bars, live music, thousands of people who are clearly here to have a night out, not just watch a game. If you're choosing one arena for the atmosphere alone, Milwaukee is it."
+     }
+    ],
+    "markDefs": [
+     {
+      "_key": "ph95",
+      "_type": "link",
+      "href": "/arena/fiserv-forum"
+     }
+    ],
+    "style": "normal"
+   },
+   {
+    "_key": "a7dd89c33984",
+    "_type": "image",
+    "alt": "",
+    "caption": "Fiserv Forum — Deer District crowd, arena exterior, inside view"
+   },
+   {
+    "_key": "bc7c06ee9439",
+    "_type": "callout",
+    "text": [
+     {
+      "_key": "ph104",
+      "_type": "block",
+      "children": [
+       {
+        "_key": "ph103",
+        "_type": "span",
+        "marks": [],
+        "text": "🎥  Add a short clip of the Deer District energy if you have one — this is the thing that surprises everyone"
+       }
+      ],
+      "markDefs": [],
+      "style": "normal"
+     }
+    ],
+    "type": "info"
+   },
+   {
+    "_key": "5536016bf652",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph106",
+      "_type": "span",
+      "marks": [],
+      "text": "State Farm Arena — Atlanta, GA"
+     }
+    ],
+    "markDefs": [],
+    "style": "h3"
+   },
+   {
+    "_key": "16761b05feae",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph109",
+      "_type": "span",
+      "marks": [],
+      "text": "Atlanta's arena went through a full renovation a few years back and it completely changed what the building feels like. "
+     },
+     {
+      "_key": "ph110",
+      "_type": "span",
+      "marks": [
+       "ph108"
+      ],
+      "text": "State Farm Arena"
+     },
+     {
+      "_key": "ph111",
+      "_type": "span",
+      "marks": [],
+      "text": " is now one of the cleanest, sharpest venues in the league — and the food has improved significantly. The surrounding area keeps getting better too, with restaurants and bars within easy walking distance. A Trae Young game here with a good crowd is one of the better atmospheres we've been in."
+     }
+    ],
+    "markDefs": [
+     {
+      "_key": "ph108",
+      "_type": "link",
+      "href": "/arena/state-farm-arena"
+     }
+    ],
+    "style": "normal"
+   },
+   {
+    "_key": "3f58523e6375",
+    "_type": "image",
+    "alt": "",
+    "caption": "State Farm Arena — renovated concourse, our seats, game night"
+   },
+   {
+    "_key": "bb8b39e6e45d",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph116",
+      "_type": "span",
+      "marks": [],
+      "text": "Gainbridge Fieldhouse — Indianapolis, IN"
+     }
+    ],
+    "markDefs": [],
+    "style": "h3"
+   },
+   {
+    "_key": "05bdd2f1b8e0",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph119",
+      "_type": "span",
+      "marks": [],
+      "text": "Indianapolis is one of the most underrated arena cities on this list and it's not particularly close. "
+     },
+     {
+      "_key": "ph120",
+      "_type": "span",
+      "marks": [
+       "ph118"
+      ],
+      "text": "Gainbridge Fieldhouse"
+     },
+     {
+      "_key": "ph121",
+      "_type": "span",
+      "marks": [],
+      "text": " is right in the middle of downtown, surrounded by walkable restaurants and a city that genuinely rallies around its teams. The building has history — it feels lived-in in the best way. Indiana Fever games here are also genuinely worth attending if you follow the WNBA at all. Caitlin Clark playing in this building is an experience."
+     }
+    ],
+    "markDefs": [
+     {
+      "_key": "ph118",
+      "_type": "link",
+      "href": "/arena/gainbridge-fieldhouse"
+     }
+    ],
+    "style": "normal"
+   },
+   {
+    "_key": "ca1ea89a68ff",
+    "_type": "image",
+    "alt": "",
+    "caption": "Gainbridge Fieldhouse — exterior, arena bowl, game atmosphere"
+   },
+   {
+    "_key": "bf5e106618fb",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph126",
+      "_type": "span",
+      "marks": [],
+      "text": "T-Mobile Arena — Las Vegas, NV"
+     }
+    ],
+    "markDefs": [],
+    "style": "h3"
+   },
+   {
+    "_key": "6f1814a72a9e",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph129",
+      "_type": "span",
+      "marks": [],
+      "text": "This one comes with a built-in reason to visit. "
+     },
+     {
+      "_key": "ph130",
+      "_type": "span",
+      "marks": [
+       "ph128"
+      ],
+      "text": "T-Mobile Arena"
+     },
+     {
+      "_key": "ph131",
+      "_type": "span",
+      "marks": [],
+      "text": " is a legitimately good NBA venue — solid sightlines, great energy — but you're clearly combining this trip with everything else Las Vegas offers. Budget accordingly and plan to stay a few extra days. The Golden Knights games here are also worth checking out if the schedule overlaps."
+     }
+    ],
+    "markDefs": [
+     {
+      "_key": "ph128",
+      "_type": "link",
+      "href": "/arena/t-mobile-arena"
+     }
+    ],
+    "style": "normal"
+   },
+   {
+    "_key": "e3efea2ab54b",
+    "_type": "image",
+    "alt": "",
+    "caption": "T-Mobile Arena — exterior on the Strip, inside the arena"
+   },
+   {
+    "_key": "adfa617bd6f3",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph136",
+      "_type": "span",
+      "marks": [],
+      "text": "Mohegan Sun Arena — Uncasville, CT"
+     }
+    ],
+    "markDefs": [],
+    "style": "h3"
+   },
+   {
+    "_key": "e2b599a2da40",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph139",
+      "_type": "span",
+      "marks": [],
+      "text": "This one is genuinely unlike any other arena in North American sports. "
+     },
+     {
+      "_key": "ph140",
+      "_type": "span",
+      "marks": [
+       "ph138"
+      ],
+      "text": "Mohegan Sun Arena"
+     },
+     {
+      "_key": "ph141",
+      "_type": "span",
+      "marks": [],
+      "text": " sits inside a full casino resort in the middle of Connecticut — and the game-day experience reflects that completely. It's compact, it's intimate, and the parking situation is so easy you'll forget arenas are usually a headache. The Connecticut Sun are one of the best WNBA franchises, and watching a playoff game here with a sold-out crowd is electric. Perfect quick weekend trip from anywhere in New England or the New York area."
+     }
+    ],
+    "markDefs": [
+     {
+      "_key": "ph138",
+      "_type": "link",
+      "href": "/arena/mohegan-sun-arena"
+     }
+    ],
+    "style": "normal"
+   },
+   {
+    "_key": "93a6653d10e6",
+    "_type": "image",
+    "alt": "",
+    "caption": "Mohegan Sun Arena — casino resort exterior, arena interior"
+   },
+   {
+    "_key": "fea235d118d9",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "wnba_h2_1s1",
+      "_type": "span",
+      "marks": [],
+      "text": "Why We Added WNBA to the Quest"
+     }
+    ],
+    "markDefs": [],
+    "style": "h2"
+   },
+   {
+    "_key": "7ff1766223a8",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "wnba_p1s1",
+      "_type": "span",
+      "marks": [],
+      "text": "When we started this, the goal was every NBA arena. Somewhere around arena ten, we started realizing that the map had gaps we weren't accounting for. WNBA teams play in some of the same buildings. A few play in venues that have no NBA equivalent. And the Mystics, the Sun, the Lynx, the Fever — these are real teams with real fanbases and real game-day experiences that are genuinely different from anything the NBA offers."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "8f5322e63eba",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "wnba_p2s1",
+      "_type": "span",
+      "marks": [],
+      "text": "So we expanded the list. If we're visiting every arena, we're visiting every arena. That includes the ones that only host women's basketball."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "01bed67e1a18",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "wnba_h3_1s1",
+      "_type": "span",
+      "marks": [],
+      "text": "WNBA Timing: Your Off-Season NBA Window"
+     }
+    ],
+    "markDefs": [],
+    "style": "h3"
+   },
+   {
+    "_key": "6d06f13a6137",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "wnba_p3s1",
+      "_type": "span",
+      "marks": [],
+      "text": "The WNBA season runs May through September — completely opposite the NBA calendar. That's actually useful. It means arenas you couldn't get to in February because of weather or scheduling conflicts are wide open in June. You can also stack WNBA games into a summer trip without any NBA schedule to work around."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "3db2e770c1c5",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "wnba_p4s1",
+      "_type": "span",
+      "marks": [],
+      "text": "The summer timing also changes how cities feel. Chicago in July is a different city than Chicago in January. Indianapolis in June is warm, the arena is refrigerator-cold, and a Fever game isn't competing with NBA playoff prices. If you're only thinking about WNBA as an off-season consolation prize, you're thinking about it wrong. It's a different kind of trip — and a genuinely good one."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "927a7324d52a",
+    "_type": "callout",
+    "text": [
+     {
+      "_key": "wnba_tip1b1",
+      "_type": "block",
+      "children": [
+       {
+        "_key": "wnba_tip1s1",
+        "_type": "span",
+        "marks": [],
+        "text": "The WNBA playoffs happen in September. If any teams you're targeting are in contention, check the schedule before booking — the atmosphere in those buildings is completely different from a regular season game and worth timing a trip around."
+       }
+      ],
+      "markDefs": [],
+      "style": "normal"
+     }
+    ],
+    "type": "tip"
+   },
+   {
+    "_key": "fb002630a26e",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "wnba_h3_2s1",
+      "_type": "span",
+      "marks": [],
+      "text": "What WNBA Tickets Actually Cost"
+     }
+    ],
+    "markDefs": [],
+    "style": "h3"
+   },
+   {
+    "_key": "87ebbd0bb498",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "wnba_p5s1",
+      "_type": "span",
+      "marks": [],
+      "text": "WNBA tickets are cheap. Not \"cheaper than NBA\" cheap — genuinely inexpensive. A lower bowl seat for a regular-season game in most markets runs $20-60. Indiana Fever games have gotten pricier since Caitlin Clark, but even those are nowhere near what you'd pay for a comparable Pacers seat. The Las Vegas Aces are expensive by WNBA standards. Everyone else is very affordable."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "e756e301b836",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "wnba_p6s1",
+      "_type": "span",
+      "marks": [],
+      "text": "That changes the math significantly. When tickets are $40 instead of $150, your total per-city budget for a WNBA trip runs $200-400 per person versus $400-700 for a comparable NBA visit. If you're working through the full arena list, the WNBA games give you some real financial breathing room between the expensive NBA markets."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "3ec23ad3f20a",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "wnba_h3_3s1",
+      "_type": "span",
+      "marks": [],
+      "text": "The WNBA Venues Worth the Detour"
+     }
+    ],
+    "markDefs": [],
+    "style": "h3"
+   },
+   {
+    "_key": "5ab890ef1f2b",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "wnba_p7s1",
+      "_type": "span",
+      "marks": [],
+      "text": "A few of the WNBA venues deserve specific mention — either because they're unique to the WNBA or because the experience there is different from what you get at an NBA game in the same building."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "e20b0356829a",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "wnba_p8s1",
+      "_type": "span",
+      "marks": [
+       "wnba_link1"
+      ],
+      "text": "Mohegan Sun Arena"
+     },
+     {
+      "_key": "wnba_p8s2",
+      "_type": "span",
+      "marks": [],
+      "text": " in Connecticut is the only venue on the entire list that sits inside a casino resort. There's no NBA team here — this is the Connecticut Sun's home, full stop. The fanbase is one of the loudest and most loyal in the league, the casino means there's a full entertainment setup before and after the game, and the building itself is genuinely intimate in a way most NBA arenas can't match. We'd go back."
+     }
+    ],
+    "markDefs": [
+     {
+      "_key": "wnba_link1",
+      "_type": "link",
+      "href": "/arena/mohegan-sun-arena"
+     }
+    ],
+    "style": "normal"
+   },
+   {
+    "_key": "776c365cd152",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "wnba_p9s1",
+      "_type": "span",
+      "marks": [
+       "wnba_link2"
+      ],
+      "text": "Entertainment and Sports Arena"
+     },
+     {
+      "_key": "wnba_p9s2",
+      "_type": "span",
+      "marks": [],
+      "text": " in Washington, D.C. is a WNBA-only venue — the Mystics don't share with the Wizards. It holds around 4,200 people, which means you are close to the court no matter where you're sitting. The intimacy is one of the genuine arguments for smaller WNBA venues: you're actually near the players, not watching them from 300 feet up. If you're in D.C. and the Mystics are playing, go."
+     }
+    ],
+    "markDefs": [
+     {
+      "_key": "wnba_link2",
+      "_type": "link",
+      "href": "/arena/entertainment-and-sports-arena"
+     }
+    ],
+    "style": "normal"
+   },
+   {
+    "_key": "b8811932ace7",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "wnba_p10s1",
+      "_type": "span",
+      "marks": [
+       "wnba_link3"
+      ],
+      "text": "Gainbridge Fieldhouse"
+     },
+     {
+      "_key": "wnba_p10s2",
+      "_type": "span",
+      "marks": [],
+      "text": " in Indianapolis is worth flagging specifically because of the Caitlin Clark effect. Indiana Fever games are now selling out in ways they never did before. The building is excellent — same one the Pacers use — but the crowd energy at a Fever game right now is something you should see in person while it's happening. Book early, don't assume you can grab tickets the week of."
+     }
+    ],
+    "markDefs": [
+     {
+      "_key": "wnba_link3",
+      "_type": "link",
+      "href": "/arena/gainbridge-fieldhouse"
+     }
+    ],
+    "style": "normal"
+   },
+   {
+    "_key": "08fa9740568d",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "wnba_p11s1",
+      "_type": "span",
+      "marks": [
+       "wnba_link4"
+      ],
+      "text": "Target Center"
+     },
+     {
+      "_key": "wnba_p11s2",
+      "_type": "span",
+      "marks": [],
+      "text": " in Minneapolis hosts the Lynx, who have been one of the most successful franchises in WNBA history. It's the same building the Timberwolves use, so you're getting a full NBA-quality venue. A Lynx game in summer in Minneapolis is also just a good reason to spend time in a city with a solid food and bar scene in the neighborhood around the arena."
+     }
+    ],
+    "markDefs": [
+     {
+      "_key": "wnba_link4",
+      "_type": "link",
+      "href": "/arena/target-center"
+     }
+    ],
+    "style": "normal"
+   },
+   {
+    "_key": "617edb4c83c0",
+    "_type": "callout",
+    "text": [
+     {
+      "_key": "wnba_tip2b1",
+      "_type": "block",
+      "children": [
+       {
+        "_key": "wnba_tip2s1",
+        "_type": "span",
+        "marks": [],
+        "text": "If you're going to visit a WNBA-only venue — Mohegan Sun, ESA in D.C. — add it to your list now. These are the arenas that don't have an NBA equivalent and won't get checked off any other way."
+       }
+      ],
+      "markDefs": [],
+      "style": "normal"
+     }
+    ],
+    "type": "tip"
+   },
+   {
+    "_key": "028e36a1da0b",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph146",
+      "_type": "span",
+      "marks": [],
+      "text": "Arena Food: What's Actually Worth Your Money"
+     }
+    ],
+    "markDefs": [],
+    "style": "h2"
+   },
+   {
+    "_key": "66ffbb891f90",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph148",
+      "_type": "span",
+      "marks": [],
+      "text": "Every arena claims to have great food now. Some of them are actually telling the truth."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "a72503092edc",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph150",
+      "_type": "span",
+      "marks": [],
+      "text": "The general rule: the newer or more recently renovated the arena, the better the food options. Older buildings that haven't been updated are still leaning on the same basic concession stands they were running in 2005. This is not always bad — some of those stands are genuinely iconic — but you shouldn't expect a culinary experience."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "d748d5ab15bf",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph152",
+      "_type": "span",
+      "marks": [],
+      "text": "Our approach at any new arena: do one full lap of the concourse before sitting down. Every arena has at least one local food concept tucked into a corner that you'd completely miss if you went straight to your seat. That's almost always the best thing in the building."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "00199e235491",
+    "_type": "image",
+    "alt": "",
+    "caption": "Best arena food find — specific item, the stand, which arena"
+   },
+   {
+    "_key": "b13f422b5386",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph157",
+      "_type": "span",
+      "marks": [],
+      "text": "A few specific things we've eaten that were worth the arena markup: pretty much anything on the upper concourse at Fiserv Forum, the fried chicken situation at State Farm Arena, the craft beer options at Gainbridge Fieldhouse, and the general food quality at Moda Center in Portland, which reflects that city's food culture in a way most arenas don't bother to."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "726cffae09ac",
+    "_type": "callout",
+    "text": [
+     {
+      "_key": "ph160",
+      "_type": "block",
+      "children": [
+       {
+        "_key": "ph159",
+        "_type": "span",
+        "marks": [],
+        "text": "Have dinner or at least drinks at a restaurant near the arena before the game. It'll save you $15-20 per drink, the food will be better, and you'll actually be able to have a conversation. Then grab something at the arena concourse during the first quarter when the lines have thinned out."
+       }
+      ],
+      "markDefs": [],
+      "style": "normal"
+     }
+    ],
+    "type": "tip"
+   },
+   {
+    "_key": "b64b33e76f8d",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph162",
+      "_type": "span",
+      "marks": [],
+      "text": "Tips We Wish Someone Had Told Us Before We Started"
+     }
+    ],
+    "markDefs": [],
+    "style": "h2"
+   },
+   {
+    "_key": "6957cad08a13",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph164",
+      "_type": "span",
+      "marks": [],
+      "text": "Arrive 45 Minutes Before Tip-Off, Minimum"
+     }
+    ],
+    "markDefs": [],
+    "style": "h3"
+   },
+   {
+    "_key": "808e324b36b7",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph166",
+      "_type": "span",
+      "marks": [],
+      "text": "This is the single tip that has improved every arena visit we've had since we started doing it. Arriving early means you can walk the full concourse without fighting through a crowd, grab food while the lines are short, watch warmups — which are genuinely interesting up close — and actually find your seats and get settled before the game starts."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "1749ba19b8db",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph168",
+      "_type": "span",
+      "marks": [],
+      "text": "Most arenas open 90 minutes before tip-off. The people who show up in that first half-hour have a fundamentally different experience than the people rushing to their seats at tip-off. Be the first group."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "2c7c7d6d13d7",
+    "_type": "image",
+    "alt": "",
+    "caption": "Warmups from close to the floor"
+   },
+   {
+    "_key": "444221885b1c",
+    "_type": "callout",
+    "text": [
+     {
+      "_key": "ph174",
+      "_type": "block",
+      "children": [
+       {
+        "_key": "ph173",
+        "_type": "span",
+        "marks": [],
+        "text": "🎥  Add a short clip of warmups if you have one — showing how close you can get, how big the players look in person"
+       }
+      ],
+      "markDefs": [],
+      "style": "normal"
+     }
+    ],
+    "type": "info"
+   },
+   {
+    "_key": "aef8efbd6638",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph176",
+      "_type": "span",
+      "marks": [],
+      "text": "Lower Bowl for the First Visit, Upper Deck After"
+     }
+    ],
+    "markDefs": [],
+    "style": "h3"
+   },
+   {
+    "_key": "6736e4e78b41",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph178",
+      "_type": "span",
+      "marks": [],
+      "text": "For your first time at any arena, spend the extra money for a lower bowl seat. Once you know how a building is laid out and feels, you can go upper deck on a future visit and be totally happy. But for a first visit, being close to the floor gives you context for the building that you can't get from row 35 of the 200-level."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "bb494ccd7b35",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph180",
+      "_type": "span",
+      "marks": [],
+      "text": "The exception: some arenas have upper decks that are genuinely close to the court because of how they're designed. Fiserv Forum and Barclays Center are both good examples. Check the seat view on SeatGeek before you decide."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "0fda24dc9b4b",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph182",
+      "_type": "span",
+      "marks": [],
+      "text": "Rideshare or Transit Over Arena Parking"
+     }
+    ],
+    "markDefs": [],
+    "style": "h3"
+   },
+   {
+    "_key": "4b9e759c190c",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph184",
+      "_type": "span",
+      "marks": [],
+      "text": "For any arena in a major city, skip the arena parking lots. The post-game traffic situation will add 45-60 minutes to your night and cost you $30-50 for the privilege. Take a rideshare or public transit, then walk back to a restaurant after the game and wait out the rush over a drink. You'll have a better night and get home faster."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "6364c98661e9",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph186",
+      "_type": "span",
+      "marks": [],
+      "text": "For smaller markets — Indianapolis, Oklahoma City, Memphis, Salt Lake City — arena parking is usually a different story. The post-game exit is quick, lots are reasonably priced, and it's genuinely the easiest option."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "dc8d26c5233d",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph188",
+      "_type": "span",
+      "marks": [],
+      "text": "What to Pack"
+     }
+    ],
+    "markDefs": [],
+    "style": "h3"
+   },
+   {
+    "_key": "50f557ea645f",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph190",
+      "_type": "span",
+      "marks": [],
+      "text": "Mobile tickets only — don't print anything, most arenas won't scan paper anymore and you'll be the person holding up the security line."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "26d278c0897b",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph192",
+      "_type": "span",
+      "marks": [],
+      "text": "A light jacket regardless of the season. Arenas run cold, especially in the upper deck. Even in August."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "b61c19403392",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph194",
+      "_type": "span",
+      "marks": [],
+      "text": "A portable battery pack. You'll be taking photos, running Uber or Lyft, checking scores, and your phone will be at 12% by the third quarter."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "02c2799c21cf",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph196",
+      "_type": "span",
+      "marks": [],
+      "text": "A small amount of cash. Most arenas are cashless now, but some of the best vendors — especially the older independent concession spots — still prefer it."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "0ba411a8c153",
+    "_type": "callout",
+    "text": [
+     {
+      "_key": "ph199",
+      "_type": "block",
+      "children": [
+       {
+        "_key": "ph198",
+        "_type": "span",
+        "marks": [],
+        "text": "If you're hitting multiple arenas in one trip, pack light enough to carry everything on the plane. Checking bags between cities adds time, stress, and the occasional lost bag. A carry-on and a personal item is all you need for a 4-5 day arena trip."
+       }
+      ],
+      "markDefs": [],
+      "style": "normal"
+     }
+    ],
+    "type": "tip"
+   },
+   {
+    "_key": "c5a4f24aa53b",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph201",
+      "_type": "span",
+      "marks": [],
+      "text": "Every NBA and WNBA Arena We've Reviewed"
+     }
+    ],
+    "markDefs": [],
+    "style": "h2"
+   },
+   {
+    "_key": "2f4b6176e730",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph203",
+      "_type": "span",
+      "marks": [],
+      "text": "We're working through the full list. Here are the arenas where we've published complete reviews with our honest ratings, food picks, parking tips, and game-day breakdowns:"
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "39fb07a8aab2",
+    "_type": "image",
+    "alt": "",
+    "caption": "Photo collage — all the arenas we've visited so far"
+   },
+   {
+    "_key": "012b852b03c4",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph209",
+      "_type": "span",
+      "marks": [
+       "ph208"
+      ],
+      "text": "Fiserv Forum — Milwaukee, WI (Bucks)"
+     }
+    ],
+    "markDefs": [
+     {
+      "_key": "ph208",
+      "_type": "link",
+      "href": "/arena/fiserv-forum"
+     }
+    ],
+    "style": "normal"
+   },
+   {
+    "_key": "b86eb6e63d3c",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph212",
+      "_type": "span",
+      "marks": [
+       "ph211"
+      ],
+      "text": "State Farm Arena — Atlanta, GA (Hawks)"
+     }
+    ],
+    "markDefs": [
+     {
+      "_key": "ph211",
+      "_type": "link",
+      "href": "/arena/state-farm-arena"
+     }
+    ],
+    "style": "normal"
+   },
+   {
+    "_key": "cf58fe8318a9",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph215",
+      "_type": "span",
+      "marks": [
+       "ph214"
+      ],
+      "text": "Gainbridge Fieldhouse — Indianapolis, IN (Pacers / Fever)"
+     }
+    ],
+    "markDefs": [
+     {
+      "_key": "ph214",
+      "_type": "link",
+      "href": "/arena/gainbridge-fieldhouse"
+     }
+    ],
+    "style": "normal"
+   },
+   {
+    "_key": "9ecf86e0d33f",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph218",
+      "_type": "span",
+      "marks": [
+       "ph217"
+      ],
+      "text": "T-Mobile Arena — Las Vegas, NV (Golden Knights / NBA expansion)"
+     }
+    ],
+    "markDefs": [
+     {
+      "_key": "ph217",
+      "_type": "link",
+      "href": "/arena/t-mobile-arena"
+     }
+    ],
+    "style": "normal"
+   },
+   {
+    "_key": "3f3c2b88632e",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph221",
+      "_type": "span",
+      "marks": [
+       "ph220"
+      ],
+      "text": "Mohegan Sun Arena — Uncasville, CT (Connecticut Sun)"
+     }
+    ],
+    "markDefs": [
+     {
+      "_key": "ph220",
+      "_type": "link",
+      "href": "/arena/mohegan-sun-arena"
+     }
+    ],
+    "style": "normal"
+   },
+   {
+    "_key": "8cf9a3a77b63",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph224",
+      "_type": "span",
+      "marks": [
+       "ph223"
+      ],
+      "text": "Moda Center — Portland, OR (Trail Blazers)"
+     }
+    ],
+    "markDefs": [
+     {
+      "_key": "ph223",
+      "_type": "link",
+      "href": "/arena/moda-center"
+     }
+    ],
+    "style": "normal"
+   },
+   {
+    "_key": "cc1299d31347",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph227",
+      "_type": "span",
+      "marks": [
+       "ph226"
+      ],
+      "text": "Target Center — Minneapolis, MN (Timberwolves / Lynx)"
+     }
+    ],
+    "markDefs": [
+     {
+      "_key": "ph226",
+      "_type": "link",
+      "href": "/arena/target-center"
+     }
+    ],
+    "style": "normal"
+   },
+   {
+    "_key": "6d375cfcdada",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph230",
+      "_type": "span",
+      "marks": [
+       "ph229"
+      ],
+      "text": "Amway Center — Orlando, FL (Magic)"
+     }
+    ],
+    "markDefs": [
+     {
+      "_key": "ph229",
+      "_type": "link",
+      "href": "/arena/amway-center"
+     }
+    ],
+    "style": "normal"
+   },
+   {
+    "_key": "679c2234a2df",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph233",
+      "_type": "span",
+      "marks": [
+       "ph232"
+      ],
+      "text": "Barclays Center — Brooklyn, NY (Nets)"
+     }
+    ],
+    "markDefs": [
+     {
+      "_key": "ph232",
+      "_type": "link",
+      "href": "/arena/barclays-center"
+     }
+    ],
+    "style": "normal"
+   },
+   {
+    "_key": "3bc49c045775",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph236",
+      "_type": "span",
+      "marks": [
+       "ph235"
+      ],
+      "text": "Entertainment and Sports Arena — Washington, D.C. (Mystics)"
+     }
+    ],
+    "markDefs": [
+     {
+      "_key": "ph235",
+      "_type": "link",
+      "href": "/arena/entertainment-and-sports-arena"
+     }
+    ],
+    "style": "normal"
+   },
+   {
+    "_key": "f0261591e573",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph239",
+      "_type": "span",
+      "marks": [
+       "ph238"
+      ],
+      "text": "Paycom Center — Oklahoma City, OK (Thunder)"
+     }
+    ],
+    "markDefs": [
+     {
+      "_key": "ph238",
+      "_type": "link",
+      "href": "/arena/paycom-center"
+     }
+    ],
+    "style": "normal"
+   },
+   {
+    "_key": "1f6ed238134f",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph241",
+      "_type": "span",
+      "marks": [],
+      "text": "We add new reviews after every trip. Bookmark this page if you want to follow along."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "60e44f888658",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph243",
+      "_type": "span",
+      "marks": [],
+      "text": "The Bottom Line"
+     }
+    ],
+    "markDefs": [],
+    "style": "h2"
+   },
+   {
+    "_key": "d28687f1a13c",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph245",
+      "_type": "span",
+      "marks": [],
+      "text": "There's no single right way to do an NBA arena road trip. Your budget will shape some of it, the schedule will shape the rest, and at some point you'll be checking into a hotel in a city you've never been to specifically because two basketball teams happen to be playing there on a Wednesday."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "9f9ee3bbd3f3",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph247",
+      "_type": "span",
+      "marks": [],
+      "text": "But that's kind of the point. The arenas are the reason to go, but the cities are what you actually remember."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "f329601ab63c",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph249",
+      "_type": "span",
+      "marks": [],
+      "text": "Start small. One trip, two or three arenas, cities close enough together that the logistics are manageable. See how it feels. For us, that first trip turned into this — a full spreadsheet, a running list, and a genuine reason to go places we'd never otherwise have on our radar."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "ph252",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "ph251",
+      "_type": "span",
+      "marks": [],
+      "text": "We're not done yet. But we're a lot closer than we were when this started. We'll see you at a game."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "img_ph255",
+    "_type": "image",
+    "alt": "",
+    "caption": "Final photo — us at a game, or what captures why we started this"
+   }
+  ],
+  "date": "2026-05-16T00:13:57.502Z",
+  "slug": {
+   "_type": "slug",
+   "current": "nba-arena-road-trip-guide"
+  },
+  "summary": "Visiting every NBA & WNBA arena — our guide to planning road trips, stacking cities, budgeting smart, and enjoying every game.",
+  "tags": [
+   "NBA",
+   "arena",
+   "road trip",
+   "basketball",
+   "travel tips",
+   "sports travel",
+   "NBA arenas",
+   "WNBA"
+  ],
+  "title": "NBA & WNBA Arena Road Trip Guide: Visiting Every Team (Planning, Costs & Best Arenas)"
+ },
+ {
+  "_createdAt": "2025-08-31T19:24:37Z",
+  "_id": "drafts.acDLgsiXs70FtkPH18gBIE",
+  "_ratingScale": 10,
+  "_rev": "hY1ly3Ju8qGsb6nQpYI7KU",
+  "_type": "foodReview",
+  "_updatedAt": "2026-05-16T01:24:30Z",
+  "date": "2025-11-03T04:03:00.000Z",
+  "diningType": "dinein",
+  "excerpt2": [
+   {
+    "_key": "750f6666fe8c",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "69eda59194820",
+      "_type": "span",
+      "marks": [],
+      "text": "Forget the fancy tea sets—this is brunch, reimagined! Take a delicious trip around the world as five acclaimed chefs craft dishes inspired by the flavors and rich traditions of global tea culture. From dim sum and oolong to chai-spiced bites, Moroccan mint tea pairings, British tea-time classics and more, this walk-around brunch is steeped in bold flavors and creative pairings—the perfect sip to match every bite."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "8df39da43d5c",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "6304a0e8afd00",
+      "_type": "span",
+      "marks": [],
+      "text": "Enjoy tea-inspired cocktails and hand-selected teas from across the globe, guided by a tea sommelier who will pair each chef’s dish with complementary sips—highlighting the nuance, complexity, and culinary connection of tea beyond the cup. and taste how tea has shaped culinary traditions far beyond the cup. Whether you’re here for the matcha martinis, fragrant warmth of masala chai, or cool refreshing Moroccan mint tea, this brunch is your passport to the world of teatime."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "b8a6173945c6",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "e8ac00e4a0740",
+      "_type": "span",
+      "marks": [],
+      "text": "Join us for a global celebration of tea, taste, and tradition in one unforgettable brunch experience! - "
+     },
+     {
+      "_key": "6bef2a22bde5",
+      "_type": "span",
+      "marks": [
+       "8169eb273cf9"
+      ],
+      "text": "Hawai'i Foor and Wine Festival"
+     }
+    ],
+    "markDefs": [
+     {
+      "_key": "8169eb273cf9",
+      "_type": "link",
+      "href": "https://hawaiifoodandwinefestival.com/events/matcha-chai-brunch/"
+     }
+    ],
+    "style": "normal"
+   },
+   {
+    "_key": "1d3c5df9b5e7",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "39e05a9aa0a00",
+      "_type": "span",
+      "marks": [],
+      "text": "GENERAL ADMISSION COST: $125"
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   }
+  ],
+  "foodRating": {
+   "Flavor_and_Taste": 6,
+   "Food_Value": 6,
+   "Memorability": 6,
+   "Presentation_on_Plate": 6,
+   "Restaurant_Cleanliness": 6,
+   "Restaurant_Location": 6,
+   "Restaurant_Service": 6,
+   "_type": "foodRating"
+  },
+  "location": "Hyatt Regency Waikiki Beach Resort and Spa",
+  "seoExcerpt": "We checked out MatCHA Chai Brunch at Hyatt Regency Waikiki. Five chefs made tea-inspired dishes that were fun, unique, and totally worth the trip.",
+  "slug": {
+   "_type": "slug",
+   "current": "matcha-chai-brunch-hawaii-food-and-wine-festival1"
+  },
+  "tags": [
+   "dine-in",
+   "Hyatt Regency Waikiki Beach Resort and Spa"
+  ],
+  "takeoutRating": {
+   "_type": "takeOutFoodRating",
+   "accuracy": 6,
+   "foodValue": 6,
+   "overallSatisfaction": 6,
+   "packaging": 6,
+   "presentation": 6,
+   "tasteAndFlavor": 6
+  },
+  "title": "MatCHA Chai Brunch - Hawaii Food and Wine Festival1",
+  "youtube": null
+ },
+ {
+  "_createdAt": "2026-05-03T14:47:29Z",
+  "_id": "drafts.eaa13269-ed99-4780-b026-51b1b7359252",
+  "_rev": "105aff76-c7cc-4e96-bbae-7206731f8e0b",
+  "_type": "guide",
+  "_updatedAt": "2026-06-05T16:02:04Z",
+  "category": "luxury",
+  "content": [
+   {
+    "_key": "g2_p1",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "g2_p1c",
+      "_type": "span",
+      "marks": [],
+      "text": "We've been on Celebrity before — the Millennium, the Silhouette's older fleet sibling — and we came away curious about how The Retreat held up on a different class of ship. This 8-night repositioning sailing from Fort Lauderdale to Cape Liberty felt like the right test. Two of us, one Sky Suite, eight nights to find out whether the upgrade was actually worth it."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "g2_ph1",
+    "_type": "callout",
+    "text": [
+     {
+      "_key": "g2_ph1b",
+      "_type": "block",
+      "children": [
+       {
+        "_key": "g2_ph1s",
+        "_type": "span",
+        "marks": [],
+        "text": "📝 [KENNY — add 1-2 sentences about how you booked this cruise: points redemption, Amex FHR, last-minute deal, or why this specific sailing caught your eye]"
+       }
+      ],
+      "markDefs": [],
+      "style": "normal"
+     }
+    ],
+    "type": "highlight"
+   },
+   {
+    "_key": "g2_img1",
+    "_type": "image",
+    "caption": "Celebrity Silhouette departure — Port Everglades"
+   },
+   {
+    "_key": "g2_h2_ship",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "g2_h2_shipc",
+      "_type": "span",
+      "marks": [],
+      "text": "The Ship: Celebrity Silhouette"
+     }
+    ],
+    "markDefs": [],
+    "style": "h2"
+   },
+   {
+    "_key": "g2_ship1",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "g2_ship1c",
+      "_type": "span",
+      "marks": [],
+      "text": "The Celebrity Silhouette is a Solstice-class ship — the generation before Celebrity's Edge-class — launched in 2011. She holds about 2,886 guests at double occupancy across 15 decks. If you've been on any of the older Celebrity ships like the Millennium, the Silhouette feels noticeably larger and more polished. If you're coming down from the Edge or Apex, she'll feel more traditional — fewer of the dramatic architectural moments, more conventional layout."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "g2_ship2",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "g2_ship2c",
+      "_type": "span",
+      "marks": [],
+      "text": "That's not a knock. The Solstice-class is a genuinely well-designed ship. Everything is where you expect it to be, the flow makes sense, and the sightlines from the pool deck are excellent. A solid ship to spend 8 nights on."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "g2_h2_suite",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "g2_h2_suitec",
+      "_type": "span",
+      "marks": [],
+      "text": "Our Suite: Sky Suite, Cabin 1233"
+     }
+    ],
+    "markDefs": [],
+    "style": "h2"
+   },
+   {
+    "_key": "g2_suite1",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "g2_suite1c",
+      "_type": "span",
+      "marks": [],
+      "text": "We were in cabin 1233 — a Sky Suite. The Retreat's entry-level suite category on the Silhouette runs roughly 300 square feet plus a private veranda. King bed, marble bathroom with a full soaking tub and a separate shower, more closet space than we actually needed, and a veranda large enough to sit out on with coffee in the morning without feeling like you're perched over the railing."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "g2_suite2",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "g2_suite2c",
+      "_type": "span",
+      "marks": [],
+      "text": "What the Sky Suite really unlocks is the full Retreat package: butler service, access to the Retreat Sundeck (a dedicated pool and lounge away from the main deck crowds), Luminae restaurant for all meals, Starlink WiFi included, and a dedicated concierge. The suite itself is comfortable. The access that comes with it is why you book it."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "g2_img2",
+    "_type": "image",
+    "caption": "Sky Suite Cabin 1233 — Celebrity Silhouette"
+   },
+   {
+    "_key": "g2_vid1",
+    "_type": "videoEmbed",
+    "caption": "Our quick cabin tour of Sky Suite 1233 on the Celebrity Silhouette",
+    "title": "Is The Celebrity Suite Worth It? 2-Minute Cabin 1233 Tour",
+    "url": "https://youtu.be/3LgTfYpEur4"
+   },
+   {
+    "_key": "g2_tip_suite",
+    "_type": "callout",
+    "text": [
+     {
+      "_key": "g2_tip_suiteb",
+      "_type": "block",
+      "children": [
+       {
+        "_key": "g2_tip_suites",
+        "_type": "span",
+        "marks": [],
+        "text": "Comparing Sky Suite vs Aqua Sky Suite: the main difference is Aqua Class spa access and a slightly different cabin layout. The Retreat perks — butler, Luminae, Retreat Sundeck, concierge — are identical in both. If the spa is a priority, the Aqua Sky Suite is worth the step up. If not, the Sky Suite delivers the same Retreat experience."
+       }
+      ],
+      "markDefs": [],
+      "style": "normal"
+     }
+    ],
+    "type": "tip"
+   },
+   {
+    "_key": "g2_h2_retreat",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "g2_h2_retreatc",
+      "_type": "span",
+      "marks": [],
+      "text": "The Retreat: Worth the Upgrade?"
+     }
+    ],
+    "markDefs": [],
+    "style": "h2"
+   },
+   {
+    "_key": "g2_ret1",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "g2_ret1c",
+      "_type": "span",
+      "marks": [],
+      "text": "The honest answer: it depends on what you're upgrading from and how you're paying for it."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "g2_ret2",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "g2_ret2c",
+      "_type": "span",
+      "marks": [],
+      "text": "If you're comparing The Retreat to a standard Celebrity veranda cabin, the difference is significant and immediately felt. The Retreat Sundeck alone is worth a lot — a quieter pool with dedicated lounge chairs you can actually get without a 7 AM towel mission, and a bar that serves the same drinks without the crowd. The butler service is genuinely useful once you learn how to use it. Getting coffee brought to the cabin before you're fully awake, having dinner reservations sorted without standing in line — it changes the pace of the trip."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "g2_ret3",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "g2_ret3c",
+      "_type": "span",
+      "marks": [],
+      "text": "If you're using Amex Fine Hotels & Resorts credits, or working through cruise points, or booking a repositioning rate — the math gets a lot friendlier. At full retail for 8 nights, The Retreat is a serious spend. With benefits applied, it's a very strong value."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "g2_img3",
+    "_type": "image",
+    "caption": "The Retreat Sundeck — Celebrity Silhouette"
+   },
+   {
+    "_key": "g2_h2_luminae",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "g2_h2_luminaec",
+      "_type": "span",
+      "marks": [],
+      "text": "Dining: Luminae"
+     }
+    ],
+    "markDefs": [],
+    "style": "h2"
+   },
+   {
+    "_key": "g2_lum1",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "g2_lum1c",
+      "_type": "span",
+      "marks": [],
+      "text": "Luminae is the restaurant exclusive to The Retreat — and it's included. No per-person surcharge on top of an already expensive cabin, no reservation system to navigate. It's just where you eat, every meal, every day of the sailing. The menu changes daily, service is attentive without hovering, and the food quality is a genuine step above the main dining room."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "g2_lum2",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "g2_lum2c",
+      "_type": "span",
+      "marks": [],
+      "text": "The variety held up well across 8 nights. We never felt like we were eating the same thing twice."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "g2_ph5",
+    "_type": "callout",
+    "text": [
+     {
+      "_key": "g2_ph5b",
+      "_type": "block",
+      "children": [
+       {
+        "_key": "g2_ph5s",
+        "_type": "span",
+        "marks": [],
+        "text": "📝 [KENNY — add 2-3 sentences about specific dishes you loved, anything that surprised you, or a meal that stood out. Specific is better here — \"the short rib on Day 3\" beats \"the food was great\"]"
+       }
+      ],
+      "markDefs": [],
+      "style": "normal"
+     }
+    ],
+    "type": "highlight"
+   },
+   {
+    "_key": "g2_img4",
+    "_type": "image",
+    "caption": "Luminae restaurant — Celebrity Silhouette"
+   },
+   {
+    "_key": "g2_tip_lum",
+    "_type": "callout",
+    "text": [
+     {
+      "_key": "g2_tip_lumb",
+      "_type": "block",
+      "children": [
+       {
+        "_key": "g2_tip_lums",
+        "_type": "span",
+        "marks": [],
+        "text": "Breakfast at Luminae is one of the quietly great parts of The Retreat. No buffet crowds, proper table service, eggs made to order. We used it every morning and it set a different tone for the rest of the day."
+       }
+      ],
+      "markDefs": [],
+      "style": "normal"
+     }
+    ],
+    "type": "tip"
+   },
+   {
+    "_key": "g2_h2_lounge",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "g2_h2_loungec",
+      "_type": "span",
+      "marks": [],
+      "text": "The Retreat Lounge"
+     }
+    ],
+    "markDefs": [],
+    "style": "h2"
+   },
+   {
+    "_key": "g2_lounge1",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "g2_lounge1c",
+      "_type": "span",
+      "marks": [],
+      "text": "The Retreat Lounge is the suite-exclusive bar and gathering space — and it's where we want to be honest, because it came up more than once during the sailing."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "g2_lounge2",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "g2_lounge2c",
+      "_type": "span",
+      "marks": [],
+      "text": "The Retreat Lounge on the Silhouette doesn't have ocean views. Walk to the Library or the Sky Lounge on the same ship — spaces open to all guests — and you get floor-to-ceiling windows looking out to sea. The Retreat Lounge, the space exclusive to suite guests, doesn't offer that. It's a comfortable room, well-stocked bar, quiet. But if you're expecting the exclusive space to have the best sightlines on the ship, the Silhouette's layout won't deliver that. The Sundeck handles \"I want to look at the ocean\" perfectly well — this is just worth knowing before you expect it from the lounge."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "g2_h2_ent",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "g2_h2_entc",
+      "_type": "span",
+      "marks": [],
+      "text": "Entertainment"
+     }
+    ],
+    "markDefs": [],
+    "style": "h2"
+   },
+   {
+    "_key": "g2_ent1",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "g2_ent1c",
+      "_type": "span",
+      "marks": [],
+      "text": "Celebrity ships consistently deliver on evening entertainment and the Silhouette was no exception. The highlight was the acrobatic show — one of those performances that lands better in person than a description of it would suggest. Worth going early for a good seat."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "g2_vid2",
+    "_type": "videoEmbed",
+    "caption": "A glimpse of the onboard acrobatic performance",
+    "title": "Celebrity Silhouette Acrobatic Show",
+    "url": "https://youtube.com/shorts/dyjen8-1ZqE"
+   },
+   {
+    "_key": "g2_ph7",
+    "_type": "callout",
+    "text": [
+     {
+      "_key": "g2_ph7b",
+      "_type": "block",
+      "children": [
+       {
+        "_key": "g2_ph7s",
+        "_type": "span",
+        "marks": [],
+        "text": "📝 [KENNY — add any other entertainment highlights: the band, any pool deck events, trivia nights, anything you'd specifically recommend people seek out]"
+       }
+      ],
+      "markDefs": [],
+      "style": "normal"
+     }
+    ],
+    "type": "highlight"
+   },
+   {
+    "_key": "g2_h2_wifi",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "g2_h2_wific",
+      "_type": "span",
+      "marks": [],
+      "text": "WiFi: Celebrity Silhouette is on Starlink"
+     }
+    ],
+    "markDefs": [],
+    "style": "h2"
+   },
+   {
+    "_key": "g2_wifi1",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "g2_wifi1c",
+      "_type": "span",
+      "marks": [],
+      "text": "Worth a quick note: the Celebrity Silhouette runs on Starlink — SpaceX's satellite internet service. WiFi is included with all Retreat suite bookings. We ran full speed tests throughout the sailing and documented results by day and location. The short version: usable for communication and uploads, not a replacement for a home connection, but meaningfully better than older cruise ship internet."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "g2_wifi2",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "g2_wifi2c",
+      "_type": "span",
+      "marks": [],
+      "text": "We wrote a separate post with the full numbers, analysis, and verdict on working remotely from the ship — linked below."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "g2_ph8",
+    "_type": "callout",
+    "text": [
+     {
+      "_key": "g2_ph8b",
+      "_type": "block",
+      "children": [
+       {
+        "_key": "g2_ph8s",
+        "_type": "span",
+        "marks": [],
+        "text": "📝 [KENNY — link to your speed test guide here once it's published: /guide/celebrity-silhouette-may-2026-speed-tests]"
+       }
+      ],
+      "markDefs": [],
+      "style": "normal"
+     }
+    ],
+    "type": "highlight"
+   },
+   {
+    "_key": "g2_h2_ports",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "g2_h2_portsc",
+      "_type": "span",
+      "marks": [],
+      "text": "Ports of Call"
+     }
+    ],
+    "markDefs": [],
+    "style": "h2"
+   },
+   {
+    "_key": "g2_ph9",
+    "_type": "callout",
+    "text": [
+     {
+      "_key": "g2_ph9b",
+      "_type": "block",
+      "children": [
+       {
+        "_key": "g2_ph9s",
+        "_type": "span",
+        "marks": [],
+        "text": "📝 [KENNY — add your port-by-port breakdown here. For each port: name of port, what you did, what you'd recommend, anything you'd skip. Even a few sentences per port is enough to make this section useful for readers planning the same route]"
+       }
+      ],
+      "markDefs": [],
+      "style": "normal"
+     }
+    ],
+    "type": "highlight"
+   },
+   {
+    "_key": "g2_h2_btl",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "g2_h2_btlc",
+      "_type": "span",
+      "marks": [],
+      "text": "The Bottom Line"
+     }
+    ],
+    "markDefs": [],
+    "style": "h2"
+   },
+   {
+    "_key": "g2_h3_likes",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "g2_h3_likesc",
+      "_type": "span",
+      "marks": [],
+      "text": "Likes"
+     }
+    ],
+    "markDefs": [],
+    "style": "h3"
+   },
+   {
+    "_key": "g2_ph10",
+    "_type": "callout",
+    "text": [
+     {
+      "_key": "g2_ph10b",
+      "_type": "block",
+      "children": [
+       {
+        "_key": "g2_ph10s",
+        "_type": "span",
+        "marks": [],
+        "text": "📝 [KENNY — list your specific positives here. Starting points: butler service experience, Luminae quality over 8 nights, Retreat Sundeck exclusivity, cabin 1233 specifically, any staff who made the trip, the Starlink WiFi compared to older cruises, the acrobatic show, anything else that stood out]"
+       }
+      ],
+      "markDefs": [],
+      "style": "normal"
+     }
+    ],
+    "type": "highlight"
+   },
+   {
+    "_key": "g2_h3_dislikes",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "g2_h3_dislikesc",
+      "_type": "span",
+      "marks": [],
+      "text": "Dislikes"
+     }
+    ],
+    "markDefs": [],
+    "style": "h3"
+   },
+   {
+    "_key": "g2_dis1",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "g2_dis1c",
+      "_type": "span",
+      "marks": [],
+      "text": "Not enough power outlets in the Sky Suite. The USB port on the bedside lamp didn't work, and the only functional outlet was located near the table — not near the bed where you actually need it overnight. On an 8-night sailing where you're charging cameras, phones, and tablets constantly, this is a real daily friction point."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "g2_dis2",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "g2_dis2c",
+      "_type": "span",
+      "marks": [],
+      "text": "The bathroom space allocation needs a rethink. The suite felt well-proportioned overall, but the bathroom didn't match. The soaking tub is a nice feature — we used it — but it came at the expense of counter space and overall bathroom functionality. It felt like the square footage was distributed in favor of the feature rather than the function."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "g2_dis3",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "g2_dis3c",
+      "_type": "span",
+      "marks": [],
+      "text": "The Retreat Lounge lacks the ocean views you'd expect from a premium exclusive space. The Library and the Sky Lounge — both open to all guests — have better sightlines than the Retreat's own lounge. That's a design decision we noticed every time we wanted to sit with a drink and look at the water."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "g2_verdict",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "g2_verdictc",
+      "_type": "span",
+      "marks": [],
+      "text": "Is the Celebrity Sky Suite worth it? For us, on this sailing, yes — with caveats. The Retreat Sundeck, Luminae over 8 nights, and the general pace of the trip were genuinely better than a standard cabin experience. The frustrations are real — the outlet situation, the bathroom, the lounge views — but they're the kind you catalog for next time, not the kind that affect your overall read of the sailing. If you're considering The Retreat on the Silhouette through Amex FHR or points, we'd do it again."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "g2_img5",
+    "_type": "image",
+    "caption": "Celebrity Silhouette — final sailing photo"
+   }
+  ],
+  "coverImage": {
+   "_type": "image",
+   "alt": "Celebrity Silhouette docked at port, seen from a tropical outdoor bar area.",
+   "asset": {
+    "_ref": "image-5061b0896cf25117a116eca3e512c34d55fb0b60-1807x2400-webp",
+    "_type": "reference"
+   },
+   "crop": {
+    "_type": "sanity.imageCrop",
+    "bottom": 0.23760260586319248,
+    "left": 0,
+    "right": 0,
+    "top": 0.07838436482084687
+   },
+   "hotspot": {
+    "_type": "sanity.imageHotspot",
+    "height": 0.6840130293159606,
+    "width": 1,
+    "x": 0.5,
+    "y": 0.4203908794788272
+   }
+  },
+  "date": "2026-05-03T14:47:27.984Z",
+  "location": "Fort Lauderdale to Cape Liberty",
+  "slug": {
+   "_type": "slug",
+   "current": "celebrity-silhouette-or-8-night-fort-lauderdale-to-cape-liberty-review"
+  },
+  "summary": "Our honest Sky Suite review of the Celebrity Silhouette 8-night sailing from Fort Lauderdale to Cape Liberty. Cabin 1233, Luminae, The Retreat — is it worth it?",
+  "tags": [
+   "Celebrity Cruises",
+   "Celebrity Silhouette",
+   "The Retreat",
+   "Sky Suite",
+   "Luminae",
+   "cruise review",
+   "Fort Lauderdale cruise",
+   "Cape Liberty",
+   "2026 cruise",
+   "Cabin 1233",
+   "cruise suite"
+  ],
+  "title": "Celebrity Silhouette | 8 Night Fort Lauderdale to Cape Liberty Review"
+ },
+ {
+  "_createdAt": "2026-07-08T20:20:49Z",
+  "_id": "drafts.guide-test-skill-day-trip-budget",
+  "_rev": "DNecenqkrp7HwEHeAQfXJs",
+  "_type": "guide",
+  "_updatedAt": "2026-07-08T20:20:49Z",
+  "category": "budget",
+  "content": [
+   {
+    "_key": "akmrcivwl02",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "akmrcivwl01",
+      "_type": "span",
+      "marks": [
+       "strong"
+      ],
+      "text": "This is a TEST draft created by the kenny-mtw-content skill to verify the Sanity pipeline works. Feel free to delete it."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "akmrcivwl04",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "akmrcivwl03",
+      "_type": "span",
+      "marks": [],
+      "text": "We used to come home from a \"cheap\" day trip and realize we'd somehow spent $300. Gas, two coffees, parking twice, lunch that turned into lunch plus dessert. It adds up fast. So we built a system, and now most of our day trips land under $150 for the two of us."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "akmrcivwl06",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "akmrcivwl05",
+      "_type": "span",
+      "marks": [],
+      "text": "Where the Money Actually Goes on a Day Trip"
+     }
+    ],
+    "markDefs": [],
+    "style": "h2"
+   },
+   {
+    "_key": "akmrcivwl08",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "akmrcivwl07",
+      "_type": "span",
+      "marks": [],
+      "text": "Truth is, it's almost never the big stuff. We tracked three months of trips and the budget killers were parking and impulse food. Not admission tickets. Not gas."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "akmrcivwl010",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "akmrcivwl09",
+      "_type": "span",
+      "marks": [],
+      "text": "Parking Is the Silent Budget Killer"
+     }
+    ],
+    "markDefs": [],
+    "style": "h3"
+   },
+   {
+    "_key": "akmrcivwl014",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "akmrcivwl011",
+      "_type": "span",
+      "marks": [],
+      "text": "We paid $28 to park in Santa Barbara once. Twenty-eight dollars, for a lot two blocks from a free street spot we found on the walk back. Now we check parking maps the night before — same prep we do for the trips in our "
+     },
+     {
+      "_key": "akmrcivwl012",
+      "_type": "span",
+      "marks": [
+       "lk-guides"
+      ],
+      "text": "travel guides"
+     },
+     {
+      "_key": "akmrcivwl013",
+      "_type": "span",
+      "marks": [],
+      "text": "."
+     }
+    ],
+    "markDefs": [
+     {
+      "_key": "lk-guides",
+      "_type": "link",
+      "href": "https://www.meetthewhytes.com/guides"
+     }
+    ],
+    "style": "normal"
+   },
+   {
+    "_key": "akmrcivwl015",
+    "_type": "image",
+    "alt": "Street parking sign showing free 4-hour parking near a beach town main street",
+    "caption": "PLACEHOLDER — add a photo of the free parking spot or street sign here"
+   },
+   {
+    "_key": "akmrcivwl018",
+    "_type": "callout",
+    "text": [
+     {
+      "_key": "akmrcivwl017",
+      "_type": "block",
+      "children": [
+       {
+        "_key": "akmrcivwl016",
+        "_type": "span",
+        "marks": [],
+        "text": "Set a cash cap before you leave the house. We pull $150 and when it's gone, it's gone. Sounds strict, but it turns \"should we?\" into a two-second decision."
+       }
+      ],
+      "markDefs": [],
+      "style": "normal"
+     }
+    ],
+    "type": "tip"
+   },
+   {
+    "_key": "akmrcivwl020",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "akmrcivwl019",
+      "_type": "span",
+      "marks": [],
+      "text": "What We Stopped Paying For"
+     }
+    ],
+    "markDefs": [],
+    "style": "h2"
+   },
+   {
+    "_key": "akmrcivwl022",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "akmrcivwl021",
+      "_type": "span",
+      "marks": [],
+      "text": "Bottled water. Museum gift shops. The second coffee. And paid beach access when the free entrance is a five-minute walk away. None of it made the trips better — we just weren't paying attention."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   }
+  ],
+  "date": "2026-07-08T20:20:48.947Z",
+  "location": "Los Angeles, CA",
+  "slug": {
+   "_type": "slug",
+   "current": "test-skill-day-trip-budget"
+  },
+  "summary": "TEST DRAFT from the kenny-mtw-content skill. Our real system for keeping a full day trip under $150 — gas, food, parking, and the stuff we stopped paying for.",
+  "tags": [
+   "day trips",
+   "budget travel",
+   "travel savings",
+   "weekend trips",
+   "test"
+  ],
+  "title": "TEST POST — How We Keep Weekend Day Trips Under $150"
+ },
+ {
+  "_createdAt": "2026-07-08T20:32:04Z",
+  "_id": "drafts.guide-toronto-tempo-coca-cola-coliseum-game-day-guide",
+  "_rev": "110a6da1-965b-4382-9e26-3e7e2b3049ae",
+  "_type": "guide",
+  "_updatedAt": "2026-07-08T20:49:40Z",
+  "category": "adventure",
+  "content": [
+   {
+    "_key": "akmrcjad5u2",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "akmrcjad5u1",
+      "_type": "span",
+      "marks": [],
+      "text": "Toronto Tempo is brand new this season, and we wanted to see the team play in person before we said anything about them. So we grabbed tickets to Dallas Wings at Coca-Cola Coliseum and made a day of it."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "akmrcjad5u4",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "akmrcjad5u3",
+      "_type": "span",
+      "marks": [],
+      "text": "Final score wasn't close. Dallas took it 89-76, and Paige Bueckers had a night — 22 points on 9 of 16 shooting. Jessica Shepard quietly put up 14 and 15 boards for the Wings too. Tempo hung around in stretches but the third quarter is where it fell apart, Dallas outscored them 24-17 there and never let up."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "akmrcjad5u6",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "akmrcjad5u5",
+      "_type": "span",
+      "marks": [],
+      "text": "Getting to Coca-Cola Coliseum by GO Train"
+     }
+    ],
+    "markDefs": [],
+    "style": "h2"
+   },
+   {
+    "_key": "akmrcjad5u8",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "akmrcjad5u7",
+      "_type": "span",
+      "marks": [],
+      "text": "We took the GO Train and it was genuinely the easiest part of the whole day. About $3.75 CAD per person, no traffic to sit in, and it drops you close enough that you're not doing some long trek in the heat. If you're coming from anywhere near a GO line, just take it."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "akmrcjad5u10",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "akmrcjad5u9",
+      "_type": "span",
+      "marks": [],
+      "text": "The one catch: don't count on driving to the station and parking there on a weekday. We got lucky, but the lot was close to full and we saw people circling looking for a spot."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "akmrcjad5u13",
+    "_type": "callout",
+    "text": [
+     {
+      "_key": "akmrcjad5u12",
+      "_type": "block",
+      "children": [
+       {
+        "_key": "akmrcjad5u11",
+        "_type": "span",
+        "marks": [],
+        "text": "Weekday game? Get to the GO station early or find another way in. The parking lot fills up fast and there's no backup plan once it's full."
+       }
+      ],
+      "markDefs": [],
+      "style": "normal"
+     }
+    ],
+    "type": "tip"
+   },
+   {
+    "_key": "akmrcjad5u15",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "akmrcjad5u14",
+      "_type": "span",
+      "marks": [],
+      "text": "What There Is to Do Before Tip-off"
+     }
+    ],
+    "markDefs": [],
+    "style": "h2"
+   },
+   {
+    "_key": "akmrcjad5u17",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "akmrcjad5u16",
+      "_type": "span",
+      "marks": [],
+      "text": "Not much, honestly. There was a t-shirt toss, one fan game on the court during a break, and a table giving out free Tampax samples, which was a first for us at any arena. If you're used to the pregame setup at bigger NBA buildings, dial your expectations way down. This isn't that yet."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "akmrcjad5u19",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "akmrcjad5u18",
+      "_type": "span",
+      "marks": [],
+      "text": "Arena Food, Rated"
+     }
+    ],
+    "markDefs": [],
+    "style": "h2"
+   },
+   {
+    "_key": "akmrcjad5u21",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "akmrcjad5u20",
+      "_type": "span",
+      "marks": [],
+      "text": "We tried four things. Here's exactly what we thought, out of 10."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "akmrcjad5u23",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "akmrcjad5u22",
+      "_type": "span",
+      "marks": [],
+      "text": "Jerk Chicken Patty Sandwich — 5/10"
+     }
+    ],
+    "markDefs": [],
+    "style": "h3"
+   },
+   {
+    "_key": "akmrcjad5u25",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "akmrcjad5u24",
+      "_type": "span",
+      "marks": [],
+      "text": "The crust was off, kind of tough instead of flaky, and the chicken inside barely had any jerk seasoning on it. Texture-wise it honestly didn't taste like real chicken. Not terrible, but not what we were hoping for."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "akmrcjad5u27",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "akmrcjad5u26",
+      "_type": "span",
+      "marks": [],
+      "text": "Pizza — 3/10"
+     }
+    ],
+    "markDefs": [],
+    "style": "h3"
+   },
+   {
+    "_key": "akmrcjad5u29",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "akmrcjad5u28",
+      "_type": "span",
+      "marks": [],
+      "text": "Dry. Dry, dry, dry. Tasted like it had been sitting under a warmer a while before it got to us. Skip it."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "akmrcjad5u31",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "akmrcjad5u30",
+      "_type": "span",
+      "marks": [],
+      "text": "Poutine — 8/10"
+     }
+    ],
+    "markDefs": [],
+    "style": "h3"
+   },
+   {
+    "_key": "akmrcjad5u33",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "akmrcjad5u32",
+      "_type": "span",
+      "marks": [],
+      "text": "This one delivered. Fries held up, gravy wasn't watery, and they didn't skimp on the meat on top. If you only get one thing at Coca-Cola Coliseum, get the poutine."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "akmrcjad5u35",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "akmrcjad5u34",
+      "_type": "span",
+      "marks": [],
+      "text": "Mac and Cheese Eggroll — 1/10"
+     }
+    ],
+    "markDefs": [],
+    "style": "h3"
+   },
+   {
+    "_key": "akmrcjad5u37",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "akmrcjad5u36",
+      "_type": "span",
+      "marks": [],
+      "text": "Dry and bland all the way through, just nothing going on inside. Between this and the pizza, the fried and baked stuff was where the kitchen struggled most."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "akmrcjad5u38",
+    "_type": "image",
+    "alt": "Arena food tray with a jerk chicken patty sandwich, mac and cheese eggroll, and fries, with the court visible blurred in the background",
+    "caption": "Our food tray at Coca-Cola Coliseum — upload the real photo here (PXL_20260705_184353565)"
+   },
+   {
+    "_key": "akmrcjad5u40",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "akmrcjad5u39",
+      "_type": "span",
+      "marks": [],
+      "text": "Tips for Visiting Coca-Cola Coliseum"
+     }
+    ],
+    "markDefs": [],
+    "style": "h2"
+   },
+   {
+    "_key": "akmrcjad5u42",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "akmrcjad5u41",
+      "_type": "span",
+      "marks": [],
+      "text": "Take the GO Train if you can get to a station — it's cheap and easy, just don't rely on parking there yourself on a weekday. Get the poutine, skip the pizza and the eggroll, and go in knowing the pregame entertainment is minimal so you're not disappointed when it's just a t-shirt toss and one fan game."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   },
+   {
+    "_key": "akmrcjad5u44",
+    "_type": "block",
+    "children": [
+     {
+      "_key": "akmrcjad5u43",
+      "_type": "span",
+      "marks": [],
+      "text": "We'd go back for another Tempo game. The basketball itself was worth it, even with Dallas running away with this one."
+     }
+    ],
+    "markDefs": [],
+    "style": "normal"
+   }
+  ],
+  "coverImage": {
+   "_type": "image",
+   "alt": "Holding a Caribbean roti at Scotiabank Arena in Toronto, with a view of the WNBA game on the court below.",
+   "asset": {
+    "_ref": "image-dc52d052398ffe7f8da8dcd44b64503b3ce2c117-1355x1800-webp",
+    "_type": "reference"
+   }
+  },
+  "date": "2026-07-05T19:00:00.000Z",
+  "location": "Toronto, ON",
+  "slug": {
+   "_type": "slug",
+   "current": "toronto-tempo-coca-cola-coliseum-game-day-guide"
+  },
+  "summary": "We caught Toronto Tempo vs. Dallas Wings at Coca-Cola Coliseum. Here's the GO Train route, what there is to do, and honest ratings on every food item we tried.",
+  "tags": [
+   "WNBA",
+   "Toronto Tempo",
+   "Coca-Cola Coliseum",
+   "game day guide",
+   "arena food",
+   "GO Train",
+   "Toronto"
+  ],
+  "title": "Toronto Tempo vs. Dallas Wings: A Coca-Cola Coliseum Guide"
+ }
+]
