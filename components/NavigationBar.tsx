@@ -120,8 +120,15 @@ export default function Navbar() {
   return (
     <nav
       aria-label="Main"
-      className="sticky top-0 z-50 w-full border-b border-border bg-background/90 backdrop-blur"
+      className="sticky top-0 z-50 w-full border-b border-border"
     >
+      {/* The frosted background sits on its own layer: a blur on the <nav>
+          itself would make it the box that `fixed` children size against,
+          and the phone menu below would open 0px tall */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 -z-10 bg-background/90 backdrop-blur"
+      />
       <div className="container mx-auto flex h-[68px] max-w-7xl items-center gap-4 px-4 md:px-6">
         <Link
           href="/"
@@ -257,7 +264,7 @@ export default function Navbar() {
                 height={36}
               />
               <p className="text-sm leading-snug text-muted-foreground">
-                Rene &amp; Kenny, visiting and ranking every NBA and WNBA arena.
+                René &amp; Kenny, visiting and ranking every NBA and WNBA arena.
               </p>
             </div>
           </div>

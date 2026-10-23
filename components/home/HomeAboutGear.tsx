@@ -61,7 +61,7 @@ export default function HomeAboutGear({
           </h2>
         </div>
         <p className="text-base leading-relaxed text-foreground/85 md:text-base">
-          We&apos;re Rene and Kenny, and we travel for basketball. Tip-off is
+          We&apos;re René and Kenny, and we travel for basketball. Tip-off is
           only half the trip, so this is our playbook for everything around it:
           the hotels we crash in, the local food we hunt down and the gear we
           pack.
