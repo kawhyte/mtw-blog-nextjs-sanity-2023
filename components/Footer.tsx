@@ -1,96 +1,123 @@
+import { ArrowUp, Instagram, Youtube } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 
-import { EXAMPLE_PATH } from '../lib/constants'
+// Same sections as the navbar, plus search
+const FOOTER_LINKS = [
+  { href: '/arenas', label: 'Arenas' },
+  { href: '/hotels', label: 'Hotels' },
+  { href: '/food', label: 'Food' },
+  { href: '/guides', label: 'Guides' },
+  { href: '/essentials', label: 'Travel Gear' },
+  { href: '/search', label: 'Search' },
+]
 
+const SOCIAL = [
+  {
+    href: 'https://www.instagram.com/mtwtravel/',
+    label: 'Instagram',
+    icon: Instagram,
+  },
+  {
+    href: 'https://www.youtube.com/channel/UC519Rsb02cRpbzDNLMWflVA',
+    label: 'YouTube',
+    icon: Youtube,
+  },
+]
+
+/**
+ * Site footer: who we are in one line, a link to every section (somewhere
+ * to go next at the end of a long page, and links for Google), the social
+ * accounts, then the credit and "Back to top".
+ */
 export default function Footer() {
-  let year = new Date().getFullYear()
+  const year = new Date().getFullYear()
   return (
     // BlogLayout's <main> is a flex column: the spacer keeps the old 5rem gap
     // above the footer, and mt-auto pushes it to the bottom of short pages
     <>
       <div aria-hidden="true" className="h-20 shrink-0" />
-      <footer className="relative mt-auto text-muted-foreground body-font bg-primary-soft-background">
-        <div className="container px-5 py-8 mx-auto flex items-center sm:flex-row ">
-          <div className="flex title-font font-medium items-center md:justify-start justify-center text-foreground">
-            <Link href="/" passHref legacyBehavior>
-              <div className="flex flex-row justify-center align-middle items-center">
-                {/* <div className=' hidden mx-4 sm:inline-block'>
-									<img
-										className='rounded-xl '
-										src='/icon/icon.jpg'
-										alt='MTW icon'
-										width={45}
-										height={45}
-									/>
-								</div> */}
-
-                <p className="lg:block hidden text-base leading-relaxed md:inline-block mr-4 py-2 whitespace-nowrap text-foreground">
+      <footer className="mt-auto border-t border-border bg-primary-soft-background text-foreground">
+        <div className="container mx-auto max-w-7xl px-4 pb-6 pt-7 md:px-6 md:pb-7 md:pt-10">
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between lg:gap-12">
+            <div className="flex max-w-[420px] flex-col gap-3">
+              <Link
+                href="/"
+                className="flex w-fit items-center gap-2.5"
+                aria-label="Meet the Whytes home"
+              >
+                <Image
+                  className="rounded-xl"
+                  src="/icon/icon.jpg"
+                  unoptimized
+                  alt=""
+                  width={40}
+                  height={40}
+                />
+                <span className="font-heading-family text-lg font-extrabold tracking-tight">
                   meet the whytes
-                </p>
-              </div>
-            </Link>
-          </div>
-
-          <div className="flex  flex-row">
-            <a
-              href="https://www.kennywhyte.com"
-              className="text-primary ml-1 "
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              {' '}
-              <p
-                id="copyright-year"
-                className="font-sans mt-4 text-sm leading-relaxed md:text-sm lg:text-sm text-foreground sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-border sm:py-2 sm:mt-0"
-              >
-                © {year} Created by Kenny
+                </span>
+              </Link>
+              <p className="text-[15px] leading-relaxed text-muted-foreground">
+                Visiting and ranking every NBA &amp; WNBA arena, plus the hotels
+                we stay in and the food we find along the way.
               </p>
-            </a>
+            </div>
+
+            <div className="flex flex-col gap-4 lg:items-end lg:gap-[18px]">
+              <nav aria-label="Footer">
+                <ul className="grid grid-cols-2 gap-x-4 md:flex md:flex-wrap md:gap-x-7">
+                  {FOOTER_LINKS.map((link) => (
+                    <li key={link.href}>
+                      <Link
+                        href={link.href}
+                        className="flex min-h-11 items-center text-base font-bold hover:text-primary md:min-h-0"
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+              <ul className="flex gap-2.5">
+                {SOCIAL.map(({ href, label, icon: Icon }) => (
+                  <li key={href}>
+                    <a
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer nofollow"
+                      aria-label={`Meet the Whytes on ${label}`}
+                      className="inline-flex h-10 items-center gap-2 rounded-full border-2 border-border bg-card px-3.5 text-sm font-bold transition-colors hover:border-stone-300"
+                    >
+                      <Icon className="h-5 w-5" aria-hidden="true" />
+                      {label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
-          <span className="flex flex-row sm:ml-auto sm:mt-0 mt-4 justify-center  sm:justify-start cursor-pointer">
-            <a
-              className="ml-3 p-2 text-primary"
-              rel="noopener noreferrer nofollow"
-              target="_blank"
-              href="https://www.instagram.com/mtwtravel/"
-              aria-label="Follow us on Instagram"
-            >
-              <svg
-                fill="none"
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                className="w-6 h-6"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
+          <div className="mt-6 flex items-center justify-between gap-3 border-t border-border pt-4 text-sm text-muted-foreground md:mt-8">
+            <p>
+              &copy; {year} Created by{' '}
+              <a
+                href="https://www.kennywhyte.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-foreground underline underline-offset-[3px] hover:text-primary"
               >
-                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
-                <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01"></path>
-              </svg>
-            </a>
+                Kenny
+              </a>
+            </p>
             <a
-              className="ml-3 p-2 text-primary"
-              rel="noopener noreferrer nofollow"
-              target="_blank"
-              href="https://www.youtube.com/channel/UC519Rsb02cRpbzDNLMWflVA"
-              aria-label="Watch us on YouTube"
+              href="#"
+              className="flex min-h-11 items-center gap-1 font-bold text-foreground hover:text-primary"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor"
-                stroke="currentColor"
-                width="24"
-                height="24"
-                className="w-6 h-6"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-              >
-                <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z" />
-              </svg>
+              Back to top
+              <ArrowUp className="h-4 w-4" aria-hidden="true" />
             </a>
-          </span>
+          </div>
         </div>
       </footer>
     </>
