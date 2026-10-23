@@ -1,5 +1,6 @@
 import { toPlainText } from '@portabletext/react'
 import BlogMeta from 'components/BlogMeta'
+import { cardName } from 'components/listing/ListingCard'
 import * as demo from 'lib/demo.data'
 import { urlForImage } from 'lib/sanity.image'
 import {
@@ -35,19 +36,23 @@ export default function PostPageHead({
 }: PostPageHeadProps) {
   const siteTitle = settings?.title || demo.title
 
-  // SEO-optimized title generation based on content type
+  // Titles stay near 60 characters so Google shows them whole. Hotel and
+  // food titles often already end in "Hotel Review", so that's dropped
+  // before adding "Review" back; renamed arenas lead with the new name,
+  // which is what people search for
   let pageTitle = siteTitle
   if (post?.title) {
-    if (contentType === 'hotel') {
-      pageTitle = `${post.title} Review | NBA Arena Hotel Guide - Meet the Whytes`
-    } else if (contentType === 'food') {
-      pageTitle = `${post.title} Review | Arena Food Guide - Meet the Whytes`
-    } else if (contentType === 'guide') {
-      pageTitle = `${post.title} | Travel Guide - Meet the Whytes`
+    if (contentType === 'hotel' || contentType === 'food') {
+      pageTitle = `${cardName(post.title)} Review | Meet the Whytes`
     } else if (contentType === 'arena') {
-      pageTitle = `${post.title} Arena Tips & Review | NBA/WNBA Experience - Meet the Whytes`
+      const currentName = (post as any).currentName as string | undefined
+      const name = currentName ? `${currentName} (${post.title})` : post.title
+      // No "Review" until we've been
+      pageTitle = (post as any).visited
+        ? `${name} Review: Seats, Food & Tips | Meet the Whytes`
+        : `${name} | Meet the Whytes`
     } else {
-      pageTitle = `${post.title} | NBA & WNBA Arena Travel - Meet the Whytes`
+      pageTitle = `${post.title} | Meet the Whytes`
     }
   }
 
@@ -122,7 +127,8 @@ export default function PostPageHead({
   // --- Generate OG Image URL ---
   // Use the actual default image name from BlogLayout.tsx
   let ogImageUrl = `${SITE_URL}/MeettheWhytes.jpg`
-  if (post?.coverImage?.asset?._ref) {
+  // Queries expand the asset (`asset->{ _id, ... }`), so there's no _ref
+  if (post?.coverImage?.asset?._ref || post?.coverImage?.asset?._id) {
     ogImageUrl = urlForImage(post.coverImage)
       .width(1200)
       .height(630)
@@ -165,6 +171,8 @@ export default function PostPageHead({
     else if (post.linkType === 'story') pathPrefix = '/guide'
   }
 
+  const updatedAt = (post as any)?.updatedAt as string | undefined
+
   const pageUrl = post?.slug
     ? `${SITE_URL}${pathPrefix}/${post.slug}`
     : SITE_URL
@@ -190,8 +198,11 @@ export default function PostPageHead({
       {post?.date && (
         <meta property="article:published_time" content={post.date} />
       )}
-      {post?.date && (
-        <meta property="article:modified_time" content={post.date} />
+      {(updatedAt || post?.date) && (
+        <meta
+          property="article:modified_time"
+          content={updatedAt || post?.date}
+        />
       )}
       {'tags' in post &&
         Array.isArray((post as any).tags) &&

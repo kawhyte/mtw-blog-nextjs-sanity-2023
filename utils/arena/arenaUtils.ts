@@ -143,3 +143,32 @@ export const isSortValidForFilter = (
   }
   return true
 }
+
+// Share cards are 1200px wide
+const SHARE_MIN_WIDTH = 1200
+
+/**
+ * The photo to share the arena with (Facebook, iMessage, Google): the first
+ * hero photo when it's big enough, otherwise the largest of the hero photos
+ * and the card image, which is often tiny
+ */
+export const arenaSharePhoto = (
+  arena: Pick<Arena, 'arenaImage' | 'heroPhotos'>,
+) => {
+  const width = (image: any) => image?.asset?.metadata?.dimensions?.width ?? 0
+  const height = (image: any) =>
+    image?.asset?.metadata?.dimensions?.height ?? 0
+  const first = arena.heroPhotos?.find((image) => image?.asset)
+  if (first && width(first) >= SHARE_MIN_WIDTH) return first
+  return (
+    [...(arena.heroPhotos ?? []), arena.arenaImage]
+      .filter((image) => image?.asset)
+      .sort((a, b) => width(b) * height(b) - width(a) * height(a))[0] ?? null
+  )
+}
+
+/** "Toronto, ON" → CA; everything else is in the US */
+export const arenaCountry = (location?: string) =>
+  /,\s*(AB|BC|MB|NB|NL|NS|ON|PE|QC|SK)$/i.test(location?.trim() ?? '')
+    ? 'CA'
+    : 'US'
