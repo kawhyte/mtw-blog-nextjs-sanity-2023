@@ -89,7 +89,7 @@
     --muted-foreground: 25 5% 45%; /* Stone #78716C -> USE FOR: Placeholder text or secondary info (`text-muted-foreground`) */
     --border: 30 8% 90%; /* Light Gray -> USE FOR: Component borders (`border-border`) */
     --input: 30 8% 85%; /* Slightly darker gray -> USE FOR: Input field borders (`border-input`) */
-    --border-bold: 215 28% 17%; /* Deep Gray-Charcoal -> USE FOR: Bold card/container borders, Neo-Brutalist 4px structural borders (`border-border-bold`) */
+    --border-bold: 215 28% 17%; /* Deep Gray-Charcoal #1F2937 -> USE FOR: the 3px card, photo and button borders (`border-[3px] border-border-bold`) */
 
     /* --- Brand Colors (Your Core Palette) --- */
     /* USAGE: Primary actions, links, and highlighted UI elements. */
