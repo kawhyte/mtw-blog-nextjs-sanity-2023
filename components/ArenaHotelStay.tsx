@@ -1,3 +1,4 @@
+import { cardName } from 'components/listing/ListingCard'
 import { calculateRating } from 'lib/calculateRating'
 import { HOTEL_WEIGHTS } from 'lib/ratingWeights'
 import { urlForImage } from 'lib/sanity.image'
@@ -32,7 +33,8 @@ interface ArenaHotelStayProps {
 function HotelStayCard({ stay }: { stay: HotelStayData }) {
   const { hotel, hotelName, nightsStayed } = stay
   const hasReview = !!hotel?.slug
-  const displayName = hotel?.title ?? hotelName
+  // "Thompson Denver Hotel Review" → "Thompson Denver", as on the listing cards
+  const displayName = hotel?.title ? cardName(hotel.title) : hotelName
   if (!displayName) return null
 
   const ratingResult = hotel?.hotelRating
