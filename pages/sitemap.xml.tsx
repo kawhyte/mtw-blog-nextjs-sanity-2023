@@ -143,7 +143,10 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
       hotels.filter((h) => h.slug).map((h) => ({ slug: h.slug, date: h.date })),
       foods.filter((f) => f.slug).map((f) => ({ slug: f.slug, date: f.date })),
       guides.filter((g) => g.slug).map((g) => ({ slug: g.slug, date: g.date })),
-      arenas.filter((a) => a.slug).map((a) => ({ slug: a.slug, date: a.date })),
+      // Arenas we haven't visited stay out of Google until we have
+      arenas
+        .filter((a) => a.slug && a.visited)
+        .map((a) => ({ slug: a.slug, date: a.date })),
       // One URL per city (alias pages like Paradise redirect to Las Vegas)
       [
         ...new Set(
