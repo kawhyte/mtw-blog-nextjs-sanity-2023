@@ -18,6 +18,7 @@
  *                                    backup in backups/.
  *
  * Options: --only=arenas,hotelReview,foodReview   --limit=50
+ *          --review   rebuild review.html from what's saved, no Gemini calls
  *
  * Built for Gemini's free tier: one call per photo, a pause between calls,
  * waits out per-minute limits and stops cleanly at the daily one (run again
@@ -45,6 +46,7 @@ const GEMINI_URL =
   'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent'
 
 const isLive = process.argv.includes('--no-dry-run')
+const reviewOnly = process.argv.includes('--review')
 const arg = (name) =>
   process.argv.find((a) => a.startsWith(`--${name}=`))?.split('=')[1]
 const only = arg('only')?.split(',')
@@ -309,12 +311,33 @@ function writeReview(suggestions) {
         ${
           s.error
             ? `<p class="error">Not done: ${escape(s.error)}</p>`
-            : `
-        <p>${s.needAlt ? escape(s.alt) : '<i>keeps its alt text</i>'}</p>
-        <p class="cat">${s.needCategory ? escape(TYPES[s.docType].categories[s.category]?.split(':')[0]) : '<i>keeps its category</i>'}</p>`
+            : `<p>${s.needAlt ? escape(s.alt) : '<i>keeps its alt text</i>'}</p>`
         }
       </figcaption>
     </figure>`
+  // Within a review, one row per category in the schema's order, so a
+  // bedroom photo sitting among the bathrooms stands out
+  const sections = (items) => {
+    const type = TYPES[items[0].docType]
+    const rows = [
+      ...Object.entries(type.categories).map(([value, text]) => [
+        text.split(':')[0],
+        items.filter((s) => !s.error && s.needCategory && s.category === value),
+      ]),
+      [
+        'Already has a category',
+        items.filter((s) => !s.error && !s.needCategory),
+      ],
+      ['Not done yet', items.filter((s) => s.error)],
+    ]
+    return rows
+      .filter(([, row]) => row.length)
+      .map(
+        ([label, row]) =>
+          `<h3>${escape(label)} <span>${row.length}</span></h3><div class="grid">${row.map(card).join('')}</div>`,
+      )
+      .join('\n')
+  }
   const html = `<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Photo Alt Text Review</title>
@@ -323,20 +346,21 @@ function writeReview(suggestions) {
   @media (prefers-color-scheme: dark) { :root { --bg:#1c1917; --fg:#f5f5f4; --muted:#a8a29e; --line:#44403c; --soft:#292524; --bad:#f87171; } }
   body { margin:0; padding:24px 16px 64px; background:var(--bg); color:var(--fg); font:15px/1.5 system-ui, sans-serif; }
   main { max-width:1200px; margin:0 auto; }
-  h1 { font-size:28px; margin:0 0 4px; } h2 { font-size:18px; margin:32px 0 12px; }
+  h1 { font-size:28px; margin:0 0 4px; } h2 { font-size:20px; margin:40px 0 4px; padding-top:16px; border-top:2px solid var(--line); }
+  h3 { font-size:15px; margin:16px 0 8px; } h3 span { color:var(--muted); font-weight:400; }
   .sub { color:var(--muted); margin:0 0 8px; }
   .grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:16px; }
   figure { margin:0; border:2px solid var(--line); border-radius:16px; overflow:hidden; background:var(--soft); }
   figure.err { border-color:var(--bad); }
   img { display:block; width:100%; aspect-ratio:4/3; object-fit:cover; background:var(--line); }
   figcaption { padding:10px 12px 12px; } figcaption p { margin:6px 0 0; }
-  .tag { font-size:12px; color:var(--muted); } .cat { font-weight:700; } .error { color:var(--bad); }
+  .tag { font-size:12px; color:var(--muted); } .error { color:var(--bad); }
   i { color:var(--muted); }
 </style></head><body><main>
 <h1>Photo alt text review</h1>
 <p class="sub">${ready.length} photos ready to write${failed.length ? `, ${failed.length} not done yet (they'll retry on the next run)` : ''}. Nothing is in Sanity yet.</p>
 <p class="sub">Tell Claude which ones to change, or say "write the photo suggestions" to save them.</p>
-${[...groups].map(([name, items]) => `<h2>${escape(name)} (${items.length})</h2><div class="grid">${items.map(card).join('')}</div>`).join('\n')}
+${[...groups].map(([name, items]) => `<h2>${escape(name)} (${items.length})</h2>${sections(items)}`).join('\n')}
 </main></body></html>`
   fs.mkdirSync(OUT_DIR, { recursive: true })
   fs.writeFileSync(REVIEW, html)
@@ -430,7 +454,14 @@ async function runWrite() {
   console.log(`\n✅ Wrote ${fields} fields across ${docs.length} documents.`)
 }
 
-;(isLive ? runWrite() : runSuggest()).catch((err) => {
+;(isLive
+  ? runWrite()
+  : reviewOnly
+    ? Promise.resolve(writeReview(readSuggestions())).then(() =>
+        console.log(`📝 ${path.relative(process.cwd(), REVIEW)}`),
+      )
+    : runSuggest()
+).catch((err) => {
   console.error('Fatal error:', err.message)
   process.exit(1)
 })
