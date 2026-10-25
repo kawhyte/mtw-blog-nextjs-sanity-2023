@@ -20,6 +20,7 @@ import {
   Users,
 } from 'lucide-react'
 import dynamic from 'next/dynamic'
+import Head from 'next/head'
 import Link from 'next/link'
 import { arenaSharePhoto } from 'utils/arena/arenaUtils'
 import { locationToSlug } from 'utils/locationSlug'
@@ -273,6 +274,13 @@ export default function ArenaPage({
         }
         contentType="arena"
       />
+      {/* Bucket-list arenas have little to read yet: keep them out of
+          Google until we've visited (they're left out of the sitemap too) */}
+      {!arena.visited && (
+        <Head>
+          <meta name="robots" content="noindex, follow" />
+        </Head>
+      )}
       <ArenaStructuredData arena={arena} />
       <BreadcrumbStructuredData
         items={[
