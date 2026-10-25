@@ -119,9 +119,25 @@ export default function PostPageHead({
       ? toPlainText(demo.description)
       : demo.description || ''
   }
-  // Ensure description isn't excessively long for meta tags
+  // Renamed arenas: put today's name next to the visit-era name, which is
+  // what people search for now ("Our Amway Center (now Kia Center) review")
+  const currentName = (post as any).currentName as string | undefined
+  if (
+    contentType === 'arena' &&
+    currentName &&
+    post?.title &&
+    !pageDescription.includes(currentName)
+  ) {
+    pageDescription = pageDescription.includes(post.title)
+      ? pageDescription.replace(post.title, `${post.title} (now ${currentName})`)
+      : `Now called ${currentName}. ${pageDescription}`
+  }
+
+  // Ensure description isn't excessively long for meta tags, cutting at a
+  // word so it doesn't end mid-word
   if (pageDescription.length > 160) {
-    pageDescription = pageDescription.substring(0, 157) + '...'
+    const cut = pageDescription.substring(0, 157)
+    pageDescription = cut.substring(0, cut.lastIndexOf(' ')).replace(/[\s,.:;]+$/, '') + '...'
   }
 
   // --- Generate OG Image URL ---
