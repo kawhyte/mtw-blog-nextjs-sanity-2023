@@ -48,23 +48,37 @@ export async function describePhoto(
     throw new GeminiError(`Could not load the photo (${imageRes.status})`)
   const data = Buffer.from(await imageRes.arrayBuffer()).toString('base64')
 
+  // Two tries of up to 22s each, plus the photo, fit the route's 60s
   for (let attempt = 1; ; attempt++) {
-    const geminiRes = await fetch(GEMINI_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'x-goog-api-key': apiKey },
-      signal: AbortSignal.timeout(12000),
-      body: JSON.stringify({
-        contents: [
-          {
-            parts: [
-              { inlineData: { mimeType: 'image/jpeg', data } },
-              { text: prompt },
-            ],
-          },
-        ],
-        generationConfig,
-      }),
-    })
+    let geminiRes: Response
+    try {
+      geminiRes = await fetch(GEMINI_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-goog-api-key': apiKey,
+        },
+        signal: AbortSignal.timeout(22000),
+        body: JSON.stringify({
+          contents: [
+            {
+              parts: [
+                { inlineData: { mimeType: 'image/jpeg', data } },
+                { text: prompt },
+              ],
+            },
+          ],
+          generationConfig,
+        }),
+      })
+    } catch {
+      // Gemini sometimes hangs when it's busy
+      if (attempt < 2) continue
+      throw new GeminiError(
+        'Gemini is slow to answer right now. Try again in a minute.',
+        504,
+      )
+    }
 
     if (geminiRes.ok) {
       const json = await geminiRes.json()

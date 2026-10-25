@@ -32,8 +32,9 @@ export async function postForAi<T>(url: string, body: unknown): Promise<T> {
 
     if (res.ok && data) return data as T
 
-    // A used-up free limit won't clear in 2 seconds, so don't retry it
-    if (res.status !== 429 && res.status >= 500 && attempt < 2) {
+    // Retry only the host's own error pages: a JSON error means our route
+    // already retried Gemini, and a used-up limit won't clear in 2 seconds
+    if (!data && res.status >= 500 && attempt < 2) {
       await sleep(2000)
       continue
     }
