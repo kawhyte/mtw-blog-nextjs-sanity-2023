@@ -1,8 +1,10 @@
 import { SparklesIcon } from '@sanity/icons'
 import { Box, Button, Stack, useToast } from '@sanity/ui'
 import { useState } from 'react'
-import { set, useFormValue } from 'sanity'
 import type { StringInputProps } from 'sanity'
+import { set, useFormValue } from 'sanity'
+
+import { postForAi } from './aiRequest'
 
 export function AltTextGeneratorInput(props: StringInputProps) {
   const [loading, setLoading] = useState(false)
@@ -26,15 +28,14 @@ export function AltTextGeneratorInput(props: StringInputProps) {
 
     setLoading(true)
     try {
-      const res = await fetch('/api/generate-alt-text', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ assetRef, contentType, docTitle }),
-        signal: AbortSignal.timeout(20000),
-      })
-
-      const data = await res.json()
-      if (!res.ok) throw new Error(data.error ?? 'Request failed')
+      const data = await postForAi<{ altText: string }>(
+        '/api/generate-alt-text',
+        {
+          assetRef,
+          contentType,
+          docTitle,
+        },
+      )
 
       props.onChange(set(data.altText))
       toast.push({

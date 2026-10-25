@@ -106,7 +106,7 @@ The site runs at [http://localhost:3000](http://localhost:3000), and the Studio 
 
 | Script | Description |
 | --- | --- |
-| `npm run generate-alt-text` | Generate image alt text (add `:live` to write) |
+| `npm run generate-alt-text` | Suggest alt text + photo categories and build a review page (add `:live` to write the reviewed ones) |
 | `npm run generate-seo-excerpts` | Generate SEO excerpts (add `:live` to write) |
 | `npm run generate-summaries` | Generate content summaries (add `:live` to write) |
 | `npm run fix-null-fields` | Backfill null fields (add `:live` to write) |

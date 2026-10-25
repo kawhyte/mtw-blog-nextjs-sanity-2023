@@ -56,3 +56,6 @@ studio/.env.development
 /TRAVEL_GUIDE_MIGRATION.md
 /docs/DESIGN_SYSTEM.md
 /docs/guide-field-mapping.md
+
+# Saved Gemini photo suggestions and their review page (scripts/generate-alt-text.mjs)
+/scripts/photo-suggestions/

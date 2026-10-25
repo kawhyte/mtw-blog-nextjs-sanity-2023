@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
+import { describePhoto, GeminiError } from '../../lib/gemini-image'
 import {
   BANNED_PHRASES,
   BANNED_WORDS,
@@ -9,14 +10,8 @@ import {
   trimToSentence,
 } from '../../lib/gemini-voice'
 
-// "image-{hexid}-{WxH}-{format}" → Sanity CDN URL
-function assetRefToUrl(ref: string): string {
-  const withoutPrefix = ref.replace(/^image-/, '')
-  const lastHyphen = withoutPrefix.lastIndexOf('-')
-  const idAndDims = withoutPrefix.slice(0, lastHyphen)
-  const format = withoutPrefix.slice(lastHyphen + 1)
-  return `https://cdn.sanity.io/images/k5e2zsor/production/${idAndDims}.${format}`
-}
+// Loading the photo plus one retry can take longer than the default limit
+export const config = { maxDuration: 60 }
 
 function buildPrompt(contentType?: string, docTitle?: string): string {
   const base = `${BRAND_VOICE} We also cover the occasional cruise. You are writing a photo caption for the blog.`
@@ -27,7 +22,8 @@ function buildPrompt(contentType?: string, docTitle?: string): string {
       hotelReview: `This photo is from a hotel stay${docTitle ? ` at ${docTitle}` : ''}. Write from a traveler's perspective.`,
       foodReview: `This photo is from a meal or restaurant${docTitle ? `: ${docTitle}` : ''}. Write from a food lover's perspective.`,
       guide: `This photo is from a travel guide${docTitle ? `: "${docTitle}"` : ''}. Write from a traveler's perspective.`,
-    }[contentType ?? ''] ?? `This photo is from the Meet the Whytes travel blog${docTitle ? `: ${docTitle}` : ''}.`
+    }[contentType ?? ''] ??
+    `This photo is from the Meet the Whytes travel blog${docTitle ? `: ${docTitle}` : ''}.`
 
   return `${base} ${context}
 
@@ -59,60 +55,17 @@ export default async function handler(
     docTitle,
   }: { assetRef?: string; contentType?: string; docTitle?: string } = req.body
 
-  if (!assetRef)
-    return res.status(400).json({ error: 'assetRef is required' })
-
-  const apiKey = process.env.GEMINI_API_KEY
-  if (!apiKey)
-    return res.status(500).json({ error: 'Gemini API key not configured' })
+  if (!assetRef) return res.status(400).json({ error: 'assetRef is required' })
 
   try {
-    const imageUrl = assetRefToUrl(assetRef)
-
-    const imageRes = await fetch(imageUrl, {
-      signal: AbortSignal.timeout(10000),
-    })
-    if (!imageRes.ok)
-      throw new Error(`Failed to fetch image: ${imageRes.status}`)
-
-    const mimeType = (
-      imageRes.headers.get('content-type') ?? 'image/jpeg'
-    ).split(';')[0]
-    const imageBuffer = await imageRes.arrayBuffer()
-    const base64 = Buffer.from(imageBuffer).toString('base64')
-
-    const geminiRes = await fetch(
-      'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent',
+    const raw = await describePhoto(
+      assetRef,
+      buildPrompt(contentType, docTitle),
       {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-goog-api-key': apiKey,
-        },
-        signal: AbortSignal.timeout(15000),
-        body: JSON.stringify({
-          contents: [
-            {
-              parts: [
-                { inlineData: { mimeType, data: base64 } },
-                { text: buildPrompt(contentType, docTitle) },
-              ],
-            },
-          ],
-          generationConfig: { maxOutputTokens: 120, temperature: 0.5 },
-        }),
+        maxOutputTokens: 120,
+        temperature: 0.5,
       },
     )
-
-    if (!geminiRes.ok) {
-      const err = await geminiRes.json()
-      throw new Error(err?.error?.message ?? `Gemini error ${geminiRes.status}`)
-    }
-
-    const data = await geminiRes.json()
-    const raw = data.candidates?.[0]?.content?.parts?.[0]?.text?.trim()
-
-    if (!raw) throw new Error('No caption returned from Gemini')
 
     // Prompt asks for 80 to 160 chars; only intervene on a bad overshoot
     const clean = stripDashes(raw)
@@ -121,6 +74,8 @@ export default async function handler(
     res.status(200).json({ caption })
   } catch (err: any) {
     console.error('[generate-caption]', err)
-    res.status(500).json({ error: err.message ?? 'Failed to generate caption' })
+    res
+      .status(err instanceof GeminiError ? err.status : 500)
+      .json({ error: err.message ?? 'Failed to generate caption' })
   }
 }
