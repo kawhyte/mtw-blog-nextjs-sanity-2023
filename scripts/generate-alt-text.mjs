@@ -117,6 +117,10 @@ const client = createClient({
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 const isEmpty = (value) => !value || !String(value).trim()
 const baseId = (id) => id.replace(/^drafts\./, '')
+// A suggestion with everything its photo needs (a photo suggested before
+// captions were added still needs one)
+const isDone = (s) =>
+  Boolean(s && !s.error && s.alt && (!s.needCaption || s.caption))
 
 // "image-{hexid}-{WxH}-{format}" → a sized JPEG from the Sanity CDN
 function photoUrl(assetRef, width) {
@@ -333,21 +337,21 @@ const escape = (s) =>
 /** A page with every suggestion next to its photo, grouped by review */
 function writeReview(suggestions) {
   const all = Object.values(suggestions)
-  const ready = all.filter((s) => s.alt)
-  const failed = all.filter((s) => s.error)
+  const ready = all.filter(isDone)
+  const failed = all.filter((s) => !isDone(s))
   const groups = new Map()
   for (const s of all) {
     const k = `${TYPES[s.docType].label}: ${s.docTitle}`
     groups.set(k, [...(groups.get(k) ?? []), s])
   }
   const card = (s) => `
-    <figure${s.error ? ' class="err"' : ''}>
+    <figure${isDone(s) ? '' : ' class="err"'}>
       <img loading="lazy" src="${photoUrl(s.assetRef, 400)}" alt="">
       <figcaption>
         <span class="tag">${escape(s.field)}</span>
         ${
-          s.error
-            ? `<p class="error">Not done: ${escape(s.error)}</p>`
+          !isDone(s)
+            ? `<p class="error">Not done: ${escape(s.error ?? 'needs a caption')}</p>`
             : `<p><b>Alt</b> ${s.needAlt ? escape(s.alt) : '<i>keeps its alt text</i>'}</p>
                <p><b>Caption</b> ${s.needCaption ? escape(s.caption) : '<i>keeps its caption</i>'}</p>`
         }
@@ -360,13 +364,15 @@ function writeReview(suggestions) {
     const rows = [
       ...Object.entries(type.categories).map(([value, text]) => [
         text.split(':')[0],
-        items.filter((s) => !s.error && s.needCategory && s.category === value),
+        items.filter(
+          (s) => isDone(s) && s.needCategory && s.category === value,
+        ),
       ]),
       [
         'Already has a category',
-        items.filter((s) => !s.error && !s.needCategory),
+        items.filter((s) => isDone(s) && !s.needCategory),
       ],
-      ['Not done yet', items.filter((s) => s.error)],
+      ['Not done yet', items.filter((s) => !isDone(s))],
     ]
     return rows
       .filter(([, row]) => row.length)
@@ -416,7 +422,6 @@ async function runSuggest() {
       .filter((p) => saved[p.id])
       .map((p) => [p.id, { ...saved[p.id], ...p }]),
   )
-  const isDone = (s) => s && !s.error && s.alt && (!s.needCaption || s.caption)
   const todo = photos.filter((p) => !isDone(suggestions[p.id])).slice(0, limit)
   console.log(
     `📷 ${photos.length} photos need alt text, a caption or a category; ${todo.length} to ask Gemini about`,
@@ -465,9 +470,7 @@ async function runSuggest() {
 }
 
 async function runWrite() {
-  const ready = Object.values(readSuggestions()).filter(
-    (s) => s.alt && !s.error,
-  )
+  const ready = Object.values(readSuggestions()).filter(isDone)
   if (!ready.length)
     return console.log(
       'No reviewed suggestions to write. Run `npm run generate-alt-text` first.',
