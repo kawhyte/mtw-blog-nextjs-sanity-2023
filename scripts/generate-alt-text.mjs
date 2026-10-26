@@ -187,6 +187,23 @@ async function findPhotos() {
 }
 
 class DailyLimitError extends Error {}
+class OfflineError extends Error {}
+
+const isOnline = () =>
+  fetch('https://cdn.sanity.io', {
+    method: 'HEAD',
+    signal: AbortSignal.timeout(10000),
+  }).then(
+    () => true,
+    () => false,
+  )
+
+/** No connection (Wi-Fi dropped, Mac asleep): wait it out instead of skipping photos */
+async function waitForNetwork() {
+  console.log('\n   📡 No internet connection, waiting for it to come back…')
+  while (!(await isOnline())) await sleep(30000)
+  console.log('   📡 Back online, carrying on')
+}
 
 /** One Gemini call: alt text and category together */
 async function suggest(photo) {
@@ -201,6 +218,8 @@ Answer as JSON: {"alt": "the alt text", "category": "one of the values above"}`
 
   const imageRes = await fetch(photoUrl(photo.assetRef, 1024), {
     signal: AbortSignal.timeout(15000),
+  }).catch(async (err) => {
+    throw (await isOnline()) ? err : new OfflineError(err.message)
   })
   if (!imageRes.ok) throw new Error(`photo failed to load (${imageRes.status})`)
   const data = Buffer.from(await imageRes.arrayBuffer()).toString('base64')
@@ -248,6 +267,7 @@ Answer as JSON: {"alt": "the alt text", "category": "one of the values above"}`
         await sleep(10000)
         continue
       }
+      if (!(await isOnline())) throw new OfflineError(err.message)
       throw new Error(`Gemini didn't answer (${err.message})`)
     }
 
@@ -383,7 +403,17 @@ async function runSuggest() {
         `   ${++done}/${todo.length} ${photo.docTitle}, ${photo.field} … `,
       )
       try {
-        const answer = await suggest(photo)
+        let answer
+        // An outage isn't the photo's fault: wait, then try the same photo again
+        for (;;) {
+          try {
+            answer = await suggest(photo)
+            break
+          } catch (err) {
+            if (!(err instanceof OfflineError)) throw err
+            await waitForNetwork()
+          }
+        }
         suggestions[photo.id] = { ...photo, ...answer, error: undefined }
         console.log(`✓ ${answer.category}`)
       } catch (err) {
