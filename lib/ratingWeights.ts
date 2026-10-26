@@ -32,3 +32,14 @@ export const HOTEL_WEIGHTS = {
   Gym: 0.01, // 1%
   Pool: 0.01, // 1%
 }
+
+// Sports_Fan is shown as its own badge and is left out of the overall score
+export const CRUISE_WEIGHTS = {
+  Cabin: 0.2, // 20%
+  Dining: 0.2, // 20%
+  Service: 0.15, // 15% - includes embarkation and debarkation
+  Ship_Flow: 0.15, // 15% - crowds, lines, space
+  Entertainment: 0.1, // 10%
+  Itinerary: 0.1, // 10%
+  Value: 0.1, // 10%
+}

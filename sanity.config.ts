@@ -17,6 +17,8 @@ import arenaReviewType from 'schemas/arenaReview'
 // import amenitiesType from 'schemas/amenities'
 //  import authorType from 'schemas/author'
 // import {bookType} from 'schemas/bookType'
+import cruiseRatingType from 'schemas/cruiseRating'
+import cruiseReviewType from 'schemas/cruiseReview'
 import foodType from 'schemas/foodRating'
 import foodReviewType from 'schemas/foodReview'
 import galleryType from 'schemas/gallery'
@@ -38,7 +40,7 @@ import travelEssentialType from 'schemas/travelEssentials'
 const title =
   process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE || 'Meet the Whytes Blog'
 
-const SCHEDULED_SCHEMA_TYPES = ['guide', 'hotelReview', 'foodReview']
+const SCHEDULED_SCHEMA_TYPES = ['guide', 'hotelReview', 'foodReview', 'cruiseReview']
 
 export default defineConfig({
   basePath: '/studio',
@@ -68,6 +70,8 @@ export default defineConfig({
       individualFoodType,
       hotelReviewType,
       foodReviewType,
+      cruiseRatingType,
+      cruiseReviewType,
       guideType,
       areanasType,
       photoGallery,
