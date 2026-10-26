@@ -1,13 +1,14 @@
 #!/usr/bin/env node
 
 /**
- * Bulk photo alt text + category, Meet the Whytes
+ * Bulk photo alt text, caption + category, Meet the Whytes
  *
  * Two steps, so what gets written is exactly what Kenny reviewed:
  *
- *   npm run generate-alt-text        Suggest: asks Gemini for alt text and a
- *                                    photo category for every hero / gallery
- *                                    photo missing either, saves them to
+ *   npm run generate-alt-text        Suggest: asks Gemini for alt text, a
+ *                                    caption and a photo category for every
+ *                                    hero / gallery photo missing any of
+ *                                    them, saves them to
  *                                    scripts/photo-suggestions/ and builds
  *                                    review.html there. Nothing is written to
  *                                    Sanity. Safe to stop and rerun: photos
@@ -32,7 +33,8 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 
 import {
-  altTextPrompt,
+  altTextRules,
+  captionRules,
   stripDashes,
   trimToSentence,
 } from '../lib/gemini-voice.ts'
@@ -141,9 +143,9 @@ async function findPhotos() {
   const types = Object.keys(TYPES).filter((t) => !only || only.includes(t))
   const docs = await client.fetch(
     `*[_type in $types]{ _id, _type, name, title,
-      heroPhotos[]{ _key, alt, category, "assetRef": asset._ref },
-      imageGallery[]{ _key, alt, category, "assetRef": asset._ref },
-      gallery[]{ _key, alt, category, "assetRef": asset._ref } }`,
+      heroPhotos[]{ _key, alt, caption, category, "assetRef": asset._ref },
+      imageGallery[]{ _key, alt, caption, category, "assetRef": asset._ref },
+      gallery[]{ _key, alt, caption, category, "assetRef": asset._ref } }`,
     { types },
   )
   // Published first, so its values win over an older draft's
@@ -168,17 +170,19 @@ async function findPhotos() {
           key: item._key,
           assetRef: item.assetRef,
           needAlt: false,
+          needCaption: false,
           needCategory: false,
         }
         // Needs work if any version is missing it
         photo.needAlt ||= isEmpty(item.alt)
+        photo.needCaption ||= isEmpty(item.caption)
         photo.needCategory ||= isEmpty(item.category)
         photos.set(id, photo)
       }
     }
   }
   return [...photos.values()]
-    .filter((p) => p.needAlt || p.needCategory)
+    .filter((p) => p.needAlt || p.needCaption || p.needCategory)
     .sort(
       (a, b) =>
         a.docType.localeCompare(b.docType) ||
@@ -205,16 +209,25 @@ async function waitForNetwork() {
   console.log('   📡 Back online, carrying on')
 }
 
-/** One Gemini call: alt text and category together */
+/** One Gemini call: alt text, caption and category together */
 async function suggest(photo) {
   const type = TYPES[photo.docType]
   const categories = Object.entries(type.categories)
-  const prompt = `${altTextPrompt(photo.docType, photo.docTitle)}
+  const prompt = `Write two short texts for this photo and pick its category.
 
-Also pick the one photo category that fits best:
+1. ALT TEXT
+${altTextRules(photo.docType, photo.docTitle)}
+
+2. CAPTION
+${captionRules(photo.docType, photo.docTitle)}
+
+The caption is shown under the photo; don't just repeat the alt text.
+
+3. CATEGORY
+Pick the one photo category that fits best:
 ${categories.map(([value, text]) => `- ${value}: ${text}`).join('\n')}
 
-Answer as JSON: {"alt": "the alt text", "category": "one of the values above"}`
+Answer as JSON: {"alt": "the alt text", "caption": "the caption", "category": "one of the values above"}`
 
   const imageRes = await fetch(photoUrl(photo.assetRef, 1024), {
     signal: AbortSignal.timeout(15000),
@@ -245,18 +258,19 @@ Answer as JSON: {"alt": "the alt text", "category": "one of the values above"}`
           ],
           generationConfig: {
             temperature: 0.4,
-            maxOutputTokens: 200,
+            maxOutputTokens: 400,
             responseMimeType: 'application/json',
             responseSchema: {
               type: 'OBJECT',
               properties: {
                 alt: { type: 'STRING' },
+                caption: { type: 'STRING' },
                 category: {
                   type: 'STRING',
                   enum: categories.map(([value]) => value),
                 },
               },
-              required: ['alt', 'category'],
+              required: ['alt', 'caption', 'category'],
             },
           },
         }),
@@ -275,11 +289,14 @@ Answer as JSON: {"alt": "the alt text", "category": "one of the values above"}`
       const json = await res.json()
       const text = json.candidates?.[0]?.content?.parts?.[0]?.text
       const answer = JSON.parse(text ?? '{}')
-      if (!answer.alt || !type.categories[answer.category])
+      if (!answer.alt || !answer.caption || !type.categories[answer.category])
         throw new Error('Gemini gave an incomplete answer')
-      const clean = stripDashes(answer.alt.trim())
+      // Prompts ask for 50 to 120 and 80 to 160 chars; only trim a bad overshoot
+      const alt = stripDashes(answer.alt.trim())
+      const caption = stripDashes(answer.caption.trim())
       return {
-        alt: clean.length > 150 ? trimToSentence(clean, 120) : clean,
+        alt: alt.length > 150 ? trimToSentence(alt, 120) : alt,
+        caption: caption.length > 200 ? trimToSentence(caption, 160) : caption,
         category: answer.category,
       }
     }
@@ -331,7 +348,8 @@ function writeReview(suggestions) {
         ${
           s.error
             ? `<p class="error">Not done: ${escape(s.error)}</p>`
-            : `<p>${s.needAlt ? escape(s.alt) : '<i>keeps its alt text</i>'}</p>`
+            : `<p><b>Alt</b> ${s.needAlt ? escape(s.alt) : '<i>keeps its alt text</i>'}</p>
+               <p><b>Caption</b> ${s.needCaption ? escape(s.caption) : '<i>keeps its caption</i>'}</p>`
         }
       </figcaption>
     </figure>`
@@ -360,7 +378,7 @@ function writeReview(suggestions) {
   }
   const html = `<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Photo Alt Text Review</title>
+<title>Photo Text Review</title>
 <style>
   :root { --bg:#fff; --fg:#1f2937; --muted:#78716c; --line:#e7e5e4; --soft:#f7f5f2; --bad:#b91c1c; }
   @media (prefers-color-scheme: dark) { :root { --bg:#1c1917; --fg:#f5f5f4; --muted:#a8a29e; --line:#44403c; --soft:#292524; --bad:#f87171; } }
@@ -375,9 +393,9 @@ function writeReview(suggestions) {
   img { display:block; width:100%; aspect-ratio:4/3; object-fit:cover; background:var(--line); }
   figcaption { padding:10px 12px 12px; } figcaption p { margin:6px 0 0; }
   .tag { font-size:12px; color:var(--muted); } .error { color:var(--bad); }
-  i { color:var(--muted); }
+  i, b { color:var(--muted); } b { font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:.04em; margin-right:4px; }
 </style></head><body><main>
-<h1>Photo alt text review</h1>
+<h1>Photo alt text and caption review</h1>
 <p class="sub">${ready.length} photos ready to write${failed.length ? `, ${failed.length} not done yet (they'll retry on the next run)` : ''}. Nothing is in Sanity yet.</p>
 <p class="sub">Tell Claude which ones to change, or say "write the photo suggestions" to save them.</p>
 ${[...groups].map(([name, items]) => `<h2>${escape(name)} (${items.length})</h2>${sections(items)}`).join('\n')}
@@ -389,11 +407,19 @@ ${[...groups].map(([name, items]) => `<h2>${escape(name)} (${items.length})</h2>
 async function runSuggest() {
   if (!GEMINI_API_KEY)
     throw new Error('GEMINI_API_KEY is not set in .env.local')
-  const suggestions = readSuggestions()
   const photos = await findPhotos()
-  const todo = photos.filter((p) => !suggestions[p.id]?.alt).slice(0, limit)
+  // Keep only photos that still need something, with today's needs (a photo
+  // written yesterday may now only be missing its caption)
+  const saved = readSuggestions()
+  const suggestions = Object.fromEntries(
+    photos
+      .filter((p) => saved[p.id])
+      .map((p) => [p.id, { ...saved[p.id], ...p }]),
+  )
+  const isDone = (s) => s && !s.error && s.alt && (!s.needCaption || s.caption)
+  const todo = photos.filter((p) => !isDone(suggestions[p.id])).slice(0, limit)
   console.log(
-    `📷 ${photos.length} photos need alt text or a category; ${todo.length} to ask Gemini about`,
+    `📷 ${photos.length} photos need alt text, a caption or a category; ${todo.length} to ask Gemini about`,
   )
 
   let done = 0
@@ -471,6 +497,8 @@ async function runWrite() {
       const at = `${s.field}[_key=="${s.key}"]`
       // Only fill what's still empty: never replace anything Kenny wrote
       if (s.needAlt && isEmpty(item.alt)) set[`${at}.alt`] = s.alt
+      if (s.needCaption && s.caption && isEmpty(item.caption))
+        set[`${at}.caption`] = s.caption
       if (s.needCategory && isEmpty(item.category))
         set[`${at}.category`] = s.category
     }
