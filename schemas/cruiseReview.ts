@@ -36,6 +36,7 @@ import {
   positivesField,
   verdictField,
 } from './sharedReviewFields'
+import { getPortableTextLength } from './utils'
 
 /**
  * Cruise review: one document per SHIP. Repeat sailings on the same ship go
@@ -112,6 +113,28 @@ const multi = (name: string, title: string, options: [string, string][]) =>
     options: {
       list: options.map(([t, value]) => ({ title: t, value })),
     },
+  })
+
+/**
+ * A short "Our take" paragraph at the top of a section: the first-person text
+ * Google reads under each heading. Optional, but warns when missing or thin.
+ */
+const ourTake = (name: string, section: string, group: string, example: string) =>
+  defineField({
+    name,
+    title: `Our Take: ${section}`,
+    type: 'text',
+    rows: 4,
+    group,
+    description: `2 to 4 sentences in your own words, e.g. ${example}`,
+    validation: (rule) =>
+      rule
+        .custom((value) =>
+          !value || (value as string).trim().length < 100
+            ? 'Add 2 to 4 sentences (100+ characters): your own words help this section rank'
+            : true,
+        )
+        .warning(),
   })
 
 const pick = (name: string, title: string, options: [string, string][]) =>
@@ -544,6 +567,8 @@ export default defineType({
     }),
 
     // ── Cabin ───────────────────────────────────────────────────
+    ourTake('cabinTake', 'Cabin', 'cabin', '"The split bathroom was the star. The bed was hard until we got a topper."'),
+
     defineField({
       name: 'cabin',
       title: 'Cabin',
@@ -721,6 +746,8 @@ export default defineType({
     }),
 
     // ── Cost ────────────────────────────────────────────────────
+    ourTake('valueTake', 'Cost & Value', 'cost', '"At $278 a night each it felt fair for a suite, but the extras added up fast."'),
+
     defineField({
       name: 'guests',
       title: 'Number of Guests',
@@ -870,6 +897,8 @@ export default defineType({
     defineField({ ...textList('moneyTips', 'Money-Saving Tips', 'e.g. Book Chef\'s Table during the Black Friday sale.'), group: 'cost' }),
 
     // ── Dining ──────────────────────────────────────────────────
+    ourTake('diningTake', 'Dining', 'dining', '"Coastal Kitchen was the best food onboard. The main dining room was hit or miss."'),
+
     defineField({
       name: 'diningVenues',
       title: 'Restaurants & Bars',
@@ -973,6 +1002,8 @@ export default defineType({
     defineField({ ...textList('diningWatchOuts', 'Dining Watch-Outs', 'e.g. Steaks came out a level more done than ordered.'), group: 'dining' }),
 
     // ── Activities & Sports ─────────────────────────────────────
+    ourTake('entertainmentTake', 'Entertainment', 'activities', '"Sonic Odyssey was worth seeing twice. The rest of the shows felt dated."'),
+
     defineField({
       name: 'attractions',
       title: 'Signature Attractions',
@@ -1048,6 +1079,8 @@ export default defineType({
         }),
       ],
     }),
+
+    ourTake('crowdsTake', 'Crowds', 'activities', '"Sea days were packed. Go to the gym before 7 AM or after 10."'),
 
     defineField({
       name: 'crowdHotSpots',
@@ -1229,6 +1262,8 @@ export default defineType({
     }),
 
     // ── Ports & Logistics ───────────────────────────────────────
+    ourTake('portsTake', 'Ports', 'itinerary', '"The Cabo overnight is the reason to book this route. Ensenada was a quick stop."'),
+
     defineField({
       name: 'itinerary',
       title: 'Day by Day',
@@ -1501,7 +1536,23 @@ export default defineType({
     defineField({ ...negativesField('cruise'), group: 'verdict' }),
 
     // No AI generator here yet, the generate-verdict API has no cruise prompt
-    defineField({ ...verdictField('cruise', 1200), group: 'verdict', components: undefined }),
+    defineField({
+      ...verdictField('cruise', 1200),
+      group: 'verdict',
+      components: undefined,
+      validation: (Rule) => [
+        Rule.custom((value) => {
+          const length = getPortableTextLength((value as any[]) ?? [])
+          if (!length) return 'Verdict is required'
+          return length > 1200 ? `Verdict exceeds 1200 characters (${length}/1200)` : true
+        }).error(),
+        Rule.custom((value) =>
+          getPortableTextLength((value as any[]) ?? []) < 300
+            ? 'Short verdict: 300+ characters (3 to 5 sentences) helps the page rank'
+            : true,
+        ).warning(),
+      ],
+    }),
 
     defineField({
       name: 'wouldSailAgain',
@@ -1588,6 +1639,7 @@ export default defineType({
       type: 'array',
       group: 'verdict',
       description: 'Write questions the way cruisers search, e.g. "Is the dining package worth it on Quantum?"',
+      validation: (rule) => rule.min(4).warning('Add at least 4 questions: FAQs win "People also ask" spots'),
       of: [
         defineArrayMember({
           type: 'object',
@@ -1671,6 +1723,32 @@ export default defineType({
     }),
 
     // ── SEO & Links ─────────────────────────────────────────────
+    defineField({
+      name: 'reviewedBy',
+      title: 'Reviewed By',
+      type: 'array',
+      group: 'seo',
+      description: 'Shown as the byline. Google gives more trust to reviews with a named author.',
+      of: [{ type: 'string' }],
+      options: {
+        list: [
+          { title: 'René Whyte', value: 'rene' },
+          { title: 'Kenny Whyte', value: 'kenny' },
+        ],
+      },
+      initialValue: ['rene', 'kenny'],
+      validation: (rule) => rule.min(1).warning('Add at least one reviewer for the byline'),
+    }),
+
+    defineField({
+      name: 'lastUpdated',
+      title: 'Last Updated',
+      type: 'date',
+      group: 'seo',
+      description:
+        'Change this when you make a real update (new sailing, new prices, new photos), not for typo fixes. Shown on the page as "Updated ...".',
+    }),
+
     defineField({
       name: 'seoExcerpt',
       title: 'SEO Excerpt / Meta Description',
