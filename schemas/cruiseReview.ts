@@ -692,7 +692,9 @@ export default defineType({
           description: 'Only what the picks above miss, e.g. "Engine hum at the stern when docking."',
         }),
         defineField({ name: 'balconyNotes', title: 'Balcony & View', type: 'text', rows: 2, description: 'Soot, obstructions, privacy.' }),
-        textList('tips', 'Cabin Tips', 'e.g. Ask for a mattress topper on Day 1.'),
+        textList('liked', 'What We Liked (optional)', 'One per line, e.g. "Split bathroom made mornings easy."'),
+        textList('disliked', 'What We Did Not Like (optional)', 'One per line, e.g. "Sofa was too firm to lounge on."'),
+        textList('tips', 'Cabin Tips (optional)', 'e.g. Ask for a mattress topper on Day 1.'),
       ],
     }),
 
