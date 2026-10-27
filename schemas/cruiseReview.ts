@@ -18,7 +18,12 @@ import { RelatedReviewsInput, SuggestTagsInput } from '../plugins/CruiseSeoInput
 import { ItineraryFillerInput } from '../plugins/ItineraryFillerInput'
 import {
   AirportInput,
+  BoardingTimeInput,
+  CheckInWindowInput,
   DeparturePortInput,
+  FlightTimeInput,
+  MinutesToBoardInput,
+  OffShipTimeInput,
   TerminalInput,
   TransferInput,
 } from '../plugins/PickOrTypeInput'
@@ -1190,11 +1195,31 @@ export default defineType({
       group: 'itinerary',
       options: { collapsible: true, collapsed: false, columns: 2 },
       fields: [
-        defineField({ name: 'checkInWindow', title: 'Check-In Window', type: 'string', description: 'e.g. 11:00 to 11:30 AM' }),
-        defineField({ name: 'arrivedAt', title: 'We Arrived At', type: 'string' }),
-        defineField({ name: 'boardedAt', title: 'We Boarded At', type: 'string' }),
-        defineField({ name: 'minutesToBoard', title: 'Minutes From Arrival to Onboard', type: 'number' }),
-        textList('tips', 'Tips'),
+        defineField({
+          name: 'checkInWindow',
+          title: 'Check-In Time Slot',
+          type: 'string',
+          description: 'The start of your assigned arrival window.',
+          components: { input: CheckInWindowInput },
+        }),
+        pick('priorityBoarding', 'Priority Boarding?', [
+          ['Yes', 'yes'],
+          ['No', 'no'],
+        ]),
+        defineField({ name: 'arrivedAt', title: 'We Arrived At', type: 'string', components: { input: BoardingTimeInput } }),
+        defineField({ name: 'boardedAt', title: 'We Boarded At', type: 'string', components: { input: BoardingTimeInput } }),
+        defineField({
+          name: 'minutesToBoard',
+          title: 'Minutes From Arrival to Onboard',
+          type: 'number',
+          components: { input: MinutesToBoardInput },
+        }),
+        pick('lines', 'Lines', [
+          ['Short', 'short'],
+          ['Moderate', 'moderate'],
+          ['Long', 'long'],
+        ]),
+        textList('tips', 'Tips (optional)'),
       ],
     }),
 
@@ -1211,10 +1236,20 @@ export default defineType({
           type: 'string',
           options: { list: [{ title: 'Self-assist (carry your bags)', value: 'self-assist' }, { title: 'Assigned group', value: 'assigned' }], layout: 'radio' },
         }),
-        defineField({ name: 'offShipAt', title: 'Off the Ship At', type: 'string' }),
+        defineField({ name: 'offShipAt', title: 'Off the Ship At', type: 'string', components: { input: OffShipTimeInput } }),
         defineField({ name: 'minutesToExit', title: 'Minutes to Clear the Terminal', type: 'number' }),
-        defineField({ name: 'flightTime', title: 'Our Flight Time', type: 'string', description: 'Helps answer "Is an 11 AM flight too early?"' }),
-        textList('tips', 'Tips'),
+        pick('facialRecognition', 'Facial Recognition at Customs?', [
+          ['Yes', 'yes'],
+          ['No', 'no'],
+        ]),
+        defineField({
+          name: 'flightTime',
+          title: 'Our Flight Time',
+          type: 'string',
+          description: 'Helps answer "Is an 11 AM flight too early?"',
+          components: { input: FlightTimeInput },
+        }),
+        textList('tips', 'Tips (optional)'),
       ],
     }),
 
