@@ -97,6 +97,22 @@ const textList = (name: string, title: string, description?: string) =>
 const noWifi = ({ parent }: { parent?: { usage?: string } }) =>
   !parent?.usage || parent.usage === 'none'
 
+// USB details only matter once we say the room has USB ports
+const noUsb = ({ parent }: { parent?: { usb?: string } }) => parent?.usb !== 'yes'
+
+/** Several one-click choices shown as checkboxes */
+const multi = (name: string, title: string, options: [string, string][]) =>
+  defineField({
+    name,
+    title,
+    type: 'array',
+    of: [{ type: 'string' }],
+    options: {
+      list: options.map(([t, value]) => ({ title: t, value })),
+      layout: 'grid',
+    },
+  })
+
 const pick = (name: string, title: string, options: [string, string][]) =>
   defineField({
     name,
@@ -613,15 +629,55 @@ export default defineType({
           description:
             'Drawers, closet and hangers: was there room for everyone\'s clothes for the whole sailing? (Number of Guests on the Cost tab, Nights on Overview.)',
         }),
+        multi('plugTypes', 'Plug Types', [
+          ['American (110V)', 'us'],
+          ['European (220V)', 'eu'],
+          ['UK (230V)', 'uk'],
+        ]),
+        pick('outletCount', 'Outlets in the Room', [
+          ['1', '1'],
+          ['2', '2'],
+          ['3', '3'],
+          ['4+', '4+'],
+        ]),
+        multi('outletPlaces', 'Where the Outlets Are', [
+          ['By the bed', 'bed'],
+          ['Desk or vanity', 'desk'],
+          ['Living area', 'living'],
+          ['Bathroom (shaver only)', 'bathroom'],
+        ]),
         pick('bedOutlets', 'Outlets at the Bed', [
           ['None', 'none'],
           ['One side', 'one-side'],
           ['Both sides', 'both-sides'],
         ]),
-        pick('bedUsb', 'USB at the Bed?', [
+        pick('usb', 'USB Ports in the Room?', [
           ['Yes', 'yes'],
           ['No', 'no'],
         ]),
+        defineField({
+          ...multi('usbTypes', 'USB Types', [
+            ['USB-A (classic)', 'usb-a'],
+            ['USB-C', 'usb-c'],
+          ]),
+          hidden: noUsb,
+        }),
+        defineField({
+          ...pick('usbCount', 'USB Ports in the Room', [
+            ['1', '1'],
+            ['2', '2'],
+            ['3', '3'],
+            ['4+', '4+'],
+          ]),
+          hidden: noUsb,
+        }),
+        defineField({
+          ...pick('bedUsb', 'USB at the Bed?', [
+            ['Yes', 'yes'],
+            ['No', 'no'],
+          ]),
+          hidden: noUsb,
+        }),
         pick('motion', 'Motion & Vibration', [
           ['Barely felt', 'barely'],
           ['Some', 'some'],
