@@ -1,5 +1,15 @@
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+
 /** @type {import('next').NextConfig} */
 const config = {
+  // Pin the project root: a stray package-lock.json in the home folder made
+  // Turbopack pick the home folder as the root, and then the dev server missed
+  // file changes until .next was deleted
+  turbopack: {
+    root: path.dirname(fileURLToPath(import.meta.url)),
+  },
+
   //  staticPageGenerationTimeout: 140000,
 
   // Transpile ESM-only packages so webpack can handle their CJS/ESM interop correctly.
