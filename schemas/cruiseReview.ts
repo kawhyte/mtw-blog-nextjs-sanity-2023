@@ -568,6 +568,15 @@ export default defineType({
           ['Glass door', 'glass-door'],
           ['Tub + shower', 'tub-shower'],
         ]),
+        defineField({
+          ...pick('showerSize', 'Shower Size', [
+            ['Tight (hard to turn around)', 'tight'],
+            ['Fits 1 comfortably', 'one'],
+            ['Fits 2', 'two'],
+            ['Roomy (3 or more)', 'roomy'],
+          ]),
+          description: 'How many adults could stand in it at once.',
+        }),
         pick('splitBathroom', 'Split Bathroom?', [
           ['Yes', 'yes'],
           ['No', 'no'],
