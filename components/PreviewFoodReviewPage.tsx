@@ -19,7 +19,7 @@ export default function PreviewFoodReviewPage({
   const [previewFoodReview] = useLiveQuery<FoodReview>(
     initialFoodReview,
     foodReviewBySlugQuery,
-    { slug: initialFoodReview.slug },
+    { slug: initialFoodReview.slug, preview: true },
   )
 
   return (
