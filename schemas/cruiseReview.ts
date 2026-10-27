@@ -1,5 +1,5 @@
-import { EarthGlobeIcon } from '@sanity/icons'
 import { format, parseISO } from 'date-fns'
+import { Ship } from 'lucide-react'
 import { defineArrayMember, defineField, defineType } from 'sanity'
 
 import { DROVE_AND_PARKED } from '../lib/cruisePorts'
@@ -163,7 +163,7 @@ const tagList = (name: string, title: string, description?: string) =>
 export default defineType({
   name: 'cruiseReview',
   title: 'Cruise Review',
-  icon: EarthGlobeIcon,
+  icon: Ship,
   type: 'document',
 
   groups: [
