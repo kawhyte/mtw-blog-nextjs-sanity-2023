@@ -56,14 +56,16 @@ QUESTIONS PEOPLE SEARCH (pick from these, reworded for this ship and cabin):
 ${RESEARCH_QUESTIONS}
 ${searched ? `\nQUESTIONS FOUND ONLINE ABOUT THIS SHIP:\n${searched}\n` : ''}
 OUR REVIEW DATA (the ONLY source for answers):
-${JSON.stringify(review)}
+${JSON.stringify({ ...review, computed: computed(review) })}
 
 Write 6 to 8 FAQ entries.
 - Pick the questions searchers ask most that matter for THIS ship, cabin and route. Use the ship name in at least half of them, e.g. "Is the dining package worth it on ${review.shipName}?"
 - Answer ONLY from OUR REVIEW DATA. Use our real numbers, times, names and verdicts. Never use outside facts or general cruise knowledge.
 - Opinions ("worth it", "good value", "loved it") only when our ratings, worthIt picks, takes or verdict say so.
 - Never infer beyond the data: if a detail is missing, leave it out of the answer.
-- Never mention "our data", "the review" or what is missing. If our data cannot answer the main point of a question people often ask, still include it, but write the answer as exactly: NEEDS ANSWER
+- Use the numbers in "computed" as given. Never add up, subtract or divide numbers yourself.
+- Answer the parts of a question our data covers and simply leave out the parts it does not. Never mention "our data", "the review" or what is missing.
+- Only if our data covers no part of a question people often ask, still include it, with the answer written as exactly: NEEDS ANSWER
 - Ask port questions about the port by name, e.g. "Is Cabo San Lucas a tender port on this cruise?"
 - Money with commas and cents only when given, e.g. $2,414 or $313.76.
 - Answers: 1 to 3 sentences, first person plural ("we"), direct answer first.
@@ -75,6 +77,32 @@ A: <answer>
 
 Q: <question>
 A: <answer>`
+}
+
+const sum = (items: any[] = []) =>
+  Math.round(items.reduce((total, item) => total + (Number(item?.amount) || 0), 0) * 100) / 100
+
+const money = (n: number) =>
+  `$${n.toLocaleString('en-US', { minimumFractionDigits: Number.isInteger(n) ? 0 : 2, maximumFractionDigits: 2 })}`
+
+/** Totals worked out in code, so the answers never carry Gemini's arithmetic */
+function computed(review: any) {
+  const total = sum(review.costItems)
+  const guests = Number(review.guests) || 2
+  const nights = Number(review.nights) || 0
+  return {
+    ...(total > 0 && {
+      totalPaid: money(total),
+      perPerson: money(Math.round((total / guests) * 100) / 100),
+      ...(nights && { perPersonPerNight: money(Math.round((total / guests / nights) * 100) / 100) }),
+    }),
+    packageComparisons: (review.packageComparisons ?? []).map((c: any) => ({
+      title: c.title,
+      [c.optionA?.label ?? 'optionA']: money(sum(c.optionA?.items)),
+      [c.optionB?.label ?? 'optionB']: money(sum(c.optionB?.items)),
+      saved: money(Math.abs(sum(c.optionA?.items) - sum(c.optionB?.items))),
+    })),
+  }
 }
 
 function parseFaqs(text: string): SuggestedFaq[] {
