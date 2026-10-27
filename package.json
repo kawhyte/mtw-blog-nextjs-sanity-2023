@@ -68,6 +68,7 @@
     "next": "15.5.22",
     "next-sanity": "^9.10.6",
     "nprogress": "^0.2.0",
+    "pdfjs-dist": "^5.7.284",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-icons": "^4.12.0",
