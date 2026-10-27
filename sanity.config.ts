@@ -2,13 +2,14 @@
  * This config is used to set up Sanity Studio that's mounted on the `/pages/studio/[[...index]].tsx` route
  */
 
-import { GlobeAltIcon, PlusCircleIcon } from '@heroicons/react/outline'
+import { GlobeAltIcon } from '@heroicons/react/outline'
 import { visionTool } from '@sanity/vision'
 import { apiVersion, dataset, previewSecretId, projectId } from 'lib/sanity.api'
 import { previewDocumentNode } from 'plugins/previewPane'
 import { productionUrl } from 'plugins/productionUrl'
 import { ScheduledBadge } from 'plugins/scheduledBadge'
 import { settingsPlugin, settingsStructure } from 'plugins/settings'
+import { StudioLogo } from 'plugins/StudioLogo'
 import { defineConfig } from 'sanity'
 import { deskTool } from 'sanity/desk'
 import { unsplashImageAsset } from 'sanity-plugin-asset-source-unsplash'
@@ -37,8 +38,9 @@ import settingsType from 'schemas/settings'
 import takeOutFoodRatingType from 'schemas/takeOutFoodRating'
 import travelEssentialType from 'schemas/travelEssentials'
 
-const title =
-  process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE || 'Meet the Whytes Blog'
+// Set in code so the Studio shows the brand everywhere, whatever the old
+// NEXT_PUBLIC_SANITY_PROJECT_TITLE env var says
+const title = 'Meet the Whytes'
 
 const SCHEDULED_SCHEMA_TYPES = ['guide', 'hotelReview', 'foodReview', 'cruiseReview']
 
@@ -47,7 +49,7 @@ export default defineConfig({
   projectId: projectId ?? '',
   dataset: dataset ?? '',
 
-  icon: PlusCircleIcon,
+  icon: StudioLogo,
   title,
 
   document: {
