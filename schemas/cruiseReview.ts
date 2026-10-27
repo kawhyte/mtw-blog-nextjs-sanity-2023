@@ -2,6 +2,7 @@ import { EarthGlobeIcon } from '@sanity/icons'
 import { format, parseISO } from 'date-fns'
 import { defineArrayMember, defineField, defineType } from 'sanity'
 
+import { DROVE_AND_PARKED } from '../lib/cruisePorts'
 import { CRUISE_LINES, OTHER } from '../lib/cruiseShips'
 import { AltTextGeneratorInput } from '../plugins/AltTextGeneratorInput'
 import { CabinDetailsInput } from '../plugins/CabinDetailsInput'
@@ -15,6 +16,12 @@ import {
 } from '../plugins/CruiseSelectInputs'
 import { RelatedReviewsInput, SuggestTagsInput } from '../plugins/CruiseSeoInputs'
 import { ItineraryFillerInput } from '../plugins/ItineraryFillerInput'
+import {
+  AirportInput,
+  DeparturePortInput,
+  TerminalInput,
+  TransferInput,
+} from '../plugins/PickOrTypeInput'
 import { SeoExcerptGeneratorInput } from '../plugins/SeoExcerptGeneratorInput'
 import { ShipFactsFetcherInput } from '../plugins/ShipFactsFetcherInput'
 import {
@@ -247,7 +254,8 @@ export default defineType({
       title: 'Departure Port',
       type: 'string',
       group: 'overview',
-      description: 'e.g. Los Angeles (San Pedro)',
+      description: 'Pick from the list, or choose "Other" and type it. Drives the airport and terminal lists.',
+      components: { input: DeparturePortInput },
       validation: (rule) => rule.required(),
     }),
 
@@ -1154,13 +1162,24 @@ export default defineType({
       group: 'itinerary',
       options: { collapsible: true, collapsed: false, columns: 2 },
       fields: [
-        defineField({ name: 'terminal', title: 'Terminal / Pier', type: 'string', description: 'e.g. Pier 91 to 93, San Pedro' }),
-        defineField({ name: 'airport', title: 'Airport', type: 'string', description: 'e.g. Long Beach (LGB)' }),
-        defineField({ name: 'transfer', title: 'Transfer', type: 'string', description: 'e.g. Uber' }),
+        defineField({ name: 'airport', title: 'Airport', type: 'string', components: { input: AirportInput } }),
+        defineField({ name: 'terminal', title: 'Terminal / Pier', type: 'string', components: { input: TerminalInput } }),
+        defineField({ name: 'transfer', title: 'How We Got There', type: 'string', components: { input: TransferInput } }),
         defineField({ name: 'transferMinutes', title: 'Transfer Time (minutes)', type: 'number' }),
-        defineField({ name: 'transferCost', title: 'Transfer Cost ($)', type: 'number' }),
-        defineField({ name: 'parkingCost', title: 'Port Parking ($ per day)', type: 'number' }),
-        defineField({ name: 'whyThisAirport', title: 'Why This Airport', type: 'text', rows: 2 }),
+        defineField({ name: 'transferCost', title: 'Transfer Cost ($, one way)', type: 'number' }),
+        defineField({
+          name: 'parkingCost',
+          title: 'Port Parking ($ per day)',
+          type: 'number',
+          hidden: ({ parent }) => parent?.transfer !== DROVE_AND_PARKED,
+        }),
+        defineField({
+          name: 'whyThisAirport',
+          title: 'Tip (optional)',
+          type: 'text',
+          rows: 2,
+          description: 'e.g. "LGB is closer to San Pedro than LAX and skips the traffic."',
+        }),
       ],
     }),
 
