@@ -64,6 +64,8 @@ export const getStaticProps: GetStaticProps<
   if (!foodReview) {
     return {
       notFound: true,
+      // Re-check so a scheduled post appears once its time passes
+      revalidate: 60,
     }
   }
 

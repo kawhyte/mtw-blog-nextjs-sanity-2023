@@ -1011,7 +1011,7 @@ export default defineType({
       location: 'location',
       visited: 'visited',
       media: 'arenaImage', // Card image
-      heroMedia: 'heroPhotos.0', // Falls back to hero photo #1
+      heroMedia: 'heroPhotos.0.asset', // Falls back to hero photo #1
       fallbackMedia: 'photoGallerySection.mainImage', // Legacy hero
     },
     prepare(selection) {

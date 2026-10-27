@@ -28,6 +28,7 @@ import {
   TerminalInput,
   TransferInput,
 } from '../plugins/PickOrTypeInput'
+import { PublishDateInput } from '../plugins/PublishDateInput'
 import { SeoExcerptGeneratorInput } from '../plugins/SeoExcerptGeneratorInput'
 import { ShipFactsFetcherInput } from '../plugins/ShipFactsFetcherInput'
 import {
@@ -1802,6 +1803,7 @@ export default defineType({
       name: 'publishedAt',
       title: 'Publish Date / Scheduled Time',
       type: 'datetime',
+      components: { input: PublishDateInput },
       group: 'seo',
       description: 'Set a future date to schedule, or leave blank to publish immediately.',
       validation: (rule) =>
@@ -1824,7 +1826,7 @@ export default defineType({
       date: 'sailingDate',
       nights: 'nights',
       media: 'coverImage',
-      heroMedia: 'heroPhotos.0',
+      heroMedia: 'heroPhotos.0.asset',
     },
     prepare({ title, ship, media, heroMedia, date, nights }) {
       const subtitles = [

@@ -259,6 +259,10 @@ const fetchSlugs = (type: string, filter?: string): string => {
 /**
  * Constructs a Groq query to fetch a single document by slug.
  */
+// Scheduled posts (publishedAt in the future) stay hidden on their own page
+// until their time, except in preview. Pass { preview: true } to see them.
+const SCHEDULED_FILTER = '$preview || !defined(publishedAt) || publishedAt <= now()'
+
 const fetchDocumentBySlug = (
   type: string,
   fields: string,
@@ -425,6 +429,7 @@ export const guideBySlugQuery = fetchDocumentBySlug(
   'guide',
   independentGuideFields,
   'slug.current',
+  SCHEDULED_FILTER,
 )
 
 // All guides query (card fields only, used on listing page)
@@ -511,6 +516,7 @@ export const hotelReviewBySlugQuery = fetchDocumentBySlug(
   'hotelReview',
   independentHotelReviewFields,
   'slug.current',
+  SCHEDULED_FILTER,
 )
 
 // All hotel reviews query
@@ -594,6 +600,7 @@ export const foodReviewBySlugQuery = fetchDocumentBySlug(
   'foodReview',
   independentFoodReviewFields,
   'slug.current',
+  SCHEDULED_FILTER,
 )
 
 // All food reviews query

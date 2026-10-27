@@ -5,6 +5,7 @@ import { defineField, defineType } from 'sanity'
 import { AltTextGeneratorInput } from '../plugins/AltTextGeneratorInput'
 import { CaptionGeneratorInput } from '../plugins/CaptionGeneratorInput'
 import { GuideSummaryGeneratorInput } from '../plugins/GuideSummaryGeneratorInput'
+import { PublishDateInput } from '../plugins/PublishDateInput'
 
 /**
  * This is the schema definition for a travel guide.
@@ -362,17 +363,9 @@ export default defineType({
       group: 'seo',
       title: 'Publish Date / Scheduled Time',
       description:
-        'Complete all required fields to enable scheduling. Set a future date to schedule, or leave blank to publish immediately.',
+        'Leave on "Publish now" to go live when you hit Publish, or pick a time to schedule it (Pacific time).',
       type: 'datetime',
-      readOnly: ({ document }) => {
-        const doc = document as any
-        return !(
-          doc?.title?.trim() &&
-          doc?.slug?.current &&
-          doc?.date &&
-          (doc?.content as unknown[])?.length > 0
-        )
-      },
+      components: { input: PublishDateInput },
       validation: (rule) =>
         rule
           .custom((value) => {
