@@ -853,6 +853,19 @@ export default defineType({
               ],
             }),
             defineField({ name: 'review', title: 'Review', type: 'text', rows: 4 }),
+            defineField({
+              name: 'menu',
+              title: 'Menu (optional)',
+              type: 'array',
+              description: 'Photos (JPEG, PNG) or a PDF of the menu. Add one file per page if needed.',
+              of: [
+                defineArrayMember({
+                  type: 'file',
+                  name: 'menuFile',
+                  options: { accept: 'image/*,application/pdf' },
+                }),
+              ],
+            }),
           ],
           preview: {
             select: { title: 'name', cost: 'cost', rating: 'rating', tried: 'tried' },
