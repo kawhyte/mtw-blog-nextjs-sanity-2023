@@ -59,3 +59,6 @@ studio/.env.development
 
 # Saved Gemini photo suggestions and their review page (scripts/generate-alt-text.mjs)
 /scripts/photo-suggestions/
+
+# Claude desktop preview config (recreated automatically when previewing)
+/.claude/launch.json
