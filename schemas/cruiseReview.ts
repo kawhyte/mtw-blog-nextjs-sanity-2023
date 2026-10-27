@@ -572,11 +572,15 @@ export default defineType({
           ['Yes', 'yes'],
           ['No', 'no'],
         ]),
-        pick('storage', 'Storage', [
-          ['Tight', 'tight'],
-          ['Enough', 'enough'],
-          ['Plenty', 'plenty'],
-        ]),
+        defineField({
+          ...pick('storage', 'Storage', [
+            ['Not enough', 'tight'],
+            ['Just enough', 'enough'],
+            ['Plenty of room', 'plenty'],
+          ]),
+          description:
+            'Drawers, closet and hangers: was there room for everyone\'s clothes for the whole sailing? (Number of Guests on the Cost tab, Nights on Overview.)',
+        }),
         pick('bedOutlets', 'Outlets at the Bed', [
           ['None', 'none'],
           ['One side', 'one-side'],
