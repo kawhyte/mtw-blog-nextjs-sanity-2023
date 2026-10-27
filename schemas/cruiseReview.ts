@@ -93,6 +93,10 @@ const textList = (name: string, title: string, description?: string) =>
   })
 
 /** A one-click choice shown as a row of radio buttons */
+// Wi-Fi details stay hidden until we say we used it
+const noWifi = ({ parent }: { parent?: { usage?: string } }) =>
+  !parent?.usage || parent.usage === 'none'
+
 const pick = (name: string, title: string, options: [string, string][]) =>
   defineField({
     name,
@@ -1260,15 +1264,67 @@ export default defineType({
       group: 'itinerary',
       options: { collapsible: true, collapsed: false, columns: 2 },
       fields: [
-        defineField({ name: 'plan', title: 'Plan', type: 'string', description: 'e.g. VOOM Surf + Stream (Starlink)' }),
-        defineField({ name: 'devices', title: 'Devices on Plan', type: 'number' }),
-        defineField({ name: 'pricePaid', title: 'Price Paid ($)', type: 'number' }),
-        defineField({ name: 'bookedWhen', title: 'Booked', type: 'string', options: { list: BOOKED_WHEN_OPTIONS, layout: 'radio' } }),
-        defineField({ name: 'sharingRule', title: 'Sharing Rules', type: 'text', rows: 2 }),
+        pick('usage', 'Did We Use Ship Wi-Fi?', [
+          ['Yes, we bought a plan', 'bought'],
+          ['Yes, it came with our cabin or fare', 'included'],
+          ['No, we stayed offline', 'none'],
+        ]),
+        defineField({
+          name: 'offlineNote',
+          title: 'Staying in Touch (optional)',
+          type: 'string',
+          description: 'e.g. "Used our phone plan in port."',
+          hidden: ({ parent }) => parent?.usage !== 'none',
+        }),
+        defineField({
+          ...pick('plan', 'Plan Level', [
+            ['Basic (browse and message)', 'basic'],
+            ['Premium (stream and video call)', 'premium'],
+          ]),
+          hidden: noWifi,
+        }),
+        defineField({
+          name: 'planName',
+          title: 'Plan Name (optional)',
+          type: 'string',
+          description: 'e.g. VOOM Surf + Stream',
+          hidden: noWifi,
+        }),
+        defineField({
+          ...pick('devices', 'Devices on Plan', [
+            ['1', '1'],
+            ['2', '2'],
+            ['3', '3'],
+            ['4+', '4+'],
+          ]),
+          hidden: noWifi,
+        }),
+        defineField({
+          name: 'pricePaid',
+          title: 'Price Paid ($, whole sailing)',
+          type: 'number',
+          hidden: ({ parent }) => parent?.usage !== 'bought',
+        }),
+        defineField({
+          name: 'bookedWhen',
+          title: 'Booked',
+          type: 'string',
+          options: { list: BOOKED_WHEN_OPTIONS, layout: 'radio', direction: 'horizontal' },
+          hidden: ({ parent }) => parent?.usage !== 'bought',
+        }),
+        defineField({
+          ...pick('sharingRule', 'Sharing', [
+            ['One device at a time', 'one-at-a-time'],
+            ['Each device needs a plan', 'per-device'],
+            ['Shared freely', 'shared'],
+          ]),
+          hidden: noWifi,
+        }),
         defineField({
           name: 'speedTests',
-          title: 'Speed Tests',
+          title: 'Speed Tests (optional)',
           type: 'array',
+          hidden: noWifi,
           of: [
             defineArrayMember({
               type: 'object',
@@ -1289,7 +1345,22 @@ export default defineType({
             }),
           ],
         }),
-        defineField({ name: 'verdict', title: 'Wi-Fi Verdict', type: 'text', rows: 2 }),
+        defineField({
+          ...pick('verdict', 'How Was It?', [
+            ['Great', 'great'],
+            ['Good enough', 'good'],
+            ['Slow', 'slow'],
+            ['Unusable', 'unusable'],
+          ]),
+          hidden: noWifi,
+        }),
+        defineField({
+          name: 'verdictNote',
+          title: 'Wi-Fi Note (optional)',
+          type: 'string',
+          description: 'e.g. "Buffered during evening peak hours."',
+          hidden: noWifi,
+        }),
       ],
     }),
 
