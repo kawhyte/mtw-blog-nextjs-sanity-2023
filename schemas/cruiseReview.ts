@@ -107,9 +107,10 @@ const multi = (name: string, title: string, options: [string, string][]) =>
     title,
     type: 'array',
     of: [{ type: 'string' }],
+    // No grid layout: in the half-width cabin columns a grid squeezed each
+    // label to one word per line, so one checkbox per line reads better
     options: {
       list: options.map(([t, value]) => ({ title: t, value })),
-      layout: 'grid',
     },
   })
 
