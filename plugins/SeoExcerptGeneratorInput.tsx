@@ -4,6 +4,7 @@ import { useState } from 'react'
 import type { StringInputProps } from 'sanity'
 import { set, useFormValue } from 'sanity'
 
+import { findLine } from '../lib/cruiseShips'
 import { extractPlainText } from './utils'
 
 export function SeoExcerptGeneratorInput(props: StringInputProps) {
@@ -54,6 +55,20 @@ export function SeoExcerptGeneratorInput(props: StringInputProps) {
           location: doc?.location,
           positives: doc?.prosConsVerdict?.positives ?? [],
           verdict: extractPlainText(doc?.prosConsVerdict?.verdict ?? []),
+        }
+      } else if (docType === 'cruiseReview') {
+        payload = {
+          ...payload,
+          title: doc?.title,
+          shipName: doc?.shipName,
+          cruiseLine: findLine(doc?.cruiseLine)?.title,
+          cabinType: doc?.cabinType,
+          nights: doc?.nights,
+          itineraryName: doc?.itineraryName,
+          departurePort: doc?.departurePort,
+          tldr: doc?.verdictHeadline,
+          positives: doc?.positives ?? [],
+          verdict: extractPlainText(doc?.verdict ?? []),
         }
       }
 
