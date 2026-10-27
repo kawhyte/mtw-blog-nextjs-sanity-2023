@@ -15,6 +15,7 @@ import {
   ShipNameInput,
 } from '../plugins/CruiseSelectInputs'
 import { RelatedReviewsInput, SuggestTagsInput } from '../plugins/CruiseSeoInputs'
+import { FaqSuggestInput } from '../plugins/FaqSuggestInput'
 import { ItineraryFillerInput } from '../plugins/ItineraryFillerInput'
 import {
   AirportInput,
@@ -1640,6 +1641,7 @@ export default defineType({
       group: 'verdict',
       description: 'Write questions the way cruisers search, e.g. "Is the dining package worth it on Quantum?"',
       validation: (rule) => rule.min(4).warning('Add at least 4 questions: FAQs win "People also ask" spots'),
+      components: { input: FaqSuggestInput },
       of: [
         defineArrayMember({
           type: 'object',
