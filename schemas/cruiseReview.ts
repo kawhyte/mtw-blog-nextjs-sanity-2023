@@ -1015,6 +1015,23 @@ export default defineType({
           name: 'show',
           fields: [
             defineField({ name: 'name', title: 'Show', type: 'string', validation: (rule) => rule.required() }),
+            defineField({
+              name: 'showType',
+              title: 'Type',
+              type: 'string',
+              options: {
+                list: [
+                  { title: 'Production show', value: 'production' },
+                  { title: 'Comedy', value: 'comedy' },
+                  { title: 'Live music', value: 'music' },
+                  { title: 'Game show / trivia', value: 'game' },
+                  { title: 'Deck party', value: 'party' },
+                  { title: 'Tasting / class', value: 'class' },
+                  { title: 'Movie', value: 'movie' },
+                  { title: 'Other', value: 'other' },
+                ],
+              },
+            }),
             defineField({ name: 'venue', title: 'Venue', type: 'string' }),
             defineField({ name: 'bookingNeeded', title: 'Booking Needed?', type: 'boolean' }),
             defineField({ name: 'arriveEarly', title: 'Arrive How Early', type: 'string', description: 'e.g. 35 minutes' }),
@@ -1022,8 +1039,11 @@ export default defineType({
             defineField({ name: 'note', title: 'Note', type: 'text', rows: 2 }),
           ],
           preview: {
-            select: { title: 'name', rating: 'rating' },
-            prepare: ({ title, rating }) => ({ title, subtitle: rating != null ? `${rating}/10` : undefined }),
+            select: { title: 'name', rating: 'rating', showType: 'showType' },
+            prepare: ({ title, rating, showType }) => ({
+              title,
+              subtitle: [showType, rating != null && `${rating}/10`].filter(Boolean).join(' • '),
+            }),
           },
         }),
       ],
