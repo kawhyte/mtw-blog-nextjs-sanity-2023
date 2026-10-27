@@ -553,6 +553,29 @@ export default defineType({
         defineField({ name: 'balconySqFt', title: 'Balcony Size (sq ft)', type: 'number', description: 'Leave blank if no balcony.' }),
         defineField({ name: 'above', title: 'What Is Above', type: 'string', description: 'e.g. Cabins, Windjammer, pool deck' }),
         defineField({ name: 'below', title: 'What Is Below', type: 'string' }),
+        pick('noiseAbove', 'Noise From Above', [
+          ['Never heard it', 'none'],
+          ['Some', 'some'],
+          ['Loud', 'loud'],
+        ]),
+        pick('noiseBelow', 'Noise From Below', [
+          ['Never heard it', 'none'],
+          ['Some', 'some'],
+          ['Loud', 'loud'],
+        ]),
+        defineField({
+          ...pick('noiseNeighbors', 'Walls (Neighbors)', [
+            ['Never heard them', 'none'],
+            ['Heard some', 'some'],
+            ['Heard everything', 'loud'],
+          ]),
+          description: 'How thin the walls were: could you hear the cabins next door?',
+        }),
+        pick('noiseHallway', 'Hallway Noise', [
+          ['Quiet', 'none'],
+          ['Some', 'some'],
+          ['Loud', 'loud'],
+        ]),
         pick('bedFeel', 'Bed', [
           ['Too soft', 'too-soft'],
           ['Just right', 'just-right'],
@@ -598,11 +621,6 @@ export default defineType({
         pick('bedUsb', 'USB at the Bed?', [
           ['Yes', 'yes'],
           ['No', 'no'],
-        ]),
-        pick('noise', 'Noise', [
-          ['Quiet', 'quiet'],
-          ['Some noise', 'some'],
-          ['Noisy', 'noisy'],
         ]),
         pick('motion', 'Motion & Vibration', [
           ['Barely felt', 'barely'],
