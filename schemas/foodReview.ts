@@ -46,6 +46,16 @@ export default defineType({
   icon: IceCreamIcon,
   type: 'document',
 
+  groups: [
+    { name: 'overview', title: 'Overview', default: true },
+    { name: 'photos', title: 'Photos & Video' },
+    { name: 'dishes', title: 'Dishes' },
+    { name: 'ratings', title: 'Ratings' },
+    { name: 'verdict', title: 'Verdict' },
+    { name: 'seo', title: 'SEO & Links' },
+    { name: 'revisits', title: 'Revisits' }
+  ],
+
   // Optional override, collapsed by default, cards and share previews use
   // Hero Photo #1 when it's empty.
   fieldsets: [
@@ -58,6 +68,7 @@ export default defineType({
   fields: [
     defineField({
       name: 'title',
+      group: 'overview',
       title: 'Title',
       type: 'string',
       validation: (rule) => rule.required(),
@@ -65,6 +76,7 @@ export default defineType({
 
     defineField({
       name: 'slug',
+      group: 'overview',
       title: 'Slug',
       type: 'slug',
       options: {
@@ -77,6 +89,7 @@ export default defineType({
 
     defineField({
       name: 'date',
+      group: 'overview',
       title: 'Visited Date',
       type: 'datetime',
       description: 'When you visited this restaurant',
@@ -86,6 +99,7 @@ export default defineType({
 
     defineField({
       name: 'location',
+      group: 'overview',
       title: 'Location',
       type: 'string',
       description: 'Restaurant location (address, city, state)',
@@ -95,6 +109,7 @@ export default defineType({
     defineField({
       title: 'Dining Type',
       name: 'diningType',
+      group: 'overview',
       type: 'string',
       description: 'How did you experience this restaurant?',
       options: {
@@ -108,10 +123,11 @@ export default defineType({
       validation: (rule) => rule.required(),
     }),
 
-    heroPhotosField(...GALLERY_ARGS),
+    defineField({ ...heroPhotosField(...GALLERY_ARGS), group: 'photos' }),
 
     defineField({
       name: 'coverImage',
+      group: 'photos',
       fieldset: 'cardImage',
       title: 'Card & Share Image',
       type: 'image',
@@ -135,6 +151,7 @@ export default defineType({
       // Legacy short summary (rich text). Not shown on the site, but still
       // searched. Stored name kept so existing content isn't lost, see docs/FIELD-GLOSSARY.md.
       name: 'excerpt2',
+      group: 'verdict',
       title: 'Restaurant Summary',
       type: 'array',
       description: 'Add a short summary of your dining experience',
@@ -144,6 +161,7 @@ export default defineType({
 
     defineField({
       name: 'seoExcerpt',
+      group: 'seo',
       title: 'SEO Excerpt / Meta Description',
       type: 'string',
       description:
@@ -161,6 +179,7 @@ export default defineType({
 
     defineField({
       name: 'verdictHeadline',
+      group: 'verdict',
       title: 'Verdict Headline (optional)',
       type: 'string',
       description:
@@ -174,6 +193,7 @@ export default defineType({
 
     defineField({
       name: 'tip',
+      group: 'verdict',
       title: 'Restaurant Quick Tip',
       type: 'array',
       description:
@@ -185,6 +205,7 @@ export default defineType({
       // The dishes & drinks list (photo, name, price, rating, mini review).
       // Stored name kept so existing content isn't lost, see docs/FIELD-GLOSSARY.md.
       name: 'individualFoodRating',
+      group: 'dishes',
       title: 'Individual Food Rating',
       type: 'array',
       description:
@@ -238,10 +259,11 @@ export default defineType({
       ],
     }),
 
-    galleryField(...GALLERY_ARGS),
+    defineField({ ...galleryField(...GALLERY_ARGS), group: 'photos' }),
 
     defineField({
       name: 'youtube',
+      group: 'photos',
       title: 'Youtube URL (optional)',
       type: 'string',
       description: 'Youtube link is optional',
@@ -251,6 +273,7 @@ export default defineType({
     defineField({
       // Dine-in scores. Takeout reviews use `takeoutRating` instead (see diningType).
       name: 'foodRating',
+      group: 'ratings',
       title: 'Rating for Dine-in',
       description:
         'Add a rating for each dine-in section (only for dine-in experiences)',
@@ -269,6 +292,7 @@ export default defineType({
     // TAKEOUT SPECIFIC RATING SYSTEM
     defineField({
       name: 'takeoutRating',
+      group: 'ratings',
       title: 'Rating for Takeout',
       description:
         'Add a rating for each takeout section (only for takeout experiences)',
@@ -284,14 +308,15 @@ export default defineType({
         }),
     }),
 
-    positivesField('restaurant'),
+    defineField({ ...positivesField('restaurant'), group: 'verdict' }),
 
-    negativesField('restaurant'),
+    defineField({ ...negativesField('restaurant'), group: 'verdict' }),
 
-    verdictField('restaurant', 600),
+    defineField({ ...verdictField('restaurant', 600), group: 'verdict' }),
 
     defineField({
       name: 'content',
+      group: 'verdict',
       title: 'Content',
       description: 'Main article content about your dining experience',
       type: 'array',
@@ -336,6 +361,7 @@ export default defineType({
 
     defineField({
       name: 'tags',
+      group: 'seo',
       title: 'Tags',
       type: 'array',
       of: [{ type: 'string' }],
@@ -348,6 +374,7 @@ export default defineType({
 
     defineField({
       name: 'nearestArena',
+      group: 'seo',
       title: 'Nearest NBA Arena',
       type: 'reference',
       to: [{ type: 'arenas' }],
@@ -357,6 +384,7 @@ export default defineType({
 
     defineField({
       name: 'priceTier',
+      group: 'overview',
       title: 'Price Tier',
       type: 'string',
       description: 'Approximate price range per person (optional)',
@@ -372,6 +400,7 @@ export default defineType({
 
     defineField({
       name: 'publishedAt',
+      group: 'seo',
       title: 'Publish Date / Scheduled Time',
       description:
         'Complete all required fields to enable scheduling. Set a future date to schedule, or leave blank to publish immediately.',
@@ -409,6 +438,7 @@ export default defineType({
 
     defineField({
       name: 'revisits',
+      group: 'revisits',
       title: 'Revisit History',
       description:
         'Log subsequent visits. Only fill in the rating categories that actually changed.',

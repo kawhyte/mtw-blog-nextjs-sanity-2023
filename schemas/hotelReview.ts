@@ -47,6 +47,16 @@ export default defineType({
   icon: HomeIcon,
   type: 'document',
 
+  groups: [
+    { name: 'overview', title: 'Overview', default: true },
+    { name: 'photos', title: 'Photos & Video' },
+    { name: 'ratings', title: 'Ratings & Room' },
+    { name: 'verdict', title: 'Verdict' },
+    { name: 'practical', title: 'Practical Info' },
+    { name: 'seo', title: 'SEO & Links' },
+    { name: 'revisits', title: 'Revisits' }
+  ],
+
   // Optional override, collapsed by default, cards and share previews use
   // Hero Photo #1 when it's empty.
   fieldsets: [
@@ -59,6 +69,7 @@ export default defineType({
   fields: [
     defineField({
       name: 'title',
+      group: 'overview',
       title: 'Title',
       type: 'string',
       validation: (rule) => rule.required(),
@@ -66,6 +77,7 @@ export default defineType({
 
     defineField({
       name: 'slug',
+      group: 'overview',
       title: 'Slug',
       type: 'slug',
       options: {
@@ -78,6 +90,7 @@ export default defineType({
 
     defineField({
       name: 'date',
+      group: 'overview',
       title: 'Visited Date',
       type: 'datetime',
       description: 'When you visited this hotel',
@@ -87,6 +100,7 @@ export default defineType({
 
     defineField({
       name: 'location',
+      group: 'overview',
       title: 'Location',
       type: 'string',
       description: 'City, State/Country where the hotel is located',
@@ -96,6 +110,7 @@ export default defineType({
     defineField({
       title: 'Hotel Category',
       name: 'category',
+      group: 'overview',
       type: 'string',
       description: 'What type of hotel is this?',
       options: {
@@ -112,6 +127,7 @@ export default defineType({
 
     defineField({
       name: 'room',
+      group: 'overview',
       title: 'Room Type',
       type: 'string',
       description: 'e.g., 1 King Bed Lagoon Access, max 45 characters (optional)',
@@ -121,6 +137,7 @@ export default defineType({
     defineField({
       title: 'Lounge Access available at this hotel?',
       name: 'lounge',
+      group: 'overview',
       type: 'string',
       description: '(optional)',
       options: {
@@ -137,10 +154,11 @@ export default defineType({
       initialValue: 'No',
     }),
 
-    heroPhotosField(...GALLERY_ARGS),
+    defineField({ ...heroPhotosField(...GALLERY_ARGS), group: 'photos' }),
 
     defineField({
       name: 'coverImage',
+      group: 'photos',
       fieldset: 'cardImage',
       title: 'Card & Share Image',
       type: 'image',
@@ -164,6 +182,7 @@ export default defineType({
       // Legacy short summary (rich text). Hidden in Studio and not shown on the
       // site, but still searched. Stored name kept so existing content isn't lost, see docs/FIELD-GLOSSARY.md.
       name: 'excerpt2',
+      group: 'verdict',
       title: 'Hotel Summary',
       type: 'array',
       description: 'Add a short summary of your hotel experience',
@@ -173,6 +192,7 @@ export default defineType({
 
     defineField({
       name: 'seoExcerpt',
+      group: 'seo',
       title: 'SEO Excerpt / Meta Description',
       type: 'string',
       description:
@@ -186,6 +206,7 @@ export default defineType({
 
     defineField({
       name: 'verdictHeadline',
+      group: 'verdict',
       title: 'Verdict Headline (optional)',
       type: 'string',
       description:
@@ -197,6 +218,7 @@ export default defineType({
 
     defineField({
       name: 'blurbSource',
+      group: 'seo',
       title: 'Blurb Source',
       type: 'string',
       description:
@@ -206,6 +228,7 @@ export default defineType({
 
     defineField({
       name: 'blurbUrl',
+      group: 'seo',
       title: 'Blurb Source URL',
       type: 'url',
       description: 'The URL to the source of the blurb.',
@@ -214,6 +237,7 @@ export default defineType({
 
     defineField({
       name: 'tip',
+      group: 'verdict',
       title: 'Hotel Quick Tip',
       type: 'array',
       description:
@@ -221,10 +245,11 @@ export default defineType({
       of: [{ type: 'block' }],
     }),
 
-    galleryField(...GALLERY_ARGS),
+    defineField({ ...galleryField(...GALLERY_ARGS), group: 'photos' }),
 
     defineField({
       name: 'youtube',
+      group: 'photos',
       title: 'Youtube URL (optional)',
       type: 'string',
       description: 'Youtube link is optional',
@@ -233,6 +258,7 @@ export default defineType({
     // Hotel-specific rating system
     defineField({
       name: 'hotelRating',
+      group: 'ratings',
       title: 'Hotel Ratings',
       description: 'Add a rating for each hotel section.',
       type: 'hotelRating',
@@ -241,6 +267,7 @@ export default defineType({
 
     defineField({
       name: 'internetSpeed',
+      group: 'ratings',
       title: 'Internet Speed (legacy)',
       type: 'number',
       description: 'Legacy field, now stored inside hotelRating.internetSpeed. Kept for GROQ fallback.',
@@ -249,6 +276,7 @@ export default defineType({
 
     defineField({
       name: 'roomAmenities',
+      group: 'ratings',
       title: 'Room Amenities',
       description: 'A breakdown of the amenities in the room',
       type: 'roomAmenities',
@@ -256,19 +284,21 @@ export default defineType({
 
     defineField({
       name: 'techRating',
+      group: 'ratings',
       title: 'Technology in Hotel Room',
       description: 'What technology items were present in the hotel room?',
       type: 'techRating',
     }),
 
-    positivesField('hotel'),
+    defineField({ ...positivesField('hotel'), group: 'verdict' }),
 
-    negativesField('hotel'),
+    defineField({ ...negativesField('hotel'), group: 'verdict' }),
 
-    verdictField('hotel', 1200),
+    defineField({ ...verdictField('hotel', 1200), group: 'verdict' }),
 
     defineField({
       name: 'content',
+      group: 'verdict',
       title: 'Content',
       description: 'Main article content about your hotel experience',
       type: 'array',
@@ -313,6 +343,7 @@ export default defineType({
 
     defineField({
       name: 'wouldReturn',
+      group: 'verdict',
       title: 'Would You Return?',
       type: 'string',
       description: 'Your honest verdict on returning (optional)',
@@ -329,6 +360,7 @@ export default defineType({
 
     defineField({
       name: 'priceTier',
+      group: 'practical',
       title: 'Approximate Nightly Rate (at time of visit)',
       type: 'string',
       description:
@@ -347,6 +379,7 @@ export default defineType({
 
     defineField({
       name: 'bestFor',
+      group: 'verdict',
       title: 'Best For (traveler type)',
       type: 'array',
       description: 'Select all traveler types this hotel suits (optional)',
@@ -366,6 +399,7 @@ export default defineType({
 
     defineField({
       name: 'resortFee',
+      group: 'practical',
       title: 'Resort Fee',
       description: 'Daily resort fee details (optional)',
       type: 'object',
@@ -404,6 +438,7 @@ export default defineType({
 
     defineField({
       name: 'parking',
+      group: 'practical',
       title: 'Parking',
       description: 'Parking options at this hotel (optional)',
       type: 'object',
@@ -434,6 +469,7 @@ export default defineType({
 
     defineField({
       name: 'breakfast',
+      group: 'practical',
       title: 'Breakfast',
       type: 'string',
       description: 'Breakfast availability at this hotel (optional)',
@@ -449,6 +485,7 @@ export default defineType({
 
     defineField({
       name: 'tags',
+      group: 'seo',
       title: 'Tags',
       type: 'array',
       of: [{ type: 'string' }],
@@ -461,6 +498,7 @@ export default defineType({
 
     defineField({
       name: 'nearestArena',
+      group: 'seo',
       title: 'Nearest NBA Arena',
       type: 'reference',
       to: [{ type: 'arenas' }],
@@ -470,6 +508,7 @@ export default defineType({
 
     defineField({
       name: 'publishedAt',
+      group: 'seo',
       title: 'Publish Date / Scheduled Time',
       description:
         'Complete all required fields to enable scheduling. Set a future date to schedule, or leave blank to publish immediately.',
@@ -502,6 +541,7 @@ export default defineType({
 
     defineField({
       name: 'revisits',
+      group: 'revisits',
       title: 'Revisit History',
       description:
         'Log subsequent visits. Only fill in the rating categories that actually changed.',

@@ -17,9 +17,17 @@ export default defineType({
   icon: BoltIcon,
   type: 'document',
 
+  groups: [
+    { name: 'overview', title: 'Overview', default: true },
+    { name: 'content', title: 'Content' },
+    { name: 'photos', title: 'Photos' },
+    { name: 'seo', title: 'SEO & Publish' }
+  ],
+
   fields: [
     defineField({
       name: 'title',
+      group: 'overview',
       title: 'Title',
       type: 'string',
       validation: (rule) => rule.required(),
@@ -27,6 +35,7 @@ export default defineType({
 
     defineField({
       name: 'slug',
+      group: 'overview',
       title: 'Slug',
       type: 'slug',
       options: {
@@ -39,6 +48,7 @@ export default defineType({
 
     defineField({
       name: 'date',
+      group: 'overview',
       title: 'Story/Guide Date',
       type: 'datetime',
       description:
@@ -49,6 +59,7 @@ export default defineType({
 
     defineField({
       name: 'coverImage',
+      group: 'photos',
       title: 'Main Image',
       type: 'image',
       description:
@@ -69,6 +80,7 @@ export default defineType({
 
     defineField({
       name: 'category',
+      group: 'overview',
       title: 'Category',
       type: 'string',
       options: {
@@ -89,6 +101,7 @@ export default defineType({
 
     defineField({
       name: 'location',
+      group: 'overview',
       title: 'Location (City / Region)',
       type: 'string',
       description:
@@ -98,6 +111,7 @@ export default defineType({
 
     defineField({
       name: 'summary',
+      group: 'overview',
       title: 'Summary / Meta Description',
       type: 'text',
       rows: 3,
@@ -109,6 +123,7 @@ export default defineType({
 
     defineField({
       name: 'content',
+      group: 'content',
       title: 'Content',
       type: 'array',
       of: [
@@ -307,6 +322,7 @@ export default defineType({
 
     defineField({
       name: 'gallery',
+      group: 'photos',
       title: 'Photo Gallery',
       type: 'array',
       description:
@@ -331,6 +347,7 @@ export default defineType({
 
     defineField({
       name: 'tags',
+      group: 'seo',
       title: 'Tags',
       type: 'array',
       of: [{ type: 'string' }],
@@ -342,6 +359,7 @@ export default defineType({
 
     defineField({
       name: 'publishedAt',
+      group: 'seo',
       title: 'Publish Date / Scheduled Time',
       description:
         'Complete all required fields to enable scheduling. Set a future date to schedule, or leave blank to publish immediately.',
