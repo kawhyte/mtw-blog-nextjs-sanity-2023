@@ -105,6 +105,38 @@ ${NO_DASHES_RULE}
 Return ONLY the meta description. No quotes. No label. No explanation.`
 }
 
+function buildCruisePrompt(body: any): string {
+  const { title, shipName, cruiseLine, cabinType, nights, itineraryName, departurePort, tldr, positives, verdict } = body
+  const highlights = ((positives ?? []) as string[])
+    .filter(Boolean)
+    .slice(0, 3)
+    .join(' | ')
+  const route = itineraryName || (nights ? `${nights}-night cruise` : 'cruise')
+
+  return `${BRAND_VOICE} You write SEO meta descriptions for our cruise reviews.
+
+Review: ${title ?? shipName}
+Ship: ${shipName}${cruiseLine ? ` (${cruiseLine})` : ''}
+Route: ${route}${departurePort ? ` from ${departurePort}` : ''}
+${cabinType ? `Cabin: ${cabinType}` : ''}
+${tldr ? `Our one-line take: ${tldr}` : ''}
+${highlights ? `Highlights: ${highlights}` : ''}
+${verdict ? `Our verdict: ${verdict.slice(0, 200)}` : ''}
+
+Write ONE meta description for Google search results. Hard rules:
+- MUST be between 120 and 155 characters. Count every character, do not go under 120 or over 155
+${NO_DASHES_RULE}
+- Start with "${shipName}" so it matches searches like "${shipName} review"
+- Mention the route or cabin, and one specific, honest detail (food, crowds, cabin, cost)
+- Sound like real cruisers wrote it, not a cruise line ad, not AI
+- End with something that makes a reader want to click through
+- NEVER use: ${FORBIDDEN}
+- NEVER use these phrases or close variants: ${BANNED_PHRASES}
+- Use a contraction where it fits naturally (we're, it's, don't); real people use them
+
+Return ONLY the meta description. No quotes. No label. No explanation.`
+}
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') return res.status(405).end()
 
@@ -121,6 +153,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     prompt = buildFoodPrompt(req.body)
   } else if (docType === 'arenas') {
     prompt = buildArenaPrompt(req.body)
+  } else if (docType === 'cruiseReview') {
+    prompt = buildCruisePrompt(req.body)
   } else {
     return res.status(400).json({ error: `Unsupported docType: ${docType}` })
   }

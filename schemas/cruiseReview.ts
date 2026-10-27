@@ -13,7 +13,9 @@ import {
   NightsInput,
   ShipNameInput,
 } from '../plugins/CruiseSelectInputs'
+import { RelatedReviewsInput, SuggestTagsInput } from '../plugins/CruiseSeoInputs'
 import { ItineraryFillerInput } from '../plugins/ItineraryFillerInput'
+import { SeoExcerptGeneratorInput } from '../plugins/SeoExcerptGeneratorInput'
 import { ShipFactsFetcherInput } from '../plugins/ShipFactsFetcherInput'
 import {
   galleryField,
@@ -1430,10 +1432,14 @@ export default defineType({
       validation: (Rule) => [
         Rule.max(155).warning('Keep under 155 characters for Google search results'),
         Rule.min(120).warning('At least 120 characters recommended for Google search results'),
-      ],
+      ],      components: { input: SeoExcerptGeneratorInput },
     }),
 
-    defineField({ ...tagList('tags', 'Tags', 'e.g. Royal Caribbean, Junior Suite, Cabo Overnight'), group: 'seo' }),
+    defineField({
+      ...tagList('tags', 'Tags', 'e.g. Royal Caribbean, Junior Suite, Cabo Overnight'),
+      group: 'seo',
+      components: { input: SuggestTagsInput },
+    }),
 
     defineField({
       name: 'relatedHotels',
@@ -1441,6 +1447,7 @@ export default defineType({
       type: 'array',
       group: 'seo',
       description: 'e.g. hotels near the departure port.',
+      components: { input: RelatedReviewsInput },
       of: [{ type: 'reference', to: [{ type: 'hotelReview' }] }],
     }),
 
@@ -1450,6 +1457,7 @@ export default defineType({
       type: 'array',
       group: 'seo',
       description: 'e.g. restaurants in the ports.',
+      components: { input: RelatedReviewsInput },
       of: [{ type: 'reference', to: [{ type: 'foodReview' }] }],
     }),
 
@@ -1458,6 +1466,7 @@ export default defineType({
       title: 'Related Guides',
       type: 'array',
       group: 'seo',
+      components: { input: RelatedReviewsInput },
       of: [{ type: 'reference', to: [{ type: 'guide' }] }],
     }),
 
