@@ -21,6 +21,17 @@ export default defineType({
   title: 'NBA/(W)NBA Arenas',
   icon: StarIcon,
   type: 'document',
+
+  groups: [
+    { name: 'overview', title: 'Overview', default: true },
+    { name: 'photos', title: 'Photos & Video' },
+    { name: 'review', title: 'Ratings & Verdict' },
+    { name: 'food', title: 'Food' },
+    { name: 'seats', title: 'View From Seat' },
+    { name: 'hotels', title: 'Hotel Stays' },
+    { name: 'revisits', title: 'Revisits' },
+    { name: 'faq', title: 'FAQ' }
+  ],
   initialValue: {
     visited: false,
   },
@@ -38,6 +49,7 @@ export default defineType({
     // --- Basic Info ---
     defineField({
       name: 'name',
+      group: 'overview',
       title: 'Arena Name',
       type: 'string',
       validation: (Rule) => Rule.required(),
@@ -45,6 +57,7 @@ export default defineType({
     }),
     defineField({
       name: 'currentName',
+      group: 'overview',
       title: 'Now called (optional)',
       type: 'string',
       description:
@@ -52,6 +65,7 @@ export default defineType({
     }),
     defineField({
       name: 'slug',
+      group: 'overview',
       title: 'Slug',
       type: 'slug',
       options: { source: 'name', maxLength: 96 },
@@ -60,6 +74,7 @@ export default defineType({
     }),
     defineField({
       name: 'location',
+      group: 'overview',
       title: 'Arena Location',
       type: 'string',
       validation: (rule) => rule.required(),
@@ -67,6 +82,7 @@ export default defineType({
     defineField({
       // SEO meta description, hotels/food/guides call this `seoExcerpt`.
       name: 'excerpt',
+      group: 'overview',
       title: 'SEO Excerpt',
       type: 'string',
       description:
@@ -77,17 +93,20 @@ export default defineType({
     }),
     defineField({
       name: 'capacity',
+      group: 'overview',
       title: 'Arena Capacity',
       type: 'number',
     }),
     defineField({
       name: 'buildDate',
+      group: 'overview',
       title: 'Arena Build Date',
       type: 'date',
       options: { dateFormat: 'YYYY-MM-DD' },
     }),
     defineField({
       name: 'venueNote',
+      group: 'overview',
       title: 'Venue Note (Optional)',
       type: 'string',
       description:
@@ -95,7 +114,7 @@ export default defineType({
     }),
 
     // --- Images & Galleries ---
-    heroPhotosField(
+    defineField({ ...heroPhotosField(
       "Choose a category. Seating & Game Floor: court, baskets, view from your seat. Concessions & Food: food stalls, menu boards, food shots. Exterior: outside the building, signage, plaza. Entrances & Lobby: inside entrance, hallways, common areas. Additional Photos: anything that doesn't fit above.",
       [
         { title: 'Seating & Game Floor', value: 'court' },
@@ -113,10 +132,11 @@ export default defineType({
         'game-atmosphere': 'Game Atmosphere',
         other: 'Additional Photos',
       },
-    ),
+    ), group: 'photos' }),
 
     defineField({
       name: 'arenaImage', // Card & share image (falls back to heroPhotos[0])
+      group: 'photos',
       fieldset: 'cardImage',
       title: 'Card & Share Image',
       type: 'image',
@@ -140,6 +160,7 @@ export default defineType({
     // photos stay in the dataset and visible until heroPhotos is filled in.
     defineField({
       name: 'photoGallerySection',
+      group: 'photos',
       title: 'Legacy Hero Gallery (replaced by Hero Photos)',
       type: 'photoGallery', // References 'photoGallery' object schema
       description:
@@ -152,6 +173,7 @@ export default defineType({
     // --- NEW Image Gallery Field ---
     defineField({
       name: 'imageGallery', // New field name
+      group: 'photos',
       title: 'Image Gallery',
       description:
         'All other arena photos, shown in "Show all photos" after the hero photos. Upload multiple arena photos (interior, exterior, food, views, etc.). Max 1600 px on the longest edge, any aspect ratio. WebP 85% or JPEG 88% quality. Add alt text for each.',
@@ -233,6 +255,7 @@ export default defineType({
       // Team logos for the arena's home teams (not a photo gallery, photos
       // live in `imageGallery`). Stored name kept so existing content isn't lost, see docs/FIELD-GLOSSARY.md.
       name: 'gallery',
+      group: 'photos',
       title: 'Teams / Logos',
       description:
         'Logos/info for teams associated with the arena. Logo size: 200 × 200 px (square). PNG with transparent background preferred.',
@@ -471,10 +494,12 @@ export default defineType({
     defineField({
       title: 'Did we visit this Arena?',
       name: 'visited',
+      group: 'overview',
       type: 'boolean',
     }),
     defineField({
       name: 'date',
+      group: 'overview',
       title: 'Date Visited',
       type: 'datetime',
       description: 'This is the date we visited the Arena',
@@ -484,6 +509,7 @@ export default defineType({
     // --- Pros / Cons / Verdict Group ---
     defineField({
       name: 'prosConsVerdict',
+      group: 'review',
       title: 'Pros, Cons, & Verdict',
       type: 'object',
       description:
@@ -558,6 +584,7 @@ export default defineType({
 
     defineField({
       name: 'verdictHeadline',
+      group: 'review',
       title: 'Verdict Headline (optional)',
       type: 'string',
       description:
@@ -573,6 +600,7 @@ export default defineType({
     // --- Video URL Field ---
     defineField({
       name: 'videoUrl',
+      group: 'photos',
       title: 'Video URL (YouTube / Instagram)',
       description:
         'OUR EXPERIENCE video: your full visit vlog or highlights reel. YouTube or Instagram both work here. Use the "Seat View Video" field inside each View From My Seat entry for short clips filmed from your actual seat.',
@@ -598,6 +626,7 @@ export default defineType({
     // --- Detailed Ratings ---
     defineField({
       name: 'arenaReview', // References 'arenaReview' object/document type
+      group: 'review',
       title: 'Arena Rating Breakdown',
       type: 'arenaReview',
       hidden: ({ document }) => !document?.visited,
@@ -613,6 +642,7 @@ export default defineType({
     // --- Arena Food & Drink Items (optional) ---
     defineField({
       name: 'arenaFoodItems',
+      group: 'food',
       title: 'Arena Food & Drinks We Tried',
       type: 'array',
       description:
@@ -672,6 +702,7 @@ export default defineType({
     // --- View From My Seat ---
     defineField({
       name: 'viewFromSeat',
+      group: 'seats',
       title: 'View From My Seat',
       type: 'array',
       description:
@@ -787,6 +818,7 @@ export default defineType({
     // --- Hotel Stays (optional, supports multiple visits) ---
     defineField({
       name: 'hotelStays',
+      group: 'hotels',
       title: 'Hotel Stays',
       description:
         'Add one entry per visit where you stayed overnight. Leave empty for day trips.',
@@ -848,6 +880,7 @@ export default defineType({
     // --- Revisit History ---
     defineField({
       name: 'revisits',
+      group: 'revisits',
       title: 'Revisit History',
       description:
         'Log subsequent visits. Only fill in the rating categories that actually changed.',
@@ -938,6 +971,7 @@ export default defineType({
     // --- FAQs for SEO rich results ---
     defineField({
       name: 'faqs',
+      group: 'faq',
       title: 'FAQs (for Google rich results)',
       type: 'array',
       description: 'Add 3 to 5 Q&A pairs that fans commonly ask about this arena. These appear as expandable answers in Google search results.',
