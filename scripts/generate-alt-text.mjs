@@ -18,7 +18,10 @@
  *                                    fields that are still empty, after a
  *                                    backup in backups/.
  *
- * Options: --only=arenas,hotelReview,foodReview   --limit=50
+ * Guides get alt text only: their main image and gallery have no caption or
+ * category fields (photos inside the story are left to the Studio buttons).
+ *
+ * Options: --only=arenas,hotelReview,foodReview,guide   --limit=50
  *          --review   rebuild review.html from what's saved, no Gemini calls
  *
  * Built for Gemini's free tier: one call per photo, a pause between calls,
@@ -62,7 +65,9 @@ const REVIEW = path.join(OUT_DIR, 'review.html')
 // Gap between Gemini calls, keeps us under the free per-minute limit
 const PACE_MS = 5000
 
-// Same lists as the schemas (schemas/nbaArenas.ts, hotelReview.ts, foodReview.ts)
+// Same lists as the schemas (schemas/nbaArenas.ts, hotelReview.ts,
+// foodReview.ts, guide.ts). A field holds a list of photos, or one photo
+// (coverImage); a type without categories or captions doesn't ask for them.
 const TYPES = {
   arenas: {
     label: 'Arena',
@@ -102,6 +107,13 @@ const TYPES = {
       menu: 'Menu: printed or digital menu shots',
       other: "Additional Photos: anything that doesn't fit above",
     },
+  },
+  guide: {
+    label: 'Guide',
+    title: 'title',
+    fields: ['coverImage', 'gallery'],
+    categories: null,
+    captions: false,
   },
 }
 
@@ -149,7 +161,8 @@ async function findPhotos() {
     `*[_type in $types]{ _id, _type, name, title,
       heroPhotos[]{ _key, alt, caption, category, "assetRef": asset._ref },
       imageGallery[]{ _key, alt, caption, category, "assetRef": asset._ref },
-      gallery[]{ _key, alt, caption, category, "assetRef": asset._ref } }`,
+      gallery[]{ _key, alt, caption, category, "assetRef": asset._ref },
+      coverImage{ alt, "assetRef": asset._ref } }`,
     { types },
   )
   // Published first, so its values win over an older draft's
@@ -162,16 +175,18 @@ async function findPhotos() {
   for (const doc of docs) {
     const type = TYPES[doc._type]
     for (const field of type.fields) {
-      for (const item of doc[field] ?? []) {
-        if (!item?._key || !item.assetRef) continue
-        const id = `${baseId(doc._id)}:${field}:${item._key}`
+      const value = doc[field]
+      const items = Array.isArray(value) ? value : value ? [value] : []
+      for (const item of items) {
+        if (!item?.assetRef || (Array.isArray(value) && !item._key)) continue
+        const id = `${baseId(doc._id)}:${field}:${item._key ?? 'main'}`
         const photo = photos.get(id) ?? {
           id,
           docId: baseId(doc._id),
           docType: doc._type,
           docTitle: doc[type.title] ?? '',
           field,
-          key: item._key,
+          key: item._key ?? null,
           assetRef: item.assetRef,
           needAlt: false,
           needCaption: false,
@@ -179,8 +194,9 @@ async function findPhotos() {
         }
         // Needs work if any version is missing it
         photo.needAlt ||= isEmpty(item.alt)
-        photo.needCaption ||= isEmpty(item.caption)
-        photo.needCategory ||= isEmpty(item.category)
+        photo.needCaption ||= type.captions !== false && isEmpty(item.caption)
+        photo.needCategory ||=
+          Boolean(type.categories) && isEmpty(item.category)
         photos.set(id, photo)
       }
     }
@@ -213,25 +229,38 @@ async function waitForNetwork() {
   console.log('   📡 Back online, carrying on')
 }
 
-/** One Gemini call: alt text, caption and category together */
+/** One Gemini call: alt text, plus a caption and category where the type has them */
 async function suggest(photo) {
   const type = TYPES[photo.docType]
-  const categories = Object.entries(type.categories)
-  const prompt = `Write two short texts for this photo and pick its category.
+  const categories = Object.entries(type.categories ?? {})
+  const wantCaption = type.captions !== false
+  const wantCategory = categories.length > 0
 
-1. ALT TEXT
-${altTextRules(photo.docType, photo.docTitle)}
+  const sections = [
+    `ALT TEXT\n${altTextRules(photo.docType, photo.docTitle)}`,
+    wantCaption &&
+      `CAPTION\n${captionRules(photo.docType, photo.docTitle)}\n\nThe caption is shown under the photo; don't just repeat the alt text.`,
+    wantCategory &&
+      `CATEGORY\nPick the one photo category that fits best:\n${categories.map(([value, text]) => `- ${value}: ${text}`).join('\n')}`,
+  ].filter(Boolean)
+  const shape = [
+    '"alt": "the alt text"',
+    wantCaption && '"caption": "the caption"',
+    wantCategory && '"category": "one of the values above"',
+  ].filter(Boolean)
+  const prompt = `Write the following for this photo.
 
-2. CAPTION
-${captionRules(photo.docType, photo.docTitle)}
+${sections.map((text, i) => `${i + 1}. ${text}`).join('\n\n')}
 
-The caption is shown under the photo; don't just repeat the alt text.
+Answer as JSON: {${shape.join(', ')}}`
 
-3. CATEGORY
-Pick the one photo category that fits best:
-${categories.map(([value, text]) => `- ${value}: ${text}`).join('\n')}
-
-Answer as JSON: {"alt": "the alt text", "caption": "the caption", "category": "one of the values above"}`
+  const properties = { alt: { type: 'STRING' } }
+  if (wantCaption) properties.caption = { type: 'STRING' }
+  if (wantCategory)
+    properties.category = {
+      type: 'STRING',
+      enum: categories.map(([value]) => value),
+    }
 
   const imageRes = await fetch(photoUrl(photo.assetRef, 1024), {
     signal: AbortSignal.timeout(15000),
@@ -266,15 +295,8 @@ Answer as JSON: {"alt": "the alt text", "caption": "the caption", "category": "o
             responseMimeType: 'application/json',
             responseSchema: {
               type: 'OBJECT',
-              properties: {
-                alt: { type: 'STRING' },
-                caption: { type: 'STRING' },
-                category: {
-                  type: 'STRING',
-                  enum: categories.map(([value]) => value),
-                },
-              },
-              required: ['alt', 'caption', 'category'],
+              properties,
+              required: Object.keys(properties),
             },
           },
         }),
@@ -293,15 +315,22 @@ Answer as JSON: {"alt": "the alt text", "caption": "the caption", "category": "o
       const json = await res.json()
       const text = json.candidates?.[0]?.content?.parts?.[0]?.text
       const answer = JSON.parse(text ?? '{}')
-      if (!answer.alt || !answer.caption || !type.categories[answer.category])
+      if (
+        !answer.alt ||
+        (wantCaption && !answer.caption) ||
+        (wantCategory && !type.categories[answer.category])
+      )
         throw new Error('Gemini gave an incomplete answer')
       // Prompts ask for 50 to 120 and 80 to 160 chars; only trim a bad overshoot
       const alt = stripDashes(answer.alt.trim())
-      const caption = stripDashes(answer.caption.trim())
+      const caption = wantCaption ? stripDashes(answer.caption.trim()) : ''
       return {
         alt: alt.length > 150 ? trimToSentence(alt, 120) : alt,
-        caption: caption.length > 200 ? trimToSentence(caption, 160) : caption,
-        category: answer.category,
+        ...(wantCaption && {
+          caption:
+            caption.length > 200 ? trimToSentence(caption, 160) : caption,
+        }),
+        ...(wantCategory && { category: answer.category }),
       }
     }
 
@@ -353,7 +382,7 @@ function writeReview(suggestions) {
           !isDone(s)
             ? `<p class="error">Not done: ${escape(s.error ?? 'needs a caption')}</p>`
             : `<p><b>Alt</b> ${s.needAlt ? escape(s.alt) : '<i>keeps its alt text</i>'}</p>
-               <p><b>Caption</b> ${s.needCaption ? escape(s.caption) : '<i>keeps its caption</i>'}</p>`
+               ${TYPES[s.docType].captions === false ? '' : `<p><b>Caption</b> ${s.needCaption ? escape(s.caption) : '<i>keeps its caption</i>'}</p>`}`
         }
       </figcaption>
     </figure>`
@@ -361,19 +390,24 @@ function writeReview(suggestions) {
   // bedroom photo sitting among the bathrooms stands out
   const sections = (items) => {
     const type = TYPES[items[0].docType]
-    const rows = [
-      ...Object.entries(type.categories).map(([value, text]) => [
-        text.split(':')[0],
-        items.filter(
-          (s) => isDone(s) && s.needCategory && s.category === value,
-        ),
-      ]),
-      [
-        'Already has a category',
-        items.filter((s) => isDone(s) && !s.needCategory),
-      ],
-      ['Not done yet', items.filter((s) => !isDone(s))],
-    ]
+    const rows = !type.categories
+      ? [
+          ['Photos', items.filter(isDone)],
+          ['Not done yet', items.filter((s) => !isDone(s))],
+        ]
+      : [
+          ...Object.entries(type.categories).map(([value, text]) => [
+            text.split(':')[0],
+            items.filter(
+              (s) => isDone(s) && s.needCategory && s.category === value,
+            ),
+          ]),
+          [
+            'Already has a category',
+            items.filter((s) => isDone(s) && !s.needCategory),
+          ],
+          ['Not done yet', items.filter((s) => !isDone(s))],
+        ]
     return rows
       .filter(([, row]) => row.length)
       .map(
@@ -446,7 +480,7 @@ async function runSuggest() {
           }
         }
         suggestions[photo.id] = { ...photo, ...answer, error: undefined }
-        console.log(`✓ ${answer.category}`)
+        console.log(`✓ ${answer.category ?? 'alt text'}`)
       } catch (err) {
         if (err instanceof DailyLimitError) throw err
         suggestions[photo.id] = { ...photo, error: err.message }
@@ -495,9 +529,12 @@ async function runWrite() {
   for (const doc of docs) {
     const set = {}
     for (const s of ready.filter((r) => r.docId === baseId(doc._id))) {
-      const item = doc[s.field]?.find((i) => i?._key === s.key)
+      const item = s.key
+        ? doc[s.field]?.find((i) => i?._key === s.key)
+        : doc[s.field]
       if (!item) continue
-      const at = `${s.field}[_key=="${s.key}"]`
+      if (!item?.asset) continue
+      const at = s.key ? `${s.field}[_key=="${s.key}"]` : s.field
       // Only fill what's still empty: never replace anything Kenny wrote
       if (s.needAlt && isEmpty(item.alt)) set[`${at}.alt`] = s.alt
       if (s.needCaption && s.caption && isEmpty(item.caption))
