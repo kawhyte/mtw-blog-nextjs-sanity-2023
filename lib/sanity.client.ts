@@ -33,6 +33,9 @@ import {
   cityLocationsQuery,
   type CityPageData,
   cityPageQuery,
+  type CruiseReview,
+  cruiseReviewBySlugQuery,
+  cruiseReviewSlugsQuery,
   // Other types
   type Essential,
   foodCardFields,
@@ -774,3 +777,42 @@ export async function getFoodReviewsByDiningType(
 // - getPostAndMoreStories() -> Use type-specific functions instead
 //
 // Modern approach: Fetch individual content and related items separately for better caching and flexibility
+
+// --- Cruise Reviews ---
+
+/** One cruise review by its slug; with a preview token, drafts show too */
+export async function getCruiseReviewBySlug(
+  slug: string,
+  token?: string,
+): Promise<CruiseReview | null> {
+  const c = token ? getPreviewClient(token) : client
+  if (!c) {
+    console.warn('Sanity client is not initialized.')
+    return null
+  }
+  try {
+    const review = await c.fetch(cruiseReviewBySlugQuery, {
+      slug,
+      preview: !!token,
+    })
+    return review || null
+  } catch (error) {
+    console.error(`Error fetching cruise review with slug "${slug}":`, error)
+    return null
+  }
+}
+
+/** Every cruise review slug, for static generation */
+export async function getAllCruiseReviewSlugs(): Promise<string[]> {
+  if (!client) {
+    console.warn('Sanity client is not initialized.')
+    return []
+  }
+  try {
+    const slugs = await client.fetch(cruiseReviewSlugsQuery)
+    return slugs || []
+  } catch (error) {
+    console.error('Error fetching cruise review slugs:', error)
+    return []
+  }
+}

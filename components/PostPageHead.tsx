@@ -25,7 +25,7 @@ interface SEOContent {
 export interface PostPageHeadProps {
   settings: Settings
   post: Post | Guide | HotelReview | FoodReview | SEOContent
-  contentType?: 'post' | 'guide' | 'hotel' | 'food' | 'arena'
+  contentType?: 'post' | 'guide' | 'hotel' | 'food' | 'arena' | 'cruise'
 }
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || ''
 
@@ -174,6 +174,9 @@ export default function PostPageHead({
         break
       case 'arena':
         pathPrefix = '/arena'
+        break
+      case 'cruise':
+        pathPrefix = '/cruise'
         break
       case 'post':
       default:

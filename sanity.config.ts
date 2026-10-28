@@ -99,6 +99,7 @@ export default defineConfig({
         guideType.name,
         hotelReviewType.name,
         foodReviewType.name,
+        cruiseReviewType.name,
         settingsType.name,
         areanasType.name,
       ],

@@ -17,10 +17,12 @@ type Props = {
   slug?: string
   previewSecretId: `${string}.${string}`
   apiVersion: string
+  /** Document type for /api/preview routing; the cruise review pane reuses this one */
+  type?: 'hotelReview' | 'cruiseReview'
 }
 
 export default function HotelReviewPreviewPane(props: Props) {
-  const { previewSecretId, apiVersion } = props
+  const { previewSecretId, apiVersion, type = 'hotelReview' } = props
   // Whenever the slug changes, wait 3 seconds for GROQ to reach eventual consistency.
   // This helps to prevent displaying "Invalid slug" or returning 404 errors while editing the slug manually.
   const [slug, setSlug] = useState(props.slug)
@@ -37,7 +39,8 @@ export default function HotelReviewPreviewPane(props: Props) {
     return (
       <Card tone="primary" margin={5} padding={6}>
         <Text align="center">
-          Please add a slug to the hotel review to see the preview!
+          Please add a slug to the {type === 'cruiseReview' ? 'cruise' : 'hotel'}{' '}
+          review to see the preview!
         </Text>
       </Card>
     )
@@ -53,6 +56,7 @@ export default function HotelReviewPreviewPane(props: Props) {
           apiVersion={apiVersion}
           previewSecretId={previewSecretId}
           slug={slug}
+          type={type}
         />
       </Suspense>
       <Flex
@@ -84,7 +88,7 @@ const fetchSecret = Symbol('preview.secret')
 const Iframe = memo(function Iframe(
   props: Omit<Props, 'slug'> & Required<Pick<Props, 'slug'>>,
 ) {
-  const { apiVersion, previewSecretId, slug } = props
+  const { apiVersion, previewSecretId, slug, type = 'hotelReview' } = props
   const client = useClient({ apiVersion })
 
   const secret = suspend(
@@ -96,8 +100,8 @@ const Iframe = memo(function Iframe(
 
   const url = new URL('/api/preview', location.origin)
   url.searchParams.set('slug', slug)
-  // Set type to 'hotelReview' for proper routing
-  url.searchParams.set('type', 'hotelReview')
+  // The type picks the page /api/preview redirects to
+  url.searchParams.set('type', type)
 
   if (secret) {
     url.searchParams.set('secret', secret)
