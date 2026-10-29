@@ -6,16 +6,17 @@
 
 import { DefaultDocumentNodeResolver } from 'sanity/desk'
 import authorType from 'schemas/author'
+import cruiseReviewType from 'schemas/cruiseReview'
+import foodReviewType from 'schemas/foodReview'
 import guideType from 'schemas/guide'
 import hotelReviewType from 'schemas/hotelReview'
-import foodReviewType from 'schemas/foodReview'
 import areanasType from 'schemas/nbaArenas'
 
 import ArenaPreviewPane from './ArenaPreviewPane'
 import AuthorAvatarPreviewPane from './AuthorAvatarPreviewPane'
+import FoodReviewPreviewPane from './FoodReviewPreviewPane'
 import GuidePreviewPane from './GuidePreviewPane'
 import HotelReviewPreviewPane from './HotelReviewPreviewPane'
-import FoodReviewPreviewPane from './FoodReviewPreviewPane'
 
 export const previewDocumentNode = ({
   apiVersion,
@@ -62,6 +63,21 @@ export const previewDocumentNode = ({
                 slug={document.displayed.slug?.current}
                 apiVersion={apiVersion}
                 previewSecretId={previewSecretId}
+              />
+            ))
+            .title('Preview'),
+        ])
+
+      case cruiseReviewType.name:
+        return S.document().views([
+          S.view.form(),
+          S.view
+            .component(({ document }) => (
+              <HotelReviewPreviewPane
+                slug={document.displayed.slug?.current}
+                apiVersion={apiVersion}
+                previewSecretId={previewSecretId}
+                type="cruiseReview"
               />
             ))
             .title('Preview'),

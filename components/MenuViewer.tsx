@@ -21,11 +21,14 @@ const isPdf = (file: MenuFile) =>
 
 // Loaded on first open only, so the review page stays light
 async function loadPdfJs() {
-  const pdfjs = await import('pdfjs-dist/legacy/build/pdf.mjs')
-  pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-    'pdfjs-dist/legacy/build/pdf.worker.min.mjs',
-    import.meta.url,
-  ).toString()
+  // The worker code is imported too and run on the page (pdf.js picks up
+  // `globalThis.pdfjsWorker`): a workerSrc URL into the package fails the
+  // production build, and a menu is small enough not to need a thread
+  const [pdfjs, worker] = await Promise.all([
+    import('pdfjs-dist/legacy/build/pdf.mjs'),
+    import('pdfjs-dist/legacy/build/pdf.worker.min.mjs'),
+  ])
+  ;(globalThis as any).pdfjsWorker = worker
   return pdfjs
 }
 
@@ -96,9 +99,12 @@ function PdfPage({ doc, number, label }: { doc: any; number: number; label: stri
 export default function MenuViewer({
   files,
   restaurant,
+  triggerClassName = 'inline-flex min-h-11 items-center gap-2 rounded-full border border-current px-4 py-2 text-sm font-semibold transition-colors hover:bg-black/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary',
 }: {
   files: MenuFile[]
   restaurant: string
+  /** Styles for the "View menu" button, so each page can match its own buttons */
+  triggerClassName?: string
 }) {
   const [open, setOpen] = useState(false)
   const [pages, setPages] = useState<Page[] | null>(null)
@@ -132,7 +138,7 @@ export default function MenuViewer({
         if (isOpen) setIndex(0)
       }}
     >
-      <DialogPrimitive.Trigger className="inline-flex min-h-11 items-center gap-2 rounded-full border border-current px-4 py-2 text-sm font-semibold transition-colors hover:bg-black/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
+      <DialogPrimitive.Trigger className={triggerClassName}>
         <FileText className="h-4 w-4" aria-hidden="true" />
         View menu
       </DialogPrimitive.Trigger>

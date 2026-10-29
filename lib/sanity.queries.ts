@@ -1502,3 +1502,257 @@ export interface ArenaFoodReviewCard {
 // these query strings (arenaBySlugQuery, arenaSlugsQuery)
 // and use your configured Sanity client instance (`client.fetch(...)`)
 // to execute them.
+
+// ------------------------------
+// Cruise Review Queries
+// ------------------------------
+
+const cruiseImage = groq`{
+  ...,
+  asset->{ _id, metadata { lqip, dimensions { width, height } } }
+}`
+
+// Every field the review page shows; images and menu files are expanded so
+// the page can draw them without another request
+export const cruiseReviewFields = groq`
+  ...,
+  "slug": slug.current,
+  "updatedAt": _updatedAt,
+  "coverImage": coalesce(coverImage, heroPhotos[0]) ${cruiseImage},
+  heroPhotos[] ${cruiseImage},
+  gallery[] ${cruiseImage},
+  diningVenues[] {
+    ...,
+    bestDishPhoto ${cruiseImage},
+    dishes[] { ..., photo ${cruiseImage} },
+    "menu": menu[] { "url": asset->url, "mimeType": asset->mimeType }
+  },
+  comparisons[] { ..., "otherReviewSlug": otherReview->slug.current }
+`
+
+export const cruiseReviewSlugsQuery = fetchSlugs('cruiseReview')
+
+export const cruiseReviewBySlugQuery = fetchDocumentBySlug(
+  'cruiseReview',
+  cruiseReviewFields,
+  'slug.current',
+  SCHEDULED_FILTER,
+)
+
+type WorthIt = 'yes' | 'once' | 'skip'
+type SanityPhoto = { asset?: { _id: string }; alt?: string; [key: string]: any }
+
+export interface CruiseDish {
+  _key: string
+  name?: string
+  rating?: number
+  note?: string
+  photo?: SanityPhoto
+}
+
+export interface CruiseDiningVenue {
+  _key: string
+  name: string
+  venueType?: string
+  cost?: 'included' | 'extra' | 'cabin-perk'
+  price?: number
+  tried?: boolean
+  meals?: string[]
+  whenVisited?: string
+  rating?: number
+  worthIt?: WorthIt
+  bestDish?: string
+  bestDishPhoto?: SanityPhoto
+  worstDish?: string
+  dishes?: CruiseDish[]
+  review?: string
+  menu?: { url: string; mimeType?: string }[]
+}
+
+export interface CruiseReview {
+  _id: string
+  title: string
+  slug: string
+  updatedAt?: string
+  publishedAt?: string
+  cruiseLine?: string
+  shipName?: string
+  cabinType?: string
+  cabinNumber?: string
+  lineTier?: 'contemporary' | 'premium' | 'upscale' | 'luxury'
+  sailingDate?: string
+  nights?: number
+  itineraryName?: string
+  region?: string
+  departurePort?: string
+  coverImage?: any
+  heroPhotos?: any[]
+  gallery?: any[]
+  youtube?: string
+  verdictHeadline?: string
+  seoExcerpt?: string
+  disclosure?: string
+  reviewedBy?: string[]
+  shipFacts?: {
+    shipClass?: string
+    yearBuilt?: number
+    lastRefurb?: number
+    grossTonnage?: number
+    guestsDouble?: number
+    guestsMax?: number
+    crew?: number
+    decks?: number
+    sisterShips?: string[]
+    sisterDifferences?: string
+    factsChecked?: boolean
+  }
+  vibe?: {
+    dressCodeStyle?: 'none' | 'relaxed' | 'formal'
+    dressUpNights?: string
+    dressUpEnforced?: 'yes' | 'no'
+    dressCodeNote?: string
+    crowd?: string[]
+    crowdAge?: string
+    nightlife?: string
+  }
+  cabinTake?: string
+  cabin?: {
+    deck?: number
+    position?: 'forward' | 'midship' | 'aft'
+    sizeSqFt?: number
+    balconySqFt?: number
+    above?: string
+    below?: string
+    noiseAbove?: string
+    noiseBelow?: string
+    noiseNeighbors?: string
+    noiseHallway?: string
+    bedFeel?: string
+    topper?: 'yes' | 'no'
+    shower?: string
+    showerSize?: string
+    splitBathroom?: 'yes' | 'no'
+    storage?: string
+    plugTypes?: string[]
+    outletCount?: string
+    outletPlaces?: string[]
+    bedOutlets?: string
+    usb?: 'yes' | 'no'
+    bedUsb?: 'yes' | 'no'
+    motion?: string
+    notes?: string
+    balconyNotes?: string
+    liked?: string[]
+    disliked?: string[]
+    tips?: string[]
+  }
+  perks?: { program?: string; included?: string[]; notIncluded?: string[] }
+  valueTake?: string
+  guests?: number
+  costItems?: {
+    _key: string
+    label: string
+    costType?: string
+    amount: number
+    regularPrice?: number
+    bookedWhen?: 'pre-cruise' | 'onboard'
+    includesGratuity?: boolean
+    worthIt?: WorthIt
+    note?: string
+  }[]
+  inclusionAudit?: { frictionFree?: string[]; traps?: string[] }
+  packageComparisons?: {
+    _key: string
+    title: string
+    optionA?: { label?: string; items?: { label?: string; amount?: number }[] }
+    optionB?: { label?: string; items?: { label?: string; amount?: number }[] }
+    winner?: 'a' | 'b'
+    breakEven?: string
+    verdict?: string
+  }[]
+  moneyTips?: string[]
+  diningTake?: string
+  diningVenues?: CruiseDiningVenue[]
+  diningWatchOuts?: string[]
+  entertainmentTake?: string
+  attractions?: {
+    _key: string
+    name: string
+    tried?: boolean
+    cost?: 'included' | 'extra'
+    price?: number
+    reservationNeeded?: boolean
+    waitTime?: string
+    rating?: number
+    note?: string
+  }[]
+  shows?: {
+    _key: string
+    name: string
+    showType?: string
+    venue?: string
+    bookingNeeded?: boolean
+    arriveEarly?: string
+    rating?: number
+    note?: string
+  }[]
+  crowdsTake?: string
+  crowdHotSpots?: { _key: string; place: string; peakTimes?: string; tip?: string }[]
+  reservationTips?: string[]
+  sportsFitness?: {
+    gamesWatched?: { _key: string; league?: string; game?: string; venue?: string; access?: 'free' | 'paid'; note?: string }[]
+    basketballCourt?: { available?: boolean; location?: string; setting?: string; size?: string; condition?: string; busy?: string }
+    runningTrack?: { available?: boolean; lapsPerMile?: number; bestTime?: string; note?: string }
+    gym?: { heaviestDumbbell?: number; equipment?: string; peakHours?: string; bestTime?: string; etiquette?: string }
+  }
+  portsTake?: string
+  itinerary?: {
+    _key: string
+    day: number
+    port: string
+    stopType?: 'embarkation' | 'sea' | 'docked' | 'tendered' | 'overnight' | 'debarkation'
+    arrive?: string
+    depart?: string
+    allAboard?: string
+    tenderWait?: string
+    whatWeDid?: string
+    excursionType?: string
+    tip?: string
+  }[]
+  gettingThere?: {
+    airport?: string
+    terminal?: string
+    transfer?: string
+    transferMinutes?: number
+    transferCost?: number
+    whyThisAirport?: string
+  }
+  embarkation?: { lines?: string; minutesToBoard?: number; tips?: string[] }
+  debarkation?: { method?: 'self-assist' | 'assigned'; facialRecognition?: string; minutesToExit?: number; tips?: string[] }
+  wifi?: {
+    usage?: 'bought' | 'included' | 'none'
+    plan?: 'basic' | 'premium'
+    planName?: string
+    devices?: string
+    sharingRule?: 'one-at-a-time' | 'per-device' | 'shared'
+    verdict?: 'great' | 'good' | 'slow' | 'unusable'
+    verdictNote?: string
+  }
+  cruiseRating?: Record<string, number | undefined>
+  positives?: string[]
+  negatives?: string[]
+  verdict?: any[]
+  wouldSailAgain?: 'yes' | 'conditional' | 'maybe' | 'no'
+  wouldSailAgainNote?: string
+  bookItIf?: string[]
+  skipItIf?: string[]
+  bestFor?: string[]
+  comparisons?: {
+    _key: string
+    otherShip: string
+    otherReviewSlug?: string
+    rows?: { _key: string; metric?: string; thisShip?: string; otherShip?: string; edge?: string }[]
+  }[]
+  faqs?: { _key: string; question: string; answer: string }[]
+  tags?: string[]
+}
