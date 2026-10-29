@@ -1,5 +1,5 @@
 import { format, parseISO } from 'date-fns'
-import { Ship } from 'lucide-react'
+import { Ship, UtensilsCrossed } from 'lucide-react'
 import { defineArrayMember, defineField, defineType } from 'sanity'
 
 import { DROVE_AND_PARKED } from '../lib/cruisePorts'
@@ -1022,11 +1022,20 @@ export default defineType({
             }),
           ],
           preview: {
-            select: { title: 'name', cost: 'cost', rating: 'rating', tried: 'tried' },
-            prepare({ title, cost, rating, tried }) {
+            select: {
+              title: 'name',
+              cost: 'cost',
+              rating: 'rating',
+              tried: 'tried',
+              bestDishPhoto: 'bestDishPhoto',
+              dishPhoto: 'dishes.0.photo',
+            },
+            prepare({ title, cost, rating, tried, bestDishPhoto, dishPhoto }) {
               return {
                 title,
                 subtitle: [tried === false ? 'Not tried' : rating != null && `${rating}/10`, cost].filter(Boolean).join(' • '),
+                // Best Dish photo first, then the first rated dish's photo
+                media: bestDishPhoto?.asset ? bestDishPhoto : dishPhoto?.asset ? dishPhoto : UtensilsCrossed,
               }
             },
           },
