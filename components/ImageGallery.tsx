@@ -55,6 +55,13 @@ const CATEGORY_LABELS: Record<string, string> = {
   court: 'Seating & Game Floor',
   concessions: 'Concessions & Food',
   lobby: 'Entrances & Lobby',
+  // Cruises
+  cabin: 'Cabin',
+  dining: 'Dining',
+  ship: 'Ship & Public Spaces',
+  entertainment: 'Entertainment & Activities',
+  'sports-fitness': 'Sports & Fitness',
+  ports: 'Ports & Excursions',
   // Shared
   other: 'Additional Photos',
 }
