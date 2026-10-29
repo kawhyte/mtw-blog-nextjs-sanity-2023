@@ -1,6 +1,8 @@
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
+import { PHASE_DEVELOPMENT_SERVER } from 'next/constants.js'
+
 /** @type {import('next').NextConfig} */
 const config = {
   // Pin the project root: a stray package-lock.json in the home folder made
@@ -118,23 +120,29 @@ const config = {
           },
         ],
       },
-      // Production only: dev chunk names stay the same between edits, so a
-      // year-long immutable cache makes the browser keep running old code
-      ...(process.env.NODE_ENV === 'production'
-        ? [
-            {
-              source: '/_next/static/(.*)',
-              headers: [
-                {
-                  key: 'Cache-Control',
-                  value: 'public, max-age=31536000, immutable',
-                },
-              ],
-            },
-          ]
-        : []),
+      {
+        source: '/_next/static/(.*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
     ]
   },
 }
 
-export default config
+// In `next dev` drop the year-long cache on /_next/static: dev chunk names stay
+// the same between edits, so the browser kept running old code (hydration
+// errors). NODE_ENV is not reliable here, the dev-server phase is.
+export default function nextConfig(phase) {
+  if (phase !== PHASE_DEVELOPMENT_SERVER) return config
+  return {
+    ...config,
+    async headers() {
+      const all = await config.headers()
+      return all.filter((rule) => rule.source !== '/_next/static/(.*)')
+    },
+  }
+}
