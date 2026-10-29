@@ -21,10 +21,21 @@ type Filter = 'all' | 'extra' | 'included' | 'cabin-perk'
 // Filter chips only help once the list gets long
 const FILTER_MIN = 6
 
+// Sit-down venue types that earn a big card once we rated what we ate there
+const SIT_DOWN = ['specialty', 'main-dining', 'exclusive', 'experience']
+
 /**
- * Restaurants worth planning for (extra cost or a cabin perk) get big cards
- * with dish ratings and menus; included everyday spots get small cards.
+ * Restaurants worth planning for get big cards with dish ratings and menus:
+ * anything extra cost or a cabin perk, plus included sit-down restaurants
+ * with a Best Dish or rated dishes (on lines like Virgin, everything is
+ * included). Cafes, quick bites, buffets and bars stay small cards.
  */
+function isPlanned(v: CruiseDiningVenue) {
+  if (v.cost === 'extra' || v.cost === 'cabin-perk') return true
+  const rated = !!v.bestDish || (v.dishes ?? []).some((d) => d.name)
+  return rated && SIT_DOWN.includes(v.venueType ?? '')
+}
+
 export default function CruiseDining({ review }: { review: CruiseReview }) {
   const venues = (review.diningVenues ?? []).filter((v) => v.tried !== false)
   const [filter, setFilter] = useState<Filter>('all')
@@ -40,12 +51,8 @@ export default function CruiseDining({ review }: { review: CruiseReview }) {
   const shown = venues.filter(
     (v) => filter === 'all' || (v.cost ?? 'included') === filter,
   )
-  const planned = shown.filter(
-    (v) => v.cost === 'extra' || v.cost === 'cabin-perk',
-  )
-  const everyday = shown.filter(
-    (v) => v.cost !== 'extra' && v.cost !== 'cabin-perk',
-  )
+  const planned = shown.filter(isPlanned)
+  const everyday = shown.filter((v) => !isPlanned(v))
   const chips: [Filter, string, number][] = (
     [
       ['all', 'All', venues.length],
@@ -94,7 +101,8 @@ export default function CruiseDining({ review }: { review: CruiseReview }) {
             Restaurants worth planning for
           </h3>
           <p className="mt-1 text-sm text-muted-foreground">
-            Extra cost or a cabin perk. Book these on day one.
+            Sit-down restaurants we rated, plus anything that costs extra.
+            Book these on day one.
           </p>
           <div className="mt-4 grid items-start gap-4 md:grid-cols-2 md:gap-6">
             {planned.map((v) => (
