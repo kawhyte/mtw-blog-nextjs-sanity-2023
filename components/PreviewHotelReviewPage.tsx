@@ -19,7 +19,7 @@ export default function PreviewHotelReviewPage({
   const [previewHotelReview] = useLiveQuery<HotelReview>(
     initialHotelReview,
     hotelReviewBySlugQuery,
-    { slug: initialHotelReview.slug },
+    { slug: initialHotelReview.slug, preview: true },
   )
 
   return (

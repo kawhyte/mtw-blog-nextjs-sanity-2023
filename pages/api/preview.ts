@@ -7,6 +7,7 @@ import {
 } from 'lib/sanity.api'
 import {
   arenaBySlugQuery,
+  cruiseReviewBySlugQuery,
   foodReviewBySlugQuery,
   guideBySlugQuery,
   hotelReviewBySlugQuery,
@@ -29,7 +30,8 @@ function redirectToPreview(
     | `/arena/${string}`
     | `/guide/${string}`
     | `/hotel/${string}`
-    | `/food/${string}`,
+    | `/food/${string}`
+    | `/cruise/${string}`,
 ): void {
   // Enable Preview Mode by setting the cookies
   res.setPreviewData(previewData)
@@ -103,6 +105,7 @@ export default async function preview(
     | `/guide/${string}`
     | `/hotel/${string}`
     | `/food/${string}`
+    | `/cruise/${string}`
     | null = null
 
   // Determine which document type to fetch and where to redirect
@@ -118,21 +121,26 @@ export default async function preview(
     }
   } else if (type === 'guide' && slug) {
     // Handle guide documents
-    document = await client.fetch(guideBySlugQuery, { slug })
+    document = await client.fetch(guideBySlugQuery, { slug, preview: true })
     if (document) {
       documentPath = `/guide/${document.slug}`
     }
   } else if (type === 'hotelReview' && slug) {
     // Handle hotel review documents
-    document = await client.fetch(hotelReviewBySlugQuery, { slug })
+    document = await client.fetch(hotelReviewBySlugQuery, { slug, preview: true })
     if (document) {
       documentPath = `/hotel/${document.slug}`
     }
   } else if (type === 'foodReview' && slug) {
     // Handle food review documents
-    document = await client.fetch(foodReviewBySlugQuery, { slug })
+    document = await client.fetch(foodReviewBySlugQuery, { slug, preview: true })
     if (document) {
       documentPath = `/food/${document.slug}`
+    }
+  } else if (type === 'cruiseReview' && slug) {
+    document = await client.fetch(cruiseReviewBySlugQuery, { slug, preview: true })
+    if (document) {
+      documentPath = `/cruise/${document.slug}`
     }
   } else {
     // Handle cases where type is missing, unknown, or slug is missing for a known type

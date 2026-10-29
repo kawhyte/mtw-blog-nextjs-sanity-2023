@@ -33,6 +33,9 @@ import {
   cityLocationsQuery,
   type CityPageData,
   cityPageQuery,
+  type CruiseReview,
+  cruiseReviewBySlugQuery,
+  cruiseReviewSlugsQuery,
   // Other types
   type Essential,
   foodCardFields,
@@ -202,7 +205,8 @@ export async function getSearchSectionCounts(): Promise<{
 }> {
   const empty = { arenas: 0, hotels: 0, food: 0, guides: 0 }
   if (!client) return empty
-  const live = '(!defined(publishedAt) || publishedAt <= now()) && defined(slug.current)'
+  const live =
+    '(!defined(publishedAt) || publishedAt <= now()) && defined(slug.current)'
   try {
     const counts = await client.fetch(`{
       "arenas": count(*[_type == "arenas" && visited == true]),
@@ -497,7 +501,7 @@ export async function getGuideBySlug(
     return null
   }
   try {
-    const guide = await c.fetch(guideBySlugQuery, { slug })
+    const guide = await c.fetch(guideBySlugQuery, { slug, preview: !!token })
     return guide || null
   } catch (error) {
     console.error(`Error fetching guide with slug "${slug}":`, error)
@@ -542,7 +546,10 @@ export async function getHotelReviewBySlug(
     return null
   }
   try {
-    const hotelReview = await c.fetch(hotelReviewBySlugQuery, { slug })
+    const hotelReview = await c.fetch(hotelReviewBySlugQuery, {
+      slug,
+      preview: !!token,
+    })
     return hotelReview || null
   } catch (error) {
     console.error(`Error fetching hotel review with slug "${slug}":`, error)
@@ -587,7 +594,10 @@ export async function getFoodReviewBySlug(
     return null
   }
   try {
-    const foodReview = await c.fetch(foodReviewBySlugQuery, { slug })
+    const foodReview = await c.fetch(foodReviewBySlugQuery, {
+      slug,
+      preview: !!token,
+    })
     return foodReview || null
   } catch (error) {
     console.error(`Error fetching food review with slug "${slug}":`, error)
@@ -767,3 +777,42 @@ export async function getFoodReviewsByDiningType(
 // - getPostAndMoreStories() -> Use type-specific functions instead
 //
 // Modern approach: Fetch individual content and related items separately for better caching and flexibility
+
+// --- Cruise Reviews ---
+
+/** One cruise review by its slug; with a preview token, drafts show too */
+export async function getCruiseReviewBySlug(
+  slug: string,
+  token?: string,
+): Promise<CruiseReview | null> {
+  const c = token ? getPreviewClient(token) : client
+  if (!c) {
+    console.warn('Sanity client is not initialized.')
+    return null
+  }
+  try {
+    const review = await c.fetch(cruiseReviewBySlugQuery, {
+      slug,
+      preview: !!token,
+    })
+    return review || null
+  } catch (error) {
+    console.error(`Error fetching cruise review with slug "${slug}":`, error)
+    return null
+  }
+}
+
+/** Every cruise review slug, for static generation */
+export async function getAllCruiseReviewSlugs(): Promise<string[]> {
+  if (!client) {
+    console.warn('Sanity client is not initialized.')
+    return []
+  }
+  try {
+    const slugs = await client.fetch(cruiseReviewSlugsQuery)
+    return slugs || []
+  } catch (error) {
+    console.error('Error fetching cruise review slugs:', error)
+    return []
+  }
+}

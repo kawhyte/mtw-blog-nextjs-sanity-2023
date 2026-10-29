@@ -4,6 +4,7 @@ import { IceCream } from 'lucide-react'
 import { defineField, defineType } from 'sanity'
 
 import { AltTextGeneratorInput } from '../plugins/AltTextGeneratorInput'
+import { PublishDateInput } from '../plugins/PublishDateInput'
 import { SeoExcerptGeneratorInput } from '../plugins/SeoExcerptGeneratorInput'
 import { VerdictHeadlineGeneratorInput } from '../plugins/VerdictHeadlineGeneratorInput'
 import {
@@ -403,27 +404,9 @@ export default defineType({
       group: 'seo',
       title: 'Publish Date / Scheduled Time',
       description:
-        'Complete all required fields to enable scheduling. Set a future date to schedule, or leave blank to publish immediately.',
+        'Leave on "Publish now" to go live when you hit Publish, or pick a time to schedule it (Pacific time).',
       type: 'datetime',
-      readOnly: ({ document }) => {
-        const doc = document as any
-        const hasRequiredRating =
-          doc?.diningType === 'dinein'
-            ? !!doc?.foodRating
-            : doc?.diningType === 'takeout'
-              ? !!doc?.takeoutRating
-              : false
-        return !(
-          doc?.title?.trim() &&
-          doc?.slug?.current &&
-          doc?.date &&
-          doc?.location?.trim() &&
-          doc?.diningType &&
-          hasRequiredRating &&
-          (doc?.positives as unknown[])?.length > 0 &&
-          (doc?.verdict as unknown[])?.length > 0
-        )
-      },
+      components: { input: PublishDateInput },
       validation: (rule) =>
         rule
           .custom((value) => {
@@ -587,7 +570,7 @@ export default defineType({
       title: 'title',
       date: 'date',
       media: 'coverImage',
-      heroMedia: 'heroPhotos.0',
+      heroMedia: 'heroPhotos.0.asset',
       location: 'location',
       diningType: 'diningType',
     },

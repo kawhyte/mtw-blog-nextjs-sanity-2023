@@ -36,6 +36,8 @@ export const getStaticProps: GetStaticProps<
   if (!guide) {
     return {
       notFound: true,
+      // Re-check so a scheduled post appears once its time passes
+      revalidate: 60,
     }
   }
 

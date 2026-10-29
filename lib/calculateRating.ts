@@ -10,7 +10,7 @@ interface RatingThresholds {
   [threshold: number]: string
 }
 
-interface RatingResult {
+export interface RatingResult {
   numericalRating: number
   displayRating: string // 5-point formatted string, e.g. "4.3"
   textRating: string

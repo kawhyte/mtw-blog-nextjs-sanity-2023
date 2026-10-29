@@ -28,6 +28,7 @@ import {
   TerminalInput,
   TransferInput,
 } from '../plugins/PickOrTypeInput'
+import { PublishDateInput } from '../plugins/PublishDateInput'
 import { SeoExcerptGeneratorInput } from '../plugins/SeoExcerptGeneratorInput'
 import { ShipFactsFetcherInput } from '../plugins/ShipFactsFetcherInput'
 import {
@@ -955,6 +956,23 @@ export default defineType({
             rating(),
             defineField({ name: 'worthIt', title: 'Worth It?', type: 'string', options: { list: WORTH_IT_OPTIONS, layout: 'radio' } }),
             defineField({ name: 'bestDish', title: 'Best Dish', type: 'string' }),
+            defineField({
+              name: 'bestDishPhoto',
+              title: 'Best Dish Photo (optional)',
+              type: 'image',
+              description: 'Shown next to the Best Dish name. Max 1600 px on the longest edge. Landscape shots work best (set the hotspot). WebP 85% or JPEG 88%.',
+              options: { hotspot: true },
+              hidden: ({ parent }) => !parent?.bestDish,
+              fields: [
+                defineField({
+                  name: 'alt',
+                  type: 'string',
+                  title: 'Alternative text',
+                  description: 'Describe the dish for SEO and accessibility.',
+                  components: { input: AltTextGeneratorInput },
+                }),
+              ],
+            }),
             defineField({ name: 'worstDish', title: 'Worst Dish', type: 'string' }),
             defineField({
               name: 'dishes',
@@ -968,10 +986,26 @@ export default defineType({
                     defineField({ name: 'name', title: 'Dish', type: 'string' }),
                     rating(),
                     defineField({ name: 'note', title: 'Note', type: 'string' }),
+                    defineField({
+                      name: 'photo',
+                      title: 'Photo (optional)',
+                      type: 'image',
+                      description: 'Max 1600 px on the longest edge. Landscape shots work best (set the hotspot). WebP 85% or JPEG 88%.',
+                      options: { hotspot: true },
+                      fields: [
+                        defineField({
+                          name: 'alt',
+                          type: 'string',
+                          title: 'Alternative text',
+                          description: 'Describe the dish for SEO and accessibility.',
+                          components: { input: AltTextGeneratorInput },
+                        }),
+                      ],
+                    }),
                   ],
                   preview: {
-                    select: { title: 'name', rating: 'rating' },
-                    prepare: ({ title, rating }) => ({ title, subtitle: rating != null ? `${rating}/10` : undefined }),
+                    select: { title: 'name', rating: 'rating', media: 'photo' },
+                    prepare: ({ title, rating, media }) => ({ title, subtitle: rating != null ? `${rating}/10` : undefined, media }),
                   },
                 }),
               ],
@@ -1818,6 +1852,7 @@ export default defineType({
       name: 'publishedAt',
       title: 'Publish Date / Scheduled Time',
       type: 'datetime',
+      components: { input: PublishDateInput },
       group: 'seo',
       description: 'Set a future date to schedule, or leave blank to publish immediately.',
       validation: (rule) =>
@@ -1840,7 +1875,7 @@ export default defineType({
       date: 'sailingDate',
       nights: 'nights',
       media: 'coverImage',
-      heroMedia: 'heroPhotos.0',
+      heroMedia: 'heroPhotos.0.asset',
     },
     prepare({ title, ship, media, heroMedia, date, nights }) {
       const subtitles = [
