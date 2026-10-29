@@ -265,11 +265,6 @@ function VenueCard({
             <div className="text-base font-bold">{v.bestDish}</div>
           </div>
         )}
-        {v.worstDish && (
-          <p className="mt-2 text-sm">
-            <b className="text-destructive">Worst:</b> {v.worstDish}
-          </p>
-        )}
 
         {v.review && (
           <p className="mt-3 text-base leading-relaxed text-stone-700">
