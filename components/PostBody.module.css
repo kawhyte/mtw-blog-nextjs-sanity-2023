@@ -14,8 +14,9 @@
   padding-left: 3.5rem;
 }
 
+/* Same size and line height as body paragraphs (.portableText p) */
 .portableText li {
-  @apply my-2;
+  @apply my-2 text-base leading-loose;
 }
 
 .portableText h1 {
@@ -153,4 +154,7 @@
 .flush ul,
 .flush ol {
   padding-left: 1.5rem;
+}
+.flush li {
+  @apply text-base md:text-[17px] font-normal leading-relaxed md:leading-[1.8] text-foreground/80;
 }
