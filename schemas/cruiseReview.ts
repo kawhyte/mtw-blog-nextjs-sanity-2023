@@ -978,7 +978,7 @@ export default defineType({
               title: 'Dishes',
               type: 'array',
               validation: (rule) =>
-                rule.max(8).warning('Long dish list: consider keeping the 8 most memorable'),
+                rule.max(10).warning('Long dish list: consider keeping the 10 most memorable'),
               of: [
                 defineArrayMember({
                   type: 'object',
