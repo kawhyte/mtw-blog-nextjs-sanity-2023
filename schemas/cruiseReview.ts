@@ -907,6 +907,9 @@ export default defineType({
       type: 'array',
       group: 'dining',
       description: 'One entry per venue you tried. Add venues you skipped with "Tried" off.',
+      // Soft guard rail only: long lists still save
+      validation: (rule) =>
+        rule.max(12).warning('Long list: consider turning "Tried" off for minor spots'),
       of: [
         defineArrayMember({
           type: 'object',
@@ -974,6 +977,8 @@ export default defineType({
               name: 'dishes',
               title: 'Dishes',
               type: 'array',
+              validation: (rule) =>
+                rule.max(8).warning('Long dish list: consider keeping the 8 most memorable'),
               of: [
                 defineArrayMember({
                   type: 'object',
