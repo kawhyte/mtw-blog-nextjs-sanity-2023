@@ -32,6 +32,7 @@ import { PublishDateInput } from '../plugins/PublishDateInput'
 import { SeoExcerptGeneratorInput } from '../plugins/SeoExcerptGeneratorInput'
 import { ShipFactsFetcherInput } from '../plugins/ShipFactsFetcherInput'
 import {
+  archivedField,
   galleryField,
   heroPhotosField,
   negativesField,
@@ -1864,6 +1865,7 @@ export default defineType({
           })
           .warning(),
     }),
+    defineField({ ...archivedField, group: 'overview' }),
   ],
 
   preview: {

@@ -4,7 +4,12 @@ import { type StructureBuilder } from 'sanity/desk'
 type ListItemBuilder = ReturnType<StructureBuilder['listItem']>
 
 /** Types with an `archived` switch; archived entries leave the main list */
-export const ARCHIVABLE_TYPES = ['hotelReview', 'foodReview', 'guide']
+export const ARCHIVABLE_TYPES = [
+  'hotelReview',
+  'foodReview',
+  'cruiseReview',
+  'guide',
+]
 
 /** The type's usual list, minus anything archived */
 export const withoutArchived = (
