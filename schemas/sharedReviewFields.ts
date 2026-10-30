@@ -3,7 +3,7 @@ import { defineField } from 'sanity'
 import { AltTextGeneratorInput } from '../plugins/AltTextGeneratorInput'
 import { CaptionGeneratorInput } from '../plugins/CaptionGeneratorInput'
 import { VerdictGeneratorInput } from '../plugins/VerdictGeneratorInput'
-import { getPortableTextLength } from './utils'
+import { getPortableTextWordCount } from './utils'
 
 /** e.g. 'hotel' | 'restaurant', used only in editor-facing descriptions */
 type Subject = string
@@ -28,11 +28,11 @@ export const negativesField = (subject: Subject) =>
     of: [{ type: 'text' }],
   })
 
-export const verdictField = (subject: Subject, limit: number) =>
+export const verdictField = (subject: Subject, maxWords: number) =>
   defineField({
     name: 'verdict',
     title: 'Verdict',
-    description: `Your overall verdict on this ${subject}, aim for ${limit} characters or fewer. Basic formatting allowed.`,
+    description: `Your overall verdict on this ${subject}, aim for ${maxWords} words or fewer. Basic formatting allowed.`,
     type: 'array',
     of: [{ type: 'block' }],
     validation: (Rule) => [
@@ -43,11 +43,11 @@ export const verdictField = (subject: Subject, limit: number) =>
       ).error(),
       // Only a warning: older verdicts predate the limit and must stay publishable
       Rule.custom((portableTextValue) => {
-        const textLength = getPortableTextLength(
+        const words = getPortableTextWordCount(
           (portableTextValue as any[]) || [],
         )
-        return textLength > limit
-          ? `Verdict is over ${limit} characters (${textLength}/${limit})`
+        return words > maxWords
+          ? `Verdict is over ${maxWords} words (${words}/${maxWords})`
           : true
       }).warning(),
     ],
