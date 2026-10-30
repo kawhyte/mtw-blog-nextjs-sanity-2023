@@ -5,6 +5,7 @@
 import { GlobeAltIcon } from '@heroicons/react/outline'
 import { visionTool } from '@sanity/vision'
 import { apiVersion, dataset, previewSecretId, projectId } from 'lib/sanity.api'
+import { ARCHIVABLE_TYPES, ArchiveAction } from 'plugins/archive'
 import { previewDocumentNode } from 'plugins/previewPane'
 import { productionUrl } from 'plugins/productionUrl'
 import { ScheduledBadge } from 'plugins/scheduledBadge'
@@ -59,6 +60,8 @@ export default defineConfig({
       }
       return prev
     },
+    actions: (prev, { schemaType }) =>
+      ARCHIVABLE_TYPES.includes(schemaType) ? [...prev, ArchiveAction] : prev,
   },
   schema: {
     // If you want more content types, you can add them to this array
