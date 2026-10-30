@@ -7,6 +7,7 @@ import { PublishDateInput } from '../plugins/PublishDateInput'
 import { SeoExcerptGeneratorInput } from '../plugins/SeoExcerptGeneratorInput'
 import { VerdictHeadlineGeneratorInput } from '../plugins/VerdictHeadlineGeneratorInput'
 import {
+  archivedField,
   galleryField,
   heroPhotosField,
   negativesField,
@@ -635,6 +636,7 @@ export default defineType({
         },
       ],
     }),
+    defineField({ ...archivedField, group: 'overview' }),
   ],
 
   preview: {

@@ -5,6 +5,8 @@
 import { definePlugin, type DocumentDefinition } from 'sanity'
 import { type StructureResolver } from 'sanity/desk'
 
+import { archivedListItem, withoutArchived } from './archive'
+
 export const settingsPlugin = definePlugin<{ type: string }>(({ type }) => {
   return {
     name: 'settings',
@@ -49,12 +51,18 @@ export const settingsStructure = (
         )
 
     // The default root list items (except custom ones)
-    const defaultListItems = S.documentTypeListItems().filter(
-      (listItem) => listItem.getId() !== typeDef.name,
-    )
+    const defaultListItems = S.documentTypeListItems()
+      .filter((listItem) => listItem.getId() !== typeDef.name)
+      .map((listItem) => withoutArchived(S, listItem))
 
     return S.list()
       .title('Content')
-      .items([settingsListItem, S.divider(), ...defaultListItems])
+      .items([
+        settingsListItem,
+        S.divider(),
+        ...defaultListItems,
+        S.divider(),
+        archivedListItem(S),
+      ])
   }
 }
