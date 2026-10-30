@@ -13,19 +13,24 @@ export const ARCHIVABLE_TYPES = [
 
 const NOT_ARCHIVED = '_type == $type && archived != true'
 
+// Studio lists query with the drafts perspective, where a draft's _id loses
+// its "drafts." prefix and only _originalId keeps it. The live listener runs
+// the same filter on raw documents (no _originalId), hence the coalesce.
+const IS_DRAFT = 'coalesce(_originalId, _id) in path("drafts.**")'
+
 /** Status views of a type, archived entries left out of each */
 const STATUS_VIEWS = [
   { id: 'all', title: 'All', filter: NOT_ARCHIVED },
   {
     id: 'published',
     title: 'Published',
-    filter: `${NOT_ARCHIVED} && !(_id in path("drafts.**"))`,
+    filter: `${NOT_ARCHIVED} && !(${IS_DRAFT})`,
   },
   {
-    // A draft with no published twin has never gone live
+    // A live entry with unsaved edits also lands here until it's republished
     id: 'unpublished',
     title: 'Not Published Yet',
-    filter: `${NOT_ARCHIVED} && _id in path("drafts.**") && !defined(*[_id == string::split(^._id, "drafts.")[1]][0]._id)`,
+    filter: `${NOT_ARCHIVED} && ${IS_DRAFT}`,
   },
 ]
 
