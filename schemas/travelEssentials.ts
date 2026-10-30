@@ -82,6 +82,19 @@ export default defineType({
     }),
 
     defineField({
+      name: 'howWeUseIt',
+      title: 'How we use it',
+      type: 'text',
+      rows: 3,
+      description:
+        'Optional. 2 or 3 sentences: where it lives on the trip and what it does for us. Opens under the card with a "How we use it" button.',
+      validation: (Rule) =>
+        Rule.max(300).warning(
+          'Keep it to 2 or 3 sentences, 300 characters max.',
+        ),
+    }),
+
+    defineField({
       name: 'description',
       title: 'Old description',
       description:

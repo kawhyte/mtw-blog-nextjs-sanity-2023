@@ -40,6 +40,7 @@ const travelEssentialFields = groq`
     section,
     tripType,
     whyWePack,
+    howWeUseIt,
     featured,
     affiliate,
     // No crop or hotspot: the card always shows the whole photo
@@ -995,6 +996,8 @@ export interface Essential {
   section?: string
   tripType?: string[]
   whyWePack?: string
+  /** Opens under the card on the Travel Gear page */
+  howWeUseIt?: string
   /** Shown as "Must pack" */
   featured?: boolean
   affiliate?: boolean
