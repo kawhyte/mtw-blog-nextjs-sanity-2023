@@ -11,18 +11,49 @@ export const ARCHIVABLE_TYPES = [
   'guide',
 ]
 
-/** The type's usual list, minus anything archived */
-export const withoutArchived = (
+const NOT_ARCHIVED = '_type == $type && archived != true'
+
+/** Status views of a type, archived entries left out of each */
+const STATUS_VIEWS = [
+  { id: 'all', title: 'All', filter: NOT_ARCHIVED },
+  {
+    id: 'published',
+    title: 'Published',
+    filter: `${NOT_ARCHIVED} && !(_id in path("drafts.**"))`,
+  },
+  {
+    // A draft with no published twin has never gone live
+    id: 'unpublished',
+    title: 'Not Published Yet',
+    filter: `${NOT_ARCHIVED} && _id in path("drafts.**") && !defined(*[_id == string::split(^._id, "drafts.")[1]][0]._id)`,
+  },
+]
+
+/** The type's list split into All / Published / Not Published Yet */
+export const withStatusLists = (
   S: StructureBuilder,
   listItem: ListItemBuilder,
 ): ListItemBuilder => {
   const type = listItem.getId()
   if (!type || !ARCHIVABLE_TYPES.includes(type)) return listItem
+  const title = listItem.getTitle() ?? type
   return listItem.child(
-    S.documentTypeList(type)
-      .title(listItem.getTitle() ?? type)
-      .filter('_type == $type && archived != true')
-      .params({ type }),
+    S.list()
+      .title(title)
+      .items(
+        STATUS_VIEWS.map((view) =>
+          S.listItem()
+            .id(view.id)
+            .title(view.title)
+            .schemaType(type)
+            .child(
+              S.documentTypeList(type)
+                .title(view.id === 'all' ? title : `${title}: ${view.title}`)
+                .filter(view.filter)
+                .params({ type }),
+            ),
+        ),
+      ),
   )
 }
 
