@@ -11,18 +11,54 @@ export const ARCHIVABLE_TYPES = [
   'guide',
 ]
 
-/** The type's usual list, minus anything archived */
-export const withoutArchived = (
+const NOT_ARCHIVED = '_type == $type && archived != true'
+
+// Studio lists query with the drafts perspective, where a draft's _id loses
+// its "drafts." prefix and only _originalId keeps it. The live listener runs
+// the same filter on raw documents (no _originalId), hence the coalesce.
+const IS_DRAFT = 'coalesce(_originalId, _id) in path("drafts.**")'
+
+/** Status views of a type, archived entries left out of each */
+const STATUS_VIEWS = [
+  { id: 'all', title: 'All', filter: NOT_ARCHIVED },
+  {
+    id: 'published',
+    title: 'Published',
+    filter: `${NOT_ARCHIVED} && !(${IS_DRAFT})`,
+  },
+  {
+    // A live entry with unsaved edits also lands here until it's republished
+    id: 'unpublished',
+    title: 'Not Published Yet',
+    filter: `${NOT_ARCHIVED} && ${IS_DRAFT}`,
+  },
+]
+
+/** The type's list split into All / Published / Not Published Yet */
+export const withStatusLists = (
   S: StructureBuilder,
   listItem: ListItemBuilder,
 ): ListItemBuilder => {
   const type = listItem.getId()
   if (!type || !ARCHIVABLE_TYPES.includes(type)) return listItem
+  const title = listItem.getTitle() ?? type
   return listItem.child(
-    S.documentTypeList(type)
-      .title(listItem.getTitle() ?? type)
-      .filter('_type == $type && archived != true')
-      .params({ type }),
+    S.list()
+      .title(title)
+      .items(
+        STATUS_VIEWS.map((view) =>
+          S.listItem()
+            .id(view.id)
+            .title(view.title)
+            .schemaType(type)
+            .child(
+              S.documentTypeList(type)
+                .title(view.id === 'all' ? title : `${title}: ${view.title}`)
+                .filter(view.filter)
+                .params({ type }),
+            ),
+        ),
+      ),
   )
 }
 
