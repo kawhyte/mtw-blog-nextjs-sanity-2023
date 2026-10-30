@@ -124,11 +124,12 @@ export default defineType({
     }),
 
     defineField({
-      title: 'Would we buy it again?',
+      // The old "Skip it" switch: no longer used. Items already set to off
+      // stay off the site; kept so no data is lost
       name: 'recommend',
+      hidden: true,
+      title: 'Would you recommend this product?',
       type: 'boolean',
-      description: 'Off = shows with a red "Skip it" tag.',
-      validation: (Rule) => Rule.required(),
       initialValue: true,
     }),
 
@@ -147,15 +148,14 @@ export default defineType({
       section: 'section',
       trips: 'tripType',
       must: 'featured',
-      recommend: 'recommend',
       media: 'productImage',
     },
-    prepare({ title, section, trips, must, recommend, media }) {
+    prepare({ title, section, trips, must, media }) {
       const tripNames = ((trips as string[] | undefined) ?? [])
         .map(tripTitle)
         .filter(Boolean)
       const subtitle = [
-        recommend === false ? 'Skip it' : must ? 'Must pack' : null,
+        must ? 'Must pack' : null,
         sectionTitle(section),
         tripNames.length ? tripNames.join(', ') : 'No trip yet',
       ]

@@ -50,7 +50,6 @@ export default function GearCard({
   const blurb = item.whyWePack?.trim() || descriptionText(item.description)
   const price = priceLabel(item.price)
   const store = storeName(item.link)
-  const skip = item.recommend === false
 
   return (
     <div className="flex min-w-0 flex-col gap-2">
@@ -67,13 +66,8 @@ export default function GearCard({
             alt={item.name ?? 'Travel gear'}
             sizes="(min-width: 1024px) 290px, (min-width: 768px) 30vw, 45vw"
             priority={priority}
-            className={`h-full w-full object-contain p-[8%] transition-transform duration-300 group-hover:scale-105 ${skip ? 'opacity-85' : ''}`}
+            className={`h-full w-full object-contain p-[8%] transition-transform duration-300 group-hover:scale-105`}
           />
-        )}
-        {skip && (
-          <span className="absolute left-2.5 top-2.5 rounded-full bg-destructive px-2.5 py-1 text-xs font-extrabold text-white shadow">
-            Skip it
-          </span>
         )}
       </a>
       <span className="text-sm font-bold leading-snug sm:text-base">

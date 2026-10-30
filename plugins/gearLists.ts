@@ -5,7 +5,7 @@ type ListItemBuilder = ReturnType<StructureBuilder['listItem']>
 
 const TYPE = 'essential'
 
-/** Travel Essential Picks split into All / By trip / Must pack / Skip it / Missing */
+/** Travel Essential Picks split into All / By trip / Must pack / Missing */
 export const withGearLists = (
   S: StructureBuilder,
   listItem: ListItemBuilder,
@@ -53,7 +53,6 @@ export const withGearLists = (
         list('all', 'All items', 'true'),
         byTrip,
         list('must-pack', 'Must pack', 'featured == true'),
-        list('skip-it', 'Skip it', 'recommend == false'),
         list(
           'missing',
           'Missing a photo or trip',

@@ -287,6 +287,8 @@ export const travelEssentialQuery = fetchDocuments(
   'essential',
   travelEssentialFields,
   {
+    // Items from the old "Skip it" switch stay off the site
+    where: 'recommend != false',
     order: 'coalesce(featured, false) desc, date desc',
   },
 )

@@ -21,9 +21,9 @@ interface GearGroup {
   items: Essential[]
 }
 
-// Inside a group: the ones we'd buy again first, then the newest
+// Inside a group: must-packs first, then the newest
 const byPick = (a: Essential, b: Essential) =>
-  Number(b.recommend !== false) - Number(a.recommend !== false) ||
+  Number(Boolean(b.featured)) - Number(Boolean(a.featured)) ||
   (b.date ?? '').localeCompare(a.date ?? '')
 
 /** The Studio "Section" groups in page order; items without one go last */
@@ -56,18 +56,14 @@ export default function TravelEssentialPage({
   settings,
 }: TravelEssentialPageProps) {
   const groups = groupGear(posts)
-  const skipCount = posts.filter((item) => item.recommend === false).length
-  const keepCount = posts.length - skipCount
-  const intro = `The gear that actually makes it into our bags, from game days to cruises. ${keepCount} pick${keepCount === 1 ? '' : 's'} we'd buy again${
-    skipCount > 0 ? `, and ${skipCount} we wouldn't` : ''
-  }.`
+  const intro = `The gear that actually makes it into our bags, from game days to cruises. ${posts.length} thing${posts.length === 1 ? '' : 's'} we really pack.`
 
   return (
     <>
       <StaticPageHead
         settings={settings}
         title="What We Pack: Travel Gear | Meet the Whytes"
-        description="Our tried-and-tested gear for NBA games, cruises, day trips and beyond, grouped by what it's for, plus the one thing we'd skip."
+        description="Our tried-and-tested gear for NBA games, cruises, day trips and beyond, grouped by what it's for."
         path="/essentials"
       />
 
