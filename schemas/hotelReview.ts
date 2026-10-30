@@ -295,7 +295,7 @@ export default defineType({
 
     defineField({ ...negativesField('hotel'), group: 'verdict' }),
 
-    defineField({ ...verdictField('hotel', 1200), group: 'verdict' }),
+    defineField({ ...verdictField('hotel', 150), group: 'verdict' }),
 
     defineField({
       name: 'content',

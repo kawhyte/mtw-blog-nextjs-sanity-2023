@@ -313,7 +313,7 @@ export default defineType({
 
     defineField({ ...negativesField('restaurant'), group: 'verdict' }),
 
-    defineField({ ...verdictField('restaurant', 600), group: 'verdict' }),
+    defineField({ ...verdictField('restaurant', 100), group: 'verdict' }),
 
     defineField({
       name: 'content',

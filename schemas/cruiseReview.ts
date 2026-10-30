@@ -38,7 +38,7 @@ import {
   positivesField,
   verdictField,
 } from './sharedReviewFields'
-import { getPortableTextLength } from './utils'
+import { getPortableTextWordCount } from './utils'
 
 /**
  * Cruise review: one document per SHIP. Repeat sailings on the same ship go
@@ -1586,20 +1586,20 @@ export default defineType({
 
     // No AI generator here yet, the generate-verdict API has no cruise prompt
     defineField({
-      ...verdictField('cruise', 1200),
+      ...verdictField('cruise', 150),
       group: 'verdict',
       components: undefined,
       validation: (Rule) => [
-        Rule.custom((value) => {
-          const length = getPortableTextLength((value as any[]) ?? [])
-          if (!length) return 'Verdict is required'
-          return length > 1200 ? `Verdict exceeds 1200 characters (${length}/1200)` : true
-        }).error(),
         Rule.custom((value) =>
-          getPortableTextLength((value as any[]) ?? []) < 300
-            ? 'Short verdict: 300+ characters (3 to 5 sentences) helps the page rank'
-            : true,
-        ).warning(),
+          getPortableTextWordCount((value as any[]) ?? []) ? true : 'Verdict is required',
+        ).error(),
+        Rule.custom((value) => {
+          const words = getPortableTextWordCount((value as any[]) ?? [])
+          if (words > 150) return `Verdict is over 150 words (${words}/150)`
+          return words < 50
+            ? 'Short verdict: 50+ words (3 to 5 sentences) helps the page rank'
+            : true
+        }).warning(),
       ],
     }),
 
