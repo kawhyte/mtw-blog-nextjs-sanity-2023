@@ -125,12 +125,17 @@ export default function GearCard({
   )
 }
 
-/** "How we use it", a full-width panel under the card's row */
+/**
+ * "How we use it", a full-width panel under the card's row. Always in the
+ * HTML (closed = hidden) so search engines can read every note.
+ */
 export function GearNote({
   item,
+  open,
   onClose,
 }: {
   item: Essential
+  open: boolean
   onClose: () => void
 }) {
   const price = priceLabel(item.price)
@@ -138,7 +143,9 @@ export function GearNote({
   return (
     <div
       id={`note-${item._id}`}
-      className="relative col-span-full flex gap-3.5 rounded-2xl border-[3px] border-border-bold bg-primary-soft-background p-4 sm:gap-6 sm:p-6"
+      className={`relative col-span-full gap-3.5 rounded-2xl border-[3px] border-border-bold bg-primary-soft-background p-4 sm:gap-6 sm:p-6 ${
+        open ? 'flex' : 'hidden'
+      }`}
     >
       {item.productImage?.asset && (
         <div className="w-24 shrink-0 self-start overflow-hidden rounded-xl border-2 border-border bg-white sm:w-40">

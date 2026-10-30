@@ -228,9 +228,10 @@ export default function TravelEssentialPage({
                           noteOpen={open}
                           onToggleNote={() => toggleNotes([item._id], !open)}
                         />
-                        {open && (
+                        {item.howWeUseIt && (
                           <GearNote
                             item={item}
+                            open={open}
                             onClose={() => toggleNotes([item._id], false)}
                           />
                         )}
