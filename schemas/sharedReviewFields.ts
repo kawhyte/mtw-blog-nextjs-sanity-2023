@@ -32,20 +32,25 @@ export const verdictField = (subject: Subject, limit: number) =>
   defineField({
     name: 'verdict',
     title: 'Verdict',
-    description: `Your overall verdict on this ${subject}, max 600 characters. Basic formatting allowed.`,
+    description: `Your overall verdict on this ${subject}, aim for ${limit} characters or fewer. Basic formatting allowed.`,
     type: 'array',
     of: [{ type: 'block' }],
-    validation: (Rule) =>
+    validation: (Rule) => [
+      Rule.custom((portableTextValue) =>
+        !portableTextValue || (portableTextValue as any[]).length === 0
+          ? 'Verdict is required'
+          : true,
+      ).error(),
+      // Only a warning: older verdicts predate the limit and must stay publishable
       Rule.custom((portableTextValue) => {
-        if (!portableTextValue || (portableTextValue as any[]).length === 0) {
-          return 'Verdict is required'
-        }
-        const textLength = getPortableTextLength(portableTextValue as any[])
-        if (textLength > limit) {
-          return `Verdict exceeds ${limit} characters (${textLength}/${limit})`
-        }
-        return true
-      }).error(),
+        const textLength = getPortableTextLength(
+          (portableTextValue as any[]) || [],
+        )
+        return textLength > limit
+          ? `Verdict is over ${limit} characters (${textLength}/${limit})`
+          : true
+      }).warning(),
+    ],
     components: { input: VerdictGeneratorInput },
   })
 
