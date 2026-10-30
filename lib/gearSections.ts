@@ -49,3 +49,32 @@ export const GEAR_TRIPS = [
 ] as const
 
 export type GearTrip = (typeof GEAR_TRIPS)[number]['value']
+
+/** Checklist-only groups: no product, no link. Kept general on purpose (a public page) */
+export const CHECKLIST_EXTRAS = [
+  {
+    id: 'dont-forget',
+    title: "Don't forget",
+    items: [
+      'Passport or ID',
+      'Global Entry card',
+      'Cash',
+      'Phone, watch and laptop chargers',
+      'Medicine',
+    ],
+  },
+  {
+    id: 'leave-home',
+    title: 'Before we leave the house',
+    items: [
+      'Pay the bills that are due',
+      'Set the thermostat to eco',
+      'Unplug appliances',
+      'Throw out fridge items',
+      'Take out the trash',
+      'Put the mail on hold',
+      'Free up phone space',
+      'Send the itinerary to family',
+    ],
+  },
+] as const
