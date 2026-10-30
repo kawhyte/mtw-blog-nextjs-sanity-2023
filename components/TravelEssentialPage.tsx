@@ -1,9 +1,11 @@
 import Layout from 'components/BlogLayout'
 import GearCard, { GearNote } from 'components/gear/GearCard'
+import PackingChecklist from 'components/gear/PackingChecklist'
 import TripPicker from 'components/gear/TripPicker'
 import StaticPageHead from 'components/StaticPageHead'
 import { GEAR_SECTIONS, GEAR_TRIPS, type GearTrip } from 'lib/gearSections'
 import type { Essential, Settings } from 'lib/sanity.queries'
+import { LayoutGrid, ListChecks, Printer } from 'lucide-react'
 import { useRouter } from 'next/router'
 import { Fragment, useState } from 'react'
 
@@ -84,19 +86,31 @@ export default function TravelEssentialPage({
   const router = useRouter()
   // ?trip=cruise makes a list shareable; the static page shows everything
   const trip = isTrip(router.query.trip) ? router.query.trip : null
+  // ?view=checklist opens the packing list
+  const view = router.query.view === 'checklist' ? 'checklist' : 'cards'
   const [openNotes, setOpenNotes] = useState<Set<string>>(new Set())
 
-  const pickTrip = (next: GearTrip | null) => {
-    const { trip: _old, ...query } = router.query
-    setOpenNotes(new Set())
-    router.replace(
+  const setParam = (key: 'trip' | 'view', value: string | null) => {
+    const { [key]: _old, ...query } = router.query
+    return router.replace(
       {
         pathname: router.pathname,
-        query: next ? { ...query, trip: next } : query,
+        query: value ? { ...query, [key]: value } : query,
       },
       undefined,
       { shallow: true, scroll: false },
     )
+  }
+
+  const pickTrip = (next: GearTrip | null) => {
+    setOpenNotes(new Set())
+    setParam('trip', next)
+  }
+
+  // Printing always prints the checklist
+  const printList = async () => {
+    if (view !== 'checklist') await setParam('view', 'checklist')
+    setTimeout(() => window.print(), 300)
   }
 
   const toggleNotes = (ids: string[], open: boolean) =>
@@ -117,6 +131,11 @@ export default function TravelEssentialPage({
   const mustPacks = shown.filter((item) => item.featured).length
   const groups = groupGear(shown)
   const hasAffiliate = posts.some((item) => item.affiliate)
+  const tripTitle = GEAR_TRIPS.find((t) => t.value === trip)?.title
+  const viewButton = (value: 'cards' | 'checklist') =>
+    `inline-flex min-h-10 flex-1 items-center justify-center gap-1.5 rounded-full px-4 text-sm font-bold text-foreground transition-colors ${
+      view === value ? 'bg-card shadow' : 'hover:bg-card/60'
+    }`
 
   return (
     <>
@@ -128,9 +147,11 @@ export default function TravelEssentialPage({
       />
 
       <Layout preview={preview} loading={loading}>
-        <BlogHeader title="" description={[]} level={1} />
+        <div className="print:hidden">
+          <BlogHeader title="" description={[]} level={1} />
+        </div>
 
-        <section className="border-b border-border bg-primary-soft-background">
+        <section className="border-b border-border bg-primary-soft-background print:hidden">
           <div className="container mx-auto flex max-w-7xl flex-col gap-6 px-4 pb-6 pt-7 md:px-6 md:pb-7 md:pt-11">
             <div className="flex flex-col gap-2">
               <h1 className="text-page font-extrabold tracking-tight text-primary md:text-page">
@@ -153,95 +174,139 @@ export default function TravelEssentialPage({
         </section>
 
         {posts.length > 0 && (
-          <div className="border-b border-border bg-background">
-            <p
-              aria-live="polite"
-              className="container mx-auto max-w-7xl px-4 py-4 text-sm md:px-6 md:text-base"
-            >
-              <b>
-                {trip
-                  ? `Packing for ${TRIP_PHRASE[trip]}:`
-                  : 'Everything we pack:'}
-              </b>{' '}
-              {plural(shown.length, 'thing')}
-              {mustPacks > 0 && (
-                <>
-                  ,{' '}
-                  <b className="text-primary">
-                    {plural(mustPacks, 'must-pack')}
-                  </b>
-                </>
-              )}
-              . Must-packs come first in every group.
-            </p>
+          <div className="border-b border-border bg-background print:hidden">
+            <div className="container mx-auto flex max-w-7xl flex-col gap-3 px-4 py-4 md:flex-row md:items-center md:gap-4 md:px-6">
+              <p aria-live="polite" className="text-sm md:flex-1 md:text-base">
+                <b>
+                  {trip
+                    ? `Packing for ${TRIP_PHRASE[trip]}:`
+                    : 'Everything we pack:'}
+                </b>{' '}
+                {plural(shown.length, 'thing')}
+                {mustPacks > 0 && (
+                  <>
+                    ,{' '}
+                    <b className="text-primary">
+                      {plural(mustPacks, 'must-pack')}
+                    </b>
+                  </>
+                )}
+                . Must-packs come first in every group.
+              </p>
+              <div className="flex gap-2">
+                <div
+                  role="group"
+                  aria-label="View"
+                  className="flex flex-1 gap-1 rounded-full bg-muted p-1 md:w-64 md:flex-none"
+                >
+                  <button
+                    type="button"
+                    aria-pressed={view === 'cards'}
+                    onClick={() => setParam('view', null)}
+                    className={viewButton('cards')}
+                  >
+                    <LayoutGrid size={16} aria-hidden="true" />
+                    Cards
+                  </button>
+                  <button
+                    type="button"
+                    aria-pressed={view === 'checklist'}
+                    onClick={() => setParam('view', 'checklist')}
+                    className={viewButton('checklist')}
+                  >
+                    <ListChecks size={16} aria-hidden="true" />
+                    Checklist
+                  </button>
+                </div>
+                <button
+                  type="button"
+                  onClick={printList}
+                  className="hidden min-h-11 items-center gap-2 rounded-full border-2 border-border bg-card px-4 text-sm font-bold text-foreground transition-colors hover:border-foreground/40 md:inline-flex"
+                >
+                  <Printer size={16} aria-hidden="true" />
+                  Print list
+                </button>
+              </div>
+            </div>
           </div>
         )}
 
         <div className="container mx-auto flex max-w-7xl flex-col gap-10 px-4 py-7 md:gap-13 md:px-6 md:py-10">
-          {groups.map((group, groupIndex) => {
-            const withNotes = group.items
-              .filter((item) => item.howWeUseIt)
-              .map((item) => item._id)
-            const allOpen =
-              withNotes.length > 0 && withNotes.every((id) => openNotes.has(id))
-            return (
-              <section
-                key={group.id}
-                id={group.id}
-                className="flex scroll-mt-24 flex-col gap-4 md:gap-5"
-              >
-                <div className="flex flex-wrap items-end gap-3">
-                  <div className="flex min-w-0 flex-1 flex-col gap-1">
-                    <h2 className="text-title font-extrabold tracking-tight sm:text-title">
-                      {group.title}{' '}
-                      <span className="text-sm font-semibold text-muted-foreground sm:text-base">
-                        ({group.items.length})
-                      </span>
-                    </h2>
-                    {group.blurb && (
-                      <p className="text-sm text-muted-foreground sm:text-base">
-                        {group.blurb}
-                      </p>
+          {view === 'checklist' && shown.length > 0 && (
+            <PackingChecklist
+              groups={groups}
+              listName={
+                tripTitle ? `${tripTitle} packing list` : 'Full packing list'
+              }
+              storageKey={`mtw-packing-${trip ?? 'all'}`}
+            />
+          )}
+          {view === 'cards' &&
+            groups.map((group, groupIndex) => {
+              const withNotes = group.items
+                .filter((item) => item.howWeUseIt)
+                .map((item) => item._id)
+              const allOpen =
+                withNotes.length > 0 &&
+                withNotes.every((id) => openNotes.has(id))
+              return (
+                <section
+                  key={group.id}
+                  id={group.id}
+                  className="flex scroll-mt-24 flex-col gap-4 md:gap-5"
+                >
+                  <div className="flex flex-wrap items-end gap-3">
+                    <div className="flex min-w-0 flex-1 flex-col gap-1">
+                      <h2 className="text-title font-extrabold tracking-tight sm:text-title">
+                        {group.title}{' '}
+                        <span className="text-sm font-semibold text-muted-foreground sm:text-base">
+                          ({group.items.length})
+                        </span>
+                      </h2>
+                      {group.blurb && (
+                        <p className="text-sm text-muted-foreground sm:text-base">
+                          {group.blurb}
+                        </p>
+                      )}
+                    </div>
+                    {withNotes.length > 1 && (
+                      <button
+                        type="button"
+                        onClick={() => toggleNotes(withNotes, !allOpen)}
+                        className="hidden min-h-10 items-center rounded-full border-2 border-border bg-card px-4 text-sm font-bold text-foreground transition-colors hover:border-foreground/40 md:inline-flex"
+                      >
+                        {allOpen
+                          ? 'Close every "How we use it"'
+                          : 'Open every "How we use it"'}
+                      </button>
                     )}
                   </div>
-                  {withNotes.length > 1 && (
-                    <button
-                      type="button"
-                      onClick={() => toggleNotes(withNotes, !allOpen)}
-                      className="hidden min-h-10 items-center rounded-full border-2 border-border bg-card px-4 text-sm font-bold text-foreground transition-colors hover:border-foreground/40 md:inline-flex"
-                    >
-                      {allOpen
-                        ? 'Close every "How we use it"'
-                        : 'Open every "How we use it"'}
-                    </button>
-                  )}
-                </div>
-                {/* Dense flow lets the cards after an open note fill its row, so the note sits under the row */}
-                <div className="grid grid-flow-row-dense grid-cols-2 gap-x-3.5 gap-y-6 md:grid-cols-3 md:gap-x-5 md:gap-y-8 lg:grid-cols-4">
-                  {group.items.map((item, index) => {
-                    const open = openNotes.has(item._id)
-                    return (
-                      <Fragment key={item._id}>
-                        <GearCard
-                          item={item}
-                          priority={groupIndex === 0 && index < 4}
-                          noteOpen={open}
-                          onToggleNote={() => toggleNotes([item._id], !open)}
-                        />
-                        {item.howWeUseIt && (
-                          <GearNote
+                  {/* Dense flow lets the cards after an open note fill its row, so the note sits under the row */}
+                  <div className="grid grid-flow-row-dense grid-cols-2 gap-x-3.5 gap-y-6 md:grid-cols-3 md:gap-x-5 md:gap-y-8 lg:grid-cols-4">
+                    {group.items.map((item, index) => {
+                      const open = openNotes.has(item._id)
+                      return (
+                        <Fragment key={item._id}>
+                          <GearCard
                             item={item}
-                            open={open}
-                            onClose={() => toggleNotes([item._id], false)}
+                            priority={groupIndex === 0 && index < 4}
+                            noteOpen={open}
+                            onToggleNote={() => toggleNotes([item._id], !open)}
                           />
-                        )}
-                      </Fragment>
-                    )
-                  })}
-                </div>
-              </section>
-            )
-          })}
+                          {item.howWeUseIt && (
+                            <GearNote
+                              item={item}
+                              open={open}
+                              onClose={() => toggleNotes([item._id], false)}
+                            />
+                          )}
+                        </Fragment>
+                      )
+                    })}
+                  </div>
+                </section>
+              )
+            })}
 
           {posts.length === 0 && (
             <p className="py-16 text-center text-muted-foreground">
@@ -255,7 +320,9 @@ export default function TravelEssentialPage({
           )}
         </div>
       </Layout>
-      <Footer />
+      <div className="print:hidden">
+        <Footer />
+      </div>
     </>
   )
 }
