@@ -8,6 +8,7 @@ import {
   getAllGuides,
   getAllHotelReviews,
   getArenaPosts,
+  getCruiseReviewsForSitemap,
 } from '../lib/sanity.client'
 import { locationToSlug } from '../utils/locationSlug'
 
@@ -17,6 +18,7 @@ function generateSiteMap(
   foods: any[],
   guides: any[],
   arenas: any[],
+  cruises: { slug: string; date: string }[],
   cityLocations: string[],
 ): string {
   const baseUrl = 'https://www.meetthewhytes.com'
@@ -111,6 +113,19 @@ function generateSiteMap(
     )
     .join('')}
 
+  <!-- Individual Cruise Reviews -->
+  ${cruises
+    .map(
+      (cruise) => `
+  <url>
+    <loc>${baseUrl}/cruise/${cruise.slug}</loc>
+    <lastmod>${cruise.date || new Date().toISOString()}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>`,
+    )
+    .join('')}
+
   <!-- City Hub Pages -->
   ${cityLocations
     .map(
@@ -130,13 +145,15 @@ function generateSiteMap(
 export const getServerSideProps: GetServerSideProps = async ({ res }) => {
   try {
     // Fetch all content from Sanity
-    const [hotels, foods, guides, arenas, cityLocations] = await Promise.all([
-      getAllHotelReviews() || [],
-      getAllFoodReviews() || [],
-      getAllGuides() || [],
-      getArenaPosts() || [],
-      getAllArenaLocations() || [],
-    ])
+    const [hotels, foods, guides, arenas, cruises, cityLocations] =
+      await Promise.all([
+        getAllHotelReviews() || [],
+        getAllFoodReviews() || [],
+        getAllGuides() || [],
+        getArenaPosts() || [],
+        getCruiseReviewsForSitemap(),
+        getAllArenaLocations() || [],
+      ])
 
     // Generate the XML sitemap
     const sitemap = generateSiteMap(
@@ -147,6 +164,7 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
       arenas
         .filter((a) => a.slug && a.visited)
         .map((a) => ({ slug: a.slug, date: a.date })),
+      cruises,
       // One URL per city (alias pages like Paradise redirect to Las Vegas)
       [
         ...new Set(
