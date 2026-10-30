@@ -166,3 +166,13 @@ export const galleryField = (
       'All other photos, shown in "Show all photos" after the hero photos. Natural crop, max 1600 px on the longest edge, WebP 85% or JPEG 88%. Any aspect ratio is fine.',
     of: [galleryImageItem(categoryDescription, categories, previewLabels)],
   })
+
+/** Tucks an old entry into Studio's Archived list instead of deleting it */
+export const archivedField = defineField({
+  name: 'archived',
+  title: 'Archived',
+  description:
+    'Moves this out of the main list and into Archived (bottom of the Content menu). Nothing is deleted. Archiving does not unpublish a live page.',
+  type: 'boolean',
+  initialValue: false,
+})

@@ -6,6 +6,7 @@ import { AltTextGeneratorInput } from '../plugins/AltTextGeneratorInput'
 import { CaptionGeneratorInput } from '../plugins/CaptionGeneratorInput'
 import { GuideSummaryGeneratorInput } from '../plugins/GuideSummaryGeneratorInput'
 import { PublishDateInput } from '../plugins/PublishDateInput'
+import { archivedField } from './sharedReviewFields'
 
 /**
  * This is the schema definition for a travel guide.
@@ -377,6 +378,7 @@ export default defineType({
           })
           .warning(),
     }),
+    defineField({ ...archivedField, group: 'overview' }),
   ],
 
   preview: {
