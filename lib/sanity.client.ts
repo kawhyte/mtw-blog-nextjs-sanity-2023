@@ -35,6 +35,7 @@ import {
   cityPageQuery,
   type CruiseReview,
   cruiseReviewBySlugQuery,
+  cruiseReviewSitemapQuery,
   cruiseReviewSlugsQuery,
   // Other types
   type Essential,
@@ -799,6 +800,23 @@ export async function getCruiseReviewBySlug(
   } catch (error) {
     console.error(`Error fetching cruise review with slug "${slug}":`, error)
     return null
+  }
+}
+
+/** Slug + last-updated date of every live cruise review, for the sitemap */
+export async function getCruiseReviewsForSitemap(): Promise<
+  { slug: string; date: string }[]
+> {
+  if (!client) {
+    console.warn('Sanity client is not initialized.')
+    return []
+  }
+  try {
+    const reviews = await client.fetch(cruiseReviewSitemapQuery)
+    return reviews || []
+  } catch (error) {
+    console.error('Error fetching cruise reviews for sitemap:', error)
+    return []
   }
 }
 

@@ -1532,6 +1532,12 @@ export const cruiseReviewFields = groq`
 
 export const cruiseReviewSlugsQuery = fetchSlugs('cruiseReview')
 
+/** Live cruise reviews for the sitemap: scheduled ones stay out until they go up */
+export const cruiseReviewSitemapQuery = `*[_type == "cruiseReview" && defined(slug.current) && (!defined(publishedAt) || publishedAt <= now())]{
+  "slug": slug.current,
+  "date": _updatedAt
+}`
+
 export const cruiseReviewBySlugQuery = fetchDocumentBySlug(
   'cruiseReview',
   cruiseReviewFields,
