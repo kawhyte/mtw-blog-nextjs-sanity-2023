@@ -41,8 +41,10 @@ const travelEssentialFields = groq`
     tripType,
     whyWePack,
     featured,
+    affiliate,
+    // No crop or hotspot: the card always shows the whole photo
     productImage {
-      ...,
+      _type,
       asset->{ _id, metadata { lqip, dimensions { width, height } } }
     }
 `
@@ -286,7 +288,6 @@ export const travelEssentialQuery = fetchDocuments(
   travelEssentialFields,
   {
     order: 'coalesce(featured, false) desc, date desc',
-    slice: '[0...20]',
   },
 )
 
@@ -992,7 +993,9 @@ export interface Essential {
   section?: string
   tripType?: string[]
   whyWePack?: string
+  /** Shown as "Must pack" */
   featured?: boolean
+  affiliate?: boolean
 }
 
 // --- Image Gallery Item Interface ---

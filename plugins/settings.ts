@@ -6,6 +6,7 @@ import { definePlugin, type DocumentDefinition } from 'sanity'
 import { type StructureResolver } from 'sanity/desk'
 
 import { archivedListItem, withStatusLists } from './archive'
+import { withGearLists } from './gearLists'
 
 export const settingsPlugin = definePlugin<{ type: string }>(({ type }) => {
   return {
@@ -53,7 +54,7 @@ export const settingsStructure = (
     // The default root list items (except custom ones)
     const defaultListItems = S.documentTypeListItems()
       .filter((listItem) => listItem.getId() !== typeDef.name)
-      .map((listItem) => withStatusLists(S, listItem))
+      .map((listItem) => withGearLists(S, withStatusLists(S, listItem)))
 
     return S.list()
       .title('Content')
