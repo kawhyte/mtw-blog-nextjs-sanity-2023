@@ -1,4 +1,7 @@
-import { ArchiveIcon } from '@sanity/icons'
+import { ArchiveIcon, UnarchiveIcon } from '@sanity/icons'
+import { apiVersion } from 'lib/sanity.api'
+import { useState } from 'react'
+import { type DocumentActionComponent, useClient } from 'sanity'
 import { type StructureBuilder } from 'sanity/desk'
 
 type ListItemBuilder = ReturnType<StructureBuilder['listItem']>
@@ -86,3 +89,36 @@ export const archivedListItem = (S: StructureBuilder) =>
           }),
         ),
     )
+
+/**
+ * Archive / Unarchive in the Publish menu. Patches the draft and the live
+ * document directly, so archiving never leaves a stray draft to publish.
+ */
+export const ArchiveAction: DocumentActionComponent = ({
+  draft,
+  published,
+  onComplete,
+}) => {
+  const client = useClient({ apiVersion })
+  const [busy, setBusy] = useState(false)
+  const archived = Boolean((draft ?? published)?.archived)
+
+  return {
+    label: archived ? 'Unarchive' : 'Archive',
+    icon: archived ? UnarchiveIcon : ArchiveIcon,
+    disabled: busy || (!draft && !published),
+    onHandle: async () => {
+      setBusy(true)
+      const tx = client.transaction()
+      for (const doc of [draft, published]) {
+        if (doc) tx.patch(doc._id, (p) => p.set({ archived: !archived }))
+      }
+      try {
+        await tx.commit()
+      } finally {
+        setBusy(false)
+        onComplete()
+      }
+    },
+  }
+}
