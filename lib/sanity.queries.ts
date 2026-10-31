@@ -1282,6 +1282,23 @@ export const foodListingQuery = groq`
   }
 `
 
+// Lean list of every published cruise review for /cruises (cards only; the
+// score is computed at build time in lib/cruiseListing.ts)
+export const cruiseListingQuery = groq`
+  *[_type == "cruiseReview" && (!defined(publishedAt) || publishedAt <= now())] | order(sailingDate desc) {
+    _id,
+    title,
+    "slug": slug.current,
+    shipName,
+    cruiseLine,
+    lineTier,
+    nights,
+    sailingDate,
+    "coverImage": coalesce(coverImage, heroPhotos[0]) { asset, hotspot, crop },
+    cruiseRating
+  }
+`
+
 // Arenas whose location matches a review's city (e.g. "Las Vegas, NV"),
 // for the "Going to a game?" box on review pages
 export const arenasInLocationQuery = groq`

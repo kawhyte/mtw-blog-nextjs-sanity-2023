@@ -7,6 +7,7 @@ import {
   MapPin,
   Menu,
   Search,
+  Ship,
   Trophy,
   Utensils,
   X,
@@ -45,6 +46,12 @@ const NAV_LINKS: NavLink[] = [
     label: 'Food',
     icon: <Utensils className="h-5 w-5" aria-hidden="true" />,
     matches: ['/food'],
+  },
+  {
+    href: '/cruises',
+    label: 'Cruises',
+    icon: <Ship className="h-5 w-5" aria-hidden="true" />,
+    matches: ['/cruises', '/cruise/'],
   },
   {
     href: '/guides',

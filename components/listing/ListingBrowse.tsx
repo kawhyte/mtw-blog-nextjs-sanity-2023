@@ -34,6 +34,10 @@ export interface ListingBrowseProps {
   allTitle: string
   /** e.g. "stays" → "See all 102 stays" */
   noun: string
+  /** Hide kind tabs that have no reviews yet (a young section like /cruises) */
+  hideEmptyKindTabs?: boolean
+  /** Show the swipe rows only once there are this many reviews, so a short list doesn't repeat the same cards */
+  rowsFrom?: number
 }
 
 const ALL = 'all'
@@ -55,6 +59,8 @@ export default function ListingBrowse({
   kindTabs,
   allTitle,
   noun,
+  hideEmptyKindTabs = false,
+  rowsFrom = 0,
 }: ListingBrowseProps) {
   const router = useRouter()
   const [page, setPage] = useState(1)
@@ -70,9 +76,11 @@ export default function ListingBrowse({
         icon: Star,
         gridTitle: 'Whytes’ favourites',
       },
-      ...kindTabs,
+      ...(hideEmptyKindTabs
+        ? kindTabs.filter((t) => items.some((item) => item.kind === t.key))
+        : kindTabs),
     ],
-    [allTitle, kindTabs],
+    [allTitle, kindTabs, hideEmptyKindTabs, items],
   )
   const queryType = router.query.type
   const tab = tabs.find((t) => t.key === queryType) ?? tabs[0]
@@ -136,7 +144,7 @@ export default function ListingBrowse({
       />
 
       <div className="container mx-auto flex max-w-7xl flex-col gap-10 px-4 py-8 sm:py-10 md:gap-12 md:px-6">
-        {tab.key === ALL && (
+        {tab.key === ALL && items.length >= rowsFrom && (
           <>
             <SwipeRow
               title="Recently reviewed"

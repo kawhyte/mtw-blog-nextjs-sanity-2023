@@ -6,7 +6,7 @@ import Head from 'next/head'
 
 export interface CategoryPageHeadProps {
   settings: Settings
-  categoryType: 'hotels' | 'food' | 'guides' | 'arenas'
+  categoryType: 'hotels' | 'food' | 'cruises' | 'guides' | 'arenas'
   totalCount?: number
   topItems?: { name: string; url: string }[]
 }
@@ -31,6 +31,10 @@ export default function CategoryPageHead({
       title:
         'NBA & WNBA Arena Food Reviews | Local Dining Near Basketball Venues',
       description: `Discover the best restaurants and local food near NBA & WNBA arenas. Real reviews from basketball fans traveling the arena circuit. ${totalCount > 0 ? `${totalCount} food reviews.` : ''}`,
+    },
+    cruises: {
+      title: 'Cruise Reviews | Honest Ship, Cabin and Real Cost Reviews',
+      description: `Honest cruise reviews from the Whytes: cabins, dining, the real total cost, Wi-Fi, ports and who each ship suits. ${totalCount > 0 ? `${totalCount} cruise reviews.` : ''}`,
     },
     guides: {
       title: "NBA & WNBA Arena Travel Guides | Basketball Fan's Travel Tips",
@@ -108,9 +112,11 @@ export default function CategoryPageHead({
                     ? 'Hotel Reviews'
                     : categoryType === 'food'
                       ? 'Food Reviews'
-                      : categoryType === 'guides'
-                        ? 'Travel Guides'
-                        : 'Arena Reviews',
+                      : categoryType === 'cruises'
+                        ? 'Cruise Reviews'
+                        : categoryType === 'guides'
+                          ? 'Travel Guides'
+                          : 'Arena Reviews',
                 item: pageUrl,
               },
             ],
@@ -130,9 +136,11 @@ export default function CategoryPageHead({
                 ? 'NBA Arena Hotel Reviews'
                 : categoryType === 'food'
                   ? 'NBA Arena Food Reviews'
-                  : categoryType === 'guides'
-                    ? 'NBA Arena Travel Guides'
-                    : 'NBA Arena Reviews',
+                  : categoryType === 'cruises'
+                    ? 'Meet the Whytes Cruise Reviews'
+                    : categoryType === 'guides'
+                      ? 'NBA Arena Travel Guides'
+                      : 'NBA Arena Reviews',
             description: pageDescription,
             url: pageUrl,
             numberOfItems: totalCount,
@@ -141,7 +149,9 @@ export default function CategoryPageHead({
                 '@type': 'ListItem',
                 position: index + 1,
                 name: item.name,
-                url: item.url.startsWith('http') ? item.url : `${SITE_URL}${item.url}`,
+                url: item.url.startsWith('http')
+                  ? item.url
+                  : `${SITE_URL}${item.url}`,
               })),
             }),
           }),
@@ -156,9 +166,11 @@ export default function CategoryPageHead({
             ? 'NBA hotel reviews, WNBA arena hotels, basketball travel, sports travel hotels, arena hotels'
             : categoryType === 'food'
               ? 'NBA arena food, WNBA arena restaurants, basketball game food, sports venue dining'
-              : categoryType === 'guides'
-                ? 'NBA arena travel guide, WNBA venue guide, basketball travel tips, sports arena guide'
-                : 'NBA arena reviews, WNBA venue reviews, basketball stadium guide, sports arena experiences'
+              : categoryType === 'cruises'
+                ? 'cruise reviews, cruise ship reviews, cruise cabin reviews, cruise cost breakdown, cruise dining'
+                : categoryType === 'guides'
+                  ? 'NBA arena travel guide, WNBA venue guide, basketball travel tips, sports arena guide'
+                  : 'NBA arena reviews, WNBA venue reviews, basketball stadium guide, sports arena experiences'
         }
       />
     </Head>

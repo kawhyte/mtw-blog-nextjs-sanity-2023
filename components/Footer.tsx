@@ -7,6 +7,7 @@ const FOOTER_LINKS = [
   { href: '/arenas', label: 'Arenas' },
   { href: '/hotels', label: 'Hotels' },
   { href: '/food', label: 'Food' },
+  { href: '/cruises', label: 'Cruises' },
   { href: '/guides', label: 'Guides' },
   { href: '/essentials', label: 'Travel Gear' },
   { href: '/search', label: 'Search' },
