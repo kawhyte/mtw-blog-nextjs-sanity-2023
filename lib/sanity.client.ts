@@ -1,5 +1,9 @@
 import { cityKey, placeCityKey } from 'lib/cityMatch'
 import {
+  buildCruiseListing,
+  type RawCruiseListingRow,
+} from 'lib/cruiseListing'
+import {
   buildFoodListing,
   foodRowRating,
   type RawFoodListingRow,
@@ -33,6 +37,7 @@ import {
   cityLocationsQuery,
   type CityPageData,
   cityPageQuery,
+  cruiseListingQuery,
   type CruiseReview,
   cruiseReviewBySlugQuery,
   cruiseReviewSitemapQuery,
@@ -326,6 +331,18 @@ export async function getFoodListing(): Promise<ListingItem[]> {
     return buildFoodListing(rows ?? [])
   } catch (error) {
     console.error('Error fetching food listing:', error)
+    return []
+  }
+}
+
+/** Every published cruise review as a lean card list for /cruises (see lib/cruiseListing). */
+export async function getCruiseListing(): Promise<ListingItem[]> {
+  if (!client) return []
+  try {
+    const rows = await client.fetch<RawCruiseListingRow[]>(cruiseListingQuery)
+    return buildCruiseListing(rows ?? [])
+  } catch (error) {
+    console.error('Error fetching cruise listing:', error)
     return []
   }
 }

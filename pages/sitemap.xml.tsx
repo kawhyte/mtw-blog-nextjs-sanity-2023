@@ -55,6 +55,12 @@ function generateSiteMap(
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>${baseUrl}/cruises</loc>
+    <lastmod>${new Date().toISOString()}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>${baseUrl}/guides</loc>
     <lastmod>${new Date().toISOString()}</lastmod>
     <changefreq>weekly</changefreq>
