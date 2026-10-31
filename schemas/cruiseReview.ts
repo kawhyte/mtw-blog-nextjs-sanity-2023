@@ -101,6 +101,10 @@ const textList = (name: string, title: string, description?: string) =>
 const noWifi = ({ parent }: { parent?: { usage?: string } }) =>
   !parent?.usage || parent.usage === 'none'
 
+// Price, booking and paid devices only apply when we paid for some Wi-Fi
+const paidWifi = ({ parent }: { parent?: { usage?: string } }) =>
+  !['bought', 'both'].includes(parent?.usage ?? '')
+
 // USB details only matter once we say the room has USB ports
 const noUsb = ({ parent }: { parent?: { usb?: string } }) => parent?.usb !== 'yes'
 
@@ -1475,6 +1479,7 @@ export default defineType({
         pick('usage', 'Did We Use Ship Wi-Fi?', [
           ['Yes, we bought a plan', 'bought'],
           ['Yes, it came with our cabin or fare', 'included'],
+          ['Both: included, and we paid to add more', 'both'],
           ['No, we stayed offline', 'none'],
         ]),
         defineField({
@@ -1499,26 +1504,37 @@ export default defineType({
           hidden: noWifi,
         }),
         defineField({
-          ...pick('devices', 'Devices on Plan', [
+          ...pick('includedDevices', 'Devices Included Per Person', [
             ['1', '1'],
             ['2', '2'],
             ['3', '3'],
             ['4+', '4+'],
           ]),
-          hidden: noWifi,
+          description: 'What the cabin or fare includes, e.g. 1 for The Retreat or RockStar.',
+          hidden: ({ parent }) => !['included', 'both'].includes(parent?.usage),
+        }),
+        defineField({
+          ...pick('devices', 'Devices We Paid For', [
+            ['1', '1'],
+            ['2', '2'],
+            ['3', '3'],
+            ['4+', '4+'],
+          ]),
+          description: 'Total for the cabin. With "Both", count only the extra devices you added.',
+          hidden: paidWifi,
         }),
         defineField({
           name: 'pricePaid',
           title: 'Price Paid ($, whole sailing)',
           type: 'number',
-          hidden: ({ parent }) => parent?.usage !== 'bought',
+          hidden: paidWifi,
         }),
         defineField({
           name: 'bookedWhen',
           title: 'Booked',
           type: 'string',
           options: { list: BOOKED_WHEN_OPTIONS, layout: 'radio', direction: 'horizontal' },
-          hidden: ({ parent }) => parent?.usage !== 'bought',
+          hidden: paidWifi,
         }),
         defineField({
           ...pick('sharingRule', 'Sharing', [
