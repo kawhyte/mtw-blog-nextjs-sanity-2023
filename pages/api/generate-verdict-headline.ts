@@ -157,11 +157,11 @@ Return ONLY the line. No quotes. No label. No explanation.`
 
 const ARENA_RATING_NAMES: Record<string, string> = {
   vibes: 'Atmosphere',
-  view: 'Sightlines',
+  view: 'Seat value',
   seatComfort: 'Seat comfort',
   food: 'Food',
   transportation: 'Getting there',
-  walkability: 'Walkability',
+  walkability: 'Accessibility',
 }
 
 function buildArenaPrompt(body: any): string {

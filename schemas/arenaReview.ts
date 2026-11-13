@@ -6,13 +6,17 @@ export default {
   fields: [
     {
       name: 'transportation',
-      title: 'Ease of access (via public transport, walkability)',
+      title: 'Transportation (getting to the arena)',
+      description:
+        'How easy is it to get to the arena by transit, car or on foot?',
       type: 'number',
       validation: (Rule) => Rule.required().min(1).max(10),
     },
     {
       name: 'walkability',
-      title: 'Ease of access to/within arena',
+      title: 'Accessibility (easy for everyone to get around?)',
+      description:
+        'How easy is it for everyone to move around inside: wheelchair users, people with low vision or limited mobility, and families with strollers. Think ramps, elevators, accessible seating, restrooms and clear signs.',
       type: 'number',
       validation: (Rule) => Rule.required().min(1).max(10),
     },
@@ -30,7 +34,9 @@ export default {
     },
     {
       name: 'view',
-      title: 'View from our seat',
+      title: 'Seat Value (was the view worth what we paid?)',
+      description:
+        'Score the view against the ticket price. A cheap seat with a clean view scores high; a pricey seat that is blocked or far from the action scores low.',
       type: 'number',
       validation: (Rule) => Rule.required().min(1).max(10),
     },

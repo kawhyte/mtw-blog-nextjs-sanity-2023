@@ -45,10 +45,10 @@ const TAKEOUT_WEIGHTS: Record<string, number> = {
 
 const ARENA_LABELS: Record<string, string> = {
   transportation: 'Getting There / Public Access',
-  walkability: 'Navigation Within & Around Arena',
+  walkability: 'Accessibility (easy for everyone to get around, including wheelchair users)',
   seatComfort: 'Seat Comfort',
   food: 'Food & Drinks',
-  view: 'View from Our Seat',
+  view: 'Seat Value (was the view worth the ticket price?)',
   vibes: 'Arena Vibes & Entertainment',
 }
 
