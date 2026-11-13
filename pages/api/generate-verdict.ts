@@ -6,17 +6,9 @@ import {
   stripDashes,
   trimToSentence,
 } from '../../lib/gemini-voice'
+import { ARENA_WEIGHTS } from '../../lib/ratingWeights'
 
-// --- Weight configs (mirrors lib/ratingWeights.ts + lib/calculateArenaRating.ts) ---
-
-const ARENA_WEIGHTS: Record<string, number> = {
-  transportation: 0.1,
-  walkability: 0.2,
-  seatComfort: 0.2,
-  food: 0.2,
-  view: 0.2,
-  vibes: 0.1,
-}
+// --- Weight configs (arena weights come from lib/ratingWeights.ts) ---
 
 const HOTEL_WEIGHTS: Record<string, number> = {
   Location: 0.25,

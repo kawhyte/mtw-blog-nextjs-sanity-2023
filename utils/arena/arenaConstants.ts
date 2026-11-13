@@ -13,6 +13,7 @@ export type FilterCriteriaType = 'all' | 'visited' | 'notVisited'
 export interface ArenaWithRating extends Arena {
   displayRating?: {
     average: string
+    averageRaw: number // Exact score, used for ranking and sorting
     textRating: string
     color: string
   }

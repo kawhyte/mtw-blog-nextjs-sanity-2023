@@ -43,3 +43,14 @@ export const CRUISE_WEIGHTS = {
   Itinerary: 0.1, // 10%
   Value: 0.1, // 10%
 }
+
+// For NBA/WNBA arena reviews (arenaReview schema).
+// Single source of truth: used for the site score, the /arenas ranking and the AI verdict writer.
+export const ARENA_WEIGHTS = {
+  vibes: 0.3, // 30% - Most important
+  seatComfort: 0.22, // 22%
+  view: 0.18, // 18%
+  walkability: 0.15, // 15%
+  food: 0.1, // 10%
+  transportation: 0.05, // 5%
+}

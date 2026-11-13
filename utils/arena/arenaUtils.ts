@@ -41,35 +41,27 @@ export const filterArenas = (
 
 /**
  * Calculate competition-style (Olympic) ranking for visited arenas.
- * Tied arenas (same displayed score) receive the same rank number.
+ * Ranks use the exact (unrounded) score, so two arenas that both display
+ * 4.5 can still rank #3 and #4. Only exactly equal scores share a rank.
  * The next unique score skips positions equal to the number of ties.
  */
 export const calculateArenaRanks = (arenas: Arena[]): Map<string, number> => {
   const ranks = new Map<string, number>()
 
-  const visitedArenas = arenas.filter((arena) => arena.visited)
+  const scored = arenas
+    .filter((arena) => arena.visited)
+    .map((arena) => ({
+      id: arena._id,
+      score: getArenaDisplayRating(arena).averageRaw || 0,
+    }))
+    .sort((a, b) => b.score - a.score)
 
-  // Sort by rating descending, no alphabetical tie-breaker so equal scores stay equal
-  const sortedForRanking = [...visitedArenas].sort((a, b) => {
-    const { average: scoreA } = getArenaDisplayRating(a)
-    const { average: scoreB } = getArenaDisplayRating(b)
-    return (parseFloat(scoreB) || 0) - (parseFloat(scoreA) || 0)
-  })
-
-  sortedForRanking.forEach((arena, index) => {
-    if (index === 0) {
-      ranks.set(arena._id, 1)
-      return
-    }
-    const prev = sortedForRanking[index - 1]
-    const { average: scorePrev } = getArenaDisplayRating(prev)
-    const { average: scoreCurr } = getArenaDisplayRating(arena)
-    const prevRank = ranks.get(prev._id)!
-
-    if (parseFloat(scoreCurr) === parseFloat(scorePrev)) {
-      ranks.set(arena._id, prevRank) // Same score → same rank
+  scored.forEach((entry, index) => {
+    const prev = scored[index - 1]
+    if (prev && Math.abs(entry.score - prev.score) < 1e-9) {
+      ranks.set(entry.id, ranks.get(prev.id)!) // Exactly equal score: same rank
     } else {
-      ranks.set(arena._id, index + 1) // Different score → skip tied positions
+      ranks.set(entry.id, index + 1) // Different score: skip tied positions
     }
   })
 
@@ -84,12 +76,14 @@ export const enrichArenasWithDisplayData = (
   rankMap: Map<string, number>,
 ): ArenaWithRating[] => {
   return arenas.map((arena) => {
-    const { average, textRating, color } = getArenaDisplayRating(arena)
+    const { average, averageRaw, textRating, color } =
+      getArenaDisplayRating(arena)
 
     return {
       ...arena,
       displayRating: {
         average,
+        averageRaw,
         textRating,
         color,
       },
@@ -156,8 +150,7 @@ export const arenaSharePhoto = (
   arena: Pick<Arena, 'arenaImage' | 'heroPhotos'>,
 ) => {
   const width = (image: any) => image?.asset?.metadata?.dimensions?.width ?? 0
-  const height = (image: any) =>
-    image?.asset?.metadata?.dimensions?.height ?? 0
+  const height = (image: any) => image?.asset?.metadata?.dimensions?.height ?? 0
   const first = arena.heroPhotos?.find((image) => image?.asset)
   if (first && width(first) >= SHARE_MIN_WIDTH) return first
   return (
