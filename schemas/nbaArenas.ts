@@ -923,7 +923,7 @@ export default defineType({
                 },
                 {
                   name: 'walkability',
-                  title: 'Walkability',
+                  title: 'Accessibility',
                   type: 'number',
                   validation: (rule) => rule.min(1).max(10),
                 },
@@ -941,7 +941,7 @@ export default defineType({
                 },
                 {
                   name: 'view',
-                  title: 'View',
+                  title: 'Seat Value',
                   type: 'number',
                   validation: (rule) => rule.min(1).max(10),
                 },

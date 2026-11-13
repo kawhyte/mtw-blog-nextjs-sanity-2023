@@ -11,9 +11,9 @@ import calculateAverageRating from 'lib/calculateArenaRating'
 import { computeTimelineEntries, getEffectiveRating } from 'lib/mergeRatings'
 import { Arena, ArenaFoodReviewCard, Settings } from 'lib/sanity.queries'
 import {
+  Accessibility,
   Car,
   ChevronRight,
-  Footprints,
   Pizza,
   Sofa,
   Ticket,
@@ -73,15 +73,15 @@ const ratingIcons: Record<string, React.ReactElement> = {
   transportation: <Car className="h-5 w-5 mr-2" />,
   vibes: <Users className="h-5 w-5 mr-2" />,
   view: <Ticket className="h-5 w-5 mr-2" />,
-  walkability: <Footprints className="h-5 w-5 mr-2" />,
+  walkability: <Accessibility className="h-5 w-5 mr-2" />,
 }
 
 const ARENA_RATING_LABELS: Record<string, string> = {
   transportation: 'Transportation',
-  walkability: 'Walkability',
+  walkability: 'Accessibility',
   seatComfort: 'Seat Comfort',
   food: 'Food & Concessions',
-  view: 'Sightlines & View',
+  view: 'Seat Value',
   vibes: 'Atmosphere & Vibes',
 }
 
