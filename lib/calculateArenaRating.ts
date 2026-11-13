@@ -1,3 +1,5 @@
+import { ARENA_WEIGHTS } from './ratingWeights'
+
 interface ArenaReview {
   comments?: string
   _type?: string
@@ -19,14 +21,7 @@ const ratingThresholds: RatingThreshold[] = [
   { rating: 'Horrible', threshold: 0, color: '#991B1B' },
 ]
 
-const defaultWeights: { [key: string]: number } = {
-  vibes: 0.25,
-  food: 0.15,
-  transportation: 0.1,
-  walkability: 0.1,
-  view: 0.2,
-  seatComfort: 0.2,
-}
+const defaultWeights: { [key: string]: number } = ARENA_WEIGHTS
 
 export default function calculateAverageRating(
   arenaReview: ArenaReview,
