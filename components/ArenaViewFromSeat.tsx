@@ -86,13 +86,16 @@ export default function ArenaViewFromSeat({
   const [lead, ...rest] = photos
   const thumbs = rest.slice(0, MAX_THUMBS)
   const hiddenCount = rest.length - thumbs.length
+  // One or two extra photos: show them 2 across and taller so they read
+  // clearly. Three or more: a compact 4-across row.
+  const fewThumbs = thumbs.length <= 2 && hiddenCount === 0
   const facts = [
     activeEntry.seatType &&
       (SEAT_TYPE_LABELS[activeEntry.seatType] || activeEntry.seatType),
     activeEntry.seatInfo,
     activeEntry.ticketPrice != null &&
       `$${activeEntry.ticketPrice.toFixed(2)} a ticket`,
-    displayScore && `Sightlines ${displayScore}`,
+    displayScore && `Seat Value ${displayScore}`,
   ].filter(Boolean) as string[]
 
   const factChips = (onPhoto: boolean) =>
@@ -179,43 +182,71 @@ export default function ArenaViewFromSeat({
       )}
 
       {thumbs.length > 0 && (
-        <div className="grid grid-cols-4 gap-2">
+        <div
+          className={
+            fewThumbs ? 'grid grid-cols-2 gap-3' : 'grid grid-cols-4 gap-2'
+          }
+        >
           {thumbs.map((photo, index) => {
             const isOverflowSlot =
               index === thumbs.length - 1 && hiddenCount > 0
             return (
-              <button
+              <figure
                 key={photo._key || index}
-                type="button"
-                onClick={openModal}
-                aria-label={
-                  isOverflowSlot
-                    ? `View all ${photos.length} photos`
-                    : photo.caption || `Seat view photo ${index + 2}`
-                }
-                className="relative aspect-[4/3] overflow-hidden rounded-xl bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                className="m-0 flex flex-col gap-1.5"
               >
-                <FadeImage
-                  image={photo}
-                  src={
-                    urlForImage(photo)
-                      ?.width(500)
-                      .height(375)
-                      .quality(70)
-                      .fit('crop')
-                      .url() || ''
+                <button
+                  type="button"
+                  onClick={openModal}
+                  aria-label={
+                    isOverflowSlot
+                      ? `View all ${photos.length} photos`
+                      : photo.caption || `Seat view photo ${index + 2}`
                   }
-                  alt={photo.alt || `Seat view ${index + 2}`}
-                  fill
-                  sizes="(min-width: 1280px) 210px, 25vw"
-                  className="object-cover"
-                />
-                {isOverflowSlot && (
-                  <span className="absolute inset-0 flex items-center justify-center bg-black/55 text-title font-bold text-white">
-                    +{hiddenCount + 1}
-                  </span>
+                  className={`relative overflow-hidden bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
+                    fewThumbs
+                      ? 'aspect-[4/5] rounded-2xl border-2 border-border'
+                      : 'aspect-[4/3] rounded-xl'
+                  }`}
+                >
+                  <FadeImage
+                    image={photo}
+                    src={
+                      (fewThumbs
+                        ? urlForImage(photo)?.width(800).height(1000)
+                        : urlForImage(photo)?.width(500).height(375)
+                      )
+                        ?.quality(70)
+                        .fit('crop')
+                        .url() || ''
+                    }
+                    alt={photo.alt || `Seat view ${index + 2}`}
+                    fill
+                    sizes={
+                      fewThumbs
+                        ? '(min-width: 1280px) 420px, 50vw'
+                        : '(min-width: 1280px) 210px, 25vw'
+                    }
+                    className="object-cover"
+                  />
+                  {isOverflowSlot && (
+                    <span className="absolute inset-0 flex items-center justify-center bg-black/55 text-title font-bold text-white">
+                      +{hiddenCount + 1}
+                    </span>
+                  )}
+                </button>
+                {photo.caption && !isOverflowSlot && (
+                  <figcaption
+                    className={`text-muted-foreground ${
+                      fewThumbs
+                        ? 'text-sm leading-snug'
+                        : 'line-clamp-3 text-xs leading-snug'
+                    }`}
+                  >
+                    {photo.caption}
+                  </figcaption>
                 )}
-              </button>
+              </figure>
             )
           })}
         </div>
