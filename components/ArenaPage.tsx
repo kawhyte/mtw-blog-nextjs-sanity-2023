@@ -4,6 +4,7 @@ import { GameDayBox, GameDayRow } from 'components/arena/ArenaGameDay'
 import ArenaGames from 'components/arena/ArenaGames'
 import ArenaVideo from 'components/arena/ArenaVideo'
 import Layout from 'components/BlogLayout'
+import { formatDate } from 'components/PostDate'
 import PostPageHead from 'components/PostPageHead'
 import { usePhotoGallery } from 'hooks/usePhotoGallery'
 import type { ArenaGameDay } from 'lib/arenaGameDay'
@@ -84,13 +85,6 @@ const ARENA_RATING_LABELS: Record<string, string> = {
   view: 'Seat Value',
   vibes: 'Atmosphere & Vibes',
 }
-
-const monthYear = (date?: string) =>
-  date
-    ? new Date(
-        date.length === 10 ? `${date}T12:00:00` : date,
-      ).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
-    : null
 
 export default function ArenaPage({
   arena,
@@ -205,7 +199,6 @@ export default function ArenaPage({
       sum + (t.attendedGames?.length || t.timesAttended || 1),
     0,
   )
-  const visitCount = 1 + (arena.revisits?.length ?? 0)
   // Prefer attendedGames.length when games are entered; fall back to timesAttended
   const totalGamesAttended = attendedTeams.reduce(
     (sum: number, t: any) =>
@@ -219,7 +212,7 @@ export default function ArenaPage({
     .flatMap((t: any) => (t.attendedGames ?? []).map((g: any) => g.gameDate))
     .filter(Boolean)
     .sort()[0]
-  const since = monthYear(firstGame || arena.date)
+  const firstVisit = firstGame || arena.date
 
   const chips: ReviewChip[] = [
     !arena.visited && { label: 'On our bucket list', tone: 'dark' as const },
@@ -244,10 +237,13 @@ export default function ArenaPage({
       },
     arena.buildDate && { label: `Built ${arena.buildDate.slice(0, 4)}` },
     arena.capacity && { label: `${arena.capacity.toLocaleString()} seats` },
-    totalGamesAttended > 0 && {
-      label: `${totalGamesAttended} game${totalGamesAttended === 1 ? '' : 's'}${since ? ` · since ${since}` : ''}`,
+    // One visit: "Visited on Nov 14, 2026". More than one:
+    // "Visited 4 times · first on Aug 11, 2022".
+    totalGamesAttended === 1 &&
+      firstVisit && { label: `Visited on ${formatDate(firstVisit)}` },
+    totalGamesAttended > 1 && {
+      label: `Visited ${totalGamesAttended} times${firstVisit ? ` · first on ${formatDate(firstVisit)}` : ''}`,
     },
-    visitCount > 1 && { label: `${visitCount} visits` },
   ].filter(Boolean) as ReviewChip[]
 
   const cityHref = arena.location
