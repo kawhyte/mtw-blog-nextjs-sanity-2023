@@ -476,12 +476,46 @@ export default defineType({
             }),
           ],
           preview: {
-            select: { title: 'name', subtitle: 'teamType', media: 'asset' },
+            select: {
+              title: 'name',
+              subtitle: 'teamType',
+              media: 'asset',
+              played: 'played',
+              games: 'attendedGames',
+            },
             prepare(selection) {
-              const { title, subtitle, media } = selection
+              const { title, subtitle, media, played, games } = selection
+              const league = subtitle ? subtitle.toUpperCase() : ''
+              // Show at a glance whether game data was added, so the
+              // "Games We Attended" list doesn't need opening to check.
+              const list: { gameDate?: string; opponent?: string }[] =
+                Array.isArray(games) ? games : []
+              const latest = list
+                .filter((g) => g?.gameDate)
+                .sort((a, b) => b.gameDate!.localeCompare(a.gameDate!))[0]
+              let status = ''
+              if (list.length > 0) {
+                const label = `${list.length} game${list.length === 1 ? '' : 's'}`
+                status = `✅ ${label}`
+                if (latest?.gameDate) {
+                  // Parse YYYY-MM-DD by hand so the date never shifts a day
+                  // with the viewer's time zone.
+                  const [y, m, d] = latest.gameDate.split('-').map(Number)
+                  const date = new Date(Date.UTC(y, m - 1, d)).toLocaleDateString(
+                    'en-US',
+                    { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' },
+                  )
+                  const opp = latest.opponent
+                    ? ` vs ${latest.opponent.trim().split(' ').pop()}`
+                    : ''
+                  status += ` · ${list.length > 1 ? 'latest ' : ''}${date}${opp}`
+                }
+              } else if (played) {
+                status = '⚠️ Played, but no games added'
+              }
               return {
                 title: title || 'No team name',
-                subtitle: subtitle ? subtitle.toUpperCase() : '',
+                subtitle: [league, status].filter(Boolean).join(' · '),
                 media: media,
               }
             },
