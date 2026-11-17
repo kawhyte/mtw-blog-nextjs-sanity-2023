@@ -101,9 +101,11 @@ function ClusterDetails({ arenas }: { arenas: MapArena[] }) {
         >
           <div className="min-w-0">
             <div className="truncate text-sm font-bold">{arena.name}</div>
+            <div className="text-xs text-muted-foreground">{arena.city}</div>
             <div className="text-xs text-muted-foreground">
-              {arena.city} ·{' '}
-              {arena.visited ? 'Visited' : 'Still to go'}
+              {arena.visited
+                ? `Visited${arena.date ? ` ${formatDate(arena.date)}` : ''}`
+                : 'Still to go'}
             </div>
           </div>
           {arena.visited && arena.slug && (
