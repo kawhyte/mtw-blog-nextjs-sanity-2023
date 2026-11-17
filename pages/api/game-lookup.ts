@@ -21,6 +21,26 @@ type EspnGameResult = {
   players: EspnPlayer[]
 }
 
+// ESPN shortens some team names. Map them to the full names we store in
+// Sanity so lookups match and saved opponent names stay consistent.
+const ESPN_NAME_FIXES: Record<string, string> = {
+  'la clippers': 'Los Angeles Clippers',
+}
+
+function fullTeamName(name: string): string {
+  return ESPN_NAME_FIXES[name.toLowerCase().trim()] ?? name
+}
+
+function isTeam(team: any, lower: string): boolean {
+  const t = team ?? {}
+  const names = [
+    t.displayName ?? '',
+    fullTeamName(t.displayName ?? ''),
+    `${t.location ?? ''} ${t.name ?? ''}`,
+  ]
+  return names.some((n) => n.toLowerCase().trim() === lower)
+}
+
 function randomKey(): string {
   return Math.random().toString(36).slice(2, 10)
 }
@@ -33,40 +53,34 @@ async function getEspnGameData(
   const dateParam = gameDate.replace(/-/g, '') // YYYYMMDD
   const lower = teamName.toLowerCase().trim()
 
-  // 1. Scoreboard, find the event and extract game data
-  const scoreboardRes = await fetch(
-    `${ESPN_BASE}/${sport}/scoreboard?dates=${dateParam}`,
-    { cache: 'no-store' },
-  )
-  if (!scoreboardRes.ok) return null
-  const scoreboard = await scoreboardRes.json()
-
-  const event = (scoreboard.events ?? []).find((e: any) =>
-    (e.competitions?.[0]?.competitors ?? []).some((c: any) => {
-      const t = c.team ?? {}
-      return (
-        t.displayName?.toLowerCase() === lower ||
-        `${t.location ?? ''} ${t.name ?? ''}`.toLowerCase().trim() === lower
-      )
-    }),
-  )
+  // 1. Scoreboard, find the event and extract game data. The default
+  // scoreboard leaves out preseason games, so fall back to seasontype=1.
+  let event: any = null
+  for (const query of ['', '&seasontype=1']) {
+    const scoreboardRes = await fetch(
+      `${ESPN_BASE}/${sport}/scoreboard?dates=${dateParam}${query}`,
+      { cache: 'no-store' },
+    )
+    if (!scoreboardRes.ok) continue
+    const scoreboard = await scoreboardRes.json()
+    event = (scoreboard.events ?? []).find((e: any) =>
+      (e.competitions?.[0]?.competitors ?? []).some((c: any) =>
+        isTeam(c.team, lower),
+      ),
+    )
+    if (event) break
+  }
   if (!event) return null
 
   const competition = event.competitions?.[0]
   const competitors: any[] = competition?.competitors ?? []
 
-  const ourComp = competitors.find((c: any) => {
-    const t = c.team ?? {}
-    return (
-      t.displayName?.toLowerCase() === lower ||
-      `${t.location ?? ''} ${t.name ?? ''}`.toLowerCase().trim() === lower
-    )
-  })
+  const ourComp = competitors.find((c: any) => isTeam(c.team, lower))
   const oppComp = competitors.find((c: any) => c !== ourComp)
 
   const ourScore = ourComp?.score != null ? parseInt(ourComp.score) : null
   const opponentScore = oppComp?.score != null ? parseInt(oppComp.score) : null
-  const opponent: string = oppComp?.team?.displayName ?? ''
+  const opponent: string = fullTeamName(oppComp?.team?.displayName ?? '')
 
   // ESPN season type: 1 = pre-season, 2 = regular, 3 = post-season
   const espnSeasonType: number = event.season?.type ?? 2
@@ -91,7 +105,9 @@ async function getEspnGameData(
       const summary = await summaryRes.json()
 
       for (const teamBlock of summary.boxscore?.players ?? []) {
-        const teamDisplayName: string = teamBlock.team?.displayName ?? ''
+        const teamDisplayName: string = fullTeamName(
+          teamBlock.team?.displayName ?? '',
+        )
         const teamPlayers: Array<{
           athlete: any
           pts: number
